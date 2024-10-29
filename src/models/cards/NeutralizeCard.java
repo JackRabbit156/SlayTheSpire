@@ -8,9 +8,9 @@ import models.player.player_structure.Player;
 
 import java.util.Scanner;
 
-public class BashCard extends AttackCard {
-    public BashCard() {
-        super("Bash", "Deal 2 Damage. Apply 2 Vulnerable.", 2, 8, CardRarity.COMMON);
+public class NeutralizeCard extends AttackCard {
+    public NeutralizeCard() {
+        super("Neutralize", "Deal 3 damage. Apply 1 Weak.", 0, 3, CardRarity.COMMON);
     }
 
     @Override
@@ -23,6 +23,8 @@ public class BashCard extends AttackCard {
 
         Player player = gameContext.getPlayer();
         player.loseEnergy(getCost());
+
+        //TODO Apply 1 Weak
     }
 
     @Override
