@@ -60,9 +60,12 @@ public abstract class Player {
         currentHealth += hp;
     }
 
-
     public void increaseGold(int gold) {
         this.gold += gold;
+    }
+
+    public void increaseBlock(int block) {
+        this.block += block;
     }
 
 
