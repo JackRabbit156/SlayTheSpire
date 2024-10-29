@@ -25,11 +25,14 @@ public class BattleDeck {
         return hand;
     }
 
-    public void drawStartHand(int count) { //TODO count von player.maxHandSize nehmen
+    public void drawStartHand(int count) {
         //hand.clear();
 
         while (hand.size() != count) {
-            resetDeckFromDiscardPile(); //TODO wenn discard und deck beide empty sind, soll das Spiel immer noch weiter gehen
+            resetDeckFromDiscardPile();
+            if (deck.isEmpty()) {
+                break;
+            }
             int randomIndex = random.nextInt(deck.size());
             hand.add(deck.remove(randomIndex));
         }
@@ -38,7 +41,10 @@ public class BattleDeck {
 
     public void drawCard(int count) {
         for (int i = 0; i < count; i++) {
-            resetDeckFromDiscardPile(); //TODO wenn discard und deck beide empty sind, soll das Spiel immer noch weiter gehen
+            resetDeckFromDiscardPile();
+            if (deck.isEmpty()) {
+                break;
+            }
             int randomIndex = random.nextInt(deck.size());
             hand.add(deck.remove(randomIndex));
         }
