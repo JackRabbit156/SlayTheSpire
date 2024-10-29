@@ -1,11 +1,11 @@
 package models.player;
 
 
-import models.cards.DefendCard;
-import models.cards.NeutralizeCard;
-import models.cards.StrikeCard;
-import models.cards.SurvivorCard;
 import models.cards.card_structure.Card;
+import models.cards.general_cards.DefendCard;
+import models.cards.general_cards.StrikeCard;
+import models.cards.silent_cards.NeutralizeCard;
+import models.cards.silent_cards.SurvivorCard;
 import models.player.player_structure.Player;
 import models.relics.RingOfTheSnake;
 import models.relics.relic_structure.Relic;

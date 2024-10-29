@@ -1,16 +1,15 @@
-package models.cards;
+package models.cards.ironclad_cards;
 
 import models.GameContext;
 import models.cards.card_structure.AttackCard;
-import models.cards.card_structure.CardRarity;
 import models.enemy.Enemy;
 import models.player.player_structure.Player;
 
 import java.util.Scanner;
 
-public class NeutralizeCard extends AttackCard {
-    public NeutralizeCard() {
-        super("Neutralize", "Deal 3 damage. Apply 1 Weak.", 0, 3, CardRarity.COMMON);
+public class PerfectedStrikeCard extends AttackCard {
+    public PerfectedStrikeCard() {
+        super(name, description, cost, damage, rarity);
     }
 
     @Override
@@ -23,12 +22,10 @@ public class NeutralizeCard extends AttackCard {
 
         Player player = gameContext.getPlayer();
         player.loseEnergy(getCost());
-
-        //TODO Apply 1 Weak
     }
 
     @Override
     public int dealDamage() {
-        return getDamage();
+        return 0;
     }
 }

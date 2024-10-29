@@ -1,16 +1,15 @@
-package models.cards;
+package models.cards.ironclad_cards;
 
 import models.GameContext;
 import models.cards.card_structure.AttackCard;
-import models.cards.card_structure.CardRarity;
 import models.enemy.Enemy;
 import models.player.player_structure.Player;
 
 import java.util.Scanner;
 
-public class BashCard extends AttackCard {
-    public BashCard() {
-        super("Bash", "Deal 2 Damage. Apply 2 Vulnerable.", 2, 8, CardRarity.COMMON);
+public class TwinStrikeCard extends AttackCard {
+    public TwinStrikeCard() {
+        super(name, description, cost, damage, rarity);
     }
 
     @Override
@@ -27,6 +26,6 @@ public class BashCard extends AttackCard {
 
     @Override
     public int dealDamage() {
-        return getDamage();
+        return 0;
     }
 }

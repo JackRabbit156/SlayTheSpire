@@ -1,9 +1,9 @@
 package models.player;
 
-import models.cards.BashCard;
-import models.cards.DefendCard;
-import models.cards.StrikeCard;
 import models.cards.card_structure.Card;
+import models.cards.general_cards.DefendCard;
+import models.cards.general_cards.StrikeCard;
+import models.cards.ironclad_cards.BashCard;
 import models.player.player_structure.Player;
 import models.relics.BurningBloodRelic;
 import models.relics.relic_structure.Relic;
