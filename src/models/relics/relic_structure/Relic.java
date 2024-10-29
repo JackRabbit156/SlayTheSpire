@@ -17,7 +17,9 @@ public abstract class Relic {
         this.rarity = rarity;
     }
 
+    // * Methods *
     public abstract void getsUsed(GameContext gameContext);
+
 
     // * Getter & Setter *
     public String getName() {
@@ -26,6 +28,10 @@ public abstract class Relic {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public RelicType getRarity() {
+        return rarity;
     }
 
     public String getDescription() {
