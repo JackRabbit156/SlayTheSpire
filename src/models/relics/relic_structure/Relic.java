@@ -4,10 +4,10 @@ import models.GameContext;
 
 public abstract class Relic {
     // * Variables *
-    private String name;
-    private String description;
+    private final String name;
+    private final String description;
 
-    private RelicType rarity;
+    private final RelicType rarity;
 
 
     // * Constructor *
@@ -26,10 +26,6 @@ public abstract class Relic {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public RelicType getRarity() {
         return rarity;
     }
@@ -37,7 +33,6 @@ public abstract class Relic {
     public String getDescription() {
         return description;
     }
-
 
     // * toString *
 }
