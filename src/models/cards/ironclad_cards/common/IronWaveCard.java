@@ -1,15 +1,16 @@
-package models.cards.ironclad_cards;
+package models.cards.ironclad_cards.common;
 
 import models.GameContext;
 import models.cards.card_structure.AttackCard;
+import models.cards.card_structure.CardRarity;
 import models.enemy.Enemy;
 import models.player.player_structure.Player;
 
 import java.util.Scanner;
 
-public class SwordBoomerangCard extends AttackCard {
-    public SwordBoomerangCard() {
-        super(name, description, cost, damage, rarity);
+public class IronWaveCard extends AttackCard {
+    public IronWaveCard() {
+        super("Iron Wave", "Gain 5 Icon Block Block. Deal 5 damage.", 1, 5, CardRarity.COMMON);
     }
 
     @Override
@@ -22,10 +23,11 @@ public class SwordBoomerangCard extends AttackCard {
 
         Player player = gameContext.getPlayer();
         player.loseEnergy(getCost());
+        player.increaseBlock(5);
     }
 
     @Override
     public int dealDamage() {
-        return 0;
+        return getDamage();
     }
 }

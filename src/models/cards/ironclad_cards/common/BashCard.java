@@ -1,15 +1,16 @@
-package models.cards.ironclad_cards;
+package models.cards.ironclad_cards.common;
 
 import models.GameContext;
 import models.cards.card_structure.AttackCard;
+import models.cards.card_structure.CardRarity;
 import models.enemy.Enemy;
 import models.player.player_structure.Player;
 
 import java.util.Scanner;
 
-public class HeavyBladeCard extends AttackCard {
-    public HeavyBladeCard() {
-        super(name, description, cost, damage, rarity);
+public class BashCard extends AttackCard {
+    public BashCard() {
+        super("Bash", "Deal 2 Damage. Apply 2 Vulnerable.", 2, 8, CardRarity.COMMON);
     }
 
     @Override
@@ -22,10 +23,11 @@ public class HeavyBladeCard extends AttackCard {
 
         Player player = gameContext.getPlayer();
         player.loseEnergy(getCost());
+        //TODO Apply 2 Vulnerable
     }
 
     @Override
     public int dealDamage() {
-        return 0;
+        return getDamage();
     }
 }

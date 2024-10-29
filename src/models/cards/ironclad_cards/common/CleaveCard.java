@@ -1,24 +1,24 @@
-package models.cards.ironclad_cards;
+package models.cards.ironclad_cards.common;
 
 import models.GameContext;
 import models.cards.card_structure.AttackCard;
+import models.cards.card_structure.CardRarity;
 import models.enemy.Enemy;
 import models.player.player_structure.Player;
 
-import java.util.Scanner;
+import java.util.List;
 
 public class CleaveCard extends AttackCard {
     public CleaveCard() {
-        super(name, description, cost, damage, rarity);
+        super("Cleave", "Deal 8 damage to ALL enemies.", 1, 8, CardRarity.COMMON);
     }
 
     @Override
     public void play(GameContext gameContext) {
-        System.out.print("Choose an enemy to target: ");
-        int targetIndex = new Scanner(System.in).nextInt() - 1;
-
-        Enemy enemy = gameContext.getEnemies().get(targetIndex);
-        enemy.takeDamage(dealDamage());
+        List<Enemy> allEnemies = gameContext.getEnemies();
+        for (Enemy allEnemy : allEnemies) {
+            allEnemy.takeDamage(dealDamage());
+        }
 
         Player player = gameContext.getPlayer();
         player.loseEnergy(getCost());
@@ -26,6 +26,6 @@ public class CleaveCard extends AttackCard {
 
     @Override
     public int dealDamage() {
-        return 0;
+        return getDamage();
     }
 }

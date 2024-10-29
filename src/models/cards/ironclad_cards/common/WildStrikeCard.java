@@ -1,7 +1,8 @@
-package models.cards.ironclad_cards;
+package models.cards.ironclad_cards.common;
 
 import models.GameContext;
 import models.cards.card_structure.AttackCard;
+import models.cards.card_structure.CardRarity;
 import models.enemy.Enemy;
 import models.player.player_structure.Player;
 
@@ -9,7 +10,7 @@ import java.util.Scanner;
 
 public class WildStrikeCard extends AttackCard {
     public WildStrikeCard() {
-        super(name, description, cost, damage, rarity);
+        super("Wild Strike", "Deal 12 damage. Shuffle a Wound into your draw pile.", 1, 12, CardRarity.COMMON);
     }
 
     @Override
@@ -22,10 +23,13 @@ public class WildStrikeCard extends AttackCard {
 
         Player player = gameContext.getPlayer();
         player.loseEnergy(getCost());
+
+        Wound wound = new Wound();
+        player.getDeck().add(wound);
     }
 
     @Override
     public int dealDamage() {
-        return 0;
+        return getDamage();
     }
 }
