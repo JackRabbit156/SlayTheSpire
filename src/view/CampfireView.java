@@ -20,8 +20,8 @@ public class CampfireView {
     public void display(Player player) {
         displayTitle();
 
-        System.out.printf("%-20s %-10s\n", "Player:", player.getName());
-        System.out.printf("%-20s %s / %s\n", "Health:", player.getCurrentHealth(), player.getMaxHealth());
+        System.out.printf("%-20s %-10s%n", "Player:", player.getName());
+        System.out.printf("%-20s %s / %s%n", "Health:", player.getCurrentHealth(), player.getMaxHealth());
         System.out.println();
         System.out.println("Your Options:");
         System.out.println("1 - Rest: Recover 30 percent of max health");
@@ -42,18 +42,18 @@ public class CampfireView {
      */
     public void displayUpgradeableCards(List<Card> deck) {
         for (int i = 0; i < deck.size(); i++) {
-            System.out.printf("%d. %s %s\n", i + 1, deck.get(i).getName(), deck.get(i).getDescription());
+            System.out.printf("%d. %s %s%n", i + 1, deck.get(i).getName(), deck.get(i).getDescription());
         }
-        System.out.printf("\n");
+        System.out.printf("%n");
     }
 
     private String repeat(int length, String strToRepeat) {
-        String returnValue = "";
+        StringBuilder returnValue = new StringBuilder("");
 
         for (int i = 0; i < length; i++)
-            returnValue += strToRepeat;
+            returnValue.append(strToRepeat);
 
-        return returnValue;
+        return returnValue.toString();
     }
 
     public void clearScreen() {

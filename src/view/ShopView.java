@@ -17,12 +17,11 @@ public class ShopView {
     public void display(Player player, List<Card> shopCards) {
         displayTitle();
 
-        //TODO Spielwährung fehlt
-        System.out.printf("%s %d.\n", "Character Coins:", player.getCoins());
-        System.out.printf("%s \n", "Upgradeable-Card-Selection:");
+        System.out.printf("%s %d.%n", "Character Coins:", player.getGold());
+        System.out.printf("%s %n", "Upgradeable-Card-Selection:");
         System.out.println(repeat(80, "-"));
         for (int i = 0; i < shopCards.size(); i++) {
-            System.out.printf("%2d. %-6s %3d. - %-6s %-5s %-15s\n", i + 1, "Price:", shopCards.get(i).getPrice(), shopCards.get(i).getName(), shopCards.get(i).getCardRarity(), shopCards.get(i).getDescription());
+            System.out.printf("%2d. %-6s %3d. - %-6s %-5s %-15s%n", i + 1, "Price:", shopCards.get(i).getPrice(), shopCards.get(i).getName(), shopCards.get(i).getCardRarity(), shopCards.get(i).getDescription());
         }
     }
 
@@ -33,12 +32,12 @@ public class ShopView {
     }
 
     private String repeat(int length, String strToRepeat) {
-        String returnValue = "";
+        StringBuilder returnValue = new StringBuilder("");
 
         for (int i = 0; i < length; i++)
-            returnValue += strToRepeat;
+            returnValue.append(strToRepeat);
 
-        return returnValue;
+        return returnValue.toString();
     }
 
     public void clearScreen() {
