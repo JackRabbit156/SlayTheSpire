@@ -15,6 +15,8 @@ public abstract class Player {
     private int maxEnergy;
     private int currentEnergy;
 
+    private int gold;
+
     private int block;
 
     private List<Card> deck;
@@ -29,6 +31,7 @@ public abstract class Player {
         this.maxEnergy = maxEnergy;
         this.currentHealth = this.maxHealth;
         this.currentEnergy = this.maxEnergy;
+        this.gold = 0;
     }
 
     // * Methods *
@@ -58,6 +61,11 @@ public abstract class Player {
     }
 
 
+    public void increaseGold(int gold) {
+        this.gold += gold;
+    }
+
+
     // * Getter & Setter *
     public List<Card> getDeck() {
         return deck;
@@ -70,19 +78,28 @@ public abstract class Player {
     public String getName() {
         return name;
     }
-
     public int getMaxHealth() {
         return maxHealth;
     }
+
     public int getCurrentHealth() {
         return currentHealth;
     }
+
     public int getMaxEnergy() {
         return maxEnergy;
     }
 
     public int getCurrentEnergy() {
         return currentEnergy;
+    }
+
+    public int getGold() {
+        return gold;
+    }
+
+    public void setGold(int gold) {
+        this.gold = gold;
     }
 
     public int getBlock() {
