@@ -8,7 +8,6 @@ import java.util.List;
 
 /**
  * Shop Darstellung
- *
  * @author Keil, Vladislav
  */
 public class ShopView {

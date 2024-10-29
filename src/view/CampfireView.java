@@ -9,12 +9,12 @@ import java.util.List;
 
 /**
  * Campfire Darstellung
- *
  * @author Keil, Vladislav
  */
 public class CampfireView {
 
     /**
+     *
      * @param player Spieler zur Anzeige von
      */
     public void display(Player player) {
@@ -36,10 +36,8 @@ public class CampfireView {
     }
 
     //TODO Erstellung der Upgradefunktion für das Deck
-
     /**
      * Anzeige der Upgradebare Karte im Deck
-     *
      * @param deck eigenes Deck
      */
     public void displayUpgradeableCards(List<Card> deck) {
