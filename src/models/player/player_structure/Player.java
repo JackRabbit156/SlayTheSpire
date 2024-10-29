@@ -60,6 +60,10 @@ public abstract class Player {
         currentHealth += hp;
     }
 
+    public void increaseMaxHealth(int hp) {
+        maxHealth += hp;
+    }
+
     public void increaseGold(int gold) {
         this.gold += gold;
     }
