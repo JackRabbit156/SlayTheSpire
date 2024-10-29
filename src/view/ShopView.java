@@ -39,9 +39,4 @@ public class ShopView {
 
         return returnValue.toString();
     }
-
-    public void clearScreen() {
-        System.out.print("\033[H\033[2J");
-        System.out.flush();
-    }
 }

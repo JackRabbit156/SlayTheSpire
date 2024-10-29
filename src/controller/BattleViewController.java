@@ -1,5 +1,6 @@
 package controller;
 
+import helper.ConsoleAssistent;
 import models.BattleDeck;
 import models.GameContext;
 import models.cards.card_structure.Card;
@@ -11,6 +12,7 @@ import java.util.List;
 import java.util.Scanner;
 
 public class BattleViewController {
+    private ConsoleAssistent assistent = new ConsoleAssistent();
     private Player player;
     private List<Enemy> enemies;
     private BattleView view;
@@ -18,6 +20,7 @@ public class BattleViewController {
     private BattleDeck cardManager;
 
     public BattleViewController(Player player, List<Enemy> enemies) {
+        this.assistent = new ConsoleAssistent();
         this.player = player;
         this.enemies = enemies;
         this.view = new BattleView();
@@ -26,7 +29,7 @@ public class BattleViewController {
     }
 
     public void startBattle() {
-        view.clearScreen();
+        assistent.clearScreen();
         while (player.isAlive() && !enemies.isEmpty()) {
             cardManager.drawCards(5);
             player.resetEnergy();
@@ -36,7 +39,7 @@ public class BattleViewController {
 
             removeHandAfterEndOfTurn();
 
-            view.clearScreen();
+            assistent.clearScreen();
 
             enemyTurn();
 

@@ -61,9 +61,4 @@ public class BattleView {
         System.out.println(repeat(29, " ") +"<<<   BATTLE VIEW   >>>                  ");
         System.out.println(repeat(80, "=") + "\n");
     }
-
-    public void clearScreen() {
-        System.out.print("\033[H\033[2J");
-        System.out.flush();
-    }
 }
