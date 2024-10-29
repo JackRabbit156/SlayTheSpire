@@ -29,13 +29,13 @@ public class PerfectedStrikeCard extends AttackCard {
         StrikeCard strikeCard = new StrikeCard();
         TwinStrikeCard twinStrikeCard = new TwinStrikeCard();
         WildStrikeCard wildStrikeCard = new WildStrikeCard();
-        SwiftStrikeCard swiftStrikeCard = new SwiftStrikeCard();
+        //SwiftStrikeCard swiftStrikeCard = new SwiftStrikeCard();
         int bonusDmg = 0;
 
         List<Card> deck = player.getDeck();
 
         for (Card card : deck) {
-            if (card.equals(perfectedStrikeCard) || card.equals(pommelStrikeCard) || card.equals(strikeCard) || card.equals(twinStrikeCard) || card.equals(wildStrikeCard) || card.equals(swiftStrikeCard)) {
+            if (card.equals(perfectedStrikeCard) || card.equals(pommelStrikeCard) || card.equals(strikeCard) || card.equals(twinStrikeCard) || card.equals(wildStrikeCard)) {
                 bonusDmg += 2;
             }
         }
