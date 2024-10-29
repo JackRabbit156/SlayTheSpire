@@ -12,6 +12,7 @@ public class BattleDeck {
     private List<Card> discardPile;
     private List<Card> exhaustPile;
     private Random random;
+    private int startHandSize;
 
     public BattleDeck(List<Card> originalDeck) {
         this.deck = new ArrayList<>(originalDeck); // Create a copy of the deck of the player
@@ -19,13 +20,14 @@ public class BattleDeck {
         this.discardPile = new ArrayList<>();
         this.exhaustPile = new ArrayList<>();
         this.random = new Random();
+        this.startHandSize = 5;
     }
 
     public List<Card> getHand() {
         return hand;
     }
 
-    public void drawStartHand(int count) {
+    public void fillHand(int count) {
         //hand.clear();
 
         while (hand.size() != count) {
@@ -40,14 +42,7 @@ public class BattleDeck {
     }
 
     public void drawCard(int count) {
-        for (int i = 0; i < count; i++) {
-            resetDeckFromDiscardPile();
-            if (deck.isEmpty()) {
-                break;
-            }
-            int randomIndex = random.nextInt(deck.size());
-            hand.add(deck.remove(randomIndex));
-        }
+        fillHand(hand.size() + count);
     }
 
     public void discardCard(Card card) {
@@ -70,5 +65,10 @@ public class BattleDeck {
             deck.addAll(discardPile);
             discardPile.clear();
         }
+    }
+
+
+    public int getStartHandSize() {
+        return startHandSize;
     }
 }

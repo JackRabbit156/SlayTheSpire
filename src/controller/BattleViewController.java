@@ -28,7 +28,7 @@ public class BattleViewController {
     public void startBattle() {
         view.clearScreen();
         while (player.isAlive() && !enemies.isEmpty()) {
-            cardManager.drawStartHand(player.getStartHandSize());
+            cardManager.fillHand(cardManager.getStartHandSize());
             player.resetEnergy();
             view.display(player, enemies, cardManager.getHand());
 
