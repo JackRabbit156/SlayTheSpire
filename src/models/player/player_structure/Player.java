@@ -63,6 +63,7 @@ public abstract class Player {
         this.block = block;
     }
 
+    //TODO maybe in takeDamage() if(currentHealth <= 0) {alive = false};
     public boolean isAlive() {
         return currentHealth > 0;
     }
@@ -74,7 +75,12 @@ public abstract class Player {
     public void loseEnergy(int energy) {
         currentEnergy -= energy;
     }
-    public void takeDamage(int damage) {
-        currentHealth -= damage;
+
+    public void decreaseCurrentHealth(int dmg) {
+        currentHealth -= dmg;
+    }
+
+    public void increaseCurrentHealth(int hp) {
+        currentHealth += hp;
     }
 }
