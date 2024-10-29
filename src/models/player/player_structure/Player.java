@@ -1,11 +1,13 @@
 package models.player.player_structure;
 
 import models.cards.card_structure.Card;
+import models.relics.relic_structure.Relic;
 
 import java.util.List;
 
 public abstract class Player {
-    private String name;
+    // * Variables *
+    private final String name;
 
     private int maxHealth;
     private int currentHealth;
@@ -13,20 +15,58 @@ public abstract class Player {
     private int maxEnergy;
     private int currentEnergy;
 
+    private int gold;
+
     private int block;
 
     private List<Card> deck;
 
+    private Relic relic;
+
+
+    // * Constructor *
     public Player(String name, int maxHealth, int maxEnergy) {
         this.name = name;
         this.maxHealth = maxHealth;
         this.maxEnergy = maxEnergy;
         this.currentHealth = this.maxHealth;
         this.currentEnergy = this.maxEnergy;
+        this.gold = 0;
     }
 
+    // * Methods *
     protected abstract void initDeck();
 
+    protected abstract void initRelic();
+
+    //TODO maybe in takeDamage() if(currentHealth <= 0) {alive = false};
+    public boolean isAlive() {
+        return currentHealth > 0;
+    }
+
+    public void resetEnergy() {
+        currentEnergy = maxEnergy;
+    }
+
+    public void loseEnergy(int energy) {
+        currentEnergy -= energy;
+    }
+
+    public void decreaseCurrentHealth(int dmg) {
+        currentHealth -= dmg;
+    }
+
+    public void increaseCurrentHealth(int hp) {
+        currentHealth += hp;
+    }
+
+
+    public void increaseGold(int gold) {
+        this.gold += gold;
+    }
+
+
+    // * Getter & Setter *
     public List<Card> getDeck() {
         return deck;
     }
@@ -38,7 +78,6 @@ public abstract class Player {
     public String getName() {
         return name;
     }
-
     public int getMaxHealth() {
         return maxHealth;
     }
@@ -55,6 +94,14 @@ public abstract class Player {
         return currentEnergy;
     }
 
+    public int getGold() {
+        return gold;
+    }
+
+    public void setGold(int gold) {
+        this.gold = gold;
+    }
+
     public int getBlock() {
         return block;
     }
@@ -63,18 +110,11 @@ public abstract class Player {
         this.block = block;
     }
 
-    public boolean isAlive() {
-        return currentHealth > 0;
+    public Relic getRelic() {
+        return relic;
     }
 
-    public void resetEnergy() {
-        currentEnergy = maxEnergy;
-    }
-
-    public void loseEnergy(int energy) {
-        currentEnergy -= energy;
-    }
-    public void takeDamage(int damage) {
-        currentHealth -= damage;
+    public void setRelic(Relic relic) {
+        this.relic = relic;
     }
 }
