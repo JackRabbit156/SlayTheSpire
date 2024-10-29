@@ -1,4 +1,4 @@
-package models.cards;
+package models.cards.ironclad_cards.attack.common;
 
 import models.GameContext;
 import models.cards.card_structure.AttackCard;
@@ -8,20 +8,24 @@ import models.player.player_structure.Player;
 
 import java.util.Scanner;
 
-public class BashCard extends AttackCard {
-    public BashCard() {
-        super("Bash", "Deal 2 Damage. Apply 2 Vulnerable.", 2, 8, CardRarity.COMMON);
+public class ClashCard extends AttackCard {
+    public ClashCard() {
+        super("Clash", "Can only be played if every card in your hand is an Attack. Deal 14 damage.", 0, 14, CardRarity.COMMON);
     }
 
     @Override
     public void play(GameContext gameContext) {
+
+        //TODO if Hand contains only AttackCards, do everything, else can't play.
+
         System.out.print("Choose an enemy to target: ");
         int targetIndex = new Scanner(System.in).nextInt() - 1;
-
         Enemy enemy = gameContext.getEnemies().get(targetIndex);
+        Player player = gameContext.getPlayer();
+
+
         enemy.takeDamage(dealDamage());
 
-        Player player = gameContext.getPlayer();
         player.loseEnergy(getCost());
     }
 

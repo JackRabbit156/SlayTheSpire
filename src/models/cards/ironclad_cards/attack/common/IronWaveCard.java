@@ -1,4 +1,4 @@
-package models.cards;
+package models.cards.ironclad_cards.attack.common;
 
 import models.GameContext;
 import models.cards.card_structure.AttackCard;
@@ -8,9 +8,9 @@ import models.player.player_structure.Player;
 
 import java.util.Scanner;
 
-public class StrikeCard extends AttackCard {
-    public StrikeCard() {
-        super("Strike", "Deal 6 damage.", 1, 6, CardRarity.COMMON);
+public class IronWaveCard extends AttackCard {
+    public IronWaveCard() {
+        super("Iron Wave", "Gain 5 Icon Block Block. Deal 5 damage.", 1, 5, CardRarity.COMMON);
     }
 
     @Override
@@ -23,6 +23,7 @@ public class StrikeCard extends AttackCard {
 
         Player player = gameContext.getPlayer();
         player.loseEnergy(getCost());
+        player.increaseBlock(5);
     }
 
     @Override
