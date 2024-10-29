@@ -9,9 +9,10 @@ import java.util.List;
 
 /**
  * Campfire Darstellung
+ *
  * @author Keil, Vladislav
  */
-public class CampfireView {
+public class RestSiteView {
 
     /**
      *
