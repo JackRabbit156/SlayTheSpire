@@ -18,14 +18,11 @@ public class ShopView {
         displayTitle();
 
         //TODO Spielwährung fehlt
-//        System.out.printf("%s %d.\n", "Character Coins:", player.getCoins());
+        System.out.printf("%s %d.\n", "Character Coins:", player.getCoins());
         System.out.printf("%s \n", "Upgradeable-Card-Selection:");
         System.out.println(repeat(80, "-"));
-//        System.out.printf("%" + 80 + "s %-20s\n", "Price:", shopCard.getPrice());
         for (int i = 0; i < shopCards.size(); i++) {
-            //TODO shopCards benötigen einen Preis
-            // Add %d. für den Preis
-            System.out.printf("%2d. %-6s %-5s %-15s\n", i + 1, shopCards.get(i).getName(), shopCards.get(i).getCardRarity(), shopCards.get(i).getDescription());
+            System.out.printf("%2d. %-6s %3d. - %-6s %-5s %-15s\n", i + 1, "Price:", shopCards.get(i).getPrice(), shopCards.get(i).getName(), shopCards.get(i).getCardRarity(), shopCards.get(i).getDescription());
         }
     }
 
