@@ -1,8 +1,8 @@
 package controller;
 
 import models.BattleDeck;
-import models.cards.card_structure.Card;
 import models.GameContext;
+import models.cards.card_structure.Card;
 import models.enemy.Enemy;
 import models.player.player_structure.Player;
 import view.BattleView;
@@ -98,7 +98,7 @@ public class BattleViewController {
         for (Enemy enemy : enemies) {
             if (enemy.isAlive()) {
                 int damage = enemy.attack();
-                player.takeDamage(damage);
+                player.decreaseCurrentHealth(damage);
                 view.displayAttack(enemy.getName(), player.getName(), damage);
             }
         }
