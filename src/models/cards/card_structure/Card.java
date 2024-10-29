@@ -52,6 +52,9 @@ public abstract class Card {
             case RARE: {
                 return rand.nextInt(165 + 1 - 135) + 135;
             }
+            default: {
+                return rand.nextInt(9);
+            }
         }
     }
 }
