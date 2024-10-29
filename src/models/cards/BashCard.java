@@ -1,8 +1,8 @@
 package models.cards;
 
+import models.GameContext;
 import models.cards.card_structure.AttackCard;
 import models.cards.card_structure.CardRarity;
-import models.GameContext;
 import models.enemy.Enemy;
 import models.player.player_structure.Player;
 
@@ -10,7 +10,7 @@ import java.util.Scanner;
 
 public class BashCard extends AttackCard {
     public BashCard() {
-        super("Bash", "Deal 2 Damage. Apply 2 Vulnerable.", 2, 8, CardRarity.BASIC);
+        super("Bash", "Deal 2 Damage. Apply 2 Vulnerable.", 2, 8, CardRarity.COMMON);
     }
 
     @Override

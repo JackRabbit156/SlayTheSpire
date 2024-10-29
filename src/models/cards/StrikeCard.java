@@ -1,8 +1,8 @@
 package models.cards;
 
+import models.GameContext;
 import models.cards.card_structure.AttackCard;
 import models.cards.card_structure.CardRarity;
-import models.GameContext;
 import models.enemy.Enemy;
 import models.player.player_structure.Player;
 
@@ -10,7 +10,7 @@ import java.util.Scanner;
 
 public class StrikeCard extends AttackCard {
     public StrikeCard() {
-        super("Strike","Deal 6 damage.", 1,  6, CardRarity.BASIC);
+        super("Strike", "Deal 6 damage.", 1, 6, CardRarity.COMMON);
     }
 
     @Override

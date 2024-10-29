@@ -4,6 +4,5 @@ public enum CardRarity {
     COMMON,
     UNCOMMON,
     RARE,
-    BASIC,
     SPECIAL
 }
