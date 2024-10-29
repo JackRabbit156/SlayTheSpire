@@ -15,6 +15,8 @@ public abstract class Player {
     private int maxEnergy;
     private int currentEnergy;
 
+    private int startHandSize = 5;
+
     private int gold;
 
     private int block;
@@ -92,6 +94,10 @@ public abstract class Player {
 
     public int getCurrentEnergy() {
         return currentEnergy;
+    }
+
+    public int getStartHandSize() {
+        return startHandSize;
     }
 
     public int getGold() {
