@@ -1,6 +1,5 @@
 package models.relics.relic_structure;
 
-
 import models.GameContext;
 
 public abstract class Relic {
@@ -18,10 +17,7 @@ public abstract class Relic {
         this.rarity = rarity;
     }
 
-
-    // * Methods *
-    public void getsUsed(GameContext gameContext) {
-    }
+    public abstract void getsUsed(GameContext gameContext);
 
     // * Getter & Setter *
     public String getName() {
@@ -34,18 +30,6 @@ public abstract class Relic {
 
     public String getDescription() {
         return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public RelicType getRarity() {
-        return rarity;
-    }
-
-    public void setRarity(RelicType rarity) {
-        this.rarity = rarity;
     }
 
 

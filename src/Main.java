@@ -1,4 +1,5 @@
 import controller.BattleViewController;
+import controller.MapViewController;
 import models.enemy.*;
 import models.player.*;
 
@@ -7,7 +8,10 @@ import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
-        Ironclad player = new Ironclad();
+
+        MapViewController map = new MapViewController();
+
+        /*Ironclad player = new Ironclad();
 
         List<Enemy> enemies = new ArrayList<Enemy>();
 
@@ -16,6 +20,6 @@ public class Main {
         enemies.add(new SpikeSlime());
 
         BattleViewController controller = new BattleViewController(player, enemies);
-        controller.startBattle();
+        controller.startBattle();*/
     }
 }
