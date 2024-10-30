@@ -13,7 +13,8 @@ public class DefendCard extends SkillCard {
     @Override
     public void play(GameContext gameContext) {
         Player player = gameContext.getPlayer();
-        player.setBlock(5);
+
+        player.increaseBlock(5);
 
         player.loseEnergy(getCost());
     }
@@ -21,10 +22,5 @@ public class DefendCard extends SkillCard {
     @Override
     public String toString() {
         return "Defend(5 Block)";
-    }
-
-    @Override
-    public void doSkill() {
-
     }
 }
