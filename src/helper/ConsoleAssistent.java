@@ -33,7 +33,7 @@ public class ConsoleAssistent {
      * @param text  Text wird automatisch Resetet
      */
     public static void println(Color color, String text) {
-        System.out.printf("%s %s %s\n", color, text, Color.RESET);
+        System.out.printf("%s%s%s%n", color, text, Color.RESET);
     }
 
     /**
@@ -43,7 +43,7 @@ public class ConsoleAssistent {
      * @param text  Text wird automatisch Resetet
      */
     public static void print(Color color, String text) {
-        System.out.printf("%s %s %s\n", color, text, Color.RESET);
+        System.out.printf("%s%s%s%n", color, text, Color.RESET);
     }
 
 
