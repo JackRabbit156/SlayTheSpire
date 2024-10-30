@@ -1,40 +1,58 @@
 package helper;
 
+//TODO FarbCodes als Enum
+
+/**
+ * @author Keil, Vladslav
+ */
 public class ConsoleAssistent {
-    //TODO FarbCodes als Enum
-//    public static final String ANSI_RESET = "\u001B[0m";
-//    public static final String ANSI_BLACK = "\u001B[30m";
-//    public static final String ANSI_RED = "\u001B[31m";
-//    public static final String ANSI_GREEN = "\u001B[32m";
-//    public static final String ANSI_YELLOW = "\u001B[33m";
-//    public static final String ANSI_BLUE = "\u001B[34m";
-//    public static final String ANSI_PURPLE = "\u001B[35m";
-//    public static final String ANSI_CYAN = "\u001B[36m";
-//    public static final String ANSI_WHITE = "\u001B[37m";
-    Enum COLOR
-
-    {
-        BLACK {
-        @Override
-        public String toString () {
-
-        }
-    }
-    }
-
 
     public static void clearScreen() {
         System.out.print("\033[H\033[2J");
         System.out.flush();
     }
 
-    //TODO System.out.print Funktionen, mit Farbparametern setzten.
-    // printf(Enum COLOR, String text)
-    /* Example
-     public void printf(Enum COLOR, String text) {
-        System.out.printf("%s %s %s\n", COLOR.code, text, ANSI_RESET);
-     }
+    /**
+     * @param length      gewünschte wiederholung
+     * @param strToRepeat verlängerter String
+     * @return Verlängertes String
      */
-    // print(Enum COLOR, String text)
+    public static String repeat(int length, String strToRepeat) {
+        StringBuilder returnValue = new StringBuilder("");
 
+        for (int i = 0; i < length; i++)
+            returnValue.append(strToRepeat);
+
+        return returnValue.toString();
+    }
+
+    /**
+     * Dient zum farblichen System.out.print
+     *
+     * @param color Color Code {@link Color} Farben von
+     * @param text  Text wird automatisch Resetet
+     */
+    public void println(Color color, String text) {
+        System.out.printf("%s %s %s\n", color, text, Color.RESET);
+    }
+
+    /**
+     * Dient zum farblichen System.out.print
+     *
+     * @param color Color Code {@link Color} Farben von
+     * @param text  Text wird automatisch Resetet
+     */
+    public void print(Color color, String text) {
+        System.out.printf("%s %s %s\n", color, text, Color.RESET);
+    }
+
+    /**
+     * Dient zum farblichen System.out.print
+     *
+     * @param color Color Code {@link Color} Farben von
+     * @param text  NEWLINE muss gesetzt werden. Text wird automatisch Resetet.
+     */
+    public void printf(Color color, String text) {
+        System.out.printf("%s %s %s", color, text, Color.RESET);
+    }
 }

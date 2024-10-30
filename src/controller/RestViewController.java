@@ -10,8 +10,7 @@ import java.util.Scanner;
  * @author Vladislav Keil
  */
 public class RestViewController {
-    private ConsoleAssistent assistent = new ConsoleAssistent();
-    private RestSiteView rest = new RestSiteView();
+    private RestSiteView rest;
     private Player player;
     private Scanner scanner;
 
@@ -23,7 +22,7 @@ public class RestViewController {
     }
 
     public void startRest() {
-        assistent.clearScreen();
+        ConsoleAssistent.clearScreen();
         rest.display(player);
 
         int choice = scanner.nextInt();

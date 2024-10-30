@@ -2,6 +2,7 @@ package view;
 
 //TODO Import Shop Class
 
+import helper.ConsoleAssistent;
 import models.cards.card_structure.Card;
 import models.player.player_structure.Player;
 
@@ -31,9 +32,9 @@ public class RestSiteView {
     }
 
     public void displayTitle() {
-        System.out.println("\n" + repeat(80, "="));
-        System.out.println(repeat(29, " ") + "<<<   CAMPFIRE VIEW   >>>                  ");
-        System.out.println(repeat(80, "=") + "\n");
+        System.out.println("\n" + ConsoleAssistent.repeat(80, "="));
+        System.out.println(ConsoleAssistent.repeat(29, " ") + "<<<   CAMPFIRE VIEW   >>>                  ");
+        System.out.println(ConsoleAssistent.repeat(80, "=") + "\n");
     }
 
     //TODO Erstellung der Upgradefunktion für das Deck
@@ -46,15 +47,6 @@ public class RestSiteView {
             System.out.printf("%d. %s %s%n", i + 1, deck.get(i).getName(), deck.get(i).getDescription());
         }
         System.out.printf("%n");
-    }
-
-    private String repeat(int length, String strToRepeat) {
-        StringBuilder returnValue = new StringBuilder("");
-
-        for (int i = 0; i < length; i++)
-            returnValue.append(strToRepeat);
-
-        return returnValue.toString();
     }
 
     public void clearScreen() {

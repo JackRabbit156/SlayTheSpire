@@ -1,5 +1,6 @@
 package view;
 
+import helper.ConsoleAssistent;
 import models.cards.card_structure.Card;
 import models.player.player_structure.Player;
 
@@ -11,6 +12,7 @@ import java.util.List;
  * @author Keil, Vladislav
  */
 public class ShopView {
+
     /**
      * Stellt die Shopdarstellung dar.
      */
@@ -19,24 +21,15 @@ public class ShopView {
 
         System.out.printf("%s %d.%n", "Character Coins:", player.getGold());
         System.out.printf("%s %n", "Upgradeable-Card-Selection:");
-        System.out.println(repeat(80, "-"));
+        System.out.println(ConsoleAssistent.repeat(80, "-"));
         for (int i = 0; i < shopCards.size(); i++) {
             System.out.printf("%2d. %-6s %3d. - %-6s %-5s %-15s%n", i + 1, "Price:", shopCards.get(i).getPrice(), shopCards.get(i).getName(), shopCards.get(i).getCardRarity(), shopCards.get(i).getDescription());
         }
     }
 
     public void displayTitle() {
-        System.out.println("\n" + repeat(80, "="));
-        System.out.println(repeat(29, " ") + "<<<   SHOP VIEW   >>>                  ");
-        System.out.println(repeat(80, "=") + "\n");
-    }
-
-    private String repeat(int length, String strToRepeat) {
-        StringBuilder returnValue = new StringBuilder("");
-
-        for (int i = 0; i < length; i++)
-            returnValue.append(strToRepeat);
-
-        return returnValue.toString();
+        System.out.println("\n" + ConsoleAssistent.repeat(80, "="));
+        System.out.println(ConsoleAssistent.repeat(29, " ") + "<<<   SHOP VIEW   >>>                  ");
+        System.out.println(ConsoleAssistent.repeat(80, "=") + "\n");
     }
 }
