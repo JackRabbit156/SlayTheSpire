@@ -54,10 +54,14 @@ public abstract class Player {
 
     public void decreaseCurrentHealth(int dmg) {
         currentHealth -= dmg;
+        if (currentHealth < 0)
+            currentHealth = 0;
     }
 
     public void increaseCurrentHealth(int hp) {
         currentHealth += hp;
+        if (currentHealth > maxHealth)
+            currentHealth = maxHealth;
     }
 
     public void increaseMaxHealth(int hp) {
