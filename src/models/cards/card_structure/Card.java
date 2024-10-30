@@ -9,6 +9,7 @@ public abstract class Card {
 
     private String name;
     private String description;
+    private int price;
     private int cost;
     private CardRarity cardRarity;
 
@@ -17,6 +18,7 @@ public abstract class Card {
         this.description = description;
         this.cost = cost;
         this.cardRarity = cardRarity;
+        this.price = genPrice();
     }
 
     public abstract void play(GameContext gameContext);
@@ -38,6 +40,10 @@ public abstract class Card {
     }
 
     public int getPrice() {
+        return price;
+    }
+
+    public int genPrice() {
         // TODO - ShopController - One of the cards will always be On Sale, reducing its cost by 50%.
         // TODO - ShopController - There will always be 2 Attack cards, 2 Skill cards, and 1 Power card.
         // Existieren nur 3 Typen
