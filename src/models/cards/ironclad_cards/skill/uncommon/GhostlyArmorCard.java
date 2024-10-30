@@ -10,7 +10,7 @@ public class GhostlyArmorCard extends SkillCard{
 
 
         public GhostlyArmorCard() {
-            super("Ghostly Armor", "Ethereal. Gain 10 Block.", 2, CardRarity.UNCOMMON, CardGrave.EXHAUST);
+            super("Ghostly Armor", "Exhaust. Gain 10 Block.", 2, CardRarity.UNCOMMON, CardGrave.EXHAUST);
         }
 
         @Override
