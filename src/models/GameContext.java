@@ -8,6 +8,7 @@ import java.util.List;
 public class GameContext {
     private Player player;
     private List<Enemy> enemies;
+    //TODO Battledeck hinzufügen
 
     public GameContext(Player player, List<Enemy> enemies){
         this.player = player;
