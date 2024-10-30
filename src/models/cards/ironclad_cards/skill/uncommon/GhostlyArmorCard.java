@@ -10,7 +10,7 @@ public class GhostlyArmorCard extends SkillCard{
 
 
         public GhostlyArmorCard() {
-            super("Ghostly Armor", "Ethereal. Gain 10 Block.", 2, CardRarity.UNCOMMON, CardGrave.DISCARD);
+            super("Ghostly Armor", "Ethereal. Gain 10 Block.", 2, CardRarity.UNCOMMON, CardGrave.EXHAUST);
         }
 
         @Override
@@ -18,7 +18,6 @@ public class GhostlyArmorCard extends SkillCard{
             Player player = gameContext.getPlayer();
 
             player.increaseBlock(10);
-            //TODO Ethereal
 
             player.decreaseCurrentEnergy(getCost());
         }
