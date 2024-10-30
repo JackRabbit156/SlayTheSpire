@@ -2,6 +2,7 @@ package models.cards.ironclad_cards.attack.uncommon;
 
 import models.GameContext;
 import models.cards.card_structure.AttackCard;
+import models.cards.card_structure.CardGrave;
 import models.cards.card_structure.CardRarity;
 import models.enemy.Enemy;
 import models.player.player_structure.Player;
@@ -10,7 +11,7 @@ import java.util.Scanner;
 
 public class UppercutCard extends AttackCard {
     public UppercutCard() {
-        super("Uppercut", "Deal 13 damage. Apply 1 Weak.Apply 1 Vulnerable.", 2, 13, CardRarity.UNCOMMON);
+        super("Uppercut", "Deal 13 damage. Apply 1 Weak.Apply 1 Vulnerable.", 2, 13, CardRarity.UNCOMMON, CardGrave.DISCARD);
     }
 
     @Override

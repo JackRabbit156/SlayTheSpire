@@ -2,6 +2,7 @@ package models.cards.ironclad_cards.attack.common;
 
 import models.GameContext;
 import models.cards.card_structure.AttackCard;
+import models.cards.card_structure.CardGrave;
 import models.cards.card_structure.CardRarity;
 import models.enemy.Enemy;
 import models.player.player_structure.Player;
@@ -10,7 +11,7 @@ import java.util.Scanner;
 
 public class HeadbuttCard extends AttackCard {
     public HeadbuttCard() {
-        super("Headbutt", "Deal 9 damage. Put a card from your discard pile on top of your draw pile.", 1, 9, CardRarity.COMMON);
+        super("Headbutt", "Deal 9 damage. Put a card from your discard pile on top of your draw pile.", 1, 9, CardRarity.COMMON, CardGrave.DISCARD);
     }
 
     @Override

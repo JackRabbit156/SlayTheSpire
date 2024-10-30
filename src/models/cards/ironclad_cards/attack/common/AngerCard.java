@@ -2,6 +2,7 @@ package models.cards.ironclad_cards.attack.common;
 
 import models.GameContext;
 import models.cards.card_structure.AttackCard;
+import models.cards.card_structure.CardGrave;
 import models.cards.card_structure.CardRarity;
 import models.enemy.Enemy;
 import models.player.player_structure.Player;
@@ -10,7 +11,7 @@ import java.util.Scanner;
 
 public class AngerCard extends AttackCard {
     public AngerCard() {
-        super("Anger", "Deal 6 damage. Add a copy of this card into your discard pile.", 0, 6, CardRarity.COMMON);
+        super("Anger", "Deal 6 damage. Add a copy of this card into your discard pile.", 0, 6, CardRarity.COMMON, CardGrave.DISCARD);
     }
 
     @Override

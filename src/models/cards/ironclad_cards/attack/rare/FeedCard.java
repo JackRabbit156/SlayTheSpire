@@ -2,6 +2,7 @@ package models.cards.ironclad_cards.attack.rare;
 
 import models.GameContext;
 import models.cards.card_structure.AttackCard;
+import models.cards.card_structure.CardGrave;
 import models.cards.card_structure.CardRarity;
 import models.enemy.Enemy;
 import models.player.player_structure.Player;
@@ -10,7 +11,7 @@ import java.util.Scanner;
 
 public class FeedCard extends AttackCard {
     public FeedCard() {
-        super("Feed", "Deal 10 damage. If Fatal, raise your Max HP by 3. Exhaust.", 1, 10, CardRarity.RARE);
+        super("Feed", "Deal 10 damage. If Fatal, raise your Max HP by 3. Exhaust.", 1, 10, CardRarity.RARE, CardGrave.EXHAUST);
     }
 
     @Override
@@ -27,8 +28,6 @@ public class FeedCard extends AttackCard {
         if (!enemy.isAlive()) {
             player.increaseMaxHealth(3);
         }
-
-        //TODO Exhaust
     }
 
     @Override

@@ -2,6 +2,7 @@ package models.cards.ironclad_cards.attack.uncommon;
 
 import models.GameContext;
 import models.cards.card_structure.AttackCard;
+import models.cards.card_structure.CardGrave;
 import models.cards.card_structure.CardRarity;
 import models.enemy.Enemy;
 import models.player.player_structure.Player;
@@ -10,7 +11,7 @@ import java.util.Scanner;
 
 public class BloodForBloodCard extends AttackCard {
     public BloodForBloodCard() {
-        super("Blood for Blood", "Costs 1 less Energy for each time you lose HP this combat.Deal 18 damage.", 4, 18, CardRarity.UNCOMMON);
+        super("Blood for Blood", "Costs 1 less Energy for each time you lose HP this combat.Deal 18 damage.", 4, 18, CardRarity.UNCOMMON, CardGrave.DISCARD);
     }
 
     @Override

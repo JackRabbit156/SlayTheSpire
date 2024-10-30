@@ -2,6 +2,7 @@ package models.cards.ironclad_cards.attack.uncommon;
 
 import models.GameContext;
 import models.cards.card_structure.AttackCard;
+import models.cards.card_structure.CardGrave;
 import models.cards.card_structure.CardRarity;
 import models.enemy.Enemy;
 import models.player.player_structure.Player;
@@ -10,7 +11,7 @@ import java.util.Scanner;
 
 public class PummelCard extends AttackCard {
     public PummelCard() {
-        super("Pummel", "Deal 2 damage 4 times. Exhaust.", 1, 2, CardRarity.UNCOMMON);
+        super("Pummel", "Deal 2 damage 4 times. Exhaust.", 1, 2, CardRarity.UNCOMMON, CardGrave.EXHAUST);
     }
 
     @Override
@@ -25,8 +26,6 @@ public class PummelCard extends AttackCard {
 
         Player player = gameContext.getPlayer();
         player.loseEnergy(getCost());
-
-        //TODO Exhaust
     }
 
     @Override

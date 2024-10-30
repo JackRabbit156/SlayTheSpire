@@ -2,6 +2,7 @@ package models.cards.ironclad_cards.attack.common;
 
 import models.GameContext;
 import models.cards.card_structure.AttackCard;
+import models.cards.card_structure.CardGrave;
 import models.cards.card_structure.CardRarity;
 import models.enemy.Enemy;
 import models.player.player_structure.Player;
@@ -12,7 +13,7 @@ import java.util.Scanner;
 
 public class SwordBoomerangCard extends AttackCard {
     public SwordBoomerangCard() {
-        super("Sword Boomerang", "Deal 3 damage to a random enemy 3 times.", 1, 3, CardRarity.COMMON);
+        super("Sword Boomerang", "Deal 3 damage to a random enemy 3 times.", 1, 3, CardRarity.COMMON, CardGrave.DISCARD);
     }
 
     @Override

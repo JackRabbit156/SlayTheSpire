@@ -45,7 +45,7 @@ public class BattleDeck {
         fillHand(hand.size() + count);
     }
 
-    public void discardCard(Card card) {
+    public void discardCardFromHand(Card card) {
         discardPile.add(card);
         hand.remove(card);
     }
@@ -55,8 +55,16 @@ public class BattleDeck {
         hand.remove(card);
     }
 
+    public void removeCardFromHand(Card card) {
+        hand.remove(card);
+    }
+
     public void exhaustCardFromDeck(Card card) {
         exhaustPile.add(card);
+        deck.remove(card);
+    }
+
+    public void removeCardFromDeck(Card card) {
         deck.remove(card);
     }
 
@@ -71,4 +79,6 @@ public class BattleDeck {
     public int getStartHandSize() {
         return startHandSize;
     }
+
+
 }

@@ -2,6 +2,7 @@ package models.cards.ironclad_cards.attack.rare;
 
 import models.GameContext;
 import models.cards.card_structure.AttackCard;
+import models.cards.card_structure.CardGrave;
 import models.cards.card_structure.CardRarity;
 import models.enemy.Enemy;
 import models.player.player_structure.Player;
@@ -10,7 +11,7 @@ import java.util.List;
 
 public class ImmolateCard extends AttackCard {
     public ImmolateCard() {
-        super("Immolate", "Deal 21 damage to ALL enemies. Add a Burn into your discard pile.", 2, 21, CardRarity.RARE);
+        super("Immolate", "Deal 21 damage to ALL enemies. Add a Burn into your discard pile.", 2, 21, CardRarity.RARE, CardGrave.DISCARD);
     }
 
     @Override

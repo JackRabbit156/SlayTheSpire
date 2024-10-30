@@ -4,6 +4,7 @@ import helper.ConsoleAssistent;
 import models.BattleDeck;
 import models.GameContext;
 import models.cards.card_structure.Card;
+import models.cards.card_structure.CardGrave;
 import models.enemy.Enemy;
 import models.player.player_structure.Player;
 import view.BattleView;
@@ -82,8 +83,15 @@ public class BattleViewController {
             Card selectedCard = hand.get(cardIndex);
 
             selectedCard.play(new GameContext(player, enemies, battleDeck));
-
-            battleDeck.discardCard(selectedCard);
+            if (selectedCard.getCardGrave() == CardGrave.EXHAUST) {
+                battleDeck.exhaustCardFromHand(selectedCard);
+            }
+            else if (selectedCard.getCardGrave() == CardGrave.DISCARD) {
+                battleDeck.discardCardFromHand(selectedCard);
+            }
+            else {
+                battleDeck.removeCardFromHand(selectedCard);
+            }
         } else {
             System.out.println("Invalid card selection.");
         }
@@ -91,7 +99,7 @@ public class BattleViewController {
 
     private void removeHandAfterEndOfTurn() {
         for(int i = 0; i< battleDeck.getHand().size(); i++)
-            battleDeck.discardCard(battleDeck.getHand().get(i));
+            battleDeck.discardCardFromHand(battleDeck.getHand().get(i));
     }
 
     private void enemyTurn() {
