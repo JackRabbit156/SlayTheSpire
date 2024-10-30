@@ -84,5 +84,11 @@ public class BattleDeck {
         return startHandSize;
     }
 
+    public List<Card> getDiscardPile() {
+        return discardPile;
+    }
 
+    public List<Card> getDeck() {
+        return deck;
+    }
 }
