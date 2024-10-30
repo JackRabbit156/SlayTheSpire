@@ -48,10 +48,13 @@ public abstract class Player {
         currentEnergy = maxEnergy;
     }
 
-    public void loseEnergy(int energy) {
+    public void decreaseCurrentEnergy(int energy) {
         currentEnergy -= energy;
     }
 
+    public void increaseCurrentEnergy(int energy) {
+        currentEnergy += energy;
+    }
     public void decreaseCurrentHealth(int dmg) {
         currentHealth -= dmg;
     }

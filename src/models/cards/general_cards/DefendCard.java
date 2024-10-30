@@ -16,7 +16,7 @@ public class DefendCard extends SkillCard {
 
         player.increaseBlock(5);
 
-        player.loseEnergy(getCost());
+        player.decreaseCurrentEnergy(getCost());
     }
 
     @Override

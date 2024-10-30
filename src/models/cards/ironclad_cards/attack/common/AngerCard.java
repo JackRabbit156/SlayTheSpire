@@ -23,7 +23,7 @@ public class AngerCard extends AttackCard {
         enemy.takeDamage(dealDamage());
 
         Player player = gameContext.getPlayer();
-        player.loseEnergy(getCost());
+        player.decreaseCurrentEnergy(getCost());
         //TODO Add a copy of this card into your discard pile.
     }
 

@@ -23,7 +23,7 @@ public class HeavyBladeCard extends AttackCard {
         enemy.takeDamage(dealDamage());
 
         Player player = gameContext.getPlayer();
-        player.loseEnergy(getCost());
+        player.decreaseCurrentEnergy(getCost());
 
         //TODO Buff Strength affects this card 3 times
     }

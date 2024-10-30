@@ -23,7 +23,7 @@ public class PerfectedStrikeCard extends AttackCard {
         int targetIndex = new Scanner(System.in).nextInt() - 1;
 
         Player player = gameContext.getPlayer();
-        player.loseEnergy(getCost());
+        player.decreaseCurrentEnergy(getCost());
 
         PerfectedStrikeCard perfectedStrikeCard = new PerfectedStrikeCard();
         PommelStrikeCard pommelStrikeCard = new PommelStrikeCard();

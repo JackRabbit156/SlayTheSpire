@@ -23,7 +23,7 @@ public class SeverSoulCard extends AttackCard {
         enemy.takeDamage(dealDamage());
 
         Player player = gameContext.getPlayer();
-        player.loseEnergy(getCost());
+        player.decreaseCurrentEnergy(getCost());
 
         //TODO hand, for (!AttackCards) remove
     }

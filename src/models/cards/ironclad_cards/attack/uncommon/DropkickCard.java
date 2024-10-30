@@ -23,7 +23,7 @@ public class DropkickCard extends AttackCard {
         enemy.takeDamage(dealDamage());
 
         Player player = gameContext.getPlayer();
-        player.loseEnergy(getCost());
+        player.decreaseCurrentEnergy(getCost());
 
         //TODO if (enemy.hasEffect.Vulnerable) {player.increaseEnergy(1); player.drawCard(1);
 

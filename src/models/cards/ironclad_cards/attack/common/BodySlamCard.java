@@ -23,7 +23,7 @@ public class BodySlamCard extends AttackCard {
         enemy.takeDamage(dealDamage(gameContext));
 
         Player player = gameContext.getPlayer();
-        player.loseEnergy(getCost());
+        player.decreaseCurrentEnergy(getCost());
 
     }
 

@@ -22,7 +22,7 @@ public class CleaveCard extends AttackCard {
         }
 
         Player player = gameContext.getPlayer();
-        player.loseEnergy(getCost());
+        player.decreaseCurrentEnergy(getCost());
     }
 
     @Override

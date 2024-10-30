@@ -22,7 +22,7 @@ public class ImmolateCard extends AttackCard {
         }
 
         Player player = gameContext.getPlayer();
-        player.loseEnergy(getCost());
+        player.decreaseCurrentEnergy(getCost());
 
         //TODO deck.add burnCard
     }

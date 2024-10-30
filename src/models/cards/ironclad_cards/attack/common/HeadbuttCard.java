@@ -23,7 +23,7 @@ public class HeadbuttCard extends AttackCard {
         enemy.takeDamage(dealDamage());
 
         Player player = gameContext.getPlayer();
-        player.loseEnergy(getCost());
+        player.decreaseCurrentEnergy(getCost());
 
         //TODO Put a card from your discard pile on top of your draw pile.
     }

@@ -27,7 +27,7 @@ public class ClashCard extends AttackCard {
 
         enemy.takeDamage(dealDamage());
 
-        player.loseEnergy(getCost());
+        player.decreaseCurrentEnergy(getCost());
     }
 
     @Override

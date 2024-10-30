@@ -17,7 +17,7 @@ public class SurvivorCard extends SkillCard {
 
         //TODO Discard 1 card
 
-        player.loseEnergy(getCost());
+        player.decreaseCurrentEnergy(getCost());
     }
 
     @Override

@@ -35,7 +35,7 @@ public class WhirlwindCard extends AttackCard {
         }
 
 
-        player.loseEnergy(getCost() * times);
+        player.decreaseCurrentEnergy(getCost() * times);
     }
 
     @Override

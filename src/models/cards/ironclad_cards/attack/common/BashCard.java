@@ -23,7 +23,7 @@ public class BashCard extends AttackCard {
         enemy.takeDamage(dealDamage());
 
         Player player = gameContext.getPlayer();
-        player.loseEnergy(getCost());
+        player.decreaseCurrentEnergy(getCost());
         //TODO Apply Debuff 2 Vulnerable
     }
 

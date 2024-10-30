@@ -1,33 +1,30 @@
-package models.cards.ironclad_cards.skill.common;
+package models.cards.ironclad_cards.skill.uncommon;
 
-import models.BattleDeck;
 import models.GameContext;
 import models.cards.card_structure.CardGrave;
 import models.cards.card_structure.CardRarity;
 import models.cards.card_structure.SkillCard;
 import models.player.player_structure.Player;
 
-public class ShrugItOffCard extends SkillCard{
+public class RageCard extends SkillCard{
 
 
-        public ShrugItOffCard() {
-            super("Shrug It Off", "Gain 8 Block. Draw 1 card.", 1, CardRarity.COMMON, CardGrave.DISCARD);
+        public RageCard() {
+            super("Rage", "Whenever you play an Attack this turn, gain 3 Block.", 0, CardRarity.UNCOMMON, CardGrave.DISCARD);
         }
 
         @Override
         public void play(GameContext gameContext) {
             Player player = gameContext.getPlayer();
-            BattleDeck battleDeck = gameContext.getBattleDeck();
 
-            player.increaseBlock(8);
-            battleDeck.drawCard(1);
+            //TODO Buff (Rage)
 
             player.decreaseCurrentEnergy(getCost());
         }
 
         @Override
         public String toString() {
-            return "Shrug It Off(8 Block - Draw 1 Card)";
+            return "Rage(3 Block - etc.)";
         }
 
 }

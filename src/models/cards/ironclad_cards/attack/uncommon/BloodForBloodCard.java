@@ -23,7 +23,7 @@ public class BloodForBloodCard extends AttackCard {
         enemy.takeDamage(dealDamage());
 
         Player player = gameContext.getPlayer();
-        player.loseEnergy(getCost()); //TODO minus each time you lost HP this combat
+        player.decreaseCurrentEnergy(getCost()); //TODO minus each time you lost HP this combat
     }
 
     @Override

@@ -7,11 +7,11 @@ import models.cards.card_structure.CardRarity;
 import models.cards.card_structure.SkillCard;
 import models.player.player_structure.Player;
 
-public class ShrugItOffCard extends SkillCard{
+public class FlexCard extends SkillCard{
 
 
-        public ShrugItOffCard() {
-            super("Shrug It Off", "Gain 8 Block. Draw 1 card.", 1, CardRarity.COMMON, CardGrave.DISCARD);
+        public FlexCard() {
+            super("Flex", "Gain 2 Strength. At the end of this turn, lose 2 Strength.", 0, CardRarity.COMMON, CardGrave.DISCARD);
         }
 
         @Override
@@ -19,15 +19,15 @@ public class ShrugItOffCard extends SkillCard{
             Player player = gameContext.getPlayer();
             BattleDeck battleDeck = gameContext.getBattleDeck();
 
-            player.increaseBlock(8);
             battleDeck.drawCard(1);
+            //TODO 2 Strength
+            //TODO -2 Strength at eot
 
             player.decreaseCurrentEnergy(getCost());
         }
 
         @Override
         public String toString() {
-            return "Shrug It Off(8 Block - Draw 1 Card)";
+            return "Flex(2 Strength - etc.)";
         }
-
 }

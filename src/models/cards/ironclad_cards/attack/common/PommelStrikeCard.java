@@ -24,7 +24,7 @@ public class PommelStrikeCard extends AttackCard {
         enemy.takeDamage(dealDamage());
 
         Player player = gameContext.getPlayer();
-        player.loseEnergy(getCost());
+        player.decreaseCurrentEnergy(getCost());
 
         BattleDeck battleDeck = gameContext.getBattleDeck();
         battleDeck.drawCard(1);

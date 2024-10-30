@@ -9,7 +9,6 @@ import models.player.player_structure.Player;
 
 import java.util.List;
 import java.util.Random;
-import java.util.Scanner;
 
 public class SwordBoomerangCard extends AttackCard {
     public SwordBoomerangCard() {
@@ -28,7 +27,7 @@ public class SwordBoomerangCard extends AttackCard {
         }
 
         Player player = gameContext.getPlayer();
-        player.loseEnergy(getCost());
+        player.decreaseCurrentEnergy(getCost());
     }
 
     @Override

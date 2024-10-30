@@ -23,7 +23,7 @@ public class RampageCard extends AttackCard {
         enemy.takeDamage(dealDamage());
 
         Player player = gameContext.getPlayer();
-        player.loseEnergy(getCost());
+        player.decreaseCurrentEnergy(getCost());
 
         //TODO I don't know how to save how many times it was used THIS combat
     }
