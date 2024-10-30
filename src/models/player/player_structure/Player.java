@@ -70,6 +70,10 @@ public abstract class Player {
         this.gold += gold;
     }
 
+    public void decreaseGold(int gold) {
+        this.gold -= gold;
+    }
+
     public void increaseBlock(int block) {
         this.block += block;
     }
