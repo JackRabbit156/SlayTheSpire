@@ -10,7 +10,7 @@ import java.util.Scanner;
 
 public class BodySlamCard extends AttackCard {
     public BodySlamCard() {
-        super("Body Slam", "Deal damage equal to your Block.", 1, 0, CardRarity.COMMON); //TODO damage is 0, should be player.getBlock().
+        super("Body Slam", "Deal damage equal to your Block.", 1, 0, CardRarity.COMMON);
     }
 
     @Override
@@ -26,7 +26,7 @@ public class BodySlamCard extends AttackCard {
 
     }
 
-    //TODO AttackCard eventuell ändern, da damage in diesem Fall von player.getBlock() kommt.
+
     @Override
     public int dealDamage() {
         return 0;
