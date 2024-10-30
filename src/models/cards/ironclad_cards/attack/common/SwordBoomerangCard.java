@@ -6,6 +6,8 @@ import models.cards.card_structure.CardRarity;
 import models.enemy.Enemy;
 import models.player.player_structure.Player;
 
+import java.util.List;
+import java.util.Random;
 import java.util.Scanner;
 
 public class SwordBoomerangCard extends AttackCard {
@@ -15,8 +17,9 @@ public class SwordBoomerangCard extends AttackCard {
 
     @Override
     public void play(GameContext gameContext) {
-        System.out.print("Choose an enemy to target: ");
-        int targetIndex = new Scanner(System.in).nextInt() - 1;
+        List<Enemy> allEnemies = gameContext.getEnemies();
+        Random rand = new Random();
+        int targetIndex = rand.nextInt(allEnemies.size());
 
         Enemy enemy = gameContext.getEnemies().get(targetIndex);
         for (int i = 0; i < 3; i++) {
