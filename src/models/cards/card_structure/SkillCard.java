@@ -9,6 +9,4 @@ public abstract class SkillCard extends Card {
 
     @Override
     public abstract void play(GameContext gameContext);
-
-    public abstract void doSkill();
 }
