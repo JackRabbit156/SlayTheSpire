@@ -4,8 +4,8 @@ import models.GameContext;
 
 public abstract class AttackCard extends Card {
     private int damage;
-    public AttackCard(String name, String description, int cost, int damage,CardRarity rarity) {
-        super(name, description, cost, rarity);
+    public AttackCard(String name, String description, int cost, int damage,CardRarity rarity, CardGrave cardGrave) {
+        super(name, description, cost, rarity, cardGrave);
         this.damage = damage;
     }
 

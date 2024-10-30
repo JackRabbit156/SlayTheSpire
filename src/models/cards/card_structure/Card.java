@@ -11,12 +11,14 @@ public abstract class Card {
     private String description;
     private int cost;
     private CardRarity cardRarity;
+    private CardGrave cardGrave;
 
-    public Card(String name, String description, int cost, CardRarity cardRarity) {
+    public Card(String name, String description, int cost, CardRarity cardRarity, CardGrave cardGrave) {
         this.name = name;
         this.description = description;
         this.cost = cost;
         this.cardRarity = cardRarity;
+        this.cardGrave = cardGrave;
     }
 
     public abstract void play(GameContext gameContext);
@@ -35,6 +37,10 @@ public abstract class Card {
 
     public CardRarity getCardRarity() {
         return cardRarity;
+    }
+
+    public CardGrave getCardGrave() {
+        return cardGrave;
     }
 
     public int getPrice() {
