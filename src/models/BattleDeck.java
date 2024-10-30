@@ -3,6 +3,7 @@ package models;
 import models.cards.card_structure.Card;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
@@ -27,6 +28,10 @@ public class BattleDeck {
         return hand;
     }
 
+    public void createShuffledDeck() {
+        Collections.shuffle(deck);
+    }
+
     public void fillHand(int count) {
         //hand.clear();
 
@@ -35,8 +40,7 @@ public class BattleDeck {
             if (deck.isEmpty()) {
                 break;
             }
-            int randomIndex = random.nextInt(deck.size());
-            hand.add(deck.remove(randomIndex));
+            hand.add(deck.remove(deck.size() - 1)); //zieht von oben
         }
 
     }
