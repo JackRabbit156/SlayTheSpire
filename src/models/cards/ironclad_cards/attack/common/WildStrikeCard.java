@@ -24,8 +24,8 @@ public class WildStrikeCard extends AttackCard {
         Player player = gameContext.getPlayer();
         player.loseEnergy(getCost());
 
-        Wound wound = new Wound();
-        player.getDeck().add(wound);
+//        Wound wound = new Wound();
+//        player.getDeck().add(wound);
     }
 
     @Override
