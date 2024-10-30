@@ -1,5 +1,6 @@
 package controller;
 
+import helper.ConsoleAssistent;
 import models.BattleDeck;
 import models.GameContext;
 import models.cards.card_structure.Card;
@@ -26,7 +27,7 @@ public class BattleViewController {
     }
 
     public void startBattle() {
-        view.clearScreen();
+        ConsoleAssistent.clearScreen();
         while (player.isAlive() && !enemies.isEmpty()) {
             cardManager.fillHand(cardManager.getStartHandSize());
             player.resetEnergy();
@@ -36,7 +37,7 @@ public class BattleViewController {
 
             removeHandAfterEndOfTurn();
 
-            view.clearScreen();
+            ConsoleAssistent.clearScreen();
 
             enemyTurn();
 
