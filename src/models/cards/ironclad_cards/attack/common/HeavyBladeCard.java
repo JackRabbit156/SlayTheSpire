@@ -24,7 +24,7 @@ public class HeavyBladeCard extends AttackCard {
         Player player = gameContext.getPlayer();
         player.loseEnergy(getCost());
 
-        //TODO Strength affects this card 3 times
+        //TODO Buff Strength affects this card 3 times
     }
 
     @Override

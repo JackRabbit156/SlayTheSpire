@@ -24,7 +24,7 @@ public class ClotheslineCard extends AttackCard {
         Player player = gameContext.getPlayer();
         player.loseEnergy(getCost());
 
-        //TODO Apply 2 Weak.
+        //TODO Apply Debuff 2 Weak
     }
 
     @Override

@@ -21,7 +21,7 @@ public class ThunderclapCard extends AttackCard {
 
         List<Enemy> allEnemies = gameContext.getEnemies();
         for (Enemy allEnemy : allEnemies) {
-            //TODO allEnemy.getEffect Vulnerable
+            //TODO Apply Debuff 1 Vulnerable to ALL
         }
 
         Enemy enemy = gameContext.getEnemies().get(targetIndex);
