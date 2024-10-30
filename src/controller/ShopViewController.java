@@ -47,8 +47,9 @@ public class ShopViewController {
      */
     public void entryShop() {
         ConsoleAssistent.clearScreen();
-
         shopView.display(player, purchasableCards);
+        shopView.displayOptionChoiceMenu(purchasableCards.size());
+
         switch (scanner.nextInt()) {
             case 3:
             case 2:
@@ -64,7 +65,10 @@ public class ShopViewController {
     }
 
     private void cardChoice() {
+        ConsoleAssistent.clearScreen();
+        shopView.displayCards(purchasableCards);
         shopView.displayCardChoiceMenu(purchasableCards.size());
+
         int input = scanner.nextInt();
 
         if (input > purchasableCards.size()) {
@@ -79,7 +83,6 @@ public class ShopViewController {
             case 4:
             case 5:
                 addCardToDeckAndRemoveFromShopDeck(purchasableCards.get(input - 1));
-                shopView.display(player, purchasableCards);
                 cardChoice();
                 break;
             case 0:
@@ -90,10 +93,6 @@ public class ShopViewController {
     private void addCardToDeckAndRemoveFromShopDeck(Card card) {
         int cardPrice = card.getPrice();
 
-        for (Card purchasableCard : purchasableCards) {
-            System.out.println(purchasableCard.getName());
-        }
-
         if (player.getGold() > cardPrice) {
             player.decreaseGold(cardPrice);
             player.addCardToDeck(card);
@@ -103,11 +102,6 @@ public class ShopViewController {
             System.out.println();
             ConsoleAssistent.print(Color.YELLOW, "Not enough Gold!");
         }
-
-        for (Card purchasableCard : purchasableCards) {
-            System.out.println(purchasableCard.getName());
-        }
-
     }
 
 }
