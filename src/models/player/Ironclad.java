@@ -5,6 +5,7 @@ import models.cards.general_cards.DefendCard;
 import models.cards.general_cards.StrikeCard;
 import models.cards.ironclad_cards.attack.common.BashCard;
 import models.player.player_structure.Player;
+import models.player.player_structure.PlayerType;
 import models.relics.BurningBloodRelic;
 import models.relics.relic_structure.Relic;
 
@@ -14,7 +15,7 @@ import java.util.List;
 public class Ironclad extends Player {
     // * Constructor *
     public Ironclad() {
-        super("Ironclad", 80, 3);
+        super("Ironclad", 80, 3, PlayerType.IRONCLAD);
         initRelic();
         initDeck();
     }

@@ -8,6 +8,7 @@ import java.util.List;
 public abstract class Player {
     // * Variables *
     private final String name;
+    private final PlayerType typ;
 
     private int maxHealth;
     private int currentHealth;
@@ -25,10 +26,11 @@ public abstract class Player {
 
 
     // * Constructor *
-    public Player(String name, int maxHealth, int maxEnergy) {
+    public Player(String name, int maxHealth, int maxEnergy, PlayerType type) {
         this.name = name;
         this.maxHealth = maxHealth;
         this.maxEnergy = maxEnergy;
+        this.typ = type;
         this.currentHealth = this.maxHealth;
         this.currentEnergy = this.maxEnergy;
         this.gold = 0;
@@ -82,6 +84,10 @@ public abstract class Player {
         this.deck = deck;
     }
 
+    public void addCardToDeck(Card addCard) {
+        this.deck.add(addCard);
+    }
+
     public String getName() {
         return name;
     }
@@ -123,5 +129,9 @@ public abstract class Player {
 
     public void setRelic(Relic relic) {
         this.relic = relic;
+    }
+
+    public PlayerType getTyp() {
+        return typ;
     }
 }
