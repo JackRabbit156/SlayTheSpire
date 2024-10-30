@@ -32,6 +32,7 @@ public class BattleViewController {
         while (player.isAlive() && !enemies.isEmpty()) {
             battleDeck.fillHand(battleDeck.getStartHandSize());
             player.resetEnergy();
+            player.resetBlock();
             view.display(player, enemies, battleDeck.getHand());
 
             playerTurn();

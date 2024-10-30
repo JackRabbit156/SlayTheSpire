@@ -47,6 +47,9 @@ public abstract class Player {
     public void resetEnergy() {
         currentEnergy = maxEnergy;
     }
+    public void resetBlock() {
+        block = 0;
+    }
 
     public void decreaseCurrentEnergy(int energy) {
         currentEnergy -= energy;
