@@ -37,9 +37,11 @@ public class RestSiteView {
         System.out.println(ConsoleAssistent.repeat(80, "=") + "\n");
     }
 
-    //TODO Erstellung der Upgradefunktion für das Deck
+
     /**
+     * Nicht Keine Funktion - Für die Zukunft
      * Anzeige der Upgradebare Karte im Deck
+     *
      * @param deck eigenes Deck
      */
     public void displayUpgradeableCards(List<Card> deck) {
@@ -47,10 +49,5 @@ public class RestSiteView {
             System.out.printf("%d. %s %s%n", i + 1, deck.get(i).getName(), deck.get(i).getDescription());
         }
         System.out.printf("%n");
-    }
-
-    public void clearScreen() {
-        System.out.print("\033[H\033[2J");
-        System.out.flush();
     }
 }
