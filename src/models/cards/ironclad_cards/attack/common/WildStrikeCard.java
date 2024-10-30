@@ -23,7 +23,7 @@ public class WildStrikeCard extends AttackCard {
 
         Player player = gameContext.getPlayer();
         player.loseEnergy(getCost());
-
+// TODO - Sobald Wound Exisitert einfügen
 //        Wound wound = new Wound();
 //        player.getDeck().add(wound);
     }
