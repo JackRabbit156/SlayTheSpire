@@ -32,6 +32,7 @@ public class RestViewController {
                 player.increaseCurrentHealth(increasedHp);
                 break;
             case 2:
+            case 3:
                 break;
             default:
                 System.out.println("Wrong input...");
