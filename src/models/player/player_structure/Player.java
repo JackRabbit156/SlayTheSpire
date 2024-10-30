@@ -58,6 +58,9 @@ public abstract class Player {
 
     public void increaseCurrentHealth(int hp) {
         currentHealth += hp;
+        if (currentHealth > maxHealth) {
+            currentHealth = maxHealth;
+        }
     }
 
     public void increaseMaxHealth(int hp) {
