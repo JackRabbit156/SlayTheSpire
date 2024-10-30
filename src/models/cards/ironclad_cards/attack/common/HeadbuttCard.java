@@ -20,6 +20,7 @@ public class HeadbuttCard extends AttackCard {
 
     @Override
     public void play(GameContext gameContext) {
+
         System.out.print("Choose an enemy to target: ");
         int targetIndex = new Scanner(System.in).nextInt() - 1;
 
@@ -27,13 +28,12 @@ public class HeadbuttCard extends AttackCard {
         enemy.takeDamage(dealDamage());
 
         BattleDeck battleDeck = gameContext.getBattleDeck();
+        List<Card> deck = battleDeck.getDeck();
         List<Card> discardPile = battleDeck.getDiscardPile();
 
-        Random rand = new Random();
-        int targetCard = rand.nextInt(discardPile.size());
-
-        battleDeck.getDeck().add(discardPile.get(targetCard));
-
+        System.out.print("Choose a card to put from your discard pile onto the top of your draw pile: ");
+        int targetCard = new Scanner(System.in).nextInt() - 1;
+        deck.add(discardPile.get(targetCard));
 
         Player player = gameContext.getPlayer();
         player.decreaseCurrentEnergy(getCost());
