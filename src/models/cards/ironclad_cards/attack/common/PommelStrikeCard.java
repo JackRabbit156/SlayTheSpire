@@ -1,5 +1,6 @@
 package models.cards.ironclad_cards.attack.common;
 
+import models.BattleDeck;
 import models.GameContext;
 import models.cards.card_structure.AttackCard;
 import models.cards.card_structure.CardRarity;
@@ -24,7 +25,8 @@ public class PommelStrikeCard extends AttackCard {
         Player player = gameContext.getPlayer();
         player.loseEnergy(getCost());
 
-        //TODO player.drawCard or something like that
+        BattleDeck battleDeck = gameContext.getBattleDeck();
+        battleDeck.drawCard(1);
     }
 
     @Override
