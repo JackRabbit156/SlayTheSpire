@@ -12,6 +12,7 @@ public class BattleDeck {
     private List<Card> hand;
     private List<Card> discardPile;
     private List<Card> exhaustPile;
+    private List<Card> currentPowerCards;
     private Random random;
     private int startHandSize;
 
@@ -90,5 +91,9 @@ public class BattleDeck {
 
     public List<Card> getDeck() {
         return deck;
+    }
+
+    public List<Card> getCurrentPowerCards() {
+        return currentPowerCards;
     }
 }
