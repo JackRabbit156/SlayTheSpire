@@ -9,14 +9,19 @@ import models.cards.ironclad_cards.attack.common.*;
 import models.cards.ironclad_cards.attack.uncommon.*;
 import models.cards.ironclad_cards.attack.rare.*;
 
+import models.cards.ironclad_cards.power.rare.*;
+import models.cards.ironclad_cards.power.uncommon.*;
+import models.cards.ironclad_cards.skill.common.*;
+import models.cards.ironclad_cards.skill.rare.*;
+import models.cards.ironclad_cards.skill.uncommon.*;
 import models.player.player_structure.Player;
-import models.player.player_structure.PlayerType;
 
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
@@ -24,7 +29,7 @@ import java.util.Random;
  * @author Keil, Vladislav
  */
 public class DeckFactory {
-    private Path sourceFilePath = Paths.get("resources/PlayerCards/");
+    private Path sourceFilePath = Paths.get("src/resources/PlayerCards/");
     private Path characterFilePath;
     private List<Card> genDeck;
     private Player player;
@@ -33,7 +38,7 @@ public class DeckFactory {
     /*
         Was soll er erfüllen
         Welcher Spieler?
-        Wieviel Karten?
+        Wie viel Karten?
         Rückgabe von X Karten als Liste
      */
 
@@ -63,12 +68,12 @@ public class DeckFactory {
     }
 
     private List<Card> initIroncladCards() {
-        List availableCards = readCardFile();
+        List<String> availableCards = readCardFile();
 
         for (int i = 0; i < this.amount; i++) {
             int randomNumber = rand.nextInt(availableCards.size());
 
-            String cardName = availableCards.get(randomNumber).toString();
+            String cardName = availableCards.get(randomNumber);
             genDeck.add(assignCard(cardName));
         }
         return genDeck;
@@ -114,34 +119,43 @@ public class DeckFactory {
             case "RecklessChargeCard": cardToTransform = new RecklessChargeCard(); break;
             case "SearingBlowCard": cardToTransform = new SearingBlowCard(); break;
             case "SeverSoulCard": cardToTransform = new SeverSoulCard(); break;
-            case "UppercurCard": cardToTransform = new UppercutCard(); break;
+            case "UppercutCard": cardToTransform = new UppercutCard(); break;
             case "WhirlwindCard": cardToTransform = new WhirlwindCard(); break;
 
             // Skill
-            // CommonCards
-
-            // UncommonCard
-
             // RareCard
-
+            case "BerserkCard": cardToTransform = new BerserkCard(); break;
+            case "JuggernautCard": cardToTransform = new JuggernautCard(); break;
+            // UncommonCard
+            case "InflameCard": cardToTransform = new InflameCard(); break;
+            case "MetallicizeCard": cardToTransform = new MetallicizeCard(); break;
+            case "RuptureCard": cardToTransform = new RuptureCard(); break;
 
             // Power
             // CommonCards
-
-            // UncommonCard
-
+            case "FlexCard": cardToTransform = new FlexCard(); break;
+            case "ShrugItOffCard": cardToTransform = new ShrugItOffCard(); break;
+            case "WarcryCard": cardToTransform = new WarcryCard(); break;
             // RareCard
+            case "OfferingCard": cardToTransform = new OfferingCard(); break;
+            // UncommonCard
+            case "EntrenchCard": cardToTransform = new EntrenchCard(); break;
+            case "GhostlyArmorCard": cardToTransform = new GhostlyArmorCard(); break;
+            case "RageCard": cardToTransform = new RageCard(); break;
+            case "SpotWeaknessCard": cardToTransform = new SpotWeaknessCard(); break;
+            default:
+                System.out.println("ERROR IN DECKFACTORY"); break;
         }
 
         return cardToTransform;
     }
 
-    private List readCardFile() {
+    private List<String> readCardFile() {
         Path cardListPath = sourceFilePath.resolve(characterFilePath);
 
         if (!(new File(String.valueOf(cardListPath)).exists())) {
-            ConsoleAssistent.print(Color.RED, "Datei exisitert nicht: " + cardListPath.isAbsolute());
-            return null;
+            ConsoleAssistent.print(Color.RED, "Datei existiert nicht: " + cardListPath.isAbsolute());
+            return Collections.emptyList();
         }
 
         try {
@@ -149,6 +163,6 @@ public class DeckFactory {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return null;
+        return Collections.emptyList();
     }
 }
