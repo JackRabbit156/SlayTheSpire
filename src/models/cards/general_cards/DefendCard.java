@@ -1,9 +1,7 @@
 package models.cards.general_cards;
 
 import models.GameContext;
-import models.cards.card_structure.CardGrave;
-import models.cards.card_structure.CardRarity;
-import models.cards.card_structure.SkillCard;
+import models.cards.card_structure.*;
 import models.player.player_structure.Player;
 
 public class DefendCard extends SkillCard {
@@ -16,6 +14,8 @@ public class DefendCard extends SkillCard {
         Player player = gameContext.getPlayer();
 
         player.increaseBlock(5);
+
+
 
         player.decreaseCurrentEnergy(getCost());
     }
