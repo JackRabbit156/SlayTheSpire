@@ -1,7 +1,7 @@
 package controller.menus;
 
+import models.DifficultyLevel;
 import models.player.Ironclad;
-import models.player.Silent;
 import models.player.player_structure.Player;
 import view.menus.CharacterMenuView;
 
@@ -9,6 +9,7 @@ import java.util.Scanner;
 
 public class CharacterMenuViewController {
     private CharacterMenuView charView;
+    private Scanner in = new Scanner(System.in);
 
     public CharacterMenuViewController(){
         charView = new CharacterMenuView();
@@ -38,7 +39,6 @@ public class CharacterMenuViewController {
      */
     private void newPlayer(){
         MainMenuViewController mainMenu = new MainMenuViewController();
-        Scanner in = new Scanner(System.in);
         String selectedCharacter;
         System.out.print("Type the number of corresponding character wich you'd like to choose: ");
         selectedCharacter = in.next();
@@ -64,7 +64,29 @@ public class CharacterMenuViewController {
             selectChar(mainMenu.playerName);
         }
     }
+
+    private DifficultyLevel setDifficulty(){
+        String dif;
+        System.out.println("Set difficulty level: ");
+        dif = in.next();
+        switch (dif){
+            case "1":
+                return DifficultyLevel.SUPEREASY;
+            case "2":
+                return DifficultyLevel.EASY;
+            case "3":
+                return DifficultyLevel.NORMAL;
+            case "4":
+                break;
+            case "5":
+                break;
+            default:
+        }
+        return null;
+    }
+
     private void startMapView(Player player){
+        DifficultyLevel difficulty = setDifficulty();
         System.out.println("\nStarting map view...");
     }
 }
