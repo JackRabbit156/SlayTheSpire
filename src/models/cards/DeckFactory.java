@@ -9,21 +9,12 @@ import models.cards.ironclad_cards.attack.common.*;
 import models.cards.ironclad_cards.attack.uncommon.*;
 import models.cards.ironclad_cards.attack.rare.*;
 
-import models.cards.ironclad_cards.power.rare.BerserkCard;
-import models.cards.ironclad_cards.power.rare.JuggernautCard;
-import models.cards.ironclad_cards.power.uncommon.InflameCard;
-import models.cards.ironclad_cards.power.uncommon.MetallicizeCard;
-import models.cards.ironclad_cards.power.uncommon.RuptureCard;
-import models.cards.ironclad_cards.skill.common.FlexCard;
-import models.cards.ironclad_cards.skill.common.ShrugItOffCard;
-import models.cards.ironclad_cards.skill.common.WarcryCard;
+import models.cards.ironclad_cards.power.rare.*;
+import models.cards.ironclad_cards.power.uncommon.*;
+import models.cards.ironclad_cards.skill.common.*;
 import models.cards.ironclad_cards.skill.rare.OfferingCard;
-import models.cards.ironclad_cards.skill.uncommon.EntrenchCard;
-import models.cards.ironclad_cards.skill.uncommon.GhostlyArmorCard;
-import models.cards.ironclad_cards.skill.uncommon.RageCard;
-import models.cards.ironclad_cards.skill.uncommon.SpotWeaknessCard;
+import models.cards.ironclad_cards.skill.uncommon.*;
 import models.player.player_structure.Player;
-import models.player.player_structure.PlayerType;
 
 import java.io.*;
 import java.nio.file.Files;
