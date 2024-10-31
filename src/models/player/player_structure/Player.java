@@ -1,6 +1,8 @@
 package models.player.player_structure;
 
 import models.cards.card_structure.Card;
+import models.cards.card_structure.CardTrigger;
+import models.cards.card_structure.PowerCard;
 import models.relics.relic_structure.Relic;
 
 import java.util.List;
@@ -20,6 +22,8 @@ public abstract class Player {
     private int block;
 
     private List<Card> deck;
+
+    private List<PowerCard> powerCards;
 
     private Relic relic;
 
@@ -95,6 +99,13 @@ public abstract class Player {
 
     public void increaseBlock(int block) {
         this.block += block;
+        for (PowerCard powerCard : powerCards) {
+            if (powerCard.getCardTrigger().equals(CardTrigger.GAIN_BLOCK)) {
+                //TODO add GameContext gameContext ??
+//                powerCard.ability(gameContext);
+            }
+        }
+
     }
 
 
