@@ -10,11 +10,12 @@ import models.cards.card_structure.PowerCard;
 import models.enemy.Enemy;
 import models.player.player_structure.Player;
 import view.BattleView;
+import listener.PlayerEventListener;
 
 import java.util.List;
 import java.util.Scanner;
 
-public class BattleViewController {
+public class BattleViewController implements PlayerEventListener{
     private Player player;
     private List<Enemy> enemies;
     private BattleView view;
