@@ -59,16 +59,16 @@ public class BattleViewController {
         battleDeck.fillHand(battleDeck.getStartHandSize());
         player.resetEnergy();
         player.resetBlock();
-        triggerCard(CardTrigger.PLAYER_BOT);
+        triggerPowerCard(CardTrigger.PLAYER_BOT);
     }
 
 
     private void playerEOT() {
         removeHandAfterEndOfTurn();
-        triggerCard(CardTrigger.PLAYER_EOT);
+        triggerPowerCard(CardTrigger.PLAYER_EOT);
     }
 
-    private void triggerCard(CardTrigger trigger) {
+    private void triggerPowerCard(CardTrigger trigger) {
         List<PowerCard> currentPowerCards = battleDeck.getCurrentPowerCards();
 
         for (PowerCard currentPowerCard : currentPowerCards) {
