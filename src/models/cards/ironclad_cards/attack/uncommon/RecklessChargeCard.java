@@ -2,6 +2,7 @@ package models.cards.ironclad_cards.attack.uncommon;
 
 import models.GameContext;
 import models.cards.card_structure.AttackCard;
+import models.cards.card_structure.CardGrave;
 import models.cards.card_structure.CardRarity;
 import models.enemy.Enemy;
 import models.player.player_structure.Player;
@@ -10,7 +11,7 @@ import java.util.Scanner;
 
 public class RecklessChargeCard extends AttackCard {
     public RecklessChargeCard() {
-        super("Reckless Charge", "Deal 7 damage. Shuffle a Dazed into your draw pile.", 0, 7, CardRarity.UNCOMMON);
+        super("Reckless Charge", "Deal 7 damage. Shuffle a Dazed into your draw pile.", 0, 7, CardRarity.UNCOMMON, CardGrave.DISCARD);
     }
 
     @Override
@@ -22,7 +23,7 @@ public class RecklessChargeCard extends AttackCard {
         enemy.takeDamage(dealDamage());
 
         Player player = gameContext.getPlayer();
-        player.loseEnergy(getCost());
+        player.decreaseCurrentEnergy(getCost());
 
         //TODO deck.add dazed
     }

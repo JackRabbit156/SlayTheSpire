@@ -6,13 +6,14 @@ import models.player.player_structure.Player;
 import java.util.List;
 
 public class GameContext {
-    private Player player;
-    private List<Enemy> enemies;
-    //TODO Battledeck hinzufügen
+    private final Player player;
+    private final List<Enemy> enemies;
+    private final BattleDeck battleDeck;
 
-    public GameContext(Player player, List<Enemy> enemies){
+    public GameContext(Player player, List<Enemy> enemies, BattleDeck battleDeck){
         this.player = player;
         this.enemies = enemies;
+        this.battleDeck = battleDeck;
     }
 
     public Player getPlayer(){
@@ -21,5 +22,9 @@ public class GameContext {
 
     public List<Enemy> getEnemies(){
         return enemies;
+    }
+
+    public BattleDeck getBattleDeck() {
+        return battleDeck;
     }
 }

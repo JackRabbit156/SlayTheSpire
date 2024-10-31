@@ -47,11 +47,17 @@ public abstract class Player {
     public void resetEnergy() {
         currentEnergy = maxEnergy;
     }
+    public void resetBlock() {
+        block = 0;
+    }
 
-    public void loseEnergy(int energy) {
+    public void decreaseCurrentEnergy(int energy) {
         currentEnergy -= energy;
     }
 
+    public void increaseCurrentEnergy(int energy) {
+        currentEnergy += energy;
+    }
     public void decreaseCurrentHealth(int dmg) {
         currentHealth -= dmg;
         if (currentHealth < 0)

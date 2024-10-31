@@ -4,6 +4,7 @@ import helper.ConsoleAssistent;
 import models.BattleDeck;
 import models.GameContext;
 import models.cards.card_structure.Card;
+import models.cards.card_structure.CardGrave;
 import models.enemy.Enemy;
 import models.player.player_structure.Player;
 import view.BattleView;
@@ -16,22 +17,23 @@ public class BattleViewController {
     private List<Enemy> enemies;
     private BattleView view;
     private Scanner scanner;
-    private BattleDeck cardManager;
+    private BattleDeck battleDeck;
 
     public BattleViewController(Player player, List<Enemy> enemies) {
         this.player = player;
         this.enemies = enemies;
         this.view = new BattleView();
         this.scanner = new Scanner(System.in);
-        this.cardManager = new BattleDeck(player.getDeck());
+        this.battleDeck = new BattleDeck(player.getDeck());
     }
 
     public void startBattle() {
         ConsoleAssistent.clearScreen();
         while (player.isAlive() && !enemies.isEmpty()) {
-            cardManager.fillHand(cardManager.getStartHandSize());
+            battleDeck.fillHand(battleDeck.getStartHandSize());
             player.resetEnergy();
-            view.display(player, enemies, cardManager.getHand());
+            player.resetBlock();
+            view.display(player, enemies, battleDeck.getHand());
 
             playerTurn();
 
@@ -62,7 +64,7 @@ public class BattleViewController {
             switch (choice){
                 case 1:
                     selectCard();
-                    view.display(player, enemies, cardManager.getHand());
+                    view.display(player, enemies, battleDeck.getHand());
                     break;
                 case 2: return;
                  default:
@@ -76,22 +78,29 @@ public class BattleViewController {
     private void selectCard() {
         System.out.print("Choose a card to play: ");
         int cardIndex = scanner.nextInt() - 1;
-        List<Card> hand = cardManager.getHand();
+        List<Card> hand = battleDeck.getHand();
 
         if (cardIndex >= 0 && cardIndex < hand.size()) {
             Card selectedCard = hand.get(cardIndex);
 
-            selectedCard.play(new GameContext(player, enemies));
-
-            cardManager.discardCard(selectedCard);
+            selectedCard.play(new GameContext(player, enemies, battleDeck));
+            if (selectedCard.getCardGrave() == CardGrave.EXHAUST) {
+                battleDeck.exhaustCardFromHand(selectedCard);
+            }
+            else if (selectedCard.getCardGrave() == CardGrave.DISCARD) {
+                battleDeck.discardCardFromHand(selectedCard);
+            }
+            else {
+                battleDeck.removeCardFromHand(selectedCard);
+            }
         } else {
             System.out.println("Invalid card selection.");
         }
     }
 
     private void removeHandAfterEndOfTurn() {
-        for(int i = 0; i< cardManager.getHand().size(); i++)
-            cardManager.discardCard(cardManager.getHand().get(i));
+        for(int i = 0; i< battleDeck.getHand().size(); i++)
+            battleDeck.discardCardFromHand(battleDeck.getHand().get(i));
     }
 
     private void enemyTurn() {

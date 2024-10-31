@@ -2,6 +2,7 @@ package models.cards.ironclad_cards.attack.rare;
 
 import models.GameContext;
 import models.cards.card_structure.AttackCard;
+import models.cards.card_structure.CardGrave;
 import models.cards.card_structure.CardRarity;
 import models.enemy.Enemy;
 import models.player.player_structure.Player;
@@ -10,7 +11,7 @@ import java.util.Scanner;
 
 public class FiendFireCard extends AttackCard {
     public FiendFireCard() {
-        super("Fiend Fire", "Exhaust all cards in your hand. Deal 7 damage for each Exhausted card.Exhaust.", 2, 7, CardRarity.RARE);
+        super("Fiend Fire", "Exhaust all cards in your hand. Deal 7 damage for each Exhausted card.Exhaust.", 2, 7, CardRarity.RARE, CardGrave.EXHAUST);
     }
 
     @Override
@@ -22,9 +23,9 @@ public class FiendFireCard extends AttackCard {
         enemy.takeDamage(dealDamage());
 
         Player player = gameContext.getPlayer();
-        player.loseEnergy(getCost());
+        player.decreaseCurrentEnergy(getCost());
 
-        //TODO Exhaust Exhaust for
+        //TODO Exhaust for
     }
 
     @Override

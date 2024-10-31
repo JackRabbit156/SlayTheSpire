@@ -3,6 +3,7 @@ package models;
 import models.cards.card_structure.Card;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
@@ -11,6 +12,7 @@ public class BattleDeck {
     private List<Card> hand;
     private List<Card> discardPile;
     private List<Card> exhaustPile;
+    private List<Card> currentPowerCards;
     private Random random;
     private int startHandSize;
 
@@ -27,6 +29,10 @@ public class BattleDeck {
         return hand;
     }
 
+    public void createShuffledDeck() {
+        Collections.shuffle(deck);
+    }
+
     public void fillHand(int count) {
         //hand.clear();
 
@@ -35,8 +41,7 @@ public class BattleDeck {
             if (deck.isEmpty()) {
                 break;
             }
-            int randomIndex = random.nextInt(deck.size());
-            hand.add(deck.remove(randomIndex));
+            hand.add(deck.remove(deck.size() - 1)); //zieht von oben
         }
 
     }
@@ -45,7 +50,7 @@ public class BattleDeck {
         fillHand(hand.size() + count);
     }
 
-    public void discardCard(Card card) {
+    public void discardCardFromHand(Card card) {
         discardPile.add(card);
         hand.remove(card);
     }
@@ -55,8 +60,16 @@ public class BattleDeck {
         hand.remove(card);
     }
 
+    public void removeCardFromHand(Card card) {
+        hand.remove(card);
+    }
+
     public void exhaustCardFromDeck(Card card) {
         exhaustPile.add(card);
+        deck.remove(card);
+    }
+
+    public void removeCardFromDeck(Card card) {
         deck.remove(card);
     }
 
@@ -70,5 +83,17 @@ public class BattleDeck {
 
     public int getStartHandSize() {
         return startHandSize;
+    }
+
+    public List<Card> getDiscardPile() {
+        return discardPile;
+    }
+
+    public List<Card> getDeck() {
+        return deck;
+    }
+
+    public List<Card> getCurrentPowerCards() {
+        return currentPowerCards;
     }
 }

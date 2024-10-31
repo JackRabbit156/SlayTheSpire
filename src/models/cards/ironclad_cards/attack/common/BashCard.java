@@ -2,6 +2,7 @@ package models.cards.ironclad_cards.attack.common;
 
 import models.GameContext;
 import models.cards.card_structure.AttackCard;
+import models.cards.card_structure.CardGrave;
 import models.cards.card_structure.CardRarity;
 import models.enemy.Enemy;
 import models.player.player_structure.Player;
@@ -10,7 +11,7 @@ import java.util.Scanner;
 
 public class BashCard extends AttackCard {
     public BashCard() {
-        super("Bash", "Deal 2 Damage. Apply 2 Vulnerable.", 2, 8, CardRarity.COMMON);
+        super("Bash", "Deal 2 Damage. Apply 2 Vulnerable.", 2, 8, CardRarity.COMMON, CardGrave.DISCARD);
     }
 
     @Override
@@ -22,8 +23,8 @@ public class BashCard extends AttackCard {
         enemy.takeDamage(dealDamage());
 
         Player player = gameContext.getPlayer();
-        player.loseEnergy(getCost());
-        //TODO Apply 2 Vulnerable
+        player.decreaseCurrentEnergy(getCost());
+        //TODO Apply Debuff 2 Vulnerable
     }
 
     @Override

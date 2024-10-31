@@ -2,6 +2,7 @@ package models.cards.general_cards;
 
 import models.GameContext;
 import models.cards.card_structure.AttackCard;
+import models.cards.card_structure.CardGrave;
 import models.cards.card_structure.CardRarity;
 import models.enemy.Enemy;
 import models.player.player_structure.Player;
@@ -10,7 +11,7 @@ import java.util.Scanner;
 
 public class StrikeCard extends AttackCard {
     public StrikeCard() {
-        super("Strike", "Deal 6 damage.", 1, 6, CardRarity.COMMON);
+        super("Strike", "Deal 6 damage.", 1, 6, CardRarity.COMMON, CardGrave.DISCARD);
     }
 
     @Override
@@ -22,7 +23,7 @@ public class StrikeCard extends AttackCard {
         enemy.takeDamage(dealDamage());
 
         Player player = gameContext.getPlayer();
-        player.loseEnergy(getCost());
+        player.decreaseCurrentEnergy(getCost());
     }
 
     @Override

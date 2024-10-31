@@ -2,6 +2,7 @@ package models.cards.ironclad_cards.attack.rare;
 
 import models.GameContext;
 import models.cards.card_structure.AttackCard;
+import models.cards.card_structure.CardGrave;
 import models.cards.card_structure.CardRarity;
 import models.enemy.Enemy;
 import models.player.player_structure.Player;
@@ -10,7 +11,7 @@ import java.util.List;
 
 public class ReaperCard extends AttackCard {
     public ReaperCard() {
-        super("Reaper", "Deal 4 damage to ALL enemies. Heal HP equal to unblocked damage. Exhaust.", 2, 4, CardRarity.RARE);
+        super("Reaper", "Deal 4 damage to ALL enemies. Heal HP equal to unblocked damage. Exhaust.", 2, 4, CardRarity.RARE, CardGrave.EXHAUST);
     }
 
     @Override
@@ -26,11 +27,9 @@ public class ReaperCard extends AttackCard {
         }
 
         Player player = gameContext.getPlayer();
-        player.loseEnergy(getCost());
+        player.decreaseCurrentEnergy(getCost());
 
         player.increaseCurrentHealth(bonusHp);
-
-        //TODO Exhaust
     }
 
     @Override

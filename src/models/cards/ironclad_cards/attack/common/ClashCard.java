@@ -2,6 +2,7 @@ package models.cards.ironclad_cards.attack.common;
 
 import models.GameContext;
 import models.cards.card_structure.AttackCard;
+import models.cards.card_structure.CardGrave;
 import models.cards.card_structure.CardRarity;
 import models.enemy.Enemy;
 import models.player.player_structure.Player;
@@ -10,7 +11,7 @@ import java.util.Scanner;
 
 public class ClashCard extends AttackCard {
     public ClashCard() {
-        super("Clash", "Can only be played if every card in your hand is an Attack. Deal 14 damage.", 0, 14, CardRarity.COMMON);
+        super("Clash", "Can only be played if every card in your hand is an Attack. Deal 14 damage.", 0, 14, CardRarity.COMMON, CardGrave.DISCARD);
     }
 
     @Override
@@ -26,7 +27,7 @@ public class ClashCard extends AttackCard {
 
         enemy.takeDamage(dealDamage());
 
-        player.loseEnergy(getCost());
+        player.decreaseCurrentEnergy(getCost());
     }
 
     @Override

@@ -2,6 +2,7 @@ package models.cards.ironclad_cards.attack.uncommon;
 
 import models.GameContext;
 import models.cards.card_structure.AttackCard;
+import models.cards.card_structure.CardGrave;
 import models.cards.card_structure.CardRarity;
 import models.enemy.Enemy;
 import models.player.player_structure.Player;
@@ -10,7 +11,7 @@ import java.util.Scanner;
 
 public class WhirlwindCard extends AttackCard {
     public WhirlwindCard() {
-        super("Whirlwind", "Deal 8 damage to ALL enemies X times.", 1, 5, CardRarity.UNCOMMON);
+        super("Whirlwind", "Deal 8 damage to ALL enemies X times.", 1, 5, CardRarity.UNCOMMON, CardGrave.DISCARD);
     }
 
     @Override
@@ -34,7 +35,7 @@ public class WhirlwindCard extends AttackCard {
         }
 
 
-        player.loseEnergy(getCost() * times);
+        player.decreaseCurrentEnergy(getCost() * times);
     }
 
     @Override

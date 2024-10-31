@@ -3,6 +3,7 @@ package models.cards.ironclad_cards.attack.common;
 import models.GameContext;
 import models.cards.card_structure.AttackCard;
 import models.cards.card_structure.Card;
+import models.cards.card_structure.CardGrave;
 import models.cards.card_structure.CardRarity;
 import models.cards.general_cards.StrikeCard;
 import models.enemy.Enemy;
@@ -13,7 +14,7 @@ import java.util.Scanner;
 
 public class PerfectedStrikeCard extends AttackCard {
     public PerfectedStrikeCard() {
-        super("Perfected Strike", "Deal 6 damage. Deals 2 additional damage for ALL your cards containing \"Strike\".", 2, 6, CardRarity.COMMON);
+        super("Perfected Strike", "Deal 6 damage. Deals 2 additional damage for ALL your cards containing \"Strike\".", 2, 6, CardRarity.COMMON, CardGrave.DISCARD);
     }
 
     @Override
@@ -22,7 +23,7 @@ public class PerfectedStrikeCard extends AttackCard {
         int targetIndex = new Scanner(System.in).nextInt() - 1;
 
         Player player = gameContext.getPlayer();
-        player.loseEnergy(getCost());
+        player.decreaseCurrentEnergy(getCost());
 
         PerfectedStrikeCard perfectedStrikeCard = new PerfectedStrikeCard();
         PommelStrikeCard pommelStrikeCard = new PommelStrikeCard();
