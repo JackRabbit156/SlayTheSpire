@@ -40,7 +40,6 @@ public abstract class Player {
         this.gold = 0;
         this.currentAct = 1;
         this.playerType = playerType;
-
         this.symbol = symbol;
     }
 
@@ -81,6 +80,10 @@ public abstract class Player {
         this.gold += gold;
     }
 
+    public void decreaseGold(int gold) {
+        this.gold -= gold;
+    }
+
     public void increaseBlock(int block) {
         this.block += block;
     }
@@ -93,6 +96,10 @@ public abstract class Player {
 
     public void setDeck(List<Card> deck) {
         this.deck = deck;
+    }
+
+    public void addCardToDeck(Card addCard) {
+        this.deck.add(addCard);
     }
 
     public String getName() {
