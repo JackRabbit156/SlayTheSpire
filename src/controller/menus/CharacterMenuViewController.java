@@ -8,11 +8,18 @@ import view.menus.CharacterMenuView;
 import java.util.Scanner;
 
 public class CharacterMenuViewController {
+    public String playerName;
     private CharacterMenuView charView;
     private Scanner in = new Scanner(System.in);
 
     public CharacterMenuViewController(){
         charView = new CharacterMenuView();
+    }
+
+    public void getBacktoMenu(){
+        MainMenuViewController mainMenu = new MainMenuViewController();
+        playerName = mainMenu.playerName;
+        mainMenu.startMenu();
     }
 
     /**
@@ -22,13 +29,11 @@ public class CharacterMenuViewController {
      * @param playerName
      */
     public void selectChar(String playerName){
-        MainMenuViewController mainMenu = new MainMenuViewController();
         System.out.println("Hello! " + playerName + "\n");
         charView.charMenu();
 
         if (playerName.toLowerCase().equals("exit")) {
-            mainMenu.startMenu();
-            return;
+            getBacktoMenu();
         }
         newPlayer();
     }
@@ -38,7 +43,6 @@ public class CharacterMenuViewController {
      * Eine falsche Eingabe, oder die Eingabe "exit" führt zurück zu selectChar()
      */
     private void newPlayer(){
-        MainMenuViewController mainMenu = new MainMenuViewController();
         String selectedCharacter;
         System.out.print("Type the number of corresponding character wich you'd like to choose: ");
         selectedCharacter = in.next();
@@ -54,18 +58,18 @@ public class CharacterMenuViewController {
             startMapView(player);
         }
         else if (selectedCharacter.toLowerCase().equals("exit")){
-            mainMenu.startMenu();
+            getBacktoMenu();
         }
         // Bei falscher Eingabe gehts zurück zum Anfang der character creation.
         else {
             System.out.println("\tWrong input... \t\n\n");
             System.out.println("Choose a username: ");
-            mainMenu.playerName = in.next();
-            selectChar(mainMenu.playerName);
+            playerName = in.next();
+            selectChar(playerName);
         }
     }
 
-    private DifficultyLevel setDifficulty(){
+    public DifficultyLevel setDifficulty(){
         String dif;
         System.out.println("Set difficulty level: ");
         dif = in.next();
@@ -81,6 +85,7 @@ public class CharacterMenuViewController {
             case "5":
                 break;
             default:
+                selectChar(playerName);
         }
         return null;
     }
