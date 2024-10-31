@@ -2,6 +2,7 @@ package models.cards.silent_cards;
 
 import models.GameContext;
 import models.cards.card_structure.AttackCard;
+import models.cards.card_structure.CardGrave;
 import models.cards.card_structure.CardRarity;
 import models.enemy.Enemy;
 import models.player.player_structure.Player;
@@ -10,7 +11,7 @@ import java.util.Scanner;
 
 public class NeutralizeCard extends AttackCard {
     public NeutralizeCard() {
-        super("Neutralize", "Deal 3 damage. Apply 1 Weak.", 0, 3, CardRarity.COMMON);
+        super("Neutralize", "Deal 3 damage. Apply 1 Weak.", 0, 3, CardRarity.COMMON, CardGrave.DISCARD);
     }
 
     @Override
@@ -24,7 +25,7 @@ public class NeutralizeCard extends AttackCard {
         Player player = gameContext.getPlayer();
         player.decreaseCurrentEnergy(getCost());
 
-        //TODO Apply 1 Weak
+        //TODO Apply Debuff 1 Weak
     }
 
     @Override
