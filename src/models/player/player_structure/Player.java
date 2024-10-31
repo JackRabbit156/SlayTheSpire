@@ -23,15 +23,22 @@ public abstract class Player {
 
     private Relic relic;
 
+    private int currentAct;
+
+    private String symbol;
+
 
     // * Constructor *
-    public Player(String name, int maxHealth, int maxEnergy) {
+    public Player(String name, int maxHealth, int maxEnergy, String symbol) {
         this.name = name;
         this.maxHealth = maxHealth;
         this.maxEnergy = maxEnergy;
         this.currentHealth = this.maxHealth;
         this.currentEnergy = this.maxEnergy;
         this.gold = 0;
+        this.currentAct = 1;
+
+        this.symbol = symbol;
     }
 
     // * Methods *
@@ -126,5 +133,17 @@ public abstract class Player {
 
     public void setRelic(Relic relic) {
         this.relic = relic;
+    }
+
+    public String getSymbol() {
+        return symbol;
+    }
+
+    public void setCurrentAct(){
+        this.currentAct = currentAct;
+    }
+
+    public int getCurrentAct(){
+        return currentAct;
     }
 }

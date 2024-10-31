@@ -16,7 +16,7 @@ import java.util.List;
 public class Silent extends Player {
     // * Constructor *
     public Silent() {
-        super("Silent", 70, 3);
+        super("Silent", 70, 3, "⚖");
         initRelic();
         initDeck();
     }
