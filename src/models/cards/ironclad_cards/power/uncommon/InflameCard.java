@@ -19,7 +19,7 @@ public class InflameCard extends PowerCard {
         Player player = gameContext.getPlayer();
         BattleDeck battleDeck = gameContext.getBattleDeck();
 
-        battleDeck.getCurrentPowerCards().add(new InflameCard());
+        battleDeck.addPowerCards(new InflameCard());
 
         //TODO gain 2 Strength
 

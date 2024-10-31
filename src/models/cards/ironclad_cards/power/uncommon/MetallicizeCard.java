@@ -19,7 +19,7 @@ public class MetallicizeCard extends PowerCard {
         Player player = gameContext.getPlayer();
         BattleDeck battleDeck = gameContext.getBattleDeck();
 
-        battleDeck.getCurrentPowerCards().add(new MetallicizeCard());
+        battleDeck.addPowerCards(new MetallicizeCard());
 
         player.decreaseCurrentEnergy(getCost());
     }

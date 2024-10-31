@@ -18,7 +18,7 @@ public class BerserkCard extends PowerCard {
     public void play(GameContext gameContext) {
         Player player = gameContext.getPlayer();
         BattleDeck battleDeck = gameContext.getBattleDeck();
-        battleDeck.getCurrentPowerCards().add(new BerserkCard());
+        battleDeck.addPowerCards(new BerserkCard());
 
         //TODO Debuff Vulnerable
 
