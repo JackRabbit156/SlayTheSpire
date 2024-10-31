@@ -1,5 +1,7 @@
 package controller.menus;
 
+import controller.MapViewController;
+import models.game_settings.GameSettings;
 import models.game_settings.structure.DifficultyLevel;
 import models.game_settings.structure.GameMode;
 import models.player.Ironclad;
@@ -123,8 +125,9 @@ public class CharacterMenuViewController {
     }
 
     private void startMapView(Player player){
-        DifficultyLevel difficulty = setDifficulty();
-        GameMode mode = setGameMode();
+        GameSettings.difficultylevel = setDifficulty();
+        //GameSettings.gameMode = setGameMode();
         System.out.println("\nStarting map view...");
+        MapViewController map = new MapViewController(player);
     }
 }
