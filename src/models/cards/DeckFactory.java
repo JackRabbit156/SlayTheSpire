@@ -9,6 +9,19 @@ import models.cards.ironclad_cards.attack.common.*;
 import models.cards.ironclad_cards.attack.uncommon.*;
 import models.cards.ironclad_cards.attack.rare.*;
 
+import models.cards.ironclad_cards.power.rare.BerserkCard;
+import models.cards.ironclad_cards.power.rare.JuggernautCard;
+import models.cards.ironclad_cards.power.uncommon.InflameCard;
+import models.cards.ironclad_cards.power.uncommon.MetallicizeCard;
+import models.cards.ironclad_cards.power.uncommon.RuptureCard;
+import models.cards.ironclad_cards.skill.common.FlexCard;
+import models.cards.ironclad_cards.skill.common.ShrugItOffCard;
+import models.cards.ironclad_cards.skill.common.WarcryCard;
+import models.cards.ironclad_cards.skill.rare.OfferingCard;
+import models.cards.ironclad_cards.skill.uncommon.EntrenchCard;
+import models.cards.ironclad_cards.skill.uncommon.GhostlyArmorCard;
+import models.cards.ironclad_cards.skill.uncommon.RageCard;
+import models.cards.ironclad_cards.skill.uncommon.SpotWeaknessCard;
 import models.player.player_structure.Player;
 import models.player.player_structure.PlayerType;
 
@@ -24,7 +37,7 @@ import java.util.Random;
  * @author Keil, Vladislav
  */
 public class DeckFactory {
-    private Path sourceFilePath = Paths.get("resources/PlayerCards/");
+    private Path sourceFilePath = Paths.get("src/resources/PlayerCards/");
     private Path characterFilePath;
     private List<Card> genDeck;
     private Player player;
@@ -118,19 +131,26 @@ public class DeckFactory {
             case "WhirlwindCard": cardToTransform = new WhirlwindCard(); break;
 
             // Skill
-            // CommonCards
-
-            // UncommonCard
-
             // RareCard
-
+            case "BerserkCard": cardToTransform = new BerserkCard(); break;
+            case "JuggernautCard": cardToTransform = new JuggernautCard(); break;
+            // UncommonCard
+            case "InflameCard": cardToTransform = new InflameCard(); break;
+            case "MetallicizeCard": cardToTransform = new MetallicizeCard(); break;
+            case "RuptureCard": cardToTransform = new RuptureCard(); break;
 
             // Power
             // CommonCards
-
-            // UncommonCard
-
+            case "FlexCard": cardToTransform = new FlexCard(); break;
+            case "ShrugItOffCard": cardToTransform = new ShrugItOffCard(); break;
+            case "WarcryCard": cardToTransform = new WarcryCard(); break;
             // RareCard
+            case "OfferingCard": cardToTransform = new OfferingCard(); break;
+            // UncommonCard
+            case "EntrenchCard": cardToTransform = new EntrenchCard(); break;
+            case "GhostlyArmorCard": cardToTransform = new GhostlyArmorCard(); break;
+            case "RageCard": cardToTransform = new RageCard(); break;
+            case "SpotWeaknessCard": cardToTransform = new SpotWeaknessCard(); break;
         }
 
         return cardToTransform;
