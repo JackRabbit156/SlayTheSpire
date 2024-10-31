@@ -14,7 +14,7 @@ import java.util.List;
 public class Ironclad extends Player {
     // * Constructor *
     public Ironclad() {
-        super("Ironclad", 80, 3);
+        super("Ironclad", 80, 3, "⚒");
         initRelic();
         initDeck();
     }
