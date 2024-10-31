@@ -165,4 +165,8 @@ public abstract class Player {
     public int getCurrentAct(){
         return currentAct;
     }
+
+    public PlayerType getPlayerType() {
+        return playerType;
+    }
 }

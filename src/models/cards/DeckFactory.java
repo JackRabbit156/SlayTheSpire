@@ -44,7 +44,7 @@ public class DeckFactory {
     }
 
     public List<Card> init() {
-        switch (player.getTyp()) {
+        switch (player.getPlayerType()) {
             case WATCHER:
             case DEFECT:
             case SILENT:
