@@ -19,7 +19,7 @@ public class ShopView {
     public void display(Player player, List<Card> shopCards) {
         displayTitle();
 
-        System.out.printf("%s %d.%n", "Character Coins:", player.getGold());
+        System.out.printf("%s %d.%n", "Character Gold:", player.getGold());
 
         System.out.printf("%s %n", "1. Purchasable-Cards:");
         System.out.println(ConsoleAssistent.repeat(80, "-"));
@@ -29,7 +29,7 @@ public class ShopView {
         System.out.printf("%s %n", "2. Purchasable-Potions:");
         System.out.printf("%s %n", "Coming soon... This selection leads to the number 1");
         System.out.println();
-        System.out.printf("%s %n", "3. Relicts-Potions:");
+        System.out.printf("%s %n", "3. Purchasable-Relics:");
         System.out.printf("%s %n", "Coming soon... This selection leads to the number 1");
         System.out.println();
     }
