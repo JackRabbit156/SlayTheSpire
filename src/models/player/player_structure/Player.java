@@ -27,9 +27,11 @@ public abstract class Player {
 
     private String symbol;
 
+    private PlayerType playerType;
+
 
     // * Constructor *
-    public Player(String name, int maxHealth, int maxEnergy, String symbol) {
+    public Player(String name, int maxHealth, int maxEnergy, PlayerType playerType, String symbol) {
         this.name = name;
         this.maxHealth = maxHealth;
         this.maxEnergy = maxEnergy;
@@ -37,6 +39,7 @@ public abstract class Player {
         this.currentEnergy = this.maxEnergy;
         this.gold = 0;
         this.currentAct = 1;
+        this.playerType = playerType;
 
         this.symbol = symbol;
     }
@@ -54,27 +57,20 @@ public abstract class Player {
     public void resetEnergy() {
         currentEnergy = maxEnergy;
     }
-    public void resetBlock() {
-        block = 0;
-    }
 
-    public void decreaseCurrentEnergy(int energy) {
+    public void loseEnergy(int energy) {
         currentEnergy -= energy;
     }
 
-    public void increaseCurrentEnergy(int energy) {
-        currentEnergy += energy;
-    }
     public void decreaseCurrentHealth(int dmg) {
         currentHealth -= dmg;
-        if (currentHealth < 0)
-            currentHealth = 0;
     }
 
     public void increaseCurrentHealth(int hp) {
         currentHealth += hp;
-        if (currentHealth > maxHealth)
+        if (currentHealth > maxHealth) {
             currentHealth = maxHealth;
+        }
     }
 
     public void increaseMaxHealth(int hp) {
