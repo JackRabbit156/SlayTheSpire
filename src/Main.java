@@ -1,13 +1,5 @@
-import controller.BattleViewController;
 import controller.MapViewController;
-import models.enemy.AcidSlime;
-import models.enemy.Cultist;
-import models.enemy.Enemy;
-import models.enemy.SpikeSlime;
 import models.player.Ironclad;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class Main {
     public static void main(String[] args) {

@@ -19,6 +19,8 @@ public class BattleViewController {
     private Scanner scanner;
     private BattleDeck battleDeck;
 
+
+
     public BattleViewController(Player player, List<Enemy> enemies) {
         this.player = player;
         this.enemies = enemies;
@@ -107,9 +109,10 @@ public class BattleViewController {
         System.out.println("\nEnemies' Turn:");
         for (Enemy enemy : enemies) {
             if (enemy.isAlive()) {
-                int damage = enemy.attack();
-                player.decreaseCurrentHealth(damage);
-                view.displayAttack(enemy.getName(), player.getName(), damage);
+
+                enemy.attack(new GameContext(player, enemies, battleDeck));
+
+                //view.displayAttack(enemy.getName(), player.getName(), damage);
             }
         }
     }

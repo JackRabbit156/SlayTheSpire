@@ -1,5 +1,6 @@
 package models.map_elements.field_types;
 
+import controller.ShopViewController;
 import models.player.player_structure.Player;
 
 public class ShopField extends Field{
@@ -9,6 +10,7 @@ public class ShopField extends Field{
 
     @Override
     public void doFieldThing(Player player) {
-
+        ShopViewController shop = new ShopViewController(player);
+        shop.entryShop();
     }
 }

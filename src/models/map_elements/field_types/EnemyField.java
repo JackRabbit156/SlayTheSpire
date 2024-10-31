@@ -1,7 +1,7 @@
 package models.map_elements.field_types;
 
 import controller.BattleViewController;
-import models.enemy.Cultist;
+import models.enemy.act_one.Cultist;
 import models.enemy.Enemy;
 import models.player.player_structure.Player;
 

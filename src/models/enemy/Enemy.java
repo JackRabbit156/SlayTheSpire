@@ -1,14 +1,33 @@
 package models.enemy;
 
-public class Enemy {
+import models.GameContext;
+
+import java.util.Random;
+
+public abstract class Enemy {
     private String name;
-    private int health;
+    private int currentHealth;
     private int maxHealth;
 
-    public Enemy(String name, int health) {
+    private int block;
+
+    public Enemy(String name, int lowestMaxHealthPossible, int highestMaxHealthPossible) {
         this.name = name;
-        this.health = health;
-        this.maxHealth = health;
+
+        this.maxHealth = generateMaxHealth(lowestMaxHealthPossible, highestMaxHealthPossible);
+        this.currentHealth = maxHealth;
+    }
+
+    public abstract void attack(GameContext gameContext);
+
+    private int generateMaxHealth(int lowestMaxHealthPossible, int highestMaxHealthPossible){
+        int difference = highestMaxHealthPossible - lowestMaxHealthPossible;
+
+        Random randi = new Random();
+
+        int hp = randi.nextInt(difference+1);
+
+        return lowestMaxHealthPossible + hp;
     }
 
     public String getName() {
@@ -16,7 +35,7 @@ public class Enemy {
     }
 
     public int getHealth() {
-        return health;
+        return currentHealth;
     }
 
     public int getMaxHealth() {
@@ -24,16 +43,21 @@ public class Enemy {
     }
 
     public boolean isAlive() {
-        return health > 0;
-    }
-
-    public int attack() {
-        int damage = 5; // example damage
-        return damage;
+        return currentHealth > 0;
     }
 
     public void takeDamage(int damage) {
-        health -= damage;
-        if (health < 0) health = 0;
+        currentHealth -= damage;
+        if (currentHealth < 0) currentHealth = 0;
     }
+
+    public void setBlock(int block){
+        this.block = block;
+    }
+
+    public int getBlock(){
+        return block;
+    }
+
+
 }

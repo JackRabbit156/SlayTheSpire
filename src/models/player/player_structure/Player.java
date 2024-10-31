@@ -38,7 +38,7 @@ public abstract class Player {
         this.currentHealth = this.maxHealth;
         this.currentEnergy = this.maxEnergy;
         this.gold = 0;
-        this.currentAct = 1;
+        this.currentAct = 4;
         this.playerType = playerType;
         this.symbol = symbol;
     }
