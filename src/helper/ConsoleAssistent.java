@@ -1,7 +1,4 @@
 package helper;
-
-//TODO FarbCodes als Enum
-
 /**
  * @author Keil, Vladslav
  */
