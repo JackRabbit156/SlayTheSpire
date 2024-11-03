@@ -2,8 +2,9 @@ package tests;
 
 import controller.LootViewController;
 import models.player.Ironclad;
-import models.player.player_structure.Player;
-
+/**
+ * @author Keil, Vladislav
+ */
 public class LootViewControllerTester {
 
     public static void main(String[] args) {

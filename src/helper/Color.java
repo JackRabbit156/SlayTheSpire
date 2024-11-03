@@ -1,5 +1,8 @@
 package helper;
 
+/**
+ * @author Keil, Vladislav
+ */
 public enum Color {
     RESET {
         @Override

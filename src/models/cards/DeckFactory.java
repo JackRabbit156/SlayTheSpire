@@ -11,9 +11,7 @@ import models.cards.ironclad_cards.attack.common.*;
 import models.cards.ironclad_cards.attack.uncommon.*;
 import models.cards.ironclad_cards.attack.rare.*;
 
-import models.player.Ironclad;
 import models.player.player_structure.Player;
-import models.player.player_structure.PlayerType;
 
 import java.io.*;
 import java.nio.file.Files;
@@ -28,18 +26,12 @@ import java.util.Random;
  * @author Keil, Vladislav
  */
 public class DeckFactory {
-    private Path sourceFilePath = Paths.get("src/resources/PlayerCards/");
+    private Path sourceFilePath = Paths.get("src/resources/PlayerCards/"); //TODO Löschen, wenn nur über enums
     private Path characterFilePath;
     private List<Card> genDeck;
     private Player player;
     private int amount;
     private Random rand = new Random();
-    /*
-        Was soll er erfüllen
-        Welcher Spieler?
-        Wieviel Karten?
-        Rückgabe von X Karten als Liste
-     */
 
     public DeckFactory(Player player, int amount) {
         this.player = player;
@@ -143,7 +135,7 @@ public class DeckFactory {
     }
 
 
-    /*
+    /* //TODO Löschen, wenn nur über enums
     private List<Card> initIroncladCards() {
         List availableCards = readCardFile();
         if (availableCards == null) {
@@ -220,6 +212,7 @@ public class DeckFactory {
         return cardToTransform;
     }
 */
+    //TODO Löschen, wenn nur über enums
     private List readCardFile() {
         Path cardListPath = sourceFilePath.resolve(characterFilePath);
 
