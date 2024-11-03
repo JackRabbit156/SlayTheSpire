@@ -1,5 +1,6 @@
 package controller.menus;
 
+import controller.MapViewController;
 import models.player.Ironclad;
 import models.player.Silent;
 import models.player.player_structure.Player;
@@ -66,5 +67,6 @@ public class CharacterMenuViewController {
     }
     private void startMapView(Player player){
         System.out.println("\nStarting map view...");
+        MapViewController map = new MapViewController(player);
     }
 }
