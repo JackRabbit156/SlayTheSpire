@@ -6,6 +6,7 @@ package helper;
  * @author Keil, Vladslav
  */
 public class ConsoleAssistent {
+    private static StringBuilder sb = new StringBuilder();
 
     public static void clearScreen() {
         System.out.print("\033[H\033[2J");
@@ -36,6 +37,16 @@ public class ConsoleAssistent {
         System.out.printf("%s%s%s%n", color, text, Color.RESET);
     }
 
+    /**
+     * Dient zu farblichen String Ausgabe.
+     * @param color Color Code {@link Color} Farben von
+     * @param text Text wird automatisch Resetet
+     * @return StringBuilder String
+     */
+    public static String printStr(Color color, String text) {
+         return sb.append(color).append(text).append(Color.RESET).toString();
+
+    }
     /**
      * Dient zum farblichen System.out.print
      *
