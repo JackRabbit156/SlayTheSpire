@@ -2,6 +2,7 @@ package models.load_save_game_elements;
 
 import controller.MapViewController;
 import models.cards.DeckFactory;
+import models.game_settings.GameSettings;
 import models.player.player_structure.Player;
 
 import java.time.LocalDateTime;
@@ -44,6 +45,21 @@ public class GameSaveManager {
         return savePreview;
     }
 
+    public void deleteSelcetedSaveFile(String session){
+        File folder = new File(SAVE_FOLDER);
+        File[] saveFiles = folder.listFiles((dir, name) -> name.startsWith("save_") && name.endsWith(".txt"));
+
+        for(int i = 0; i< saveFiles.length; i++){
+            if(saveFiles[i].getName().equals("save_"+session+".txt")){
+                saveFiles[i].delete();
+                System.out.println("Save file " + session + " successfully deleted!.");
+                return;
+            }
+        }
+
+        System.out.println("Error, could not delete file: " + session + ".");
+    }
+
     public void deleteSelcetedSaveFile(int id){
         File folder = new File(SAVE_FOLDER);
         File[] saveFiles = folder.listFiles((dir, name) -> name.startsWith("save_") && name.endsWith(".txt"));
@@ -74,22 +90,33 @@ public class GameSaveManager {
         return loadDataFromFile(saveFiles[id]);
     }
 
-    // Hilfsmethoden
-
     private void createSaveFolder() {
         File folder = new File(SAVE_FOLDER);
         if (!folder.exists()) folder.mkdir();
     }
 
     private Map<String, String> collectGameData(Player player) {
+        int seconds = GameSettings.getTimerSeconds();
+        int minutes = GameSettings.getTimerMinutes();
+        int hours = GameSettings.getTimerHours();
+
+        String currentTimeStamp = getCurrentTimestamp();
+
         Map<String, String> gameData = new HashMap<>();
+
         gameData.put("character", player.getPlayerType().toString());
         gameData.put("field", player.getCurrentField());
         gameData.put("currentAct", String.valueOf(player.getCurrentAct()));
         gameData.put("currentHealth", String.valueOf(player.getCurrentHealth()));
         gameData.put("gold", String.valueOf(player.getGold()));
-        gameData.put("lastSession", getCurrentTimestamp());
-        gameData.put("timePlayed", "0h 0m 0s"); // TODO: Richtige Spielzeit hinzufügen
+
+        gameData.put("lastSession", currentTimeStamp);
+        GameSettings.lastSession = currentTimeStamp;
+
+        gameData.put("timePlayed", hours+"h "+minutes+"m "+seconds+"s");
+        gameData.put("seconds", String.valueOf(seconds));
+        gameData.put("minutes", String.valueOf(minutes));
+        gameData.put("hours", String.valueOf(hours));
 
         for (int i = 0; i < player.getDeck().size(); i++) {
             gameData.put("card" + i, player.getDeck().get(i).getName() + "Card");

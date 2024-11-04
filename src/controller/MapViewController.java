@@ -1,5 +1,7 @@
 package controller;
 
+import models.game_settings.GameCounter;
+import models.game_settings.GameSettings;
 import models.load_save_game_elements.GameSaveManager;
 import models.map_elements.acts.Act;
 import models.map_elements.acts.ActFour;
@@ -47,6 +49,8 @@ public class MapViewController {
                 System.out.println("Weird"); return;
         }
 
+        // Startet den Timer, der die Spielzeit aufzeichnet
+        GameSettings.startTimer();
 
         /*GameSaveManager gameSaveManager = new GameSaveManager();
         gameSaveManager.saveGame(player);*/
@@ -73,6 +77,8 @@ public class MapViewController {
             mapView.printMap(act.getRawMap(), act.getNodes());
             act.goToValidDirection(player);
         }
+
+        GameSettings.stopTimer();
     }
 
     private Act nextAct(int currentAct){

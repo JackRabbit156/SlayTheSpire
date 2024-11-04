@@ -5,6 +5,7 @@ import controller.MapViewController;
 import helper.ConsoleAssistent;
 import models.cards.DeckFactory;
 import models.cards.card_structure.Card;
+import models.game_settings.GameSettings;
 import models.load_save_game_elements.GameSaveManager;
 import models.load_save_game_elements.SaveFilePreview;
 import models.player.Ironclad;
@@ -25,6 +26,11 @@ public class LoadMenuViewController {
     public LoadMenuViewController (){
         loadMenuView = new LoadMenuView();
         gameSaveManager = new GameSaveManager();
+    }
+
+    public void saveGame(Player player){
+        delteSaveFileWithName(GameSettings.lastSession);
+        gameSaveManager.saveGame(player);
     }
 
     public void showLoadMenu(){
@@ -50,17 +56,6 @@ public class LoadMenuViewController {
 
         startLoadedGame(selectedSaveFile);
 
-        /*String deleteOrContinue= "";
-        while(!deleteOrContinue.equals("1") && !deleteOrContinue.equals("2")){
-            System.out.println("1. Continue\n2. Delete");
-            System.out.print("\nChoose: ");
-            deleteOrContinue =  new Scanner(System.in).nextLine();
-        }
-
-        switch (deleteOrContinue){
-            case "1": startLoadedGame(selectedSaveFile); break;
-            case "2": deleteSaveFile(selectedSaveFile); break;
-        }*/
     }
 
     public void showDeleteMenu(){
@@ -84,11 +79,16 @@ public class LoadMenuViewController {
             }
         }
 
-        deleteSaveFile(selectedSaveFile);
+        deleteSaveFileWithId(selectedSaveFile);
         ConsoleAssistent.sleep(1000);
     }
 
-    private void deleteSaveFile(int id){
+
+    private void delteSaveFileWithName(String nameOfFile){
+        gameSaveManager.deleteSelcetedSaveFile(nameOfFile);
+    }
+
+    private void deleteSaveFileWithId(int id){
         gameSaveManager.deleteSelcetedSaveFile(id);
     }
 
@@ -120,7 +120,12 @@ public class LoadMenuViewController {
 
         player.setDeck(deck);
 
-        //String getFloor = gameData.get("field");
+        GameSettings.setTimerSeconds(Integer.parseInt(gameData.get("seconds")));
+        GameSettings.setTimerMinutes(Integer.parseInt(gameData.get("minutes")));
+        GameSettings.setTimerHours(Integer.parseInt(gameData.get("hours")));
+
+        GameSettings.lastSession = gameData.get("lastSession");
+
         MapViewController map = new MapViewController(player, true);
     }
 
