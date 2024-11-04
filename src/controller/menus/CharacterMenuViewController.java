@@ -155,6 +155,9 @@ public class CharacterMenuViewController {
             System.out.println("\nGoing back to character selection");
             getBacktoCharSelection();
         }
+        else if (start.toLowerCase().equals("exit")) {
+            getBacktoMenu();
+        }
         else {
             System.out.println("\tWrong input... going back to character selection\t\n\n");
             getBacktoCharSelection();
