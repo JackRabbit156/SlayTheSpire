@@ -1,5 +1,8 @@
 package models.player.player_structure;
 
+import events.PlayerBlockEvent;
+import events.PlayerDamageEvent;
+import listener.PlayerEventListener;
 import models.cards.card_structure.Card;
 import models.relics.relic_structure.Relic;
 
@@ -29,6 +32,7 @@ public abstract class Player {
 
     private PlayerType playerType;
 
+    private PlayerEventListener listener;
 
     // * Constructor *
     public Player(String name, int maxHealth, int maxEnergy, PlayerType playerType, String symbol) {
@@ -41,6 +45,7 @@ public abstract class Player {
         this.currentAct = 1;
         this.playerType = playerType;
         this.symbol = symbol;
+        this.listener = null;
     }
 
     // * Methods *
@@ -68,10 +73,14 @@ public abstract class Player {
         currentEnergy += energy;
     }
 
-    public void decreaseCurrentHealth(int dmg) {
+    public void decreaseCurrentHealth(int dmg, boolean damageFromCard) {
         currentHealth -= dmg;
         if (currentHealth < 0)
             currentHealth = 0;
+
+        if (damageFromCard) {
+            notifyDamageReceived(dmg, true);
+        }
     }
 
     public void increaseCurrentHealth(int hp) {
@@ -95,7 +104,19 @@ public abstract class Player {
 
     public void increaseBlock(int block) {
         this.block += block;
+        notifyBlockReceived(block);
     }
+
+    protected void notifyBlockReceived(int blockAmount) {
+        PlayerBlockEvent event = new PlayerBlockEvent(this, blockAmount);
+        listener.onBlockReceived(event);
+    }
+
+    protected void notifyDamageReceived(int damageAmount, boolean damageFromCard) {
+        PlayerDamageEvent event = new PlayerDamageEvent(this, damageAmount, damageFromCard);
+        listener.onDamageReceived(event);
+    }
+
 
 
     // * Getter & Setter *
@@ -168,5 +189,13 @@ public abstract class Player {
 
     public PlayerType getPlayerType() {
         return playerType;
+    }
+
+    public PlayerEventListener getListener() {
+        return listener;
+    }
+
+    public void setListener(PlayerEventListener listener) {
+        this.listener = listener;
     }
 }

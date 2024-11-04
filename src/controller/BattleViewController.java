@@ -1,23 +1,29 @@
 package controller;
 
+import events.PlayerBlockEvent;
+import events.PlayerDamageEvent;
 import helper.ConsoleAssistent;
 import models.BattleDeck;
 import models.GameContext;
 import models.cards.card_structure.Card;
 import models.cards.card_structure.CardGrave;
+import models.cards.card_structure.CardTrigger;
+import models.cards.card_structure.PowerCard;
 import models.enemy.Enemy;
 import models.player.player_structure.Player;
 import view.BattleView;
+import listener.PlayerEventListener;
 
 import java.util.List;
 import java.util.Scanner;
 
-public class BattleViewController {
+public class BattleViewController implements PlayerEventListener{
     private Player player;
     private List<Enemy> enemies;
     private BattleView view;
     private Scanner scanner;
     private BattleDeck battleDeck;
+    private GameContext gameContext;
 
     public BattleViewController(Player player, List<Enemy> enemies) {
         this.player = player;
@@ -25,19 +31,20 @@ public class BattleViewController {
         this.view = new BattleView();
         this.scanner = new Scanner(System.in);
         this.battleDeck = new BattleDeck(player.getDeck());
+        this.gameContext = new GameContext(player, enemies, battleDeck);
+        player.setListener(this);
     }
 
     public void startBattle() {
         ConsoleAssistent.clearScreen();
         while (player.isAlive() && !enemies.isEmpty()) {
-            battleDeck.fillHand(battleDeck.getStartHandSize());
-            player.resetEnergy();
-            player.resetBlock();
+            playerBOT();
+
             view.display(player, enemies, battleDeck.getHand());
 
             playerTurn();
 
-            removeHandAfterEndOfTurn();
+            playerEOT();
 
             ConsoleAssistent.clearScreen();
 
@@ -50,6 +57,29 @@ public class BattleViewController {
             view.displayVictory();
          else
             view.displayDefeat();
+    }
+
+    private void playerBOT() {
+        battleDeck.fillHand(battleDeck.getStartHandSize());
+        player.resetEnergy();
+        player.resetBlock();
+        triggerCard(CardTrigger.PLAYER_BOT);
+    }
+
+
+    private void playerEOT() {
+        removeHandAfterEndOfTurn();
+        triggerCard(CardTrigger.PLAYER_EOT);
+    }
+
+    private void triggerCard(CardTrigger trigger) {
+        List<PowerCard> currentPowerCards = battleDeck.getCurrentPowerCards();
+
+        for (PowerCard currentPowerCard : currentPowerCards) {
+            if (currentPowerCard.getCardTrigger().equals(trigger)) {
+                currentPowerCard.ability(gameContext);
+            }
+        }
     }
 
     private void playerTurn() {
@@ -83,7 +113,34 @@ public class BattleViewController {
         if (cardIndex >= 0 && cardIndex < hand.size()) {
             Card selectedCard = hand.get(cardIndex);
 
-            selectedCard.play(new GameContext(player, enemies, battleDeck));
+
+
+
+
+
+
+
+
+
+
+
+            selectedCard.play(gameContext);
+
+
+
+//            for (PowerCard powerCard : powerCards) {
+//                if (powerCard.getCardTrigger().equals(CardTrigger.GAIN_BLOCK)) {
+//                    powerCard.ability(gameContext);
+//                }
+//            }
+
+
+
+
+
+
+
+
             if (selectedCard.getCardGrave() == CardGrave.EXHAUST) {
                 battleDeck.exhaustCardFromHand(selectedCard);
             }
@@ -99,8 +156,9 @@ public class BattleViewController {
     }
 
     private void removeHandAfterEndOfTurn() {
-        for(int i = 0; i< battleDeck.getHand().size(); i++)
+        for(int i = 0; i< battleDeck.getHand().size(); i++) {
             battleDeck.discardCardFromHand(battleDeck.getHand().get(i));
+        }
     }
 
     private void enemyTurn() {
@@ -108,8 +166,28 @@ public class BattleViewController {
         for (Enemy enemy : enemies) {
             if (enemy.isAlive()) {
                 int damage = enemy.attack();
-                player.decreaseCurrentHealth(damage);
+                player.decreaseCurrentHealth(damage, false);
                 view.displayAttack(enemy.getName(), player.getName(), damage);
+            }
+        }
+    }
+
+    @Override
+    public void onBlockReceived(PlayerBlockEvent event) {
+        List<PowerCard> powerCards = battleDeck.getCurrentPowerCards();
+        for (PowerCard powerCard : powerCards) {
+            if (powerCard.getCardTrigger().equals(CardTrigger.GAIN_BLOCK)) {
+                powerCard.ability(gameContext);
+            }
+        }
+    }
+
+    @Override
+    public void onDamageReceived(PlayerDamageEvent event) {
+        List<PowerCard> powerCards = battleDeck.getCurrentPowerCards();
+        for (PowerCard powerCard : powerCards) {
+            if (powerCard.getCardTrigger().equals(CardTrigger.LOSE_HP_CARD)) {
+                powerCard.ability(gameContext);
             }
         }
     }
