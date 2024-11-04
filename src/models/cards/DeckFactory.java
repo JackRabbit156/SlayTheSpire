@@ -10,6 +10,11 @@ import models.cards.ironclad_cards.attack.common.*;
 import models.cards.ironclad_cards.attack.uncommon.*;
 import models.cards.ironclad_cards.attack.rare.*;
 
+import models.cards.ironclad_cards.power.rare.*;
+import models.cards.ironclad_cards.power.uncommon.*;
+import models.cards.ironclad_cards.skill.common.*;
+import models.cards.ironclad_cards.skill.rare.*;
+import models.cards.ironclad_cards.skill.uncommon.*;
 import models.player.player_structure.Player;
 
 import java.nio.file.Path;
@@ -54,7 +59,6 @@ public class DeckFactory {
         return null;
     }
 
-    // Anstatt auf das FileSystem zuzugreifen wird hier aus einem Enum gegriffen
     private List<Card> initIroncladCards() {
         List availableCards = Arrays.asList(IroncladsCards.values());
         if (availableCards == null) {
@@ -108,23 +112,32 @@ public class DeckFactory {
             case "RecklessChargeCard": cardToTransform = new RecklessChargeCard(); break;
             case "SearingBlowCard": cardToTransform = new SearingBlowCard(); break;
             case "SeverSoulCard": cardToTransform = new SeverSoulCard(); break;
-            case "UppercurCard": cardToTransform = new UppercutCard(); break;
+            case "UppercutCard": cardToTransform = new UppercutCard(); break;
             case "WhirlwindCard": cardToTransform = new WhirlwindCard(); break;
 
             // Skill
-            // CommonCards
-
-            // UncommonCard
-
             // RareCard
-
+            case "BerserkCard": cardToTransform = new BerserkCard(); break;
+            case "JuggernautCard": cardToTransform = new JuggernautCard(); break;
+            // UncommonCard
+            case "InflameCard": cardToTransform = new InflameCard(); break;
+            case "MetallicizeCard": cardToTransform = new MetallicizeCard(); break;
+            case "RuptureCard": cardToTransform = new RuptureCard(); break;
 
             // Power
             // CommonCards
-
-            // UncommonCard
-
+            case "FlexCard": cardToTransform = new FlexCard(); break;
+            case "ShrugItOffCard": cardToTransform = new ShrugItOffCard(); break;
+            case "WarcryCard": cardToTransform = new WarcryCard(); break;
             // RareCard
+            case "OfferingCard": cardToTransform = new OfferingCard(); break;
+            // UncommonCard
+            case "EntrenchCard": cardToTransform = new EntrenchCard(); break;
+            case "GhostlyArmorCard": cardToTransform = new GhostlyArmorCard(); break;
+            case "RageCard": cardToTransform = new RageCard(); break;
+            case "SpotWeaknessCard": cardToTransform = new SpotWeaknessCard(); break;
+            default:
+                System.out.println("ERROR IN DECKFACTORY"); break;
         }
 
         return cardToTransform;
