@@ -27,7 +27,7 @@ public class CharacterMenuViewController {
     }
     //Führt zurück zur Charakterauswahl
     public void getBacktoCharSelection(){
-        System.out.println("Choose a username: ");
+        System.out.print("\nChoose a username: ");
         MainMenuViewController.playerName = in.next();
         selectChar(MainMenuViewController.playerName);
     }
@@ -53,18 +53,16 @@ public class CharacterMenuViewController {
      * Eine falsche Eingabe, oder die Eingabe "exit" führt zurück zu selectChar()
      */
     private void newPlayer(){
-        System.out.print("Type the number of corresponding character which you'd like to choose: ");
         selectedCharacter = in.next();
 
         if (selectedCharacter.equals("1")) {
             Ironclad player = new Ironclad();
-            System.out.println("\nAwesome! you chose: Ironclad\n");
             selectedCharacter = "Ironclad";
             startMapView(player);
         }
         else if(selectedCharacter.equals("2")) {
             Ironclad player = new Ironclad();
-            System.out.println("\nYou chose: Silent, but Silent isn't available, Game will start with Ironclad");
+            System.out.println("\nYou chose: Silent, but Silent isn't available, your game will start with Ironclad");
             selectedCharacter = "Ironclad";
             startMapView(player);
         }
@@ -103,8 +101,13 @@ public class CharacterMenuViewController {
                 //Platzhalter für DifficultyLevel.IMPOSSIBLE
                 //break;
             default:
-                System.out.println("\tWrong input... going back to character selection\t\n\n");
-                getBacktoCharSelection();
+                if (dif.toLowerCase().equals("exit")) {
+                    getBacktoMenu();
+                }
+                else {
+                    System.out.println("\tWrong input... going back to character selection\t\n\n");
+                    getBacktoCharSelection();
+                }
                 break;
         }
     }
@@ -120,15 +123,19 @@ public class CharacterMenuViewController {
         mode = in.next();
         switch(mode){
             case "1":
-                System.out.println("You chose: 1. Normal Mode");
                 GameSettings.setGameMode(GameMode.NORMAL);
                 break;
             case "2":
-                System.out.println("You chose: 2. Hardcore Mode");
                 GameSettings.setGameMode(GameMode.HARDCORE);
                 break;
             default:
+                if (mode.toLowerCase().equals("exit")) {
                 getBacktoMenu();
+                }
+                else {
+                    System.out.println("\tWrong input... going back to character selection\t\n\n");
+                    getBacktoCharSelection();
+                }
                 break;
         }
     }
