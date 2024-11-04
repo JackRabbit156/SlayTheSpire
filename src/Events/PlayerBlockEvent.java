@@ -11,7 +11,7 @@ public class PlayerBlockEvent {
         this.blockAmount = blockAmount;
     }
 
-    public Player getPlayer() {
+    public Player getPlayerEvent() {
         return player;
     }
 

@@ -1,5 +1,7 @@
 package models.player.player_structure;
 
+import Events.PlayerBlockEvent;
+import listener.PlayerEventListener;
 import models.GameContext;
 import models.cards.card_structure.Card;
 import models.cards.card_structure.CardTrigger;
@@ -32,6 +34,7 @@ public abstract class Player {
 
     private PlayerType playerType;
 
+    private PlayerEventListener listener;
 
     // * Constructor *
     public Player(String name, int maxHealth, int maxEnergy, PlayerType playerType, String symbol) {
@@ -44,6 +47,7 @@ public abstract class Player {
         this.currentAct = 1;
         this.playerType = playerType;
         this.symbol = symbol;
+        this.listener = null;
     }
 
     // * Methods *
@@ -98,8 +102,14 @@ public abstract class Player {
 
     public void increaseBlock(int block) {
         this.block += block;
-
+        notifyBlockReceived(block);
     }
+
+    protected void notifyBlockReceived(int blockAmount) {
+        PlayerBlockEvent event = new PlayerBlockEvent(this, blockAmount);
+        listener.onBlockReceived(event);
+    }
+
 
 
     // * Getter & Setter *
@@ -172,5 +182,13 @@ public abstract class Player {
 
     public PlayerType getPlayerType() {
         return playerType;
+    }
+
+    public PlayerEventListener getListener() {
+        return listener;
+    }
+
+    public void setListener(PlayerEventListener listener) {
+        this.listener = listener;
     }
 }
