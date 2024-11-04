@@ -17,18 +17,27 @@ public class EnemyField extends Field{
         super("👹");
     }
 
+    public EnemyField(List<Enemy> enemies){
+        super("👹");
+        this.enemies = enemies;
+    }
+
     @Override
     public void doFieldThing(Player player) {
-        List<Enemy> tenemies = new ArrayList<>();
-        tenemies.add(new Cultist());
+        if(isFieldBeaten())
+            return;
 
-        BattleViewController battle = new BattleViewController(player, tenemies);
+        BattleViewController battle = new BattleViewController(player, enemies);
         battle.startBattle();
 
+        if(!player.isAlive())
+            return;
 
+        setFieldBeaten();
         //TODO Es muss geprüft werden, ob das Battle erfolgreich war.
         lootViewController = new LootViewController(player, "EnemyField");
         lootViewController.openLootView(player);
+
     }
 
     public void addEnemy(Enemy enemy){

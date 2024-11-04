@@ -45,8 +45,8 @@ public abstract class Field {
         return fieldBeaten;
     }
 
-    public void setFieldBeaten(boolean fieldBeaten) {
-        this.fieldBeaten = fieldBeaten;
+    public void setFieldBeaten() {
+        this.fieldBeaten = true;
     }
 
 }
