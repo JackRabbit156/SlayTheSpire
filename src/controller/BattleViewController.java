@@ -1,6 +1,7 @@
 package controller;
 
-import Events.PlayerBlockEvent;
+import events.PlayerBlockEvent;
+import events.PlayerDamageEvent;
 import helper.ConsoleAssistent;
 import models.BattleDeck;
 import models.GameContext;
@@ -165,7 +166,7 @@ public class BattleViewController implements PlayerEventListener{
         for (Enemy enemy : enemies) {
             if (enemy.isAlive()) {
                 int damage = enemy.attack();
-                player.decreaseCurrentHealth(damage);
+                player.decreaseCurrentHealth(damage, false);
                 view.displayAttack(enemy.getName(), player.getName(), damage);
             }
         }
@@ -176,6 +177,16 @@ public class BattleViewController implements PlayerEventListener{
         List<PowerCard> powerCards = battleDeck.getCurrentPowerCards();
         for (PowerCard powerCard : powerCards) {
             if (powerCard.getCardTrigger().equals(CardTrigger.GAIN_BLOCK)) {
+                powerCard.ability(gameContext);
+            }
+        }
+    }
+
+    @Override
+    public void onDamageReceived(PlayerDamageEvent event) {
+        List<PowerCard> powerCards = battleDeck.getCurrentPowerCards();
+        for (PowerCard powerCard : powerCards) {
+            if (powerCard.getCardTrigger().equals(CardTrigger.LOSE_HP_CARD)) {
                 powerCard.ability(gameContext);
             }
         }

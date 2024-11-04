@@ -1,11 +1,9 @@
 package models.player.player_structure;
 
-import Events.PlayerBlockEvent;
+import events.PlayerBlockEvent;
+import events.PlayerDamageEvent;
 import listener.PlayerEventListener;
-import models.GameContext;
 import models.cards.card_structure.Card;
-import models.cards.card_structure.CardTrigger;
-import models.cards.card_structure.PowerCard;
 import models.relics.relic_structure.Relic;
 
 import java.util.List;
@@ -75,10 +73,14 @@ public abstract class Player {
         currentEnergy += energy;
     }
 
-    public void decreaseCurrentHealth(int dmg) {
+    public void decreaseCurrentHealth(int dmg, boolean damageFromCard) {
         currentHealth -= dmg;
         if (currentHealth < 0)
             currentHealth = 0;
+
+        if (damageFromCard) {
+            notifyDamageReceived(dmg, true);
+        }
     }
 
     public void increaseCurrentHealth(int hp) {
@@ -108,6 +110,11 @@ public abstract class Player {
     protected void notifyBlockReceived(int blockAmount) {
         PlayerBlockEvent event = new PlayerBlockEvent(this, blockAmount);
         listener.onBlockReceived(event);
+    }
+
+    protected void notifyDamageReceived(int damageAmount, boolean damageFromCard) {
+        PlayerDamageEvent event = new PlayerDamageEvent(this, damageAmount, damageFromCard);
+        listener.onDamageReceived(event);
     }
 
 
