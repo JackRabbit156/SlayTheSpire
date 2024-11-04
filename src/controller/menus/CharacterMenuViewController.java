@@ -62,7 +62,7 @@ public class CharacterMenuViewController {
         }
         else if(selectedCharacter.equals("2")) {
             Ironclad player = new Ironclad();
-            System.out.println("\nYou chose: Silent, but Silent isn't available, your game will start with Ironclad");
+            System.out.println("\nYou chose: Silent, but Silent is not yet available, your game will start with Ironclad");
             selectedCharacter = "Ironclad";
             startMapView(player);
         }

@@ -43,7 +43,7 @@ public class CharacterMenuView {
         String username = MainMenuViewController.playerName;
         System.out.print("\n\n\tPlayer: " + username +
                 "\n\tCharacter: " + selectedCharacter + "\n\tDifficulty: " + difficulty + "\n\tGame Mode: " + gamemode +
-                "\nDo you want to start the game with your selection? (Y/N)");
+                "\n\nDo you want to start the game with your selection? (Y/N)");
     }
 
 }
