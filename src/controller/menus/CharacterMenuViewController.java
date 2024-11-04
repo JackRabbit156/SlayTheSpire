@@ -12,7 +12,6 @@ import view.menus.MainMenuView;
 import java.util.Scanner;
 
 public class CharacterMenuViewController {
-    public String playerName;
     private String selectedCharacter;
     private CharacterMenuView charView;
     private Scanner in = new Scanner(System.in);
@@ -24,7 +23,6 @@ public class CharacterMenuViewController {
     //Führt zurück zum Main Menu
     public void getBacktoMenu(){
         MainMenuViewController mainMenu = new MainMenuViewController();
-        playerName = MainMenuViewController.playerName;
         mainMenu.startMenu();
     }
     //Führt zurück zur Charakterauswahl
