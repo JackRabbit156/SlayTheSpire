@@ -28,6 +28,11 @@ public class LoadMenuViewController {
         gameSaveManager = new GameSaveManager();
     }
 
+    public void saveGame(Player player){
+        delteSaveFileWithName(GameSettings.lastSession);
+        gameSaveManager.saveGame(player);
+    }
+
     public void showLoadMenu(){
         List<SaveFilePreview> saveFilePreviewList = saveFilePreviewList();
         if(saveFilePreviewList.isEmpty()){
@@ -51,17 +56,6 @@ public class LoadMenuViewController {
 
         startLoadedGame(selectedSaveFile);
 
-        /*String deleteOrContinue= "";
-        while(!deleteOrContinue.equals("1") && !deleteOrContinue.equals("2")){
-            System.out.println("1. Continue\n2. Delete");
-            System.out.print("\nChoose: ");
-            deleteOrContinue =  new Scanner(System.in).nextLine();
-        }
-
-        switch (deleteOrContinue){
-            case "1": startLoadedGame(selectedSaveFile); break;
-            case "2": deleteSaveFile(selectedSaveFile); break;
-        }*/
     }
 
     public void showDeleteMenu(){
@@ -85,11 +79,16 @@ public class LoadMenuViewController {
             }
         }
 
-        deleteSaveFile(selectedSaveFile);
+        deleteSaveFileWithId(selectedSaveFile);
         ConsoleAssistent.sleep(1000);
     }
 
-    private void deleteSaveFile(int id){
+
+    private void delteSaveFileWithName(String nameOfFile){
+        gameSaveManager.deleteSelcetedSaveFile(nameOfFile);
+    }
+
+    private void deleteSaveFileWithId(int id){
         gameSaveManager.deleteSelcetedSaveFile(id);
     }
 
@@ -122,10 +121,11 @@ public class LoadMenuViewController {
         player.setDeck(deck);
 
         GameSettings.time.setSeconds(Integer.parseInt(gameData.get("seconds")));
-        GameSettings.time.setSeconds(Integer.parseInt(gameData.get("minutes")));
-        GameSettings.time.setSeconds(Integer.parseInt(gameData.get("hours")));
+        GameSettings.time.setMinutes(Integer.parseInt(gameData.get("minutes")));
+        GameSettings.time.setHours(Integer.parseInt(gameData.get("hours")));
 
-        //String getFloor = gameData.get("field");
+        GameSettings.lastSession = gameData.get("lastSession");
+
         MapViewController map = new MapViewController(player, true);
     }
 

@@ -8,6 +8,8 @@ public class GameSettings {
     private static GameMode gameMode = GameMode.NORMAL;
     private static DifficultyLevel difficultyLevel = DifficultyLevel.EASY;
 
+    public static String lastSession = "";
+
     public static GameCounter time = new GameCounter();
 
     public static GameMode getGameMode() {
@@ -25,4 +27,5 @@ public class GameSettings {
     public static void setDifficultyLevel(DifficultyLevel difLevel) {
         difficultyLevel = difLevel;
     }
+
 }
