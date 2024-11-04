@@ -119,41 +119,13 @@ public class BattleViewController implements PlayerEventListener{
         if (cardIndex >= 0 && cardIndex < hand.size() ) {
             Card selectedCard = hand.get(cardIndex);
 
-
-
-
-
-
-
-
-
-
-
-
-            selectedCard.play(gameContext);
-
-
-
-//            for (PowerCard powerCard : powerCards) {
-//                if (powerCard.getCardTrigger().equals(CardTrigger.GAIN_BLOCK)) {
-//                    powerCard.ability(gameContext);
-//                }
-//            }
-
-
-
-
-
-
-
-
             if(selectedCard.getCost() > player.getCurrentEnergy()){
                 System.out.println("\nNot enough Energy!");
                 ConsoleAssistent.sleep(1000);
                 return;
             }
 
-            selectedCard.play(new GameContext(player, enemies, battleDeck));
+            selectedCard.play(gameContext);
             if (selectedCard.getCardGrave() == CardGrave.EXHAUST) {
                 battleDeck.exhaustCardFromHand(selectedCard);
             }
