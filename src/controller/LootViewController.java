@@ -41,14 +41,14 @@ public class LootViewController {
         switch (GameSettings.getDifficultyLevel()) {
             case EASY:
                 amount = 5;
-                this.gold = (int) (this.gold * 1.2);
+                this.gold = (int) (this.gold * 1.5);
                 break;
             case NORMAL:
                 amount = 3;
                 break;
             case HARD:
                 amount = 1;
-                this.gold = (int) (this.gold * 0.7);
+                this.gold = (int) (this.gold * 0.5);
                 break;
         }
         this.player = player;
