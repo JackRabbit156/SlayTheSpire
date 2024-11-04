@@ -10,6 +10,7 @@ import models.cards.card_structure.CardGrave;
 import models.cards.card_structure.CardTrigger;
 import models.cards.card_structure.PowerCard;
 import models.enemy.Enemy;
+import models.game_settings.GameSettings;
 import models.player.player_structure.Player;
 import view.BattleView;
 import listener.PlayerEventListener;
@@ -31,7 +32,7 @@ public class BattleViewController implements PlayerEventListener{
         this.view = new BattleView();
         this.scanner = new Scanner(System.in);
         this.battleDeck = new BattleDeck(player.getDeck());
-        this.gameContext = new GameContext(player, enemies, battleDeck);
+        this.gameContext = new GameContext(player, enemies, battleDeck, GameSettings.getDifficultyLevel());
         player.setListener(this);
     }
 
@@ -153,7 +154,7 @@ public class BattleViewController implements PlayerEventListener{
 
         for (Enemy enemy : enemies) {
             if (enemy.isAlive()) {
-                enemy.attack(gameContext);
+                enemy.action(gameContext);
             }
             // kurze Verzögerung, damit der Schaden des Gegners nicht auf einem Schlag kommt.
             ConsoleAssistent.sleep(300);
