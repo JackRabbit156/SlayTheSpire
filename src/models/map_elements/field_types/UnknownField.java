@@ -6,7 +6,9 @@ import java.util.Random;
 
 public class UnknownField extends Field {
     Random rand = new Random();
-    Field[] fields = {new EventField(), new EliteField(), new EnemyField(), new ShopField()};
+    // Remove EliteField KANN
+    // new EliteField(),
+    Field[] fields = {new EventField(),  new EnemyField(), new ShopField()};
     int[] percentages = {67, 20, 10, 3};
     int percentStart = 1;
 
