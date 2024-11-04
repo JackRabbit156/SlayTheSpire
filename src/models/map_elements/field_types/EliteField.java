@@ -1,13 +1,18 @@
 package models.map_elements.field_types;
 
 import controller.LootViewController;
+import models.enemy.Enemy;
 import models.player.player_structure.Player;
+
+import java.util.List;
 
 public class EliteField extends Field {
     private LootViewController lootViewController;
+    private List<Enemy> enemies;
 
-    public EliteField() {
+    public EliteField(List<Enemy> enemies) {
         super("\uD83D\uDCA2");
+        this.enemies = enemies;
     }
 
     @Override
@@ -21,7 +26,6 @@ public class EliteField extends Field {
 
         setFieldBeaten();
 
-        //TODO Es muss geprüft werden, ob das Battle erfolgreich war.
         lootViewController = new LootViewController(player, "EliteField");
         lootViewController.openLootView(player);
     }

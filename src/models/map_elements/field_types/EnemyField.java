@@ -34,7 +34,7 @@ public class EnemyField extends Field{
             return;
 
         setFieldBeaten();
-        //TODO Es muss geprüft werden, ob das Battle erfolgreich war.
+
         lootViewController = new LootViewController(player, "EnemyField");
         lootViewController.openLootView(player);
 
