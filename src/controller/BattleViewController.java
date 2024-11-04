@@ -19,8 +19,6 @@ public class BattleViewController {
     private Scanner scanner;
     private BattleDeck battleDeck;
 
-
-
     public BattleViewController(Player player, List<Enemy> enemies) {
         this.player = player;
         this.enemies = enemies;
@@ -35,7 +33,8 @@ public class BattleViewController {
             battleDeck.fillHand(battleDeck.getStartHandSize());
             player.resetEnergy();
             player.resetBlock();
-            view.display(player, enemies, battleDeck.getHand());
+
+            printBatteView();
 
             playerTurn();
 
@@ -50,13 +49,18 @@ public class BattleViewController {
 
         if (player.isAlive())
             view.displayVictory();
-         else
+        else
             view.displayDefeat();
+    }
+
+    private void printBatteView(){
+        enemies.removeIf(enemy -> !enemy.isAlive());
+        view.display(player, enemies, battleDeck.getHand());
     }
 
     private void playerTurn() {
 
-        while(player.getCurrentEnergy() > 0){
+        while(!enemies.isEmpty()){
             System.out.println("\n1.Play a Card");
             System.out.println("2.End Turn\n");
 
@@ -66,13 +70,14 @@ public class BattleViewController {
             switch (choice){
                 case 1:
                     selectCard();
-                    view.display(player, enemies, battleDeck.getHand());
+                    ConsoleAssistent.clearScreen();
+                    printBatteView();
                     break;
                 case 2: return;
-                 default:
-                     System.out.println("Wrong input...");
-                     playerTurn();
-                     break;
+                default:
+                    System.out.println("Wrong input...");
+                    playerTurn();
+                    break;
             }
         }
     }
@@ -82,8 +87,14 @@ public class BattleViewController {
         int cardIndex = scanner.nextInt() - 1;
         List<Card> hand = battleDeck.getHand();
 
-        if (cardIndex >= 0 && cardIndex < hand.size()) {
+        if (cardIndex >= 0 && cardIndex < hand.size() ) {
             Card selectedCard = hand.get(cardIndex);
+
+            if(selectedCard.getCost() > player.getCurrentEnergy()){
+                System.out.println("\nNot enough Energy!");
+                ConsoleAssistent.sleep(1000);
+                return;
+            }
 
             selectedCard.play(new GameContext(player, enemies, battleDeck));
             if (selectedCard.getCardGrave() == CardGrave.EXHAUST) {
@@ -107,13 +118,21 @@ public class BattleViewController {
 
     private void enemyTurn() {
         System.out.println("\nEnemies' Turn:");
+
+        removeBlockOfEnemiesAfterEndOfTurn();
+
         for (Enemy enemy : enemies) {
             if (enemy.isAlive()) {
-
                 enemy.attack(new GameContext(player, enemies, battleDeck));
-
-                //view.displayAttack(enemy.getName(), player.getName(), damage);
             }
+            // kurze Verzögerung, damit der Schaden des Gegners nicht auf einem Schlag kommt.
+            ConsoleAssistent.sleep(300);
+        }
+    }
+    // Block hält nur 1. Runde an.
+    private void removeBlockOfEnemiesAfterEndOfTurn() {
+        for(int i = 0; i<enemies.size(); i++){
+            enemies.get(i).setBlock(0);
         }
     }
 }

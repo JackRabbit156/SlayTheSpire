@@ -47,8 +47,19 @@ public abstract class Enemy {
     }
 
     public void takeDamage(int damage) {
-        currentHealth -= damage;
-        if (currentHealth < 0) currentHealth = 0;
+        if(block == 0){
+            currentHealth -= damage;
+            if (currentHealth < 0) currentHealth = 0;
+        } else {
+            block -= damage;
+            if (block < 0) {
+                currentHealth += block;
+                block = 0;
+            }
+        }
+
+        if (currentHealth < 0)
+            currentHealth = 0;
     }
 
     public void setBlock(int block){
@@ -59,5 +70,7 @@ public abstract class Enemy {
         return block;
     }
 
-
+    public void addBlock(int block){
+        this.block += block;
+    }
 }

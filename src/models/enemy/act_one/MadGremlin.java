@@ -2,6 +2,7 @@ package models.enemy.act_one;
 
 import models.GameContext;
 import models.enemy.Enemy;
+import models.player.player_structure.Player;
 
 public class MadGremlin extends Enemy {
     public MadGremlin() {
@@ -11,7 +12,14 @@ public class MadGremlin extends Enemy {
 
     @Override
     public void attack(GameContext gameContext) {
-
+        attackScratch(gameContext);
     }
 
+    private void attackScratch(GameContext gameContext){
+        int attackDamage = 4;
+        Player player = gameContext.getPlayer();
+
+        player.decreaseCurrentHealth(attackDamage);
+        System.out.printf("%s used %s, %s took %d damage!\n", getName(), "Scratch", player.getName(), attackDamage);
+    }
 }
