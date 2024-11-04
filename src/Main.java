@@ -1,14 +1,4 @@
-import controller.BattleViewController;
-import controller.MapViewController;
 import controller.menus.MainMenuViewController;
-import helper.Color;
-import models.cards.DeckFactory;
-import models.enemy.Enemy;
-import models.enemy.SpikeSlime;
-import models.player.Ironclad;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
