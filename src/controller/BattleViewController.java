@@ -1,5 +1,6 @@
 package controller;
 
+import Events.PlayerBlockEvent;
 import helper.ConsoleAssistent;
 import models.BattleDeck;
 import models.GameContext;
@@ -30,6 +31,7 @@ public class BattleViewController implements PlayerEventListener{
         this.scanner = new Scanner(System.in);
         this.battleDeck = new BattleDeck(player.getDeck());
         this.gameContext = new GameContext(player, enemies, battleDeck);
+        player.setListener(this);
     }
 
     public void startBattle() {
@@ -165,6 +167,16 @@ public class BattleViewController implements PlayerEventListener{
                 int damage = enemy.attack();
                 player.decreaseCurrentHealth(damage);
                 view.displayAttack(enemy.getName(), player.getName(), damage);
+            }
+        }
+    }
+
+    @Override
+    public void onBlockReceived(PlayerBlockEvent event) {
+        List<PowerCard> powerCards = battleDeck.getCurrentPowerCards();
+        for (PowerCard powerCard : powerCards) {
+            if (powerCard.getCardTrigger().equals(CardTrigger.GAIN_BLOCK)) {
+                powerCard.ability(gameContext);
             }
         }
     }

@@ -1,12 +1,7 @@
 package Handler;
 
 import Events.PlayerBlockEvent;
-import listener.PlayerEventListener;
 
-public class BlockEventHandler implements PlayerEventListener {
+public class BlockEventHandler {
 
-    @Override
-    public void onBlockReceived(PlayerBlockEvent event) {
-
-    }
 }
