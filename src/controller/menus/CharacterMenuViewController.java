@@ -83,13 +83,10 @@ public class CharacterMenuViewController {
         dif = in.next();
         switch (dif){
             case "1":
-                setGameMode();
                 return DifficultyLevel.SUPEREASY;
             case "2":
-                setGameMode();
                 return DifficultyLevel.EASY;
             case "3":
-                setGameMode();
                 return DifficultyLevel.NORMAL;
             case "4":
                 //Platzhalter für DifficultyLevel.HARD
