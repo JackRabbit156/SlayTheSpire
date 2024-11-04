@@ -1,4 +1,4 @@
-package models.enemy.act_one.bosses;
+package models.enemy.act_four.boss;
 
 import models.GameContext;
 import models.enemy.Enemy;
@@ -9,34 +9,33 @@ import java.util.Random;
 /**
  * @author Keil, Vladislav
  */
-public class TheGuardian extends Enemy {
-    // https://slay-the-spire.fandom.com/wiki/The_Guardian
-    public TheGuardian() {
-        super("The Guardian", 240, 240);
-    }
-    private Random randi = new Random();
+public class CorruptHeart extends Enemy {
+    private Random rand = new Random();
 
+    public CorruptHeart() {
+        super("CorruptHeart",750, 750);
+    }
 
     @Override
     public void attack(GameContext gameContext) {
-        switch (randi.nextInt(2)) {
+        switch (rand.nextInt(2)) {
             case 0:
-                atttackFierceBash(gameContext);
-            default:
-                atttackWhirlwind(gameContext);
+                attackBloodShots(gameContext);
+            case 1:
+                attackEcho(gameContext);
         }
     }
 
-    private void atttackFierceBash(GameContext gameContext){
-        int attackDamage = 32;
+    private void attackBloodShots(GameContext gameContext){
+        int attackDamage = 24;
         Player player = gameContext.getPlayer();
 
         player.decreaseCurrentHealth(attackDamage, false);
         System.out.printf("%s used %s, %s took %d damage!\n", getName(), "Dark Strike", player.getName(), attackDamage);
     }
 
-    private void atttackWhirlwind(GameContext gameContext){
-        int attackDamage = 20;
+    private void attackEcho(GameContext gameContext){
+        int attackDamage = 40;
         Player player = gameContext.getPlayer();
 
         player.decreaseCurrentHealth(attackDamage, false);
