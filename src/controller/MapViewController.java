@@ -50,7 +50,7 @@ public class MapViewController {
         }
 
         // Startet den Timer, der die Spielzeit aufzeichnet
-        GameSettings.time.start();
+        GameSettings.startTimer();
 
         /*GameSaveManager gameSaveManager = new GameSaveManager();
         gameSaveManager.saveGame(player);*/
@@ -77,6 +77,8 @@ public class MapViewController {
             mapView.printMap(act.getRawMap(), act.getNodes());
             act.goToValidDirection(player);
         }
+
+        GameSettings.stopTimer();
     }
 
     private Act nextAct(int currentAct){

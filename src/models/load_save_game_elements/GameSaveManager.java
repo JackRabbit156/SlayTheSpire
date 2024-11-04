@@ -96,9 +96,9 @@ public class GameSaveManager {
     }
 
     private Map<String, String> collectGameData(Player player) {
-        int seconds = GameSettings.time.getSeconds();
-        int minutes = GameSettings.time.getMinutes();
-        int hours = GameSettings.time.getHours();
+        int seconds = GameSettings.getTimerSeconds();
+        int minutes = GameSettings.getTimerMinutes();
+        int hours = GameSettings.getTimerHours();
 
         String currentTimeStamp = getCurrentTimestamp();
 

@@ -10,7 +10,7 @@ public class GameSettings {
 
     public static String lastSession = "";
 
-    public static GameCounter time = new GameCounter();
+    private static GameCounter time = new GameCounter();
 
     public static GameMode getGameMode() {
         return gameMode;
@@ -26,6 +26,45 @@ public class GameSettings {
 
     public static void setDifficultyLevel(DifficultyLevel difLevel) {
         difficultyLevel = difLevel;
+    }
+
+    public static void startTimer(){
+        time = new GameCounter();
+        time.start();
+    }
+
+    public static void restartTimer(){
+        time.stopTimer();
+        time = new GameCounter();
+        time.start();
+    }
+
+    public static void stopTimer(){
+        time.stopTimer();
+    }
+
+    public static int getTimerSeconds(){
+        return time.getSeconds();
+    }
+
+    public static int getTimerMinutes(){
+        return time.getMinutes();
+    }
+
+    public static int getTimerHours(){
+        return time.getHours();
+    }
+
+    public static void setTimerSeconds(int seconds){
+        time.setSeconds(seconds);
+    }
+
+    public static void setTimerMinutes(int minutes){
+        time.setMinutes(minutes);
+    }
+
+    public static void setTimerHours(int hours){
+        time.setHours(hours);
     }
 
 }

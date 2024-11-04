@@ -120,9 +120,9 @@ public class LoadMenuViewController {
 
         player.setDeck(deck);
 
-        GameSettings.time.setSeconds(Integer.parseInt(gameData.get("seconds")));
-        GameSettings.time.setMinutes(Integer.parseInt(gameData.get("minutes")));
-        GameSettings.time.setHours(Integer.parseInt(gameData.get("hours")));
+        GameSettings.setTimerSeconds(Integer.parseInt(gameData.get("seconds")));
+        GameSettings.setTimerMinutes(Integer.parseInt(gameData.get("minutes")));
+        GameSettings.setTimerHours(Integer.parseInt(gameData.get("hours")));
 
         GameSettings.lastSession = gameData.get("lastSession");
 
