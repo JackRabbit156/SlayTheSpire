@@ -30,8 +30,6 @@ public class BossField extends Field{
         if(isFieldBeaten())
             return;
 
-        this.enemies = new ArrayList<>();
-
         BattleViewController battle = new BattleViewController(player, enemies);
         battle.startBattle();
 

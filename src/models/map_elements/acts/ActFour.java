@@ -2,6 +2,10 @@ package models.map_elements.acts;
 
 
 import models.enemy.Enemy;
+import models.enemy.act_one.AcidSlime;
+import models.enemy.act_one.Cultist;
+import models.enemy.act_one.MadGremlin;
+import models.enemy.act_one.bosses.SlimeBoss;
 import models.map_elements.Coordinates;
 import models.map_elements.Node;
 import models.map_elements.field_types.*;
@@ -9,6 +13,7 @@ import models.player.player_structure.Player;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 /**
  * Die Klasse ActFour ist eine konkrete Implementierung des vierten Aktes im Spiel.
@@ -20,6 +25,7 @@ import java.util.List;
  * @author Warawa Alexander
  */
 public class ActFour extends Act{
+    Random randi = new Random();
 
     /**
      * Konstruktor für die Klasse ActFour.
@@ -49,6 +55,34 @@ public class ActFour extends Act{
         // TODO: Marked for Save Func.
         rest51.setPlayer(player);
     }
+
+    private List<Enemy> createBossEnemies() {
+        List<Enemy> enemies = new ArrayList<>();
+
+        int randAmountEnemies = randi.nextInt(4);
+        String type;
+        enemies.add(new SlimeBoss());
+        type = "Slime";
+
+        for (int i = 0; i < randAmountEnemies; i++) {
+            enemies.add(createEnemiesTypeOfBoss(type));
+        }
+        return enemies;
+    }
+
+    private Enemy createEnemiesTypeOfBoss(String type) {
+        switch (type) {
+            case "Slime":
+                return new AcidSlime();
+            case "Hexa":
+                return new MadGremlin();
+            case "Guardian ":
+                return new Cultist();
+        }
+        // Ansonsten immer AcidSlime
+        return new AcidSlime();
+    }
+
 
     /**
      * Führt die spezifizierte Aktion auf dem aktuellen Feld des Spielers aus.
