@@ -1,4 +1,4 @@
-package Events;
+package events;
 
 import models.player.player_structure.Player;
 

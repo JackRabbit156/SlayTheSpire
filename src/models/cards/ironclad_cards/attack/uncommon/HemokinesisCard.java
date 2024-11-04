@@ -25,7 +25,7 @@ public class HemokinesisCard extends AttackCard {
         Player player = gameContext.getPlayer();
         player.decreaseCurrentEnergy(getCost());
 
-        player.decreaseCurrentHealth(2);
+        player.decreaseCurrentHealth(2, true);
     }
 
     @Override
