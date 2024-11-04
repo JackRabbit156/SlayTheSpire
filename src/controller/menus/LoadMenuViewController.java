@@ -5,6 +5,7 @@ import controller.MapViewController;
 import helper.ConsoleAssistent;
 import models.cards.DeckFactory;
 import models.cards.card_structure.Card;
+import models.game_settings.GameSettings;
 import models.load_save_game_elements.GameSaveManager;
 import models.load_save_game_elements.SaveFilePreview;
 import models.player.Ironclad;
@@ -119,6 +120,10 @@ public class LoadMenuViewController {
         }
 
         player.setDeck(deck);
+
+        GameSettings.time.setSeconds(Integer.parseInt(gameData.get("seconds")));
+        GameSettings.time.setSeconds(Integer.parseInt(gameData.get("minutes")));
+        GameSettings.time.setSeconds(Integer.parseInt(gameData.get("hours")));
 
         //String getFloor = gameData.get("field");
         MapViewController map = new MapViewController(player, true);

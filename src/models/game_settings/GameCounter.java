@@ -1,4 +1,4 @@
-package models;
+package models.game_settings;
 
 import helper.ConsoleAssistent;
 
@@ -33,6 +33,18 @@ public class GameCounter extends Thread {
     @Override
     public String toString() {
         return "Played for: " + hours + "h " + minutes + "m " + seconds+"s";
+    }
+
+    public void setSeconds(int seconds) {
+        this.seconds = seconds;
+    }
+
+    public void setMinutes(int minutes) {
+        this.minutes = minutes;
+    }
+
+    public void setHours(int hours) {
+        this.hours = hours;
     }
 
     @Override

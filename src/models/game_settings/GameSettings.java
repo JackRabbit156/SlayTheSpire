@@ -1,5 +1,6 @@
 package models.game_settings;
 
+import models.GameContext;
 import models.game_settings.structure.DifficultyLevel;
 import models.game_settings.structure.GameMode;
 
@@ -7,6 +8,7 @@ public class GameSettings {
     private static GameMode gameMode = GameMode.NORMAL;
     private static DifficultyLevel difficultyLevel = DifficultyLevel.EASY;
 
+    public static GameCounter time = new GameCounter();
 
     public static GameMode getGameMode() {
         return gameMode;

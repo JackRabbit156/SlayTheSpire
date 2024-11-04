@@ -2,6 +2,7 @@ package models.load_save_game_elements;
 
 import controller.MapViewController;
 import models.cards.DeckFactory;
+import models.game_settings.GameSettings;
 import models.player.player_structure.Player;
 
 import java.time.LocalDateTime;
@@ -82,14 +83,21 @@ public class GameSaveManager {
     }
 
     private Map<String, String> collectGameData(Player player) {
+        int seconds = GameSettings.time.getSeconds();
+        int minutes = GameSettings.time.getMinutes();
+        int hours = GameSettings.time.getHours();
         Map<String, String> gameData = new HashMap<>();
+
         gameData.put("character", player.getPlayerType().toString());
         gameData.put("field", player.getCurrentField());
         gameData.put("currentAct", String.valueOf(player.getCurrentAct()));
         gameData.put("currentHealth", String.valueOf(player.getCurrentHealth()));
         gameData.put("gold", String.valueOf(player.getGold()));
         gameData.put("lastSession", getCurrentTimestamp());
-        gameData.put("timePlayed", "0h 0m 0s"); // TODO: Richtige Spielzeit hinzufügen
+        gameData.put("timePlayed", hours+"h "+minutes+"m "+seconds+"s");
+        gameData.put("seconds", seconds+"");
+        gameData.put("minutes", minutes+"");
+        gameData.put("hours", hours+"");
 
         for (int i = 0; i < player.getDeck().size(); i++) {
             gameData.put("card" + i, player.getDeck().get(i).getName() + "Card");
