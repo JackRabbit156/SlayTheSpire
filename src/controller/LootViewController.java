@@ -4,6 +4,9 @@ import helper.Color;
 import helper.ConsoleAssistent;
 import models.cards.DeckFactory;
 import models.cards.card_structure.Card;
+import models.cards.ironclad_cards.IroncladsCards;
+import models.game_settings.GameSettings;
+import models.game_settings.structure.DifficultyLevel;
 import models.player.player_structure.Player;
 import view.LootView;
 
@@ -34,23 +37,23 @@ public class LootViewController {
         this.scanner = new Scanner(System.in);
         this.lootView = new LootView();
         int amount = 5;
-        //TODO Wenn GameMode implementiert ist.
-//        switch (GameSetting.DIFFICULT) {
-//            case EASY:
-//                amount = 5;
-//                gold =
-//                break;
-//            case NORMAL:
-//                amount = 3;
-//                break;
-//            case HARD:
-//                amount = 1;
-//                break;
-//        }
+        initGoldLoot(fieldType);
+        switch (GameSettings.getDifficultyLevel()) {
+            case EASY:
+                amount = 5;
+                this.gold = (int) (this.gold * 1.2);
+                break;
+            case NORMAL:
+                amount = 3;
+                break;
+            case HARD:
+                amount = 1;
+                this.gold = (int) (this.gold * 0.7);
+                break;
+        }
         this.player = player;
         this.deckFactory = new DeckFactory(player, amount);
         this.choisenCards = initialLootDeck();
-        initGoldLoot(fieldType);
     }
 
     private List<Card> initialLootDeck() {
