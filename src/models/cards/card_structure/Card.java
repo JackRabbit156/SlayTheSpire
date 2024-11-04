@@ -10,7 +10,7 @@ public abstract class Card {
     private String name;
     private String description;
     private int price;
-    private int cost;
+    private int cost = 0;
     private CardRarity cardRarity;
     private CardGrave cardGrave;
 
