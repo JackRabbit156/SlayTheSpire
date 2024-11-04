@@ -1,9 +1,17 @@
 package models.map_elements.acts;
 
+import models.enemy.Enemy;
+import models.enemy.act_one.AcidSlime;
+import models.enemy.act_one.Cultist;
+import models.enemy.act_one.MadGremlin;
 import models.map_elements.Coordinates;
 import models.map_elements.Node;
 import models.map_elements.field_types.*;
 import models.player.player_structure.Player;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
 
 /**
  * Die Klasse ActOne ist eine konkrete Implementierung des ersten Aktes im Spiel.
@@ -27,18 +35,18 @@ public class ActOne extends Act {
     }
 
     private void initNodes(Player player){
-        Node start1 = new Node("1", new EnemyField(), new Coordinates(3, 16));
-        Node fight2 = new Node("2", new EnemyField(), new Coordinates(3, 14));
+        Node start1 = new Node("1", new EnemyField(generateEnemies()), new Coordinates(3, 16));
+        Node fight2 = new Node("2", new EnemyField(generateEnemies()), new Coordinates(3, 14));
         Node unknown3 = new Node("3", new UnknownField(), new Coordinates(1, 12));
-        Node fight4 = new Node("4", new EnemyField(), new Coordinates(5, 12));
-        Node fight5 = new Node("5", new EnemyField(), new Coordinates(0, 10));
+        Node fight4 = new Node("4", new EnemyField(generateEnemies()), new Coordinates(5, 12));
+        Node fight5 = new Node("5", new EnemyField(generateEnemies()), new Coordinates(0, 10));
         Node elite6 = new Node("6", new EliteField(), new Coordinates(2, 10));
-        Node fight7 = new Node("7", new EnemyField(), new Coordinates(5, 10));
+        Node fight7 = new Node("7", new EnemyField(generateEnemies()), new Coordinates(5, 10));
         Node shop8 = new Node("8", new ShopField(), new Coordinates(2, 8));
         Node unknown9 = new Node("9", new UnknownField(), new Coordinates(5, 8));
         Node event10 = new Node("10", new EventField(), new Coordinates(1, 6));
-        Node fight11 = new Node("11", new EnemyField(), new Coordinates(4, 6));
-        Node fight12 = new Node("12", new EnemyField(), new Coordinates(6, 6));
+        Node fight11 = new Node("11", new EnemyField(generateEnemies()), new Coordinates(4, 6));
+        Node fight12 = new Node("12", new EnemyField(generateEnemies()), new Coordinates(6, 6));
         Node unknown13 = new Node("13", new UnknownField(), new Coordinates(4, 4));
         Node elite14 = new Node("14", new EliteField(), new Coordinates(6, 4));
         Node rest15 = new Node("15", new RestField(), new Coordinates(4, 2));
@@ -82,6 +90,26 @@ public class ActOne extends Act {
 
         // TODO: Marked for Save Func.
         start1.setPlayer(player);
+    }
+
+    private List<Enemy> generateEnemies(){
+        List<Enemy> enemies = new ArrayList<>();
+        Random randi = new Random();
+        String[] possibleEnemies = {"AcidSlime", "Cultist", "MadGremlin"};
+
+        int numberOfEnemies = randi.nextInt(4) + 1;
+
+        for(int i = 0; i< numberOfEnemies; i++){
+            int randomNumber = randi.nextInt(possibleEnemies.length);
+            switch (randomNumber){
+                case 0: enemies.add(new AcidSlime()); break;
+                case 1: enemies.add(new Cultist()); break;
+                case 2: enemies.add(new MadGremlin()); break;
+                default:
+                    System.out.println("Weird..."); break;
+            }
+        }
+        return enemies;
     }
 
     /**
