@@ -12,6 +12,7 @@ import java.util.Scanner;
 
 public class CharacterMenuViewController {
     public String playerName;
+    private String selectedCharacter;
     private CharacterMenuView charView;
     private Scanner in = new Scanner(System.in);
 
@@ -33,7 +34,7 @@ public class CharacterMenuViewController {
      * @param playerName username
      */
     public void selectChar(String playerName){
-        System.out.println("Hello! " + playerName + "\n");
+        System.out.println("\nHello! " + playerName + "\n");
         charView.charMenu();
 
         if (playerName.toLowerCase().equals("exit")) {
@@ -47,18 +48,19 @@ public class CharacterMenuViewController {
      * Eine falsche Eingabe, oder die Eingabe "exit" führt zurück zu selectChar()
      */
     private void newPlayer(){
-        String selectedCharacter;
         System.out.print("Type the number of corresponding character which you'd like to choose: ");
         selectedCharacter = in.next();
 
         if (selectedCharacter.equals("1")) {
             Ironclad player = new Ironclad();
             System.out.println("\nAwesome! you chose: Ironclad\n");
+            selectedCharacter = "Ironclad";
             startMapView(player);
         }
         else if(selectedCharacter.equals("2")) {
             Ironclad player = new Ironclad();
             System.out.println("\nYou chose: Silent, but Silent isn't available, Game will start with Ironclad");
+            selectedCharacter = "Ironclad";
             startMapView(player);
         }
         else if (selectedCharacter.toLowerCase().equals("exit")){
@@ -77,17 +79,20 @@ public class CharacterMenuViewController {
      * Setzt den entsprechenden Schwierigkeitsgrad
      * @return DifficultyLevel
      */
-    private DifficultyLevel setDifficulty(){
+    private void chooseDifficulty(){
         String dif;
         charView.difDisplay();
         dif = in.next();
         switch (dif){
             case "1":
-                return DifficultyLevel.SUPEREASY;
+                GameSettings.setDifficultyLevel(DifficultyLevel.SUPEREASY);
+                break;
             case "2":
-                return DifficultyLevel.EASY;
+                GameSettings.setDifficultyLevel(DifficultyLevel.EASY);
+                break;
             case "3":
-                return DifficultyLevel.NORMAL;
+                GameSettings.setDifficultyLevel(DifficultyLevel.NORMAL);
+                break;
             case "4":
                 //Platzhalter für DifficultyLevel.HARD
                 //break;
@@ -101,7 +106,6 @@ public class CharacterMenuViewController {
                 selectChar(playerName);
                 break;
         }
-        return null;
     }
 
     /**
@@ -109,26 +113,30 @@ public class CharacterMenuViewController {
      * mit Erklärung zum entsprechenden Spielmodus
      * @return GameMode
      */
-    private GameMode setGameMode(){
+    private void chooseGameMode(){
         String mode;
         charView.gameModeInfo();
         mode = in.next();
         switch(mode){
             case "1":
                 System.out.println("You chose: 1. Normal Mode");
-                return GameMode.NORMAL;
+                GameSettings.setGameMode(GameMode.NORMAL);
+                break;
             case "2":
                 System.out.println("You chose: 2. Hardcore Mode");
-                return GameMode.HARDCORE;
+                GameSettings.setGameMode(GameMode.HARDCORE);
+                break;
             default:
                 getBacktoMenu();
+                break;
         }
-        return null;
     }
 
+
     private void startMapView(Player player){
-        GameSettings.difficultylevel = setDifficulty();
-        GameSettings.gamemode = setGameMode();
+        chooseDifficulty();
+        chooseGameMode();
+        charView.characterOverview(selectedCharacter);
         System.out.println("\nStarting map view...");
         MapViewController map = new MapViewController(player);
     }

@@ -1,5 +1,9 @@
 package view.menus;
 
+import controller.menus.CharacterMenuViewController;
+import controller.menus.MainMenuViewController;
+import models.game_settings.GameSettings;
+
 public class CharacterMenuView {
     /**
      * Darstellung der Charaktere die zur Auswahl stehen
@@ -27,7 +31,16 @@ public class CharacterMenuView {
         str.append("\n\t\t1.Normal Mode: \t\t\t\t\t 2.Hardcore Mode: ");
         str.append("\n\t\tOn Normal Mode you can Play  \t On hardcore Mode you can not");
         str.append("\n\t\tand save the game as you like.   save the game. once you die,");
-        str.append("\n\t\t\t\t\t\t\t\t\t\t your savefile is deleted!\n");
+        str.append("\n\t\t\t\t\t\t\t\t\t\t the Game is Over!\n");
         System.out.print("\nChoose a Gamemode: " + str);
     }
+
+
+    public void characterOverview(String selectedCharacter){
+        String difficulty = GameSettings.getDifficultyLevel().toString();
+        String gamemode = GameSettings.getGameMode().toString();
+        String username = MainMenuViewController.playerName;
+        System.out.println("\nPlayer: " + username + "\nCharacter: " + selectedCharacter + "\nDifficulty: " + difficulty + "\nGame Mode: " + gamemode);
+    }
+
 }

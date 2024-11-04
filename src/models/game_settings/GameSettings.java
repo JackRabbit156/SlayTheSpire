@@ -4,8 +4,8 @@ import models.game_settings.structure.DifficultyLevel;
 import models.game_settings.structure.GameMode;
 
 public class GameSettings {
-    private static GameMode gameMode;
-    private static DifficultyLevel difficultyLevel;
+    private static GameMode gameMode = GameMode.NORMAL;
+    private static DifficultyLevel difficultyLevel = DifficultyLevel.EASY;
 
 
     public static GameMode getGameMode() {

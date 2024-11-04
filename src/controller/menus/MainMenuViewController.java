@@ -10,7 +10,7 @@ public class MainMenuViewController {
     private MainMenuView mainMenu;
     private CharacterMenuViewController playerCharacter;
     private CreditView credits;
-    public String playerName;
+    public static String playerName;
 
     public MainMenuViewController(){
         mainMenu = new MainMenuView();
