@@ -38,6 +38,9 @@ public class LootViewController {
         this.lootView = new LootView();
         int amount = 5;
         initGoldLoot(fieldType);
+        System.out.println("Ohne Faktor");
+        System.out.println(this.gold);
+        System.out.println(GameSettings.getDifficultyLevel());
         switch (GameSettings.getDifficultyLevel()) {
             case EASY:
                 amount = 5;
@@ -51,6 +54,10 @@ public class LootViewController {
                 this.gold = (int) (this.gold * 0.5);
                 break;
         }
+        System.out.println("Mit Faktor");
+        System.out.println(this.gold);
+        System.out.println(GameSettings.getDifficultyLevel());
+
         this.player = player;
         this.deckFactory = new DeckFactory(player, amount);
         this.choisenCards = initialLootDeck();
