@@ -19,7 +19,7 @@ public class RuptureCard extends PowerCard {
         Player player = gameContext.getPlayer();
         BattleDeck battleDeck = gameContext.getBattleDeck();
 
-        battleDeck.getCurrentPowerCards().add(new RuptureCard());
+        battleDeck.addPowerCards(new RuptureCard());
 
         player.decreaseCurrentEnergy(getCost());
     }

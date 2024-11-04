@@ -14,4 +14,8 @@ public abstract class PowerCard extends Card {
     public abstract void play(GameContext gameContext);
 
     public abstract void ability(GameContext gameContext);
+
+    public CardTrigger getCardTrigger() {
+        return cardTrigger;
+    }
 }

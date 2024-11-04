@@ -20,7 +20,7 @@ public class JuggernautCard extends PowerCard {
         Player player = gameContext.getPlayer();
         BattleDeck battleDeck = gameContext.getBattleDeck();
 
-        battleDeck.getCurrentPowerCards().add(new JuggernautCard());
+        battleDeck.addPowerCards(new JuggernautCard());
 
         player.decreaseCurrentEnergy(getCost());
     }

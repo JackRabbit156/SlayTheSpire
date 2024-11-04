@@ -1,6 +1,7 @@
 package models;
 
 import models.cards.card_structure.Card;
+import models.cards.card_structure.PowerCard;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -12,7 +13,7 @@ public class BattleDeck {
     private List<Card> hand;
     private List<Card> discardPile;
     private List<Card> exhaustPile;
-    private List<Card> currentPowerCards;
+    private List<PowerCard> currentPowerCards;
     private Random random;
     private int startHandSize;
 
@@ -23,6 +24,7 @@ public class BattleDeck {
         this.exhaustPile = new ArrayList<>();
         this.random = new Random();
         this.startHandSize = 5;
+        this.currentPowerCards = new ArrayList<>();
     }
 
     public List<Card> getHand() {
@@ -85,6 +87,10 @@ public class BattleDeck {
         return startHandSize;
     }
 
+    public void addPowerCards(PowerCard powerCard) {
+        currentPowerCards.add(powerCard);
+    }
+
     public List<Card> getDiscardPile() {
         return discardPile;
     }
@@ -93,7 +99,11 @@ public class BattleDeck {
         return deck;
     }
 
-    public List<Card> getCurrentPowerCards() {
+    public List<Card> getExhaustPile() {
+        return exhaustPile;
+    }
+
+    public List<PowerCard> getCurrentPowerCards() {
         return currentPowerCards;
     }
 }
