@@ -74,7 +74,7 @@ public class CharacterMenuViewController {
     }
 
     /**
-     * setzt den entsprechenden Schwierigkeitsgrad
+     * Setzt den entsprechenden Schwierigkeitsgrad
      * @return DifficultyLevel
      */
     private DifficultyLevel setDifficulty(){
@@ -104,6 +104,11 @@ public class CharacterMenuViewController {
         return null;
     }
 
+    /**
+     * Setzt den SpielModus, (1. Normal Mode, 2. Hardcore Mode)
+     * mit Erklärung zum entsprechenden Spielmodus
+     * @return GameMode
+     */
     private GameMode setGameMode(){
         String mode;
         charView.gameModeInfo();
