@@ -40,7 +40,8 @@ public class CharacterMenuView {
         String difficulty = GameSettings.getDifficultyLevel().toString();
         String gamemode = GameSettings.getGameMode().toString();
         String username = MainMenuViewController.playerName;
-        System.out.println("\nPlayer: " + username + "\nCharacter: " + selectedCharacter + "\nDifficulty: " + difficulty + "\nGame Mode: " + gamemode);
+        System.out.println("\nDo you want to start the game with your selection? (Y/N)" + "\n\n\tPlayer: " + username +
+                "\n\tCharacter: " + selectedCharacter + "\n\tDifficulty: " + difficulty + "\n\tGame Mode: " + gamemode);
     }
 
 }

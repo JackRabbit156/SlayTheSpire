@@ -12,15 +12,15 @@ public class GameSettings {
         return gameMode;
     }
 
-    public static void setGameMode(GameMode gameMode) {
-        gameMode = gameMode;
+    public static void setGameMode(GameMode mode) {
+        gameMode = mode;
     }
 
     public static DifficultyLevel getDifficultyLevel() {
         return difficultyLevel;
     }
 
-    public static void setDifficultyLevel(DifficultyLevel difficultyLevel) {
-        difficultyLevel = difficultyLevel;
+    public static void setDifficultyLevel(DifficultyLevel difLevel) {
+        difficultyLevel = difLevel;
     }
 }

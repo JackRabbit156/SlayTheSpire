@@ -7,6 +7,7 @@ import models.game_settings.structure.GameMode;
 import models.player.Ironclad;
 import models.player.player_structure.Player;
 import view.menus.CharacterMenuView;
+import view.menus.MainMenuView;
 
 import java.util.Scanner;
 
@@ -23,8 +24,14 @@ public class CharacterMenuViewController {
     //Führt zurück zum Main Menu
     public void getBacktoMenu(){
         MainMenuViewController mainMenu = new MainMenuViewController();
-        playerName = mainMenu.playerName;
+        playerName = MainMenuViewController.playerName;
         mainMenu.startMenu();
+    }
+    //Führt zurück zur Charakterauswahl
+    public void getBacktoCharSelection(){
+        System.out.println("Choose a username: ");
+        MainMenuViewController.playerName = in.next();
+        selectChar(MainMenuViewController.playerName);
     }
 
     /**
@@ -68,10 +75,8 @@ public class CharacterMenuViewController {
         }
         // Bei falscher Eingabe gehts zurück zum Anfang der character creation.
         else {
-            System.out.println("\tWrong input... \t\n\n");
-            System.out.println("Choose a username: ");
-            playerName = in.next();
-            selectChar(playerName);
+            System.out.println("\tWrong input... going back to character selection\t\n\n");
+            getBacktoCharSelection();
         }
     }
 
@@ -100,10 +105,8 @@ public class CharacterMenuViewController {
                 //Platzhalter für DifficultyLevel.IMPOSSIBLE
                 //break;
             default:
-                System.out.println("\tWrong input... \t\n\n");
-                System.out.println("Choose a username: ");
-                playerName = in.next();
-                selectChar(playerName);
+                System.out.println("\tWrong input... going back to character selection\t\n\n");
+                getBacktoCharSelection();
                 break;
         }
     }
@@ -134,10 +137,23 @@ public class CharacterMenuViewController {
 
 
     private void startMapView(Player player){
+        String start;
         chooseDifficulty();
         chooseGameMode();
         charView.characterOverview(selectedCharacter);
-        System.out.println("\nStarting map view...");
-        MapViewController map = new MapViewController(player);
+        start = in.next();
+        if (start.toLowerCase().equals("y")) {
+            System.out.println("\nStarting map view...");
+            MapViewController map = new MapViewController(player);
+        }
+        else if (start.toLowerCase().equals("n")) {
+            System.out.println();
+            System.out.println("\nGoing back to character selection");
+            getBacktoCharSelection();
+        }
+        else {
+            System.out.println("\tWrong input... going back to character selection\t\n\n");
+            getBacktoCharSelection();
+        }
     }
 }
