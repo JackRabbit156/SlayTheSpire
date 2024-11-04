@@ -28,7 +28,6 @@ import java.util.Random;
  * @author Keil, Vladislav
  */
 public class DeckFactory {
-    private Path characterFilePath;
     private List<Card> genDeck;
     private Player player;
     private int amount;
@@ -46,10 +45,8 @@ public class DeckFactory {
             case DEFECT:
             case SILENT:
                 //TODO Weitere Charactere
-//                characterFilePath = Paths.get("Silent/CardList");
 //                break;
             case IRONCLAD:
-                characterFilePath = Paths.get("Ironclad/CardList");
                 return initIroncladCards();
             default:
                 init();
@@ -61,6 +58,7 @@ public class DeckFactory {
 
     private List<Card> initIroncladCards() {
         List availableCards = Arrays.asList(IroncladsCards.values());
+
         if (availableCards == null) {
             ConsoleAssistent.print(Color.RED, "DeckFactory.class: Karten Initialisierung hat nicht korrekt funktioniert.");
         }
