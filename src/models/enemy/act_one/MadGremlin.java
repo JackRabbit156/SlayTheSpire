@@ -19,7 +19,7 @@ public class MadGremlin extends Enemy {
         int attackDamage = 4;
         Player player = gameContext.getPlayer();
 
-        player.decreaseCurrentHealth(attackDamage);
+        player.decreaseCurrentHealth(attackDamage,false);
         System.out.printf("%s used %s, %s took %d damage!\n", getName(), "Scratch", player.getName(), attackDamage);
     }
 }

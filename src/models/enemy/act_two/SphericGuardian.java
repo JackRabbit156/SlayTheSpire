@@ -33,7 +33,7 @@ public class SphericGuardian extends Enemy {
         int attackDamage = 20;
         Player player = gameContext.getPlayer();
 
-        player.decreaseCurrentHealth(attackDamage);
+        player.decreaseCurrentHealth(attackDamage, false);
         System.out.printf("%s used %s, %s took %d damage!\n", getName(), "Slam", player.getName(), attackDamage);
     }
 
@@ -57,7 +57,7 @@ public class SphericGuardian extends Enemy {
         int block = 15;
         Player player = gameContext.getPlayer();
 
-        player.decreaseCurrentHealth(attackDamage);
+        player.decreaseCurrentHealth(attackDamage, false);
 
         this.addBlock(15);
         System.out.printf("%s used %s, %s took %d damage!\n", getName(), "Harden", player.getName(), attackDamage);

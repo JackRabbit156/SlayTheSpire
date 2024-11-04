@@ -28,7 +28,7 @@ public class Byrd extends Enemy {
         int attackDamage = 5;
         Player player = gameContext.getPlayer();
 
-        player.decreaseCurrentHealth(attackDamage);
+        player.decreaseCurrentHealth(attackDamage, false);
         System.out.printf("%s used %s, %s took %d damage!\n", getName(), "Peck", player.getName(), attackDamage);
     }
 
@@ -36,7 +36,7 @@ public class Byrd extends Enemy {
         int attackDamage = 12;
         Player player = gameContext.getPlayer();
 
-        player.decreaseCurrentHealth(attackDamage);
+        player.decreaseCurrentHealth(attackDamage, false);
         System.out.printf("%s used %s, %s took %d damage!\n", getName(), "Swoop", player.getName(), attackDamage);
     }
 
@@ -44,7 +44,7 @@ public class Byrd extends Enemy {
         int attackDamage = 3;
         Player player = gameContext.getPlayer();
 
-        player.decreaseCurrentHealth(attackDamage);
+        player.decreaseCurrentHealth(attackDamage, false);
         System.out.printf("%s used %s, %s took %d damage!\n", getName(), "Headbutt", player.getName(), attackDamage);
     }
 

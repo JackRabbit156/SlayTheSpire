@@ -18,7 +18,7 @@ public class Cultist extends Enemy {
         int attackDamage = 6;
         Player player = gameContext.getPlayer();
 
-        player.decreaseCurrentHealth(attackDamage);
+        player.decreaseCurrentHealth(attackDamage, false);
         System.out.printf("%s used %s, %s took %d damage!\n", getName(), "Dark Strike", player.getName(), attackDamage);
     }
 

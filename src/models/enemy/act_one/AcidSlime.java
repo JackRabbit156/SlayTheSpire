@@ -21,7 +21,7 @@ public class AcidSlime extends Enemy {
         int attackDamage = 11;
         Player player = gameContext.getPlayer();
 
-        player.decreaseCurrentHealth(attackDamage);
+        player.decreaseCurrentHealth(attackDamage, false);
 
     }
 
