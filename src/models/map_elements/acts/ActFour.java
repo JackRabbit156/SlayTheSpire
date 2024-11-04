@@ -2,6 +2,10 @@ package models.map_elements.acts;
 
 
 import models.enemy.Enemy;
+import models.enemy.act_four.Shapes;
+import models.enemy.act_four.boss.CorruptHeart;
+import models.enemy.act_four.elites.SpireShield;
+import models.enemy.act_four.elites.SpireSpear;
 import models.enemy.act_one.AcidSlime;
 import models.enemy.act_one.Cultist;
 import models.enemy.act_one.MadGremlin;
@@ -39,9 +43,8 @@ public class ActFour extends Act{
     private void initNodes(Player player){
         Node rest51 = new Node("51", new RestField(), new Coordinates(0, 6));
         Node shop52 = new Node("52", new ShopField(), new Coordinates(0, 4));
-        Node elite53 = new Node("53", new EliteField(), new Coordinates(0, 2));
-        // TODO Generate Boss - Enemy existiert noch nicht
-        Node boss54 = new Node("54", new BossField(new ArrayList<>()), new Coordinates(0, 0));
+        Node elite53 = new Node("53", new EliteField(createElitesEnemies()), new Coordinates(0, 2));
+        Node boss54 = new Node("54", new BossField(createBossEnemies()), new Coordinates(0, 0));
 
         nodes.add(rest51);
         nodes.add(shop52);
@@ -60,29 +63,35 @@ public class ActFour extends Act{
         List<Enemy> enemies = new ArrayList<>();
 
         int randAmountEnemies = randi.nextInt(4);
-        String type;
-        enemies.add(new SlimeBoss());
-        type = "Slime";
+        enemies.add(new CorruptHeart());
 
         for (int i = 0; i < randAmountEnemies; i++) {
-            enemies.add(createEnemiesTypeOfBoss(type));
+            enemies.add(new Shapes());
         }
         return enemies;
     }
 
-    private Enemy createEnemiesTypeOfBoss(String type) {
-        switch (type) {
-            case "Slime":
-                return new AcidSlime();
-            case "Hexa":
-                return new MadGremlin();
-            case "Guardian ":
-                return new Cultist();
-        }
-        // Ansonsten immer AcidSlime
-        return new AcidSlime();
-    }
+    private List<Enemy> createElitesEnemies() {
+        List<Enemy> enemies = new ArrayList<>();
+        int randElite = randi.nextInt(2);
+        int randAmountEnemies = randi.nextInt(2);
 
+        switch (randElite) {
+            case 0:
+                // 1 - SpireShield
+                enemies.add(new SpireShield());
+                break;
+            default:
+                // 2 - SpireSpear
+                enemies.add(new SpireSpear());
+                break;
+        }
+        for (int i = 0; i < randAmountEnemies; i++) {
+            enemies.add(new Shapes());
+        }
+
+        return enemies;
+    }
 
     /**
      * Führt die spezifizierte Aktion auf dem aktuellen Feld des Spielers aus.

@@ -1,10 +1,15 @@
 package models.map_elements.acts;
 
 import models.enemy.Enemy;
+import models.enemy.act_four.Shapes;
+import models.enemy.act_four.elites.SpireShield;
+import models.enemy.act_four.elites.SpireSpear;
 import models.enemy.act_one.AcidSlime;
 import models.enemy.act_one.Cultist;
 import models.enemy.act_one.MadGremlin;
 import models.enemy.act_one.bosses.SlimeBoss;
+import models.enemy.act_one.elites.GremlinNob;
+import models.enemy.act_one.elites.Lagavulin;
 import models.map_elements.Coordinates;
 import models.map_elements.Node;
 import models.map_elements.field_types.*;
@@ -43,7 +48,7 @@ public class ActOne extends Act {
         Node unknown3 = new Node("3", new UnknownField(), new Coordinates(1, 12));
         Node fight4 = new Node("4", new EnemyField(generateEnemies()), new Coordinates(5, 12));
         Node fight5 = new Node("5", new EnemyField(generateEnemies()), new Coordinates(0, 10));
-        Node elite6 = new Node("6", new EliteField(), new Coordinates(2, 10));
+        Node elite6 = new Node("6", new EliteField(createElitesEnemies()), new Coordinates(2, 10));
         Node fight7 = new Node("7", new EnemyField(generateEnemies()), new Coordinates(5, 10));
         Node shop8 = new Node("8", new ShopField(), new Coordinates(2, 8));
         Node unknown9 = new Node("9", new UnknownField(), new Coordinates(5, 8));
@@ -51,7 +56,7 @@ public class ActOne extends Act {
         Node fight11 = new Node("11", new EnemyField(generateEnemies()), new Coordinates(4, 6));
         Node fight12 = new Node("12", new EnemyField(generateEnemies()), new Coordinates(6, 6));
         Node unknown13 = new Node("13", new UnknownField(), new Coordinates(4, 4));
-        Node elite14 = new Node("14", new EliteField(), new Coordinates(6, 4));
+        Node elite14 = new Node("14", new EliteField(createElitesEnemies()), new Coordinates(6, 4));
         Node rest15 = new Node("15", new RestField(), new Coordinates(4, 2));
         Node boss16 = new Node("16", new BossField(createBossEnemies()), new Coordinates(4, 0));
 
@@ -133,35 +138,56 @@ public class ActOne extends Act {
 //                type = "Guardian";
                 type = "Slime";
                 break;
-            case 2:
+            default:
                 // 3 - Hexaghost (Kann)
                 enemies.add(new SlimeBoss());
 //                type = "Hexa";
                 type = "Slime";
                 break;
-            default:
-                // 1 - SlimBoss
-                enemies.add(new SlimeBoss());
-                type = "Slime";
-                break;
             }
         for (int i = 0; i < randAmountEnemies; i++) {
-            enemies.add(createEnemiesTypeOfBoss(type));
+            enemies.add(createEnemiesOfType(type));
         }
         return enemies;
     }
 
-    private Enemy createEnemiesTypeOfBoss(String type) {
+
+    private List<Enemy> createElitesEnemies() {
+        List<Enemy> enemies = new ArrayList<>();
+        int randElite = randi.nextInt(2);
+        int randAmountEnemies = randi.nextInt(2);
+        String type;
+        switch (randElite) {
+            case 0:
+                // 1 - Gremlin Nob
+                enemies.add(new GremlinNob());
+                type = "Goblin";
+                break;
+            default:
+                // 2 - Lagavulin
+                enemies.add(new Lagavulin());
+                type = "Lagavulin";
+                break;
+        }
+        for (int i = 0; i < randAmountEnemies; i++) {
+            enemies.add(createEnemiesOfType(type));
+        }
+        return enemies;
+    }
+
+    private Enemy createEnemiesOfType(String type) {
         switch (type) {
-            case "Slime":
-                return new AcidSlime();
             case "Hexa":
                 return new MadGremlin();
-            case "Guardian ":
+            case "Guardian":
                 return new Cultist();
+            case "Lagavulin":
+                return new Cultist();
+            case "Goblin":
+                return new MadGremlin();
+            default: // "Slime"
+                return new AcidSlime();
         }
-        // Ansonsten immer AcidSlime
-        return new AcidSlime();
     }
 
     /**
