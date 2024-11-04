@@ -16,6 +16,10 @@ public class Main {
         MainMenuViewController menu = new MainMenuViewController();
         menu.startMenu();
 
+
+        /*Ironclad player = new Ironclad();
+        MapViewController map = new MapViewController(player, false);*/
+
 //        System.out.println(Color.values().length);
         /*Ironclad player = new Ironclad();
 

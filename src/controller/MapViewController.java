@@ -1,5 +1,6 @@
 package controller;
 
+import models.load_save_game_elements.GameSaveManager;
 import models.map_elements.acts.Act;
 import models.map_elements.acts.ActFour;
 import models.map_elements.acts.ActOne;
@@ -33,30 +34,63 @@ public class MapViewController {
      *
      * @param player der Spieler, der sich auf der Karte bewegt und mit den Akten interagiert
      */
-    public MapViewController (Player player) {
+    public MapViewController (Player player, boolean loadingFromFile) {
         this.player = player;
         this.mapView = new MapView();
 
         switch (player.getCurrentAct()){
-            case 1: act = new ActOne(player); break;
-            case 2: act = new ActTwo(player); break;
-            case 3:  break; // TODO: Act 3
-            case 4: act = new ActFour(player); break;
+            case 1: act = new ActOne(player, loadingFromFile); break;
+            case 2: act = new ActTwo(player, loadingFromFile); break; // TODO: Für GUI
+            case 3:  break; // TODO: Act 3, Für GUI
+            case 4: act = new ActFour(player, loadingFromFile); break;
             default:
                 System.out.println("Weird"); return;
         }
-        //initNodes();
-        mapView.printMap(act.getRawMap(), act.getNodes());
 
+
+        /*GameSaveManager gameSaveManager = new GameSaveManager();
+        gameSaveManager.saveGame(player);*/
         startLoop();
     }
 
     private void startLoop(){
         while(player.isAlive()){
+            // Feldaktion wie "Kampf", "Shop", etc..
             act.doFieldThing();
-            mapView.printMap(act.getRawMap(), act.getNodes());
 
+            // Wenn der Spieler nach "act.doFieldThing()" keine HP mehr hat, dann Game Over
+            if(!player.isAlive())
+                break;
+
+            player.setCurrentField(getCurrentFieldFromAct()); // Speichert den aktuellen Floor, damit es nach dem Speichern wieder geladen werden kann.
+
+            // Wenn der Spieler den Boss besiegt hat, dann muss er zum neuen Akt und wieder kämpfen(act.doFieldThing), deshalb continue;.
+            if(player.getCurrentField().equals(getLastField())) {
+                act = nextAct(player.getCurrentAct());
+                continue;
+            }
+
+            mapView.printMap(act.getRawMap(), act.getNodes());
             act.goToValidDirection(player);
         }
+    }
+
+    private Act nextAct(int currentAct){
+        Act actToReturn = null;
+        switch (currentAct){
+            case 1: actToReturn = new ActFour(player, false); //return new ActTwo(player);
+            case 2: actToReturn = new ActFour(player, false);
+            case 3: break;
+            case 4: actToReturn = new ActFour(player, false);
+        }
+        return actToReturn;
+    }
+
+    public String getLastField(){
+        return act.getLastField();
+    }
+
+    public String getCurrentFieldFromAct(){
+        return act.getCurrentField();
     }
 }

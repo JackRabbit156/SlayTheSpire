@@ -93,9 +93,12 @@ public class Node {
     }
 
     public void setFieldBeaten() {
-        setFieldBeaten();
+        field.setFieldBeaten();
     }
 
+    public String getFieldName() {
+        return name;
+    }
     /**
      * Führt die Aktionen aus, die mit dem Feld verknüpft sind, an dem sich der Spieler
      * befindet.

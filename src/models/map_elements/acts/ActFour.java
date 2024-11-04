@@ -23,10 +23,21 @@ public class ActFour extends Act{
      *
      * @param player der Spieler, der sich im Akt bewegen soll
      */
-    public ActFour(Player player){
-        initNodes(player);
+    public ActFour(Player player, boolean loadingFromFile){
+        super(4);
+        initNodes();
+
+        Node playerNode = getNoteByName(player.getCurrentField());
+        if(playerNode == null){
+            System.out.println("ERROR");
+            return;
+        }
+
+        playerNode.setPlayer(player);
+        if(loadingFromFile)
+            playerNode.setFieldBeaten();
     }
-    private void initNodes(Player player){
+    private void initNodes(){
         Node rest51 = new Node("51", new RestField(), new Coordinates(0, 6));
         Node shop52 = new Node("52", new ShopField(), new Coordinates(0, 4));
         Node elite53 = new Node("53", new EliteField(), new Coordinates(0, 2));
@@ -40,9 +51,6 @@ public class ActFour extends Act{
         rest51.setMiddleNode(shop52);
         shop52.setMiddleNode(elite53);
         elite53.setMiddleNode(boss54);
-
-        // TODO: Marked for Save Func.
-        rest51.setPlayer(player);
     }
 
     /**

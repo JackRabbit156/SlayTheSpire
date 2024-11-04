@@ -67,6 +67,6 @@ public class CharacterMenuViewController {
     }
     private void startMapView(Player player){
         System.out.println("\nStarting map view...");
-        MapViewController map = new MapViewController(player);
+        MapViewController map = new MapViewController(player, false);
     }
 }

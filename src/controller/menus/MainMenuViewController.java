@@ -1,5 +1,6 @@
 package controller.menus;
 
+import helper.ConsoleAssistent;
 import view.CreditView;
 import view.menus.MainMenuView;
 
@@ -23,6 +24,8 @@ public class MainMenuViewController {
      * ein falscher input ruft die Methode erneut auf.
      */
     public void startMenu() {
+        ConsoleAssistent.clearScreen();
+
         Scanner in = new Scanner(System.in);
         String input;
         mainMenu.displayMenu();
@@ -36,27 +39,33 @@ public class MainMenuViewController {
                 playerCharacter.selectChar(playerName);
                 break;
             case "2":
-                //loadSaveGame();
-                //TODO: Spiel Laden hinzufügen.
-
+                loadSaveGame();
+                break;
             case "3":
-                // Delete Savegame();
-                // TODO: Delete Savegame Methode für das Hauptmenü implementieren.
-                System.out.println("Coming soon");
-                startMenu();
+                deleteSaveState();
                 break;
             case "4":
                 credits.showCredits();
-                startMenu();
                 break;
             case "5":
                 System.out.println("You chose \"5. Quit\" Game will close. ");
                 return;
             default:
                 System.out.println("Wrong input. Please choose from the following options.\n");
-                startMenu();
                 break;
         }
+
+        startMenu();
+    }
+
+    private void loadSaveGame() {
+        LoadMenuViewController loadMenu = new LoadMenuViewController();
+        loadMenu.showLoadMenu();
+    }
+
+    private void deleteSaveState(){
+        LoadMenuViewController loadMenu = new LoadMenuViewController();
+        loadMenu.showDeleteMenu();
     }
 
 }

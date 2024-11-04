@@ -29,12 +29,22 @@ public class ActOne extends Act {
      *
      * @param player der Spieler, der sich im Akt bewegen soll
      */
-    public ActOne(Player player){
-        //this.player = player;
-        initNodes(player);
+    public ActOne(Player player, boolean loadingFromFile){
+        super(1);
+        initNodes();
+
+        Node playerNode = getNoteByName(player.getCurrentField());
+        if(playerNode == null){
+            System.out.println("ERROR");
+            return;
+        }
+
+        playerNode.setPlayer(player);
+        if(loadingFromFile)
+            playerNode.setFieldBeaten();
     }
 
-    private void initNodes(Player player){
+    private void initNodes(){
         Node start1 = new Node("1", new EnemyField(generateEnemies()), new Coordinates(3, 16));
         Node fight2 = new Node("2", new EnemyField(generateEnemies()), new Coordinates(3, 14));
         Node unknown3 = new Node("3", new UnknownField(), new Coordinates(1, 12));
@@ -87,9 +97,6 @@ public class ActOne extends Act {
         unknown13.setMiddleNode(rest15);
         elite14.setLeftNode(rest15);
         rest15.setMiddleNode(boss16);
-
-        // TODO: Marked for Save Func.
-        start1.setPlayer(player);
     }
 
     private List<Enemy> generateEnemies(){

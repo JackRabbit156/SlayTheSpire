@@ -21,7 +21,8 @@ public abstract class Act {
 
     protected List<Node> nodes;
 
-    public Act(){
+    public Act(int actLevel){
+        this.actLevel = actLevel;
         nodes = new ArrayList<>();
     }
 
@@ -88,6 +89,26 @@ public abstract class Act {
         return null;
     }
 
+    public int getActLevel() {
+        return actLevel;
+    }
+
+    protected Node getNoteByName(String name){
+        for(int i = 0; i< nodes.size(); i++){
+            if(nodes.get(i).getFieldName().equals(name)){
+                return nodes.get(i);
+            }
+        }
+        return null;
+    }
+
+    public String getLastField(){
+        return nodes.get(nodes.size()-1).getFieldName();
+    }
+
+    public String getCurrentField(){
+        return getPlayerNode().getFieldName();
+    }
     /**
      * Führt eine spezialisierte Aktion auf dem aktuellen Feld des Aktes aus.
      * Die Aktion ist in den Felder-Klassen definiert.

@@ -28,6 +28,8 @@ public abstract class Player {
 
     private int currentAct;
 
+    private String currentField;
+
     private String symbol;
 
     private PlayerType playerType;
@@ -43,6 +45,7 @@ public abstract class Player {
         this.currentEnergy = this.maxEnergy;
         this.gold = 0;
         this.currentAct = 1;
+        this.currentField = "1";
         this.playerType = playerType;
         this.symbol = symbol;
         this.listener = null;
@@ -143,6 +146,9 @@ public abstract class Player {
         return currentHealth;
     }
 
+    public void setCurrentHealth(int currentHealth){
+        this.currentHealth = currentHealth;
+    }
     public int getMaxEnergy() {
         return maxEnergy;
     }
@@ -179,7 +185,7 @@ public abstract class Player {
         return symbol;
     }
 
-    public void setCurrentAct(){
+    public void setCurrentAct(int currentAct){
         this.currentAct = currentAct;
     }
 
@@ -197,5 +203,13 @@ public abstract class Player {
 
     public void setListener(PlayerEventListener listener) {
         this.listener = listener;
+    }
+
+    public String getCurrentField() {
+        return currentField;
+    }
+
+    public void setCurrentField(String currentField) {
+        this.currentField = currentField;
     }
 }
