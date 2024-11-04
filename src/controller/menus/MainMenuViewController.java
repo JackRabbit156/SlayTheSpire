@@ -1,5 +1,6 @@
 package controller.menus;
 
+import controller.MapViewController;
 import view.CreditView;
 import view.menus.MainMenuView;
 
@@ -25,6 +26,7 @@ public class MainMenuViewController {
     public void startMenu() {
         Scanner in = new Scanner(System.in);
         String input;
+        String quit;
         mainMenu.displayMenu();
         input = in.next();
 
@@ -40,7 +42,7 @@ public class MainMenuViewController {
                 //TODO: Spiel Laden hinzufügen.
 
             case "3":
-                // Delete Savegame();
+                // deleteSavegame();
                 // TODO: Delete Savegame Methode für das Hauptmenü implementieren.
                 System.out.println("Coming soon");
                 startMenu();
@@ -50,8 +52,20 @@ public class MainMenuViewController {
                 startMenu();
                 break;
             case "5":
-                System.out.println("You chose \"5. Quit\" Game will close. ");
-                return;
+                System.out.println("You chose \"5. Quit\" Do you want to quit the Game? (Y/N). ");
+                quit = in.next();
+                if (quit.toLowerCase().equals("y")) {
+                    System.out.println("\nGood bye, see you soon");
+                    System.exit(0);
+                }
+                else if (quit.toLowerCase().equals("n")) {
+                    startMenu();
+                }
+                else {
+                    System.out.println("\tWrong input... going back to Main Menu\t\n\n");
+                    startMenu();
+                }
+                break;
             default:
                 System.out.println("Wrong input. Please choose from the following options.\n");
                 startMenu();

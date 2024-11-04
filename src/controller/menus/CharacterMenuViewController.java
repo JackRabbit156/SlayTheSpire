@@ -145,7 +145,6 @@ public class CharacterMenuViewController {
             MapViewController map = new MapViewController(player);
         }
         else if (start.toLowerCase().equals("n")) {
-            System.out.println();
             System.out.println("\nGoing back to character selection");
             getBacktoCharSelection();
         }
