@@ -130,12 +130,14 @@ public class ActOne extends Act {
             case 1:
                 // 2 - TheGuardian (Soll)
                 enemies.add(new SlimeBoss());
-                type = "Guardian";
+//                type = "Guardian";
+                type = "Slime";
                 break;
             case 2:
                 // 3 - Hexaghost (Kann)
                 enemies.add(new SlimeBoss());
-                type = "Hexa";
+//                type = "Hexa";
+                type = "Slime";
                 break;
             default:
                 // 1 - SlimBoss
