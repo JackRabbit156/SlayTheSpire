@@ -41,11 +41,11 @@ public class BattleViewController implements PlayerEventListener{
         while (player.isAlive() && !enemies.isEmpty()) {
             playerBOT();
 
-            printBatteView();
+            printBattleView();
 
             playerTurn();
 
-            removeHandAfterEndOfTurn();
+            playerEOT();
 
             ConsoleAssistent.clearScreen();
 
@@ -83,7 +83,7 @@ public class BattleViewController implements PlayerEventListener{
         }
     }
 
-    private void printBatteView(){
+    private void printBattleView(){
         enemies.removeIf(enemy -> !enemy.isAlive());
         view.display(player, enemies, battleDeck.getHand());
     }
@@ -101,7 +101,7 @@ public class BattleViewController implements PlayerEventListener{
                 case 1:
                     selectCard();
                     ConsoleAssistent.clearScreen();
-                    printBatteView();
+                    printBattleView();
                     break;
                 case 2: return;
                 default:
@@ -162,8 +162,8 @@ public class BattleViewController implements PlayerEventListener{
     }
     // Block hält nur 1. Runde an.
     private void removeBlockOfEnemiesAfterEndOfTurn() {
-        for(int i = 0; i<enemies.size(); i++){
-            enemies.get(i).setBlock(0);
+        for (Enemy enemy : enemies) {
+            enemy.setBlock(0);
         }
     }
 
