@@ -27,7 +27,7 @@ public class CharacterMenuViewController {
     }
 
     /**
-     * ruft newPlayer() auf -> dort wird erst wirklich der Charakter ausgewählt.
+     * ruft newPlayer() auf -> dort wird erst der Charakter ausgewählt.
      * Hier wird der Spieler mit dessen übergebenem playerName begrüßt und eine Option zum zurückkehren zum Main Menu
      * mittels eingabe von "exit" gestellt.
      * @param playerName username
@@ -126,7 +126,7 @@ public class CharacterMenuViewController {
 
     private void startMapView(Player player){
         GameSettings.difficultylevel = setDifficulty();
-        //GameSettings.gameMode = setGameMode();
+        GameSettings.gamemode = setGameMode();
         System.out.println("\nStarting map view...");
         MapViewController map = new MapViewController(player);
     }
