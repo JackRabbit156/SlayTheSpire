@@ -1,6 +1,7 @@
 package controller;
 
 import models.map_elements.acts.Act;
+import models.map_elements.acts.ActFour;
 import models.map_elements.acts.ActOne;
 import models.map_elements.acts.ActTwo;
 import models.player.player_structure.Player;
@@ -39,6 +40,8 @@ public class MapViewController {
         switch (player.getCurrentAct()){
             case 1: act = new ActOne(player); break;
             case 2: act = new ActTwo(player); break;
+            case 3:  break; // TODO: Act 3
+            case 4: act = new ActFour(player); break;
             default:
                 System.out.println("Weird"); return;
         }

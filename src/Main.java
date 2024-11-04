@@ -3,8 +3,6 @@ import controller.MapViewController;
 import controller.menus.MainMenuViewController;
 import helper.Color;
 import models.cards.DeckFactory;
-import models.enemy.AcidSlime;
-import models.enemy.Cultist;
 import models.enemy.Enemy;
 import models.enemy.SpikeSlime;
 import models.player.Ironclad;
@@ -20,7 +18,6 @@ public class Main {
 
 //        System.out.println(Color.values().length);
         /*Ironclad player = new Ironclad();
-
 
         List<Enemy> enemies = new ArrayList<Enemy>();
 

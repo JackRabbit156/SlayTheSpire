@@ -11,7 +11,7 @@ public class ShopField extends Field{
 
     @Override
     public void doFieldThing(Player player) {
-        shop = new ShopViewController(player);
+        ShopViewController shop = new ShopViewController(player);
         shop.entryShop();
     }
 }

@@ -6,6 +6,7 @@ import models.enemy.Enemy;
 import models.player.player_structure.Player;
 
 import java.util.List;
+import java.util.Scanner;
 
 public class BattleView {
 
@@ -17,10 +18,11 @@ public class BattleView {
         System.out.printf("%-20s %s (%d/%d)%n", "HP:",getHpBar(player.getCurrentHealth(), player.getMaxHealth()), player.getCurrentHealth(), player.getMaxHealth());
         System.out.printf("%-20s %10s (%d/%d)%n", "Energy:", getHpBar(player.getCurrentEnergy(), player.getMaxEnergy()), player.getCurrentEnergy(), player.getMaxEnergy());
 
-        for (Enemy enemy : enemies) {
-            String hpBar = getHpBar(enemy.getHealth(), enemy.getMaxHealth());
-            System.out.printf("%" + 80 + "s %-20s%n", "Enemy:", enemy.getName());
-            System.out.printf("%" + 80 + "s %-20s%n%n", "HP:", hpBar + " (" + enemy.getHealth() + "/" + enemy.getMaxHealth() + ")");
+        for(int i = 0; i< enemies.size(); i++){
+            String hpBar = getHpBar(enemies.get(i).getHealth(), enemies.get(i).getMaxHealth());
+            System.out.printf("%" + 81 + "s(%d) %-20s%n", "Enemy: ", i + 1, enemies.get(i).getName());
+            System.out.printf("%" + 80 + "s %-20s%n", "HP:", hpBar + " (" + enemies.get(i).getHealth() + "/" + enemies.get(i).getMaxHealth() + ")");
+            System.out.printf("%" + 80 + "s %-20s%n%n", "Block:", enemies.get(i).getBlock());
         }
 
         // Display hand at the bottom
@@ -45,7 +47,21 @@ public class BattleView {
     }
 
     public void displayDefeat() {
-        System.out.println("\nYou have been defeated. Game Over.");
+        ConsoleAssistent.sleep(1000);
+        ConsoleAssistent.clearScreen();
+
+        String gameOver= " _______  _______  __   __  _______    _______  __   __  _______  ______   \n" +
+                "|       ||   _   ||  |_|  ||       |  |       ||  | |  ||       ||    _ |  \n" +
+                "|    ___||  |_|  ||       ||    ___|  |   _   ||  |_|  ||    ___||   | ||  \n" +
+                "|   | __ |       ||       ||   |___   |  | |  ||       ||   |___ |   |_||_ \n" +
+                "|   ||  ||       ||       ||    ___|  |  |_|  ||       ||    ___||    __  |\n" +
+                "|   |_| ||   _   || ||_|| ||   |___   |       | |     | |   |___ |   |  | |\n" +
+                "|_______||__| |__||_|   |_||_______|  |_______|  |___|  |_______||___|  |_|";
+        System.out.println(gameOver);
+        System.out.println("\nYou have been defeated.");
+
+        System.out.print("\n\nEnter (c)ontinue to get to the Main Menu: ");
+        new Scanner(System.in).nextLine();
     }
 
     public void displayTitle() {

@@ -2,7 +2,7 @@ package models.map_elements.field_types;
 
 import controller.BattleViewController;
 import controller.LootViewController;
-import models.enemy.Cultist;
+import models.enemy.act_one.Cultist;
 import models.enemy.Enemy;
 import models.player.player_structure.Player;
 
