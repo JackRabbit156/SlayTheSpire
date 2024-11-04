@@ -3,6 +3,7 @@ import controller.MapViewController;
 import controller.menus.MainMenuViewController;
 import helper.Color;
 import models.cards.DeckFactory;
+import controller.menus.MainMenuViewController;
 import models.enemy.Enemy;
 import models.enemy.SpikeSlime;
 import models.player.Ironclad;
@@ -12,11 +13,9 @@ import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
-//        MapViewController map = new MapViewController(player);
-        MainMenuViewController menu = new MainMenuViewController();
-        menu.startMenu();
-
-//        System.out.println(Color.values().length);
+        Ironclad player = new Ironclad();
+        MapViewController map = new MapViewController(player);
+        
         /*Ironclad player = new Ironclad();
 
         List<Enemy> enemies = new ArrayList<Enemy>();

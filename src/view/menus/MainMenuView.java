@@ -32,6 +32,7 @@ public class MainMenuView {
      */
     public void displayMenu(){
         displayTitle();
-        System.out.println("Choose an option: " + "\n\t1. New Game \n\t2. Load Game \n\t3. Delete Savegame \n\t4. Credits \n\t5. Quit");
+        System.out.print("\n\t1. New Game \n\t2. Load Game \n\t3. Delete Savegame \n\t" +
+                "4. Credits \n\t5. Quit" + "\n\nChoose an option: ");
     }
 }
