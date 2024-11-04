@@ -12,10 +12,9 @@ import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
-        Ironclad player = new Ironclad();
-        MapViewController map = new MapViewController(player);
-        /*MainMenuViewController menu = new MainMenuViewController();
-        menu.startMenu();*/
+//        MapViewController map = new MapViewController(player);
+        MainMenuViewController menu = new MainMenuViewController();
+        menu.startMenu();
 
 //        System.out.println(Color.values().length);
         /*Ironclad player = new Ironclad();
