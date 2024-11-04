@@ -1,5 +1,6 @@
 package controller.menus;
 
+import helper.ConsoleAssistent;
 import view.CreditView;
 import view.menus.MainMenuView;
 
