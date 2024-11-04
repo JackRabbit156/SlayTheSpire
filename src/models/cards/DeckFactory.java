@@ -2,21 +2,23 @@ package models.cards;
 
 import helper.Color;
 import helper.ConsoleAssistent;
+import models.cards.card_structure.AttackCard;
 import models.cards.card_structure.Card;
 import models.cards.general_cards.DefendCard;
 import models.cards.general_cards.StrikeCard;
+import models.cards.ironclad_cards.IroncladsCards;
 import models.cards.ironclad_cards.attack.common.*;
 import models.cards.ironclad_cards.attack.uncommon.*;
 import models.cards.ironclad_cards.attack.rare.*;
 
 import models.player.player_structure.Player;
-import models.player.player_structure.PlayerType;
 
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
@@ -24,18 +26,12 @@ import java.util.Random;
  * @author Keil, Vladislav
  */
 public class DeckFactory {
-    private Path sourceFilePath = Paths.get("resources/PlayerCards/");
+    private Path sourceFilePath = Paths.get("src/resources/PlayerCards/"); //TODO Löschen, wenn nur über enums
     private Path characterFilePath;
     private List<Card> genDeck;
     private Player player;
     private int amount;
     private Random rand = new Random();
-    /*
-        Was soll er erfüllen
-        Welcher Spieler?
-        Wieviel Karten?
-        Rückgabe von X Karten als Liste
-     */
 
     public DeckFactory(Player player, int amount) {
         this.player = player;
@@ -62,9 +58,89 @@ public class DeckFactory {
         return null;
     }
 
+    // Anstatt auf das FileSystem zuzugreifen wird hier aus einem Enum gegriffen
+    private List<Card> initIroncladCards() {
+        List availableCards = Arrays.asList(IroncladsCards.values());
+        if (availableCards == null) {
+            ConsoleAssistent.print(Color.RED, "DeckFactory.class: Karten Initialisierung hat nicht korrekt funktioniert.");
+        }
+        for (int i = 0; i < this.amount; i++) {
+            int randomNumber = rand.nextInt(availableCards.size());
+
+            String cardName = availableCards.get(randomNumber).toString();
+            genDeck.add(assignCard(cardName));
+        }
+        return genDeck;
+    }
+
+    private Card assignCard(String cardName){
+        Card cardToTransform = null;
+        switch (cardName){
+            // AttackCards
+            // GeneralCards
+            case "StrikeCard": cardToTransform = new StrikeCard(); break;
+            case "DefendCard": cardToTransform = new DefendCard(); break;
+            // CommonCards
+            case "AngerCard": cardToTransform = new AngerCard(); break;
+            case "BashCard": cardToTransform = new BashCard(); break;
+            case "BodySlamCard": cardToTransform = new BodySlamCard(); break;
+            case "ClashCard": cardToTransform = new ClashCard(); break;
+            case "CleaveCard": cardToTransform = new CleaveCard(); break;
+            case "ClotheslineCard": cardToTransform = new ClotheslineCard(); break;
+            case "HeadbuttCard": cardToTransform = new HeadbuttCard(); break;
+            case "HeavyBladeCard": cardToTransform = new HeavyBladeCard(); break;
+            case "IronWaveCard": cardToTransform = new IronWaveCard(); break;
+            case "PerfectedStrikeCard": cardToTransform = new PerfectedStrikeCard(); break;
+            case "PommelStrikeCard": cardToTransform = new PommelStrikeCard(); break;
+            case "SwordBoomerangCard": cardToTransform = new SwordBoomerangCard(); break;
+            case "ThunderclapCard": cardToTransform = new ThunderclapCard(); break;
+            case "TwinStrikeCard": cardToTransform = new TwinStrikeCard(); break;
+            case "WildStrikeCard": cardToTransform = new WildStrikeCard(); break;
+            // RareCard
+            case "BludgeonCard": cardToTransform = new BludgeonCard(); break;
+            case "FeedCard": cardToTransform = new FeedCard(); break;
+            case "FiendFireCard": cardToTransform = new FiendFireCard(); break;
+            case "ImmolateCard": cardToTransform = new ImmolateCard(); break;
+            case "ReaperCard": cardToTransform = new ReaperCard(); break;
+            // UncommonCard
+            case "BloodForBloodCard": cardToTransform = new BloodForBloodCard(); break;
+            case "CarnageCard": cardToTransform = new CarnageCard(); break;
+            case "DropkickCard": cardToTransform = new DropkickCard(); break;
+            case "HemokinesisCard": cardToTransform = new HemokinesisCard(); break;
+            case "PummelCard": cardToTransform = new PummelCard(); break;
+            case "RampageCard": cardToTransform = new RampageCard(); break;
+            case "RecklessChargeCard": cardToTransform = new RecklessChargeCard(); break;
+            case "SearingBlowCard": cardToTransform = new SearingBlowCard(); break;
+            case "SeverSoulCard": cardToTransform = new SeverSoulCard(); break;
+            case "UppercurCard": cardToTransform = new UppercutCard(); break;
+            case "WhirlwindCard": cardToTransform = new WhirlwindCard(); break;
+
+            // Skill
+            // CommonCards
+
+            // UncommonCard
+
+            // RareCard
+
+
+            // Power
+            // CommonCards
+
+            // UncommonCard
+
+            // RareCard
+        }
+
+        return cardToTransform;
+    }
+
+
+    /* //TODO Löschen, wenn nur über enums
     private List<Card> initIroncladCards() {
         List availableCards = readCardFile();
-
+        if (availableCards == null) {
+            ConsoleAssistent.print(Color.RED, "DeckFactory.class: Karten Initialisierung hat nicht korrekt funktioniert.");
+        }
         for (int i = 0; i < this.amount; i++) {
             int randomNumber = rand.nextInt(availableCards.size());
 
@@ -135,7 +211,8 @@ public class DeckFactory {
 
         return cardToTransform;
     }
-
+*/
+    //TODO Löschen, wenn nur über enums
     private List readCardFile() {
         Path cardListPath = sourceFilePath.resolve(characterFilePath);
 

@@ -1,7 +1,5 @@
 package view;
 
-//TODO Import Shop Class
-
 import helper.ConsoleAssistent;
 import models.cards.card_structure.Card;
 import models.player.player_structure.Player;

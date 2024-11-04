@@ -3,7 +3,9 @@ package tests;
 import controller.ShopViewController;
 import models.player.Ironclad;
 
-
+/**
+ * @author Keil, Vladislav
+ */
 public class ShopControllerTester {
     public static void main(String[] args) {
         Ironclad player = new Ironclad();
