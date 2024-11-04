@@ -4,6 +4,7 @@ import models.enemy.Enemy;
 import models.enemy.act_one.AcidSlime;
 import models.enemy.act_one.Cultist;
 import models.enemy.act_one.MadGremlin;
+import models.enemy.act_one.bosses.SlimeBoss;
 import models.map_elements.Coordinates;
 import models.map_elements.Node;
 import models.map_elements.field_types.*;
@@ -23,6 +24,8 @@ import java.util.Random;
  * @author Warawa Alexander
  */
 public class ActOne extends Act {
+    Random randi = new Random();
+
     /**
      * Konstruktor für die Klasse ActOne.
      * Initialisiert den Akt und platziert den Spieler auf dem Startfeld.
@@ -50,7 +53,7 @@ public class ActOne extends Act {
         Node unknown13 = new Node("13", new UnknownField(), new Coordinates(4, 4));
         Node elite14 = new Node("14", new EliteField(), new Coordinates(6, 4));
         Node rest15 = new Node("15", new RestField(), new Coordinates(4, 2));
-        Node boss16 = new Node("16", new BossField(), new Coordinates(4, 0));
+        Node boss16 = new Node("16", new BossField(createBossEnemies()), new Coordinates(4, 0));
 
         nodes.add(start1);
         nodes.add(fight2);
@@ -94,7 +97,7 @@ public class ActOne extends Act {
 
     private List<Enemy> generateEnemies(){
         List<Enemy> enemies = new ArrayList<>();
-        Random randi = new Random();
+
         String[] possibleEnemies = {"AcidSlime", "Cultist", "MadGremlin"};
 
         int numberOfEnemies = randi.nextInt(4) + 1;
@@ -110,6 +113,53 @@ public class ActOne extends Act {
             }
         }
         return enemies;
+    }
+
+    private List<Enemy> createBossEnemies() {
+        List<Enemy> enemies = new ArrayList<>();
+
+        int randBoss = randi.nextInt(3);
+        int randAmountEnemies = randi.nextInt(4);
+        String type;
+        switch (randBoss) {
+            case 0:
+                // 1 - SlimBoss
+                enemies.add(new SlimeBoss());
+                type = "Slime";
+                break;
+            case 1:
+                // 2 - TheGuardian (Soll)
+                enemies.add(new SlimeBoss());
+                type = "Guardian";
+                break;
+            case 2:
+                // 3 - Hexaghost (Kann)
+                enemies.add(new SlimeBoss());
+                type = "Hexa";
+                break;
+            default:
+                // 1 - SlimBoss
+                enemies.add(new SlimeBoss());
+                type = "Slime";
+                break;
+            }
+        for (int i = 0; i < randAmountEnemies; i++) {
+            enemies.add(createEnemiesTypeOfBoss(type));
+        }
+        return enemies;
+    }
+
+    private Enemy createEnemiesTypeOfBoss(String type) {
+        switch (type) {
+            case "Slime":
+                return new AcidSlime();
+            case "Hexa":
+                return new MadGremlin();
+            case "Guardian ":
+                return new Cultist();
+        }
+        // Ansonsten immer AcidSlime
+        return new AcidSlime();
     }
 
     /**

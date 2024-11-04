@@ -6,7 +6,7 @@ import view.StatisticsView;
 
 public class BossFieldTester {
     public static void main(String[] args) {
-        BossField bossField = new BossField();
+//        BossField bossField = new BossField();
         StatisticsView statisticsView = new StatisticsView();
         Ironclad player = new Ironclad();
 
