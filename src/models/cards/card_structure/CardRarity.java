@@ -5,5 +5,6 @@ public enum CardRarity {
     UNCOMMON,
     RARE,
     //TODO BASIC (https://slay-the-spire.fandom.com/wiki/Cards)
-    SPECIAL
+    SPECIAL,
+    POTION
 }
