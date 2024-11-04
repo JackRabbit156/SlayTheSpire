@@ -11,13 +11,12 @@ public class AcidSlime extends Enemy {
 
     @Override
     public void attack(GameContext gameContext) {
-        //System.out.printf("%s used ");
 
-        atttackCorrosiveSpit(gameContext);
+        attackCorrosiveSpit(gameContext);
 
     }
 
-    private void atttackCorrosiveSpit(GameContext gameContext){
+    private void attackCorrosiveSpit(GameContext gameContext){
         int attackDamage = 11;
         Player player = gameContext.getPlayer();
 
