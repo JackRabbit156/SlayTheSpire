@@ -4,6 +4,7 @@ import events.PlayerBlockEvent;
 import events.PlayerDamageEvent;
 import listener.PlayerEventListener;
 import models.cards.card_structure.Card;
+import models.game_settings.GameSettings;
 import models.relics.relic_structure.Relic;
 
 import java.util.List;
@@ -68,6 +69,7 @@ public abstract class Player {
 
     public void decreaseCurrentEnergy(int energy) {
         currentEnergy -= energy;
+        GameSettings.increaseEnergySpentStats(energy);
     }
     public void increaseCurrentEnergy(int energy) {
         currentEnergy += energy;
@@ -77,7 +79,7 @@ public abstract class Player {
         currentHealth -= dmg;
         if (currentHealth < 0)
             currentHealth = 0;
-
+        GameSettings.increaseReceivedDamageStats(dmg);
         if (damageFromCard) {
             notifyDamageReceived(dmg, true);
         }
@@ -96,6 +98,7 @@ public abstract class Player {
 
     public void increaseGold(int gold) {
         this.gold += gold;
+        GameSettings.increaseGoldStats(gold);
     }
 
     public void decreaseGold(int gold) {

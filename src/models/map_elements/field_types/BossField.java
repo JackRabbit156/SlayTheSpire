@@ -6,6 +6,7 @@ import models.enemy.Enemy;
 import models.enemy.act_one.AcidSlime;
 import models.enemy.act_one.bosses.SlimeBoss;
 import models.player.player_structure.Player;
+import view.StatisticsView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,6 +20,7 @@ public class BossField extends Field{
     private Random rand = new Random();
     private List<Enemy> tenemies;
     private int enemyType;
+    private StatisticsView statisticsView;
 
     public BossField() {
         super("\uD83D\uDCAA");
@@ -26,6 +28,9 @@ public class BossField extends Field{
 
     @Override
     public void doFieldThing(Player player) {
+        if(isFieldBeaten())
+            return;
+
         int currAct = player.getCurrentAct();
         // MUSS 1 Boss
         // KANN 0 - 2 Elite
@@ -58,6 +63,14 @@ public class BossField extends Field{
         BattleViewController battle = new BattleViewController(player, tenemies);
         battle.startBattle();
 
+        if(!player.isAlive()) {
+            return;
+        }
+
+        setFieldBeaten();
+
+        statisticsView = new StatisticsView();
+        statisticsView.display(player);
 
 
         //TODO Add here LootViewController(player, FieldType)
@@ -71,11 +84,11 @@ public class BossField extends Field{
             this.enemyType = 1; // 1 - SlimBoss
             return new SlimeBoss();
         } else if (randDouble < 0.66) {
-            this.enemyType = 1; // 1 - SlimBoss
+            this.enemyType = 1; // 2 - TheGuardian (Soll)
             return new SlimeBoss();
 //            return new TheGuardian();
         } else {
-            this.enemyType = 1; // 1 - SlimBoss
+            this.enemyType = 1; // 3 - Hexaghost (Kann)
             return new SlimeBoss();
 //            return new Hexaghost();
         }
@@ -88,10 +101,10 @@ public class BossField extends Field{
                 case 0:
                     this.tenemies.add(new AcidSlime());
                     break;
-                case 1:
+                case 1: // 2 - TheGuardian (Soll)
 //                    this.tenemies.add()
                     break;
-                case 2:
+                case 2: // 3 - Hexaghost (Kann)
                     //
 //                    this.tenemies.add()
                     break;

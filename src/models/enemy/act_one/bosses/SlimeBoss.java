@@ -27,14 +27,15 @@ public class SlimeBoss extends Enemy {
         if (rand.nextDouble() < 0.50) {
             preparing();
         } else {
-            atttackSlam(gameContext);
+            attackSlam(gameContext);
         }
     }
 
-    private void atttackSlam(GameContext gameContext){
+    private void attackSlam(GameContext gameContext){
         int attackDamage = 35;
         Player player = gameContext.getPlayer();
         player.decreaseCurrentHealth(attackDamage, false);
+        System.out.printf("%s used %s, %s took %d damage!%n", getName(), "Slam", player.getName(), attackDamage);
     }
 /*
     // Split in Acid Slime (L)
@@ -48,6 +49,7 @@ public class SlimeBoss extends Enemy {
 */
 
     private void preparing(){
+        System.out.printf("%s do %s!%n", getName(), "Nothing");
         // doNothing
     }
 }

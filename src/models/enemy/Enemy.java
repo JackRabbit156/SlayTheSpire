@@ -1,6 +1,7 @@
 package models.enemy;
 
 import models.GameContext;
+import models.game_settings.GameSettings;
 
 import java.util.Random;
 
@@ -57,7 +58,7 @@ public abstract class Enemy {
                 block = 0;
             }
         }
-
+        GameSettings.increaseDistributedDamageStats(damage);
         if (currentHealth < 0)
             currentHealth = 0;
     }

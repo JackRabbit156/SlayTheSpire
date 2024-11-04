@@ -12,8 +12,14 @@ public class EliteField extends Field {
 
     @Override
     public void doFieldThing(Player player) {
+        if(isFieldBeaten())
+            return;
 
+        if(!player.isAlive()) {
+            return;
+        }
 
+        setFieldBeaten();
 
         //TODO Es muss geprüft werden, ob das Battle erfolgreich war.
         lootViewController = new LootViewController(player, "EliteField");
