@@ -1,6 +1,7 @@
 package models.enemy;
 
 import models.GameContext;
+import models.game_settings.GameSettings;
 import models.game_settings.structure.DifficultyLevel;
 
 import java.util.ArrayList;
@@ -22,7 +23,7 @@ public abstract class Enemy {
     }
 
     public void action(GameContext gameContext) {
-        DifficultyLevel difficulty = gameContext.getDifficultyLevel();
+        DifficultyLevel difficulty = GameSettings.getDifficultyLevel();
         int randomNumber = (new Random().nextInt(100) + 1);
         int attackPercentage = 100; //should be normal
 

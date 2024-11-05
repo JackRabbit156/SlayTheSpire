@@ -11,13 +11,11 @@ public class GameContext {
     private final Player player;
     private final List<Enemy> enemies;
     private final BattleDeck battleDeck;
-    private final DifficultyLevel difficultyLevel;
 
-    public GameContext(Player player, List<Enemy> enemies, BattleDeck battleDeck, DifficultyLevel difficultyLevel){
+    public GameContext(Player player, List<Enemy> enemies, BattleDeck battleDeck){
         this.player = player;
         this.enemies = enemies;
         this.battleDeck = battleDeck;
-        this.difficultyLevel = difficultyLevel;
     }
 
     public Player getPlayer(){
@@ -30,9 +28,5 @@ public class GameContext {
 
     public BattleDeck getBattleDeck() {
         return battleDeck;
-    }
-
-    public DifficultyLevel getDifficultyLevel() {
-        return difficultyLevel;
     }
 }

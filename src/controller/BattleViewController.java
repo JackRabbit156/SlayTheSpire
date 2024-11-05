@@ -32,7 +32,7 @@ public class BattleViewController implements PlayerEventListener{
         this.view = new BattleView();
         this.scanner = new Scanner(System.in);
         this.battleDeck = new BattleDeck(player.getDeck());
-        this.gameContext = new GameContext(player, enemies, battleDeck, GameSettings.getDifficultyLevel());
+        this.gameContext = new GameContext(player, enemies, battleDeck);
         player.setListener(this);
     }
 
