@@ -8,6 +8,7 @@ import models.player.player_structure.Player;
 import models.relics.relic_structure.Relic;
 import view.ShopView;
 
+import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
@@ -57,7 +58,7 @@ public class ShopViewController {
             try{
                 input = scanner.nextInt();
                 break;
-            } catch (NumberFormatException e) {
+            } catch (InputMismatchException e) {
                 ConsoleAssistent.print(Color.YELLOW, "Wrong input...");
             }
         }
@@ -88,7 +89,7 @@ public class ShopViewController {
             try{
                 input = scanner.nextInt();
                 break;
-            } catch (NumberFormatException e) {
+            } catch (InputMismatchException e) {
                 ConsoleAssistent.print(Color.YELLOW, "Wrong input...");
             }
         }
