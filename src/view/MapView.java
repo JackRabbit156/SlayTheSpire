@@ -78,6 +78,7 @@ public class MapView {
 
     private void printMapLegend(){
         System.out.printf(ConsoleAssistent.repeat(gap, " ") +"❓ Unknown%n");
+        System.out.printf(ConsoleAssistent.repeat(gap, " ") +"❇ Event%n");
         System.out.printf(ConsoleAssistent.repeat(gap, " ") +"\uD83D\uDC5C Merchant%n");
         System.out.printf(ConsoleAssistent.repeat(gap, " ") +"T Treasure%n");
         System.out.printf(ConsoleAssistent.repeat(gap, " ") +"\uD83D\uDCA4 Rest%n");
