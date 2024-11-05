@@ -44,7 +44,6 @@ public class CharacterMenuViewController {
      * Hier wird der Spieler mit dessen übergebenem playerName begrüßt und eine Option zum zurückkehren zum Main Menu
      * mittels eingabe von "exit" gestellt.
      * @param playerName username
-     * @author Loeschner, Marijan
      */
     public void selectChar(String playerName){
         System.out.println("\nHello! " + playerName + "\n");
@@ -88,7 +87,6 @@ public class CharacterMenuViewController {
     /**
      * Setzt den entsprechenden Schwierigkeitsgrad
      * @return DifficultyLevel
-     * @author Loeschner, Marijan
      */
     public void chooseDifficulty(){
         String dif;
