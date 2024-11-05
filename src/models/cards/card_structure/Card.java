@@ -13,14 +13,16 @@ public abstract class Card {
     private int cost = 0;
     private CardRarity cardRarity;
     private CardGrave cardGrave;
+    private CardType cardType;
 
-    public Card(String name, String description, int cost, CardRarity cardRarity, CardGrave cardGrave) {
+    public Card(String name, String description, int cost, CardRarity cardRarity, CardGrave cardGrave, CardType cardType) {
         this.name = name;
         this.description = description;
         this.cost = cost;
         this.cardRarity = cardRarity;
         this.cardGrave = cardGrave;
         this.price = genPrice();
+        this.cardType = cardType;
     }
 
     public abstract void play(GameContext gameContext);
@@ -47,6 +49,10 @@ public abstract class Card {
 
     public int getPrice() {
         return price;
+    }
+
+    public CardType getCardType() {
+        return cardType;
     }
 
     public int genPrice() {

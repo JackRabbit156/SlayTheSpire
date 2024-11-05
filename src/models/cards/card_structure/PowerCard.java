@@ -6,7 +6,7 @@ public abstract class PowerCard extends Card {
     CardTrigger cardTrigger;
 
     public PowerCard(String name, String description, int cost, CardRarity rarity, CardGrave cardGrave, CardTrigger cardTrigger) {
-        super(name, description, cost, rarity, cardGrave);
+        super(name, description, cost, rarity, cardGrave, CardType.POWER);
         this.cardTrigger = cardTrigger;
     }
 
