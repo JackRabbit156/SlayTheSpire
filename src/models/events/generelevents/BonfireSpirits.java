@@ -33,10 +33,10 @@ public class BonfireSpirits extends Event {
     @Override
     public void startEvent() {
         Card chosenCard;
-        String input = scanner.next();
         EventView.displayStory(getTitle(), getStory());
         EventView.viewDeck(player);
         System.out.println("Do you want to offer a Card to the Spirits? (Y/N) ");
+        String input = scanner.next();
 
         if (input.toLowerCase().equals("n")) {
             System.out.println("The Spirits wish you farewell... ");

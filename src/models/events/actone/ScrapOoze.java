@@ -26,8 +26,8 @@ public class ScrapOoze extends Event {
     @Override
     public void startEvent() {
         EventView.displayStory(getTitle(), getStory());
-        int options = scanner.nextInt();
         System.out.println("1. Reach into the Ooze\n2. Leave\n\nChoose an option: ");
+        int options = scanner.nextInt();
         if (options == 1) {
             player.setCurrentHealth(player.getCurrentHealth() - 3);
             System.out.println("Ouch!\nAll you find is corroded metal and a bit of burning pain.");

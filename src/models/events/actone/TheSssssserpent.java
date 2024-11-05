@@ -22,12 +22,12 @@ public class TheSssssserpent extends Event {
 
     @Override
     public void startEvent() {
-        String input = scanner.next();
         EventView.displayStory(getTitle(), getStory());
         //Dialog mit der Schlange
         System.out.println("Serpent: \"Ho hooo! Hello hello! what have we got here? Hello adventurer, I ask a simple question.\"\n" +
                 "Serpent: \"The most fulfilling of lives is that in which you can buy anything!\"\n" +
                 "Serpent: \"Do you agree?\" (Y/N)");
+        String input = scanner.next();
         if (input.toLowerCase().equals("y")) {
             System.out.println("Serpent: \"Yeeeeeeessssssssssessss\"\n" +
                     "Serpent: \"Thisss will all be worthhh it.\"\n" +

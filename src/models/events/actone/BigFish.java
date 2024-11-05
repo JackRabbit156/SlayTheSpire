@@ -25,9 +25,9 @@ public class BigFish extends Event {
 
     @Override
     public void startEvent() {
-        String input = scanner.next();
         EventView.displayStory(getTitle(), getStory());
         System.out.println("1. Banana\n2. Donut\nChoose an option: ");
+        String input = scanner.next();
         switch (input){
             case "1":
                 System.out.println("You eat the banana. It is nutritious and slightly magical, healing you.");

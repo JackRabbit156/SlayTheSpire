@@ -30,10 +30,10 @@ public class WorldOfGoo extends Event {
     @Override
     public void startEvent() {
         int randGold;
-        String input= scanner.next();
         EventView.displayStory(getTitle(), getStory());
         //Die optionen sollen dem Spieler nicht erklärt werden.
         System.out.println("1. Gather Gold \n2. Leave it \n\nChoose an option: ");
+        String input= scanner.next();
         switch(input){
             case "1":
                 System.out.println("Feeling the sting of the goop as the prolonged " +

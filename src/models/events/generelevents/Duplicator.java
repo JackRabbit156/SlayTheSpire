@@ -27,9 +27,9 @@ public class Duplicator extends Event {
     public void startEvent() {
         List<Card> exchangeDeck = player.getDeck();
         Card exchangeCard;
-        String input = scanner.next();
         EventView.displayStory(getTitle(), getStory());
         System.out.println("1. Pray \n2. Leave \n" + "\nChoose an option: ");
+        String input = scanner.next();
         if (input.equals("1")) {
             System.out.println("You kneel respectfully. A ghastly mirror image appears from the shrine and collides into you.");
             //Karten auflisten.
