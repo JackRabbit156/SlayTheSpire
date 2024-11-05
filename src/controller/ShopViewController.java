@@ -8,7 +8,6 @@ import models.player.player_structure.Player;
 import models.relics.relic_structure.Relic;
 import view.ShopView;
 
-import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
@@ -54,11 +53,11 @@ public class ShopViewController {
         int input = 0;
 
         while(true){
-            shopView.displayCardChoiceMenu(purchasableCards.size());
+            System.out.print("\nChoose the Game state you want to delete: ");
             try{
                 input = scanner.nextInt();
                 break;
-            } catch (InputMismatchException e) {
+            } catch (NumberFormatException e) {
                 ConsoleAssistent.print(Color.YELLOW, "Wrong input...");
             }
         }
@@ -80,15 +79,16 @@ public class ShopViewController {
     private void cardChoice() {
         ConsoleAssistent.clearScreen();
         shopView.displayCards(purchasableCards);
+        shopView.displayCardChoiceMenu(purchasableCards.size());
 
         int input = 0;
 
         while(true){
-            shopView.displayCardChoiceMenu(purchasableCards.size());
+            System.out.print("\nChoose the Game state you want to delete: ");
             try{
                 input = scanner.nextInt();
                 break;
-            } catch (InputMismatchException e) {
+            } catch (NumberFormatException e) {
                 ConsoleAssistent.print(Color.YELLOW, "Wrong input...");
             }
         }
