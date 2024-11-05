@@ -13,7 +13,14 @@ import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
 
+/**
+ * Headbutt Karte.
+ * @author OF Daniel Willig
+ */
 public class HeadbuttCard extends AttackCard {
+    /**
+     * Constructor HeadbuttCard.
+     */
     public HeadbuttCard() {
         super("Headbutt", "Deal 9 damage. Put a card from your discard pile on top of your draw pile.", 1, 9, CardRarity.COMMON, CardGrave.DISCARD);
     }

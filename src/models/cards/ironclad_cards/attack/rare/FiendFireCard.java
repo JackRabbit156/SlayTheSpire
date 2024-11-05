@@ -9,7 +9,15 @@ import models.player.player_structure.Player;
 
 import java.util.Scanner;
 
+/**
+ * Die Fiend fire Karte.
+ *
+ * @author OF Daniel Willig
+ */
 public class FiendFireCard extends AttackCard {
+    /**
+     * Constructor Fiend fire card.
+     */
     public FiendFireCard() {
         super("Fiend Fire", "Exhaust all cards in your hand. Deal 7 damage for each Exhausted card.Exhaust.", 2, 7, CardRarity.RARE, CardGrave.EXHAUST);
     }

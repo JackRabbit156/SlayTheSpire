@@ -9,7 +9,14 @@ import models.player.player_structure.Player;
 
 import java.util.Scanner;
 
+/**
+ * Body slam Karte.
+ * @author OF Daniel Willig
+ */
 public class BodySlamCard extends AttackCard {
+    /**
+     * Constructor BodySlamCard.
+     */
     public BodySlamCard() {
         super("Body Slam", "Deal damage equal to your Block.", 1, 0, CardRarity.COMMON, CardGrave.DISCARD);
     }
@@ -33,6 +40,12 @@ public class BodySlamCard extends AttackCard {
         return 0;
     }
 
+    /**
+     * Deal damage int.
+     *
+     * @param gameContext the game context
+     * @return the int
+     */
     public int dealDamage(GameContext gameContext) {
         Player player = gameContext.getPlayer();
         return player.getBlock();

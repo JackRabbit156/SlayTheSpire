@@ -9,7 +9,15 @@ import models.player.player_structure.Player;
 
 import java.util.Scanner;
 
+/**
+ * Die Neutralize Karte.
+ *
+ * @author OF Daniel Willig
+ */
 public class NeutralizeCard extends AttackCard {
+    /**
+     * Constructor Neutralize card.
+     */
     public NeutralizeCard() {
         super("Neutralize", "Deal 3 damage. Apply 1 Weak.", 0, 3, CardRarity.COMMON, CardGrave.DISCARD);
     }

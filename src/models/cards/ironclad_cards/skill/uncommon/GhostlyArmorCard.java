@@ -6,10 +6,18 @@ import models.cards.card_structure.CardRarity;
 import models.cards.card_structure.SkillCard;
 import models.player.player_structure.Player;
 
+/**
+ * Die Ghostly armor Karte.
+ *
+ * @author OF Daniel Willig
+ */
 public class GhostlyArmorCard extends SkillCard{
 
 
-        public GhostlyArmorCard() {
+    /**
+     * Constructor Ghostly armor card.
+     */
+    public GhostlyArmorCard() {
             super("Ghostly Armor", "Exhaust. Gain 10 Block.", 2, CardRarity.UNCOMMON, CardGrave.EXHAUST);
         }
 

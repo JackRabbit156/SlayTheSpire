@@ -9,7 +9,14 @@ import models.player.player_structure.Player;
 
 import java.util.Scanner;
 
+/**
+ * Bash Karte.
+ * @author OF Daniel Willig
+ */
 public class BashCard extends AttackCard {
+    /**
+     * Constructor BashCard
+     */
     public BashCard() {
         super("Bash", "Deal 2 Damage. Apply 2 Vulnerable.", 2, 8, CardRarity.COMMON, CardGrave.DISCARD);
     }

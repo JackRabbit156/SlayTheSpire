@@ -8,7 +8,15 @@ import models.cards.card_structure.CardTrigger;
 import models.cards.card_structure.PowerCard;
 import models.player.player_structure.Player;
 
+/**
+ * Die Berserk Karte.
+ *
+ * @author OF Daniel Willig
+ */
 public class BerserkCard extends PowerCard {
+    /**
+     * Constructor Berserk card.
+     */
     public BerserkCard() {
         super("Berserk", "Gain 2 Vulnerable. At the start of your turn, gain 1 Energy.", 0, CardRarity.RARE, CardGrave.NONE, CardTrigger.PLAYER_BOT);
     }

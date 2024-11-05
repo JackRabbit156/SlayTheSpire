@@ -8,7 +8,15 @@ import models.cards.card_structure.CardTrigger;
 import models.cards.card_structure.PowerCard;
 import models.player.player_structure.Player;
 
+/**
+ * Die Rupture Karte.
+ *
+ * @author OF Daniel Willig
+ */
 public class RuptureCard extends PowerCard {
+    /**
+     * Constructor Rupture card.
+     */
     public RuptureCard() {
         super("Rupture", "Whenever you lose HP from a card, gain 1 Strength.", 1, CardRarity.UNCOMMON, CardGrave.NONE, CardTrigger.LOSE_HP_CARD);
     }
