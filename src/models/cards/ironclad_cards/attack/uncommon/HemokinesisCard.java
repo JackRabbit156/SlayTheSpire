@@ -9,7 +9,15 @@ import models.player.player_structure.Player;
 
 import java.util.Scanner;
 
+/**
+ * Die Hemokinesis Karte.
+ *
+ * @author OF Daniel Willig
+ */
 public class HemokinesisCard extends AttackCard {
+    /**
+     * Constructor Hemokinesis card.
+     */
     public HemokinesisCard() {
         super("Hemokinesis", "Lose 2 HP. Deal 15 damage.", 1, 15, CardRarity.UNCOMMON, CardGrave.DISCARD);
     }

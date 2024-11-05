@@ -6,9 +6,17 @@ import models.player.player_structure.PlayerType;
 import models.relics.relic_structure.PlayerTypeRelic;
 import models.relics.relic_structure.RelicType;
 
+/**
+ * The type Burning blood relic.
+ *
+ * @author OF Daniel Willig
+ */
 //TODO adding flavor-text to all relics?
 public class BurningBloodRelic extends PlayerTypeRelic {
-    // * Constructor *
+    /**
+     * Constructor Burning blood relic.
+     */
+// * Constructor *
     public BurningBloodRelic() {
         super("Burning Blood", "At the end of combat, heal 6 HP.", RelicType.STARTER, PlayerType.IRONCLAD);
     }

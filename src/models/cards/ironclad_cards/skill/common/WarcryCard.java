@@ -11,10 +11,18 @@ import models.player.player_structure.Player;
 import java.util.List;
 import java.util.Scanner;
 
+/**
+ * Die Warcry Karte.
+ *
+ * @author OF Daniel Willig
+ */
 public class WarcryCard extends SkillCard{
 
 
-        public WarcryCard() {
+    /**
+     * Constructor Warcry card.
+     */
+    public WarcryCard() {
             super("Warcry", "Draw 1 card. Put a card from your hand onto the top of your draw pile.Exhaust.", 0, CardRarity.COMMON, CardGrave.EXHAUST);
         }
 
@@ -31,9 +39,6 @@ public class WarcryCard extends SkillCard{
             System.out.print("Choose a card to put from your hand onto the top of your draw pile: ");
             int targetCard = new Scanner(System.in).nextInt() - 1;
             deck.add(hand.get(targetCard));
-
-
-            //TODO Put a card from your hand onto the top of your draw pile
 
             player.decreaseCurrentEnergy(getCost());
         }

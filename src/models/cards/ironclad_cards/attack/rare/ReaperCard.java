@@ -9,7 +9,15 @@ import models.player.player_structure.Player;
 
 import java.util.List;
 
+/**
+ * Die Reaper Karte.
+ *
+ * @author OF Daniel Willig
+ */
 public class ReaperCard extends AttackCard {
+    /**
+     * Constructor Reaper card.
+     */
     public ReaperCard() {
         super("Reaper", "Deal 4 damage to ALL enemies. Heal HP equal to unblocked damage. Exhaust.", 2, 4, CardRarity.RARE, CardGrave.EXHAUST);
     }

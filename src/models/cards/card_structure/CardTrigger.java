@@ -1,5 +1,10 @@
 package models.cards.card_structure;
 
+/**
+ * Enum CardTrigger.
+ * Für Power-Karten um zu prüfen wann die Power-Karte triggern soll
+ * @author OF Daniel Willig
+ */
 public enum CardTrigger {
     ALWAYS, //does not trigger, sets something (like Strength)
     NEVER, //is never there

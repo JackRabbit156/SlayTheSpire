@@ -9,7 +9,14 @@ import models.player.player_structure.Player;
 
 import java.util.Scanner;
 
+/**
+ * Clash Karte.
+ * @author OF Daniel Willig
+ */
 public class ClashCard extends AttackCard {
+    /**
+     * Constructor ClashCard.
+     */
     public ClashCard() {
         super("Clash", "Can only be played if every card in your hand is an Attack. Deal 14 damage.", 0, 14, CardRarity.COMMON, CardGrave.DISCARD);
     }

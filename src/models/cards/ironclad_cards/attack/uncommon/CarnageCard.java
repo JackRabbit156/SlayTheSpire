@@ -9,7 +9,15 @@ import models.player.player_structure.Player;
 
 import java.util.Scanner;
 
+/**
+ * Die Carnage Karte.
+ *
+ * @author OF Daniel Willig
+ */
 public class CarnageCard extends AttackCard {
+    /**
+     * Constructor Carnage card.
+     */
     public CarnageCard() {
         super("Carnage", "Ethereal. Deal 20 damage.", 2, 20, CardRarity.UNCOMMON, CardGrave.DISCARD);
     }

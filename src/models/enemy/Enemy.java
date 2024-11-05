@@ -37,6 +37,11 @@ public abstract class Enemy {
         this.currentHealth = maxHealth;
     }
 
+    /**
+     * Eine Action ist entweder ein ganz normaler angriff oder eine Beleidigung des Spielers (genommen aus wittybanter.txt)
+     * @param gameContext der gameContext für den angriff
+     * @author OF Daniel Willig
+     */
     public void action(GameContext gameContext) {
         DifficultyLevel difficulty = GameSettings.getDifficultyLevel();
         int randomNumber = (new Random().nextInt(100) + 1);
@@ -65,6 +70,10 @@ public abstract class Enemy {
         }
     }
 
+    /**
+     * eine Beleidigung des Spielers (genommen aus wittybanter.txt)
+     * @author OF Daniel Willig
+     */
     protected String doNothing(){
         ArrayList<String> wittyBanterList = new ArrayList<>();
         Scanner fileScanner = new Scanner(Enemy.class.getResourceAsStream("wittybanter.txt"));

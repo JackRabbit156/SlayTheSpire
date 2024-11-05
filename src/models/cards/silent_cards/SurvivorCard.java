@@ -12,7 +12,15 @@ import models.player.player_structure.Player;
 import java.util.List;
 import java.util.Scanner;
 
+/**
+ * Die Survivor Karte.
+ *
+ * @author OF Daniel Willig
+ */
 public class SurvivorCard extends SkillCard {
+    /**
+     * Constructor Survivor card.
+     */
     public SurvivorCard() {
         super("Survivor", "Gain 8 Block. Discard 1 card.", 1, CardRarity.COMMON, CardGrave.DISCARD);
     }

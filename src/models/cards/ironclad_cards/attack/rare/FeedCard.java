@@ -9,7 +9,15 @@ import models.player.player_structure.Player;
 
 import java.util.Scanner;
 
+/**
+ * Die Feed Karte.
+ *
+ * @author OF Daniel Willig
+ */
 public class FeedCard extends AttackCard {
+    /**
+     * Constructor Feed card.
+     */
     public FeedCard() {
         super("Feed", "Deal 10 damage. If Fatal, raise your Max HP by 3. Exhaust.", 1, 10, CardRarity.RARE, CardGrave.EXHAUST);
     }
