@@ -15,34 +15,35 @@ public class TheSssssserpent extends Event {
     private Scanner scanner = new Scanner(System.in);
 
     public TheSssssserpent(Player player) {
-        super("You walk into a room to find a large hole in the ground. As you approach the hole, " +
-                        "an enormous serpent creature appears from within.", "The Sssssserpent");
+        super("  You walk into a room to find a large hole in the ground. " +
+                "\n\tAs you approach the hole, an enormous serpent creature appears from within.", "The Sssssserpent");
         this.player = player;
     }
 
     @Override
     public void startEvent() {
-        EventView.displayStory(getTitle(), getStory());
+        EventView.displayHead(getTitle(), getStory());
         //Dialog mit der Schlange
-        System.out.println("Serpent: \"Ho hooo! Hello hello! what have we got here? Hello adventurer, I ask a simple question.\"\n" +
-                "Serpent: \"The most fulfilling of lives is that in which you can buy anything!\"\n" +
-                "Serpent: \"Do you agree?\" (Y/N)");
+        System.out.println("\tSerpent: \"Ho hooo! Hello hello! what have we got here? \n" +
+                "\tHello adventurer, I ask a simple question.\"\n" +
+                "\tSerpent: \"The most fulfilling of lives is that in which you can buy anything!\"\n");
+        System.out.print("\tSerpent: \"Do you agree?\" (Y/N) ");
         String input = scanner.next();
         if (input.toLowerCase().equals("y")) {
-            System.out.println("Serpent: \"Yeeeeeeessssssssssessss\"\n" +
-                    "Serpent: \"Thisss will all be worthhh it.\"\n" +
-                    "Serpent: \"..ssSSs..... ss... sssss....!\"\n" +
-                    "The serpent rears its head and blasts a stream of gold upwards!\n" +
-                    "It is amazing and terrifying simultaneously.\n" +
-                    "You gather all the gold, thank the snake, and get going.");
+            System.out.println("\n\tSerpent: \"Yeeeeeeessssssssssessss\"\n" +
+                    "\tSerpent: \"Thisss will all be worthhh it.\"\n" +
+                    "\tSerpent: \"..ssSSs..... ss... sssss....!\"\n" +
+                    "\tThe serpent rears its head and blasts a stream of gold upwards!\n" +
+                    "\tIt is amazing and terrifying simultaneously.\n" +
+                    "\tYou gather all the gold, thank the snake, and get going.\n");
             //Der Spieler erhält 175 Gold
             player.increaseGold(175);
         }
         else if (input.toLowerCase().equals("n")) {
-            System.out.println("The serpent stares at you with a look of extreme disappointment.");
+            System.out.println("\tThe serpent stares at you with a look of extreme disappointment.");
         }
         else {
-            System.out.println("Wrong input, please try again...");
+            System.out.println("\tWrong input, please try again...");
         }
     }
 }

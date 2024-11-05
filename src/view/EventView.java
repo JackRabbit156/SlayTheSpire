@@ -1,29 +1,30 @@
 package view;
 
 import helper.ConsoleAssistent;
+import models.events.actone.WorldOfGoo;
 import models.player.player_structure.Player;
 
 import java.util.List;
 
-/**
+/** klasse für die Darstellung der Events
  * @author Keil, Vladislav
  * @author  Loeschner, Marijan
  */
 public class EventView {
 
     /**
-     * Stellt die Eventdarstellung dar.
+     * Stellt den kopf der Eventview dar.
      */
-    public static void displayStory(String title, String eventStory) {
+    public static void displayHead(String title, String eventStory) {
         displayTitle();
         System.out.println();
-        System.out.printf("%-20s %s%n", "\tEvent:", title);
-        System.out.printf("%-20s %s %n", "\tStory: \n", eventStory);
+        System.out.printf("%-20s %s%n", " ", title + "\n");
+        System.out.printf("%s %s %n", " ", eventStory);
         System.out.println();
-        System.out.println("Your Options:");
+        System.out.println("\tYour Options:");
     }
 
-    public static void displayOptions(List<String> eventOptions) {
+    public static void displayStory(List<String> eventOptions) {
         for (int i = 0; i < eventOptions.size(); i++) {
             System.out.printf("%d. %s %n", i + 1, eventOptions);
         }
@@ -35,7 +36,7 @@ public class EventView {
         //Karten auflisten.
         for (int i = 0; i < player.getDeck().size(); i++) {
             displayInt = i + 1;
-            System.out.println(displayInt + ". " + player.getDeck().get(i).toString() + "Rarity: " + player.getDeck().get(i).getCardRarity());
+            System.out.println("\t" + displayInt + ". " + player.getDeck().get(i).toString() + "Rarity: " + player.getDeck().get(i).getCardRarity());
         }
     }
 

@@ -20,8 +20,9 @@ public class NoteForYourself extends Event {
     private Scanner scanner = new Scanner(System.in);
 
     public NoteForYourself(Player player) {
-        super("You spot a loose brick within a pillar that catches your eye.\n" +
-                "\tYou find a folded note and a card inside. It reads \"The Heart awaits.\" This is your handwriting.", "Note For Yourself");
+        super("  You spot a loose brick within a pillar that catches your eye.\n" +
+                "\tYou find a folded note and a card inside. It reads \"The Heart awaits.\" \n" +
+                "\tThis is your handwriting.\n", "Note For Yourself");
         this.player = player;
     }
 
@@ -30,14 +31,14 @@ public class NoteForYourself extends Event {
         List<Card> playerDeck = player.getDeck();
         Card selectedCard = chooseExistingCard(playerDeck);
 
-        EventView.displayStory(getTitle(), getStory());
+        EventView.displayHead(getTitle(), getStory());
 
         playerDeck.add(selectedCard);
 
         System.out.println();
         System.out.printf("%s %s %n", "\tYou recieve:", selectedCard.getName());
         System.out.println();
-        System.out.println("\tPress (0) for exit");
+        System.out.print("\tPress (0) for exit ");
         scanner.nextInt();
         return;
     }

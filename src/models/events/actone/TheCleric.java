@@ -17,9 +17,9 @@ public class TheCleric extends Event {
     private Scanner scanner = new Scanner(System.in);
 
     public TheCleric(Player player) {
-        super("A strange blue humanoid with a golden helm(?) approaches you with a huge smile.\n" +
-                "\"Hello friend! I am Cleric! Are you interested in my services?!\" " +
-                "the creature shouts, loudly.", "The Cleric");
+        super("  A strange blue humanoid with a golden helm(?) approaches you with a huge smile.\n" +
+                "\t\"Hello friend! I am Cleric! Are you interested in my services?!\" \n" +
+                "\tthe creature shouts, loudly.", "The Cleric");
         this.player = player;
     }
 
@@ -27,27 +27,29 @@ public class TheCleric extends Event {
     public void startEvent() {
         List<Card> deck = player.getDeck();
         Card exchangeCard;
-        EventView.displayStory(getTitle(), getStory());
-        System.out.println("1. Heal\n2. purify\n3. Leave\n\nChoose an option: ");
+        EventView.displayHead(getTitle(), getStory());
+        System.out.println("\t1. Heal\n\t2. purify\n\t3. Leave\n\n\tChoose an option: ");
         switch (scanner.nextInt()){
             case 1:
-                System.out.println("A warm golden light envelops your body and dissipates.\n" +
-                        "The creature grins.\nCleric: \"Cleric best healer. Have a good day!\"");
+                System.out.println("\tA warm golden light envelops your body and dissipates.\n" +
+                        "\tThe creature grins.\n" +
+                        "\tCleric: \"Cleric best healer. Have a good day!\"");
                 //Heilt den Spieler um 25% der Max HP im tausch für 35 Gold.
                 player.increaseCurrentHealth(player.getMaxHealth() / 4);
                 player.setGold(-35);
             case 2:
-                System.out.println("A cold blue flame envelops your body and dissipates.\n" +
-                        "The creature grins.\nCleric: \"Cleric talented. Have a good day!\"\n");
+                System.out.println("\tA cold blue flame envelops your body and dissipates.\n" +
+                        "\tThe creature grins.\n" +
+                        "\tCleric: \"Cleric talented. Have a good day!\"\n");
                 EventView.viewDeck(player);
-                System.out.print("\nWhich Card do you want to remove from your Deck? ");
+                System.out.print("\n\tWhich Card do you want to remove from your Deck? ");
                 exchangeCard = deck.get(scanner.nextInt());
                 deck.remove(exchangeCard);
                 player.setGold(-50);
             case 3:
-                System.out.println("You don't trust this \"Cleric\", so you leave.");
+                System.out.println("\tYou don't trust this \"Cleric\", so you leave.");
             default:
-                System.out.println("Wrong input, try again...");
+                System.out.println("\tWrong input, try again...");
                 startEvent();
         }
     }
