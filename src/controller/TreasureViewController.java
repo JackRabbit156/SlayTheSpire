@@ -29,12 +29,14 @@ public class TreasureViewController {
 
         int amount = 5;
         switch (GameSettings.getDifficultyLevel()) {
+            case SUPEREASY:
             case EASY:
                 amount = 5;
                 break;
             case NORMAL:
                 amount = 3;
                 break;
+            case IMPOSSIBLE:
             case HARD:
                 amount = 1;
                 break;
