@@ -4,6 +4,7 @@ import helper.Color;
 import helper.ConsoleAssistent;
 import models.cards.DeckFactory;
 import models.cards.card_structure.Card;
+import models.game_settings.GameSettings;
 import models.player.player_structure.Player;
 import view.TreasureView;
 
@@ -22,25 +23,49 @@ public class TreasureViewController {
     private TreasureView treasureView;
 
     public TreasureViewController(Player player) {
-        deckFactory = new DeckFactory(player, 5);
-        purchasableCards = deckFactory.init();
         treasureView = new TreasureView();
+        scanner = new Scanner(System.in);
+        this.player = player;
+
+        int amount = 5;
+        switch (GameSettings.getDifficultyLevel()) {
+            case SUPEREASY:
+            case EASY:
+                amount = 5;
+                break;
+            case NORMAL:
+                amount = 3;
+                break;
+            case IMPOSSIBLE:
+            case HARD:
+                amount = 1;
+                break;
+        }
+
+        deckFactory = new DeckFactory(player, amount);
+        purchasableCards = deckFactory.init();
+
+        if (amount == 1) {
+            player.addCardToDeck(purchasableCards.get(0));
+            return;
+        }
         cardChoice();
     }
 
-
     private void cardChoice() {
         ConsoleAssistent.clearScreen();
-        treasureView.displayCards(purchasableCards);
-        treasureView.displayCardChoiceMenu(purchasableCards.size());
+        treasureView.display(purchasableCards);
+        int input = 0;
 
-        int input = scanner.nextInt();
-        // TODO Input-Validator
-        if (input > purchasableCards.size()) {
-            ConsoleAssistent.print(Color.YELLOW, "Wrong Choice!");
-            cardChoice();
+        while(true){
+            System.out.print("\nChoose the Game state you want to delete: ");
+            try{
+                input = scanner.nextInt();
+                break;
+            } catch (NumberFormatException e) {
+                ConsoleAssistent.print(Color.YELLOW, "Wrong input...");
+            }
         }
-
         switch (input) {
             case 1:
             case 2:
@@ -50,7 +75,11 @@ public class TreasureViewController {
                 addCardToDeck(purchasableCards.get(input - 1));
                 break;
             case 0:
-                cardChoice();  //
+                return;
+            default:
+                ConsoleAssistent.print(Color.YELLOW, "Wrong Choice...");
+                cardChoice();
+                break;
         }
     }
 

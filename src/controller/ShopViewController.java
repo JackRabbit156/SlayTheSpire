@@ -49,7 +49,7 @@ public class ShopViewController {
     public void entryShop() {
         ConsoleAssistent.clearScreen();
         shopView.display(player, purchasableCards);
-        shopView.displayOptionChoiceMenu(purchasableCards.size());
+        shopView.displayOptionChoiceMenu();
 
         int input = 0;
 

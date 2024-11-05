@@ -13,8 +13,8 @@ import java.util.List;
 public class LootView {
     /**
      * Main Display - führt ein clearScreen aus und ziegt den Titel an.
-     * @param cardsToChoice
-     * @param gold
+     * @param cardsToChoice List<Card> auswählbare Karten
+     * @param gold          int zu erhaltenes Gold
      */
     public void display(List<Card> cardsToChoice, int gold) {
         ConsoleAssistent.clearScreen();
@@ -31,17 +31,28 @@ public class LootView {
         displayCardChoiceMenu(cardsToChoice.size());
     }
 
+    /**
+     * Darstellung der verfügbaren Karten.
+     * @param cardsToChoice List<Card> auswählbare Karten
+     */
     public void displayCards(List<Card> cardsToChoice) {
         for (int i = 0; i < cardsToChoice.size(); i++) {
             System.out.printf("%2d. - %-10s %-5s %-15s%n", i + 1, cardsToChoice.get(i).getCardRarity(), cardsToChoice.get(i).getName(), cardsToChoice.get(i).getDescription());
         }
     }
 
+    /**
+     * Darstellung der auswählbaren Karten.
+     * @param shopCardAmount    int 1 - [ Anzahl der möglichen auswählbaren Karten ]
+     */
     public void displayCardChoiceMenu(int shopCardAmount) {
         System.out.println(ConsoleAssistent.repeat(80, "-"));
         System.out.printf("%s %s %n", "(1-" + shopCardAmount + ") Choose Card", "(0) Leave Card Selection");
     }
 
+    /**
+     * Darstellung Titel
+     */
     public void displayTitle() {
         System.out.println("\n" + ConsoleAssistent.repeat(80, "="));
         System.out.println(ConsoleAssistent.repeat(29, " ") + "<<<   LOOT VIEW   >>>                  ");

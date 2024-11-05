@@ -14,6 +14,6 @@ public class TreasureField extends Field {
 
     @Override
     public void doFieldThing(Player player) {
-        treasureViewController = new TreasureViewController(player);
+        new TreasureViewController(player);
     }
 }

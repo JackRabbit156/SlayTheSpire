@@ -32,7 +32,6 @@ public enum IroncladsCards {
     RecklessChargeCard,
     SearingBlowCard,
     SeverSoulCard,
-    //TODO: Check this ENUM!!!!!!!!!!!!!! UppercutCard
     UppercutCard,
     WhirlwindCard
 }
