@@ -1,5 +1,6 @@
 package models.events.generelevents;
 
+import helper.ConsoleAssistent;
 import models.events.Event;
 import models.player.player_structure.Player;
 import view.EventView;
@@ -23,6 +24,7 @@ public class GoldenShrine extends Event {
 
     @Override
     public void startEvent() {
+        ConsoleAssistent.clearScreen();
         EventView.displayHead(getTitle(), getStory());
 
         player.increaseGold(100);
