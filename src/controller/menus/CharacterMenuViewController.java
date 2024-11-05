@@ -1,6 +1,7 @@
 package controller.menus;
 
 import controller.MapViewController;
+import helper.ConsoleAssistent;
 import models.game_settings.GameSettings;
 import models.game_settings.structure.DifficultyLevel;
 import models.game_settings.structure.GameMode;
@@ -12,6 +13,11 @@ import view.menus.MainMenuView;
 
 import java.util.Scanner;
 
+/**
+ * Klasse zum erstellen eines Charakters wenn ein neues Spiel gestartet wird
+ * @author Loeschner, Marijan
+ * @author Warawa, Alexander
+ */
 public class CharacterMenuViewController {
     private String selectedCharacter;
     private CharacterMenuView charView;
@@ -34,10 +40,11 @@ public class CharacterMenuViewController {
     }
 
     /**
-     * ruft newPlayer() auf -> dort wird erst der Charakter ausgewählt.
+     * Ruft newPlayer() auf -> dort wird erst der Charakter ausgewählt.
      * Hier wird der Spieler mit dessen übergebenem playerName begrüßt und eine Option zum zurückkehren zum Main Menu
      * mittels eingabe von "exit" gestellt.
      * @param playerName username
+     * @author Loeschner, Marijan
      */
     public void selectChar(String playerName){
         System.out.println("\nHello! " + playerName + "\n");
@@ -81,6 +88,7 @@ public class CharacterMenuViewController {
     /**
      * Setzt den entsprechenden Schwierigkeitsgrad
      * @return DifficultyLevel
+     * @author Loeschner, Marijan
      */
     public void chooseDifficulty(){
         String dif;
@@ -150,7 +158,7 @@ public class CharacterMenuViewController {
         charView.characterOverview(selectedCharacter);
         start = in.next();
         if (start.toLowerCase().equals("y")) {
-            System.out.println("\nStarting map view...");
+            System.out.println("\nStarting a new game...");
             MapViewController map = new MapViewController(player, false);
         }
         else if (start.toLowerCase().equals("n")) {
@@ -162,6 +170,7 @@ public class CharacterMenuViewController {
         }
         else {
             System.out.println("\tWrong input... going back to character selection\t\n\n");
+            ConsoleAssistent.clearScreen();
             getBacktoCharSelection();
         }
     }

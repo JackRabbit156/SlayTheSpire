@@ -1,5 +1,6 @@
 package models.events.actone;
 
+import helper.ConsoleAssistent;
 import models.events.Event;
 import models.player.player_structure.Player;
 import view.EventView;
@@ -22,6 +23,7 @@ public class TheSssssserpent extends Event {
 
     @Override
     public void startEvent() {
+        ConsoleAssistent.clearScreen();
         EventView.displayHead(getTitle(), getStory());
         //Dialog mit der Schlange
         System.out.println("\tSerpent: \"Ho hooo! Hello hello! what have we got here? \n" +

@@ -1,5 +1,6 @@
 package models.events.actone;
 
+import helper.ConsoleAssistent;
 import models.events.Event;
 import models.player.player_structure.Player;
 import view.EventView;
@@ -30,6 +31,7 @@ public class WorldOfGoo extends Event {
 
     @Override
     public void startEvent() {
+        ConsoleAssistent.clearScreen();
         int randGold;
         EventView.displayHead(getTitle(), getStory());
         //Die optionen sollen dem Spieler nicht erklärt werden.

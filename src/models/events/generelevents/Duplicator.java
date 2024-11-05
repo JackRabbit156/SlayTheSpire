@@ -1,5 +1,6 @@
 package models.events.generelevents;
 
+import helper.ConsoleAssistent;
 import models.cards.card_structure.Card;
 import models.events.Event;
 import models.player.player_structure.Player;
@@ -25,6 +26,7 @@ public class Duplicator extends Event {
 
     @Override
     public void startEvent() {
+        ConsoleAssistent.clearScreen();
         List<Card> exchangeDeck = player.getDeck();
         Card exchangeCard;
         EventView.displayHead(getTitle(), getStory());

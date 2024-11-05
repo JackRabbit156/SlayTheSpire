@@ -1,5 +1,6 @@
 package models.events.actone;
 
+import helper.ConsoleAssistent;
 import models.events.Event;
 import models.player.player_structure.Player;
 import view.EventView;
@@ -25,6 +26,7 @@ public class ScrapOoze extends Event {
 
     @Override
     public void startEvent() {
+        ConsoleAssistent.clearScreen();
         EventView.displayHead(getTitle(), getStory());
         System.out.println("\t1. Reach into the Ooze\n\t2. Leave\n\n");
         System.out.print("\tChoose an option: ");
