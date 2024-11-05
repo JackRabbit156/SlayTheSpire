@@ -40,6 +40,7 @@ public class MapView {
      * @param nodes eine Liste von Knotenpunkten (Nodes), die im Akt enthalten sind
      */
     public void printMap(String[][] actRawMap, List<Node> nodes){
+        ConsoleAssistent.clearScreen();
         String[][] rawMap = actRawMap;
 
         setNodesOnMap(rawMap, nodes);
@@ -72,7 +73,8 @@ public class MapView {
     }
 
     private void printPlayerInformation(){
-        System.out.printf(ConsoleAssistent.repeat(gap, " ") +"Player \t\t HP \t\tGold \t\t Act \t\t Floor \t\t Deck%n");
+        //System.out.printf(ConsoleAssistent.repeat(gap, " ") +"Player \t\t HP \t\tGold \t\t Act \t\t Floor \t\t Deck%n");
+        System.out.printf(ConsoleAssistent.repeat(gap, " ") +"%-12s %-10s %-12s %-11s %-11s %-12s%n", "Player", "HP", "Gold", "Act", "Floor", "Deck");
         System.out.printf(ConsoleAssistent.repeat(gap, " ") +"%-12s %d/%-7d %-12d %-11d %-11s %d%n%n", player.getPlayerType(), player.getCurrentHealth(), player.getMaxHealth(),player.getGold(), player.getCurrentAct(), player.getCurrentField(), player.getDeck().size());
     }
 
