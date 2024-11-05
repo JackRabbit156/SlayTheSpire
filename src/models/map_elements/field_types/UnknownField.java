@@ -6,12 +6,13 @@ import java.util.Random;
 
 public class UnknownField extends Field {
     Random rand = new Random();
-    Field[] fields = {new EventField(),  new EnemyField(), new EliteField(), new ShopField()};
+    private final Field[] fields;
     int[] percentages = {67, 20, 10, 3};
     int percentStart = 1;
 
-    public UnknownField() {
+    public UnknownField(EventField eventField, EnemyField enemyField, EliteField eliteField, ShopField shopField) {
         super("❓");
+        this.fields = new Field[]{eventField, enemyField, eliteField, shopField};
     }
 
     @Override
