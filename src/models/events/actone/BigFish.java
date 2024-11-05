@@ -21,7 +21,6 @@ public class BigFish extends Event {
                 "There is a quiet cackling from above as you approach the objects.\n" +
                 "What do you do?", "Big Fish");
         this.player = player;
-        startEvent();
     }
 
     @Override
