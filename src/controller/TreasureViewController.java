@@ -26,6 +26,7 @@ public class TreasureViewController {
         treasureView = new TreasureView();
         scanner = new Scanner(System.in);
         this.player = player;
+
         int amount = 5;
         switch (GameSettings.getDifficultyLevel()) {
             case EASY:
