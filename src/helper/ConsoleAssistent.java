@@ -43,6 +43,22 @@ public class ConsoleAssistent {
          return sb.append(color).append(text).append(Color.RESET).toString();
 
     }
+
+    /**
+     * Dient zu farblichen String Ausgabe.
+     * @param colors Color Code {@link Color} Farben von
+     * @param text Text wird automatisch Resetet
+     * @author OF Daniel Willig
+     * @return StringBuilder String
+     */
+    public static String printStr(String text, Color... colors) {
+        StringBuilder sb = new StringBuilder("");
+        for (Color color : colors) {
+            sb.append(color);
+        }
+        return sb.append(text).append(Color.RESET).toString();
+
+    }
     /**
      * Dient zum farblichen System.out.print
      *
