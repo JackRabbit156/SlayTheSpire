@@ -1,5 +1,6 @@
 package controller;
 
+import helper.Color;
 import helper.ConsoleAssistent;
 import models.player.player_structure.Player;
 import view.RestSiteView;
@@ -24,9 +25,19 @@ public class RestViewController {
     public void startRest() {
         ConsoleAssistent.clearScreen();
         rest.display(player);
+        int input = 0;
 
-        int choice = scanner.nextInt();
-        switch (choice) {
+        while(true){
+            System.out.print("\nChoose the Game state you want to delete: ");
+            try{
+                input = scanner.nextInt();
+                break;
+            } catch (NumberFormatException e) {
+                ConsoleAssistent.print(Color.YELLOW, "Wrong input...");
+            }
+        }
+
+        switch (input) {
             case 1:
                 int increasedHp = (int) (player.getMaxHealth() * 0.30);
                 player.increaseCurrentHealth(increasedHp);
