@@ -81,7 +81,7 @@ public class CharacterMenuViewController {
      * Setzt den entsprechenden Schwierigkeitsgrad
      * @return DifficultyLevel
      */
-    private void chooseDifficulty(){
+    public void chooseDifficulty(){
         String dif;
         charView.difDisplay();
         dif = in.next();
