@@ -17,9 +17,9 @@ public class DeadAdventurer extends Event {
     private Random rand = new Random();
 
     public DeadAdventurer(Player player) {
-        super("You come across a dead adventurer on the floor.\n" +
-                "His pants have been stolen! Also, it looks as though he's been gouged and trampled by a horned beast. " +
-                "Though his possessions are still intact, you're in no mind to find out what happened here...", "Dead Adventurer");
+        super("  You come across a dead adventurer on the floor.\n" +
+                "\tHis pants have been stolen! Also, it looks as though he's been gouged and trampled by a horned beast. \n" +
+                "\tThough his possessions are still intact, you're in no mind to find out what happened here...", "Dead Adventurer");
         this.player = player;
     }
 
@@ -27,26 +27,27 @@ public class DeadAdventurer extends Event {
     public void startEvent() {
         int chance;
         int options;
-        EventView.displayStory(getTitle(), getStory());
+        EventView.displayHead(getTitle(), getStory());
         chance = rand.nextInt(100);
-        System.out.println("1. Search the body\n2. Leave\n\nChoose an option: ");
+        System.out.println("\t1. Search the body\n\t2. Leave\n\n");
+        System.out.print("\tChoose an option: ");
         options = scanner.nextInt();
         if (options == 1) {
             if (chance >= 50) {
-                System.out.println("You found 30 Gold!");
+                System.out.println("\n\tYou found 30 Gold!");
                 player.increaseGold(30);
             }
             else {
-                System.out.println("Hmm, couldn't find anything.");
+                System.out.println("\n\tHmm, couldn't find anything.");
                 return;
             }
         }
         else if (options == 2) {
-            System.out.println("You exit without a sound");
+            System.out.println("\n\tYou exit without a sound");
             return;
         }
         else {
-            System.out.println("Wrong input, please try agian...");
+            System.out.println("\n\tWrong input, please try agian...");
             startEvent();
         }
     }

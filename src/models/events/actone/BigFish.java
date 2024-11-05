@@ -4,8 +4,6 @@ import models.events.Event;
 import models.player.player_structure.Player;
 import view.EventView;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 /**
  * @author Keil, Vladislav
@@ -25,9 +23,9 @@ public class BigFish extends Event {
 
     @Override
     public void startEvent() {
-        String input = scanner.next();
-        EventView.displayStory(getTitle(), getStory());
+        EventView.displayHead(getTitle(), getStory());
         System.out.println("1. Banana\n2. Donut\nChoose an option: ");
+        String input = scanner.next();
         switch (input){
             case "1":
                 System.out.println("You eat the banana. It is nutritious and slightly magical, healing you.");

@@ -18,7 +18,7 @@ public class Duplicator extends Event {
     private Scanner scanner = new Scanner(System.in);
 
     public Duplicator(Player player) {
-        super("Before you lies a decorated altar to some ancient entity.", "Duplicator");
+        super("\tBefore you lies a decorated altar to some ancient entity.", "Duplicator");
 
         this.player = player;
     }
@@ -27,23 +27,24 @@ public class Duplicator extends Event {
     public void startEvent() {
         List<Card> exchangeDeck = player.getDeck();
         Card exchangeCard;
+        EventView.displayHead(getTitle(), getStory());
+        System.out.println("\t1. Pray \n\t2. Leave \n");
+        System.out.print("\n\tChoose an option: ");
         String input = scanner.next();
-        EventView.displayStory(getTitle(), getStory());
-        System.out.println("1. Pray \n2. Leave \n" + "\nChoose an option: ");
         if (input.equals("1")) {
-            System.out.println("You kneel respectfully. A ghastly mirror image appears from the shrine and collides into you.");
+            System.out.println("\n\tYou kneel respectfully. A ghastly mirror image appears from the shrine and collides into you.");
             //Karten auflisten.
             EventView.viewDeck(player);
-            System.out.print("Choose a Card to duplicate: ");
+            System.out.print("\n\tChoose a Card to duplicate: ");
             //Ausgewählte Karte zum Deck hinzufügen
             exchangeCard =  exchangeDeck.get(scanner.nextInt());
             exchangeDeck.add(exchangeCard);
         }
         else if (input.equals("2")) {
-            System.out.println("You ignore the shrine, confident in your choice.");
+            System.out.println("\n\tYou ignore the shrine, confident in your choice.");
         }
         else {
-            System.out.println("Wrong input, please try again");
+            System.out.println("\n\tWrong input, please try again");
             startEvent();
         }
     }

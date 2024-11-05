@@ -4,7 +4,6 @@ import models.events.Event;
 import models.player.player_structure.Player;
 import view.EventView;
 
-import java.util.Random;
 import java.util.Scanner;
 
 /**
@@ -24,13 +23,13 @@ public class GoldenShrine extends Event {
 
     @Override
     public void startEvent() {
-        EventView.displayStory(getTitle(), getStory());
+        EventView.displayHead(getTitle(), getStory());
 
         player.increaseGold(100);
         System.out.println();
-        System.out.printf("%s %d %s %n", "You got:", 100, "Gold");
+        System.out.printf("%s %d %s %n", "   You receive:", 100, "Gold");
         System.out.println();
-        System.out.println("Press (0) for exit");
+        System.out.println("\tPress (0) for exit");
         scanner.nextInt();
     }
 }
