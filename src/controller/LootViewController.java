@@ -38,9 +38,7 @@ public class LootViewController {
         this.lootView = new LootView();
         int amount = 5;
         initGoldLoot(fieldType);
-        System.out.println("Ohne Faktor");
-        System.out.println(this.gold);
-        System.out.println(GameSettings.getDifficultyLevel());
+
         switch (GameSettings.getDifficultyLevel()) {
             case EASY:
                 amount = 5;

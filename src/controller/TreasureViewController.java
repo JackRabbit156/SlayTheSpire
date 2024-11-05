@@ -4,6 +4,7 @@ import helper.Color;
 import helper.ConsoleAssistent;
 import models.cards.DeckFactory;
 import models.cards.card_structure.Card;
+import models.game_settings.GameSettings;
 import models.player.player_structure.Player;
 import view.TreasureView;
 
@@ -22,11 +23,29 @@ public class TreasureViewController {
     private TreasureView treasureView;
 
     public TreasureViewController(Player player) {
-        deckFactory = new DeckFactory(player, 5);
-        purchasableCards = deckFactory.init();
         treasureView = new TreasureView();
         scanner = new Scanner(System.in);
         this.player = player;
+        int amount = 5;
+        switch (GameSettings.getDifficultyLevel()) {
+            case EASY:
+                amount = 5;
+                break;
+            case NORMAL:
+                amount = 3;
+                break;
+            case HARD:
+                amount = 1;
+                break;
+        }
+
+        deckFactory = new DeckFactory(player, amount);
+        purchasableCards = deckFactory.init();
+
+        if (amount == 1) {
+            player.addCardToDeck(purchasableCards.get(0));
+            return;
+        }
         cardChoice();
     }
 
