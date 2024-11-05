@@ -1,5 +1,6 @@
 package models.map_elements.field_types;
 
+import controller.BattleViewController;
 import controller.LootViewController;
 import models.enemy.Enemy;
 import models.player.player_structure.Player;
@@ -19,6 +20,9 @@ public class EliteField extends Field {
     public void doFieldThing(Player player) {
         if(isFieldBeaten())
             return;
+
+        BattleViewController battle = new BattleViewController(player, enemies);
+        battle.startBattle();
 
         if(!player.isAlive()) {
             return;
