@@ -5,7 +5,11 @@ import models.player.player_structure.Player;
 import view.EventView;
 
 import java.util.Scanner;
-
+/**
+ * Der Spieler kann 3 hp verlieren
+ * @author Keil, Vladislav
+ * @author  Loeschner, Marijan
+ */
 public class ScrapOoze extends Event {
     private Player player;
     private Scanner scanner = new Scanner(System.in);

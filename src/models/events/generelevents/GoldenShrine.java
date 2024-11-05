@@ -10,6 +10,7 @@ import java.util.Scanner;
 /**
  * Erhöht Gold um 100
  * @author Keil, Vladislav
+ * @author Loeschner, Marijan
  */
 public class GoldenShrine extends Event {
     Player player;

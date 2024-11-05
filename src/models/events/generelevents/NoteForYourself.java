@@ -10,8 +10,9 @@ import java.util.Random;
 import java.util.Scanner;
 
 /**
- * Dupliziert zufällig eine Karte aus dem Spieler Deck.
+ * Dupliziert eine zufällige Karte aus dem Deck des Spielers.
  * @author Keil, Vladislav
+ * @author Loeschner, Marijan
  */
 public class NoteForYourself extends Event {
     Player player;

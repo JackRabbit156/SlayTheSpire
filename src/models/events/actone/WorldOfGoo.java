@@ -6,7 +6,11 @@ import view.EventView;
 
 import java.util.Random;
 import java.util.Scanner;
-
+/**
+ * Der Spieler erhält entweder Gold, oder verliert einen zufälligen Goldwert.
+ * @author Keil, Vladislav
+ * @author  Loeschner, Marijan
+ */
 public class WorldOfGoo extends Event {
     private Player player;
     private Scanner scanner = new Scanner(System.in);
@@ -32,7 +36,7 @@ public class WorldOfGoo extends Event {
         System.out.println("1. Gather Gold \n2. Leave it \n\nChoose an option: ");
         switch(scanner.nextInt()){
             case 1:
-                System.out.println("Feeling the sting of the goop as the prolonged " +
+                System.out.println("Feeling the sting of the goo as the prolonged " +
                         "exposure starts to melt away at your skin, you manage to fish out the gold.");
                 player.increaseGold(75);
                 player.setCurrentHealth(player.getCurrentHealth() - 11);

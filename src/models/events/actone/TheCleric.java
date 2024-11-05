@@ -7,7 +7,11 @@ import view.EventView;
 
 import java.util.List;
 import java.util.Scanner;
-
+/**
+ * Der Spieler kann  im austausch gegen Gold 1. die MaxHP erhöhen, oder 2.Eine Karte aus dem Spielerdeck entfernen
+ * @author Keil, Vladislav
+ * @author  Loeschner, Marijan
+ */
 public class TheCleric extends Event {
     private Player player;
     private Scanner scanner = new Scanner(System.in);

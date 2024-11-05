@@ -11,6 +11,7 @@ import java.util.Scanner;
 /**
  * Spieler kann entscheiden, welche Karte er duplizieren möchte.
  * @author Keil, Vladislav
+ * @author Loeschner, Marijan
  */
 public class Duplicator extends Event {
     private Player player;

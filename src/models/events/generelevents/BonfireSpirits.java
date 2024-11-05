@@ -9,8 +9,9 @@ import java.util.List;
 import java.util.Scanner;
 
 /**
- * Spieler kann Karte austauschen.
+ * Spieler kann eine Karte je nach Rarität für eine gegenleistung eintauschen.
  * @author Keil, Vladislav
+ * @author Loeschner, marijan
  */
 public class BonfireSpirits extends Event {
     private Player player;

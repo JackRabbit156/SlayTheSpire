@@ -6,7 +6,11 @@ import view.EventView;
 
 import java.util.Random;
 import java.util.Scanner;
-
+/**
+ * Der Spieler kann mit einer bestimmten Wahrscheinlichkeit Gold finden
+ * @author Keil, Vladislav
+ * @author  Loeschner, Marijan
+ */
 public class DeadAdventurer extends Event {
     private Player player;
     private Scanner scanner = new Scanner(System.in);

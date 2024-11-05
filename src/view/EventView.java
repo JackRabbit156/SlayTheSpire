@@ -7,7 +7,7 @@ import java.util.List;
 
 /**
  * @author Keil, Vladislav
- * @author Marijan, Loeschner
+ * @author  Loeschner, Marijan
  */
 public class EventView {
 
@@ -35,7 +35,7 @@ public class EventView {
         //Karten auflisten.
         for (int i = 0; i < player.getDeck().size(); i++) {
             displayInt = i + 1;
-            System.out.println(displayInt + ". " + player.getDeck().get(i).toString());
+            System.out.println(displayInt + ". " + player.getDeck().get(i).toString() + "Rarity: " + player.getDeck().get(i).getCardRarity());
         }
     }
 

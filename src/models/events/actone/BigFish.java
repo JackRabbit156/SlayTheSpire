@@ -7,7 +7,10 @@ import view.EventView;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
-
+/**
+ * @author Keil, Vladislav
+ * @author  Loeschner, Marijan
+ */
 public class BigFish extends Event {
     private Player player;
     private Scanner scanner = new Scanner(System.in);
