@@ -12,9 +12,10 @@ import java.util.List;
 /**
  * Abstrakte Klasse, die die grundlegenden Eigenschaften und Methoden eines Spielers im Spiel definiert.
  * Sie enthält Attribute wie Gesundheit, Energie, Gold, Block und Deck.
- * Diese Klasse dient als Basisklasse für spezifische Spielerimplementierungen.
+ * Diese Klasse dient als Basisklasse für spezifische Spieler-Implementierungen.
  *
- * @author Warawa Alexander, Willig Daniel
+ * @author F Alexander Warawa
+ * @author OF Daniel Willig
  */
 public abstract class Player {
     // * Variables *
