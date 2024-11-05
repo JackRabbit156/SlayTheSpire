@@ -1,7 +1,10 @@
 package view;
 
+import helper.Color;
 import helper.ConsoleAssistent;
 import models.cards.card_structure.Card;
+import models.cards.card_structure.CardRarity;
+import models.cards.card_structure.CardType;
 import models.enemy.Enemy;
 import models.player.player_structure.Player;
 
@@ -15,7 +18,8 @@ import java.util.Scanner;
  * Informationen im Konsolenformat an und informiert den Spieler über
  * Kampfergebnisse, wie Angriffe, Siege oder Niederlagen.
  *
- * @author Warawa Alexander
+ * @author F Alexander Warawa
+ * @author OF Daniel Willig
  */
 public class BattleView {
 
@@ -44,8 +48,55 @@ public class BattleView {
 
         // Display hand at the bottom
         System.out.println("Your Cards:");
-        for (int i = 0; i < hand.size(); i++)
-            System.out.printf("%d. %s%n", i + 1, hand.get(i));
+        Card cardInHand;
+
+        String cardName;
+        String cardNameFormatted;
+        String cardCost;
+        String cardCostFormatted;
+        String cardDesc;
+        String cardDescFormatted;
+
+        for (int i = 0; i < hand.size(); i++) {
+            //sieht ÜBEL kacke aus, tut aber was es soll.
+            cardInHand = hand.get(i);
+
+            cardName = cardInHand.getName();
+            cardCost = String.valueOf(cardInHand.getCost());
+            cardDesc = cardInHand.getDescription();
+
+            if (cardInHand.getCardType().equals(CardType.ATTACK)) {
+                cardNameFormatted = ConsoleAssistent.printStr(cardName, Color.RED);
+            }
+            else if (cardInHand.getCardType().equals(CardType.SKILL)) {
+                cardNameFormatted = ConsoleAssistent.printStr(cardName, Color.GREEN);
+            }
+            else if (cardInHand.getCardType().equals(CardType.POWER)) {
+                cardNameFormatted = ConsoleAssistent.printStr(cardName, Color.BLUE);
+            }
+            else {
+                cardNameFormatted = ConsoleAssistent.printStr(cardName, Color.CYAN);
+            }
+
+            if (cardInHand.getCardRarity().equals(CardRarity.COMMON)) {
+                cardCostFormatted = ConsoleAssistent.printStr("〈" + cardCost + "〉", Color.BOLD, Color.BLACKBRIGHT);
+            }
+            else if (cardInHand.getCardRarity().equals(CardRarity.UNCOMMON)) {
+                cardCostFormatted = ConsoleAssistent.printStr("〈" + cardCost + "〉", Color.BOLD, Color.WHITEBRIGHT);
+            }
+            else if (cardInHand.getCardRarity().equals(CardRarity.RARE)) {
+                cardCostFormatted = ConsoleAssistent.printStr("〈" + cardCost + "〉", Color.BOLD, Color.YELLOWBRIGHT);
+            }
+            else {
+                cardCostFormatted = ConsoleAssistent.printStr("〈" + cardCost + "〉", Color.BOLD, Color.CYANBRIGHT);
+            }
+
+
+            cardDescFormatted = ConsoleAssistent.printStr(cardDesc, Color.ITALIC);
+
+
+            System.out.printf("%d. %-" + (cardNameFormatted.length() - cardName.length() + 17) + "s%s %s%n", i + 1, cardNameFormatted, cardCostFormatted, cardDescFormatted);
+        }
         System.out.println();
     }
 
