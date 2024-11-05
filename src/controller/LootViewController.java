@@ -38,9 +38,7 @@ public class LootViewController {
         this.lootView = new LootView();
         int amount = 5;
         initGoldLoot(fieldType);
-        System.out.println("Ohne Faktor");
-        System.out.println(this.gold);
-        System.out.println(GameSettings.getDifficultyLevel());
+
         switch (GameSettings.getDifficultyLevel()) {
             case EASY:
                 amount = 5;
@@ -54,9 +52,6 @@ public class LootViewController {
                 this.gold = (int) (this.gold * 0.5);
                 break;
         }
-        System.out.println("Mit Faktor");
-        System.out.println(this.gold);
-        System.out.println(GameSettings.getDifficultyLevel());
 
         this.player = player;
         this.deckFactory = new DeckFactory(player, amount);
@@ -94,12 +89,16 @@ public class LootViewController {
      */
     public void openLootView(Player player) {
         lootView.display( this.choisenCards, this.gold);
+        int input = 0;
 
-        int input = scanner.nextInt();
-
-        if (input > choisenCards.size()) {
-            ConsoleAssistent.print(Color.YELLOW, "Wrong Choice!");
-            openLootView(player);
+        while(true){
+            System.out.print("\nChoose the Game state you want to delete: ");
+            try{
+                input = scanner.nextInt();
+                break;
+            } catch (NumberFormatException e) {
+                ConsoleAssistent.print(Color.YELLOW, "Wrong input...");
+            }
         }
 
         switch (input) {
@@ -111,8 +110,9 @@ public class LootViewController {
                 addCardToDeck(this.choisenCards.get(input - 1));
                 break;
             case 0:
-                break;
+                return;
             default:
+                ConsoleAssistent.print(Color.YELLOW, "Wrong input...");
                 openLootView(player);
         }
     }

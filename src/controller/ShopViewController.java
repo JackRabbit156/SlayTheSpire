@@ -50,7 +50,19 @@ public class ShopViewController {
         shopView.display(player, purchasableCards);
         shopView.displayOptionChoiceMenu(purchasableCards.size());
 
-        switch (scanner.nextInt()) {
+        int input = 0;
+
+        while(true){
+            System.out.print("\nChoose the Game state you want to delete: ");
+            try{
+                input = scanner.nextInt();
+                break;
+            } catch (NumberFormatException e) {
+                ConsoleAssistent.print(Color.YELLOW, "Wrong input...");
+            }
+        }
+
+        switch (input) {
             case 3:
             case 2:
             case 1:
@@ -69,11 +81,16 @@ public class ShopViewController {
         shopView.displayCards(purchasableCards);
         shopView.displayCardChoiceMenu(purchasableCards.size());
 
-        int input = scanner.nextInt();
+        int input = 0;
 
-        if (input > purchasableCards.size()) {
-            ConsoleAssistent.print(Color.YELLOW, "Wrong Choice!");
-            cardChoice();
+        while(true){
+            System.out.print("\nChoose the Game state you want to delete: ");
+            try{
+                input = scanner.nextInt();
+                break;
+            } catch (NumberFormatException e) {
+                ConsoleAssistent.print(Color.YELLOW, "Wrong input...");
+            }
         }
 
         switch (input) {
@@ -87,6 +104,10 @@ public class ShopViewController {
                 break;
             case 0:
                 entryShop();
+                break;
+            default:
+                ConsoleAssistent.print(Color.YELLOW, "Wrong Choice...");
+                cardChoice();
         }
     }
 
