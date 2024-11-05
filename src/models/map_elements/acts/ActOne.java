@@ -152,7 +152,7 @@ public class ActOne extends Act {
     }
 
 
-    private List<Enemy> createElitesEnemies() {
+    public List<Enemy> createElitesEnemies() {
         List<Enemy> enemies = new ArrayList<>();
         int randElite = randi.nextInt(2);
         int randAmountEnemies = randi.nextInt(2);
