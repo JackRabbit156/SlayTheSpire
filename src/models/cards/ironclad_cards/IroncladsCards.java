@@ -32,6 +32,6 @@ public enum IroncladsCards {
     RecklessChargeCard,
     SearingBlowCard,
     SeverSoulCard,
-    UppercurCard,
+    UppercutCard,
     WhirlwindCard
 }

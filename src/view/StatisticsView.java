@@ -12,6 +12,10 @@ import java.util.Scanner;
 public class StatisticsView {
     private Scanner scanner = new Scanner(System.in);
 
+    /**
+     * Darstellung aller Game-Statistics
+     * @param player für den aktuellen Player Act
+     */
     public void display(Player player) {
         displayTitle();
 
@@ -32,6 +36,9 @@ public class StatisticsView {
         displayMenu();
     }
 
+    /**
+     * Darstellung des Menü's, es kann verlassen werden.
+     */
     public void displayMenu() {
         System.out.println(ConsoleAssistent.repeat(80, "-"));
         System.out.printf("%s%n", "(0) Leave Statistics Overview");
@@ -39,9 +46,12 @@ public class StatisticsView {
     }
 
 
+    /**
+     * Darstellung Titel
+     */
     public void displayTitle() {
         System.out.println("\n" + ConsoleAssistent.repeat(80, "="));
-        System.out.println(ConsoleAssistent.repeat(29, " ") + "<<<   GAME STATICS VIEW   >>>                  ");
+        System.out.println(ConsoleAssistent.repeat(29, " ") + "<<<   GAME STATISTICS VIEW   >>>                  ");
         System.out.println(ConsoleAssistent.repeat(80, "=") + "\n");
     }
 }

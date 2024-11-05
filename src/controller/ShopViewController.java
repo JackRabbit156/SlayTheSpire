@@ -48,7 +48,7 @@ public class ShopViewController {
     public void entryShop() {
         ConsoleAssistent.clearScreen();
         shopView.display(player, purchasableCards);
-        shopView.displayOptionChoiceMenu(purchasableCards.size());
+        shopView.displayOptionChoiceMenu();
 
         switch (scanner.nextInt()) {
             case 3:

@@ -25,32 +25,30 @@ public class TreasureViewController {
         deckFactory = new DeckFactory(player, 5);
         purchasableCards = deckFactory.init();
         treasureView = new TreasureView();
+        scanner = new Scanner(System.in);
+        this.player = player;
         cardChoice();
     }
 
-
     private void cardChoice() {
         ConsoleAssistent.clearScreen();
-        treasureView.displayCards(purchasableCards);
-        treasureView.displayCardChoiceMenu(purchasableCards.size());
-
-        int input = scanner.nextInt();
-        // TODO Input-Validator
-        if (input > purchasableCards.size()) {
-            ConsoleAssistent.print(Color.YELLOW, "Wrong Choice!");
-            cardChoice();
-        }
-
+        treasureView.display(purchasableCards);
+        String input = scanner.next();
         switch (input) {
-            case 1:
-            case 2:
-            case 3:
-            case 4:
-            case 5:
-                addCardToDeck(purchasableCards.get(input - 1));
+            case "1":
+            case "2":
+            case "3":
+            case "4":
+            case "5":
+                int choose = Integer.parseInt(input);
+                addCardToDeck(purchasableCards.get(choose - 1));
                 break;
-            case 0:
-                cardChoice();  //
+            case "0":
+                return;
+            default:
+                ConsoleAssistent.print(Color.YELLOW, "Wrong Choice!");
+                cardChoice();
+                break;
         }
     }
 

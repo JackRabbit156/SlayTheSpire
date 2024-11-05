@@ -14,7 +14,9 @@ import java.util.List;
 public class ShopView {
 
     /**
-     * Stellt die Shopdarstellung dar.
+     * Darstellung des Shops
+     * @param player    zur Darstellung des eigenen Golds.
+     * @param shopCards zur Darstellung der Shop-Karten.
      */
     public void display(Player player, List<Card> shopCards) {
         displayTitle();
@@ -34,23 +36,36 @@ public class ShopView {
         System.out.println();
     }
 
-
+    /**
+     * Darstellung der auswählbaren Karten.
+     * @param shopCards     List<Card> auswählbare Karten
+     */
     public void displayCards(List<Card> shopCards) {
         for (int i = 0; i < shopCards.size(); i++) {
             System.out.printf("%2d. %-5s %3d - %-10s %-5s %-15s%n", i + 1, "Price:", shopCards.get(i).getPrice(), shopCards.get(i).getCardRarity(), shopCards.get(i).getName(), shopCards.get(i).getDescription());
         }
     }
 
+    /**
+     * Darstellung des auswählbaren Karten oder für's verlassen.
+     * @param shopCardAmount    int 1 - [ Anzahl der möglichen auswählbaren Karten ]
+     */
     public void displayCardChoiceMenu(int shopCardAmount) {
         System.out.println(ConsoleAssistent.repeat(80, "-"));
         System.out.printf("%s %s %n", "(1-" + shopCardAmount + ") Choose Card", "(0) Leave Card Selection");
     }
 
-    public void displayOptionChoiceMenu(int shopCardAmount) {
+    /**
+     * Darstellung der auswählbaren Optionen.
+     */
+    public void displayOptionChoiceMenu() {
         System.out.println(ConsoleAssistent.repeat(80, "-"));
         System.out.printf("%s %s %n", "(1-3) Choose ItemType", "(0) Leave shop");
     }
 
+    /**
+     * Darstellung Titel
+     */
     public void displayTitle() {
         System.out.println("\n" + ConsoleAssistent.repeat(80, "="));
         System.out.println(ConsoleAssistent.repeat(29, " ") + "<<<   SHOP VIEW   >>>                  ");

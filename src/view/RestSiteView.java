@@ -7,15 +7,15 @@ import models.player.player_structure.Player;
 import java.util.List;
 
 /**
- * Campfire Darstellung
+ * Restsite Darstellung
  *
  * @author Keil, Vladislav
  */
 public class RestSiteView {
 
     /**
-     *
-     * @param player Spieler zur Anzeige von
+     * Die Darstellung der Restsite / des Lagerfeuers.
+     * @param player Player Anzeigen der "player" Attribute
      */
     public void display(Player player) {
         displayTitle();
@@ -30,6 +30,9 @@ public class RestSiteView {
         System.out.println();
     }
 
+    /**
+     * Darstellung Titel
+     */
     public void displayTitle() {
         System.out.println("\n" + ConsoleAssistent.repeat(80, "="));
         System.out.println(ConsoleAssistent.repeat(29, " ") + "<<<   CAMPFIRE VIEW   >>>                  ");
