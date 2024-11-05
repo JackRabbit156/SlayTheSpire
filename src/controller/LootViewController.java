@@ -10,6 +10,7 @@ import models.game_settings.structure.DifficultyLevel;
 import models.player.player_structure.Player;
 import view.LootView;
 
+import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
@@ -98,7 +99,7 @@ public class LootViewController {
             try{
                 input = scanner.nextInt();
                 break;
-            } catch (NumberFormatException e) {
+            } catch (InputMismatchException e) {
                 ConsoleAssistent.print(Color.YELLOW, "Wrong input...");
             }
         }

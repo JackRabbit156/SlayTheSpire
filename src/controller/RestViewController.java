@@ -5,6 +5,7 @@ import helper.ConsoleAssistent;
 import models.player.player_structure.Player;
 import view.RestSiteView;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 /**
@@ -32,7 +33,7 @@ public class RestViewController {
             try{
                 input = scanner.nextInt();
                 break;
-            } catch (NumberFormatException e) {
+            } catch (InputMismatchException e) {
                 ConsoleAssistent.print(Color.YELLOW, "Wrong input...");
             }
         }

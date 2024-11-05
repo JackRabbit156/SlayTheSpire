@@ -12,10 +12,7 @@ import models.player.Silent;
 import models.player.player_structure.Player;
 import view.menus.LoadMenuView;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Scanner;
+import java.util.*;
 
 /**
  * Diese Klasse verwaltet den Ladevorgang von gespeicherten Spielen im Menü.
@@ -65,7 +62,7 @@ public class LoadMenuViewController {
             try{
                 selectedSaveFile = new Scanner(System.in).nextInt() - 1;
                 break;
-            } catch (NumberFormatException e) {
+            } catch (InputMismatchException e) {
                 System.out.println("Wrong input...");
             }
         }
@@ -94,7 +91,7 @@ public class LoadMenuViewController {
             try{
                 selectedSaveFile = new Scanner(System.in).nextInt() - 1;
                 break;
-            } catch (NumberFormatException e) {
+            } catch (InputMismatchException e) {
                 System.out.println("Wrong input...");
             }
         }
