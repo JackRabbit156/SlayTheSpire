@@ -12,6 +12,13 @@ import models.relics.relic_structure.Relic;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Diese Klasse repräsentiert den Ironclad-Spieler, eine von mehreren möglichen Spielerklassen im Spiel.
+ * Ironclad hat spezifische Attribute, eine Startreliktie und ein Deck von Karten, die für seine Spielweise
+ * geeignet sind.
+ *
+ * @author Warawa Alexander, Willig Daniel
+ */
 public class Ironclad extends Player {
     // * Constructor *
     public Ironclad() {

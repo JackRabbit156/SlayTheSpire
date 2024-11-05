@@ -53,7 +53,7 @@ public abstract class Act {
             nextNodes.put("left", node.getLeftNode());
         }
         if(node.getMiddleNode() != null){
-            nextNodes.put("middle", node.getMiddleNode());
+            nextNodes.put("straight", node.getMiddleNode());
         }
         if(node.getRightNode() != null){
             nextNodes.put("right", node.getRightNode());
@@ -100,6 +100,10 @@ public abstract class Act {
             }
         }
         return null;
+    }
+
+    public String getFirstField(){
+        return nodes.get(0).getFieldName();
     }
 
     public String getLastField(){

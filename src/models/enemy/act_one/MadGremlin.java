@@ -4,6 +4,13 @@ import models.GameContext;
 import models.enemy.Enemy;
 import models.player.player_structure.Player;
 
+/**
+ * Diese Klasse repräsentiert den Gegner "MadGremlin" im ersten Akt des Spiels.
+ * Der Mad Gremlin hat spezifische Eigenschaften und Fähigkeiten,
+ * die im Kampf verwendet werden können.
+ *
+ * @author Warawa Alexander
+ */
 public class MadGremlin extends Enemy {
     public MadGremlin() {
         super("Mad Gremlin", 20, 24);

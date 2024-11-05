@@ -8,6 +8,14 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
+/**
+ * Diese Klasse repräsentiert das BattleDeck, das die Kartenverwaltung
+ * während eines Kampfes organisiert. Es enthält Methoden zum Ziehen,
+ * Entsorgen und Austauschen von Karten sowie zur Verwaltung der Handkarten
+ * und der verschiedenen Stapel (Deck, Ablagestapel, Exil).
+ *
+ * @author Warawa Alexander, Willig Daniel
+ */
 public class BattleDeck {
     private List<Card> deck;
     private List<Card> hand;
@@ -17,6 +25,11 @@ public class BattleDeck {
     private Random random;
     private int startHandSize;
 
+    /**
+     * Konstruktor für die BattleDeck-Klasse.
+     *
+     * @param originalDeck Der Originalstapel, von dem eine Kopie erstellt wird.
+     */
     public BattleDeck(List<Card> originalDeck) {
         this.deck = new ArrayList<>(originalDeck); // Create a copy of the deck of the player
         this.hand = new ArrayList<>();
@@ -27,6 +40,11 @@ public class BattleDeck {
         this.currentPowerCards = new ArrayList<>();
     }
 
+    /**
+     * Gibt die Handkarten zurück.
+     *
+     * @return Die Liste der Handkarten.
+     */
     public List<Card> getHand() {
         return hand;
     }
@@ -35,6 +53,11 @@ public class BattleDeck {
         Collections.shuffle(deck);
     }
 
+    /**
+     * Füllt die Handkarten bis zur angegebenen Anzahl auf.
+     *
+     * @param count Die Anzahl der Karten, die die Hand erreichen soll.
+     */
     public void fillHand(int count) {
         //hand.clear();
 
@@ -48,20 +71,40 @@ public class BattleDeck {
 
     }
 
+    /**
+     * Zieht eine bestimmte Anzahl von Karten und fügt sie der Hand hinzu.
+     *
+     * @param count Die Anzahl der zu ziehenden Karten.
+     */
     public void drawCard(int count) {
         fillHand(hand.size() + count);
     }
 
+    /**
+     * Entsorgt eine Karte von der Hand und fügt sie dem Ablagestapel hinzu.
+     *
+     * @param card Die zu entsorgende Karte.
+     */
     public void discardCardFromHand(Card card) {
         discardPile.add(card);
         hand.remove(card);
     }
 
+    /**
+     * Exhaustet eine Karte von der Hand und fügt sie dem Exhaust-Stapel hinzu.
+     *
+     * @param card Die zu exilierende Karte.
+     */
     public void exhaustCardFromHand(Card card) {
         exhaustPile.add(card);
         hand.remove(card);
     }
 
+    /**
+     * Entfernt eine Karte von der Hand.
+     *
+     * @param card Die zu entfernende Karte.
+     */
     public void removeCardFromHand(Card card) {
         hand.remove(card);
     }

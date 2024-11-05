@@ -1,6 +1,8 @@
 package view;
 
+import helper.ConsoleAssistent;
 import models.map_elements.Node;
+import models.player.player_structure.Player;
 
 import java.util.List;
 
@@ -15,6 +17,20 @@ import java.util.List;
  * @author Warawa Alexander
  */
 public class MapView {
+    private Player player;
+    private int gap = 40;
+
+    /**
+     * Konstruktor der MapView Klasse.
+     * Dient der Darstellung der Karte.
+     *
+     * @param player der Spieler, um seine Informationen anzuzeigen.
+     */
+    public MapView(Player player){
+        this.player = player;
+    }
+
+
     /**
      * Gibt die Karte eines Aktes auf der Konsole aus, nachdem alle Knoten
      * und der Spieler auf der Karte platziert wurden.
@@ -28,13 +44,15 @@ public class MapView {
 
         setNodesOnMap(rawMap, nodes);
 
+        printPlayerInformation();
+
         // Gibt die Karte Zeile für Zeile auf der Konsole aus
         for(int i = 0; i<  rawMap.length; i++){
             String line = "";
             for(int j = 0; j<  rawMap[0].length; j++){
                 line += rawMap[i][j];
             }
-            System.out.println(line);
+            System.out.println(ConsoleAssistent.repeat(gap + 20, " ") +line);
         }
     }
 
@@ -49,5 +67,10 @@ public class MapView {
             else
                 rawMap[posY][posX]  = nodes.get(i).getSymbol();
         }
+    }
+
+    private void printPlayerInformation(){
+        System.out.printf(ConsoleAssistent.repeat(gap, " ") +"Player \t\t HP \t\tGold \t\t Act \t\t Floor \t\t Deck%n");
+        System.out.printf(ConsoleAssistent.repeat(gap, " ") +"%-12s %d/%-7d %-12d %-11d %-11s %d%n%n", player.getPlayerType(), player.getCurrentHealth(), player.getMaxHealth(),player.getGold(), player.getCurrentAct(), player.getCurrentField(), player.getDeck().size());
     }
 }

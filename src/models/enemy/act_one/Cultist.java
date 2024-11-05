@@ -4,6 +4,13 @@ import models.GameContext;
 import models.enemy.Enemy;
 import models.player.player_structure.Player;
 
+/**
+ * Diese Klasse repräsentiert den Gegner "Cultist" im ersten Akt des Spiels.
+ * Der Cultist hat spezifische Eigenschaften und Fähigkeiten,
+ * die im Kampf verwendet werden können.
+ *
+ * @author Warawa Alexander
+ */
 public class Cultist extends Enemy {
     public Cultist() {
         super("Cultist", 48, 54);

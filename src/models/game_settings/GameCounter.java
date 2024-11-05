@@ -2,6 +2,13 @@ package models.game_settings;
 
 import helper.ConsoleAssistent;
 
+/**
+ * Diese Klasse repräsentiert einen Spielzähler, der die Spielzeit in
+ * Stunden, Minuten und Sekunden verfolgt. Sie implementiert die Runnable-Schnittstelle,
+ * um den Zähler in einem eigenen Thread auszuführen.
+ *
+ * @author Warawa Alexander
+ */
 public class GameCounter extends Thread {
 
     private int seconds = 0;
