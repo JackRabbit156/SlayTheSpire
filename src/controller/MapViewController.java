@@ -75,7 +75,9 @@ public class MapViewController {
             }
 
             mapView.printMap(act.getRawMap(), act.getNodes());
-            act.goToValidDirection(player);
+            boolean validWay =  act.goToValidDirection(player);
+            if(!validWay)
+                return;
         }
 
         GameSettings.stopTimer();

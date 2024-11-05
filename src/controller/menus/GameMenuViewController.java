@@ -27,7 +27,7 @@ public class GameMenuViewController {
         gameSaveManager = new GameSaveManager();
     }
 
-    public void display(Player player) {
+    public int display(Player player) {
         gameMenuView.displayMenu();
         System.out.print(">> ");
         String input = in.next();
@@ -42,7 +42,7 @@ public class GameMenuViewController {
                 break;
             case "2":
                 loadSaveGame();
-                break;
+                return 2;
             case "3":
                 showChangeDifficulty();
                 display(player);
@@ -60,7 +60,7 @@ public class GameMenuViewController {
                 else if (menu.toLowerCase().equals("n")) {
                     display(player);
                 }
-                break;
+                return 4;
             case "5":
                 System.out.println("Are you sure, you want to quit the Game? (Y/N). ");
                 String quit;
@@ -78,12 +78,13 @@ public class GameMenuViewController {
                 }
                 break;
             case "0":
-                return;
+                return 0;
             default:
                 System.out.println("\tWrong input... going back to character selection\t\n\n");
                 display(player);
                 break;
         }
+        return 0;
     }
 
     private void loadSaveGame() {
