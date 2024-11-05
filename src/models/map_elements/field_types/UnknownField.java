@@ -6,14 +6,13 @@ import java.util.Random;
 
 public class UnknownField extends Field {
     Random rand = new Random();
-    // Remove EliteField KANN
-    // new EliteField(),
-    Field[] fields = {new EventField(),  new EnemyField(), new ShopField()};
+    private final Field[] fields;
     int[] percentages = {67, 20, 10, 3};
     int percentStart = 1;
 
-    public UnknownField() {
+    public UnknownField(EventField eventField, EnemyField enemyField, EliteField eliteField, ShopField shopField) {
         super("❓");
+        this.fields = new Field[]{eventField, enemyField, eliteField, shopField};
     }
 
     @Override
@@ -25,8 +24,9 @@ public class UnknownField extends Field {
 
         int randomField = (rand.nextInt(percentEnd) + 1);
         for (int i = 0; i < percentages.length; i++) {
-            if (percentStart <= randomField && randomField >= percentages[i]) {
+            if (percentStart <= randomField && randomField <= percentages[i]) {
                 fields[i].doFieldThing(player);
+                break;
             }
             randomField -= percentages[i];
         }
