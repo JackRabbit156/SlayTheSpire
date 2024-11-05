@@ -38,6 +38,7 @@ public class BattleDeck {
         this.random = new Random();
         this.startHandSize = 5;
         this.currentPowerCards = new ArrayList<>();
+        createShuffledDeck();
     }
 
     /**
@@ -50,7 +51,10 @@ public class BattleDeck {
     }
 
     public void createShuffledDeck() {
-        Collections.shuffle(deck);
+        int randNum = this.random.nextInt(10);
+        for (int i = 0; i <= randNum; i++) {
+            Collections.shuffle(this.deck);
+        }
     }
 
     /**
