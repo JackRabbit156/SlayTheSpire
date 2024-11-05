@@ -29,7 +29,7 @@ public class RestViewController {
         int input = 0;
 
         while(true){
-            System.out.print("\nChoose the Game state you want to delete: ");
+            System.out.print("\nChoose an option: ");
             try{
                 input = scanner.nextInt();
                 break;
