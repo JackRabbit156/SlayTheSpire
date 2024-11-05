@@ -11,7 +11,7 @@ import models.enemy.act_one.bosses.SlimeBoss;
 import models.enemy.act_one.elites.GremlinNob;
 import models.enemy.act_one.elites.Lagavulin;
 import models.events.Event;
-import models.events.actone.ActOneEventEnum;
+import models.events.actone.*;
 import models.events.generelevents.BonfireSpirits;
 import models.events.generelevents.Duplicator;
 import models.events.generelevents.GoldenShrine;
@@ -149,7 +149,7 @@ public class ActOne extends Act {
         String type;
         switch (randBoss) {
             case 0:
-                // 1 - SlimBoss
+                // 1 - SlimeBoss
                 enemies.add(new SlimeBoss());
                 type = "Slime";
                 break;
@@ -226,14 +226,24 @@ public class ActOne extends Act {
         ActOneEventEnum[] events = ActOneEventEnum.values();
         ActOneEventEnum event = events[randi.nextInt(events.length)];
         switch (event) {
+            case BigFish:
+                return new BigFish(this.player);
             case BonfireSpirits:
                 return new BonfireSpirits(this.player);
+            case DeadAdventurer:
+                return new DeadAdventurer(this.player);
             case Duplicator:
                 return new Duplicator(this.player);
-            case GoldenShrine:
-                return new GoldenShrine(this.player);
             case NoteForYourself:
                 return new NoteForYourself(this.player);
+            case ScrapOoze:
+                return new ScrapOoze(this.player);
+            case TheCleric:
+                return new TheCleric(this.player);
+            case TheSsssserpent:
+                return new TheSssssserpent(this.player);
+            case WorldofGoo:
+                return new WorldOfGoo(this.player);
             default:
                 return new GoldenShrine(this.player);
         }
