@@ -41,7 +41,7 @@ public class LoadMenuViewController {
      * @param player Der Spieler, dessen Spiel gespeichert werden soll.
      */
     public void saveGame(Player player){
-        delteSaveFileWithName(GameSettings.lastSession);
+        deleteSaveFileWithName(GameSettings.lastSession);
         gameSaveManager.saveGame(player);
     }
 
@@ -108,8 +108,8 @@ public class LoadMenuViewController {
      *
      * @param nameOfFile Der Name der zu löschenden Speicherdatei.
      */
-    private void delteSaveFileWithName(String nameOfFile){
-        gameSaveManager.deleteSelcetedSaveFile(nameOfFile);
+    private void deleteSaveFileWithName(String nameOfFile){
+        gameSaveManager.deleteSelectedSaveFile(nameOfFile);
     }
 
     /**
@@ -118,7 +118,7 @@ public class LoadMenuViewController {
      * @param id Die ID der zu löschenden Speicherdatei.
      */
     private void deleteSaveFileWithId(int id){
-        gameSaveManager.deleteSelcetedSaveFile(id);
+        gameSaveManager.deleteSelectedSaveFile(id);
     }
 
     /**
