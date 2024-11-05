@@ -53,20 +53,29 @@ public class TreasureViewController {
     private void cardChoice() {
         ConsoleAssistent.clearScreen();
         treasureView.display(purchasableCards);
-        String input = scanner.next();
-        switch (input) {
-            case "1":
-            case "2":
-            case "3":
-            case "4":
-            case "5":
-                int choose = Integer.parseInt(input);
-                addCardToDeck(purchasableCards.get(choose - 1));
+        int input = 0;
+
+        while(true){
+            System.out.print("\nChoose the Game state you want to delete: ");
+            try{
+                input = scanner.nextInt();
                 break;
-            case "0":
+            } catch (NumberFormatException e) {
+                ConsoleAssistent.print(Color.YELLOW, "Wrong input...");
+            }
+        }
+        switch (input) {
+            case 1:
+            case 2:
+            case 3:
+            case 4:
+            case 5:
+                addCardToDeck(purchasableCards.get(input - 1));
+                break;
+            case 0:
                 return;
             default:
-                ConsoleAssistent.print(Color.YELLOW, "Wrong Choice!");
+                ConsoleAssistent.print(Color.YELLOW, "Wrong Choice...");
                 cardChoice();
                 break;
         }
