@@ -18,7 +18,7 @@ public class AcidSlime extends Enemy {
 
     @Override
     public void attack(GameContext gameContext) {
-        atttackCorrosiveSpit(gameContext);
+        attackCorrosiveSpit(gameContext);
     }
 
     private void attackCorrosiveSpit(GameContext gameContext){
