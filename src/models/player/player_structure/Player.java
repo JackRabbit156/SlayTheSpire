@@ -122,12 +122,24 @@ public abstract class Player {
      * @param damageFromCard Gibt an, ob der Schaden von einer Karte stammt.
      */
     public void decreaseCurrentHealth(int dmg, boolean damageFromCard) {
-        currentHealth -= dmg;
-        if (currentHealth < 0)
-            currentHealth = 0;
         GameSettings.increaseReceivedDamageStats(dmg);
+        int tmpDmg = dmg;
         if (damageFromCard) {
             notifyDamageReceived(dmg, true);
+        }
+        else {
+            if (getBlock() - dmg >= 0) {
+                setBlock(getBlock() - dmg);
+                tmpDmg = 0;
+            }
+            else {
+                tmpDmg = Math.abs(getBlock() - dmg);
+                setBlock(0);
+            }
+        }
+        currentHealth -= tmpDmg;
+        if (currentHealth < 0) {
+            currentHealth = 0;
         }
     }
 
