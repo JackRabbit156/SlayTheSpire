@@ -12,6 +12,8 @@ import java.util.List;
  */
 public class TreasureView {
     public void display(List<Card> availableCards) {
+        ConsoleAssistent.clearScreen();
+
         displayTitle();
 
         System.out.println("*******************************************************************************\n" +

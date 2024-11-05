@@ -18,6 +18,7 @@ public class RestSiteView {
      * @param player Player Anzeigen der "player" Attribute
      */
     public void display(Player player) {
+        ConsoleAssistent.clearScreen();
         displayTitle();
 
         System.out.printf("%-20s %-10s%n", "Player:", player.getName());

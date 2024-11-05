@@ -28,7 +28,6 @@ public class LootView {
         System.out.printf("%s %n", "Potions:");
         System.out.printf("%s %n", "Coming soon... This selection leads to the number 1");
         System.out.println();
-        displayCardChoiceMenu(cardsToChoice.size());
     }
 
     /**

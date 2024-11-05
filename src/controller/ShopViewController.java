@@ -47,18 +47,15 @@ public class ShopViewController {
      * Auswahl der Kaufoptionen.
      */
     public void entryShop() {
-        ConsoleAssistent.clearScreen();
-        shopView.display(player, purchasableCards);
-        shopView.displayOptionChoiceMenu();
-
         int input = 0;
 
         while(true){
-            System.out.print("\nChoose the Game state you want to delete: ");
+            shopView.display(player, purchasableCards);
+            shopView.displayOptionChoiceMenu();
             try{
-                input = scanner.nextInt();
+                input = Integer.parseInt(scanner.nextLine());
                 break;
-            } catch (InputMismatchException e) {
+            } catch (InputMismatchException | NumberFormatException e) {
                 ConsoleAssistent.print(Color.YELLOW, "Wrong input...");
             }
         }
@@ -78,18 +75,15 @@ public class ShopViewController {
     }
 
     private void cardChoice() {
-        ConsoleAssistent.clearScreen();
-        shopView.displayCards(purchasableCards);
-        shopView.displayCardChoiceMenu(purchasableCards.size());
-
         int input = 0;
 
         while(true){
-            System.out.print("\nChoose the Game state you want to delete: ");
+            shopView.displayCards(purchasableCards);
+            shopView.displayCardChoiceMenu(purchasableCards.size());
             try{
-                input = scanner.nextInt();
+                input = Integer.parseInt(scanner.nextLine());
                 break;
-            } catch (InputMismatchException e) {
+            } catch (InputMismatchException | NumberFormatException e) {
                 ConsoleAssistent.print(Color.YELLOW, "Wrong input...");
             }
         }

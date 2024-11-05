@@ -8,6 +8,7 @@ import models.game_settings.GameSettings;
 import models.player.player_structure.Player;
 import view.TreasureView;
 
+import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
@@ -53,16 +54,13 @@ public class TreasureViewController {
     }
 
     private void cardChoice() {
-        ConsoleAssistent.clearScreen();
-        treasureView.display(purchasableCards);
         int input = 0;
-
         while(true){
-            System.out.print("\nChoose the Game state you want to delete: ");
+            treasureView.display(purchasableCards);
             try{
-                input = scanner.nextInt();
+                input = Integer.parseInt(scanner.nextLine());
                 break;
-            } catch (NumberFormatException e) {
+            } catch (InputMismatchException | NumberFormatException e) {
                 ConsoleAssistent.print(Color.YELLOW, "Wrong input...");
             }
         }
