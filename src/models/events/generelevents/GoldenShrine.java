@@ -17,7 +17,7 @@ public class GoldenShrine extends Event {
     private Scanner scanner = new Scanner(System.in);
 
     public GoldenShrine(Player player) {
-        super("Before you lies an elaborate shrine to an ancient spirit.", "Golden Shrine");
+        super("  Before you lies an elaborate shrine to an ancient spirit.", "Golden Shrine");
 
         this.player = player;
     }

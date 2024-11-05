@@ -54,7 +54,7 @@ public class ShopViewController {
         int input = 0;
 
         while(true){
-            System.out.print("\nChoose the Game state you want to delete: ");
+            shopView.displayCardChoiceMenu(purchasableCards.size());
             try{
                 input = scanner.nextInt();
                 break;
@@ -80,12 +80,11 @@ public class ShopViewController {
     private void cardChoice() {
         ConsoleAssistent.clearScreen();
         shopView.displayCards(purchasableCards);
-        shopView.displayCardChoiceMenu(purchasableCards.size());
 
         int input = 0;
 
         while(true){
-            System.out.print("\nChoose the Game state you want to delete: ");
+            shopView.displayCardChoiceMenu(purchasableCards.size());
             try{
                 input = scanner.nextInt();
                 break;
