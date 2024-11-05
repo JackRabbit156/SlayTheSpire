@@ -62,7 +62,7 @@ public class GameSaveManager {
      *
      * @param session Der Name der Sitzung, deren Speicherdatei gelöscht werden soll.
      */
-    public void deleteSelcetedSaveFile(String session){
+    public void deleteSelectedSaveFile(String session){
         File folder = new File(SAVE_FOLDER);
         File[] saveFiles = folder.listFiles((dir, name) -> name.startsWith("save_") && name.endsWith(".txt"));
 
@@ -82,7 +82,7 @@ public class GameSaveManager {
      *
      * @param id Die ID der Speicherdatei, die gelöscht werden soll.
      */
-    public void deleteSelcetedSaveFile(int id){
+    public void deleteSelectedSaveFile(int id){
         File folder = new File(SAVE_FOLDER);
         File[] saveFiles = folder.listFiles((dir, name) -> name.startsWith("save_") && name.endsWith(".txt"));
 
