@@ -46,6 +46,8 @@ public class MapView {
 
         printPlayerInformation();
 
+        printMapLegend();
+
         // Gibt die Karte Zeile für Zeile auf der Konsole aus
         for(int i = 0; i<  rawMap.length; i++){
             String line = "";
@@ -72,5 +74,16 @@ public class MapView {
     private void printPlayerInformation(){
         System.out.printf(ConsoleAssistent.repeat(gap, " ") +"Player \t\t HP \t\tGold \t\t Act \t\t Floor \t\t Deck%n");
         System.out.printf(ConsoleAssistent.repeat(gap, " ") +"%-12s %d/%-7d %-12d %-11d %-11s %d%n%n", player.getPlayerType(), player.getCurrentHealth(), player.getMaxHealth(),player.getGold(), player.getCurrentAct(), player.getCurrentField(), player.getDeck().size());
+    }
+
+    private void printMapLegend(){
+        System.out.printf(ConsoleAssistent.repeat(gap, " ") +"❓ Unknown%n");
+        System.out.printf(ConsoleAssistent.repeat(gap, " ") +"\uD83D\uDC5C Merchant%n");
+        System.out.printf(ConsoleAssistent.repeat(gap, " ") +"T Treasure%n");
+        System.out.printf(ConsoleAssistent.repeat(gap, " ") +"\uD83D\uDCA4 Rest%n");
+        System.out.printf(ConsoleAssistent.repeat(gap, " ") +"👹 Enemy%n");
+        System.out.printf(ConsoleAssistent.repeat(gap, " ") +"\uD83D\uDCA2 Elite%n");
+        System.out.printf(ConsoleAssistent.repeat(gap, " ") +"\uD83D\uDCAA Boss%n");
+        System.out.printf(ConsoleAssistent.repeat(gap, " ") +"⚒ Player%n");
     }
 }
