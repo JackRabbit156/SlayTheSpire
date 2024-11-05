@@ -33,7 +33,9 @@ public class GameSaveManager {
      * @param player Der Spieler, dessen Spielstand gespeichert werden soll.
      */
     public void saveGame(Player player) {
-        deleteSelectedSaveFile(GameSettings.lastSession);
+        if(!GameSettings.lastSession.equals(""))
+            deleteSelectedSaveFile(GameSettings.lastSession);
+
         Map<String, String> gameData = collectGameData(player);
         String fileName = getTimestampedFileName();
         saveDataToFile(gameData, new File(SAVE_FOLDER, fileName));
@@ -74,8 +76,7 @@ public class GameSaveManager {
                 return;
             }
         }
-
-        System.out.println("Error, could not delete file: " + session + ".");
+        //System.out.println("Error, could not delete file: " + session + ".");
     }
 
     /**
@@ -139,6 +140,7 @@ public class GameSaveManager {
 
         Map<String, String> gameData = new HashMap<>();
 
+        gameData.put("username", player.getUsername());
         gameData.put("character", player.getPlayerType().toString());
         gameData.put("field", player.getCurrentField());
         gameData.put("currentAct", String.valueOf(player.getCurrentAct()));

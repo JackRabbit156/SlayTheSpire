@@ -137,6 +137,8 @@ public class LoadMenuViewController {
             default:
                 System.out.println("Weird...");return;
         }
+
+        player.setUsername(gameData.get("username"));
         player.setCurrentHealth(Integer.parseInt(gameData.get("currentHealth")));
 
         player.setCurrentAct(Integer.parseInt(gameData.get("currentAct")));

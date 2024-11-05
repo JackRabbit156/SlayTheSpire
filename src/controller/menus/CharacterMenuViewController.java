@@ -46,18 +46,19 @@ public class CharacterMenuViewController {
         if (playerName.toLowerCase().equals("exit")) {
             getBacktoMenu();
         }
-        newPlayer();
+        newPlayer(playerName);
     }
 
     /**
      * erstellt je nach Benutzereingabe einen neuen Charakter und übergibt diese Auswahl an startMapView().
      * Eine falsche Eingabe, oder die Eingabe "exit" führt zurück zu selectChar()
      */
-    private void newPlayer(){
+    private void newPlayer(String username){
         selectedCharacter = in.next();
 
         if (selectedCharacter.equals("1")) {
             Ironclad player = new Ironclad();
+            player.setUsername(username);
             selectedCharacter = "Ironclad";
             startMapView(player);
         }
