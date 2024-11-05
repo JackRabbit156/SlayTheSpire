@@ -19,6 +19,8 @@ public class GameMenuView {
      * Darstellung der GameMenü-Optionen
      */
     public void displayMenu(){
+        ConsoleAssistent.clearScreen();
+
         displayTitle();
         System.out.println();
         System.out.printf("%d. %s%s%n", 1, "Save Game", GameSettings.getGameMode() == GameMode.HARDCORE ? "(Not Available)" : "");
