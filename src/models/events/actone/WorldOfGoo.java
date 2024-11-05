@@ -42,7 +42,7 @@ public class WorldOfGoo extends Event {
                 player.setCurrentHealth(player.getCurrentHealth() - 11);
                 System.out.println("You gained " + player.getGold() + " but lost 11 hp.");
                 break;
-            case 2:
+            case "2":
                 System.out.println("You decide that mess is not worth it.");
                 randGold = (rand.nextInt(30) + 20) + 1;
                 player.setGold(player.getGold() - randGold);
