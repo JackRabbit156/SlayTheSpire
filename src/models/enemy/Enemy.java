@@ -2,8 +2,12 @@ package models.enemy;
 
 import models.GameContext;
 import models.game_settings.GameSettings;
+import models.game_settings.GameSettings;
+import models.game_settings.structure.DifficultyLevel;
 
+import java.util.ArrayList;
 import java.util.Random;
+import java.util.Scanner;
 
 /**
  * Diese abstrakte Klasse repräsentiert einen allgemeinen Gegner im Spiel.
@@ -32,6 +36,49 @@ public abstract class Enemy {
         this.maxHealth = generateMaxHealth(lowestMaxHealthPossible, highestMaxHealthPossible);
         this.currentHealth = maxHealth;
     }
+
+    public void action(GameContext gameContext) {
+        DifficultyLevel difficulty = GameSettings.getDifficultyLevel();
+        int randomNumber = (new Random().nextInt(100) + 1);
+        int attackPercentage = 100; //should be normal
+
+        if (difficulty.equals(DifficultyLevel.SUPEREASY)) {
+            attackPercentage = 50;
+        }
+        else if (difficulty.equals(DifficultyLevel.EASY)) {
+            attackPercentage = 75;
+        }
+        else if (difficulty.equals(DifficultyLevel.HARD)) {
+            System.out.println("hard not yet implemented");
+            //TODO hard
+        }
+        else if (difficulty.equals(DifficultyLevel.IMPOSSIBLE)) {
+            System.out.println("impossible not yet implemented");
+            //TODO impossible
+        }
+
+        if (attackPercentage >= randomNumber) {
+            attack(gameContext);
+        }
+        else {
+            System.out.println(doNothing());
+        }
+    }
+
+    protected String doNothing(){
+        ArrayList<String> wittyBanterList = new ArrayList<>();
+        Scanner fileScanner = new Scanner(Enemy.class.getResourceAsStream("wittybanter.txt"));
+        while (fileScanner.hasNext())
+        {
+            wittyBanterList.add(fileScanner.nextLine());
+        }
+
+        fileScanner.close();
+
+
+        return "\u001B[3m" + "\u001B[36m" + wittyBanterList.get(Math.abs(new Random().nextInt() % wittyBanterList.size())) + "\u001B[0m";
+    }
+
 
     /**
      * Führt den Angriff des Gegners aus.

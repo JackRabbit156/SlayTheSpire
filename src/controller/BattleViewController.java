@@ -10,6 +10,7 @@ import models.cards.card_structure.CardGrave;
 import models.cards.card_structure.CardTrigger;
 import models.cards.card_structure.PowerCard;
 import models.enemy.Enemy;
+import models.game_settings.GameSettings;
 import models.player.player_structure.Player;
 import view.BattleView;
 import listener.PlayerEventListener;
@@ -58,11 +59,11 @@ public class BattleViewController implements PlayerEventListener{
         while (player.isAlive() && !enemies.isEmpty()) {
             playerBOT();
 
-            printBatteView();
+            printBattleView();
 
             playerTurn();
 
-            removeHandAfterEndOfTurn();
+            playerEOT();
 
             ConsoleAssistent.clearScreen();
 
@@ -109,7 +110,7 @@ public class BattleViewController implements PlayerEventListener{
      * Gibt die aktuelle Sicht des Kampfes aus, einschließlich des Spielers,
      * der Gegner und der Handkarten des Spielers.
      */
-    private void printBatteView(){
+    private void printBattleView(){
         enemies.removeIf(enemy -> !enemy.isAlive());
         view.display(player, enemies, battleDeck.getHand());
     }
@@ -127,7 +128,7 @@ public class BattleViewController implements PlayerEventListener{
                 case 1:
                     selectCard();
                     ConsoleAssistent.clearScreen();
-                    printBatteView();
+                    printBattleView();
                     break;
                 case 2: return;
                 default:
@@ -180,7 +181,7 @@ public class BattleViewController implements PlayerEventListener{
 
         for (Enemy enemy : enemies) {
             if (enemy.isAlive()) {
-                enemy.attack(gameContext);
+                enemy.action(gameContext);
             }
             // kurze Verzögerung, damit der Schaden des Gegners nicht auf einem Schlag kommt.
             ConsoleAssistent.sleep(300);
@@ -188,8 +189,8 @@ public class BattleViewController implements PlayerEventListener{
     }
     // Block hält nur 1. Runde an.
     private void removeBlockOfEnemiesAfterEndOfTurn() {
-        for(int i = 0; i<enemies.size(); i++){
-            enemies.get(i).setBlock(0);
+        for (Enemy enemy : enemies) {
+            enemy.setBlock(0);
         }
     }
 

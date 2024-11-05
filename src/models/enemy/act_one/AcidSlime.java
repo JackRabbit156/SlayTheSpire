@@ -21,7 +21,7 @@ public class AcidSlime extends Enemy {
         atttackCorrosiveSpit(gameContext);
     }
 
-    private void atttackCorrosiveSpit(GameContext gameContext){
+    private void attackCorrosiveSpit(GameContext gameContext){
         int attackDamage = 11;
         Player player = gameContext.getPlayer();
 
