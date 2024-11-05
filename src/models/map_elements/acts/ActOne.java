@@ -10,6 +10,12 @@ import models.enemy.act_one.MadGremlin;
 import models.enemy.act_one.bosses.SlimeBoss;
 import models.enemy.act_one.elites.GremlinNob;
 import models.enemy.act_one.elites.Lagavulin;
+import models.events.Event;
+import models.events.actone.*;
+import models.events.generelevents.BonfireSpirits;
+import models.events.generelevents.Duplicator;
+import models.events.generelevents.GoldenShrine;
+import models.events.generelevents.NoteForYourself;
 import models.map_elements.Coordinates;
 import models.map_elements.Node;
 import models.map_elements.field_types.*;
@@ -29,6 +35,7 @@ import java.util.Random;
  * @author Warawa Alexander
  */
 public class ActOne extends Act {
+    private Player player;
     Random randi = new Random();
 
     /**
@@ -40,6 +47,7 @@ public class ActOne extends Act {
      */
     public ActOne(Player player, boolean loadingFromFile){
         super(1);
+        this.player = player;
         initNodes();
 
         Node playerNode = null;
@@ -61,17 +69,17 @@ public class ActOne extends Act {
     private void initNodes(){
         Node start1 = new Node("1", new EnemyField(generateEnemies()), new Coordinates(3, 16));
         Node fight2 = new Node("2", new EnemyField(generateEnemies()), new Coordinates(3, 14));
-        Node unknown3 = new Node("3", new UnknownField(new EventField(), new EnemyField(generateEnemies()), new EliteField(createElitesEnemies()), new ShopField()), new Coordinates(1, 12));
+        Node unknown3 = new Node("3", new UnknownField(new EventField(randomEvent()), new EnemyField(generateEnemies()), new EliteField(createElitesEnemies()), new ShopField()), new Coordinates(1, 12));
         Node fight4 = new Node("4", new EnemyField(generateEnemies()), new Coordinates(5, 12));
         Node fight5 = new Node("5", new EnemyField(generateEnemies()), new Coordinates(0, 10));
         Node elite6 = new Node("6", new EliteField(createElitesEnemies()), new Coordinates(2, 10));
         Node fight7 = new Node("7", new EnemyField(generateEnemies()), new Coordinates(5, 10));
         Node shop8 = new Node("8", new ShopField(), new Coordinates(2, 8));
-        Node unknown9 = new Node("9", new UnknownField(new EventField(), new EnemyField(generateEnemies()), new EliteField(createElitesEnemies()), new ShopField()), new Coordinates(5, 8));
-        Node event10 = new Node("10", new EventField(), new Coordinates(1, 6));
+        Node unknown9 = new Node("9", new UnknownField(new EventField(randomEvent()), new EnemyField(generateEnemies()), new EliteField(createElitesEnemies()), new ShopField()), new Coordinates(5, 8));
+        Node event10 = new Node("10", new EventField(randomEvent()), new Coordinates(1, 6));
         Node fight11 = new Node("11", new EnemyField(generateEnemies()), new Coordinates(4, 6));
         Node fight12 = new Node("12", new EnemyField(generateEnemies()), new Coordinates(6, 6));
-        Node unknown13 = new Node("13", new UnknownField(new EventField(), new EnemyField(generateEnemies()), new EliteField(createElitesEnemies()), new ShopField()), new Coordinates(4, 4));
+        Node unknown13 = new Node("13", new UnknownField(new EventField(randomEvent()), new EnemyField(generateEnemies()), new EliteField(createElitesEnemies()), new ShopField()), new Coordinates(4, 4));
         Node elite14 = new Node("14", new EliteField(createElitesEnemies()), new Coordinates(6, 4));
         Node rest15 = new Node("15", new RestField(), new Coordinates(4, 2));
         Node boss16 = new Node("16", new BossField(createBossEnemies()), new Coordinates(4, 0));
@@ -141,7 +149,7 @@ public class ActOne extends Act {
         String type;
         switch (randBoss) {
             case 0:
-                // 1 - SlimBoss
+                // 1 - SlimeBoss
                 enemies.add(new SlimeBoss());
                 type = "Slime";
                 break;
@@ -211,6 +219,34 @@ public class ActOne extends Act {
     public void doFieldThing(){
         Node currentNode = getPlayerNode();
         currentNode.doFieldThing();
+    }
+
+    private Event randomEvent() {
+        Random randi = new Random();
+        ActOneEventEnum[] events = ActOneEventEnum.values();
+        ActOneEventEnum event = events[randi.nextInt(events.length)];
+        switch (event) {
+            case BigFish:
+                return new BigFish(this.player);
+            case BonfireSpirits:
+                return new BonfireSpirits(this.player);
+            case DeadAdventurer:
+                return new DeadAdventurer(this.player);
+            case Duplicator:
+                return new Duplicator(this.player);
+            case NoteForYourself:
+                return new NoteForYourself(this.player);
+            case ScrapOoze:
+                return new ScrapOoze(this.player);
+            case TheCleric:
+                return new TheCleric(this.player);
+            case TheSsssserpent:
+                return new TheSssssserpent(this.player);
+            case WorldofGoo:
+                return new WorldOfGoo(this.player);
+            default:
+                return new GoldenShrine(this.player);
+        }
     }
 
     @Override

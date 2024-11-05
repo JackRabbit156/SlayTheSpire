@@ -48,11 +48,11 @@ public class GameMenuViewController {
                 display(player);
                 break;
             case "4":
-                System.out.println("Are you sure, that you want to Main Menu? (Y/N). ");
+                System.out.println("Are you sure, you want to return to Main Menu? (Y/N). ");
                 String menu;
                 menu = in.next();
                 if (menu.toLowerCase().equals("y")) {
-                    System.out.println("\nGo to Main Menu..");
+                    System.out.println("\nGoing back to Main Menu..");
                     ConsoleAssistent.sleep(100);
                     mainMenuViewController = new MainMenuViewController();
                     mainMenuViewController.startMenu();
@@ -62,7 +62,7 @@ public class GameMenuViewController {
                 }
                 break;
             case "5":
-                System.out.println("Are you sure, that you want to quit the Game? (Y/N). ");
+                System.out.println("Are you sure, you want to quit the Game? (Y/N). ");
                 String quit;
                 quit = in.next();
                 if (quit.toLowerCase().equals("y")) {
