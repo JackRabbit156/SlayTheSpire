@@ -21,10 +21,4 @@ public class EntrenchCard extends SkillCard{
 
             player.decreaseCurrentEnergy(getCost());
         }
-
-        @Override
-        public String toString() {
-            return "Entrench(2x Block)";
-        }
-
 }

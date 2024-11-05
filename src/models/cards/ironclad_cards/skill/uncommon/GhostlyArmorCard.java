@@ -21,10 +21,4 @@ public class GhostlyArmorCard extends SkillCard{
 
             player.decreaseCurrentEnergy(getCost());
         }
-
-        @Override
-        public String toString() {
-            return "Entrench(10 Block)";
-        }
-
 }

@@ -24,10 +24,4 @@ public class ShrugItOffCard extends SkillCard{
 
             player.decreaseCurrentEnergy(getCost());
         }
-
-        @Override
-        public String toString() {
-            return "Shrug It Off(8 Block - Draw 1 Card)";
-        }
-
 }

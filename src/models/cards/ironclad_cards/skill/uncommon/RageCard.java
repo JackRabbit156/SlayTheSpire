@@ -21,10 +21,4 @@ public class RageCard extends SkillCard{
 
             player.decreaseCurrentEnergy(getCost());
         }
-
-        @Override
-        public String toString() {
-            return "Rage(3 Block - etc.)";
-        }
-
 }

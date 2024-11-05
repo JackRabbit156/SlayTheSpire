@@ -25,9 +25,4 @@ public class FlexCard extends SkillCard{
 
             player.decreaseCurrentEnergy(getCost());
         }
-
-        @Override
-        public String toString() {
-            return "Flex(2 Strength - etc.)";
-        }
 }

@@ -15,10 +15,4 @@ public abstract class AttackCard extends Card {
     public abstract void play(GameContext gameContext);
 
     public abstract int dealDamage();
-
-
-    @Override
-    public String toString() {
-        return getName() + "(Energy: -"+getCost()+", "+"Damage: "+ damage+")";
-    }
 }

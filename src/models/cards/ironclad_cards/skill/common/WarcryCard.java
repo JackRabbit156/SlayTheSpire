@@ -37,9 +37,4 @@ public class WarcryCard extends SkillCard{
 
             player.decreaseCurrentEnergy(getCost());
         }
-
-        @Override
-        public String toString() {
-            return "Warcry(Draw 1 Card - etc.)";
-        }
 }

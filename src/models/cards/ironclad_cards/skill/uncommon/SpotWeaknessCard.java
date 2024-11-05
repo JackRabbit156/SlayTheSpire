@@ -22,10 +22,4 @@ public class SpotWeaknessCard extends SkillCard{
 
             player.decreaseCurrentEnergy(getCost());
         }
-
-        @Override
-        public String toString() {
-            return "Spot Weakness(3 Strength - etc.)";
-        }
-
 }

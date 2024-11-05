@@ -25,10 +25,4 @@ public class OfferingCard extends SkillCard{
 
             player.decreaseCurrentEnergy(getCost());
         }
-
-        @Override
-        public String toString() {
-            return "Offering(Lose 6 HP - Gain 2 Energy - Draw 3 cards)";
-        }
-
 }
