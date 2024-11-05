@@ -9,7 +9,15 @@ import models.player.player_structure.Player;
 import java.util.List;
 import java.util.Random;
 
+/**
+ * Die Juggernaut Karte.
+ *
+ * @author OF Daniel Willig
+ */
 public class JuggernautCard extends PowerCard {
+    /**
+     * Constructor Juggernaut card.
+     */
     public JuggernautCard() {
         super("Juggernaut", "Whenever you gain Block, deal 5 damage to a random enemy.", 2, CardRarity.RARE, CardGrave.NONE, CardTrigger.GAIN_BLOCK);
     }

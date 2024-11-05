@@ -9,7 +9,15 @@ import models.player.player_structure.Player;
 
 import java.util.Scanner;
 
+/**
+ * Die Rampage Karte.
+ *
+ * @author OF Daniel Willig
+ */
 public class RampageCard extends AttackCard {
+    /**
+     * Constructor Rampage card.
+     */
     public RampageCard() {
         super("Rampage", "Deal 8 damage. Increase this card's damage by 5 this combat.", 1, 8, CardRarity.UNCOMMON, CardGrave.DISCARD);
     }

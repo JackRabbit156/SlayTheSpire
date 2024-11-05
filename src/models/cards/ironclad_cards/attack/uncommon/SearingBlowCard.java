@@ -9,7 +9,15 @@ import models.player.player_structure.Player;
 
 import java.util.Scanner;
 
+/**
+ * Die Searing blow Karte.
+ *
+ * @author OF Daniel Willig
+ */
 public class SearingBlowCard extends AttackCard {
+    /**
+     * Constructor Searing blow card.
+     */
     public SearingBlowCard() {
         super("Searing Blow", "Deal 12 damage. Can be Upgraded any number of times.", 2, 12, CardRarity.UNCOMMON, CardGrave.DISCARD);
     }

@@ -12,7 +12,14 @@ import models.player.player_structure.Player;
 import java.util.List;
 import java.util.Scanner;
 
+/**
+ * Anger Karte.
+ * @author OF Daniel Willig
+ */
 public class AngerCard extends AttackCard {
+    /**
+     * Constructor AngerCard
+     */
     public AngerCard() {
         super("Anger", "Deal 6 damage. Add a copy of this card into your discard pile.", 0, 6, CardRarity.COMMON, CardGrave.DISCARD);
     }

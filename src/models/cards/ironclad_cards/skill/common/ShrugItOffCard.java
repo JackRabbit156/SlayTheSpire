@@ -7,10 +7,18 @@ import models.cards.card_structure.CardRarity;
 import models.cards.card_structure.SkillCard;
 import models.player.player_structure.Player;
 
+/**
+ * Die Shrug it off Karte.
+ *
+ * @author OF Daniel Willig
+ */
 public class ShrugItOffCard extends SkillCard{
 
 
-        public ShrugItOffCard() {
+    /**
+     * Constructor Shrug it off card.
+     */
+    public ShrugItOffCard() {
             super("Shrug It Off", "Gain 8 Block. Draw 1 card.", 1, CardRarity.COMMON, CardGrave.DISCARD);
         }
 

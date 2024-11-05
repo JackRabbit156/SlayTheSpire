@@ -9,7 +9,15 @@ import models.player.player_structure.Player;
 
 import java.util.Scanner;
 
+/**
+ * Die Uppercut Karte.
+ *
+ * @author OF Daniel Willig
+ */
 public class UppercutCard extends AttackCard {
+    /**
+     * Constructor Uppercut card.
+     */
     public UppercutCard() {
         super("Uppercut", "Deal 13 damage. Apply 1 Weak.Apply 1 Vulnerable.", 2, 13, CardRarity.UNCOMMON, CardGrave.DISCARD);
     }

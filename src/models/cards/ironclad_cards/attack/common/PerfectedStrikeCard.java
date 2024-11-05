@@ -12,7 +12,15 @@ import models.player.player_structure.Player;
 import java.util.List;
 import java.util.Scanner;
 
+/**
+ * The type Perfected strike card.
+ *
+ * @author OF Daniel Willig
+ */
 public class PerfectedStrikeCard extends AttackCard {
+    /**
+     * Constructor Perfected strike card.
+     */
     public PerfectedStrikeCard() {
         super("Perfected Strike", "Deal 6 damage. Deals 2 additional damage for ALL your cards containing \"Strike\".", 2, 6, CardRarity.COMMON, CardGrave.DISCARD);
     }

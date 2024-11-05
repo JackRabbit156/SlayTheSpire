@@ -9,7 +9,15 @@ import models.player.player_structure.Player;
 
 import java.util.Scanner;
 
+/**
+ * Die Pummel Karte.
+ *
+ * @author OF Daniel Willig
+ */
 public class PummelCard extends AttackCard {
+    /**
+     * Constructor Pummel card.
+     */
     public PummelCard() {
         super("Pummel", "Deal 2 damage 4 times. Exhaust.", 1, 2, CardRarity.UNCOMMON, CardGrave.EXHAUST);
     }

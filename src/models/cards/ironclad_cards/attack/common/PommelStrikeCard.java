@@ -10,7 +10,15 @@ import models.player.player_structure.Player;
 
 import java.util.Scanner;
 
+/**
+ * Die Pommel strike Karte.
+ *
+ * @author OF Daniel Willig
+ */
 public class PommelStrikeCard extends AttackCard {
+    /**
+     * Constructor Pommel strike card.
+     */
     public PommelStrikeCard() {
         super("Pommel Strike", "Deal 9 damage. Draw 1 card.", 1, 9, CardRarity.COMMON, CardGrave.DISCARD);
     }

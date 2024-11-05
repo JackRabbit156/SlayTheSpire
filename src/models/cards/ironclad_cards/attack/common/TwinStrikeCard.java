@@ -9,7 +9,15 @@ import models.player.player_structure.Player;
 
 import java.util.Scanner;
 
+/**
+ * Die Twin strike Karte.
+ *
+ * @author OF Daniel Willig
+ */
 public class TwinStrikeCard extends AttackCard {
+    /**
+     * Constructor Twin strike card.
+     */
     public TwinStrikeCard() {
         super("Twin Strike", "Deal 5 damage twice.", 1, 5, CardRarity.COMMON, CardGrave.DISCARD);
     }
