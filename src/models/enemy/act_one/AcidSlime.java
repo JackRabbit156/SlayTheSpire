@@ -4,6 +4,13 @@ import models.GameContext;
 import models.enemy.Enemy;
 import models.player.player_structure.Player;
 
+/**
+ * Diese Klasse repräsentiert den Gegner "Acid Slime" im ersten Akt des Spiels.
+ * Der Acid Slime hat spezifische Eigenschaften und Fähigkeiten,
+ * die im Kampf verwendet werden können.
+ *
+ * @author Warawa Alexander
+ */
 public class AcidSlime extends Enemy {
     public AcidSlime() {
         super("Acid Slime (L)", 65, 96);
@@ -11,10 +18,7 @@ public class AcidSlime extends Enemy {
 
     @Override
     public void attack(GameContext gameContext) {
-        //System.out.printf("%s used ");
-
         atttackCorrosiveSpit(gameContext);
-
     }
 
     private void atttackCorrosiveSpit(GameContext gameContext){
@@ -24,9 +28,5 @@ public class AcidSlime extends Enemy {
         player.decreaseCurrentHealth(attackDamage, false);
 
     }
-
-
-
-
 
 }

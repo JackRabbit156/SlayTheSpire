@@ -17,6 +17,14 @@ import listener.PlayerEventListener;
 import java.util.List;
 import java.util.Scanner;
 
+
+/**
+ * Diese Klasse steuert den Kampfabschnitt des Spiels, einschließlich der Spieler- und
+ * Gegneraktionen sowie des Kampf-Dialogs. Sie verarbeitet die Karten, Energien und
+ * Punkte, die im Kampf verwendet werden.
+ *
+ * @author Warawa Alexander, Willig Daniel
+ */
 public class BattleViewController implements PlayerEventListener{
     private Player player;
     private List<Enemy> enemies;
@@ -25,6 +33,12 @@ public class BattleViewController implements PlayerEventListener{
     private BattleDeck battleDeck;
     private GameContext gameContext;
 
+    /**
+     * Konstruktor für die BattleViewController-Klasse.
+     *
+     * @param player Der Spieler, der im Kampf beteiligt ist.
+     * @param enemies Die Liste der Gegner, die im Kampf bekämpft werden.
+     */
     public BattleViewController(Player player, List<Enemy> enemies) {
         this.player = player;
         this.enemies = enemies;
@@ -35,6 +49,10 @@ public class BattleViewController implements PlayerEventListener{
         player.setListener(this);
     }
 
+    /**
+     * Startet den Kampf zwischen dem Spieler und den Gegnern.
+     * Der Kampf findet so lange statt, bis der Spieler besiegt wird oder alle Gegner besiegt sind.
+     */
     public void startBattle() {
         ConsoleAssistent.clearScreen();
         while (player.isAlive() && !enemies.isEmpty()) {
@@ -72,6 +90,11 @@ public class BattleViewController implements PlayerEventListener{
         triggerCard(CardTrigger.PLAYER_EOT);
     }
 
+    /**
+     * Löst die Kartenfähigkeiten aus, die mit dem angegebenen Trigger verknüpft sind.
+     *
+     * @param trigger Der Trigger, der die Kartenauswirkung aktiviert.
+     */
     private void triggerCard(CardTrigger trigger) {
         List<PowerCard> currentPowerCards = battleDeck.getCurrentPowerCards();
 
@@ -82,6 +105,10 @@ public class BattleViewController implements PlayerEventListener{
         }
     }
 
+    /**
+     * Gibt die aktuelle Sicht des Kampfes aus, einschließlich des Spielers,
+     * der Gegner und der Handkarten des Spielers.
+     */
     private void printBatteView(){
         enemies.removeIf(enemy -> !enemy.isAlive());
         view.display(player, enemies, battleDeck.getHand());

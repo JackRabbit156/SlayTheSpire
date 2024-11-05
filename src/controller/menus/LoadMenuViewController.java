@@ -1,6 +1,5 @@
 package controller.menus;
 
-
 import controller.MapViewController;
 import helper.ConsoleAssistent;
 import models.cards.DeckFactory;
@@ -18,6 +17,14 @@ import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 
+/**
+ * Diese Klasse verwaltet den Ladevorgang von gespeicherten Spielen im Menü.
+ * Sie bietet Funktionen zum Anzeigen von Speicherdateien, Laden von Spielen
+ * und Löschen von Speicherdateien, sowie auch das Speichern selbst.
+ *
+ * @author Warawa Alexander
+ */
+
 public class LoadMenuViewController {
 
     private LoadMenuView loadMenuView;
@@ -28,11 +35,20 @@ public class LoadMenuViewController {
         gameSaveManager = new GameSaveManager();
     }
 
+    /**
+     * Speichert das aktuelle Spiel des angegebenen Spielers.
+     *
+     * @param player Der Spieler, dessen Spiel gespeichert werden soll.
+     */
     public void saveGame(Player player){
         delteSaveFileWithName(GameSettings.lastSession);
         gameSaveManager.saveGame(player);
     }
 
+    /**
+     * Zeigt das Lademenü an, in dem der Spieler eine Speicherdatei auswählen kann,
+     * um ein vorheriges Spiel zu laden.
+     */
     public void showLoadMenu(){
         List<SaveFilePreview> saveFilePreviewList = saveFilePreviewList();
         if(saveFilePreviewList.isEmpty()){
@@ -58,6 +74,10 @@ public class LoadMenuViewController {
 
     }
 
+    /**
+     * Zeigt das Menü zum Löschen von Speicherdateien an,
+     * in dem der Spieler eine Speicherdatei auswählen kann, um sie zu löschen.
+     */
     public void showDeleteMenu(){
         List<SaveFilePreview> saveFilePreviewList = saveFilePreviewList();
         if(saveFilePreviewList.isEmpty()){
@@ -83,15 +103,29 @@ public class LoadMenuViewController {
         ConsoleAssistent.sleep(1000);
     }
 
-
+    /**
+     * Löscht die Speicherdatei mit dem angegebenen Namen.
+     *
+     * @param nameOfFile Der Name der zu löschenden Speicherdatei.
+     */
     private void delteSaveFileWithName(String nameOfFile){
         gameSaveManager.deleteSelcetedSaveFile(nameOfFile);
     }
 
+    /**
+     * Löscht die Speicherdatei mit der angegebenen ID.
+     *
+     * @param id Die ID der zu löschenden Speicherdatei.
+     */
     private void deleteSaveFileWithId(int id){
         gameSaveManager.deleteSelcetedSaveFile(id);
     }
 
+    /**
+     * Startet das Spiel mit den Daten aus der angegebenen Speicherdatei.
+     *
+     * @param id Die ID der Speicherdatei, die geladen werden soll.
+     */
     private void startLoadedGame(int id){
         Map<String, String> gameData = gameSaveManager.loadGame(id);
         Player player = null;
@@ -129,10 +163,21 @@ public class LoadMenuViewController {
         MapViewController map = new MapViewController(player, true);
     }
 
+    /**
+     * Gibt eine Liste der Vorschau-Daten für die Speicherdateien zurück.
+     *
+     * @return Eine Liste von SaveFilePreview-Objekten.
+     */
     public List<SaveFilePreview> saveFilePreviewList(){
         return gameSaveManager.listSaveFiles();
     }
 
+    /**
+     * Gibt eine ASCII-Art-Nachricht zurück, die angezeigt wird,
+     * wenn keine Speicherdateien vorhanden sind.
+     *
+     * @return Ein String, der die ASCII-Art darstellt.
+     */
     private String asciiArtStringEmpty(){
         String empty = " ___ __ __ ___ _______   __\n" +
                 "| __|  V  | _,\\_   _\\ `v' /\n" +

@@ -4,6 +4,12 @@ import models.GameContext;
 
 import java.util.Random;
 
+/**
+ * Diese abstrakte Klasse repräsentiert einen allgemeinen Gegner im Spiel.
+ * Sie enthält gemeinsame Eigenschaften und Methoden, die für alle spezifischen Gegner gelten.
+ *
+ * @author Warawa Alexander
+ */
 public abstract class Enemy {
     private String name;
     private int currentHealth;
@@ -11,6 +17,14 @@ public abstract class Enemy {
 
     private int block;
 
+    /**
+     * Konstruktor für die Enemy-Klasse.
+     * Initialisiert einen Gegner mit einem Namen und einem maximalen Gesundheitsbereich.
+     *
+     * @param name Der Name des Gegners.
+     * @param lowestMaxHealthPossible Der niedrigste mögliche Maximalwert für die Gesundheit.
+     * @param highestMaxHealthPossible Der höchste mögliche Maximalwert für die Gesundheit.
+     */
     public Enemy(String name, int lowestMaxHealthPossible, int highestMaxHealthPossible) {
         this.name = name;
 
@@ -18,8 +32,22 @@ public abstract class Enemy {
         this.currentHealth = maxHealth;
     }
 
+    /**
+     * Führt den Angriff des Gegners aus.
+     * Diese Methode muss in den spezifischen Unterklassen implementiert werden.
+     *
+     * @param gameContext Der aktuelle Spielkontext, der weitere Informationen enthält.
+     */
     public abstract void attack(GameContext gameContext);
 
+    /**
+     * Generiert einen maximalen Gesundheitswert für den Gegner
+     * innerhalb des angegebenen Bereichs.
+     *
+     * @param lowestMaxHealthPossible Der niedrigste mögliche Maximalwert für die Gesundheit.
+     * @param highestMaxHealthPossible Der höchste mögliche Maximalwert für die Gesundheit.
+     * @return Der generierte maximale Gesundheitswert.
+     */
     private int generateMaxHealth(int lowestMaxHealthPossible, int highestMaxHealthPossible){
         int difference = highestMaxHealthPossible - lowestMaxHealthPossible;
 
@@ -46,6 +74,12 @@ public abstract class Enemy {
         return currentHealth > 0;
     }
 
+    /**
+     * Fügt dem Gegner Schaden zu. Der Schaden wird abhängig von
+     * dem Blockwert des Gegners berücksichtigt.
+     *
+     * @param damage Der zuzu fügende Schaden.
+     */
     public void takeDamage(int damage) {
         if(block == 0){
             currentHealth -= damage;

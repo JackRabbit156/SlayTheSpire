@@ -19,15 +19,21 @@ public class ActFour extends Act{
 
     /**
      * Konstruktor für die Klasse ActFour.
-     * Initialisiert den Akt und platziert den Spieler auf dem Startfeld.
+     * Initialisiert den Akt und platziert den Spieler auf dem Startfeld, mit der Option einen Spieler auf einem bestimmten Floor zu spawnen.
      *
      * @param player der Spieler, der sich im Akt bewegen soll
+     * @param loadingFromFile ob der Spieler von einer Datei geladen wurde.
      */
     public ActFour(Player player, boolean loadingFromFile){
         super(4);
         initNodes();
 
-        Node playerNode = getNoteByName(player.getCurrentField());
+        Node playerNode = null;
+        if(loadingFromFile)
+            playerNode = getNoteByName(player.getCurrentField());
+        else
+            playerNode = getNoteByName(getFirstField());
+
         if(playerNode == null){
             System.out.println("ERROR");
             return;
@@ -37,6 +43,7 @@ public class ActFour extends Act{
         if(loadingFromFile)
             playerNode.setFieldBeaten();
     }
+
     private void initNodes(){
         Node rest51 = new Node("51", new RestField(), new Coordinates(0, 6));
         Node shop52 = new Node("52", new ShopField(), new Coordinates(0, 4));

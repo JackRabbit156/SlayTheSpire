@@ -25,7 +25,6 @@ import view.MapView;
 public class MapViewController {
     private Player player;
 
-    //List<Node> nodes = new ArrayList<>();
     private MapView mapView;
 
     private Act act;
@@ -35,10 +34,11 @@ public class MapViewController {
      * Initialisiert die Karte und die Spielsteuerung basierend auf dem aktuellen Akt des Spielers.
      *
      * @param player der Spieler, der sich auf der Karte bewegt und mit den Akten interagiert
+     * @param loadingFromFile ob das Spiel aus einem Spielstand geladen wird, oder nicht.
      */
     public MapViewController (Player player, boolean loadingFromFile) {
         this.player = player;
-        this.mapView = new MapView();
+        this.mapView = new MapView(player);
 
         switch (player.getCurrentAct()){
             case 1: act = new ActOne(player, loadingFromFile); break;
@@ -49,15 +49,15 @@ public class MapViewController {
                 System.out.println("Weird"); return;
         }
 
-        // Startet den Timer, der die Spielzeit aufzeichnet
-        GameSettings.startTimer();
-
         /*GameSaveManager gameSaveManager = new GameSaveManager();
         gameSaveManager.saveGame(player);*/
         startLoop();
     }
 
     private void startLoop(){
+        // Startet den Timer, der die Spielzeit aufzeichnet
+        GameSettings.startTimer();
+
         while(player.isAlive()){
             // Feldaktion wie "Kampf", "Shop", etc..
             act.doFieldThing();

@@ -1,7 +1,5 @@
 package models.load_save_game_elements;
 
-import controller.MapViewController;
-import models.cards.DeckFactory;
 import models.game_settings.GameSettings;
 import models.player.player_structure.Player;
 
@@ -15,9 +13,13 @@ import java.util.List;
 import java.util.Map;
 
 import java.io.*;
-import java.nio.channels.FileChannel;
-import java.nio.channels.FileLock;
 
+/**
+ * Diese Klasse verwaltet die Speicherung und das Laden von Spielständen.
+ * Sie bietet Methoden zum Speichern, Löschen und Auflisten von Spielständen.
+ *
+ * @author Warawa Alexander
+ */
 public class GameSaveManager {
     private static final String SAVE_FOLDER = "saves";
 
@@ -25,6 +27,11 @@ public class GameSaveManager {
         createSaveFolder();
     }
 
+    /**
+     * Speichert den aktuellen Spielstand für den angegebenen Spieler.
+     *
+     * @param player Der Spieler, dessen Spielstand gespeichert werden soll.
+     */
     public void saveGame(Player player) {
         Map<String, String> gameData = collectGameData(player);
         String fileName = getTimestampedFileName();
@@ -32,6 +39,11 @@ public class GameSaveManager {
         System.out.println("Successfully saved the game.");
     }
 
+    /**
+     * Listet alle vorhandenen Speicherdateien auf und gibt eine Vorschau zurück.
+     *
+     * @return Eine Liste von Speicherdatei-Vorschauen.
+     */
     public List<SaveFilePreview> listSaveFiles() {
         List<SaveFilePreview> savePreview = new ArrayList<>();
         File[] saveFiles = getSaveFiles();
@@ -45,6 +57,11 @@ public class GameSaveManager {
         return savePreview;
     }
 
+    /**
+     * Löscht die angegebene Speicherdatei basierend auf dem Speicher-Sitzungsnamen.
+     *
+     * @param session Der Name der Sitzung, deren Speicherdatei gelöscht werden soll.
+     */
     public void deleteSelcetedSaveFile(String session){
         File folder = new File(SAVE_FOLDER);
         File[] saveFiles = folder.listFiles((dir, name) -> name.startsWith("save_") && name.endsWith(".txt"));
@@ -60,6 +77,11 @@ public class GameSaveManager {
         System.out.println("Error, could not delete file: " + session + ".");
     }
 
+    /**
+     * Löscht die Speicherdatei, die der angegebenen ID entspricht.
+     *
+     * @param id Die ID der Speicherdatei, die gelöscht werden soll.
+     */
     public void deleteSelcetedSaveFile(int id){
         File folder = new File(SAVE_FOLDER);
         File[] saveFiles = folder.listFiles((dir, name) -> name.startsWith("save_") && name.endsWith(".txt"));
@@ -81,6 +103,12 @@ public class GameSaveManager {
         }
     }
 
+    /**
+     * Lädt den Spielstand, der der angegebenen ID entspricht.
+     *
+     * @param id Die ID des Spielstandes, der geladen werden soll.
+     * @return Eine Map mit den geladenen Spieldaten.
+     */
     public Map<String, String> loadGame(int id) {
         File[] saveFiles = getSaveFiles();
         if (saveFiles == null || id >= saveFiles.length) {
@@ -95,6 +123,12 @@ public class GameSaveManager {
         if (!folder.exists()) folder.mkdir();
     }
 
+    /**
+     * Sammelt alle relevanten Spieldaten in einer Map für den angegebenen Spieler.
+     *
+     * @param player Der Spieler, dessen Daten gesammelt werden sollen.
+     * @return Eine Map mit den gesammelten Spieldaten.
+     */
     private Map<String, String> collectGameData(Player player) {
         int seconds = GameSettings.getTimerSeconds();
         int minutes = GameSettings.getTimerMinutes();
@@ -167,6 +201,12 @@ public class GameSaveManager {
         return LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH-mm-ss"));
     }
 
+    /**
+     * Erstellt eine Vorschau für eine Speicherdatei basierend auf dem Dateinamen.
+     *
+     * @param fileName Der Name der Speicherdatei.
+     * @return Eine Vorschau des Speicherdateiformats.
+     */
     private SaveFilePreview createFilePreview(String fileName) {
         SaveFilePreview preview = new SaveFilePreview();
         Map<String, String> data = loadDataFromFile(new File(SAVE_FOLDER, fileName));
