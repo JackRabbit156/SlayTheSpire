@@ -24,8 +24,9 @@ public class UnknownField extends Field {
 
         int randomField = (rand.nextInt(percentEnd) + 1);
         for (int i = 0; i < percentages.length; i++) {
-            if (percentStart <= randomField && randomField >= percentages[i]) {
+            if (percentStart <= randomField && randomField <= percentages[i]) {
                 fields[i].doFieldThing(player);
+                break;
             }
             randomField -= percentages[i];
         }
