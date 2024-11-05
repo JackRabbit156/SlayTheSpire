@@ -22,7 +22,7 @@ import view.MapView;
  *
  * @author Warawa Alexander
  */
-public class MapViewController extends Thread {
+public class MapViewController {
     private Player player;
 
     private MapView mapView;
@@ -51,11 +51,6 @@ public class MapViewController extends Thread {
 
         /*GameSaveManager gameSaveManager = new GameSaveManager();
         gameSaveManager.saveGame(player);*/
-        startLoop();
-    }
-
-    @Override
-    public void start(){
         startLoop();
     }
 
