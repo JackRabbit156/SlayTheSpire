@@ -23,7 +23,7 @@ public class LootViewControllerTester {
 
 
         GameSettings.setDifficultyLevel(DifficultyLevel.HARD);
-        //Testfall 2 - Ironcald nach einem EliteField
+        //Testfall 2 - Ironclad nach einem EliteField
         //Testfall 2 - HARD - nur eine Karte zur Gold Faktor 0.5
         fieldType = "EliteField";
         System.out.println("Player hat " + player.getGold());
