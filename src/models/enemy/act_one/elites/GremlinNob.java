@@ -4,7 +4,9 @@ import models.GameContext;
 import models.enemy.Enemy;
 import models.player.player_structure.Player;
 import java.util.Random;
-
+/**
+ * @author Keil, Vladislav
+ */
 public class GremlinNob extends Enemy {
     public GremlinNob() {
         super("Gremlin Nob", 82, 86);

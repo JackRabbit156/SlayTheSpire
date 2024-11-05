@@ -4,6 +4,9 @@ import models.GameContext;
 import models.enemy.Enemy;
 import models.player.player_structure.Player;
 
+/**
+ * @author Keil, Vladislav
+ */
 public class Lagavulin extends Enemy {
     public Lagavulin() {
         super("Lagavulin", 109, 111);
