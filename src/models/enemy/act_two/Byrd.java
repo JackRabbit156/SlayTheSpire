@@ -6,6 +6,13 @@ import models.player.player_structure.Player;
 
 import java.util.Random;
 
+/**
+ * Diese Klasse repräsentiert den Gegner "Byrd" im zweiten Akt des Spiels.
+ * Byrd hat spezifische Angriffsfähigkeiten, die bei jedem
+ * Angriff zufällig ausgewählt werden.
+ *
+ * @author Warawa Alexander
+ */
 public class Byrd extends Enemy {
     public Byrd() {
         super("Byrd", 25, 31);

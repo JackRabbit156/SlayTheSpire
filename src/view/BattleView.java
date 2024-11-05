@@ -8,8 +8,25 @@ import models.player.player_structure.Player;
 import java.util.List;
 import java.util.Scanner;
 
+/**
+ * Diese Klasse repräsentiert die Ansicht für den Kampf im Spiel.
+ * Sie ist verantwortlich für die Darstellung des Spielers, der Gegner,
+ * der Lebenspunkte und der Kartenhand. Sie zeigt die verschiedenen
+ * Informationen im Konsolenformat an und informiert den Spieler über
+ * Kampfergebnisse, wie Angriffe, Siege oder Niederlagen.
+ *
+ * @author Warawa Alexander
+ */
 public class BattleView {
 
+    /**
+     * Zeigt die aktuellen Informationen über den Spieler, die Gegner
+     * und die Handkarten des Spielers an.
+     *
+     * @param player Der Spieler, dessen Informationen angezeigt werden.
+     * @param enemies Die Liste der Gegner, die im aktuellen Kampf sind.
+     * @param hand Die Handkarten des Spielers.
+     */
     public void display(Player player, List<Enemy> enemies, List<Card> hand) {
         displayTitle();
 
@@ -32,6 +49,13 @@ public class BattleView {
         System.out.println();
     }
 
+    /**
+     * Generiert eine Lebensanzeige (HP-Bar) für den Spieler oder die Gegner.
+     *
+     * @param currentHp Die aktuellen Lebenspunkte.
+     * @param maxHp Die maximalen Lebenspunkte.
+     * @return Ein String, der die Lebensanzeige darstellt.
+     */
     private String getHpBar(int currentHp, int maxHp) {
         int barLength = 20;
         int filledLength = (int) ((double) currentHp / maxHp * barLength);

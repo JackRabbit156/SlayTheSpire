@@ -6,12 +6,18 @@ import models.player.player_structure.Player;
 
 import java.util.Random;
 
+/**
+ * Diese Klasse repräsentiert den Gegner "Spheric Guardian" im zweiten Akt des Spiels.
+ * Spheric Guardian hat spezifische Angriffsfähigkeiten, die bei jedem
+ * Angriff zufällig ausgewählt werden.
+ *
+ * @author Warawa Alexander
+ */
 public class SphericGuardian extends Enemy {
     public SphericGuardian() {
         super("Spheric Guardian", 20, 20);
         setBlock(40);
     }
-
 
     @Override
     public void attack(GameContext gameContext) {
@@ -26,7 +32,7 @@ public class SphericGuardian extends Enemy {
     }
 
     /**
-     *  Name of the attack "Slam"
+     *  Die Attacke heißt "Slam"
      * @param gameContext
      */
     private void attackSlam(GameContext gameContext){
@@ -38,7 +44,7 @@ public class SphericGuardian extends Enemy {
     }
 
     /**
-     *  Name of the attack "Activate"
+     *  Die Attacke heißt "Activate"
      * @param gameContext
      */
     private void abilityActivate(GameContext gameContext){
@@ -48,9 +54,9 @@ public class SphericGuardian extends Enemy {
     }
 
     /**
-     * Name of the attack "Harden"
-     * Deals 10 damage to the player and adds 25 block to the enemy
-     * @param gameContext important Information for the Enemy to be able to do his abilities
+     * Die Attacke heißt "Harden"
+     * Fügt 10 Damage dem Spieler zu und gibt sich selbst 25 Block.
+     * @param gameContext Informationen für den Kampf
      */
     private void attackHarden(GameContext gameContext){
         int attackDamage = 10;

@@ -36,12 +36,18 @@ public class ActOne extends Act {
      * Initialisiert den Akt und platziert den Spieler auf dem Startfeld.
      *
      * @param player der Spieler, der sich im Akt bewegen soll
+     * @param loadingFromFile ob der Spieler von einer Datei geladen wurde.
      */
     public ActOne(Player player, boolean loadingFromFile){
         super(1);
         initNodes();
 
-        Node playerNode = getNoteByName(player.getCurrentField());
+        Node playerNode = null;
+        if(loadingFromFile)
+            playerNode = getNoteByName(player.getCurrentField());
+        else
+            playerNode = getNoteByName(getFirstField());
+
         if(playerNode == null){
             System.out.println("ERROR");
             return;
