@@ -22,7 +22,7 @@ import view.MapView;
  *
  * @author Warawa Alexander
  */
-public class MapViewController {
+public class MapViewController extends Thread {
     private Player player;
 
     private MapView mapView;
@@ -54,6 +54,11 @@ public class MapViewController {
         startLoop();
     }
 
+    @Override
+    public void start(){
+        startLoop();
+    }
+
     private void startLoop(){
         // Startet den Timer, der die Spielzeit aufzeichnet
         GameSettings.startTimer();
@@ -75,7 +80,9 @@ public class MapViewController {
             }
 
             mapView.printMap(act.getRawMap(), act.getNodes());
-            act.goToValidDirection(player);
+            boolean validWay =  act.goToValidDirection(player);
+            if(!validWay)
+                return;
         }
 
         GameSettings.stopTimer();

@@ -1,5 +1,6 @@
 package models.map_elements.acts;
 
+import models.game_settings.GameSettings;
 import models.map_elements.Node;
 import models.player.player_structure.Player;
 
@@ -45,7 +46,7 @@ public abstract class Act {
      *
      * @param player der Spieler, der sich im aktuellen Akt bewegt
      */
-    public void goToValidDirection(Player player) {
+    public boolean goToValidDirection(Player player) {
         Node node = getPlayerNode();
         HashMap<String, Node> nextNodes = new HashMap<>();
 
@@ -58,7 +59,7 @@ public abstract class Act {
         if(node.getRightNode() != null){
             nextNodes.put("right", node.getRightNode());
         }
-
+        System.out.println("\n(open menu with 'menu')");
         System.out.println("\nPossible direction/s: \n");
         for (Map.Entry<String, Node> entry : nextNodes.entrySet()) {
             String direction = entry.getKey(); // Wert (Richtung als String)
@@ -67,11 +68,20 @@ public abstract class Act {
         System.out.print("Choose: ");
         String userInput = new Scanner(System.in).next();
 
+        if(userInput.equals("menu")){
+            int menuResult = GameSettings.openGameMenu(player);
+            switch (menuResult){
+                case 2:
+                case 4: return false;
+            }
+        }
+
         if(nextNodes.get(userInput) != null){
             node.setPlayer(null);
             nextNodes.get(userInput).setPlayer(player);
             System.out.println("\nYeah!\n");
         }
+        return true;
     }
 
     /**

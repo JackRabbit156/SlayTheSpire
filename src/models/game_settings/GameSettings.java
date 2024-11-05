@@ -1,9 +1,11 @@
 package models.game_settings;
 
+import controller.MapViewController;
 import controller.menus.GameMenuViewController;
 import models.GameContext;
 import models.game_settings.structure.DifficultyLevel;
 import models.game_settings.structure.GameMode;
+import models.player.Ironclad;
 import models.player.player_structure.Player;
 
 public class GameSettings {
@@ -36,8 +38,8 @@ public class GameSettings {
         difficultyLevel = difLevel;
     }
 
-    public static void openGameMenu(Player player) {
-        gameMenu.display(player);
+    public static int openGameMenu(Player player) {
+        return gameMenu.display(player);
     }
 
     public static void startTimer(){
@@ -112,4 +114,5 @@ public class GameSettings {
     public static int getReceivedGoldStats() {
         return receivedGoldStats;
     }
+
 }
