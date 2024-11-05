@@ -15,10 +15,10 @@ public class BigFish extends Event {
     private Scanner scanner = new Scanner(System.in);
 
     public BigFish(Player player) {
-        super("As you make your way down a long corridor you see a banana, a donut, and a box floating about. " +
-                "No... upon closer inspection they are tied to strings coming from holes in the ceiling. " +
-                "There is a quiet cackling from above as you approach the objects.\n" +
-                "What do you do?", "Big Fish");
+        super("  As you make your way down a long corridor you see a banana, a donut, and a box floating about. \n" +
+                "\tNo... upon closer inspection they are tied to strings coming from holes in the ceiling. \n" +
+                "\tThere is a quiet cackling from above as you approach the objects.\n" +
+                "\tWhat do you do?", "Big Fish");
         this.player = player;
     }
 
@@ -26,7 +26,8 @@ public class BigFish extends Event {
     public void startEvent() {
         ConsoleAssistent.clearScreen();
         EventView.displayHead(getTitle(), getStory());
-        System.out.println("1. Banana\n2. Donut\nChoose an option: ");
+        System.out.println("\t1. Banana\n\t2. Donut\n");
+        System.out.print("Choose an option: ");
         String input = scanner.next();
         switch (input){
             case "1":

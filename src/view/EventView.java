@@ -36,7 +36,7 @@ public class EventView {
         //Karten auflisten.
         for (int i = 0; i < player.getDeck().size(); i++) {
             displayInt = i + 1;
-            System.out.println("\t" + displayInt + ". " + player.getDeck().get(i).toString() + "Rarity: " + player.getDeck().get(i).getCardRarity());
+            System.out.println("\t" + displayInt + ". " + player.getDeck().get(i).getName() + "Rarity: " + player.getDeck().get(i).getCardRarity());
         }
     }
 
