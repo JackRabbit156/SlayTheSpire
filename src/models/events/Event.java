@@ -4,8 +4,8 @@ package models.events;
  * @author Keil, Vladislav
  */
 public abstract class Event {
-    String story;
-    String title;
+    private String story;
+    private String title;
 
     public Event(String story, String title) {
         this.story = story;

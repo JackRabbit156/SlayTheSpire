@@ -21,7 +21,6 @@ public class DeadAdventurer extends Event {
                 "His pants have been stolen! Also, it looks as though he's been gouged and trampled by a horned beast. " +
                 "Though his possessions are still intact, you're in no mind to find out what happened here...", "Dead Adventurer");
         this.player = player;
-        startEvent();
     }
 
     @Override

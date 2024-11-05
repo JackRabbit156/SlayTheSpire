@@ -15,15 +15,14 @@ import java.util.Scanner;
  * @author Loeschner, Marijan
  */
 public class NoteForYourself extends Event {
-    Player player;
-    Random randi = new Random();
-    Scanner scanner = new Scanner(System.in);
+    private Player player;
+    private Random randi = new Random();
+    private Scanner scanner = new Scanner(System.in);
 
     public NoteForYourself(Player player) {
         super("You spot a loose brick within a pillar that catches your eye.\n" +
                 "\tYou find a folded note and a card inside. It reads \"The Heart awaits.\" This is your handwriting.", "Note For Yourself");
         this.player = player;
-        startEvent();
     }
 
     @Override

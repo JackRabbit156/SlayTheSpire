@@ -13,14 +13,13 @@ import java.util.Scanner;
  * @author Loeschner, Marijan
  */
 public class GoldenShrine extends Event {
-    Player player;
-    Scanner scanner = new Scanner(System.in);
+    private Player player;
+    private Scanner scanner = new Scanner(System.in);
 
     public GoldenShrine(Player player) {
         super("Before you lies an elaborate shrine to an ancient spirit.", "Golden Shrine");
 
         this.player = player;
-        startEvent();
     }
 
     @Override

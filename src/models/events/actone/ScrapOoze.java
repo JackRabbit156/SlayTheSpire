@@ -21,7 +21,6 @@ public class ScrapOoze extends Event {
                 "It looks like you can get some treasure if you just reach inside its... opening. " +
                 "However, the acid and sharp objects may hurt.", "Scrap Ooze");
         this.player = player;
-        startEvent();
     }
 
     @Override

@@ -18,7 +18,6 @@ public class TheSssssserpent extends Event {
         super("You walk into a room to find a large hole in the ground. As you approach the hole, " +
                         "an enormous serpent creature appears from within.", "The Sssssserpent");
         this.player = player;
-        startEvent();
     }
 
     @Override

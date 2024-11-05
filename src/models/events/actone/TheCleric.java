@@ -21,7 +21,6 @@ public class TheCleric extends Event {
                 "\"Hello friend! I am Cleric! Are you interested in my services?!\" " +
                 "the creature shouts, loudly.", "The Cleric");
         this.player = player;
-        startEvent();
     }
 
     @Override
@@ -44,7 +43,6 @@ public class TheCleric extends Event {
                 System.out.print("\nWhich Card do you want to remove from your Deck? ");
                 exchangeCard = deck.get(scanner.nextInt());
                 deck.remove(exchangeCard);
-                player.setDeck(deck);
                 player.setGold(-50);
             case 3:
                 System.out.println("You don't trust this \"Cleric\", so you leave.");

@@ -36,7 +36,7 @@ import java.util.Random;
  */
 public class ActOne extends Act {
     private Player player;
-    Random randi = new Random();
+    private Random randi = new Random();
 
     /**
      * Konstruktor für die Klasse ActOne.

@@ -21,7 +21,6 @@ public class Duplicator extends Event {
         super("Before you lies a decorated altar to some ancient entity.", "Duplicator");
 
         this.player = player;
-        startEvent();
     }
 
     @Override

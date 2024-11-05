@@ -25,18 +25,18 @@ public class WorldOfGoo extends Event {
                 "Looking back to the puddle you see your missing coins combined with gold " +
                 "from unfortunate adventurers mixed together in the puddle.", "World of Goo");
         this.player = player;
-        startEvent();
     }
 
     @Override
     public void startEvent() {
         int randGold;
+        String input= scanner.next();
         EventView.displayStory(getTitle(), getStory());
         //Die optionen sollen dem Spieler nicht erklärt werden.
         System.out.println("1. Gather Gold \n2. Leave it \n\nChoose an option: ");
-        switch(scanner.nextInt()){
-            case 1:
-                System.out.println("Feeling the sting of the goo as the prolonged " +
+        switch(input){
+            case "1":
+                System.out.println("Feeling the sting of the goop as the prolonged " +
                         "exposure starts to melt away at your skin, you manage to fish out the gold.");
                 player.increaseGold(75);
                 player.setCurrentHealth(player.getCurrentHealth() - 11);

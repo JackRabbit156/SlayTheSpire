@@ -23,7 +23,6 @@ public class BonfireSpirits extends Event {
                 "the spirits all turn to you, expectantly...", "BonfireSpirits");
 
         this.player = player;
-        startEvent();
     }
 
     /*  Der Plan:
@@ -46,6 +45,7 @@ public class BonfireSpirits extends Event {
         }
         else if (input.toLowerCase().equals("y")) {
             System.out.print("Choose a Card: ");
+
             chosenCard = player.getDeck().get(scanner.nextInt());
             switch(chosenCard.getCardRarity()){
                 case UNCOMMON:
