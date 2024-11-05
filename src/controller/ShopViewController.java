@@ -22,6 +22,9 @@ import java.util.Scanner;
 Die Zusammenstellung der verkauften Gegenstände ist zufällig.
  */
 
+/**
+ * @author Keil, Vladislav
+ */
 public class ShopViewController {
     private Player player;
     private List<Card> purchasableCards;
