@@ -37,12 +37,11 @@ public class RestViewController {
         }
 
         switch (input) {
+            case 2:
+            case 3:
             case 1:
                 int increasedHp = (int) (player.getMaxHealth() * 0.30);
                 player.increaseCurrentHealth(increasedHp);
-                break;
-            case 2:
-            case 3:
                 break;
             default:
                 ConsoleAssistent.print(Color.YELLOW, "Wrong input...");
