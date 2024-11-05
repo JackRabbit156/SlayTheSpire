@@ -6,10 +6,11 @@ import models.cards.card_structure.CardGrave;
 import models.cards.card_structure.CardRarity;
 import models.enemy.Enemy;
 import models.player.player_structure.Player;
+import models.potion.potion_structure.PotionCard;
 
 import java.util.Scanner;
 
-public class FirePotion extends Card {
+public class FirePotion extends PotionCard {
 
     public FirePotion() {
         super("Fire Potion", "Deal 20 Damage to target enemy.", 0, CardRarity.POTION, CardGrave.POTION);

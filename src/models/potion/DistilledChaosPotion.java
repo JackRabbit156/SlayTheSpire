@@ -5,10 +5,11 @@ import models.GameContext;
 import models.cards.card_structure.Card;
 import models.cards.card_structure.CardGrave;
 import models.cards.card_structure.CardRarity;
+import models.potion.potion_structure.PotionCard;
 
 import java.util.List;
 
-public class DistilledChaosPotion extends Card {
+public class DistilledChaosPotion extends PotionCard {
 
     public DistilledChaosPotion() {
         super("Distilled Chaos", "Play the top 3 cards of your draw pile.", 0, CardRarity.POTION, CardGrave.POTION);
