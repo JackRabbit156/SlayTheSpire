@@ -20,6 +20,7 @@ import java.util.List;
 public abstract class Player {
     // * Variables *
     private final String name;
+    private String username;
 
     private int maxHealth;
     private int currentHealth;
@@ -48,7 +49,7 @@ public abstract class Player {
     /**
      * Konstruktor für die Player-Klasse.
      *
-     * @param name Der Name des Spielers.
+     * @param name Der Name des Characters.
      * @param maxHealth Die maximale Gesundheit des Spielers.
      * @param maxEnergy Die maximale Energie des Spielers.
      * @param playerType Der Typ des Spielers.
@@ -302,6 +303,14 @@ public abstract class Player {
 
     public String getCurrentField() {
         return currentField;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public void setCurrentField(String currentField) {
