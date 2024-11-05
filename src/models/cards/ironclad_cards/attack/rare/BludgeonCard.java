@@ -9,7 +9,15 @@ import models.player.player_structure.Player;
 
 import java.util.Scanner;
 
+/**
+ * Die Bludgeon Karte.
+ *
+ * @author OF Daniel Willig
+ */
 public class BludgeonCard extends AttackCard {
+    /**
+     * Constructor Bludgeon card.
+     */
     public BludgeonCard() {
         super("Bludgeon", "Deal 32 damage.", 32, 3, CardRarity.RARE, CardGrave.DISCARD);
     }

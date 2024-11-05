@@ -8,7 +8,15 @@ import models.cards.card_structure.CardTrigger;
 import models.cards.card_structure.PowerCard;
 import models.player.player_structure.Player;
 
+/**
+ * Die Inflame Karte.
+ *
+ * @author OF Daniel Willig
+ */
 public class InflameCard extends PowerCard {
+    /**
+     * Constructor Inflame card.
+     */
     public InflameCard() {
         super("Inflame", "Gain 2 Strength.", 1, CardRarity.UNCOMMON, CardGrave.NONE, CardTrigger.ALWAYS);
     }

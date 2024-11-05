@@ -10,7 +10,15 @@ import models.player.player_structure.Player;
 import java.util.List;
 import java.util.Scanner;
 
+/**
+ * Die Thunderclap Karte.
+ *
+ * @author OF Daniel Willig
+ */
 public class ThunderclapCard extends AttackCard {
+    /**
+     * Constructor Thunderclap card.
+     */
     public ThunderclapCard() {
         super("Thunderclap", "Deal 4 damage and apply 1 Vulnerable to ALL enemies.", 1, 4, CardRarity.COMMON, CardGrave.DISCARD);
     }

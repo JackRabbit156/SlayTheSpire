@@ -9,7 +9,15 @@ import models.player.player_structure.Player;
 
 import java.util.Scanner;
 
+/**
+ * Die Iron wave Karte.
+ *
+ * @author OF Daniel Willig
+ */
 public class IronWaveCard extends AttackCard {
+    /**
+     * Constructor Iron wave card.
+     */
     public IronWaveCard() {
         super("Iron Wave", "Gain 5 Icon Block Block. Deal 5 damage.", 1, 5, CardRarity.COMMON, CardGrave.DISCARD);
     }

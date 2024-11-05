@@ -9,7 +9,15 @@ import models.player.player_structure.Player;
 
 import java.util.Scanner;
 
+/**
+ * Die Blood for blood Karte.
+ *
+ * @author OF Daniel Willig
+ */
 public class BloodForBloodCard extends AttackCard {
+    /**
+     * Constructor Blood for blood card.
+     */
     public BloodForBloodCard() {
         super("Blood for Blood", "Costs 1 less Energy for each time you lose HP this combat.Deal 18 damage.", 4, 18, CardRarity.UNCOMMON, CardGrave.DISCARD);
     }

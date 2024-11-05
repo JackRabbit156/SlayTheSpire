@@ -10,7 +10,15 @@ import models.player.player_structure.Player;
 import java.util.List;
 import java.util.Random;
 
+/**
+ * Die Sword boomerang Karte.
+ *
+ * @author OF Daniel Willig
+ */
 public class SwordBoomerangCard extends AttackCard {
+    /**
+     * Constructor Sword boomerang card.
+     */
     public SwordBoomerangCard() {
         super("Sword Boomerang", "Deal 3 damage to a random enemy 3 times.", 1, 3, CardRarity.COMMON, CardGrave.DISCARD);
     }

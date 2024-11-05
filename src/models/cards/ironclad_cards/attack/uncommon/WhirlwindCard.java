@@ -9,7 +9,15 @@ import models.player.player_structure.Player;
 
 import java.util.Scanner;
 
+/**
+ * Die Whirlwind Karte.
+ *
+ * @author OF Daniel Willig
+ */
 public class WhirlwindCard extends AttackCard {
+    /**
+     * Constructor Whirlwind card.
+     */
     public WhirlwindCard() {
         super("Whirlwind", "Deal 8 damage to ALL enemies X times.", 1, 5, CardRarity.UNCOMMON, CardGrave.DISCARD);
     }

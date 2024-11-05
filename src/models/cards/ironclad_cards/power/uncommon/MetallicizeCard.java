@@ -8,7 +8,15 @@ import models.cards.card_structure.CardTrigger;
 import models.cards.card_structure.PowerCard;
 import models.player.player_structure.Player;
 
+/**
+ * Die Metallicize Karte.
+ *
+ * @author OF Daniel Willig
+ */
 public class MetallicizeCard extends PowerCard {
+    /**
+     * Constructor Metallicize card.
+     */
     public MetallicizeCard() {
         super("Metallicize", "At the end of your turn, gain 3 Block.", 1, CardRarity.UNCOMMON, CardGrave.NONE, CardTrigger.PLAYER_EOT);
     }

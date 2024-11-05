@@ -9,7 +9,14 @@ import models.player.player_structure.Player;
 
 import java.util.Scanner;
 
+/**
+ * Clothesline Karte.
+ * @author OF Daniel Willig
+ */
 public class ClotheslineCard extends AttackCard {
+    /**
+     * Constructor ClotheslineCard
+     */
     public ClotheslineCard() {
         super("Clothesline", "Deal 12 damage. Apply 2 Icon Weak Weak.", 2, 12, CardRarity.COMMON, CardGrave.DISCARD);
     }

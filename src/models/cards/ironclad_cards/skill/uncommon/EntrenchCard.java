@@ -6,10 +6,18 @@ import models.cards.card_structure.CardRarity;
 import models.cards.card_structure.SkillCard;
 import models.player.player_structure.Player;
 
+/**
+ * Die Entrench Karte.
+ *
+ * @author OF Daniel Willig
+ */
 public class EntrenchCard extends SkillCard{
 
 
-        public EntrenchCard() {
+    /**
+     * Constructor Entrench card.
+     */
+    public EntrenchCard() {
             super("Entrench", "Double your Block.", 2, CardRarity.UNCOMMON, CardGrave.DISCARD);
         }
 

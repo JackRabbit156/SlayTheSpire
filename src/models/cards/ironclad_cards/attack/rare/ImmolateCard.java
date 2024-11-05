@@ -9,7 +9,15 @@ import models.player.player_structure.Player;
 
 import java.util.List;
 
+/**
+ * Die Immolate Karte.
+ *
+ * @author OF Daniel Willig
+ */
 public class ImmolateCard extends AttackCard {
+    /**
+     * Constructor Immolate card.
+     */
     public ImmolateCard() {
         super("Immolate", "Deal 21 damage to ALL enemies. Add a Burn into your discard pile.", 2, 21, CardRarity.RARE, CardGrave.DISCARD);
     }
