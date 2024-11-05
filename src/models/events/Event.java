@@ -1,6 +1,6 @@
 package models.events;
 
-/**
+/** Abstrakte Klasse für die Erstellung eines Events
  * @author Keil, Vladislav
  */
 public abstract class Event {

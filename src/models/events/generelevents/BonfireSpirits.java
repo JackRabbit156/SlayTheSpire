@@ -1,5 +1,6 @@
 package models.events.generelevents;
 
+import helper.ConsoleAssistent;
 import models.cards.card_structure.Card;
 import models.events.Event;
 import models.player.player_structure.Player;
@@ -31,6 +32,7 @@ public class BonfireSpirits extends Event {
 
     @Override
     public void startEvent() {
+        ConsoleAssistent.clearScreen();
         Card chosenCard;
         EventView.displayHead(getTitle(), getStory());
         EventView.viewDeck(player);

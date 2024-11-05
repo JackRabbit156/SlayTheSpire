@@ -1,5 +1,6 @@
 package models.events.actone;
 
+import helper.ConsoleAssistent;
 import models.events.Event;
 import models.player.player_structure.Player;
 import view.EventView;
@@ -25,6 +26,7 @@ public class DeadAdventurer extends Event {
 
     @Override
     public void startEvent() {
+        ConsoleAssistent.clearScreen();
         int chance;
         int options;
         EventView.displayHead(getTitle(), getStory());
