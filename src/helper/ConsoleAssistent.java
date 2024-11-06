@@ -1,4 +1,8 @@
 package helper;
+
+import java.util.InputMismatchException;
+import java.util.Scanner;
+
 /**
  * @author Keil, Vladslav
  */
@@ -74,4 +78,23 @@ public class ConsoleAssistent {
             Thread.sleep(ms);
         } catch (InterruptedException e) {}
     }
+
+    public static int scannerInt() {
+        Scanner sc = new Scanner(System.in);
+        int targetIndex;
+        for (;;) {
+            try {
+                targetIndex = sc.nextInt() - 1;
+                break;
+            } catch (InputMismatchException e) {
+                System.out.println("Ungültige Eingabe!\n");
+                sc.next();
+            }
+        }
+
+        return targetIndex;
+    }
+
+
+
 }

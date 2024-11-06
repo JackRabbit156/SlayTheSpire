@@ -1,5 +1,6 @@
 package models.cards.ironclad_cards.attack.common;
 
+import helper.ConsoleAssistent;
 import models.BattleDeck;
 import models.GameContext;
 import models.cards.card_structure.AttackCard;
@@ -27,7 +28,7 @@ public class AngerCard extends AttackCard {
     @Override
     public void play(GameContext gameContext) {
         System.out.print("Choose an enemy to target: ");
-        int targetIndex = new Scanner(System.in).nextInt() - 1;
+        int targetIndex = ConsoleAssistent.scannerInt();
 
         Enemy enemy = gameContext.getEnemies().get(targetIndex);
         enemy.takeDamage(dealDamage());
