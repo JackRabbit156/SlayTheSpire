@@ -58,6 +58,7 @@ public class TreasureViewController {
         while(true){
             treasureView.display(purchasableCards);
             try{
+                System.out.print(">> ");
                 input = Integer.parseInt(scanner.nextLine());
                 break;
             } catch (InputMismatchException | NumberFormatException e) {

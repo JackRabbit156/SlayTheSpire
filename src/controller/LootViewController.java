@@ -97,6 +97,7 @@ public class LootViewController {
             lootView.display( this.choisenCards, this.gold);
             lootView.displayCardChoiceMenu(this.choisenCards.size());
             try{
+                System.out.print(">> ");
                 input = Integer.parseInt(scanner.nextLine());
                 break;
             } catch (InputMismatchException | NumberFormatException e) {

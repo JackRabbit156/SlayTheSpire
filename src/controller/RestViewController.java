@@ -30,6 +30,7 @@ public class RestViewController {
             this.rest.display(player);
             this.rest.displayOptionChoiceMenu();
             try{
+                System.out.print(">> ");
                 input = Integer.parseInt(scanner.nextLine());
                 break;
             } catch (InputMismatchException | NumberFormatException e) {
