@@ -27,7 +27,8 @@ public class RestViewController {
         int input = 0;
 
         while(true){
-            rest.display(player);
+            this.rest.display(player);
+            this.rest.displayOptionChoiceMenu();
             try{
                 input = Integer.parseInt(scanner.nextLine());
                 break;
@@ -44,7 +45,7 @@ public class RestViewController {
                 player.increaseCurrentHealth(increasedHp);
                 break;
             case 0:
-                this.rest.displayOptionChoiceMenu();
+                break;
             default:
                 ConsoleAssistent.print(Color.YELLOW, "Wrong input...");
                 startRest();
