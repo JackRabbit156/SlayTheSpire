@@ -34,7 +34,7 @@ public class CharacterMenuViewController {
     }
     //Führt zurück zur Charakterauswahl
     public void getBacktoCharSelection(){
-        System.out.print("\nChoose a username: ");
+        System.out.print("\n\tChoose a username: ");
         MainMenuViewController.playerName = in.next();
         selectChar(MainMenuViewController.playerName);
     }
@@ -46,7 +46,7 @@ public class CharacterMenuViewController {
      * @param playerName username
      */
     public void selectChar(String playerName){
-        System.out.println("\nHello! " + playerName + "\n");
+        System.out.println("\n\tHello! " + playerName + "\n");
         charView.charMenu();
 
         if (playerName.toLowerCase().equals("exit")) {
@@ -70,7 +70,7 @@ public class CharacterMenuViewController {
         }
         else if(selectedCharacter.equals("2")) {
             Ironclad player = new Ironclad();
-            System.out.println("\nYou chose: Silent, but Silent is not yet available, your game will start with Ironclad");
+            System.out.println("\n\tYou chose: Silent, but Silent is not yet available, your game will start with Ironclad");
             selectedCharacter = "Ironclad";
             startMapView(player);
         }
