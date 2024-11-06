@@ -14,6 +14,8 @@ public class EventView {
 
     /**
      * Stellt den kopf der Eventview dar.
+     * @param title title of the text
+     * @param eventStory text of the event
      */
     public static void displayHead(String title, String eventStory) {
         displayTitle();

@@ -40,7 +40,7 @@ public class CharacterMenuViewController {
     }
 
     /**
-     * Ruft newPlayer() auf -> dort wird erst der Charakter ausgewählt.
+     * Ruft newPlayer() auf, heißt dort wird erst der Charakter ausgewählt.
      * Hier wird der Spieler mit dessen übergebenem playerName begrüßt und eine Option zum zurückkehren zum Main Menu
      * mittels eingabe von "exit" gestellt.
      * @param playerName username
@@ -86,7 +86,6 @@ public class CharacterMenuViewController {
 
     /**
      * Setzt den entsprechenden Schwierigkeitsgrad
-     * @return DifficultyLevel
      */
     public void chooseDifficulty(){
         String dif;

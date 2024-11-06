@@ -45,6 +45,7 @@ public abstract class Act {
      * neue Position verschoben.</p>
      *
      * @param player der Spieler, der sich im aktuellen Akt bewegt
+     * @return is it a Direction or Menu decision.
      */
     public boolean goToValidDirection(Player player) {
         Node node = getPlayerNode();

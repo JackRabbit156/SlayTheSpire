@@ -73,6 +73,7 @@ public abstract class Enemy {
     /**
      * eine Beleidigung des Spielers (genommen aus wittybanter.txt)
      * @author OF Daniel Willig
+     * @return call of the enemy
      */
     protected String doNothing(){
         ArrayList<String> wittyBanterList = new ArrayList<>();
