@@ -37,7 +37,7 @@ public class BattleView {
         System.out.printf("%-20s %-10s%n", "Player:", player.getName());
         System.out.printf("%-20s %d %n", "Block:", player.getBlock());
         System.out.printf("%-20s %s (%d/%d)%n", "HP:",getHpBar(player.getCurrentHealth(), player.getMaxHealth()), player.getCurrentHealth(), player.getMaxHealth());
-        System.out.printf("%-20s %10s (%d/%d)%n", "Energy:", getHpBar(player.getCurrentEnergy(), player.getMaxEnergy()), player.getCurrentEnergy(), player.getMaxEnergy());
+        System.out.printf("%-20s %10s (%d/%d)%n", "Energy:", getEnergyBar(player.getCurrentEnergy(), player.getMaxEnergy()), player.getCurrentEnergy(), player.getMaxEnergy());
 
         for(int i = 0; i< enemies.size(); i++){
             String hpBar = getHpBar(enemies.get(i).getHealth(), enemies.get(i).getMaxHealth());
@@ -121,7 +121,25 @@ public class BattleView {
     private String getHpBar(int currentHp, int maxHp) {
         int barLength = 20;
         int filledLength = (int) ((double) currentHp / maxHp * barLength);
-        return "[" + ConsoleAssistent.repeat(filledLength, "=") + ConsoleAssistent.repeat(barLength - filledLength, " ") + "]";
+        return "[" + ConsoleAssistent.repeat(filledLength, colorfullBar(currentHp, maxHp, "=")/*"="*/) + ConsoleAssistent.repeat(barLength - filledLength, " ") + "]";
+    }
+
+    private String getEnergyBar(int currentHp, int maxHp) {
+        int barLength = 20;
+        int filledLength = (int) ((double) currentHp / maxHp * barLength);
+        return "[" + ConsoleAssistent.repeat(filledLength, ConsoleAssistent.printStr(Color.BLUE, "=")) + ConsoleAssistent.repeat(barLength - filledLength, " ") + "]";
+    }
+
+    private String colorfullBar(int currentHp, int maxHp, String str){
+        String returnValue = "";
+        if(currentHp >= (maxHp * 0.55)){
+            returnValue = ConsoleAssistent.printStr(Color.GREEN, str);
+        } else if(currentHp >= (maxHp * 0.25)){
+            returnValue = ConsoleAssistent.printStr(Color.REDBRIGHT, str);
+        } else {
+            returnValue = ConsoleAssistent.printStr(Color.RED, str);
+        }
+        return returnValue;
     }
 
     public void displayAttack(String attackerName, String targetName, int damage) {
