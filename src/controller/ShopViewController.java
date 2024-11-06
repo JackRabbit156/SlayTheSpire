@@ -83,6 +83,8 @@ public class ShopViewController {
 
         while(true){
             ConsoleAssistent.clearScreen();
+            shopView.displayTitle();
+            shopView.showPlayerGold(player);
             shopView.displayCards(purchasableCards);
             shopView.displayCardChoiceMenu(purchasableCards.size());
             try{

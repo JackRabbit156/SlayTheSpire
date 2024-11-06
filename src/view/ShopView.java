@@ -22,8 +22,7 @@ public class ShopView {
         ConsoleAssistent.clearScreen();
         displayTitle();
 
-        System.out.printf("%s %d.%n", "Character Gold:", player.getGold());
-
+        showPlayerGold(player);
         System.out.printf("%s %n", "1. Purchasable-Cards:");
         System.out.println(ConsoleAssistent.repeat(80, "-"));
         displayCards(shopCards);
@@ -34,6 +33,11 @@ public class ShopView {
         System.out.println();
         System.out.printf("%s %n", "3. Purchasable-Relics:");
         System.out.printf("%s %n", "Coming soon... This selection leads to the number 1");
+        System.out.println();
+    }
+
+    public void showPlayerGold(Player player) {
+        System.out.printf("%s %d%n", "Character Gold:", player.getGold());
         System.out.println();
     }
 
