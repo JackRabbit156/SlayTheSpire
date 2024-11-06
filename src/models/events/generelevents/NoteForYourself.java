@@ -41,7 +41,7 @@ public class NoteForYourself extends Event {
         System.out.printf("%s %s %n", "\tYou recieve:", selectedCard.getName());
         System.out.println();
         System.out.print("\tPress (0) for exit ");
-        scanner.nextInt();
+        scanner.next();
         return;
     }
 

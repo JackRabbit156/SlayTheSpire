@@ -31,15 +31,17 @@ public class TheCleric extends Event {
         Card exchangeCard;
         EventView.displayHead(getTitle(), getStory());
         System.out.println("\t1. Heal\n\t2. purify\n\t3. Leave\n\n\tChoose an option: ");
-        switch (scanner.nextInt()){
-            case 1:
+        String input = scanner.next();
+        switch (input){
+            case "1":
                 System.out.println("\tA warm golden light envelops your body and dissipates.\n" +
                         "\tThe creature grins.\n" +
                         "\tCleric: \"Cleric best healer. Have a good day!\"");
                 //Heilt den Spieler um 25% der Max HP im tausch für 35 Gold.
                 player.increaseCurrentHealth(player.getMaxHealth() / 4);
                 player.setGold(-35);
-            case 2:
+                break;
+            case "2":
                 System.out.println("\tA cold blue flame envelops your body and dissipates.\n" +
                         "\tThe creature grins.\n" +
                         "\tCleric: \"Cleric talented. Have a good day!\"\n");
@@ -48,8 +50,10 @@ public class TheCleric extends Event {
                 exchangeCard = deck.get(scanner.nextInt());
                 deck.remove(exchangeCard);
                 player.setGold(-50);
-            case 3:
+                break;
+            case "3":
                 System.out.println("\tYou don't trust this \"Cleric\", so you leave.");
+                break;
             default:
                 System.out.println("\tWrong input, try again...");
                 startEvent();

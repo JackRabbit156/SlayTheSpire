@@ -28,13 +28,13 @@ public class DeadAdventurer extends Event {
     public void startEvent() {
         ConsoleAssistent.clearScreen();
         int chance;
-        int options;
+        String options;
         EventView.displayHead(getTitle(), getStory());
         chance = rand.nextInt(100);
         System.out.println("\t1. Search the body\n\t2. Leave\n\n");
         System.out.print("\tChoose an option: ");
-        options = scanner.nextInt();
-        if (options == 1) {
+        options = scanner.next();
+        if (options.equals("1")) {
             if (chance >= 50) {
                 System.out.println("\n\tYou found 30 Gold!");
                 player.increaseGold(30);
@@ -44,7 +44,7 @@ public class DeadAdventurer extends Event {
                 return;
             }
         }
-        else if (options == 2) {
+        else if (options.equals("2")) {
             System.out.println("\n\tYou exit without a sound");
             return;
         }

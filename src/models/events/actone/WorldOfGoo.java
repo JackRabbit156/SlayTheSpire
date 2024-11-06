@@ -37,7 +37,7 @@ public class WorldOfGoo extends Event {
         //Die optionen sollen dem Spieler nicht erklärt werden.
         System.out.println("\t1. Gather Gold \n\t2. Leave it \n\n");
         System.out.print("\tChoose an option: ");
-        String input= scanner.next();
+        String input = scanner.next();
         switch(input){
             case "1":
                 System.out.println("\n\tFeeling the sting of the goop as the prolonged " +

@@ -32,6 +32,6 @@ public class GoldenShrine extends Event {
         System.out.printf("%s %d %s %n", "   You receive:", 100, "Gold");
         System.out.println();
         System.out.println("\tPress (0) for exit");
-        scanner.nextInt();
+        scanner.next();
     }
 }
