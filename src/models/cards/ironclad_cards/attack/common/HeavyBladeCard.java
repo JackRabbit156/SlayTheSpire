@@ -1,5 +1,6 @@
 package models.cards.ironclad_cards.attack.common;
 
+import helper.ConsoleAssistent;
 import models.GameContext;
 import models.cards.card_structure.AttackCard;
 import models.cards.card_structure.CardGrave;
@@ -24,7 +25,7 @@ public class HeavyBladeCard extends AttackCard {
     @Override
     public void play(GameContext gameContext) {
         System.out.print("Choose an enemy to target: ");
-        int targetIndex = new Scanner(System.in).nextInt() - 1;
+        int targetIndex = ConsoleAssistent.scannerAutoAim(gameContext.getEnemies().size());
 
         Enemy enemy = gameContext.getEnemies().get(targetIndex);
         enemy.takeDamage(dealDamage());

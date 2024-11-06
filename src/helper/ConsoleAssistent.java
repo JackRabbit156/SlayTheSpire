@@ -79,7 +79,11 @@ public class ConsoleAssistent {
         } catch (InterruptedException e) {}
     }
 
-    public static int scannerInt() {
+    /**
+     * Scanner AutoAim
+     * @author OF Daniel Willig
+     */
+    public static int scannerAutoAim(int size) {
         Scanner sc = new Scanner(System.in);
         int targetIndex;
         for (;;) {
@@ -87,12 +91,16 @@ public class ConsoleAssistent {
                 targetIndex = sc.nextInt() - 1;
                 break;
             } catch (InputMismatchException e) {
-                System.out.println("Ungültige Eingabe!\n");
+                System.out.println("Wrong input...\n");
                 sc.next();
             }
         }
 
-        return targetIndex;
+        if (targetIndex > size - 1) {
+            return size - 1;
+        }
+
+        return Math.max(targetIndex, 0);
     }
 
 

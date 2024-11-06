@@ -1,5 +1,6 @@
 package models.potion;
 
+import helper.ConsoleAssistent;
 import models.GameContext;
 import models.cards.card_structure.Card;
 import models.cards.card_structure.CardGrave;
@@ -19,7 +20,7 @@ public class FirePotion extends PotionCard {
     @Override
     public void play(GameContext gameContext) {
         System.out.print("Choose an enemy to target: ");
-        int targetIndex = new Scanner(System.in).nextInt() - 1;
+        int targetIndex = ConsoleAssistent.scannerAutoAim(gameContext.getEnemies().size());
 
         Enemy enemy = gameContext.getEnemies().get(targetIndex);
         enemy.takeDamage(20);

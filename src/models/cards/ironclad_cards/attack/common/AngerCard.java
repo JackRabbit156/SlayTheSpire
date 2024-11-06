@@ -11,7 +11,6 @@ import models.enemy.Enemy;
 import models.player.player_structure.Player;
 
 import java.util.List;
-import java.util.Scanner;
 
 /**
  * Anger Karte.
@@ -28,7 +27,7 @@ public class AngerCard extends AttackCard {
     @Override
     public void play(GameContext gameContext) {
         System.out.print("Choose an enemy to target: ");
-        int targetIndex = ConsoleAssistent.scannerInt();
+        int targetIndex = ConsoleAssistent.scannerAutoAim(gameContext.getEnemies().size());
 
         Enemy enemy = gameContext.getEnemies().get(targetIndex);
         enemy.takeDamage(dealDamage());
