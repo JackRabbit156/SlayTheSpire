@@ -8,6 +8,11 @@ import models.game_settings.structure.GameMode;
 import models.player.Ironclad;
 import models.player.player_structure.Player;
 
+/**
+ * @author Löschner
+ * @author Warawa
+ * @author Keil
+ */
 public class GameSettings {
     private static GameMode gameMode = GameMode.NORMAL;
     private static DifficultyLevel difficultyLevel = DifficultyLevel.EASY;
