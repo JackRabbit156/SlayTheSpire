@@ -82,6 +82,7 @@ public class ShopViewController {
         int input = 0;
 
         while(true){
+            ConsoleAssistent.clearScreen();
             shopView.displayCards(purchasableCards);
             shopView.displayCardChoiceMenu(purchasableCards.size());
             try{
