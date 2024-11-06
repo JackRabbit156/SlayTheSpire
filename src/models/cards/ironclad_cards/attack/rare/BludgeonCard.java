@@ -20,7 +20,7 @@ public class BludgeonCard extends AttackCard {
      * Constructor Bludgeon card.
      */
     public BludgeonCard() {
-        super("Bludgeon", "Deal 32 damage.", 32, 3, CardRarity.RARE, CardGrave.DISCARD);
+        super("Bludgeon", "Deal 32 damage.", 3, 32, CardRarity.RARE, CardGrave.DISCARD);
     }
 
     @Override
