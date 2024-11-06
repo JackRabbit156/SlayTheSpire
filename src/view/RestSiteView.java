@@ -41,6 +41,14 @@ public class RestSiteView {
         System.out.println(ConsoleAssistent.repeat(80, "=") + "\n");
     }
 
+    /**
+     * Darstellung der auswählbaren Optionen.
+     */
+    public void displayOptionChoiceMenu() {
+        System.out.println(ConsoleAssistent.repeat(80, "-"));
+        System.out.printf("%s %s %n", "(1-3) Choose ItemType", "(0) Leave shop");
+    }
+
 
     /**
      * Nicht Keine Funktion - Für die Zukunft

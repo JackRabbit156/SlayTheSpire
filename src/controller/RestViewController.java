@@ -27,8 +27,10 @@ public class RestViewController {
         int input = 0;
 
         while(true){
-            rest.display(player);
+            this.rest.display(player);
+            this.rest.displayOptionChoiceMenu();
             try{
+                System.out.print(">> ");
                 input = Integer.parseInt(scanner.nextLine());
                 break;
             } catch (InputMismatchException | NumberFormatException e) {
@@ -42,6 +44,8 @@ public class RestViewController {
             case 1:
                 int increasedHp = (int) (player.getMaxHealth() * 0.30);
                 player.increaseCurrentHealth(increasedHp);
+                break;
+            case 0:
                 break;
             default:
                 ConsoleAssistent.print(Color.YELLOW, "Wrong input...");

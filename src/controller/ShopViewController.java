@@ -56,6 +56,7 @@ public class ShopViewController {
             shopView.display(player, purchasableCards);
             shopView.displayOptionChoiceMenu();
             try{
+                System.out.print(">> ");
                 input = Integer.parseInt(scanner.nextLine());
                 break;
             } catch (InputMismatchException | NumberFormatException e) {
