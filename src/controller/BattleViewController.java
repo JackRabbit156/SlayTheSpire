@@ -122,15 +122,15 @@ public class BattleViewController implements PlayerEventListener{
             System.out.println("2.End Turn\n");
 
             System.out.print("Choose your action: ");
-            int choice = scanner.nextInt();
+            String choice = scanner.next();
 
             switch (choice){
-                case 1:
+                case "1":
                     selectCard();
                     ConsoleAssistent.clearScreen();
                     printBattleView();
                     break;
-                case 2: return;
+                case "2": return;
                 default:
                     System.out.println("Wrong input...");
                     playerTurn();
