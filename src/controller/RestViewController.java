@@ -43,6 +43,8 @@ public class RestViewController {
                 int increasedHp = (int) (player.getMaxHealth() * 0.30);
                 player.increaseCurrentHealth(increasedHp);
                 break;
+            case 0:
+                this.rest.displayOptionChoiceMenu();
             default:
                 ConsoleAssistent.print(Color.YELLOW, "Wrong input...");
                 startRest();
