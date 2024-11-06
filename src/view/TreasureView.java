@@ -60,7 +60,8 @@ public class TreasureView {
      */
     public void displayCardChoiceMenu(int treasureCards) {
         System.out.println(ConsoleAssistent.repeat(80, "-"));
-        System.out.printf("%s %n", "(1-" + treasureCards + ") Choose Card");
+        System.out.printf("%s %s %n", "(1-" + treasureCards + ") Choose Card", "(0) Leave Card Selection");
+
     }
 
     /**

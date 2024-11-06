@@ -35,9 +35,9 @@ public class MainMenuViewController {
         switch(input){
             case "1":
                 // Hier wird bereits der username abgefragt und an die characterselection übergeben
-                System.out.print("\nChoose a username: ");
+                System.out.print("\n\tChoose a username: ");
                 playerName = in.next();
-                System.out.println("\nTyping \"exit\" will always get you back to main menu!");
+                System.out.println("\n\tTyping \"exit\" will always get you back to main menu!");
                 playerCharacter.selectChar(playerName);
                 break;
             case "2":
@@ -51,10 +51,10 @@ public class MainMenuViewController {
                 startMenu();
                 break;
             case "5":
-                System.out.println("Are you sure, that you want to quit the Game? (Y/N). ");
+                System.out.println("\tAre you sure, that you want to quit the Game? (Y/N). ");
                 quit = in.next();
                 if (quit.toLowerCase().equals("y")) {
-                    System.out.println("\nGood bye, see you soon");
+                    System.out.println("\n\tGood bye, see you soon");
                     System.exit(0);
                 }
                 else if (quit.toLowerCase().equals("n")) {
