@@ -13,7 +13,7 @@ import models.player.player_structure.Player;
  */
 public class AcidSlime extends Enemy {
     public AcidSlime() {
-        super("Acid Slime (L)", 65, 96);
+        super("Acid Slime (L)", 65, 69);
     }
 
     @Override
