@@ -17,7 +17,8 @@ public class EventViewControllerTester {
         EventViewControllerTester tester = new EventViewControllerTester();
 
         Event randEvent = tester.randomEvent(player);
-        EventField event = new EventField(randEvent);
+//        EventField event = new EventField(randEvent);
+        EventField event = new EventField(new BigFish(player));
 
         event.doFieldThing(player);
 
@@ -25,7 +26,7 @@ public class EventViewControllerTester {
 
 
 
-    private Event randomEvent(Player player) {
+    public Event randomEvent(Player player) {
         Random randi = new Random();
         ActOneEventEnum[] events = ActOneEventEnum.values();
         ActOneEventEnum event = events[randi.nextInt(events.length)];

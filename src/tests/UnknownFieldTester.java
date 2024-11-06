@@ -18,19 +18,43 @@ public class UnknownFieldTester {
     Random randi = new Random();
 
     public static void main(String[] args) {
-        UnknownFieldTester tester = new UnknownFieldTester();
-
-//        EliteField eliteField = new EliteField(tester.createElitesEnemies());
-//        UnknownField unknownField = new UnknownField(new EventField(), new EliteField(tester.createElitesEnemies()), new EliteField(tester.createElitesEnemies()), new ShopField());
-
-
         Player player = new TestPlayer();
 
-        // Es muss gekämpft werden, um die ausgabe zu erhalten.
-        // FALL 1: ERWARTE : Hier kommt die StatisticsView mit Loot View
-//        eliteField.doFieldThing(player);
-//        unknownField.doFieldThing(player);
-        // Ausgabe alles 0
+        EventViewControllerTester eventTester = new EventViewControllerTester();
+        UnknownFieldTester tester = new UnknownFieldTester();
+        List<Enemy> enemies = new ArrayList<>();
+        for (int i = 0; i < 1; i++) {
+            enemies.add(tester.createEnemiesOfType("Slime"));
+        }
+//        EliteField eliteField = new EliteField(tester.createElitesEnemies());
+        UnknownField unknownField = new UnknownField(
+                new EventField(eventTester.randomEvent(player)),
+                new EnemyField(enemies),
+                new EliteField(tester.createElitesEnemies()),
+                new ShopField());
+
+    UnknownField unknownField1 = new UnknownField(
+            new EventField(eventTester.randomEvent(player)),
+            new EnemyField(enemies),
+            new EliteField(tester.createElitesEnemies()),
+            new ShopField());
+    UnknownField unknownField2 = new UnknownField(
+            new EventField(eventTester.randomEvent(player)),
+            new EnemyField(enemies),
+            new EliteField(tester.createElitesEnemies()),
+            new ShopField());
+        UnknownField unknownField3 = new UnknownField(
+                new EventField(eventTester.randomEvent(player)),
+                new EnemyField(enemies),
+                new EliteField(tester.createElitesEnemies()),
+                new ShopField());
+        // FALL 1:
+        // eliteField.doFieldThing(player);
+        unknownField.doFieldThing(player);
+        unknownField1.doFieldThing(player);
+        unknownField2.doFieldThing(player);
+        unknownField3.doFieldThing(player);
+
     }
 
     public List<Enemy> createBossEnemies() {

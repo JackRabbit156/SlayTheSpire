@@ -1,9 +1,11 @@
 package tests;
 
-import models.cards.card_structure.Card;
+import models.GameContext;
+import models.cards.card_structure.*;
 import models.cards.general_cards.DefendCard;
 import models.cards.general_cards.StrikeCard;
 import models.cards.ironclad_cards.attack.common.BashCard;
+import models.enemy.Enemy;
 import models.player.player_structure.Player;
 import models.player.player_structure.PlayerType;
 import models.relics.BurningBloodRelic;
@@ -11,6 +13,7 @@ import models.relics.relic_structure.Relic;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 public class TestPlayer extends Player {
     public TestPlayer() {
@@ -31,13 +34,36 @@ public class TestPlayer extends Player {
     protected void initDeck() {
         List<Card> deck = new ArrayList<>();
         for (int i = 0; i < 5; i++)
-            deck.add(new StrikeCard());
+            deck.add(new BossCard());
 
         for (int i = 0; i < 4; i++)
-            deck.add(new DefendCard());
+            deck.add(new BossCard());
 
         deck.add(new BashCard());
 
         setDeck(deck);
+    }
+
+    private class BossCard extends AttackCard {
+        public BossCard() {
+            super("Boss Card", "CheaterCard", 0, 40,CardRarity.RARE, CardGrave.DISCARD);
+        }
+
+        @Override
+        public void play(GameContext gameContext) {
+            System.out.print("Choose an enemy to target: ");
+            int targetIndex = new Scanner(System.in).nextInt() - 1;
+
+            Enemy enemy = gameContext.getEnemies().get(targetIndex);
+            enemy.takeDamage(dealDamage());
+
+            Player player = gameContext.getPlayer();
+            player.decreaseCurrentEnergy(getCost());
+        }
+
+        @Override
+        public int dealDamage() {
+            return getDamage();
+        }
     }
 }
