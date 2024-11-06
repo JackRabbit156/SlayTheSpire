@@ -5,6 +5,7 @@ import helper.ConsoleAssistent;
 import models.cards.DeckFactory;
 import models.cards.card_structure.Card;
 import models.game_settings.GameSettings;
+import models.game_settings.structure.DifficultyLevel;
 import models.load_save_game_elements.GameSaveManager;
 import models.load_save_game_elements.SaveFilePreview;
 import models.player.Ironclad;
@@ -171,6 +172,16 @@ public class LoadMenuViewController {
         GameSettings.setTimerSeconds(Integer.parseInt(gameData.get("seconds")));
         GameSettings.setTimerMinutes(Integer.parseInt(gameData.get("minutes")));
         GameSettings.setTimerHours(Integer.parseInt(gameData.get("hours")));
+
+        String difficulty = gameData.get("difficulty");
+
+        switch (difficulty){
+            case "SUPEREASY" : GameSettings.setDifficultyLevel(DifficultyLevel.SUPEREASY); break;
+            case "EASY" : GameSettings.setDifficultyLevel(DifficultyLevel.EASY); break;
+            case "NORMAL" : GameSettings.setDifficultyLevel(DifficultyLevel.NORMAL); break;
+            case "HARD" : GameSettings.setDifficultyLevel(DifficultyLevel.HARD); break;
+            case "IMPOSSIBLE" : GameSettings.setDifficultyLevel(DifficultyLevel.IMPOSSIBLE); break;
+        }
 
         GameSettings.lastSession = gameData.get("lastSession");
 
