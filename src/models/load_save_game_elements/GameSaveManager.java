@@ -1,5 +1,6 @@
 package models.load_save_game_elements;
 
+import helper.ConsoleAssistent;
 import models.game_settings.GameSettings;
 import models.player.player_structure.Player;
 
@@ -39,7 +40,9 @@ public class GameSaveManager {
         Map<String, String> gameData = collectGameData(player);
         String fileName = getTimestampedFileName();
         saveDataToFile(gameData, new File(SAVE_FOLDER, fileName));
+
         System.out.println("Successfully saved the game.");
+        ConsoleAssistent.sleep(1500);
     }
 
     /**
