@@ -75,7 +75,8 @@ public class ActOne extends Act {
         Node elite6 = new Node("6", new EliteField(createElitesEnemies()), new Coordinates(2, 10));
         Node fight7 = new Node("7", new EnemyField(generateEnemies()), new Coordinates(5, 10));
         Node shop8 = new Node("8", new ShopField(), new Coordinates(2, 8));
-        Node unknown9 = new Node("9", new UnknownField(new EventField(randomEvent()), new EnemyField(generateEnemies()), new EliteField(createElitesEnemies()), new ShopField()), new Coordinates(5, 8));
+        //Node unknown9 = new Node("9", new UnknownField(new EventField(randomEvent()), new EnemyField(generateEnemies()), new EliteField(createElitesEnemies()), new ShopField()), new Coordinates(5, 8));
+        Node treasure9 = new Node("9", new TreasureField(), new Coordinates(5, 8));
         Node event10 = new Node("10", new EventField(randomEvent()), new Coordinates(1, 6));
         Node fight11 = new Node("11", new EnemyField(generateEnemies()), new Coordinates(4, 6));
         Node fight12 = new Node("12", new EnemyField(generateEnemies()), new Coordinates(6, 6));
@@ -92,7 +93,7 @@ public class ActOne extends Act {
         nodes.add(elite6);
         nodes.add(fight7);
         nodes.add(shop8);
-        nodes.add(unknown9);
+        nodes.add(treasure9);
         nodes.add(event10);
         nodes.add(fight11);
         nodes.add(fight12);
@@ -109,10 +110,10 @@ public class ActOne extends Act {
         fight4.setMiddleNode(fight7);
         fight5.setRightNode(event10);
         elite6.setMiddleNode(shop8);
-        fight7.setMiddleNode(unknown9);
+        fight7.setMiddleNode(treasure9);
         shop8.setLeftNode(event10);
-        unknown9.setLeftNode(fight11);
-        unknown9.setRightNode(fight12);
+        treasure9.setLeftNode(fight11);
+        treasure9.setRightNode(fight12);
         event10.setRightNode(rest15);
         fight11.setMiddleNode(unknown13);
         fight12.setMiddleNode(elite14);
