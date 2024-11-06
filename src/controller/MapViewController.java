@@ -16,9 +16,9 @@ import view.MapView;
  * zwischen dem Spieler und den einzelnen Akten verantwortlich. Sie initiiert die Karte
  * und führt die Schleife für die Spielerbewegung durch.
  *
- * @brief Diese Klasse entscheidet basierend auf dem aktuellen Akt des Spielers, welche Akt-Klasse
+ * Die Klasse entscheidet basierend auf dem aktuellen Akt des Spielers, welche Akt-Klasse
  * (`ActOne` oder `ActTwo`) verwendet wird und ruft die passenden Methoden zum
- * Anzeigen und Aktualisieren der Karte auf.</p>
+ * Anzeigen und Aktualisieren der Karte auf.
  *
  * @author Warawa Alexander
  */

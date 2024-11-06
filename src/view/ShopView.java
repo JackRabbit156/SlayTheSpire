@@ -43,7 +43,7 @@ public class ShopView {
 
     /**
      * Darstellung der auswählbaren Karten.
-     * @param shopCards     List<Card> auswählbare Karten
+     * @param shopCards     List Card, auswählbare Karten
      */
     public void displayCards(List<Card> shopCards) {
         for (int i = 0; i < shopCards.size(); i++) {

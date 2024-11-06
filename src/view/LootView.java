@@ -13,7 +13,7 @@ import java.util.List;
 public class LootView {
     /**
      * Main Display - führt ein clearScreen aus und ziegt den Titel an.
-     * @param cardsToChoice List<Card> auswählbare Karten
+     * @param cardsToChoice List of 'Card' auswählbare Karten
      * @param gold          int zu erhaltenes Gold
      */
     public void display(List<Card> cardsToChoice, int gold) {
@@ -32,7 +32,7 @@ public class LootView {
 
     /**
      * Darstellung der verfügbaren Karten.
-     * @param cardsToChoice List<Card> auswählbare Karten
+     * @param cardsToChoice List Card, auswählbare Karten
      */
     public void displayCards(List<Card> cardsToChoice) {
         for (int i = 0; i < cardsToChoice.size(); i++) {

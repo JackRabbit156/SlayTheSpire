@@ -46,7 +46,7 @@ public class TreasureView {
 
     /**
      * Darstellung der auswählbaren Karten.
-     * @param availableCards    List<Card> auswählbare Karten
+     * @param availableCards    List Card, auswählbare Karten
      */
     public void displayCards(List<Card> availableCards) {
         for (int i = 0; i < availableCards.size(); i++) {
