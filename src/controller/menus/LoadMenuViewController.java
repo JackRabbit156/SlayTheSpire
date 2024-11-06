@@ -60,15 +60,17 @@ public class LoadMenuViewController {
         while(true){
             System.out.print("\nChoose the Game state you want to load: ");
             try{
-                selectedSaveFile = new Scanner(System.in).nextInt() - 1;
+                selectedSaveFile = Integer.parseInt(new Scanner(System.in).nextLine());
+                if(selectedSaveFile > saveFilePreviewList.size()){
+                    throw new InputMismatchException();
+                }
                 break;
             } catch (InputMismatchException e) {
                 System.out.println("Wrong input...");
             }
         }
 
-        startLoadedGame(selectedSaveFile);
-
+        startLoadedGame(selectedSaveFile - 1);
     }
 
     /**
@@ -89,14 +91,17 @@ public class LoadMenuViewController {
         while(true){
             System.out.print("\nChoose the Game state you want to delete: ");
             try{
-                selectedSaveFile = new Scanner(System.in).nextInt() - 1;
+                selectedSaveFile = Integer.parseInt(new Scanner(System.in).nextLine());
+                if(selectedSaveFile > saveFilePreviewList.size()){
+                    throw new InputMismatchException();
+                }
                 break;
             } catch (InputMismatchException e) {
                 System.out.println("Wrong input...");
             }
         }
 
-        deleteSaveFileWithId(selectedSaveFile);
+        deleteSaveFileWithId(selectedSaveFile-1);
         ConsoleAssistent.sleep(1000);
     }
 
