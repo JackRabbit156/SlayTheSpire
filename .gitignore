@@ -139,3 +139,5 @@ gradle-app.setting
 # Cache of project
 .gradletasknamecache
 
+# Game own things
+saves/
