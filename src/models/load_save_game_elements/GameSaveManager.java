@@ -157,6 +157,7 @@ public class GameSaveManager {
         gameData.put("seconds", String.valueOf(seconds));
         gameData.put("minutes", String.valueOf(minutes));
         gameData.put("hours", String.valueOf(hours));
+        gameData.put("difficulty", GameSettings.getDifficultyLevel().toString());
 
         for (int i = 0; i < player.getDeck().size(); i++) {
             gameData.put("card" + i, player.getDeck().get(i).getName() + "Card");
