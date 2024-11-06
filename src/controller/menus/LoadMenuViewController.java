@@ -58,14 +58,19 @@ public class LoadMenuViewController {
 
         int selectedSaveFile = 0;
         while(true){
+            System.out.print("\n( 0 - to return to Main Menu)");
             System.out.print("\nChoose the Game state you want to load: ");
             try{
                 selectedSaveFile = Integer.parseInt(new Scanner(System.in).nextLine());
-                if(selectedSaveFile > saveFilePreviewList.size()){
+
+                if(selectedSaveFile == 0)
+                    return;
+
+                if(selectedSaveFile > saveFilePreviewList.size() || selectedSaveFile < 1){
                     throw new InputMismatchException();
                 }
                 break;
-            } catch (InputMismatchException e) {
+            } catch (InputMismatchException | NumberFormatException e) {
                 System.out.println("Wrong input...");
             }
         }
@@ -89,14 +94,19 @@ public class LoadMenuViewController {
 
         int selectedSaveFile = 0;
         while(true){
+            System.out.print("\n( 0 - to return to Main Menu)");
             System.out.print("\nChoose the Game state you want to delete: ");
             try{
                 selectedSaveFile = Integer.parseInt(new Scanner(System.in).nextLine());
-                if(selectedSaveFile > saveFilePreviewList.size()){
+
+                if(selectedSaveFile == 0)
+                    return;
+
+                if(selectedSaveFile > saveFilePreviewList.size() || selectedSaveFile < 1){
                     throw new InputMismatchException();
                 }
                 break;
-            } catch (InputMismatchException e) {
+            } catch (InputMismatchException | NumberFormatException e) {
                 System.out.println("Wrong input...");
             }
         }
