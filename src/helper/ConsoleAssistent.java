@@ -82,6 +82,8 @@ public class ConsoleAssistent {
     /**
      * Scanner AutoAim
      * @author OF Daniel Willig
+     * @param size max size of valid input
+     * @return returns valid input
      */
     public static int scannerAutoAim(int size) {
         Scanner sc = new Scanner(System.in);
