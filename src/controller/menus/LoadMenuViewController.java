@@ -159,6 +159,7 @@ public class LoadMenuViewController {
 
         GameSettings.lastSession = gameData.get("lastSession");
 
+
         MapViewController map = new MapViewController(player, true);
     }
 

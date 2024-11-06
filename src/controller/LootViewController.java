@@ -91,15 +91,15 @@ public class LootViewController {
      * @param player um Spieler Gold/ Karten zu übergeben
      */
     public void openLootView(Player player) {
-        lootView.display( this.choisenCards, this.gold);
         int input = 0;
 
         while(true){
-            System.out.print("\nChoose the Game state you want to delete: ");
+            lootView.display( this.choisenCards, this.gold);
+            lootView.displayCardChoiceMenu(this.choisenCards.size());
             try{
-                input = scanner.nextInt();
+                input = Integer.parseInt(scanner.nextLine());
                 break;
-            } catch (InputMismatchException e) {
+            } catch (InputMismatchException | NumberFormatException e) {
                 ConsoleAssistent.print(Color.YELLOW, "Wrong input...");
             }
         }

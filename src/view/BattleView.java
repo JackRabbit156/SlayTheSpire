@@ -58,39 +58,16 @@ public class BattleView {
         String cardDescFormatted;
 
         for (int i = 0; i < hand.size(); i++) {
-            //sieht ÜBEL kacke aus, tut aber was es soll.
+
             cardInHand = hand.get(i);
 
             cardName = cardInHand.getName();
             cardCost = String.valueOf(cardInHand.getCost());
             cardDesc = cardInHand.getDescription();
 
-            if (cardInHand.getCardType().equals(CardType.ATTACK)) {
-                cardNameFormatted = ConsoleAssistent.printStr(cardName, Color.RED);
-            }
-            else if (cardInHand.getCardType().equals(CardType.SKILL)) {
-                cardNameFormatted = ConsoleAssistent.printStr(cardName, Color.GREEN);
-            }
-            else if (cardInHand.getCardType().equals(CardType.POWER)) {
-                cardNameFormatted = ConsoleAssistent.printStr(cardName, Color.BLUE);
-            }
-            else {
-                cardNameFormatted = ConsoleAssistent.printStr(cardName, Color.CYAN);
-            }
+            cardNameFormatted = formatCardName(cardInHand, cardName);
 
-            if (cardInHand.getCardRarity().equals(CardRarity.COMMON)) {
-                cardCostFormatted = ConsoleAssistent.printStr("〈" + cardCost + "〉", Color.BOLD, Color.BLACKBRIGHT);
-            }
-            else if (cardInHand.getCardRarity().equals(CardRarity.UNCOMMON)) {
-                cardCostFormatted = ConsoleAssistent.printStr("〈" + cardCost + "〉", Color.BOLD, Color.WHITEBRIGHT);
-            }
-            else if (cardInHand.getCardRarity().equals(CardRarity.RARE)) {
-                cardCostFormatted = ConsoleAssistent.printStr("〈" + cardCost + "〉", Color.BOLD, Color.YELLOWBRIGHT);
-            }
-            else {
-                cardCostFormatted = ConsoleAssistent.printStr("〈" + cardCost + "〉", Color.BOLD, Color.CYANBRIGHT);
-            }
-
+            cardCostFormatted = formatCardCosts(cardInHand, cardCost);
 
             cardDescFormatted = ConsoleAssistent.printStr(cardDesc, Color.ITALIC);
 
@@ -98,6 +75,40 @@ public class BattleView {
             System.out.printf("%d. %-" + (cardNameFormatted.length() - cardName.length() + 17) + "s%s %s%n", i + 1, cardNameFormatted, cardCostFormatted, cardDescFormatted);
         }
         System.out.println();
+    }
+
+    private String formatCardName(Card cardInHand, String cardName) {
+        String cardNameFormatted;
+        if (cardInHand.getCardType().equals(CardType.ATTACK)) {
+            cardNameFormatted = ConsoleAssistent.printStr(cardName, Color.RED);
+        }
+        else if (cardInHand.getCardType().equals(CardType.SKILL)) {
+            cardNameFormatted = ConsoleAssistent.printStr(cardName, Color.GREEN);
+        }
+        else if (cardInHand.getCardType().equals(CardType.POWER)) {
+            cardNameFormatted = ConsoleAssistent.printStr(cardName, Color.BLUE);
+        }
+        else {
+            cardNameFormatted = ConsoleAssistent.printStr(cardName, Color.CYAN);
+        }
+        return cardNameFormatted;
+    }
+
+    private String formatCardCosts(Card cardInHand, String cardCost) {
+        String cardCostFormatted;
+        if (cardInHand.getCardRarity().equals(CardRarity.COMMON)) {
+            cardCostFormatted = ConsoleAssistent.printStr("〈" + cardCost + "〉", Color.BOLD, Color.BLACKBRIGHT);
+        }
+        else if (cardInHand.getCardRarity().equals(CardRarity.UNCOMMON)) {
+            cardCostFormatted = ConsoleAssistent.printStr("〈" + cardCost + "〉", Color.BOLD, Color.WHITEBRIGHT);
+        }
+        else if (cardInHand.getCardRarity().equals(CardRarity.RARE)) {
+            cardCostFormatted = ConsoleAssistent.printStr("〈" + cardCost + "〉", Color.BOLD, Color.YELLOWBRIGHT);
+        }
+        else {
+            cardCostFormatted = ConsoleAssistent.printStr("〈" + cardCost + "〉", Color.BOLD, Color.CYANBRIGHT);
+        }
+        return cardCostFormatted;
     }
 
     /**

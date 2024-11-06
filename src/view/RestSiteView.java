@@ -18,6 +18,7 @@ public class RestSiteView {
      * @param player Player Anzeigen der "player" Attribute
      */
     public void display(Player player) {
+        ConsoleAssistent.clearScreen();
         displayTitle();
 
         System.out.printf("%-20s %-10s%n", "Player:", player.getName());
@@ -25,8 +26,9 @@ public class RestSiteView {
         System.out.println();
         System.out.println("Your Options:");
         System.out.println("1 - Rest: Recover 30 percent of max health");
-        System.out.println("2 - Upgrade: Upgrade a Card in your Deck");
-        System.out.println("3 - Lift: Gain 1 Strength");
+        System.out.println("2 - Upgrade: Upgrade a Card in your Deck (Coming soon...)");
+        System.out.println("3 - Lift: Gain 1 Strength (Coming soon...)");
+        System.out.println("    Coming soon Options refer to Rest.");
         System.out.println();
     }
 

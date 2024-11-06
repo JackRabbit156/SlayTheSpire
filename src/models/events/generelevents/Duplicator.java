@@ -19,7 +19,7 @@ public class Duplicator extends Event {
     private Scanner scanner = new Scanner(System.in);
 
     public Duplicator(Player player) {
-        super("\tBefore you lies a decorated altar to some ancient entity.", "Duplicator");
+        super("  Before you lies a decorated altar to some ancient entity.", "Duplicator");
 
         this.player = player;
     }

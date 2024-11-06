@@ -19,6 +19,7 @@ public class ShopView {
      * @param shopCards zur Darstellung der Shop-Karten.
      */
     public void display(Player player, List<Card> shopCards) {
+        ConsoleAssistent.clearScreen();
         displayTitle();
 
         System.out.printf("%s %d.%n", "Character Gold:", player.getGold());

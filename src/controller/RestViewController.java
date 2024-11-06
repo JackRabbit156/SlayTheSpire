@@ -24,30 +24,27 @@ public class RestViewController {
     }
 
     public void startRest() {
-        ConsoleAssistent.clearScreen();
-        rest.display(player);
         int input = 0;
 
         while(true){
-            System.out.print("\nChoose the Game state you want to delete: ");
+            rest.display(player);
             try{
-                input = scanner.nextInt();
+                input = Integer.parseInt(scanner.nextLine());
                 break;
-            } catch (InputMismatchException e) {
+            } catch (InputMismatchException | NumberFormatException e) {
                 ConsoleAssistent.print(Color.YELLOW, "Wrong input...");
             }
         }
 
         switch (input) {
+            case 2:
+            case 3:
             case 1:
                 int increasedHp = (int) (player.getMaxHealth() * 0.30);
                 player.increaseCurrentHealth(increasedHp);
                 break;
-            case 2:
-            case 3:
-                break;
             default:
-                System.out.println("Wrong input...");
+                ConsoleAssistent.print(Color.YELLOW, "Wrong input...");
                 startRest();
                 break;
         }
