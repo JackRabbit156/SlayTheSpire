@@ -61,7 +61,7 @@ public class MapView extends BorderPane {
     }
 
     private BackgroundImage background(){
-        Image backgroundImage = new Image("file:/home/alex/IdeaProjects/GUISlayTheSpire/resources/images/act1.png"); // Lokaler Pfad oder URL
+        Image backgroundImage = new Image(getClass().getResource("/images/act1.png").toExternalForm());
         // Erstelle das Hintergrundbild mit den gewünschten Eigenschaften
         BackgroundImage background = new BackgroundImage(
                 backgroundImage,
