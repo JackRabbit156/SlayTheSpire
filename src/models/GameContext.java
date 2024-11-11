@@ -20,6 +20,7 @@ public class GameContext {
     private final List<Enemy> enemies;
     private final BattleDeck battleDeck;
 
+    private Enemy selectedEnemy;
     /**
      * Konstruktor für die GameContext-Klasse.
      *
@@ -31,6 +32,15 @@ public class GameContext {
         this.player = player;
         this.enemies = enemies;
         this.battleDeck = battleDeck;
+    }
+
+
+    public void setSelectedEnemy(Enemy selectedEnemy){
+        this.selectedEnemy = selectedEnemy;
+    }
+
+    public Enemy getSelectedEnemy() {
+        return selectedEnemy;
     }
 
     public Player getPlayer(){

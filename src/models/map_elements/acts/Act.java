@@ -22,9 +22,21 @@ public abstract class Act {
 
     protected List<Node> nodes;
 
-    public Act(int actLevel){
+    private int mapWidth;
+    private int mapHeight;
+
+    public Act(int actLevel, int mapWidth, int mapHeight){
+        this.mapHeight = mapHeight;
+        this.mapWidth = mapWidth;
         this.actLevel = actLevel;
         nodes = new ArrayList<>();
+    }
+
+    public int getMapWidth(){
+        return mapWidth;
+    }
+    public int getMapHeight(){
+        return mapHeight;
     }
 
     /**
@@ -111,6 +123,11 @@ public abstract class Act {
             }
         }
         return null;
+    }
+
+    public void setBeatenNode(Player player, Node node){
+        getPlayerNode().setPlayer(null);
+        node.setPlayer(player);
     }
 
     public String getFirstField(){

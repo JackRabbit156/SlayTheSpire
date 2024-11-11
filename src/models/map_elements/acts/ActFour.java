@@ -29,6 +29,9 @@ import java.util.Random;
  * @author Warawa Alexander
  */
 public class ActFour extends Act{
+    private static final int MAP_WIDTH = 7;
+    private static final int MAP_HEIGHT= 16;
+
     Random randi = new Random();
 
     /**
@@ -39,7 +42,7 @@ public class ActFour extends Act{
      * @param loadingFromFile ob der Spieler von einer Datei geladen wurde.
      */
     public ActFour(Player player, boolean loadingFromFile){
-        super(4);
+        super(4, MAP_WIDTH, MAP_HEIGHT);
         initNodes();
 
         Node playerNode = null;
@@ -115,7 +118,7 @@ public class ActFour extends Act{
     @Override
     public void doFieldThing(){
         Node currentNode = getPlayerNode();
-        currentNode.doFieldThing();
+        currentNode.doFieldThing(currentNode.getPlayer());
     }
 
     @Override

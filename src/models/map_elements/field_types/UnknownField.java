@@ -10,6 +10,7 @@ import java.util.Random;
  * @author OF Daniel Willig
  */
 public class UnknownField extends Field {
+    private static final String imagePath = "/images/map/unknown.png";
     /**
      * Zufall-Zahl.
      */
@@ -37,7 +38,7 @@ public class UnknownField extends Field {
      * @param shopField  Ein Shop
      */
     public UnknownField(EventField eventField, EnemyField enemyField, EliteField eliteField, ShopField shopField) {
-        super("❓");
+        super(imagePath);
         this.fields = new Field[]{eventField, enemyField, eliteField, shopField};
     }
 

@@ -1,11 +1,8 @@
 package models.game_settings;
 
-import controller.MapViewController;
-import controller.menus.GameMenuViewController;
-import models.GameContext;
+import controller.cli.menus.GameMenuViewController;
 import models.game_settings.structure.DifficultyLevel;
 import models.game_settings.structure.GameMode;
-import models.player.Ironclad;
 import models.player.player_structure.Player;
 
 /**

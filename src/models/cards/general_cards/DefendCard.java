@@ -7,6 +7,7 @@ import models.player.player_structure.Player;
 public class DefendCard extends SkillCard {
     public DefendCard() {
         super("Defend", "Gain 5 Block.", 1, CardRarity.COMMON, CardGrave.DISCARD);
+        setImagePath("/images/cards/ironclad/Defend.png");
     }
 
     @Override

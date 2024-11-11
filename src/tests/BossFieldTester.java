@@ -1,9 +1,5 @@
 package tests;
 
-import models.cards.card_structure.Card;
-import models.cards.general_cards.DefendCard;
-import models.cards.general_cards.StrikeCard;
-import models.cards.ironclad_cards.attack.common.BashCard;
 import models.enemy.Enemy;
 import models.enemy.act_one.AcidSlime;
 import models.enemy.act_one.Cultist;
@@ -12,12 +8,7 @@ import models.enemy.act_one.bosses.SlimeBoss;
 import models.enemy.act_one.elites.GremlinNob;
 import models.enemy.act_one.elites.Lagavulin;
 import models.map_elements.field_types.BossField;
-import models.player.Ironclad;
 import models.player.player_structure.Player;
-import models.player.player_structure.PlayerType;
-import models.relics.BurningBloodRelic;
-import models.relics.relic_structure.Relic;
-import view.StatisticsView;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,6 +1,6 @@
 package tests;
 
-import controller.LootViewController;
+import controller.cli.LootViewController;
 import models.game_settings.GameSettings;
 import models.game_settings.structure.DifficultyLevel;
 import models.player.Ironclad;

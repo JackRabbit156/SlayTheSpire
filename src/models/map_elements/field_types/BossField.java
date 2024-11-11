@@ -1,27 +1,25 @@
 package models.map_elements.field_types;
 
-import controller.BattleViewController;
-import controller.LootViewController;
+import controller.cli.BattleViewController;
+import controller.cli.LootViewController;
 import models.enemy.Enemy;
-import models.enemy.act_one.AcidSlime;
-import models.enemy.act_one.bosses.SlimeBoss;
 import models.player.player_structure.Player;
-import view.StatisticsView;
+import view.cli.StatisticsView;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 /**
  * @author Keil, Vladislav
  */
 public class BossField extends Field{
+    private static final String imagePath = "/images/map/boss.png";
+
     private LootViewController lootViewController;
     private List<Enemy> enemies;
     private StatisticsView statisticsView;
 
     public BossField(List<Enemy> enemies) {
-        super("\uD83D\uDCAA");
+        super(imagePath);
         this.enemies = enemies;
     }
 

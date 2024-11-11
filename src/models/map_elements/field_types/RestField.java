@@ -1,12 +1,13 @@
 package models.map_elements.field_types;
 
-import controller.BattleViewController;
-import controller.RestViewController;
+import controller.cli.RestViewController;
 import models.player.player_structure.Player;
 
 public class RestField extends Field{
+    private static final String imagePath = "/images/map/rest.png";
+
     public RestField() {
-        super("\uD83D\uDCA4"); //
+        super(imagePath); //
     }
 
     @Override

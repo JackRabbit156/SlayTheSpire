@@ -4,7 +4,7 @@ import helper.ConsoleAssistent;
 import models.cards.card_structure.Card;
 import models.events.Event;
 import models.player.player_structure.Player;
-import view.EventView;
+import view.cli.EventView;
 
 import java.util.List;
 import java.util.Scanner;

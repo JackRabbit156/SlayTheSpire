@@ -103,7 +103,7 @@ public class Node {
      * Führt die Aktionen aus, die mit dem Feld verknüpft sind, an dem sich der Spieler
      * befindet.
      */
-    public void doFieldThing(){
+    public void doFieldThing(Player player){
         field.doFieldThing(player);
     }
 }

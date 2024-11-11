@@ -1,6 +1,5 @@
 package tests;
 
-import controller.menus.GameMenuViewController;
 import models.game_settings.GameSettings;
 import models.player.player_structure.Player;
 

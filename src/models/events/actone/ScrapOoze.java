@@ -3,7 +3,7 @@ package models.events.actone;
 import helper.ConsoleAssistent;
 import models.events.Event;
 import models.player.player_structure.Player;
-import view.EventView;
+import view.cli.EventView;
 
 import java.util.Scanner;
 /**

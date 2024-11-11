@@ -7,10 +7,8 @@ import models.enemy.act_one.MadGremlin;
 import models.enemy.act_one.bosses.SlimeBoss;
 import models.enemy.act_one.elites.GremlinNob;
 import models.enemy.act_one.elites.Lagavulin;
-import models.map_elements.field_types.BossField;
 import models.map_elements.field_types.EliteField;
 import models.player.player_structure.Player;
-import view.StatisticsView;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -13,7 +13,8 @@ import models.player.player_structure.Player;
  * @author Warawa Alexander
  */
 public class ActTwo extends Act {
-
+    private static final int MAP_WIDTH = 7;
+    private static final int MAP_HEIGHT= 16;
     /**
      * Konstruktor für die Klasse ActTwo.
      * Initialisiert den Akt und platziert den Spieler auf dem Startfeld, mit der Option einen Spieler auf einem bestimmten Floor zu spawnen.
@@ -22,7 +23,7 @@ public class ActTwo extends Act {
      * @param loadingFromFile ob der Spieler von einer Datei geladen wurde.
      */
     public ActTwo(Player player, boolean loadingFromFile){
-        super(2);
+        super(2, MAP_WIDTH, MAP_HEIGHT);
         initNodes();
 
         Node playerNode = getNoteByName(player.getCurrentField());

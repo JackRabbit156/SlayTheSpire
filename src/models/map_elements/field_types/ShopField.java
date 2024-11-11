@@ -1,12 +1,14 @@
 package models.map_elements.field_types;
 
-import controller.ShopViewController;
+import controller.cli.ShopViewController;
 import models.player.player_structure.Player;
 
 public class ShopField extends Field{
+    private static final String imagePath = "/images/map/shop.png";
+
     private ShopViewController shop;
     public ShopField() {
-        super("\uD83D\uDC5C");
+        super(imagePath);
     }
 
     @Override

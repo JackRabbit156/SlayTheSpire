@@ -11,16 +11,14 @@ import models.player.player_structure.Player;
 public class StrikeCard extends AttackCard {
     public StrikeCard() {
         super("Strike", "Deal 6 damage.", 1, 6, CardRarity.COMMON, CardGrave.DISCARD);
+        setImagePath("/images/cards/ironclad/Strike.png");
+        targetIsRequired();
     }
 
     @Override
     public void play(GameContext gameContext) {
-        System.out.print("Choose an enemy to target: ");
-        int targetIndex = ConsoleAssistent.scannerAutoAim(gameContext.getEnemies().size());
 
-
-        Enemy enemy = gameContext.getEnemies().get(targetIndex);
-
+        Enemy enemy = gameContext.getSelectedEnemy();
         enemy.takeDamage(dealDamage());
 
         Player player = gameContext.getPlayer();

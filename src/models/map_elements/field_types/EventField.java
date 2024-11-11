@@ -5,10 +5,12 @@ import models.player.player_structure.Player;
 
 
 public class EventField extends Field{
+    private static final String imagePath = "/images/map/unknown.png";
+
     private Event event;
 
     public EventField(Event event) {
-        super("❇");
+        super(imagePath);
         this.event = event;
     }
 

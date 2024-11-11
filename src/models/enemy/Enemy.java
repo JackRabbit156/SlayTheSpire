@@ -20,6 +20,7 @@ public abstract class Enemy {
     private int currentHealth;
     private int maxHealth;
 
+    private String imagePath;
     private int block;
 
     /**
@@ -35,6 +36,15 @@ public abstract class Enemy {
 
         this.maxHealth = generateMaxHealth(lowestMaxHealthPossible, highestMaxHealthPossible);
         this.currentHealth = maxHealth;
+    }
+
+
+    public void setImagePath(String imagePath){
+        this.imagePath = imagePath;
+    }
+
+    public String getImagePath(){
+        return imagePath;
     }
 
     /**

@@ -1,6 +1,6 @@
 package tests;
 
-import controller.RestViewController;
+import controller.cli.RestViewController;
 import models.player.Ironclad;
 
 public class RestSiteViewTester {

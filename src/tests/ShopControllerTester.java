@@ -1,6 +1,6 @@
 package tests;
 
-import controller.ShopViewController;
+import controller.cli.ShopViewController;
 import models.player.Ironclad;
 
 /**

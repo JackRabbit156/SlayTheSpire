@@ -1,6 +1,6 @@
 package tests;
 
-import controller.MapViewController;
+import controller.cli.MapViewController;
 import models.player.player_structure.Player;
 
 public class MapViewTester {

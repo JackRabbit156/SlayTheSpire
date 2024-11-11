@@ -2,6 +2,7 @@ package models.player.player_structure;
 
 import events.PlayerBlockEvent;
 import events.PlayerDamageEvent;
+import javafx.stage.Stage;
 import listener.PlayerEventListener;
 import models.cards.card_structure.Card;
 import models.game_settings.GameSettings;
@@ -18,6 +19,7 @@ import java.util.List;
  * @author OF Daniel Willig
  */
 public abstract class Player {
+    private Stage primaryStage;
     // * Variables *
     private final String name;
     private String username;
@@ -67,6 +69,14 @@ public abstract class Player {
         this.playerType = playerType;
         this.symbol = symbol;
         this.listener = null;
+    }
+
+    public Stage getPrimaryStage() {
+        return primaryStage;
+    }
+
+    public void setPrimaryStage(Stage primaryStage) {
+        this.primaryStage = primaryStage;
     }
 
     // * Methods *

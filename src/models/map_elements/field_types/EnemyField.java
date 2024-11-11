@@ -1,10 +1,13 @@
 package models.map_elements.field_types;
 
-import controller.BattleViewController;
-import controller.LootViewController;
-import models.enemy.act_one.Cultist;
+import controller.cli.BattleViewController;
+import controller.cli.LootViewController;
+import controller.gui.BattleController;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
 import models.enemy.Enemy;
 import models.player.player_structure.Player;
+import view.gui.BattleView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,11 +19,12 @@ import java.util.List;
  * @author Warawa Alexander
  */
 public class EnemyField extends Field{
+    private static final String imagePath = "/images/map/enemy.png";
 
     private List<Enemy> enemies = new ArrayList<>();
     private LootViewController lootViewController;
     public EnemyField(){
-        super("👹");
+        super(imagePath);
     }
 
     /**
@@ -30,7 +34,7 @@ public class EnemyField extends Field{
      * @param enemies Eine Liste von Feinden, die diesem Feld hinzugefügt werden.
      */
     public EnemyField(List<Enemy> enemies){
-        super("👹");
+        super(imagePath);
         this.enemies = enemies;
     }
 
@@ -45,7 +49,18 @@ public class EnemyField extends Field{
         if(isFieldBeaten())
             return;
 
-        BattleViewController battle = new BattleViewController(player, enemies);
+        Stage primaryStage = player.getPrimaryStage();
+
+        BattleView view = new BattleView(player, enemies);
+        BattleController battle = new BattleController(player, enemies, view);
+
+        Scene scene = new Scene(view, 1920, 1080);
+
+        primaryStage.setScene(scene);
+        primaryStage.setTitle("Slay the Spire - JavaFX");
+        primaryStage.show();
+
+        /*BattleViewController battle = new BattleViewController(player, enemies);
         battle.startBattle();
 
         if(!player.isAlive())
@@ -54,7 +69,7 @@ public class EnemyField extends Field{
         setFieldBeaten();
 
         lootViewController = new LootViewController(player, "EnemyField");
-        lootViewController.openLootView(player);
+        lootViewController.openLootView(player);*/
 
     }
 

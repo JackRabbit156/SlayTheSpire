@@ -15,6 +15,10 @@ public abstract class Card {
     private CardGrave cardGrave;
     private CardType cardType;
 
+    private String imagePath;
+
+    private boolean targetRequired = false;
+
     public Card(String name, String description, int cost, CardRarity cardRarity, CardGrave cardGrave, CardType cardType) {
         this.name = name;
         this.description = description;
@@ -23,6 +27,20 @@ public abstract class Card {
         this.cardGrave = cardGrave;
         this.price = genPrice();
         this.cardType = cardType;
+    }
+
+    public void targetIsRequired(){
+        targetRequired = true;
+    }
+    public boolean isTargetRequired(){
+        return targetRequired;
+    }
+    public String getImagePath() {
+        return imagePath;
+    }
+
+    public void setImagePath(String imagePath) {
+        this.imagePath = imagePath;
     }
 
     public abstract void play(GameContext gameContext);

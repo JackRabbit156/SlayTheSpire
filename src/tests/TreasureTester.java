@@ -1,6 +1,6 @@
 package tests;
 
-import controller.TreasureViewController;
+import controller.cli.TreasureViewController;
 import models.player.player_structure.Player;
 
 public class TreasureTester {
