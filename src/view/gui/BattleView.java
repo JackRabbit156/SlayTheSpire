@@ -1,6 +1,8 @@
 package view.gui;
 
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.layout.*;
 import models.cards.card_structure.Card;
@@ -82,17 +84,22 @@ public class BattleView extends BorderPane {
     /**
      * Top side for the Player Information
      */
+    private Label energyLabel;
     private void initTop() {
-        topHBox = new HBox();
+        topHBox = new HBox(50);
         topHBox.setStyle("-fx-background-color: #926099;");
 
         okayButton = new Button();
-        okayButton.setText("Okay");
+        okayButton.setText("End Turn");
 
-        topHBox.getChildren().add(okayButton);
+        energyLabel = new Label(player.getCurrentEnergy()+"/" + player.getMaxEnergy());
 
+
+        topHBox.getChildren().addAll(okayButton, energyLabel);
         this.setTop(topHBox);
-
+    }
+    public void updateInformation(){
+        initTop();
     }
 
     /**
@@ -100,6 +107,8 @@ public class BattleView extends BorderPane {
      */
     private void initRight(){
         rightVBox = new HBox(-150);
+
+        leftVBox.setAlignment(Pos.BOTTOM_LEFT);
 
         for(int i = 0; i< enemies.size(); i++){
             Enemy enemy = enemies.get(i);
@@ -110,11 +119,14 @@ public class BattleView extends BorderPane {
         this.setRight(rightVBox);
     }
 
+
+
     /**
      * Left side for the player
      */
     private void initLeft(){
         leftVBox = new VBox();
+        leftVBox.setAlignment(Pos.BOTTOM_RIGHT);
         PlayerLayout playerLayout = new PlayerLayout(player);
         leftVBox.getChildren().add(playerLayout);
 

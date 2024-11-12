@@ -7,7 +7,9 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 import models.cards.card_structure.Card;
 import view.gui.BattleView;
 
@@ -44,9 +46,11 @@ public class CardLayout extends HBox {
         Image imageCard = new Image(getClass().getResource(card.getImagePath()).toExternalForm());
         ImageView imageViewCard = new ImageView(imageCard);
 
-        imageViewCard.setFitWidth(350); // Breite in Pixel
-        imageViewCard.setFitHeight(350); // Höhe in Pixel
+        imageViewCard.setFitWidth(250); // Breite in Pixel
+        imageViewCard.setFitHeight(250); // Höhe in Pixel
         imageViewCard.setPreserveRatio(true);
+
+        imageViewCard.setTranslateY(60);
 
         setHoverEffect(imageViewCard);
 
@@ -67,12 +71,15 @@ public class CardLayout extends HBox {
             imageView.setEffect(glow);
             imageView.setScaleX(1.1); // Slightly increase the width
             imageView.setScaleY(1.1); // Slightly increase the height
+            imageView.setClip(null); // Clip entfernen, um das gesamte Bild anzuzeigen
+            imageView.setTranslateY(0); // Bei Hover zurück zur ursprünglichen Y-Position
         });
 
         imageView.addEventHandler(MouseEvent.MOUSE_EXITED, e -> {
             imageView.setEffect(null);
             imageView.setScaleX(1.0); // Reset the width to original
             imageView.setScaleY(1.0); // Reset the height to original
+            imageView.setTranslateY(60); // Bild wieder nach unten verschieben
         });
 
     }
