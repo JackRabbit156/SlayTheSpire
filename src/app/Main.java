@@ -23,9 +23,10 @@ public class Main extends Application {
 
         // Scene Setup
         Scene scene = new Scene(mapController.getMapView(), 1920, 1080);
-
+        scene.getStylesheets().add(getClass().getResource("/css/mapStyle.css").toExternalForm());
         primaryStage.setScene(scene);
         primaryStage.setTitle("Slay the Spire - JavaFX");
+        primaryStage.setFullScreen(true);
         primaryStage.show();
     }
 

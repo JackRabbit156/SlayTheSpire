@@ -1,5 +1,6 @@
 package controller.gui;
 
+import helper.ConsoleAssistent;
 import javafx.event.ActionEvent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -8,6 +9,7 @@ import models.GameContext;
 
 import models.cards.card_structure.Card;
 import models.cards.card_structure.CardGrave;
+import models.cards.card_structure.CardTrigger;
 import models.enemy.Enemy;
 import models.player.player_structure.Player;
 
@@ -93,9 +95,40 @@ public class BattleController implements BatteViewEvents {
 
         // Example: Modify player or enemy.png state
         // Update BattleView based on changes
-        battleView.updateEnemyStatus();
+        //battleView.updateEnemyStatus();
+
+        playerEOT();
+        enemyTurn();
+
+        startGame();
     }
 
+    private void playerEOT() {
+        removeHandAfterEndOfTurn();
+        //triggerCard(CardTrigger.PLAYER_EOT);
+    }
+
+    private void enemyTurn() {
+        System.out.println("\nEnemies' Turn:");
+
+        removeBlockOfEnemiesAfterEndOfTurn();
+
+        for (Enemy enemy : enemies) {
+            if (enemy.isAlive()) {
+                enemy.action(gameContext);
+            }
+            // kurze Verzögerung, damit der Schaden des Gegners nicht auf einem Schlag kommt.
+            ConsoleAssistent.sleep(300);
+
+        }
+    }
+
+    // Block hält nur 1. Runde an.
+    private void removeBlockOfEnemiesAfterEndOfTurn() {
+        for (Enemy enemy : enemies) {
+            enemy.setBlock(0);
+        }
+    }
 
     @Override
     public void onCardClick(Card card, int index) {
@@ -117,7 +150,9 @@ public class BattleController implements BatteViewEvents {
 
         selectedCard = null;
 
-        startingMap();
+        if(enemies.isEmpty()) {
+           startingMap();
+        }
     }
 
     private void startingMap(){

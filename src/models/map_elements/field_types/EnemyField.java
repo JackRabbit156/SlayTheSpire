@@ -58,6 +58,7 @@ public class EnemyField extends Field{
 
         primaryStage.setScene(scene);
         primaryStage.setTitle("Slay the Spire - JavaFX");
+        primaryStage.setFullScreen(true);
         primaryStage.show();
 
         /*BattleViewController battle = new BattleViewController(player, enemies);

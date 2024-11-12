@@ -48,10 +48,27 @@ public class MapView extends BorderPane {
     }
 
     private void initTopSide() {
-        Region topPlaceholder = new Region();
+        HBox topHBox = new HBox(30);
+        topHBox.setPadding(new Insets(0,0,0,300));
+        topHBox.setBackground(new Background(background("/images/map/mapTopSec.png")));
+
+        Label playerNameLabel = new Label(player.getName());
+        playerNameLabel.getStyleClass().add("name-label");
+        Label playerFloorLabel = new Label("Floor " +player.getCurrentField());
+        playerFloorLabel.getStyleClass().add("floor-label");
+        Label playerMoneyLabel = new Label("Gold "+player.getGold());
+        playerMoneyLabel.getStyleClass().add("gold-label");
+        Label playerHealthLabel = new Label("Health " + player.getCurrentHealth() +"/" + player.getMaxHealth());
+        playerHealthLabel.getStyleClass().add("health-label");
+
+        topHBox.getChildren().addAll(playerNameLabel, playerHealthLabel, playerMoneyLabel, playerFloorLabel);
+
+        setTop(topHBox);
+
+        /*Region topPlaceholder = new Region();
         topPlaceholder.setMinHeight(200); // Festlegen der konstanten Höhe
 
-        setTop(topPlaceholder);
+        setTop(topPlaceholder);*/
     }
 
     private void initLeftSide() {
@@ -60,15 +77,15 @@ public class MapView extends BorderPane {
         setLeft(bottomPlaceholder);
     }
 
-    private BackgroundImage background(){
-        Image backgroundImage = new Image(getClass().getResource("/images/act1.png").toExternalForm());
+    private BackgroundImage background(String backgroundPath){
+        Image backgroundImage = new Image(getClass().getResource(backgroundPath).toExternalForm());
         // Erstelle das Hintergrundbild mit den gewünschten Eigenschaften
         BackgroundImage background = new BackgroundImage(
                 backgroundImage,
                 BackgroundRepeat.NO_REPEAT, // Option: NO_REPEAT, REPEAT, REPEAT_X, REPEAT_Y
                 BackgroundRepeat.NO_REPEAT,
                 BackgroundPosition.DEFAULT,
-                new BackgroundSize(1920, 1080, false, false, false, true)
+                new BackgroundSize(1920, 50, false, false, false, false)
         );
         return background;
     }
