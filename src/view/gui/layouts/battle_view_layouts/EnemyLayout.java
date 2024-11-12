@@ -26,7 +26,7 @@ public class EnemyLayout extends VBox {
         // Moving the healthbar to the left
         setMargin(healthBarLayout, new Insets(0, 100, 0, 0));
 
-        this.setPadding(new Insets(190, 200, 0, 0));
+        this.setPadding(new Insets(0, 200, 0, 0));
         this.alignmentProperty().set(Pos.CENTER_LEFT);
 
         updateEnemy();
