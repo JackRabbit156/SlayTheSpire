@@ -49,7 +49,7 @@ public class BattleView extends BorderPane {
     }
 
     private BackgroundImage background(){
-        Image backgroundImage = new Image("file:/C:\\Users\\11848078\\Desktop\\GUISlayTheSpire\\resources\\images\\act1.png"); // Lokaler Pfad oder URL
+        Image backgroundImage = new Image(getClass().getResource("/images/act1.png").toExternalForm()); // Lokaler Pfad oder URL
         // Erstelle das Hintergrundbild mit den gewünschten Eigenschaften
         BackgroundImage background = new BackgroundImage(
                 backgroundImage,
