@@ -1,6 +1,7 @@
 package models.cards.ironclad_cards.attack.uncommon;
 
 import helper.ConsoleAssistent;
+import helper.PathAssistent;
 import models.GameContext;
 import models.cards.card_structure.AttackCard;
 import models.cards.card_structure.CardGrave;
@@ -21,6 +22,7 @@ public class HemokinesisCard extends AttackCard {
      */
     public HemokinesisCard() {
         super("Hemokinesis", "Lose 2 HP. Deal 15 damage.", 1, 15, CardRarity.UNCOMMON, CardGrave.DISCARD);
+        setImagePath(new PathAssistent().toPath(this));
     }
 
     @Override

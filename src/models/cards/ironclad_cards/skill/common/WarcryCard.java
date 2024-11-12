@@ -1,5 +1,6 @@
 package models.cards.ironclad_cards.skill.common;
 
+import helper.PathAssistent;
 import models.BattleDeck;
 import models.GameContext;
 import models.cards.card_structure.Card;
@@ -24,6 +25,7 @@ public class WarcryCard extends SkillCard{
      */
     public WarcryCard() {
             super("Warcry", "Draw 1 card. Put a card from your hand onto the top of your draw pile.Exhaust.", 0, CardRarity.COMMON, CardGrave.EXHAUST);
+        setImagePath(new PathAssistent().toPath(this));
         }
 
         @Override

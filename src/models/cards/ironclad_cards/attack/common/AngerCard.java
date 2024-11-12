@@ -1,6 +1,7 @@
 package models.cards.ironclad_cards.attack.common;
 
 import helper.ConsoleAssistent;
+import helper.PathAssistent;
 import models.BattleDeck;
 import models.GameContext;
 import models.cards.card_structure.AttackCard;
@@ -22,6 +23,7 @@ public class AngerCard extends AttackCard {
      */
     public AngerCard() {
         super("Anger", "Deal 6 damage. Add a copy of this card into your discard pile.", 0, 6, CardRarity.COMMON, CardGrave.DISCARD);
+        setImagePath(new PathAssistent().toPath(this));
     }
 
     @Override

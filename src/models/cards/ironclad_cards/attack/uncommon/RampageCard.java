@@ -1,6 +1,7 @@
 package models.cards.ironclad_cards.attack.uncommon;
 
 import helper.ConsoleAssistent;
+import helper.PathAssistent;
 import models.GameContext;
 import models.cards.card_structure.AttackCard;
 import models.cards.card_structure.CardGrave;
@@ -21,6 +22,7 @@ public class RampageCard extends AttackCard {
      */
     public RampageCard() {
         super("Rampage", "Deal 8 damage. Increase this card's damage by 5 this combat.", 1, 8, CardRarity.UNCOMMON, CardGrave.DISCARD);
+        setImagePath(new PathAssistent().toPath(this));
     }
 
     @Override

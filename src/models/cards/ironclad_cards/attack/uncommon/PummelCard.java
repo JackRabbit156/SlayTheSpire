@@ -1,6 +1,7 @@
 package models.cards.ironclad_cards.attack.uncommon;
 
 import helper.ConsoleAssistent;
+import helper.PathAssistent;
 import models.GameContext;
 import models.cards.card_structure.AttackCard;
 import models.cards.card_structure.CardGrave;
@@ -21,6 +22,7 @@ public class PummelCard extends AttackCard {
      */
     public PummelCard() {
         super("Pummel", "Deal 2 damage 4 times. Exhaust.", 1, 2, CardRarity.UNCOMMON, CardGrave.EXHAUST);
+        setImagePath(new PathAssistent().toPath(this));
     }
 
     @Override

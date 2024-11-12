@@ -1,5 +1,6 @@
 package models.cards.ironclad_cards.skill.uncommon;
 
+import helper.PathAssistent;
 import models.GameContext;
 import models.cards.card_structure.CardGrave;
 import models.cards.card_structure.CardRarity;
@@ -19,6 +20,7 @@ public class EntrenchCard extends SkillCard{
      */
     public EntrenchCard() {
             super("Entrench", "Double your Block.", 2, CardRarity.UNCOMMON, CardGrave.DISCARD);
+    setImagePath(new PathAssistent().toPath(this));
         }
 
         @Override

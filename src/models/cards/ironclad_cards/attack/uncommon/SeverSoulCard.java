@@ -1,6 +1,7 @@
 package models.cards.ironclad_cards.attack.uncommon;
 
 import helper.ConsoleAssistent;
+import helper.PathAssistent;
 import models.GameContext;
 import models.cards.card_structure.AttackCard;
 import models.cards.card_structure.CardGrave;
@@ -21,6 +22,7 @@ public class SeverSoulCard extends AttackCard {
      */
     public SeverSoulCard() {
         super("Sever Soul", "Exhaust all non-Attack cards in your hand. Deal 16 damage.", 2, 16, CardRarity.UNCOMMON, CardGrave.DISCARD);
+        setImagePath(new PathAssistent().toPath(this));
     }
 
     @Override

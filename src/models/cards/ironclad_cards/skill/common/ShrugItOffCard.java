@@ -1,5 +1,6 @@
 package models.cards.ironclad_cards.skill.common;
 
+import helper.PathAssistent;
 import models.BattleDeck;
 import models.GameContext;
 import models.cards.card_structure.CardGrave;
@@ -20,6 +21,7 @@ public class ShrugItOffCard extends SkillCard{
      */
     public ShrugItOffCard() {
             super("Shrug It Off", "Gain 8 Block. Draw 1 card.", 1, CardRarity.COMMON, CardGrave.DISCARD);
+        setImagePath(new PathAssistent().toPath(this));
         }
 
         @Override

@@ -1,6 +1,7 @@
 package models.cards.ironclad_cards.attack.common;
 
 import helper.ConsoleAssistent;
+import helper.PathAssistent;
 import models.BattleDeck;
 import models.GameContext;
 import models.cards.card_structure.AttackCard;
@@ -24,6 +25,7 @@ public class HeadbuttCard extends AttackCard {
      */
     public HeadbuttCard() {
         super("Headbutt", "Deal 9 damage. Put a card from your discard pile on top of your draw pile.", 1, 9, CardRarity.COMMON, CardGrave.DISCARD);
+        setImagePath(new PathAssistent().toPath(this));
     }
 
     @Override

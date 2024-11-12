@@ -1,5 +1,6 @@
 package models.cards.ironclad_cards.power.uncommon;
 
+import helper.PathAssistent;
 import models.BattleDeck;
 import models.GameContext;
 import models.cards.card_structure.CardGrave;
@@ -19,6 +20,7 @@ public class MetallicizeCard extends PowerCard {
      */
     public MetallicizeCard() {
         super("Metallicize", "At the end of your turn, gain 3 Block.", 1, CardRarity.UNCOMMON, CardGrave.NONE, CardTrigger.PLAYER_EOT);
+        setImagePath(new PathAssistent().toPath(this));
     }
 
 

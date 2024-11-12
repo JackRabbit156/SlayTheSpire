@@ -1,6 +1,7 @@
 package models.cards.ironclad_cards.attack.rare;
 
 import helper.ConsoleAssistent;
+import helper.PathAssistent;
 import models.GameContext;
 import models.cards.card_structure.AttackCard;
 import models.cards.card_structure.CardGrave;
@@ -21,6 +22,7 @@ public class FiendFireCard extends AttackCard {
      */
     public FiendFireCard() {
         super("Fiend Fire", "Exhaust all cards in your hand. Deal 7 damage for each Exhausted card.Exhaust.", 2, 7, CardRarity.RARE, CardGrave.EXHAUST);
+        setImagePath(new PathAssistent().toPath(this));
     }
 
     @Override

@@ -1,5 +1,6 @@
 package models.cards.ironclad_cards.attack.rare;
 
+import helper.PathAssistent;
 import models.GameContext;
 import models.cards.card_structure.AttackCard;
 import models.cards.card_structure.CardGrave;
@@ -20,6 +21,7 @@ public class ImmolateCard extends AttackCard {
      */
     public ImmolateCard() {
         super("Immolate", "Deal 21 damage to ALL enemies. Add a Burn into your discard pile.", 2, 21, CardRarity.RARE, CardGrave.DISCARD);
+        setImagePath(new PathAssistent().toPath(this));
     }
 
     @Override

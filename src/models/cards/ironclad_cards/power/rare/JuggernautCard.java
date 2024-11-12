@@ -1,5 +1,6 @@
 package models.cards.ironclad_cards.power.rare;
 
+import helper.PathAssistent;
 import models.BattleDeck;
 import models.GameContext;
 import models.cards.card_structure.*;
@@ -20,6 +21,7 @@ public class JuggernautCard extends PowerCard {
      */
     public JuggernautCard() {
         super("Juggernaut", "Whenever you gain Block, deal 5 damage to a random enemy.", 2, CardRarity.RARE, CardGrave.NONE, CardTrigger.GAIN_BLOCK);
+        setImagePath(new PathAssistent().toPath(this));
     }
 
 

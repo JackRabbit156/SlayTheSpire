@@ -1,5 +1,6 @@
 package models.cards.ironclad_cards.skill.uncommon;
 
+import helper.PathAssistent;
 import models.GameContext;
 import models.cards.card_structure.CardGrave;
 import models.cards.card_structure.CardRarity;
@@ -19,6 +20,7 @@ public class GhostlyArmorCard extends SkillCard{
      */
     public GhostlyArmorCard() {
             super("Ghostly Armor", "Exhaust. Gain 10 Block.", 2, CardRarity.UNCOMMON, CardGrave.EXHAUST);
+        setImagePath(new PathAssistent().toPath(this));
         }
 
         @Override

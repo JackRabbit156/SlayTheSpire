@@ -1,5 +1,6 @@
 package models.cards.ironclad_cards.power.uncommon;
 
+import helper.PathAssistent;
 import models.BattleDeck;
 import models.GameContext;
 import models.cards.card_structure.CardGrave;
@@ -19,6 +20,7 @@ public class RuptureCard extends PowerCard {
      */
     public RuptureCard() {
         super("Rupture", "Whenever you lose HP from a card, gain 1 Strength.", 1, CardRarity.UNCOMMON, CardGrave.NONE, CardTrigger.LOSE_HP_CARD);
+        setImagePath(new PathAssistent().toPath(this));
     }
 
 
