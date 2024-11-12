@@ -1,6 +1,7 @@
 package models.cards.ironclad_cards.attack.rare;
 
 import helper.ConsoleAssistent;
+import helper.PathAssistent;
 import models.GameContext;
 import models.cards.card_structure.AttackCard;
 import models.cards.card_structure.CardGrave;
@@ -21,6 +22,7 @@ public class FeedCard extends AttackCard {
      */
     public FeedCard() {
         super("Feed", "Deal 10 damage. If Fatal, raise your Max HP by 3. Exhaust.", 1, 10, CardRarity.RARE, CardGrave.EXHAUST);
+        setImagePath(new PathAssistent().toPath(this));
     }
 
     @Override

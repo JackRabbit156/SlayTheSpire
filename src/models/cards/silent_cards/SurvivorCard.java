@@ -1,6 +1,7 @@
 package models.cards.silent_cards;
 
 import helper.ConsoleAssistent;
+import helper.PathAssistent;
 import models.BattleDeck;
 import models.GameContext;
 import models.cards.card_structure.Card;
@@ -24,6 +25,7 @@ public class SurvivorCard extends SkillCard {
      */
     public SurvivorCard() {
         super("Survivor", "Gain 8 Block. Discard 1 card.", 1, CardRarity.COMMON, CardGrave.DISCARD);
+        setImagePath(new PathAssistent().toPath(this));
     }
 
     @Override

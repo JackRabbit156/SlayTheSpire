@@ -1,5 +1,6 @@
 package models.cards.ironclad_cards.power.uncommon;
 
+import helper.PathAssistent;
 import models.BattleDeck;
 import models.GameContext;
 import models.cards.card_structure.CardGrave;
@@ -19,6 +20,7 @@ public class InflameCard extends PowerCard {
      */
     public InflameCard() {
         super("Inflame", "Gain 2 Strength.", 1, CardRarity.UNCOMMON, CardGrave.NONE, CardTrigger.ALWAYS);
+        setImagePath(new PathAssistent().toPath(this));
     }
 
 

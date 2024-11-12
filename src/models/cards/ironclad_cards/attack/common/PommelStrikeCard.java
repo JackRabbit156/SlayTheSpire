@@ -1,6 +1,7 @@
 package models.cards.ironclad_cards.attack.common;
 
 import helper.ConsoleAssistent;
+import helper.PathAssistent;
 import models.BattleDeck;
 import models.GameContext;
 import models.cards.card_structure.AttackCard;
@@ -22,6 +23,7 @@ public class PommelStrikeCard extends AttackCard {
      */
     public PommelStrikeCard() {
         super("Pommel Strike", "Deal 9 damage. Draw 1 card.", 1, 9, CardRarity.COMMON, CardGrave.DISCARD);
+        setImagePath(new PathAssistent().toPath(this));
     }
 
     @Override

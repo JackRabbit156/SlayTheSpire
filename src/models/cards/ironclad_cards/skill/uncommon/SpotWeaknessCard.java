@@ -1,5 +1,6 @@
 package models.cards.ironclad_cards.skill.uncommon;
 
+import helper.PathAssistent;
 import models.GameContext;
 import models.cards.card_structure.CardGrave;
 import models.cards.card_structure.CardRarity;
@@ -19,6 +20,7 @@ public class SpotWeaknessCard extends SkillCard{
      */
     public SpotWeaknessCard() {
             super("Spot Weakness", "If the enemy intends to attack, gain 3 Strength.", 1, CardRarity.UNCOMMON, CardGrave.DISCARD);
+        setImagePath(new PathAssistent().toPath(this));
         }
 
         @Override

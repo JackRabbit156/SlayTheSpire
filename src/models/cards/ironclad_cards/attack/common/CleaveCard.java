@@ -1,5 +1,6 @@
 package models.cards.ironclad_cards.attack.common;
 
+import helper.PathAssistent;
 import models.GameContext;
 import models.cards.card_structure.AttackCard;
 import models.cards.card_structure.CardGrave;
@@ -19,6 +20,7 @@ public class CleaveCard extends AttackCard {
      */
     public CleaveCard() {
         super("Cleave", "Deal 8 damage to ALL enemies.", 1, 8, CardRarity.COMMON, CardGrave.DISCARD);
+        setImagePath(new PathAssistent().toPath(this));
     }
 
     @Override

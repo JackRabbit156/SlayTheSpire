@@ -1,5 +1,6 @@
 package models.cards.ironclad_cards.power.rare;
 
+import helper.PathAssistent;
 import models.BattleDeck;
 import models.GameContext;
 import models.cards.card_structure.CardGrave;
@@ -19,6 +20,7 @@ public class BerserkCard extends PowerCard {
      */
     public BerserkCard() {
         super("Berserk", "Gain 2 Vulnerable. At the start of your turn, gain 1 Energy.", 0, CardRarity.RARE, CardGrave.NONE, CardTrigger.PLAYER_BOT);
+        setImagePath(new PathAssistent().toPath(this));
     }
 
 

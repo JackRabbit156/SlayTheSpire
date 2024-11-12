@@ -1,5 +1,6 @@
 package models.cards.ironclad_cards.attack.rare;
 
+import helper.PathAssistent;
 import models.GameContext;
 import models.cards.card_structure.AttackCard;
 import models.cards.card_structure.CardGrave;
@@ -20,6 +21,7 @@ public class ReaperCard extends AttackCard {
      */
     public ReaperCard() {
         super("Reaper", "Deal 4 damage to ALL enemies. Heal HP equal to unblocked damage. Exhaust.", 2, 4, CardRarity.RARE, CardGrave.EXHAUST);
+        setImagePath(new PathAssistent().toPath(this));
     }
 
     @Override

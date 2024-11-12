@@ -1,6 +1,7 @@
 package models.cards.ironclad_cards.attack.common;
 
 import helper.ConsoleAssistent;
+import helper.PathAssistent;
 import models.GameContext;
 import models.cards.card_structure.AttackCard;
 import models.cards.card_structure.Card;
@@ -24,6 +25,7 @@ public class PerfectedStrikeCard extends AttackCard {
      */
     public PerfectedStrikeCard() {
         super("Perfected Strike", "Deal 6 damage. Deals 2 additional damage for ALL your cards containing \"Strike\".", 2, 6, CardRarity.COMMON, CardGrave.DISCARD);
+        setImagePath(new PathAssistent().toPath(this));
     }
 
     @Override

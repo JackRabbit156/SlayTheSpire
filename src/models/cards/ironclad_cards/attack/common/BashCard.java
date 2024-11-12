@@ -1,6 +1,7 @@
 package models.cards.ironclad_cards.attack.common;
 
 import helper.ConsoleAssistent;
+import helper.PathAssistent;
 import models.GameContext;
 import models.cards.card_structure.AttackCard;
 import models.cards.card_structure.CardGrave;
@@ -18,8 +19,7 @@ public class BashCard extends AttackCard {
      */
     public BashCard() {
         super("Bash", "Deal 2 Damage. Apply 2 Vulnerable.", 2, 8, CardRarity.COMMON, CardGrave.DISCARD);
-
-        setImagePath("/images/cards/ironclad_cards/attack/common/BashCard.png");
+        setImagePath(new PathAssistent().toPath(this));
     }
 
     @Override

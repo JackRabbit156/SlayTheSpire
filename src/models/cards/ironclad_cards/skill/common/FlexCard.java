@@ -1,5 +1,6 @@
 package models.cards.ironclad_cards.skill.common;
 
+import helper.PathAssistent;
 import models.BattleDeck;
 import models.GameContext;
 import models.cards.card_structure.CardGrave;
@@ -20,6 +21,7 @@ public class FlexCard extends SkillCard{
      */
     public FlexCard() {
             super("Flex", "Gain 2 Strength. At the end of this turn, lose 2 Strength.", 0, CardRarity.COMMON, CardGrave.DISCARD);
+        setImagePath(new PathAssistent().toPath(this));
         }
 
         @Override

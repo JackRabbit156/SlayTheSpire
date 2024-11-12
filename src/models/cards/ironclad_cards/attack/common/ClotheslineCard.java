@@ -1,6 +1,7 @@
 package models.cards.ironclad_cards.attack.common;
 
 import helper.ConsoleAssistent;
+import helper.PathAssistent;
 import models.GameContext;
 import models.cards.card_structure.AttackCard;
 import models.cards.card_structure.CardGrave;
@@ -20,6 +21,7 @@ public class ClotheslineCard extends AttackCard {
      */
     public ClotheslineCard() {
         super("Clothesline", "Deal 12 damage. Apply 2 Icon Weak Weak.", 2, 12, CardRarity.COMMON, CardGrave.DISCARD);
+        setImagePath(new PathAssistent().toPath(this));
     }
 
     @Override
