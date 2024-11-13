@@ -9,16 +9,15 @@ import models.GameContext;
 import models.cards.card_structure.Card;
 import models.cards.card_structure.CardGrave;
 import models.cards.card_structure.CardType;
-import models.cards.ironclad_cards.attack.common.ClashCard;
 import models.enemy.Enemy;
 import models.player.player_structure.Player;
 
 import view.gui.BattleView;
-import view.gui.layouts.layout_events.BatteViewEvents;
+import view.gui.layouts.layout_events.BattleViewEvents;
 
 import java.util.List;
 
-public class BattleController implements BatteViewEvents {
+public class BattleController implements BattleViewEvents {
     private BattleView battleView;
 
     private Player player;
@@ -57,7 +56,7 @@ public class BattleController implements BatteViewEvents {
             battleDeck.discardCardFromHand(battleDeck.getHand().get(0));
         }
 
-        System.out.println(battleDeck.getHand().size() + " sice");
+        System.out.println(battleDeck.getHand().size() + " size");
         refreshHand();
     }
     private void playerTurn(Card card, int index) {
@@ -101,7 +100,7 @@ public class BattleController implements BatteViewEvents {
 
     @Override
     public void onCardClick(Card card, int index) {
-        //System.out.println("Player pressed CardclickEvent: " + card + " index " + index);
+        System.out.println("Player pressed CardClickEvent: " + card + " index " + index);
         playerTurn(card, index);
     }
 
@@ -113,7 +112,7 @@ public class BattleController implements BatteViewEvents {
         playCardIfPossible(enemy);
 
         battleView.updateEnemyStatus();
-        battleView.enableBatteView();
+        battleView.enableBattleView();
 
         refreshHand();
 

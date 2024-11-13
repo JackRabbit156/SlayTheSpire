@@ -13,7 +13,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
-import view.gui.layouts.layout_events.BatteViewEvents;
+import view.gui.layouts.layout_events.BattleViewEvents;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,7 +33,7 @@ public class BattleView extends BorderPane {
     private List<Enemy> enemies;
     private List<Card> hand;
 
-    private BatteViewEvents batteViewEvents;
+    private BattleViewEvents battleViewEvents;
 
     public BattleView(Player player, List<Enemy> enemies) {
         this.player = player;
@@ -44,8 +44,8 @@ public class BattleView extends BorderPane {
         initNodes();
     }
 
-    public void initBattleViewEvents(BatteViewEvents batteViewEvents){
-        this.batteViewEvents = batteViewEvents;
+    public void initBattleViewEvents(BattleViewEvents battleViewEvents){
+        this.battleViewEvents = battleViewEvents;
     }
 
     private BackgroundImage background(){
@@ -147,11 +147,11 @@ public class BattleView extends BorderPane {
     }
 
     public void clickedOnCard(Card card, int index){
-        batteViewEvents.onCardClick(card, index);
+        battleViewEvents.onCardClick(card, index);
     }
 
     public void clickedOnEnemy(Enemy enemy){
-        batteViewEvents.onEnemyClick(enemy);
+        battleViewEvents.onEnemyClick(enemy);
     }
 
     public void selectEnemyView(){
@@ -160,7 +160,7 @@ public class BattleView extends BorderPane {
         bottomHBox.setDisable(true);
     }
 
-    public void enableBatteView(){
+    public void enableBattleView(){
         topHBox.setDisable(false);
         leftVBox.setDisable(false);
         bottomHBox.setDisable(false);
