@@ -9,8 +9,8 @@ import models.card.silent_cards.NeutralizeCard;
 import models.card.silent_cards.SurvivorCard;
 import models.player.player_structure.Player;
 import models.player.player_structure.PlayerType;
-import models.relics.RingOfTheSnake;
-import models.relics.relic_structure.Relic;
+import models.relic.RingOfTheSnake;
+import models.relic.relic_structure.Relic;
 
 import java.util.ArrayList;
 import java.util.List;
