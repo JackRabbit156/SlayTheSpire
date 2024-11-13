@@ -1,6 +1,6 @@
 package models.map_elements.field_types;
 
-import models.events.Event;
+import models.event.Event;
 import models.player.player_structure.Player;
 
 

@@ -1,6 +1,6 @@
 package view.gui.layouts.layout_events;
 
-import models.cards.card_structure.Card;
+import models.card.card_structure.Card;
 import models.enemy.Enemy;
 
 public interface BattleViewEvents {

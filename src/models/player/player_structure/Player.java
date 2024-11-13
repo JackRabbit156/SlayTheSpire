@@ -4,7 +4,7 @@ import events.PlayerBlockEvent;
 import events.PlayerDamageEvent;
 import javafx.stage.Stage;
 import listener.PlayerEventListener;
-import models.cards.card_structure.Card;
+import models.card.card_structure.Card;
 import models.game_settings.GameSettings;
 import models.relics.relic_structure.Relic;
 

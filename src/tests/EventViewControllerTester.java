@@ -1,11 +1,11 @@
 package tests;
 
-import models.events.Event;
-import models.events.act_one.*;
-import models.events.generelevents.BonfireSpiritsEvent;
-import models.events.generelevents.DuplicatorEvent;
-import models.events.generelevents.GoldenShrineEvent;
-import models.events.generelevents.NoteForYourselfEvent;
+import models.event.Event;
+import models.event.act_one.*;
+import models.event.generelevents.BonfireSpiritsEvent;
+import models.event.generelevents.DuplicatorEvent;
+import models.event.generelevents.GoldenShrineEvent;
+import models.event.generelevents.NoteForYourselfEvent;
 import models.map_elements.field_types.EventField;
 import models.player.player_structure.Player;
 

@@ -8,7 +8,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
-import models.cards.card_structure.Card;
+import models.card.card_structure.Card;
 import view.gui.BattleView;
 
 import java.util.ArrayList;
