@@ -4,12 +4,12 @@ import controller.gui.MapController;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import models.player.Ironclad;
+import models.player.IroncladPlayer;
 
 public class Main extends Application {
     @Override
     public void start(Stage primaryStage) {
-        Ironclad player = new Ironclad();
+        IroncladPlayer player = new IroncladPlayer();
         player.setPrimaryStage(primaryStage);
 
         MapController mapController = new MapController(player, true);

@@ -3,14 +3,14 @@ package tests;
 import controller.cli.LootViewController;
 import models.game_settings.GameSettings;
 import models.game_settings.structure.DifficultyLevel;
-import models.player.Ironclad;
+import models.player.IroncladPlayer;
 /**
  * @author Keil, Vladislav
  */
 public class LootViewControllerTester {
 
     public static void main(String[] args) {
-        Ironclad player = new Ironclad();
+        IroncladPlayer player = new IroncladPlayer();
         String fieldType = "BossField";
 
         GameSettings.setDifficultyLevel(DifficultyLevel.EASY);

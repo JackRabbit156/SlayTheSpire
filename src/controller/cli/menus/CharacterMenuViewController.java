@@ -5,7 +5,7 @@ import helper.ConsoleAssistent;
 import models.game_settings.GameSettings;
 import models.game_settings.structure.DifficultyLevel;
 import models.game_settings.structure.GameMode;
-import models.player.Ironclad;
+import models.player.IroncladPlayer;
 import models.player.player_structure.Player;
 import view.cli.menus.CharacterMenuView;
 
@@ -61,13 +61,13 @@ public class CharacterMenuViewController {
         selectedCharacter = in.next();
 
         if (selectedCharacter.equals("1")) {
-            Ironclad player = new Ironclad();
+            IroncladPlayer player = new IroncladPlayer();
             player.setUsername(username);
             selectedCharacter = "Ironclad";
             startMapView(player);
         }
         else if(selectedCharacter.equals("2")) {
-            Ironclad player = new Ironclad();
+            IroncladPlayer player = new IroncladPlayer();
             System.out.println("\n\tYou chose: Silent, but Silent is not yet available, your game will start with Ironclad");
             selectedCharacter = "Ironclad";
             startMapView(player);

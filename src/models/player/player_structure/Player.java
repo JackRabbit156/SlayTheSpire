@@ -48,6 +48,8 @@ public abstract class Player {
 
     private PlayerEventListener listener;
 
+    private String imagePath;
+
     /**
      * Konstruktor für die Player-Klasse.
      *
@@ -325,5 +327,13 @@ public abstract class Player {
 
     public void setCurrentField(String currentField) {
         this.currentField = currentField;
+    }
+
+    public String getImagePath() {
+        return imagePath;
+    }
+
+    public void setImagePath(String imagePath) {
+        this.imagePath = imagePath;
     }
 }
