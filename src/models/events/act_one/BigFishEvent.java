@@ -1,6 +1,7 @@
-package models.events.actone;
+package models.events.act_one;
 
 import helper.ConsoleAssistent;
+import helper.PathAssistent;
 import models.events.Event;
 import models.player.player_structure.Player;
 import view.cli.EventView;
@@ -10,15 +11,16 @@ import java.util.Scanner;
  * @author Keil, Vladislav
  * @author  Loeschner, Marijan
  */
-public class BigFish extends Event {
+public class BigFishEvent extends Event {
     private Player player;
     private Scanner scanner = new Scanner(System.in);
 
-    public BigFish(Player player) {
+    public BigFishEvent(Player player) {
         super("  As you make your way down a long corridor you see a banana, a donut, and a box floating about. \n" +
                 "\tNo... upon closer inspection they are tied to strings coming from holes in the ceiling. \n" +
                 "\tThere is a quiet cackling from above as you approach the objects.\n" +
                 "\tWhat do you do?", "Big Fish");
+        setImagePath(new PathAssistent().toPath(this));
         this.player = player;
     }
 

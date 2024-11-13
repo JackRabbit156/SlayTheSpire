@@ -6,6 +6,7 @@ package models.events;
 public abstract class Event {
     private String story;
     private String title;
+    private String imagePath;
 
     public Event(String story, String title) {
         this.story = story;
@@ -14,6 +15,13 @@ public abstract class Event {
 
     public abstract void startEvent();
 
+    public void setImagePath(String imagePath){
+        this.imagePath = imagePath;
+    }
+
+    public String getImagePath() {
+        return imagePath;
+    }
 
     public String getStory() {
         return story;

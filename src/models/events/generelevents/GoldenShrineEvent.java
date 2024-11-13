@@ -1,6 +1,7 @@
 package models.events.generelevents;
 
 import helper.ConsoleAssistent;
+import helper.PathAssistent;
 import models.events.Event;
 import models.player.player_structure.Player;
 import view.cli.EventView;
@@ -12,12 +13,13 @@ import java.util.Scanner;
  * @author Keil, Vladislav
  * @author Loeschner, Marijan
  */
-public class GoldenShrine extends Event {
+public class GoldenShrineEvent extends Event {
     private Player player;
     private Scanner scanner = new Scanner(System.in);
 
-    public GoldenShrine(Player player) {
+    public GoldenShrineEvent(Player player) {
         super("  Before you lies an elaborate shrine to an ancient spirit.", "Golden Shrine");
+        setImagePath(new PathAssistent().toPath(this));
 
         this.player = player;
     }

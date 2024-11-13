@@ -1,6 +1,7 @@
-package models.events.actone;
+package models.events.act_one;
 
 import helper.ConsoleAssistent;
+import helper.PathAssistent;
 import models.events.Event;
 import models.player.player_structure.Player;
 import view.cli.EventView;
@@ -12,13 +13,13 @@ import java.util.Scanner;
  * @author Keil, Vladislav
  * @author  Loeschner, Marijan
  */
-public class WorldOfGoo extends Event {
+public class WorldOfGooEvent extends Event {
     private Player player;
     private Scanner scanner = new Scanner(System.in);
     private Random rand = new Random();
 
 
-    public WorldOfGoo(Player player) {
+    public WorldOfGooEvent(Player player) {
         super("  You fall into a puddle.\n" +
                 "\tIT'S MADE OF SLIME GOO!!\n" +
                 "\tFrantically, you claw yourself out over several minutes as you feel the goo starting to burn.\n" +
@@ -26,6 +27,7 @@ public class WorldOfGoo extends Event {
                 "\tClimbing out, you notice that some of your gold is missing.\n " +
                 "\tLooking back to the puddle you see your missing coins combined with gold \n" +
                 "\tfrom unfortunate adventurers mixed together in the puddle.", "World of Goo");
+        setImagePath(new PathAssistent().toPath(this));
         this.player = player;
     }
 

@@ -1,6 +1,7 @@
-package models.events.actone;
+package models.events.act_one;
 
 import helper.ConsoleAssistent;
+import helper.PathAssistent;
 import models.cards.card_structure.Card;
 import models.events.Event;
 import models.player.player_structure.Player;
@@ -13,14 +14,15 @@ import java.util.Scanner;
  * @author Keil, Vladislav
  * @author  Loeschner, Marijan
  */
-public class TheCleric extends Event {
+public class TheClericEvent extends Event {
     private Player player;
     private Scanner scanner = new Scanner(System.in);
 
-    public TheCleric(Player player) {
+    public TheClericEvent(Player player) {
         super("  A strange blue humanoid with a golden helm(?) approaches you with a huge smile.\n" +
                 "\t\"Hello friend! I am Cleric! Are you interested in my services?!\" \n" +
                 "\tthe creature shouts, loudly.", "The Cleric");
+        setImagePath(new PathAssistent().toPath(this));
         this.player = player;
     }
 

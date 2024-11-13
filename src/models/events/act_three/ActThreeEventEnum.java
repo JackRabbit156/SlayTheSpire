@@ -1,6 +1,6 @@
-package models.events.acttwo;
+package models.events.act_three;
 
-public enum ActTwoEventEnum {
+public enum ActThreeEventEnum {
     // General
     NoteForYourself,
     BonfireSpirits,
