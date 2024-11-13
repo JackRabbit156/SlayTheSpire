@@ -1,6 +1,7 @@
-package models.events.actone;
+package models.events.act_one;
 
 import helper.ConsoleAssistent;
+import helper.PathAssistent;
 import models.events.Event;
 import models.player.player_structure.Player;
 import view.cli.EventView;
@@ -11,16 +12,17 @@ import java.util.Scanner;
  * @author Keil, Vladislav
  * @author  Loeschner, Marijan
  */
-public class ScrapOoze extends Event {
+public class ScrapOozeEvent extends Event {
     private Player player;
     private Scanner scanner = new Scanner(System.in);
 
-    public ScrapOoze(Player player) {
+    public ScrapOozeEvent(Player player) {
         super("  As you walk into the room you hear a gurgling and the grinding of metals. \n" +
                 "\tBefore you is a slime-like creature that ate too much scrap for its own good. \n" +
                 "\tFrom the center of the creature you see glints of strange light, perhaps something magical? \n" +
                 "\tIt looks like you can get some treasure if you just reach inside its... opening. \n" +
                 "\tHowever, the acid and sharp objects may hurt.", "Scrap Ooze");
+        setImagePath(new PathAssistent().toPath(this));
         this.player = player;
     }
 

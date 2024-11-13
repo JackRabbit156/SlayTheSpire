@@ -1,6 +1,7 @@
 package models.events.generelevents;
 
 import helper.ConsoleAssistent;
+import helper.PathAssistent;
 import models.cards.card_structure.Card;
 import models.events.Event;
 import models.player.player_structure.Player;
@@ -13,14 +14,15 @@ import java.util.Scanner;
  * @author Keil, Vladislav
  * @author Loeschner, marijan
  */
-public class BonfireSpirits extends Event {
+public class BonfireSpiritsEvent extends Event {
     private Player player;
     private Scanner scanner = new Scanner(System.in);
 
-    public BonfireSpirits(Player player) {
+    public BonfireSpiritsEvent(Player player) {
         super("  You happen to stumble upon a group of what looks like purple fire spirits dancing around a large bonfire.\n" +
                 "\tThe spirits toss small bones and fragments into the fire, which brilliantly erupts each time. " +
                 "\n\tAs you approach, the spirits all turn to you, expectantly...", "BonfireSpirits");
+        setImagePath(new PathAssistent().toPath(this));
 
         this.player = player;
     }

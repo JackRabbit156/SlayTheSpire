@@ -8,11 +8,11 @@ import models.enemy.act_one.bosses.SlimeBoss;
 import models.enemy.act_one.elites.GremlinNobElite;
 import models.enemy.act_one.elites.LagavulinElite;
 import models.events.Event;
-import models.events.actone.*;
-import models.events.generelevents.BonfireSpirits;
-import models.events.generelevents.Duplicator;
-import models.events.generelevents.GoldenShrine;
-import models.events.generelevents.NoteForYourself;
+import models.events.act_one.*;
+import models.events.generelevents.BonfireSpiritsEvent;
+import models.events.generelevents.DuplicatorEvent;
+import models.events.generelevents.GoldenShrineEvent;
+import models.events.generelevents.NoteForYourselfEvent;
 import models.map_elements.Coordinates;
 import models.map_elements.Node;
 import models.map_elements.field_types.*;
@@ -228,25 +228,25 @@ public class ActOne extends Act {
         ActOneEventEnum event = events[randi.nextInt(events.length)];
         switch (event) {
             case BigFish:
-                return new BigFish(this.player);
+                return new BigFishEvent(this.player);
             case BonfireSpirits:
-                return new BonfireSpirits(this.player);
+                return new BonfireSpiritsEvent(this.player);
             case DeadAdventurer:
-                return new DeadAdventurer(this.player);
+                return new DeadAdventurerEvent(this.player);
             case Duplicator:
-                return new Duplicator(this.player);
+                return new DuplicatorEvent(this.player);
             case NoteForYourself:
-                return new NoteForYourself(this.player);
+                return new NoteForYourselfEvent(this.player);
             case ScrapOoze:
-                return new ScrapOoze(this.player);
+                return new ScrapOozeEvent(this.player);
             case TheCleric:
-                return new TheCleric(this.player);
+                return new TheClericEvent(this.player);
             case TheSsssserpent:
-                return new TheSssssserpent(this.player);
+                return new TheSssssserpentEvent(this.player);
             case WorldofGoo:
-                return new WorldOfGoo(this.player);
+                return new WorldOfGooEvent(this.player);
             default:
-                return new GoldenShrine(this.player);
+                return new GoldenShrineEvent(this.player);
         }
     }
 

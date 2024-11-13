@@ -1,11 +1,11 @@
 package tests;
 
 import models.events.Event;
-import models.events.actone.*;
-import models.events.generelevents.BonfireSpirits;
-import models.events.generelevents.Duplicator;
-import models.events.generelevents.GoldenShrine;
-import models.events.generelevents.NoteForYourself;
+import models.events.act_one.*;
+import models.events.generelevents.BonfireSpiritsEvent;
+import models.events.generelevents.DuplicatorEvent;
+import models.events.generelevents.GoldenShrineEvent;
+import models.events.generelevents.NoteForYourselfEvent;
 import models.map_elements.field_types.EventField;
 import models.player.player_structure.Player;
 
@@ -18,7 +18,7 @@ public class EventViewControllerTester {
 
         Event randEvent = tester.randomEvent(player);
 //        EventField event = new EventField(randEvent);
-        EventField event = new EventField(new BigFish(player));
+        EventField event = new EventField(new BigFishEvent(player));
 
         event.doFieldThing(player);
 
@@ -32,25 +32,25 @@ public class EventViewControllerTester {
         ActOneEventEnum event = events[randi.nextInt(events.length)];
         switch (event) {
             case BigFish:
-                return new BigFish(player);
+                return new BigFishEvent(player);
             case BonfireSpirits:
-                return new BonfireSpirits(player);
+                return new BonfireSpiritsEvent(player);
             case DeadAdventurer:
-                return new DeadAdventurer(player);
+                return new DeadAdventurerEvent(player);
             case Duplicator:
-                return new Duplicator(player);
+                return new DuplicatorEvent(player);
             case NoteForYourself:
-                return new NoteForYourself(player);
+                return new NoteForYourselfEvent(player);
             case ScrapOoze:
-                return new ScrapOoze(player);
+                return new ScrapOozeEvent(player);
             case TheCleric:
-                return new TheCleric(player);
+                return new TheClericEvent(player);
             case TheSsssserpent:
-                return new TheSssssserpent(player);
+                return new TheSssssserpentEvent(player);
             case WorldofGoo:
-                return new WorldOfGoo(player);
+                return new WorldOfGooEvent(player);
             default:
-                return new GoldenShrine(player);
+                return new GoldenShrineEvent(player);
         }
     }
 

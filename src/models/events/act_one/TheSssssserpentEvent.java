@@ -1,6 +1,7 @@
-package models.events.actone;
+package models.events.act_one;
 
 import helper.ConsoleAssistent;
+import helper.PathAssistent;
 import models.events.Event;
 import models.player.player_structure.Player;
 import view.cli.EventView;
@@ -11,13 +12,14 @@ import java.util.Scanner;
  * @author Keil, Vladislav
  * @author  Loeschner, Marijan
  */
-public class TheSssssserpent extends Event {
+public class TheSssssserpentEvent extends Event {
     private Player player;
     private Scanner scanner = new Scanner(System.in);
 
-    public TheSssssserpent(Player player) {
+    public TheSssssserpentEvent(Player player) {
         super("  You walk into a room to find a large hole in the ground. " +
                 "\n\tAs you approach the hole, an enormous serpent creature appears from within.", "The Sssssserpent");
+        setImagePath(new PathAssistent().toPath(this));
         this.player = player;
     }
 

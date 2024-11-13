@@ -1,4 +1,4 @@
-package models.events.actone;
+package models.events.act_one;
 
 public enum ActOneEventEnum {
     // General

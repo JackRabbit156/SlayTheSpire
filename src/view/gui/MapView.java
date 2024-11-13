@@ -35,7 +35,7 @@ public class MapView extends BorderPane {
         this.mapViewEvents = mapViewEvents;
         this.player = player;
 
-        setStyle("-fx-background-color: #969286;");
+        setStyle("-fx-background-color: #9a9990;");
         //setBackground(new Background(background()));
         map = new MapLayout(this, nodes, mapWidth, mapHeight);
 

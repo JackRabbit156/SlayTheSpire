@@ -1,6 +1,7 @@
 package models.events.generelevents;
 
 import helper.ConsoleAssistent;
+import helper.PathAssistent;
 import models.cards.card_structure.Card;
 import models.events.Event;
 import models.player.player_structure.Player;
@@ -14,12 +15,13 @@ import java.util.Scanner;
  * @author Keil, Vladislav
  * @author Loeschner, Marijan
  */
-public class Duplicator extends Event {
+public class DuplicatorEvent extends Event {
     private Player player;
     private Scanner scanner = new Scanner(System.in);
 
-    public Duplicator(Player player) {
+    public DuplicatorEvent(Player player) {
         super("  Before you lies a decorated altar to some ancient entity.", "Duplicator");
+        setImagePath(new PathAssistent().toPath(this));
 
         this.player = player;
     }

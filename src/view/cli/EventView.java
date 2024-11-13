@@ -1,7 +1,6 @@
 package view.cli;
 
 import helper.ConsoleAssistent;
-import models.events.actone.WorldOfGoo;
 import models.player.player_structure.Player;
 
 import java.util.List;

@@ -1,6 +1,7 @@
 package models.events.generelevents;
 
 import helper.ConsoleAssistent;
+import helper.PathAssistent;
 import models.cards.card_structure.Card;
 import models.events.Event;
 import models.player.player_structure.Player;
@@ -15,15 +16,16 @@ import java.util.Scanner;
  * @author Keil, Vladislav
  * @author Loeschner, Marijan
  */
-public class NoteForYourself extends Event {
+public class NoteForYourselfEvent extends Event {
     private Player player;
     private Random randi = new Random();
     private Scanner scanner = new Scanner(System.in);
 
-    public NoteForYourself(Player player) {
+    public NoteForYourselfEvent(Player player) {
         super("  You spot a loose brick within a pillar that catches your eye.\n" +
                 "\tYou find a folded note and a card inside. It reads \"The Heart awaits.\" \n" +
                 "\tThis is your handwriting.\n", "Note For Yourself");
+        setImagePath(new PathAssistent().toPath(this));
         this.player = player;
     }
 

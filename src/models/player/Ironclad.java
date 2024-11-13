@@ -23,6 +23,7 @@ public class Ironclad extends Player {
     // * Constructor *
     public Ironclad() {
         super("Ironclad", 80, 3, PlayerType.IRONCLAD,"⚒");
+
         initRelic();
         initDeck();
     }

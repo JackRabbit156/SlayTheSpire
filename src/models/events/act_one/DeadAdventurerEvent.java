@@ -1,6 +1,7 @@
-package models.events.actone;
+package models.events.act_one;
 
 import helper.ConsoleAssistent;
+import helper.PathAssistent;
 import models.events.Event;
 import models.player.player_structure.Player;
 import view.cli.EventView;
@@ -12,15 +13,16 @@ import java.util.Scanner;
  * @author Keil, Vladislav
  * @author  Loeschner, Marijan
  */
-public class DeadAdventurer extends Event {
+public class DeadAdventurerEvent extends Event {
     private Player player;
     private Scanner scanner = new Scanner(System.in);
     private Random rand = new Random();
 
-    public DeadAdventurer(Player player) {
+    public DeadAdventurerEvent(Player player) {
         super("  You come across a dead adventurer on the floor.\n" +
                 "\tHis pants have been stolen! Also, it looks as though he's been gouged and trampled by a horned beast. \n" +
                 "\tThough his possessions are still intact, you're in no mind to find out what happened here...", "Dead Adventurer");
+        setImagePath(new PathAssistent().toPath(this));
         this.player = player;
     }
 
