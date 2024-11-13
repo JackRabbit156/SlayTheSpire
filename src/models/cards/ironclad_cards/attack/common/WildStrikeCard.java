@@ -23,14 +23,12 @@ public class WildStrikeCard extends AttackCard {
     public WildStrikeCard() {
         super("Wild Strike", "Deal 12 damage. Shuffle a Wound into your draw pile.", 1, 12, CardRarity.COMMON, CardGrave.DISCARD);
         setImagePath(new PathAssistent().toPath(this));
+        targetIsRequired();
     }
 
     @Override
     public void play(GameContext gameContext) {
-        System.out.print("Choose an enemy to target: ");
-        int targetIndex = ConsoleAssistent.scannerAutoAim(gameContext.getEnemies().size());
-
-        Enemy enemy = gameContext.getEnemies().get(targetIndex);
+        Enemy enemy = gameContext.getSelectedEnemy();
         enemy.takeDamage(dealDamage());
 
         Player player = gameContext.getPlayer();
@@ -38,6 +36,7 @@ public class WildStrikeCard extends AttackCard {
 // TODO - Sobald Wound existiert einfügen
 //        Wound wound = new Wound();
 //        player.getDeck().add(wound);
+//        o.ä.
     }
 
     @Override

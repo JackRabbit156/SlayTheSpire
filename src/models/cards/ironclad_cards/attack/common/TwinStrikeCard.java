@@ -23,14 +23,12 @@ public class TwinStrikeCard extends AttackCard {
     public TwinStrikeCard() {
         super("Twin Strike", "Deal 5 damage twice.", 1, 5, CardRarity.COMMON, CardGrave.DISCARD);
         setImagePath(new PathAssistent().toPath(this));
+        targetIsRequired();
     }
 
     @Override
     public void play(GameContext gameContext) {
-        System.out.print("Choose an enemy to target: ");
-        int targetIndex = ConsoleAssistent.scannerAutoAim(gameContext.getEnemies().size());
-
-        Enemy enemy = gameContext.getEnemies().get(targetIndex);
+        Enemy enemy = gameContext.getSelectedEnemy();
         for (int i = 0; i < 2; i++) {
             enemy.takeDamage(dealDamage());
         }
