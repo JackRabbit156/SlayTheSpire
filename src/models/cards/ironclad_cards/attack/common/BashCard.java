@@ -20,14 +20,12 @@ public class BashCard extends AttackCard {
     public BashCard() {
         super("Bash", "Deal 2 Damage. Apply 2 Vulnerable.", 2, 8, CardRarity.COMMON, CardGrave.DISCARD);
         setImagePath(new PathAssistent().toPath(this));
+        targetIsRequired();
     }
 
     @Override
     public void play(GameContext gameContext) {
-        System.out.print("Choose an enemy to target: ");
-        int targetIndex = ConsoleAssistent.scannerAutoAim(gameContext.getEnemies().size());
-
-        Enemy enemy = gameContext.getEnemies().get(targetIndex);
+        Enemy enemy = gameContext.getSelectedEnemy();
         enemy.takeDamage(dealDamage());
 
         Player player = gameContext.getPlayer();

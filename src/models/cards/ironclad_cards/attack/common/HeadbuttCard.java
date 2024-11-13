@@ -26,15 +26,12 @@ public class HeadbuttCard extends AttackCard {
     public HeadbuttCard() {
         super("Headbutt", "Deal 9 damage. Put a card from your discard pile on top of your draw pile.", 1, 9, CardRarity.COMMON, CardGrave.DISCARD);
         setImagePath(new PathAssistent().toPath(this));
+        targetIsRequired();
     }
 
     @Override
     public void play(GameContext gameContext) {
-
-        System.out.print("Choose an enemy to target: ");
-        int targetIndex = ConsoleAssistent.scannerAutoAim(gameContext.getEnemies().size());
-
-        Enemy enemy = gameContext.getEnemies().get(targetIndex);
+        Enemy enemy = gameContext.getSelectedEnemy();
         enemy.takeDamage(dealDamage());
 
         BattleDeck battleDeck = gameContext.getBattleDeck();

@@ -3,12 +3,11 @@ package models.cards.ironclad_cards.attack.common;
 import helper.ConsoleAssistent;
 import helper.PathAssistent;
 import models.GameContext;
-import models.cards.card_structure.AttackCard;
-import models.cards.card_structure.CardGrave;
-import models.cards.card_structure.CardRarity;
+import models.cards.card_structure.*;
 import models.enemy.Enemy;
 import models.player.player_structure.Player;
 
+import java.util.List;
 import java.util.Scanner;
 
 /**
@@ -22,22 +21,16 @@ public class ClashCard extends AttackCard {
     public ClashCard() {
         super("Clash", "Can only be played if every card in your hand is an Attack. Deal 14 damage.", 0, 14, CardRarity.COMMON, CardGrave.DISCARD);
         setImagePath(new PathAssistent().toPath(this));
+        targetIsRequired();
     }
 
     @Override
     public void play(GameContext gameContext) {
-
-        //TODO if Hand contains only AttackCards, do everything, else can't play.
-
-        System.out.print("Choose an enemy to target: ");
-
-        int targetIndex = ConsoleAssistent.scannerAutoAim(gameContext.getEnemies().size());
-        Enemy enemy = gameContext.getEnemies().get(targetIndex);
-        Player player = gameContext.getPlayer();
-
-
+        Enemy enemy = gameContext.getSelectedEnemy();
         enemy.takeDamage(dealDamage());
 
+
+        Player player = gameContext.getPlayer();
         player.decreaseCurrentEnergy(getCost());
     }
 

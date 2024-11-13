@@ -22,14 +22,12 @@ public class ClotheslineCard extends AttackCard {
     public ClotheslineCard() {
         super("Clothesline", "Deal 12 damage. Apply 2 Icon Weak Weak.", 2, 12, CardRarity.COMMON, CardGrave.DISCARD);
         setImagePath(new PathAssistent().toPath(this));
+        targetIsRequired();
     }
 
     @Override
     public void play(GameContext gameContext) {
-        System.out.print("Choose an enemy to target: ");
-        int targetIndex = ConsoleAssistent.scannerAutoAim(gameContext.getEnemies().size());
-
-        Enemy enemy = gameContext.getEnemies().get(targetIndex);
+        Enemy enemy = gameContext.getSelectedEnemy();
         enemy.takeDamage(dealDamage());
 
         Player player = gameContext.getPlayer();

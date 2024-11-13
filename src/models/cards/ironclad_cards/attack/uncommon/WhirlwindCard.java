@@ -9,6 +9,7 @@ import models.cards.card_structure.CardRarity;
 import models.enemy.Enemy;
 import models.player.player_structure.Player;
 
+import java.util.List;
 import java.util.Scanner;
 
 /**
@@ -27,26 +28,16 @@ public class WhirlwindCard extends AttackCard {
 
     @Override
     public void play(GameContext gameContext) {
+        List<Enemy> enemies = gameContext.getEnemies();
         Player player = gameContext.getPlayer();
 
-        int times;
-        do {
-            System.out.print("Choose X: ");
-            times = new Scanner(System.in).nextInt();
-
-        } while (times > player.getCurrentEnergy() || times < 1);
-
-
-        System.out.print("Choose an enemy to target: ");
-        int targetIndex = ConsoleAssistent.scannerAutoAim(gameContext.getEnemies().size());
-
-        Enemy enemy = gameContext.getEnemies().get(targetIndex);
-        for (int i = 0; i < times; i++) {
-            enemy.takeDamage(dealDamage());
+        for (int i = 0; i < player.getCurrentEnergy(); i++) {
+            for (Enemy enemy : enemies) {
+                enemy.takeDamage(dealDamage());
+            }
         }
 
-
-        player.decreaseCurrentEnergy(getCost() * times);
+        player.decreaseCurrentEnergy(player.getCurrentEnergy());
     }
 
     @Override

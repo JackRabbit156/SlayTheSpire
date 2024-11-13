@@ -8,6 +8,8 @@ import models.GameContext;
 
 import models.cards.card_structure.Card;
 import models.cards.card_structure.CardGrave;
+import models.cards.card_structure.CardType;
+import models.cards.ironclad_cards.attack.common.ClashCard;
 import models.enemy.Enemy;
 import models.player.player_structure.Player;
 
@@ -135,6 +137,16 @@ public class BattleController implements BatteViewEvents {
         if(selectedCard.getCost() > player.getCurrentEnergy()){
             System.out.println("\nNot enough Energy!");
             return;
+        }
+
+        if (selectedCard.getName().equals("Clash")) {
+            List<Card> hand = gameContext.getBattleDeck().getHand();
+            for (Card card : hand) {
+                if (!card.getCardType().equals(CardType.ATTACK)) {
+                    System.out.println("\nOnly playable if only Attack-Cards in Hand");
+                    return;
+                }
+            }
         }
 
         // Play the card (and add the enemy)

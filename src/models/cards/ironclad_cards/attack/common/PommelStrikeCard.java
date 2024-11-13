@@ -24,21 +24,19 @@ public class PommelStrikeCard extends AttackCard {
     public PommelStrikeCard() {
         super("Pommel Strike", "Deal 9 damage. Draw 1 card.", 1, 9, CardRarity.COMMON, CardGrave.DISCARD);
         setImagePath(new PathAssistent().toPath(this));
+        targetIsRequired();
     }
 
     @Override
     public void play(GameContext gameContext) {
-        System.out.print("Choose an enemy to target: ");
-        int targetIndex = ConsoleAssistent.scannerAutoAim(gameContext.getEnemies().size());
-
-        Enemy enemy = gameContext.getEnemies().get(targetIndex);
+        Enemy enemy = gameContext.getSelectedEnemy();
         enemy.takeDamage(dealDamage());
-
-        Player player = gameContext.getPlayer();
-        player.decreaseCurrentEnergy(getCost());
 
         BattleDeck battleDeck = gameContext.getBattleDeck();
         battleDeck.drawCard(1);
+
+        Player player = gameContext.getPlayer();
+        player.decreaseCurrentEnergy(getCost());
     }
 
     @Override

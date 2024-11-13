@@ -26,15 +26,12 @@ public class PerfectedStrikeCard extends AttackCard {
     public PerfectedStrikeCard() {
         super("Perfected Strike", "Deal 6 damage. Deals 2 additional damage for ALL your cards containing \"Strike\".", 2, 6, CardRarity.COMMON, CardGrave.DISCARD);
         setImagePath(new PathAssistent().toPath(this));
+        targetIsRequired();
     }
 
     @Override
     public void play(GameContext gameContext) {
-        System.out.print("Choose an enemy to target: ");
-        int targetIndex = ConsoleAssistent.scannerAutoAim(gameContext.getEnemies().size());
-
         Player player = gameContext.getPlayer();
-        player.decreaseCurrentEnergy(getCost());
 
         PerfectedStrikeCard perfectedStrikeCard = new PerfectedStrikeCard();
         PommelStrikeCard pommelStrikeCard = new PommelStrikeCard();
@@ -52,9 +49,10 @@ public class PerfectedStrikeCard extends AttackCard {
             }
         }
 
-        Enemy enemy = gameContext.getEnemies().get(targetIndex);
+        Enemy enemy = gameContext.getSelectedEnemy();
         enemy.takeDamage(dealDamage() + bonusDmg);
 
+        player.decreaseCurrentEnergy(getCost());
     }
 
     @Override

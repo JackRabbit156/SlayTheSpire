@@ -23,19 +23,17 @@ public class IronWaveCard extends AttackCard {
     public IronWaveCard() {
         super("Iron Wave", "Gain 5 Icon Block Block. Deal 5 damage.", 1, 5, CardRarity.COMMON, CardGrave.DISCARD);
         setImagePath(new PathAssistent().toPath(this));
+        targetIsRequired();
     }
 
     @Override
     public void play(GameContext gameContext) {
-        System.out.print("Choose an enemy to target: ");
-        int targetIndex = ConsoleAssistent.scannerAutoAim(gameContext.getEnemies().size());
-
-        Enemy enemy = gameContext.getEnemies().get(targetIndex);
+        Enemy enemy = gameContext.getSelectedEnemy();
         enemy.takeDamage(dealDamage());
 
         Player player = gameContext.getPlayer();
-        player.decreaseCurrentEnergy(getCost());
         player.increaseBlock(5);
+        player.decreaseCurrentEnergy(getCost());
     }
 
     @Override

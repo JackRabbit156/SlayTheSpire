@@ -21,7 +21,6 @@ public class StrikeCard extends AttackCard {
 
     @Override
     public void play(GameContext gameContext) {
-
         Enemy enemy = gameContext.getSelectedEnemy();
         enemy.takeDamage(dealDamage());
 
