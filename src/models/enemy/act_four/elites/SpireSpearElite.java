@@ -1,5 +1,6 @@
-package models.enemy.act_one.elites;
+package models.enemy.act_four.elites;
 
+import helper.PathAssistent;
 import models.GameContext;
 import models.enemy.Enemy;
 import models.player.player_structure.Player;
@@ -7,14 +8,19 @@ import models.player.player_structure.Player;
 /**
  * @author Keil, Vladislav
  */
-public class Lagavulin extends Enemy {
-    public Lagavulin() {
-        super("Lagavulin", 109, 111);
+public class SpireSpearElite extends Enemy {
+    public SpireSpearElite() {
+        super("Spire Spear",160, 160);
+        setImagePath(new PathAssistent().toPath(this));
     }
 
     @Override
     public void attack(GameContext gameContext) {
-        int attackDamage = 18;
+        attackSkewer(gameContext);
+    }
+
+    private void attackSkewer(GameContext gameContext){
+        int attackDamage = 30;
         Player player = gameContext.getPlayer();
 
         player.decreaseCurrentHealth(attackDamage, false);

@@ -60,11 +60,11 @@ public class BattleController implements BattleViewEvents {
         refreshHand();
     }
     private void playerTurn(Card card, int index) {
-        //card.play(gameContext); // Hier ist das Problem
+//        card.play(gameContext); // Hier ist das Problem
 
         if(card.isTargetRequired()){
             battleView.selectEnemyView();
-            System.out.println("We are here!");
+            System.out.println("playerTurn()");
             selectedCard = card;
         }
     }

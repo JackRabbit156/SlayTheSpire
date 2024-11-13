@@ -1,25 +1,26 @@
-package models.enemy.act_four;
+package models.enemy.act_four.elites;
 
+import helper.PathAssistent;
 import models.GameContext;
 import models.enemy.Enemy;
 import models.player.player_structure.Player;
 
-
 /**
  * @author Keil, Vladislav
  */
-public class Shapes extends Enemy {
-    public Shapes() {
-        super("Shapes",42, 56);
+public class SpireShieldElite extends Enemy {
+    public SpireShieldElite() {
+        super("Spire Shield",160, 160);
+        setImagePath(new PathAssistent().toPath(this));
     }
 
     @Override
     public void attack(GameContext gameContext) {
-        attackCut(gameContext);
+        attackSmash(gameContext);
     }
 
-    private void attackCut(GameContext gameContext){
-        int attackDamage = 7;
+    private void attackSmash(GameContext gameContext){
+        int attackDamage = 34;
         Player player = gameContext.getPlayer();
 
         player.decreaseCurrentHealth(attackDamage, false);

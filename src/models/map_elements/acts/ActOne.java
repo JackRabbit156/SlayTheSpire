@@ -1,15 +1,12 @@
 package models.map_elements.acts;
 
 import models.enemy.Enemy;
-import models.enemy.act_four.Shapes;
-import models.enemy.act_four.elites.SpireShield;
-import models.enemy.act_four.elites.SpireSpear;
-import models.enemy.act_one.AcidSlime;
-import models.enemy.act_one.Cultist;
-import models.enemy.act_one.MadGremlin;
+import models.enemy.act_one.AcidSlimeEnemy;
+import models.enemy.act_one.CultistEnemy;
+import models.enemy.act_one.MadGremlinEnemy;
 import models.enemy.act_one.bosses.SlimeBoss;
-import models.enemy.act_one.elites.GremlinNob;
-import models.enemy.act_one.elites.Lagavulin;
+import models.enemy.act_one.elites.GremlinNobElite;
+import models.enemy.act_one.elites.LagavulinElite;
 import models.events.Event;
 import models.events.actone.*;
 import models.events.generelevents.BonfireSpirits;
@@ -135,9 +132,9 @@ public class ActOne extends Act {
         for(int i = 0; i< numberOfEnemies; i++){
             int randomNumber = randi.nextInt(possibleEnemies.length);
             switch (randomNumber){
-                case 0: enemies.add(new AcidSlime()); break;
-                case 1: enemies.add(new Cultist()); break;
-                case 2: enemies.add(new MadGremlin()); break;
+                case 0: enemies.add(new AcidSlimeEnemy()); break;
+                case 1: enemies.add(new CultistEnemy()); break;
+                case 2: enemies.add(new MadGremlinEnemy()); break;
                 default:
                     System.out.println("Weird..."); break;
             }
@@ -185,12 +182,12 @@ public class ActOne extends Act {
         switch (randElite) {
             case 0:
                 // 1 - Gremlin Nob
-                enemies.add(new GremlinNob());
+                enemies.add(new GremlinNobElite());
                 type = "Goblin";
                 break;
             default:
                 // 2 - Lagavulin
-                enemies.add(new Lagavulin());
+                enemies.add(new LagavulinElite());
                 type = "Lagavulin";
                 break;
         }
@@ -203,15 +200,15 @@ public class ActOne extends Act {
     private Enemy createEnemiesOfType(String type) {
         switch (type) {
             case "Hexa":
-                return new MadGremlin();
+                return new MadGremlinEnemy();
             case "Guardian":
-                return new Cultist();
+                return new CultistEnemy();
             case "Lagavulin":
-                return new Cultist();
+                return new CultistEnemy();
             case "Goblin":
-                return new MadGremlin();
+                return new MadGremlinEnemy();
             default: // "Slime"
-                return new AcidSlime();
+                return new AcidSlimeEnemy();
         }
     }
 

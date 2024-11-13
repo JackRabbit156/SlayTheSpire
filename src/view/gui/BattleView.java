@@ -103,7 +103,7 @@ public class BattleView extends BorderPane {
 
         for(int i = 0; i< enemies.size(); i++){
             Enemy enemy = enemies.get(i);
-            enemy.setImagePath("/images/Cultist.png");
+            enemy.setImagePath("/images/enemy/act_one/CultistEnemy.png");
             rightVBox.getChildren().add(new EnemyLayout(enemy, this));
         }
 

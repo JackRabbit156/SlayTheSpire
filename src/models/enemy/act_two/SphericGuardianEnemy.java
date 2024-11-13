@@ -1,5 +1,6 @@
 package models.enemy.act_two;
 
+import helper.PathAssistent;
 import models.GameContext;
 import models.enemy.Enemy;
 import models.player.player_structure.Player;
@@ -13,9 +14,10 @@ import java.util.Random;
  *
  * @author Warawa Alexander
  */
-public class SphericGuardian extends Enemy {
-    public SphericGuardian() {
+public class SphericGuardianEnemy extends Enemy {
+    public SphericGuardianEnemy() {
         super("Spheric Guardian", 20, 20);
+        setImagePath(new PathAssistent().toPath(this));
         setBlock(40);
     }
 

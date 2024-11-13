@@ -18,7 +18,7 @@ public class PlayerLayout extends VBox {
     public PlayerLayout(Player player){
         this.player = player;
 
-        this.imagePath = "/images/Ironclad2.png";
+        this.imagePath = "/images/Ironclad.png";
         this.getChildren().add(image());
         healthBar = new HealthBarLayout(100);
         this.getChildren().add(healthBar);

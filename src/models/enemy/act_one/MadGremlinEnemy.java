@@ -1,5 +1,6 @@
 package models.enemy.act_one;
 
+import helper.PathAssistent;
 import models.GameContext;
 import models.enemy.Enemy;
 import models.player.player_structure.Player;
@@ -11,9 +12,10 @@ import models.player.player_structure.Player;
  *
  * @author Warawa Alexander
  */
-public class MadGremlin extends Enemy {
-    public MadGremlin() {
+public class MadGremlinEnemy extends Enemy {
+    public MadGremlinEnemy() {
         super("Mad Gremlin", 20, 24);
+        setImagePath(new PathAssistent().toPath(this));
     }
 
 
