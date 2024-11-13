@@ -1,11 +1,11 @@
 package tests;
 
 import controller.cli.RestViewController;
-import models.player.Ironclad;
+import models.player.IroncladPlayer;
 
 public class RestSiteViewTester {
     public static void main(String[] args) {
-        Ironclad player = new Ironclad();
+        IroncladPlayer player = new IroncladPlayer();
 
         RestViewController rest = new RestViewController(player);
 

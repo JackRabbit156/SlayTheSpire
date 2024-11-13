@@ -8,8 +8,8 @@ import models.game_settings.GameSettings;
 import models.game_settings.structure.DifficultyLevel;
 import models.load_save_game_elements.GameSaveManager;
 import models.load_save_game_elements.SaveFilePreview;
-import models.player.Ironclad;
-import models.player.Silent;
+import models.player.IroncladPlayer;
+import models.player.SilentPlayer;
 import models.player.player_structure.Player;
 import view.cli.menus.LoadMenuView;
 
@@ -145,8 +145,8 @@ public class LoadMenuViewController {
 
         String playerTypeAsString = gameData.get("character");
         switch (playerTypeAsString){
-            case "IRONCLAD": player = new Ironclad(); break;
-            case "SILENT": player = new Silent(); break;
+            case "IRONCLAD": player = new IroncladPlayer(); break;
+            case "SILENT": player = new SilentPlayer(); break;
             default:
                 System.out.println("Weird...");return;
         }
