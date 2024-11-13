@@ -1,4 +1,4 @@
-package models.relics.relic_structure;
+package models.relic.relic_structure;
 
 import models.GameContext;
 
@@ -22,6 +22,8 @@ public abstract class Relic {
      * Die Seltenheit.
      */
     private final RelicType rarity;
+
+    private String imagePath;
 
 
     /**
@@ -73,6 +75,14 @@ public abstract class Relic {
      */
     public String getDescription() {
         return description;
+    }
+
+    public String getImagePath() {
+        return imagePath;
+    }
+
+    public void setImagePath(String imagePath) {
+        this.imagePath = imagePath;
     }
 
     // * toString *

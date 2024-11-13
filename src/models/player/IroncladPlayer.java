@@ -7,8 +7,8 @@ import models.card.general_cards.StrikeCard;
 import models.card.ironclad_cards.attack.common.BashCard;
 import models.player.player_structure.Player;
 import models.player.player_structure.PlayerType;
-import models.relics.BurningBloodRelic;
-import models.relics.relic_structure.Relic;
+import models.relic.BurningBloodRelic;
+import models.relic.relic_structure.Relic;
 
 import java.util.ArrayList;
 import java.util.List;

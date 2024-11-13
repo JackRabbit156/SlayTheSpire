@@ -1,4 +1,4 @@
-package models.relics.relic_structure;
+package models.relic.relic_structure;
 
 import models.player.player_structure.PlayerType;
 

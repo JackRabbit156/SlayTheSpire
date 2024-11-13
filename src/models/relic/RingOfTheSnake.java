@@ -1,9 +1,10 @@
-package models.relics;
+package models.relic;
 
+import helper.PathAssistent;
 import models.GameContext;
 import models.player.player_structure.PlayerType;
-import models.relics.relic_structure.PlayerTypeRelic;
-import models.relics.relic_structure.RelicType;
+import models.relic.relic_structure.PlayerTypeRelic;
+import models.relic.relic_structure.RelicType;
 
 /**
  * The type Ring of the snake.
@@ -18,6 +19,7 @@ public class RingOfTheSnake extends PlayerTypeRelic {
 // * Constructor *
     public RingOfTheSnake() {
         super("Ring of the Snake", "At the start of each combat, draw 2 additional cards.", RelicType.STARTER, PlayerType.SILENT);
+        setImagePath(new PathAssistent().toPath(this));
     }
 
     // * Methods *

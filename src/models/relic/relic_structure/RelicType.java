@@ -1,4 +1,4 @@
-package models.relics.relic_structure;
+package models.relic.relic_structure;
 
 /**
  * The enum Relic type.

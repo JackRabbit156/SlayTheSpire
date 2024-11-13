@@ -6,7 +6,7 @@ import javafx.stage.Stage;
 import listener.PlayerEventListener;
 import models.card.card_structure.Card;
 import models.game_settings.GameSettings;
-import models.relics.relic_structure.Relic;
+import models.relic.relic_structure.Relic;
 
 import java.util.List;
 
