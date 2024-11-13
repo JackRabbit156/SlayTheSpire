@@ -3,7 +3,7 @@ package view.gui;
 import javafx.geometry.Pos;
 import javafx.scene.image.Image;
 import javafx.scene.layout.*;
-import models.cards.card_structure.Card;
+import models.card.card_structure.Card;
 import models.enemy.Enemy;
 import models.player.player_structure.Player;
 import view.gui.layouts.battle_view_layouts.CardLayout;

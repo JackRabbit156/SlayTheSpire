@@ -2,9 +2,9 @@ package view.cli;
 
 import helper.Color;
 import helper.ConsoleAssistent;
-import models.cards.card_structure.Card;
-import models.cards.card_structure.CardRarity;
-import models.cards.card_structure.CardType;
+import models.card.card_structure.Card;
+import models.card.card_structure.CardRarity;
+import models.card.card_structure.CardType;
 import models.enemy.Enemy;
 import models.player.player_structure.Player;
 

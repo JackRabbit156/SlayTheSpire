@@ -6,9 +6,9 @@ import javafx.stage.Stage;
 import models.BattleDeck;
 import models.GameContext;
 
-import models.cards.card_structure.Card;
-import models.cards.card_structure.CardGrave;
-import models.cards.card_structure.CardType;
+import models.card.card_structure.Card;
+import models.card.card_structure.CardGrave;
+import models.card.card_structure.CardType;
 import models.enemy.Enemy;
 import models.player.player_structure.Player;
 

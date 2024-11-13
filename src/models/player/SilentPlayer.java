@@ -2,11 +2,11 @@ package models.player;
 
 
 import helper.PathAssistent;
-import models.cards.card_structure.Card;
-import models.cards.general_cards.DefendCard;
-import models.cards.general_cards.StrikeCard;
-import models.cards.silent_cards.NeutralizeCard;
-import models.cards.silent_cards.SurvivorCard;
+import models.card.card_structure.Card;
+import models.card.general_cards.DefendCard;
+import models.card.general_cards.StrikeCard;
+import models.card.silent_cards.NeutralizeCard;
+import models.card.silent_cards.SurvivorCard;
 import models.player.player_structure.Player;
 import models.player.player_structure.PlayerType;
 import models.relics.RingOfTheSnake;
