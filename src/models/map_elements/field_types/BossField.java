@@ -12,7 +12,7 @@ import java.util.List;
  * @author Keil, Vladislav
  */
 public class BossField extends Field{
-    private static final String imagePath = "/images/map/elite.png";
+    private static final String imagePath = "/images/map_elements/field_types/BossField.png";
 
     private LootViewController lootViewController;
     private List<Enemy> enemies;

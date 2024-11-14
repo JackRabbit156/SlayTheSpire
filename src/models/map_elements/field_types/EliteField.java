@@ -8,7 +8,7 @@ import models.player.player_structure.Player;
 import java.util.List;
 
 public class EliteField extends Field {
-    private static final String imagePath = "/images/map/elite.png";
+    private static final String imagePath = "/images/map_elements/field_types/EliteField.png";
 
     private LootViewController lootViewController;
     private List<Enemy> enemies;
