@@ -4,7 +4,7 @@ import controller.cli.ShopViewController;
 import models.player.player_structure.Player;
 
 public class ShopField extends Field{
-    private static final String imagePath = "/images/map/shop.png";
+    private static final String imagePath = "/images/map_elements/field_types/ShopField.png";
 
     private ShopViewController shop;
     public ShopField() {

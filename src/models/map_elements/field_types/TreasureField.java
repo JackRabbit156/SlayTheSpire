@@ -7,7 +7,7 @@ import models.player.player_structure.Player;
  * @author Keil, Vladislav
  */
 public class TreasureField extends Field {
-    private static final String imagePath = "/images/map/treasure.png";
+    private static final String imagePath = "/images/map_elements/field_types/TreasureField.png";
     TreasureViewController treasureViewController;
     public TreasureField() {
         super(imagePath);
