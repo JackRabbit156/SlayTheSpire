@@ -92,7 +92,7 @@ public class BattleController implements BattleViewEvents {
         // Handle the logic for when the "Okay" button is clicked
         System.out.println("Okay button clicked!");
 
-        // Example: Modify player or enemy.png state
+        // Example: Modify player or EnemyField.png state
         // Update BattleView based on changes
         battleView.updateEnemyStatus();
     }
