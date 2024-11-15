@@ -13,17 +13,18 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import models.cards.card_structure.Card;
 import models.player.player_structure.Player;
+import view.gui.RestView;
 import view.gui.ShopView;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class SelectLayout extends FlowPane {
+public class CardSelectionLayout extends FlowPane {
     private List<Card> selectableCards;
     private Player player;
     private ShopView shopView;
 
-    public SelectLayout(List<Card> cardList, Player player, ShopView shopView) {
+    public CardSelectionLayout(List<Card> cardList, Player player, ShopView shopView) {
         this.selectableCards = cardList;
         this.player = player;
         this.shopView = shopView;
@@ -88,7 +89,6 @@ public class SelectLayout extends FlowPane {
             imageView.setScaleX(1.0); // Reset the width to original
             imageView.setScaleY(1.0); // Reset the height to original
         });
-
     }
 
     public void handleCardClick(Card card, int index) {

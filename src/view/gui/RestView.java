@@ -10,17 +10,13 @@ import javafx.scene.paint.Paint;
 import javafx.scene.shape.StrokeLineJoin;
 import javafx.scene.shape.StrokeType;
 import javafx.stage.Popup;
-import models.cards.card_structure.Card;
-import models.player.player_structure.Player;
-import view.gui.layouts.layout_events.ShopViewEvents;
-import view.gui.layouts.shop_layout.CardSelectionLayout;
+import view.gui.layouts.layout_events.RestViewEvents;
 
-import java.util.List;
-
-public class ShopView extends BorderPane {
-    private List<Card> shopCards;
-    private Player player;
-    private ShopViewEvents shopViewEvents;
+/**
+ * @author Keil, Vladislav
+ */
+public class RestView extends BorderPane {
+    private RestViewEvents restViewEvents;
 
     private Insets insets = new Insets(15,15,15,15);
     private VBox centerVBox;
@@ -28,19 +24,17 @@ public class ShopView extends BorderPane {
     private Popup popup;
 
 
-    public ShopView(Player player, List<Card> shopCards, ShopViewEvents shopViewEvents) {
-        this.player = player;
-        this.shopCards = shopCards;
-        this.shopViewEvents = shopViewEvents;
+    public RestView(RestViewEvents restViewEvents) {
+        this.restViewEvents = restViewEvents;
         display();
     }
 
-    public void initShopViewEvents(ShopViewEvents shopViewEvents){
-        this.shopViewEvents = shopViewEvents;
+    public void initRestViewEvents(RestViewEvents restViewEvents){
+        this.restViewEvents = restViewEvents;
     }
 
     private BackgroundImage background() {
-        Image backgroundImage = new Image(getClass().getResource("/ShopViewBG.jpeg").toExternalForm());
+        Image backgroundImage = new Image(getClass().getResource("/RestViewBG.jpeg").toExternalForm());
         return new BackgroundImage(
                 backgroundImage,
                 BackgroundRepeat.NO_REPEAT, // Option: NO_REPEAT, REPEAT, REPEAT_X, REPEAT_Y
@@ -51,23 +45,16 @@ public class ShopView extends BorderPane {
     }
 
     private void initCenter(){
-        // Card Options
-        CardSelectionLayout cardSelectionLayout = new CardSelectionLayout(this.shopCards, this.player, this);
-        // Potion Options
-        // Relics Options
-
+        // Options
         centerVBox = new VBox();
-        if (shopCards.isEmpty()) {
-            Region placeHolder = new Region();
-            placeHolder.setPrefWidth(400);
-            setCenter(placeHolder);
-            return;
-        }
+        Button healBtn = new Button("Heilung um 30%");
+        centerVBox.getChildren().add(healBtn);
+        healBtn.setOnAction(event -> restViewEvents.onHealClicked());
 //        centerVBox.setBackground(new Background(new BackgroundFill(Paint.valueOf("Red"),null, this.insets)));
         centerVBox.setSpacing(30);
         centerVBox.setPadding(insets);
         centerVBox.setAlignment(Pos.TOP_CENTER);
-        centerVBox.getChildren().add(cardSelectionLayout);
+//        centerVBox.getChildren().add();
 
         setCenter(centerVBox);
     }
@@ -75,7 +62,7 @@ public class ShopView extends BorderPane {
     private void initTop(){
         topVBox = new VBox();
         Label label = new Label();
-        label.setText("Welcome to Shop.");
+        label.setText("Restsite..");
         label.setId("title");
         label.setTextFill(Paint.valueOf("White"));
         label.setStyle("-fx-font-size: 56px;");
@@ -83,6 +70,7 @@ public class ShopView extends BorderPane {
         topVBox.getChildren().add(label);
         topVBox.setAlignment(Pos.BOTTOM_CENTER);
         topVBox.setPrefHeight(200);
+
         setTop(topVBox);
     }
 
@@ -93,7 +81,7 @@ public class ShopView extends BorderPane {
     private void initBottom(){
         HBox bottomHBox = new HBox();
         Button backBtn = new Button("Back");
-        backBtn.setOnAction(event -> shopViewEvents.onBackClick());
+        backBtn.setOnAction(event -> restViewEvents.onBackClicked());
         bottomHBox.getChildren().add(backBtn);
 //        bottomHBox.setBackground(new Background(new BackgroundFill(Paint.valueOf("Blue"),null, this.insets)));
         bottomHBox.setAlignment(Pos.CENTER);
@@ -139,15 +127,6 @@ public class ShopView extends BorderPane {
         initBottom();
         initLeft();
         initRight();
-        initCenter();
-    }
-
-    public void onCardClick(Card card, int index) {
-        shopViewEvents.onCardClick(card,index);
-    }
-
-    public void setShopCards(List<Card> purchasableCards) {
-        this.shopCards = purchasableCards;
         initCenter();
     }
 

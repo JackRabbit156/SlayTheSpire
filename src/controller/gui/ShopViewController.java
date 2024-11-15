@@ -7,6 +7,7 @@ import models.cards.card_structure.Card;
 import models.player.player_structure.Player;
 import models.potion.potion_structure.PotionCard;
 import models.relics.relic_structure.Relic;
+import view.gui.RestView;
 import view.gui.ShopView;
 import view.gui.layouts.layout_events.ShopViewEvents;
 
@@ -37,11 +38,11 @@ public class ShopViewController implements ShopViewEvents {
      */
     public void entryShop() {
         this.shopView = new ShopView(player, purchasableCards, this);
-        shopView.initShopViewEvents(this);
+        this.shopView.initShopViewEvents(this);
     }
 
     private void refreshSelectableCards(){
-        shopView.setShopCards(purchasableCards);
+        this.shopView.setShopCards(purchasableCards);
     }
 
 
@@ -77,29 +78,6 @@ public class ShopViewController implements ShopViewEvents {
     public void onBackClick() {
         // TODO Back Option wie?
     }
-
-
-    private void cardChoice() {
-        int input = 0;
-
-        switch (input) {
-            case 1:
-            case 2:
-            case 3:
-            case 4:
-            case 5:
-//                addCardToDeckAndRemoveFromShopDeck(purchasableCards.get(input - 1));
-                cardChoice();
-                break;
-            case 0:
-                entryShop();
-                break;
-            default:
-                ConsoleAssistent.print(Color.YELLOW, "Wrong Choice...");
-                cardChoice();
-        }
-    }
-
 
     public ShopView getShopView() {
         return this.shopView;
