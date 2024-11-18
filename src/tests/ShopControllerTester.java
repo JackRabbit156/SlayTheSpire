@@ -1,14 +1,14 @@
 package tests;
 
 import controller.cli.ShopViewController;
-import models.player.Ironclad;
+import models.player.IroncladPlayer;
 
 /**
  * @author Keil, Vladislav
  */
 public class ShopControllerTester {
     public static void main(String[] args) {
-        Ironclad player = new Ironclad();
+        IroncladPlayer player = new IroncladPlayer();
 
         ShopViewController shopViewController = new ShopViewController(player);
         /* Test 1 X-Karten kaufen */

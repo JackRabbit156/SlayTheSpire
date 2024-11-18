@@ -4,9 +4,9 @@ import events.PlayerBlockEvent;
 import events.PlayerDamageEvent;
 import javafx.stage.Stage;
 import controller.listener.*;
-import models.cards.card_structure.Card;
+import models.card.card_structure.Card;
 import models.game_settings.GameSettings;
-import models.relics.relic_structure.Relic;
+import models.relic.relic_structure.Relic;
 
 import java.util.List;
 
@@ -47,6 +47,8 @@ public abstract class Player {
     private PlayerType playerType;
 
     private PlayerEventListener listener;
+
+    private String imagePath;
 
     /**
      * Konstruktor für die Player-Klasse.
@@ -324,5 +326,13 @@ public abstract class Player {
 
     public void setCurrentField(String currentField) {
         this.currentField = currentField;
+    }
+
+    public String getImagePath() {
+        return imagePath;
+    }
+
+    public void setImagePath(String imagePath) {
+        this.imagePath = imagePath;
     }
 }

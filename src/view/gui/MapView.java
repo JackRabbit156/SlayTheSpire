@@ -2,21 +2,13 @@ package view.gui;
 
 import javafx.geometry.Insets;
 import javafx.scene.control.Label;
-import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Line;
 import models.map_elements.Node;
-import models.map_elements.acts.ActOne;
-import models.player.Ironclad;
 import models.player.player_structure.Player;
 import view.gui.layouts.layout_events.MapViewEvents;
 import view.gui.layouts.map_view_layouts.MapLayout;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -42,7 +34,7 @@ public class MapView extends BorderPane {
         this.mapViewEvents = mapViewEvents;
         this.player = player;
 
-        setStyle("-fx-background-color: #969286;");
+        setStyle("-fx-background-color: #9a9990;");
         //setBackground(new Background(background()));
         map = new MapLayout(this, nodes, mapWidth, mapHeight);
 

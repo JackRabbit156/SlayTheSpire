@@ -5,7 +5,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
-import models.cards.card_structure.Card;
+import models.card.card_structure.Card;
 import models.player.player_structure.Player;
 import view.gui.BattleView;
 

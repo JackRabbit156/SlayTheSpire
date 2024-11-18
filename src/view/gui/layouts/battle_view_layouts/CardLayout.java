@@ -10,7 +10,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
-import models.cards.card_structure.Card;
+import models.card.card_structure.Card;
 import view.gui.BattleView;
 
 import java.util.ArrayList;

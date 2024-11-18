@@ -1,7 +1,7 @@
 package helper;
 
 /**
- * The type Path assistent.
+ * The type Path assistent, benutzung mit .toPath()
  *
  * @author OF Daniel Willig
  */

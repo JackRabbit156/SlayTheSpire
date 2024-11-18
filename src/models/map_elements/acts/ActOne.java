@@ -1,21 +1,18 @@
 package models.map_elements.acts;
 
 import models.enemy.Enemy;
-import models.enemy.act_four.Shapes;
-import models.enemy.act_four.elites.SpireShield;
-import models.enemy.act_four.elites.SpireSpear;
-import models.enemy.act_one.AcidSlime;
-import models.enemy.act_one.Cultist;
-import models.enemy.act_one.MadGremlin;
+import models.enemy.act_one.AcidSlimeEnemy;
+import models.enemy.act_one.CultistEnemy;
+import models.enemy.act_one.MadGremlinEnemy;
 import models.enemy.act_one.bosses.SlimeBoss;
-import models.enemy.act_one.elites.GremlinNob;
-import models.enemy.act_one.elites.Lagavulin;
-import models.events.Event;
-import models.events.actone.*;
-import models.events.generelevents.BonfireSpirits;
-import models.events.generelevents.Duplicator;
-import models.events.generelevents.GoldenShrine;
-import models.events.generelevents.NoteForYourself;
+import models.enemy.act_one.elites.GremlinNobElite;
+import models.enemy.act_one.elites.LagavulinElite;
+import models.event.Event;
+import models.event.act_one.*;
+import models.event.generelevents.BonfireSpiritsEvent;
+import models.event.generelevents.DuplicatorEvent;
+import models.event.generelevents.GoldenShrineEvent;
+import models.event.generelevents.NoteForYourselfEvent;
 import models.map_elements.Coordinates;
 import models.map_elements.Node;
 import models.map_elements.field_types.*;
@@ -138,9 +135,9 @@ public class ActOne extends Act {
         for(int i = 0; i< numberOfEnemies; i++){
             int randomNumber = randi.nextInt(possibleEnemies.length);
             switch (randomNumber){
-                case 0: enemies.add(new AcidSlime()); break;
-                case 1: enemies.add(new Cultist()); break;
-                case 2: enemies.add(new MadGremlin()); break;
+                case 0: enemies.add(new AcidSlimeEnemy()); break;
+                case 1: enemies.add(new CultistEnemy()); break;
+                case 2: enemies.add(new MadGremlinEnemy()); break;
                 default:
                     System.out.println("Weird..."); break;
             }
@@ -188,12 +185,12 @@ public class ActOne extends Act {
         switch (randElite) {
             case 0:
                 // 1 - Gremlin Nob
-                enemies.add(new GremlinNob());
+                enemies.add(new GremlinNobElite());
                 type = "Goblin";
                 break;
             default:
                 // 2 - Lagavulin
-                enemies.add(new Lagavulin());
+                enemies.add(new LagavulinElite());
                 type = "Lagavulin";
                 break;
         }
@@ -206,15 +203,15 @@ public class ActOne extends Act {
     private Enemy createEnemiesOfType(String type) {
         switch (type) {
             case "Hexa":
-                return new MadGremlin();
+                return new MadGremlinEnemy();
             case "Guardian":
-                return new Cultist();
+                return new CultistEnemy();
             case "Lagavulin":
-                return new Cultist();
+                return new CultistEnemy();
             case "Goblin":
-                return new MadGremlin();
+                return new MadGremlinEnemy();
             default: // "Slime"
-                return new AcidSlime();
+                return new AcidSlimeEnemy();
         }
     }
 
@@ -234,25 +231,25 @@ public class ActOne extends Act {
         ActOneEventEnum event = events[randi.nextInt(events.length)];
         switch (event) {
             case BigFish:
-                return new BigFish(this.player);
+                return new BigFishEvent(this.player);
             case BonfireSpirits:
-                return new BonfireSpirits(this.player);
+                return new BonfireSpiritsEvent(this.player);
             case DeadAdventurer:
-                return new DeadAdventurer(this.player);
+                return new DeadAdventurerEvent(this.player);
             case Duplicator:
-                return new Duplicator(this.player);
+                return new DuplicatorEvent(this.player);
             case NoteForYourself:
-                return new NoteForYourself(this.player);
+                return new NoteForYourselfEvent(this.player);
             case ScrapOoze:
-                return new ScrapOoze(this.player);
+                return new ScrapOozeEvent(this.player);
             case TheCleric:
-                return new TheCleric(this.player);
+                return new TheClericEvent(this.player);
             case TheSsssserpent:
-                return new TheSssssserpent(this.player);
+                return new TheSssssserpentEvent(this.player);
             case WorldofGoo:
-                return new WorldOfGoo(this.player);
+                return new WorldOfGooEvent(this.player);
             default:
-                return new GoldenShrine(this.player);
+                return new GoldenShrineEvent(this.player);
         }
     }
 

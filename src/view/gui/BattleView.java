@@ -7,13 +7,13 @@ import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.layout.*;
 import models.battle.BattleDeck;
-import models.cards.card_structure.Card;
-import models.cards.card_structure.CardType;
+import models.card.card_structure.Card;
+import models.card.card_structure.CardType;
 import models.enemy.Enemy;
 import models.player.player_structure.Player;
 import view.gui.layouts.battle_view_layouts.*;
 import javafx.scene.control.Button;
-import view.gui.layouts.layout_events.BatteViewEvents;
+import view.gui.layouts.layout_events.BattleViewEvents;
 
 import java.util.List;
 /**
@@ -54,13 +54,13 @@ public class BattleView extends BorderPane implements BattleDeckListener {
 
     private BattleDeck battleDeck;
 
-    private BatteViewEvents batteViewEvents;
+    private BattleViewEvents battleViewEvents;
 
     // Ändert den aktuellen Modus des Views. Z.B. wenn auf Karte gedrückt, dann Attack-Modus.
     private SimpleObjectProperty<Mode> mode = new SimpleObjectProperty<>(Mode.NORMAL);
 
-    public BattleView(Player player, List<Enemy> enemies, BatteViewEvents batteViewEvents, BattleDeck battleDeck) {
-        this.batteViewEvents = batteViewEvents;
+    public BattleView(Player player, List<Enemy> enemies, BattleViewEvents battleViewEvents, BattleDeck battleDeck) {
+        this.battleViewEvents = battleViewEvents;
         this.player = player;
         this.enemies = enemies;
         this.battleDeck = battleDeck;
@@ -122,7 +122,7 @@ public class BattleView extends BorderPane implements BattleDeckListener {
     }
 
     public void clickedOnEndTurn(){
-        batteViewEvents.onEndTurnClick();
+        battleViewEvents.onEndTurnClick();
         updateInformation();
     }
 
@@ -132,7 +132,7 @@ public class BattleView extends BorderPane implements BattleDeckListener {
             selectEnemyView();
         }
 
-        batteViewEvents.onCardClick(card, index);
+        battleViewEvents.onCardClick(card, index);
 
         updateInformation();
     }
@@ -141,7 +141,7 @@ public class BattleView extends BorderPane implements BattleDeckListener {
         mode.set(Mode.NORMAL);
         enableBatteView();
 
-        batteViewEvents.onEnemyClick(enemy);
+        battleViewEvents.onEnemyClick(enemy);
 
         updateInformation();
     }

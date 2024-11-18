@@ -5,13 +5,14 @@ import javafx.stage.Stage;
 import models.battle.BattleDeck;
 import models.battle.GameContext;
 
-import models.cards.card_structure.Card;
-import models.cards.card_structure.CardGrave;
+import models.card.card_structure.Card;
+import models.card.card_structure.CardGrave;
+import models.card.card_structure.CardType;
 import models.enemy.Enemy;
 import models.player.player_structure.Player;
 
 import view.gui.BattleView;
-import view.gui.layouts.layout_events.BatteViewEvents;
+import view.gui.layouts.layout_events.BattleViewEvents;
 
 import java.util.List;
 
@@ -22,7 +23,7 @@ import java.util.List;
  *
  * @author Warawa Alexander, Willig Daniel
  */
-public class BattleController implements BatteViewEvents {
+public class BattleController implements BattleViewEvents {
     private final BattleView battleView;
 
     private final Player player;
@@ -136,6 +137,16 @@ public class BattleController implements BatteViewEvents {
         if(selectedCard.getCost() > player.getCurrentEnergy()){
             System.out.println("\nNot enough Energy!");
             return;
+        }
+
+        if (selectedCard.getName().equals("Clash")) {
+            List<Card> hand = gameContext.getBattleDeck().getHand();
+            for (Card card : hand) {
+                if (!card.getCardType().equals(CardType.ATTACK)) {
+                    System.out.println("\nOnly playable if only Attack-Cards in Hand");
+                    return;
+                }
+            }
         }
 
         // Play the card (and add the enemy)

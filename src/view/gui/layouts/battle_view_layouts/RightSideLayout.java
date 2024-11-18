@@ -20,7 +20,6 @@ public class RightSideLayout extends HBox {
 
         for(int i = 0; i< enemies.size(); i++){
             Enemy enemy = enemies.get(i);
-            enemy.setImagePath("/images/Cultist.png");
 
             enemyLayout.add(new EnemyLayout(enemy, battleView));
         }

@@ -2,10 +2,10 @@ package controller.cli;
 
 import helper.Color;
 import helper.ConsoleAssistent;
-import models.cards.DeckFactory;
-import models.cards.card_structure.Card;
+import models.card.DeckFactory;
+import models.card.card_structure.Card;
 import models.player.player_structure.Player;
-import models.relics.relic_structure.Relic;
+import models.relic.relic_structure.Relic;
 import view.cli.ShopView;
 
 import java.util.InputMismatchException;

@@ -13,14 +13,14 @@ import javafx.scene.control.ListView;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import models.cards.DeckFactory;
-import models.cards.card_structure.Card;
+import models.card.DeckFactory;
+import models.card.card_structure.Card;
 import models.game_settings.GameSettings;
 import models.game_settings.structure.DifficultyLevel;
 import models.load_save_game_elements.GameSaveManager;
 import models.load_save_game_elements.SaveFilePreview;
-import models.player.Ironclad;
-import models.player.Silent;
+import models.player.IroncladPlayer;
+import models.player.SilentPlayer;
 import models.player.player_structure.Player;
 
 

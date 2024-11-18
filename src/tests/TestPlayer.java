@@ -1,14 +1,14 @@
 package tests;
 
 import helper.ConsoleAssistent;
+import models.card.card_structure.*;
+import models.card.ironclad_cards.attack.common.BashCard;
 import models.battle.GameContext;
-import models.cards.card_structure.*;
-import models.cards.ironclad_cards.attack.common.BashCard;
 import models.enemy.Enemy;
 import models.player.player_structure.Player;
 import models.player.player_structure.PlayerType;
-import models.relics.BurningBloodRelic;
-import models.relics.relic_structure.Relic;
+import models.relic.BurningBloodRelic;
+import models.relic.relic_structure.Relic;
 
 import java.util.ArrayList;
 import java.util.List;

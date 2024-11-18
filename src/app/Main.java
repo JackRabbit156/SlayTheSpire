@@ -8,18 +8,17 @@ import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import models.enemy.Enemy;
-import models.enemy.act_one.Cultist;
-import models.player.Ironclad;
 import models.player.player_structure.Player;
 import view.gui.LoadView;
 
 import java.util.ArrayList;
 import java.util.List;
+import models.player.IroncladPlayer;
 
 public class Main extends Application {
     @Override
     public void start(Stage primaryStage) {
-        Ironclad player = new Ironclad();
+        IroncladPlayer player = new IroncladPlayer();
         player.setPrimaryStage(primaryStage);
 
         GuiHelper.Scenes.startMapScene(primaryStage, player, true);

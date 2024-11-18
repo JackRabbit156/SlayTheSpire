@@ -1,8 +1,7 @@
 package view.cli;
 
 import helper.ConsoleAssistent;
-import models.cards.card_structure.Card;
-import models.player.player_structure.Player;
+import models.card.card_structure.Card;
 
 import java.util.List;
 

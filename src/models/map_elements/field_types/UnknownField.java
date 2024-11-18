@@ -1,5 +1,6 @@
 package models.map_elements.field_types;
 
+import helper.PathAssistent;
 import models.player.player_structure.Player;
 
 import java.util.Random;
@@ -10,7 +11,7 @@ import java.util.Random;
  * @author OF Daniel Willig
  */
 public class UnknownField extends Field {
-    private static final String imagePath = "/images/map/unknown.png";
+    private static final String imagePath = "/images/map_elements/field_types/UnknownField.png";
     /**
      * Zufall-Zahl.
      */

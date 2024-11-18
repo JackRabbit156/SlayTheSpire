@@ -1,8 +1,8 @@
 package models.battle;
 
 import controller.listener.BattleDeckListener;
-import models.cards.card_structure.Card;
-import models.cards.card_structure.PowerCard;
+import models.card.card_structure.Card;
+import models.card.card_structure.PowerCard;
 
 import java.util.ArrayList;
 import java.util.Collections;

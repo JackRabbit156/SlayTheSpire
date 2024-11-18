@@ -1,6 +1,5 @@
 package models.map_elements.field_types;
 
-import controller.cli.BattleViewController;
 import controller.cli.LootViewController;
 import controller.gui.BattleController;
 import helper.GuiHelper;
@@ -20,7 +19,7 @@ import java.util.List;
  * @author Warawa Alexander
  */
 public class EnemyField extends Field{
-    private static final String imagePath = "/images/map/enemy.png";
+    private static final String imagePath = "/images/map_elements/field_types/EnemyField.png";
 
     private List<Enemy> enemies = new ArrayList<>();
     private LootViewController lootViewController;
