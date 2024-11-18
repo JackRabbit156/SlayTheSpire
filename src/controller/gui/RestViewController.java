@@ -2,6 +2,7 @@ package controller.gui;
 
 import helper.Color;
 import helper.ConsoleAssistent;
+import helper.GuiHelper;
 import models.player.player_structure.Player;
 import view.cli.RestSiteView;
 import view.gui.RestView;
@@ -29,14 +30,15 @@ public class RestViewController implements RestViewEvents {
     public void onHealClicked() {
         int increasedHp = (int) (player.getMaxHealth() * 0.30);
         player.increaseCurrentHealth(increasedHp);
-        ConsoleAssistent.println(Color.RED, "Es wurde geheilt.");
+        ConsoleAssistent.println(Color.YELLOW, "Es wurde geheilt.");
         onBackClicked();
     }
 
     @Override
     public void onBackClicked() {
-        // TODO GO BACK!!
-        ConsoleAssistent.println(Color.RED, "Back wurde im RestViewController angeklickt");
+        ConsoleAssistent.println(Color.YELLOW, "Back wurde im RestViewController angeklickt");
+
+        GuiHelper.Scenes.startMapScene(player.getPrimaryStage(), player, true);
 
     }
 

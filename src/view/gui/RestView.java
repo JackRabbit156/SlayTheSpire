@@ -1,10 +1,12 @@
 package view.gui;
 
+import helper.GuiHelper;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.StrokeLineJoin;
@@ -33,29 +35,44 @@ public class RestView extends BorderPane {
         this.restViewEvents = restViewEvents;
     }
 
-    private BackgroundImage background() {
-        Image backgroundImage = new Image(getClass().getResource("/RestViewBG.jpeg").toExternalForm());
-        return new BackgroundImage(
-                backgroundImage,
-                BackgroundRepeat.NO_REPEAT, // Option: NO_REPEAT, REPEAT, REPEAT_X, REPEAT_Y
-                BackgroundRepeat.NO_REPEAT,
-                BackgroundPosition.DEFAULT,
-                new BackgroundSize(BackgroundSize.AUTO, BackgroundSize.AUTO, true, true, true, true)
-        );
+    /**
+     * Initialisiert die View.
+     */
+    public void display() {
+        setBackground(new Background(GuiHelper.background("/images/backgrounds/RestViewBG.jpeg")));
+        initTop();
+        initBottom();
+        initLeft();
+        initRight();
+        initCenter();
     }
 
     private void initCenter(){
-        // Options
         centerVBox = new VBox();
-        Button healBtn = new Button("Heilung um 30%");
-        centerVBox.getChildren().add(healBtn);
-        healBtn.setOnAction(event -> restViewEvents.onHealClicked());
-//        centerVBox.setBackground(new Background(new BackgroundFill(Paint.valueOf("Red"),null, this.insets)));
-        centerVBox.setSpacing(30);
-        centerVBox.setPadding(insets);
-        centerVBox.setAlignment(Pos.TOP_CENTER);
-//        centerVBox.getChildren().add();
 
+        Image btnImage = new Image(getClass().getResource("/images/buttons/panel.png").toExternalForm());
+        ImageView btnImageView = new ImageView(btnImage);
+        // Options
+        Button healBtn = new Button("Heilung um 30%");
+        healBtn.setGraphic(btnImageView);
+
+        btnImageView.setScaleX(0.35);
+        btnImageView.setScaleY(0.25);
+
+        StackPane healBtnPane = new StackPane(btnImageView);
+        Label label = new Label("Rest - 30% Healing");
+        label.setTextFill(Paint.valueOf("White"));
+        label.setStyle("-fx-font-size: 24;");
+        healBtnPane.getChildren().add(label);
+
+        centerVBox.getChildren().add(healBtnPane);
+
+        label.setOnMouseClicked(event -> restViewEvents.onHealClicked());
+        btnImageView.setOnMouseClicked(event -> restViewEvents.onHealClicked());
+
+        centerVBox.setSpacing(50);
+        centerVBox.setPadding(new Insets(50,15,15,280));
+        centerVBox.setAlignment(Pos.TOP_CENTER);
         setCenter(centerVBox);
     }
 
@@ -79,11 +96,26 @@ public class RestView extends BorderPane {
      * Bottom side
      */
     private void initBottom(){
+        Image btnImage = new Image(getClass().getResource("/images/buttons/buttonL.png").toExternalForm());
+        ImageView imgView = new ImageView(btnImage);
         HBox bottomHBox = new HBox();
-        Button backBtn = new Button("Back");
-        backBtn.setOnAction(event -> restViewEvents.onBackClicked());
-        bottomHBox.getChildren().add(backBtn);
-//        bottomHBox.setBackground(new Background(new BackgroundFill(Paint.valueOf("Blue"),null, this.insets)));
+        Button backBtn = new Button();
+
+        imgView.setFitWidth(backBtn.getWidth());
+        imgView.setFitHeight(backBtn.getHeight());
+        imgView.setScaleX(0.7);
+        imgView.setScaleY(0.7);
+
+        StackPane backBtnPane = new StackPane(imgView);
+        Label label = new Label("Back");
+        label.setTextFill(Paint.valueOf("White"));
+        label.setStyle("-fx-font-size: 24;");
+        backBtnPane.getChildren().add(label);
+        bottomHBox.getChildren().add(backBtnPane);
+
+        imgView.setOnMouseClicked(event -> restViewEvents.onBackClicked());
+        label.setOnMouseClicked(event -> restViewEvents.onBackClicked());
+
         bottomHBox.setAlignment(Pos.CENTER);
         Region placeHolder = new Region();
         placeHolder.setPrefHeight(150); // Festlegen der konstanten Höhe
@@ -115,19 +147,6 @@ public class RestView extends BorderPane {
         bottomPlaceholder.setPrefWidth(200); // Festlegen der konstanten Höhe
         rightVBox.getChildren().add(bottomPlaceholder);
         setRight(rightVBox);
-    }
-
-
-    /**
-     * Initialisiert die View.
-     */
-    public void display() {
-        setBackground(new Background(background()));
-        initTop();
-        initBottom();
-        initLeft();
-        initRight();
-        initCenter();
     }
 
     public void showDialog(String text) {

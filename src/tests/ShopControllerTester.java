@@ -4,10 +4,10 @@ import controller.gui.ShopViewController;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import models.cards.card_structure.Card;
-import models.player.Ironclad;
+import models.card.card_structure.Card;
+import models.player.IroncladPlayer;
 import models.potion.potion_structure.PotionCard;
-import models.relics.relic_structure.Relic;
+import models.relic.relic_structure.Relic;
 import view.gui.layouts.layout_events.ShopViewEvents;
 
 /**
@@ -47,7 +47,7 @@ public class ShopControllerTester extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        Ironclad player = new Ironclad();
+        IroncladPlayer player = new IroncladPlayer();
 //        player.setGold(500);
         ShopViewController shopViewController = new ShopViewController(player);
 
@@ -56,6 +56,7 @@ public class ShopControllerTester extends Application {
         Scene scene = new Scene(shopViewController.getShopView(), 1920, 1080);
 
 //        scene.getStylesheets().add(getClass().getResource("/debug.css").toExternalForm());
+        player.setPrimaryStage(primaryStage);
 
         primaryStage.setScene(scene);
         primaryStage.setTitle("Slay the Spire - JavaFX");

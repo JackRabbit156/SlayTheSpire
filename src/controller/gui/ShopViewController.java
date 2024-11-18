@@ -2,12 +2,12 @@ package controller.gui;
 
 import helper.Color;
 import helper.ConsoleAssistent;
-import models.cards.DeckFactory;
-import models.cards.card_structure.Card;
+import helper.GuiHelper;
+import models.card.DeckFactory;
+import models.card.card_structure.Card;
 import models.player.player_structure.Player;
 import models.potion.potion_structure.PotionCard;
-import models.relics.relic_structure.Relic;
-import view.gui.RestView;
+import models.relic.relic_structure.Relic;
 import view.gui.ShopView;
 import view.gui.layouts.layout_events.ShopViewEvents;
 
@@ -55,7 +55,7 @@ public class ShopViewController implements ShopViewEvents {
             this.player.addCardToDeck(card);
             this.purchasableCards.remove(card);
             refreshSelectableCards();
-            ConsoleAssistent.print(Color.RED, "Refresh Cards in Shop!");
+            ConsoleAssistent.print(Color.YELLOW, "Refresh Cards in Shop!");
 
         } else {
             System.out.println();
@@ -77,6 +77,8 @@ public class ShopViewController implements ShopViewEvents {
     @Override
     public void onBackClick() {
         // TODO Back Option wie?
+        ConsoleAssistent.print(Color.YELLOW, "Shop Leaved!");
+        GuiHelper.Scenes.startMapScene(player.getPrimaryStage(), player, true);
     }
 
     public ShopView getShopView() {

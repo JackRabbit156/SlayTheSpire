@@ -1,9 +1,9 @@
 package view.gui.layouts.layout_events;
 
-import models.cards.card_structure.Card;
+import models.card.card_structure.Card;
 import models.enemy.Enemy;
 import models.potion.potion_structure.PotionCard;
-import models.relics.relic_structure.Relic;
+import models.relic.relic_structure.Relic;
 
 public interface ShopViewEvents {
     void onCardClick(Card card, int index);

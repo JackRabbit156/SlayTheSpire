@@ -11,9 +11,8 @@ import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
-import models.cards.card_structure.Card;
+import models.card.card_structure.Card;
 import models.player.player_structure.Player;
-import view.gui.RestView;
 import view.gui.ShopView;
 
 import java.util.ArrayList;

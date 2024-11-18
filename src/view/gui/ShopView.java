@@ -10,7 +10,7 @@ import javafx.scene.paint.Paint;
 import javafx.scene.shape.StrokeLineJoin;
 import javafx.scene.shape.StrokeType;
 import javafx.stage.Popup;
-import models.cards.card_structure.Card;
+import models.card.card_structure.Card;
 import models.player.player_structure.Player;
 import view.gui.layouts.layout_events.ShopViewEvents;
 import view.gui.layouts.shop_layout.CardSelectionLayout;
@@ -40,7 +40,7 @@ public class ShopView extends BorderPane {
     }
 
     private BackgroundImage background() {
-        Image backgroundImage = new Image(getClass().getResource("/ShopViewBG.jpeg").toExternalForm());
+        Image backgroundImage = new Image(getClass().getResource("/images/backgrounds/ShopViewBG.jpeg").toExternalForm());
         return new BackgroundImage(
                 backgroundImage,
                 BackgroundRepeat.NO_REPEAT, // Option: NO_REPEAT, REPEAT, REPEAT_X, REPEAT_Y

@@ -22,7 +22,6 @@ public class Main extends Application {
         player.setPrimaryStage(primaryStage);
 
         GuiHelper.Scenes.startMapScene(primaryStage, player, true);
-
     }
 
     public static void main(String[] args) {
