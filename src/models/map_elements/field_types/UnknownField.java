@@ -1,5 +1,6 @@
 package models.map_elements.field_types;
 
+import helper.PathAssistent;
 import models.player.player_structure.Player;
 
 import java.util.Random;
