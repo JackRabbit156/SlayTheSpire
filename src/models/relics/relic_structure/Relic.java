@@ -1,6 +1,6 @@
 package models.relics.relic_structure;
 
-import models.GameContext;
+import models.battle.GameContext;
 
 /**
  * In dieser Klasse werden Relics definiert.

@@ -1,7 +1,7 @@
 package models.cards.general_cards;
 
 import helper.PathAssistent;
-import models.GameContext;
+import models.battle.GameContext;
 import models.cards.card_structure.*;
 import models.player.player_structure.Player;
 

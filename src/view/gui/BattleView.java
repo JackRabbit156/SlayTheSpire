@@ -1,77 +1,73 @@
 package view.gui;
 
-import javafx.geometry.Insets;
+import controller.listener.BattleDeckListener;
+import helper.GuiHelper;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
-import javafx.scene.image.Image;
 import javafx.scene.layout.*;
+import models.battle.BattleDeck;
 import models.cards.card_structure.Card;
+import models.cards.card_structure.CardType;
 import models.enemy.Enemy;
 import models.player.player_structure.Player;
-import view.gui.layouts.battle_view_layouts.CardLayout;
-import view.gui.layouts.battle_view_layouts.EnemyLayout;
-import view.gui.layouts.battle_view_layouts.PlayerLayout;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
+import view.gui.layouts.battle_view_layouts.*;
 import javafx.scene.control.Button;
-import javafx.scene.control.TextField;
 import view.gui.layouts.layout_events.BatteViewEvents;
 
-import java.util.ArrayList;
 import java.util.List;
+/**
+ * Diese Klasse repräsentiert die Ansicht für den Kampf im Spiel.
+ * Sie ist verantwortlich für die Darstellung des Spielers, der Gegner,
+ * der Lebenspunkte und der Kartenhand. Sie zeigt die verschiedenen
+ * Informationen an und informiert den Spieler über
+ * Kampfergebnisse, wie Angriffe, Siege oder Niederlagen.
+ *
+ * @author F Alexander Warawa
+ * @author OF Daniel Willig
+ */
+public class BattleView extends BorderPane implements BattleDeckListener {
+    public enum Mode {
+        NORMAL, ATTACK
+    }
+    public SimpleObjectProperty<Mode> modeProperty() {
+        return mode;
+    }
+    public Mode getMode() {
+        return mode.get();
+    }
+    public void setMode(Mode mode) {
+        this.mode.set(mode);
+    }
 
-public class BattleView extends BorderPane {
-    private VBox leftVBox; // Die linke VBox
-    private HBox rightVBox; // Die rechte VBox; // Die linke VBox
+    private LeftSideLayout leftVBox;
+    private RightSideLayout rightVBox;
 
-    private HBox bottomHBox;
+    private BottomSideLayout bottomHBox;
+
     private HBox topHBox; // Die obere HBox;
-
-    private TextField text;
-    private Button okayButton;
-
+    private Label information;
+    private Button openGameMenuButton;
 
     private Player player;
     private List<Enemy> enemies;
-    private List<Card> hand;
+
+    private BattleDeck battleDeck;
 
     private BatteViewEvents batteViewEvents;
 
-    public BattleView(Player player, List<Enemy> enemies) {
+    // Ändert den aktuellen Modus des Views. Z.B. wenn auf Karte gedrückt, dann Attack-Modus.
+    private SimpleObjectProperty<Mode> mode = new SimpleObjectProperty<>(Mode.NORMAL);
+
+    public BattleView(Player player, List<Enemy> enemies, BatteViewEvents batteViewEvents, BattleDeck battleDeck) {
+        this.batteViewEvents = batteViewEvents;
         this.player = player;
         this.enemies = enemies;
-        hand = new ArrayList<>();
-        setBackground(new Background(background()));
+        this.battleDeck = battleDeck;
+        this.battleDeck.setBattleDeckListener(this);
 
+        setBackground(new Background(GuiHelper.background("/images/act1.png")));
         initNodes();
-    }
-
-    public void initBattleViewEvents(BatteViewEvents batteViewEvents){
-        this.batteViewEvents = batteViewEvents;
-    }
-
-    private BackgroundImage background(){
-        Image backgroundImage = new Image(getClass().getResource("/images/act1.png").toExternalForm()); // Lokaler Pfad oder URL
-        // Erstelle das Hintergrundbild mit den gewünschten Eigenschaften
-        BackgroundImage background = new BackgroundImage(
-                backgroundImage,
-                BackgroundRepeat.NO_REPEAT, // Option: NO_REPEAT, REPEAT, REPEAT_X, REPEAT_Y
-                BackgroundRepeat.NO_REPEAT,
-                BackgroundPosition.DEFAULT,
-                new BackgroundSize(BackgroundSize.AUTO, BackgroundSize.AUTO, true, true, true, true)
-        );
-        return background;
-    }
-
-    // Controller kann diesen Handler hinzufügen
-    public void setOkayButtonHandler(EventHandler<ActionEvent> handler) {
-        okayButton.setOnAction(handler);
-    }
-
-    // Beispiel für Methode, um den Status zu aktualisieren
-    public void updateEnemyStatus(/*List<Enemy> updatedEnemies*/) {
-        // Hier können Änderungen im Enemy-Status angezeigt werden
-        initRight();
     }
 
     private void initNodes() {
@@ -84,51 +80,35 @@ public class BattleView extends BorderPane {
     /**
      * Top side for the Player Information
      */
-    private Label energyLabel;
     private void initTop() {
         topHBox = new HBox(50);
-        topHBox.setStyle("-fx-background-color: #926099;");
+        topHBox.setStyle("-fx-background-color: rgba(34, 34, 34, 0.8);");
+        topHBox.setPrefHeight(50);
 
-        okayButton = new Button();
-        okayButton.setText("End Turn");
+        openGameMenuButton = new Button();
+        openGameMenuButton.setText("Game Menu");
 
-        energyLabel = new Label(player.getCurrentEnergy()+"/" + player.getMaxEnergy());
+        information = new Label("Some Information about the player");
 
-
-        topHBox.getChildren().addAll(okayButton, energyLabel);
+        topHBox.getChildren().addAll(openGameMenuButton, information);
         this.setTop(topHBox);
-    }
-    public void updateInformation(){
-        initTop();
     }
 
     /**
      * Right side for the enemies
      */
     private void initRight(){
-        rightVBox = new HBox(-150);
+        rightVBox = new RightSideLayout(this, enemies);
 
         leftVBox.setAlignment(Pos.BOTTOM_LEFT);
-
-        for(int i = 0; i< enemies.size(); i++){
-            Enemy enemy = enemies.get(i);
-            enemy.setImagePath("/images/Cultist.png");
-            rightVBox.getChildren().add(new EnemyLayout(enemy, this));
-        }
-
         this.setRight(rightVBox);
     }
-
-
 
     /**
      * Left side for the player
      */
     private void initLeft(){
-        leftVBox = new VBox();
-        leftVBox.setAlignment(Pos.BOTTOM_RIGHT);
-        PlayerLayout playerLayout = new PlayerLayout(player);
-        leftVBox.getChildren().add(playerLayout);
+        leftVBox = new LeftSideLayout(player);
 
         this.setLeft(leftVBox);
     }
@@ -137,33 +117,47 @@ public class BattleView extends BorderPane {
      * Bottom side for the Hand cards
      */
     private void initBottom(){
-        bottomHBox = new HBox();
-        bottomHBox.setAlignment(Pos.CENTER);
-        if(hand.isEmpty()){
-            Region bottomPlaceholder = new Region();
-            bottomPlaceholder.setMinHeight(350); // Festlegen der konstanten Höhe
-            bottomHBox.getChildren().add(bottomPlaceholder);
-            setBottom(bottomPlaceholder);
-            return;
-        }
-
-        CardLayout cardLayout = new CardLayout(hand, this);
-        bottomHBox.getChildren().add(cardLayout);
-
+        bottomHBox = new BottomSideLayout(this, player, battleDeck.getHand());
         setBottom(bottomHBox);
     }
 
-    public void setHand(List<Card> hand){
-        this.hand = hand;
-        initBottom();
+    public void clickedOnEndTurn(){
+        batteViewEvents.onEndTurnClick();
+        updateInformation();
     }
 
     public void clickedOnCard(Card card, int index){
+        if(card.getCardType() == CardType.ATTACK){
+            mode.set(Mode.ATTACK);
+            selectEnemyView();
+        }
+
         batteViewEvents.onCardClick(card, index);
+
+        updateInformation();
     }
 
     public void clickedOnEnemy(Enemy enemy){
+        mode.set(Mode.NORMAL);
+        enableBatteView();
+
         batteViewEvents.onEnemyClick(enemy);
+
+        updateInformation();
+    }
+
+    /**
+     * gets called after battledeck fills the hand
+     */
+    @Override
+    public void onCardFill() {
+        updateBottom();
+    }
+
+    public void updateInformation(){
+        rightVBox.refreshRightSide();
+        bottomHBox.updateBottom();
+        leftVBox.updatePlayer();
     }
 
     public void selectEnemyView(){
@@ -176,5 +170,13 @@ public class BattleView extends BorderPane {
         topHBox.setDisable(false);
         leftVBox.setDisable(false);
         bottomHBox.setDisable(false);
+    }
+
+    public void updatePlayer(){
+        leftVBox.updatePlayer();
+    }
+
+    public void updateBottom() {
+        bottomHBox.updateBottom();
     }
 }

@@ -1,6 +1,6 @@
 package models.cards.card_structure;
 
-import models.GameContext;
+import models.battle.GameContext;
 
 public abstract class StatusCard extends Card {
     public StatusCard(String name, String description, int cost, CardRarity rarity, CardGrave cardGrave) {

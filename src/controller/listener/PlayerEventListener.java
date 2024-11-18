@@ -1,10 +1,10 @@
-package listener;
+package controller.listener;
 
 import events.PlayerBlockEvent;
 import events.PlayerDamageEvent;
 
 /**
- * Interface Player event listener.
+ * Interface Player event controller.listener.
  * @author OF Daniel Willig
  */
 public interface PlayerEventListener {
@@ -21,4 +21,6 @@ public interface PlayerEventListener {
      * @param event das Event
      */
     void onDamageReceived(PlayerDamageEvent event);
+
+    void onDamageDealed();
 }

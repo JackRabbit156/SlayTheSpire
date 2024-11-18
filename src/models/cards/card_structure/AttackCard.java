@@ -1,6 +1,6 @@
 package models.cards.card_structure;
 
-import models.GameContext;
+import models.battle.GameContext;
 
 public abstract class AttackCard extends Card {
     private int damage;

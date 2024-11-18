@@ -2,8 +2,8 @@ package models.cards.ironclad_cards.attack.common;
 
 import helper.ConsoleAssistent;
 import helper.PathAssistent;
-import models.BattleDeck;
-import models.GameContext;
+import models.battle.BattleDeck;
+import models.battle.GameContext;
 import models.cards.card_structure.AttackCard;
 import models.cards.card_structure.Card;
 import models.cards.card_structure.CardGrave;

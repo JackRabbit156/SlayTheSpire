@@ -1,6 +1,8 @@
 package models.map_elements.acts;
 
+import models.map_elements.Coordinates;
 import models.map_elements.Node;
+import models.map_elements.field_types.*;
 import models.player.player_structure.Player;
 
 /**
@@ -13,8 +15,11 @@ import models.player.player_structure.Player;
  * @author Warawa Alexander
  */
 public class ActTwo extends Act {
-    private static final int MAP_WIDTH = 7;
-    private static final int MAP_HEIGHT= 16;
+
+    private static final int MAP_WIDTH = 4;
+    private static final int MAP_HEIGHT= 14;
+
+    private Player player;
     /**
      * Konstruktor für die Klasse ActTwo.
      * Initialisiert den Akt und platziert den Spieler auf dem Startfeld, mit der Option einen Spieler auf einem bestimmten Floor zu spawnen.
@@ -24,9 +29,15 @@ public class ActTwo extends Act {
      */
     public ActTwo(Player player, boolean loadingFromFile){
         super(2, MAP_WIDTH, MAP_HEIGHT);
+        this.player = player;
         initNodes();
 
-        Node playerNode = getNoteByName(player.getCurrentField());
+        Node playerNode = null;
+        if(loadingFromFile)
+            playerNode = getNoteByName(player.getCurrentField());
+        else
+            playerNode = getNoteByName(getFirstField());
+
         if(playerNode == null){
             System.out.println("ERROR");
             return;
@@ -38,12 +49,85 @@ public class ActTwo extends Act {
     }
 
     private void initNodes(){
+        Node start17 = new Node("17", new EnemyField(), new Coordinates(2, 14));
+        Node unknown18 = new Node("18", new UnknownField(null, null, null, null), new Coordinates(0, 12));
+        Node fight19 = new Node("19", new EnemyField(), new Coordinates(2, 12));
+        Node fight20 = new Node("20", new EnemyField(), new Coordinates(4, 12));
+        Node unknown21 = new Node("21", new UnknownField(null, null, null, null), new Coordinates(0, 10));
+        Node fight22 = new Node("22", new EnemyField(), new Coordinates(2, 10));
+        Node fight23 = new Node("23", new EnemyField(), new Coordinates(4, 10));
+        Node shop24 = new Node("24", new ShopField(), new Coordinates(0, 8));
+        Node elite25 = new Node("25", new EliteField(null), new Coordinates(2, 8));
+        Node unknown26 = new Node("26", new UnknownField(null, null, null, null), new Coordinates(0, 6));
+        Node fight27 = new Node("27", new EnemyField(), new Coordinates(2, 6));
+        Node unknown28 = new Node("28", new UnknownField(null, null, null, null), new Coordinates(4, 6));
+        Node unknown29 = new Node("29", new UnknownField(null, null, null, null), new Coordinates(0, 4));
+        Node fight30 = new Node("30", new EnemyField(), new Coordinates(2, 4));
+        Node fight31 = new Node("31", new EnemyField(), new Coordinates(4, 4));
+        Node rest32 = new Node("32", new RestField(), new Coordinates(2, 2));
+        Node boss33 = new Node("33", new BossField(null), new Coordinates(2,0));
+
+        nodes.add(start17);
+        nodes.add(unknown18);
+        nodes.add(fight19);
+        nodes.add(fight20);
+        nodes.add(unknown21);
+        nodes.add(fight22);
+        nodes.add(fight23);
+
+        nodes.add(shop24);
+        nodes.add(elite25);
+        nodes.add(unknown26);
+        nodes.add(fight27);
+        nodes.add(unknown28);
+        nodes.add(unknown29);
+        nodes.add(fight30);
+        nodes.add(fight31);
+        nodes.add(rest32);
+        nodes.add(boss33);
+
+
+        start17.setLeftNode(unknown18);
+        start17.setMiddleNode(fight19);
+        start17.setRightNode(fight20);
+
+        unknown18.setMiddleNode(unknown21);
+
+        fight19.setLeftNode(unknown21);
+        fight19.setMiddleNode(fight22);
+
+        fight20.setMiddleNode(fight23);
+
+        unknown21.setMiddleNode(shop24);
+
+        fight22.setMiddleNode(elite25);
+
+        fight23.setLeftNode(elite25);
+        fight23.setMiddleNode(unknown28);
+
+        shop24.setMiddleNode(unknown26);
+        elite25.setLeftNode(unknown26);
+        elite25.setMiddleNode(fight27);
+
+        unknown26.setMiddleNode(unknown29);
+
+        fight27.setMiddleNode(fight30);
+        unknown28.setMiddleNode(fight31);
+
+        unknown29.setRightNode(rest32);
+
+        fight30.setMiddleNode(rest32);
+
+        fight31.setLeftNode(rest32);
+
+        rest32.setMiddleNode(boss33);
 
     }
 
     @Override
     public void doFieldThing() {
-
+        Node currentNode = getPlayerNode();
+        currentNode.doFieldThing(currentNode.getPlayer());
     }
 
     @Override

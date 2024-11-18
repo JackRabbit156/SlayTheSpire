@@ -34,15 +34,15 @@ public class GameSaveManager {
      * @param player Der Spieler, dessen Spielstand gespeichert werden soll.
      */
     public void saveGame(Player player) {
-        if(!GameSettings.lastSession.equals(""))
+        if(!GameSettings.lastSession.isEmpty())
             deleteSelectedSaveFile(GameSettings.lastSession);
 
         Map<String, String> gameData = collectGameData(player);
-        String fileName = getTimestampedFileName();
+        //String fileName = getTimestampedFileName();
+        String fileName = "save_" + gameData.get("lastSession") + ".txt";
         saveDataToFile(gameData, new File(SAVE_FOLDER, fileName));
 
-        System.out.println("Successfully saved the game.");
-        ConsoleAssistent.sleep(1500);
+        // TODO: Alert, Game save was successful or not
     }
 
     /**
@@ -75,11 +75,9 @@ public class GameSaveManager {
         for(int i = 0; i< saveFiles.length; i++){
             if(saveFiles[i].getName().equals("save_"+session+".txt")){
                 saveFiles[i].delete();
-                //System.out.println("Save file " + session + " successfully deleted!.");
                 return;
             }
         }
-        //System.out.println("Error, could not delete file: " + session + ".");
     }
 
     /**

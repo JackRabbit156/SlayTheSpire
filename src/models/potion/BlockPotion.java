@@ -1,7 +1,6 @@
 package models.potion;
 
-import models.GameContext;
-import models.cards.card_structure.Card;
+import models.battle.GameContext;
 import models.cards.card_structure.CardGrave;
 import models.cards.card_structure.CardRarity;
 import models.player.player_structure.Player;

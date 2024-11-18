@@ -3,7 +3,7 @@ package models.player.player_structure;
 import events.PlayerBlockEvent;
 import events.PlayerDamageEvent;
 import javafx.stage.Stage;
-import listener.PlayerEventListener;
+import controller.listener.*;
 import models.cards.card_structure.Card;
 import models.game_settings.GameSettings;
 import models.relics.relic_structure.Relic;
@@ -68,7 +68,7 @@ public abstract class Player {
         this.currentField = "1";
         this.playerType = playerType;
         this.symbol = symbol;
-        this.listener = null;
+        listener = null;
     }
 
     public Stage getPrimaryStage() {
@@ -307,10 +307,9 @@ public abstract class Player {
         return listener;
     }
 
-    public void setListener(PlayerEventListener listener) {
-        this.listener = listener;
+    public void setListener(PlayerEventListener listener){
+            this.listener = listener;
     }
-
     public String getCurrentField() {
         return currentField;
     }

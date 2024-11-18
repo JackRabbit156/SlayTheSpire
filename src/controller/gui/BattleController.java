@@ -1,15 +1,12 @@
 package controller.gui;
 
-import helper.ConsoleAssistent;
-import javafx.event.ActionEvent;
-import javafx.scene.Scene;
+import helper.GuiHelper;
 import javafx.stage.Stage;
-import models.BattleDeck;
-import models.GameContext;
+import models.battle.BattleDeck;
+import models.battle.GameContext;
 
 import models.cards.card_structure.Card;
 import models.cards.card_structure.CardGrave;
-import models.cards.card_structure.CardTrigger;
 import models.enemy.Enemy;
 import models.player.player_structure.Player;
 
@@ -18,37 +15,79 @@ import view.gui.layouts.layout_events.BatteViewEvents;
 
 import java.util.List;
 
+/**
+ * Diese Klasse steuert den Kampfabschnitt des Spiels, einschließlich der Spieler- und
+ * Gegneraktionen sowie des Kampf-Dialogs. Die Klasse verarbeitet die Karten, Energien und
+ * Punkte, die im Kampf verwendet werden.
+ *
+ * @author Warawa Alexander, Willig Daniel
+ */
 public class BattleController implements BatteViewEvents {
-    private BattleView battleView;
+    private final BattleView battleView;
 
-    private Player player;
-    private List<Enemy> enemies;
+    private final Player player;
+    private final List<Enemy> enemies;
 
-    private BattleDeck battleDeck;
-    private GameContext gameContext;
+    private final BattleDeck battleDeck;
+    private final GameContext gameContext;
 
     private Card selectedCard;
 
-    public BattleController(Player player, List<Enemy> enemies, BattleView battleView) {
+    public BattleController(Player player, List<Enemy> enemies) {
         this.player = player;
         this.enemies = enemies;
-        this.battleView = battleView;
 
         this.battleDeck = new BattleDeck(player.getDeck());
+
         this.gameContext = new GameContext(player, enemies, battleDeck);
+        this.battleView = new BattleView(player, enemies, this, battleDeck);
 
-        battleView.initBattleViewEvents(this);
+        battleDeck.fillHand(battleDeck.getStartHandSize());
 
-
-        initController();
-
-        startGame();
+        playerBOT();
     }
 
-    private void startGame() {
+    private void playerBOT() {
+        battleDeck.fillHand(battleDeck.getStartHandSize());
+        player.resetEnergy();
+        player.resetBlock();
+    }
+
+    /**
+     * This function calls 'playerTurn(...)' and checks if the card needs a target
+     *
+     * @param card selected card
+     * @param index index of selected card
+     */
+    @Override
+    public void onCardClick(Card card, int index) {
+        playerTurn(card, index);
+    }
+
+    /**
+     *
+     * @param enemy that enemy you clicked on after your selection of a card
+     */
+    @Override
+    public void onEnemyClick(Enemy enemy) {
+        if(selectedCard == null)
+            return;
+
+        playCardIfPossible(enemy);
+
+        selectedCard = null;
+
+        if(enemies.isEmpty()) {
+            startingMap();
+        }
+    }
+
+    @Override
+    public void onEndTurnClick() {
+        playerEOT();
+        enemyTurn();
+
         playerBOT();
-        refreshHand();
-        //removeHandAfterEndOfTurn();
     }
 
     private void removeHandAfterEndOfTurn() {
@@ -56,70 +95,33 @@ public class BattleController implements BatteViewEvents {
         for(int i = 0; i < size; i++) {
             battleDeck.discardCardFromHand(battleDeck.getHand().get(0));
         }
-
-        System.out.println(battleDeck.getHand().size() + " sice");
-        refreshHand();
-    }
-    private void playerTurn(Card card, int index) {
-        //card.play(gameContext); // Hier ist das Problem
-
-        if(card.isTargetRequired()){
-            battleView.selectEnemyView();
-            System.out.println("We are here!");
-            selectedCard = card;
-        }
-    }
-
-    private void playerBOT() {
-        battleDeck.fillHand(battleDeck.getStartHandSize());
-        player.resetEnergy();
-        player.resetBlock();
-        //triggerCard(CardTrigger.PLAYER_BOT);
-    }
-
-    private void refreshHand(){
-        battleView.setHand(battleDeck.getHand());
     }
 
     /**
-     * Sollte auf einen Button von BattleView gedrückt werden, wird dieser Klick weiter auf einen Handler in BattleViewController geleitet.
+     * If a target is required we save the selected card for 'onEnemyClick'
+     * If no target is required then we play the card
+     * @param card selected card
+     * @param index index of selected card
      */
-    private void initController() {
-        // Register listener for the "Okay" button
-        battleView.setOkayButtonHandler(this::handleOkayButton);
-    }
-
-    private void handleOkayButton(ActionEvent event) {
-        // Handle the logic for when the "Okay" button is clicked
-        System.out.println("Okay button clicked!");
-
-        // Example: Modify player or enemy.png state
-        // Update BattleView based on changes
-        //battleView.updateEnemyStatus();
-
-        playerEOT();
-        enemyTurn();
-
-        startGame();
+    private void playerTurn(Card card, int index) {
+        if(card.isTargetRequired())
+            selectedCard = card;
+         else
+            card.play(gameContext);
     }
 
     private void playerEOT() {
         removeHandAfterEndOfTurn();
-        //triggerCard(CardTrigger.PLAYER_EOT);
     }
 
     private void enemyTurn() {
         System.out.println("\nEnemies' Turn:");
-
         removeBlockOfEnemiesAfterEndOfTurn();
 
         for (Enemy enemy : enemies) {
             if (enemy.isAlive()) {
                 enemy.action(gameContext);
             }
-            // kurze Verzögerung, damit der Schaden des Gegners nicht auf einem Schlag kommt.
-            ConsoleAssistent.sleep(300);
-
         }
     }
 
@@ -128,42 +130,6 @@ public class BattleController implements BatteViewEvents {
         for (Enemy enemy : enemies) {
             enemy.setBlock(0);
         }
-    }
-
-    @Override
-    public void onCardClick(Card card, int index) {
-        //System.out.println("Player pressed CardclickEvent: " + card + " index " + index);
-        playerTurn(card, index);
-    }
-
-    @Override
-    public void onEnemyClick(Enemy enemy) {
-        if(selectedCard == null)
-            return;
-
-        playCardIfPossible(enemy);
-
-        battleView.updateEnemyStatus();
-        battleView.enableBatteView();
-
-        refreshHand();
-
-        selectedCard = null;
-
-        if(enemies.isEmpty()) {
-           startingMap();
-        }
-    }
-
-    private void startingMap(){
-        MapController controller = new MapController(player, true);
-
-        Stage primaryStage = player.getPrimaryStage();
-        Scene scene = new Scene(controller.getMapView(), 1920, 1080);
-
-        primaryStage.setScene(scene);
-        primaryStage.setTitle("Slay the Spire - JavaFX");
-        primaryStage.show();
     }
 
     private void playCardIfPossible(Enemy enemy) {
@@ -185,5 +151,14 @@ public class BattleController implements BatteViewEvents {
         else {
             battleDeck.removeCardFromHand(selectedCard);
         }
+    }
+
+    private void startingMap(){
+        Stage primaryStage = player.getPrimaryStage();
+        GuiHelper.Scenes.startMapScene(primaryStage, player, true);
+    }
+
+    public BattleView getBattleView(){
+        return this.battleView;
     }
 }

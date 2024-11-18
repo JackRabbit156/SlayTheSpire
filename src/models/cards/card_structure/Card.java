@@ -1,6 +1,6 @@
 package models.cards.card_structure;
 
-import models.GameContext;
+import models.battle.GameContext;
 
 import java.util.Random;
 

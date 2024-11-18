@@ -34,6 +34,7 @@ public class PlayerLayout extends VBox {
 
     public void updatePlayer(){
         healthBar.setHealthText(player.getCurrentHealth(), player.getMaxHealth());
+
     }
 
     private ImageView image() {

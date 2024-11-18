@@ -1,6 +1,6 @@
 package models.enemy.act_four.boss;
 
-import models.GameContext;
+import models.battle.GameContext;
 import models.enemy.Enemy;
 import models.player.player_structure.Player;
 

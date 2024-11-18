@@ -1,7 +1,7 @@
 package models.cards.ironclad_cards.attack.common;
 
 import helper.PathAssistent;
-import models.GameContext;
+import models.battle.GameContext;
 import models.cards.card_structure.AttackCard;
 import models.cards.card_structure.CardGrave;
 import models.cards.card_structure.CardRarity;

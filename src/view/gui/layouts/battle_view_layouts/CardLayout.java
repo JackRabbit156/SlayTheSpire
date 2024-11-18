@@ -7,9 +7,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
 import models.cards.card_structure.Card;
 import view.gui.BattleView;
 
@@ -28,6 +26,11 @@ public class CardLayout extends HBox {
         // Center of the bottom
         setAlignment(Pos.CENTER);
 
+        showCards();
+    }
+
+    public void refreshHand() {
+        this.getChildren().clear();
         showCards();
     }
 
@@ -81,7 +84,6 @@ public class CardLayout extends HBox {
             imageView.setScaleY(1.0); // Reset the height to original
             imageView.setTranslateY(60); // Bild wieder nach unten verschieben
         });
-
     }
 
     public void handleCardClick(Card card, int index) {

@@ -1,5 +1,6 @@
-package models;
+package models.battle;
 
+import controller.listener.BattleDeckListener;
 import models.cards.card_structure.Card;
 import models.cards.card_structure.PowerCard;
 
@@ -25,6 +26,8 @@ public class BattleDeck {
     private Random random;
     private int startHandSize;
 
+    private BattleDeckListener battleDeckListener;
+
     /**
      * Konstruktor für die BattleDeck-Klasse.
      *
@@ -39,6 +42,10 @@ public class BattleDeck {
         this.startHandSize = 5;
         this.currentPowerCards = new ArrayList<>();
         createShuffledDeck();
+    }
+
+    public void setBattleDeckListener(BattleDeckListener battleDeckListener){
+        this.battleDeckListener = battleDeckListener;
     }
 
     /**
@@ -72,7 +79,7 @@ public class BattleDeck {
             }
             hand.add(deck.remove(deck.size() - 1)); //zieht von oben
         }
-
+        battleDeckListener.onCardFill();
     }
 
     /**
@@ -153,4 +160,6 @@ public class BattleDeck {
     public List<PowerCard> getCurrentPowerCards() {
         return currentPowerCards;
     }
+
+
 }

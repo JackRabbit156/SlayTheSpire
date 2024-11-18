@@ -1,6 +1,6 @@
 package models.relics;
 
-import models.GameContext;
+import models.battle.GameContext;
 import models.player.player_structure.PlayerType;
 import models.relics.relic_structure.PlayerTypeRelic;
 import models.relics.relic_structure.RelicType;
