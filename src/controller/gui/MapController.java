@@ -1,7 +1,5 @@
 package controller.gui;
 
-import javafx.scene.Scene;
-import javafx.stage.Stage;
 import models.map_elements.Node;
 import models.map_elements.acts.Act;
 import models.map_elements.acts.ActFour;
@@ -11,6 +9,17 @@ import models.player.player_structure.Player;
 import view.gui.MapView;
 import view.gui.layouts.layout_events.MapViewEvents;
 
+/**
+ *  Die Klasse MapController ist für die Steuerung der Spielkarte und die Interaktion
+ * zwischen dem Spieler und den einzelnen Akten verantwortlich. Sie initiiert die Karte
+ * und führt die Spielerbewegung durch.
+ *
+ * Die Klasse entscheidet basierend auf dem aktuellen Akt des Spielers, welche Akt-Klasse
+ * ('ActOne', 'ActTwo' oder 'ActFour') verwendet wird und ruft die passenden Methoden zum
+ * Anzeigen und Aktualisieren der Karte auf.
+ *
+ * @author Warawa Alexander
+ */
 public class MapController implements MapViewEvents {
     private MapView mapView;
     private Player player;
@@ -22,7 +31,7 @@ public class MapController implements MapViewEvents {
 
         switch (player.getCurrentAct()){
             case 1: act = new ActOne(player, loadingFromFile); break;
-           // case 2: act = new ActTwo(player, loadingFromFile); break; // TODO: Für GUI
+            case 2: act = new ActTwo(player, loadingFromFile); break; // TODO: Für GUI
             case 3:  break; // TODO: Act 3, Für GUI
             case 4: act = new ActFour(player, loadingFromFile); break;
             default:
@@ -39,21 +48,12 @@ public class MapController implements MapViewEvents {
 
     @Override
     public void onValidFieldClick(Player player, Node node) {
-        //Stage primaryStage = player.getPrimaryStage();
         System.out.println("clicked on valid Field! " + node.getFieldName());
+
         node.doFieldThing(player);
 
-        act.setBeatenNode(player, node);
+        act.setBeatenNode(player, node); // TODO: Evtl. nach Sieg eines Feldes setzen.
         player.setCurrentField(getCurrentFieldFromAct());
-
-      /*  this.mapView = new MapView(player, act.getNodes(), act.getMapWidth(), act.getMapHeight(), this);
-
-        Scene scene = new Scene(mapView, 1920, 1080);
-
-        primaryStage.setScene(scene);
-        primaryStage.setTitle("Slay the Spire - Map");
-        primaryStage.show();*/
-
     }
 
     private String getCurrentFieldFromAct(){

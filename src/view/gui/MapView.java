@@ -19,19 +19,26 @@ import view.gui.layouts.map_view_layouts.MapLayout;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Die Klasse MapView dient zur Darstellung der Karte eines Aktes im Spiel.
+ * Sie ermöglicht das Platzieren der Knotenpunkte auf der Karte und die Ausgabe
+ * der Karte in der grafischen Oberfläche.
+ *
+ * <p>Die Klasse übernimmt das Layout der Karte und setzt den Spieler sowie
+ * die Knoten entsprechend ihrer Positionen im Akt auf die Karte.</p>
+ *
+ * @author Warawa Alexander
+ */
 public class MapView extends BorderPane {
     private MapViewEvents mapViewEvents;
 
     private MapLayout map;
     private Player player;
     private List<Node> nodes;
-    private int mapWidth;
-    private int mapHeight;
 
-    public MapView(Player player,  List<Node> nodes, int mapWidth, int mapHeight, MapViewEvents mapViewEvents) {
+
+    public MapView(Player player, List<Node> nodes, int mapWidth, int mapHeight, MapViewEvents mapViewEvents) {
         this.nodes = nodes;
-        this.mapHeight = mapHeight;
-        this.mapWidth = mapWidth;
         this.mapViewEvents = mapViewEvents;
         this.player = player;
 
@@ -48,28 +55,28 @@ public class MapView extends BorderPane {
     }
 
     private void initTopSide() {
-        Region topPlaceholder = new Region();
-        topPlaceholder.setMinHeight(200); // Festlegen der konstanten Höhe
+        HBox topHBox = new HBox(30);
+        topHBox.setPadding(new Insets(0,0,0,300));
+        topHBox.setStyle("-fx-background-color: rgba(34, 34, 34, 0.8);");
+        topHBox.setPrefHeight(50);
 
-        setTop(topPlaceholder);
+        Label playerNameLabel = new Label(player.getName());
+        playerNameLabel.getStyleClass().add("name-label");
+        Label playerFloorLabel = new Label("Floor " +player.getCurrentField());
+        playerFloorLabel.getStyleClass().add("floor-label");
+        Label playerMoneyLabel = new Label("Gold "+player.getGold());
+        playerMoneyLabel.getStyleClass().add("gold-label");
+        Label playerHealthLabel = new Label("Health " + player.getCurrentHealth() +"/" + player.getMaxHealth());
+        playerHealthLabel.getStyleClass().add("health-label");
+
+        topHBox.getChildren().addAll(playerNameLabel, playerHealthLabel, playerMoneyLabel, playerFloorLabel);
+
+        setTop(topHBox);
     }
 
     private void initLeftSide() {
-        Region bottomPlaceholder = new Region();
-        bottomPlaceholder.setMinWidth(800); // Festlegen der konstanten Höhe
-        setLeft(bottomPlaceholder);
-    }
-
-    private BackgroundImage background(){
-        Image backgroundImage = new Image(getClass().getResource("/images/act1.png").toExternalForm());
-        // Erstelle das Hintergrundbild mit den gewünschten Eigenschaften
-        BackgroundImage background = new BackgroundImage(
-                backgroundImage,
-                BackgroundRepeat.NO_REPEAT, // Option: NO_REPEAT, REPEAT, REPEAT_X, REPEAT_Y
-                BackgroundRepeat.NO_REPEAT,
-                BackgroundPosition.DEFAULT,
-                new BackgroundSize(1920, 1080, false, false, false, true)
-        );
-        return background;
+        Region placeHolder = new Region();
+        placeHolder.setMinWidth(800); // Festlegen der konstanten Höhe
+        setLeft(placeHolder);
     }
 }

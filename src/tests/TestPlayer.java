@@ -1,10 +1,8 @@
 package tests;
 
 import helper.ConsoleAssistent;
-import models.GameContext;
+import models.battle.GameContext;
 import models.cards.card_structure.*;
-import models.cards.general_cards.DefendCard;
-import models.cards.general_cards.StrikeCard;
 import models.cards.ironclad_cards.attack.common.BashCard;
 import models.enemy.Enemy;
 import models.player.player_structure.Player;
@@ -14,7 +12,6 @@ import models.relics.relic_structure.Relic;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
 public class TestPlayer extends Player {
     public TestPlayer() {

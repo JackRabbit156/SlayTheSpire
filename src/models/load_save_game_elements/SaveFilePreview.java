@@ -31,6 +31,7 @@ public class SaveFilePreview {
         this.currentAct = currentAct;
     }
 
+
     public void setLastSession(String lastSession) {
         this.lastSession = lastSession;
     }
@@ -58,4 +59,17 @@ public class SaveFilePreview {
     public String getTimePlayed() {
         return timePlayed;
     }
+
+    @Override
+    public String toString() {
+        return "SaveFilePreview{" +
+                "characterName='" + characterName + '\'' +
+                ", playerType='" + playerType + '\'' +
+                ", field=" + field +
+                ", currentAct=" + currentAct +
+                ", lastSession='" + lastSession + '\'' +
+                ", timePlayed='" + timePlayed + '\'' +
+                '}';
+    }
+
 }

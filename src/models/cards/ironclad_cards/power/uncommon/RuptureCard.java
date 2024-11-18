@@ -1,8 +1,8 @@
 package models.cards.ironclad_cards.power.uncommon;
 
 import helper.PathAssistent;
-import models.BattleDeck;
-import models.GameContext;
+import models.battle.BattleDeck;
+import models.battle.GameContext;
 import models.cards.card_structure.CardGrave;
 import models.cards.card_structure.CardRarity;
 import models.cards.card_structure.CardTrigger;

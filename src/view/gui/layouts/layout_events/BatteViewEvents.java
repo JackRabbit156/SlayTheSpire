@@ -6,4 +6,5 @@ import models.enemy.Enemy;
 public interface BatteViewEvents {
     void onCardClick(Card card, int index);
     void onEnemyClick(Enemy enemy);
+    void onEndTurnClick();
 }

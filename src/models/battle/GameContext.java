@@ -1,8 +1,7 @@
-package models;
+package models.battle;
 
+import models.battle.BattleDeck;
 import models.enemy.Enemy;
-import models.game_settings.GameSettings;
-import models.game_settings.structure.DifficultyLevel;
 import models.player.player_structure.Player;
 
 import java.util.List;

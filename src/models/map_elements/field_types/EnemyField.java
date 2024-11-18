@@ -3,6 +3,7 @@ package models.map_elements.field_types;
 import controller.cli.BattleViewController;
 import controller.cli.LootViewController;
 import controller.gui.BattleController;
+import helper.GuiHelper;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import models.enemy.Enemy;
@@ -51,26 +52,7 @@ public class EnemyField extends Field{
 
         Stage primaryStage = player.getPrimaryStage();
 
-        BattleView view = new BattleView(player, enemies);
-        BattleController battle = new BattleController(player, enemies, view);
-
-        Scene scene = new Scene(view, 1920, 1080);
-
-        primaryStage.setScene(scene);
-        primaryStage.setTitle("Slay the Spire - JavaFX");
-        primaryStage.show();
-
-        /*BattleViewController battle = new BattleViewController(player, enemies);
-        battle.startBattle();
-
-        if(!player.isAlive())
-            return;
-
-        setFieldBeaten();
-
-        lootViewController = new LootViewController(player, "EnemyField");
-        lootViewController.openLootView(player);*/
-
+        GuiHelper.Scenes.startBattleScene(primaryStage, player, enemies);
     }
 
     /**

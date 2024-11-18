@@ -23,8 +23,8 @@ public class PlayerLayout extends VBox {
         healthBar = new HealthBarLayout(100);
         this.getChildren().add(healthBar);
 
-        this.setPadding(new Insets(300, 0, 0, 450));
-        this.alignmentProperty().set(Pos.CENTER_LEFT);
+        this.setPadding(new Insets(500, 0, 0, 450));
+        this.alignmentProperty().set(Pos.BOTTOM_RIGHT);
 
         updatePlayer();
 
@@ -34,6 +34,7 @@ public class PlayerLayout extends VBox {
 
     public void updatePlayer(){
         healthBar.setHealthText(player.getCurrentHealth(), player.getMaxHealth());
+
     }
 
     private ImageView image() {

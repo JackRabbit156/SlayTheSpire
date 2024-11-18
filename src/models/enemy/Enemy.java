@@ -1,7 +1,6 @@
 package models.enemy;
 
-import models.GameContext;
-import models.game_settings.GameSettings;
+import models.battle.GameContext;
 import models.game_settings.GameSettings;
 import models.game_settings.structure.DifficultyLevel;
 

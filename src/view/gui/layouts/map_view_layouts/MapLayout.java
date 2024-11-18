@@ -10,13 +10,14 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 import models.map_elements.Node;
 import view.gui.MapView;
+import view.gui.layouts.battle_view_layouts.MovingAnimation;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class MapLayout extends GridPane {
     private Pane lineLayer;
-    MapView mapView;
+    private MapView mapView;
     private int mapWidth;
     private int mapHeight;
 
@@ -94,7 +95,10 @@ public class MapLayout extends GridPane {
                     availablePosFromPlayer.add(nodes.get(i).getMiddleNode());
                 }
 
-                this.add(image("/images/map/player/ironclad.png"), nodes.get(i).getX(), nodes.get(i).getY());
+                ImageView playerImage =image("/images/map/player/ironclad.png");
+                MovingAnimation movingAnimation = new MovingAnimation(playerImage);
+                movingAnimation.start();
+                this.add(playerImage, nodes.get(i).getX(), nodes.get(i).getY());
                 continue;
             }
 
@@ -145,8 +149,6 @@ public class MapLayout extends GridPane {
             imageView.setScaleX(1.0); // Reset the width to original
             imageView.setScaleY(1.0); // Reset the height to original
         });
-
-
     }
 
     private void initMapGridPane() {

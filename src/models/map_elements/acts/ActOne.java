@@ -65,8 +65,11 @@ public class ActOne extends Act {
         }
 
         playerNode.setPlayer(player);
+
         if(loadingFromFile)
             playerNode.setFieldBeaten();
+        else
+            playerNode.doFieldThing(player);
     }
 
     private void initNodes(){

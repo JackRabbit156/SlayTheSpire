@@ -3,8 +3,8 @@ package controller.cli;
 import events.PlayerBlockEvent;
 import events.PlayerDamageEvent;
 import helper.ConsoleAssistent;
-import models.BattleDeck;
-import models.GameContext;
+import models.battle.BattleDeck;
+import models.battle.GameContext;
 import models.cards.card_structure.Card;
 import models.cards.card_structure.CardGrave;
 import models.cards.card_structure.CardTrigger;
@@ -12,7 +12,7 @@ import models.cards.card_structure.PowerCard;
 import models.enemy.Enemy;
 import models.player.player_structure.Player;
 import view.cli.BattleView;
-import listener.PlayerEventListener;
+import controller.listener.*;
 
 import java.util.List;
 import java.util.Scanner;
@@ -46,6 +46,7 @@ public class BattleViewController implements PlayerEventListener{
         this.scanner = new Scanner(System.in);
         this.battleDeck = new BattleDeck(player.getDeck());
         this.gameContext = new GameContext(player, enemies, battleDeck);
+        //player.setListener(this);
         player.setListener(this);
     }
 
@@ -211,5 +212,10 @@ public class BattleViewController implements PlayerEventListener{
                 powerCard.ability(gameContext);
             }
         }
+    }
+
+    @Override
+    public void onDamageDealed() {
+
     }
 }

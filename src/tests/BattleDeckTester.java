@@ -1,6 +1,6 @@
 package tests;
 
-import models.BattleDeck;
+import models.battle.BattleDeck;
 import models.player.player_structure.Player;
 
 public class BattleDeckTester {
