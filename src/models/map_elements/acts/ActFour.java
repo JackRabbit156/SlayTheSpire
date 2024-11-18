@@ -2,14 +2,10 @@ package models.map_elements.acts;
 
 
 import models.enemy.Enemy;
-import models.enemy.act_four.Shapes;
-import models.enemy.act_four.boss.CorruptHeart;
-import models.enemy.act_four.elites.SpireShield;
-import models.enemy.act_four.elites.SpireSpear;
-import models.enemy.act_one.AcidSlime;
-import models.enemy.act_one.Cultist;
-import models.enemy.act_one.MadGremlin;
-import models.enemy.act_one.bosses.SlimeBoss;
+import models.enemy.act_four.SpikerEnemy;
+import models.enemy.act_four.boss.CorruptHeartBoss;
+import models.enemy.act_four.elites.SpireShieldElite;
+import models.enemy.act_four.elites.SpireSpearElite;
 import models.map_elements.Coordinates;
 import models.map_elements.Node;
 import models.map_elements.field_types.*;
@@ -81,10 +77,10 @@ public class ActFour extends Act{
         List<Enemy> enemies = new ArrayList<>();
 
         int randAmountEnemies = randi.nextInt(4);
-        enemies.add(new CorruptHeart());
+        enemies.add(new CorruptHeartBoss());
 
         for (int i = 0; i < randAmountEnemies; i++) {
-            enemies.add(new Shapes());
+            enemies.add(new SpikerEnemy());
         }
         return enemies;
     }
@@ -97,15 +93,15 @@ public class ActFour extends Act{
         switch (randElite) {
             case 0:
                 // 1 - SpireShield
-                enemies.add(new SpireShield());
+                enemies.add(new SpireShieldElite());
                 break;
             default:
                 // 2 - SpireSpear
-                enemies.add(new SpireSpear());
+                enemies.add(new SpireSpearElite());
                 break;
         }
         for (int i = 0; i < randAmountEnemies; i++) {
-            enemies.add(new Shapes());
+            enemies.add(new SpikerEnemy());
         }
 
         return enemies;

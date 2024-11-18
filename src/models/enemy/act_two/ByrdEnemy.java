@@ -1,5 +1,6 @@
 package models.enemy.act_two;
 
+import helper.PathAssistent;
 import models.GameContext;
 import models.enemy.Enemy;
 import models.player.player_structure.Player;
@@ -13,9 +14,10 @@ import java.util.Random;
  *
  * @author Warawa Alexander
  */
-public class Byrd extends Enemy {
-    public Byrd() {
+public class ByrdEnemy extends Enemy {
+    public ByrdEnemy() {
         super("Byrd", 25, 31);
+        setImagePath(new PathAssistent().toPath(this));
         setBlock(40);
     }
 

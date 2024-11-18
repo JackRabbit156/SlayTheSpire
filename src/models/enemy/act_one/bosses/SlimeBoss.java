@@ -1,5 +1,6 @@
 package models.enemy.act_one.bosses;
 
+import helper.PathAssistent;
 import models.GameContext;
 import models.enemy.Enemy;
 import models.player.player_structure.Player;
@@ -15,6 +16,7 @@ public class SlimeBoss extends Enemy {
 
     public SlimeBoss() {
         super("Slime Boss", 150, 150);
+        setImagePath(new PathAssistent().toPath(this));
     }
 
     @Override

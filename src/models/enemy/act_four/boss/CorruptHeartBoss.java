@@ -1,5 +1,6 @@
 package models.enemy.act_four.boss;
 
+import helper.PathAssistent;
 import models.GameContext;
 import models.enemy.Enemy;
 import models.player.player_structure.Player;
@@ -9,11 +10,12 @@ import java.util.Random;
 /**
  * @author Keil, Vladislav
  */
-public class CorruptHeart extends Enemy {
+public class CorruptHeartBoss extends Enemy {
     private Random rand = new Random();
 
-    public CorruptHeart() {
+    public CorruptHeartBoss() {
         super("CorruptHeart",750, 750);
+        setImagePath(new PathAssistent().toPath(this));
     }
 
     @Override
