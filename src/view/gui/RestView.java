@@ -5,9 +5,12 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.StrokeLineJoin;
 import javafx.scene.shape.StrokeType;
@@ -66,9 +69,10 @@ public class RestView extends BorderPane {
         healBtnPane.getChildren().add(label);
 
         centerVBox.getChildren().add(healBtnPane);
-
         label.setOnMouseClicked(event -> restViewEvents.onHealClicked());
         btnImageView.setOnMouseClicked(event -> restViewEvents.onHealClicked());
+        GuiHelper.setButtonHoverEffect(btnImageView, label);
+
 
         centerVBox.setSpacing(50);
         centerVBox.setPadding(new Insets(50,15,15,280));
@@ -97,24 +101,25 @@ public class RestView extends BorderPane {
      */
     private void initBottom(){
         Image btnImage = new Image(getClass().getResource("/images/buttons/buttonL.png").toExternalForm());
-        ImageView imgView = new ImageView(btnImage);
+        ImageView backImgView = new ImageView(btnImage);
         HBox bottomHBox = new HBox();
         Button backBtn = new Button();
 
-        imgView.setFitWidth(backBtn.getWidth());
-        imgView.setFitHeight(backBtn.getHeight());
-        imgView.setScaleX(0.7);
-        imgView.setScaleY(0.7);
+        backImgView.setFitWidth(backBtn.getWidth());
+        backImgView.setFitHeight(backBtn.getHeight());
+        backImgView.setScaleX(0.7);
+        backImgView.setScaleY(0.7);
 
-        StackPane backBtnPane = new StackPane(imgView);
+        StackPane backBtnPane = new StackPane(backImgView);
         Label label = new Label("Back");
         label.setTextFill(Paint.valueOf("White"));
         label.setStyle("-fx-font-size: 24;");
         backBtnPane.getChildren().add(label);
         bottomHBox.getChildren().add(backBtnPane);
 
-        imgView.setOnMouseClicked(event -> restViewEvents.onBackClicked());
+        backImgView.setOnMouseClicked(event -> restViewEvents.onBackClicked());
         label.setOnMouseClicked(event -> restViewEvents.onBackClicked());
+        GuiHelper.setButtonHoverEffect(backImgView, label);
 
         bottomHBox.setAlignment(Pos.CENTER);
         Region placeHolder = new Region();

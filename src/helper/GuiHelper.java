@@ -5,11 +5,16 @@ import controller.gui.LoadController;
 import controller.gui.MapController;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
+import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BackgroundImage;
 import javafx.scene.layout.BackgroundPosition;
 import javafx.scene.layout.BackgroundRepeat;
 import javafx.scene.layout.BackgroundSize;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import models.enemy.Enemy;
 import models.player.player_structure.Player;
@@ -135,5 +140,66 @@ public class GuiHelper {
                 BackgroundPosition.DEFAULT,
                 new BackgroundSize(1920, 1080, false, false, false, true)
         );
+    }
+
+
+    public static void setHoverEffect(ImageView imageView) {
+        double downScaleX = imageView.getScaleX();;
+        double downScaleY = imageView.getScaleY();;
+        double upScaleX = downScaleX * 1.1;
+        double upScaleY = downScaleY * 1.1;
+
+        DropShadow glow = new DropShadow();
+        glow.setColor(Color.YELLOW);
+        glow.setHeight(30);
+        glow.setWidth(30);
+
+        imageView.addEventHandler(MouseEvent.MOUSE_ENTERED, e -> {
+            imageView.setEffect(glow);
+            imageView.setScaleX(upScaleX); // Slightly increase the width
+            imageView.setScaleY(upScaleY); // Slightly increase the height
+        });
+
+        imageView.addEventHandler(MouseEvent.MOUSE_EXITED, e -> {
+            imageView.setEffect(null);
+            imageView.setScaleX(downScaleX); // Reset the width to original
+            imageView.setScaleY(downScaleY); // Reset the height to original
+        });
+    }
+
+    public static void setButtonHoverEffect(ImageView imageView, Label label) {
+        double downScaleX = imageView.getScaleX();;
+        double downScaleY = imageView.getScaleY();;
+        double upScaleX = downScaleX * 1.1;
+        double upScaleY = downScaleY * 1.1;
+
+        DropShadow glow = new DropShadow();
+        glow.setColor(Color.YELLOW);
+        glow.setHeight(30);
+        glow.setWidth(30);
+
+        label.addEventHandler(MouseEvent.MOUSE_ENTERED, e -> {
+            imageView.setEffect(glow);
+            imageView.setScaleX(upScaleX); // Slightly increase the width
+            imageView.setScaleY(upScaleY); // Slightly increase the height
+        });
+
+        label.addEventHandler(MouseEvent.MOUSE_EXITED, e -> {
+            imageView.setEffect(null);
+            imageView.setScaleX(downScaleX); // Reset the width to original
+            imageView.setScaleY(downScaleY); // Reset the height to original
+        });
+
+        imageView.addEventHandler(MouseEvent.MOUSE_ENTERED, e -> {
+            imageView.setEffect(glow);
+            imageView.setScaleX(upScaleX); // Slightly increase the width
+            imageView.setScaleY(upScaleY); // Slightly increase the height
+        });
+
+        imageView.addEventHandler(MouseEvent.MOUSE_EXITED, e -> {
+            imageView.setEffect(null);
+            imageView.setScaleX(downScaleX); // Reset the width to original
+            imageView.setScaleY(downScaleY); // Reset the height to original
+        });
     }
 }
