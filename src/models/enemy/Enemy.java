@@ -20,6 +20,7 @@ public abstract class Enemy {
     private String name;
     private int currentHealth;
     private int maxHealth;
+    private String intent;
 
     private String imagePath;
     private int block;
@@ -58,6 +59,15 @@ public abstract class Enemy {
      * @author OF Daniel Willig
      */
     public void action(GameContext gameContext) {
+        if (getIntent().equals("attack")) {
+            attack(gameContext);
+        }
+        else {
+            System.out.println(doNothing());
+        }
+    }
+
+    public void calcIntent() {
         DifficultyLevel difficulty = GameSettings.getDifficultyLevel();
         int randomNumber = (new Random().nextInt(100) + 1);
         int attackPercentage = 100; //should be normal
@@ -78,10 +88,10 @@ public abstract class Enemy {
         }
 
         if (attackPercentage >= randomNumber) {
-            attack(gameContext);
+            setIntent("attack");
         }
         else {
-            System.out.println(doNothing());
+            setIntent("doNothing");
         }
     }
 
@@ -197,4 +207,11 @@ public abstract class Enemy {
         this.enemyEventListener = enemyEventListener;
     }
 
+    public String getIntent() {
+        return intent;
+    }
+
+    public void setIntent(String intent) {
+        this.intent = intent;
+    }
 }

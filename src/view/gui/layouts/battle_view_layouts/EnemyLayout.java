@@ -3,7 +3,6 @@ package view.gui.layouts.battle_view_layouts;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.effect.DropShadow;
-import javafx.scene.effect.Effect;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -17,6 +16,7 @@ public class EnemyLayout extends VBox {
     private Enemy enemy;
     private HealthBarLayout healthBarLayout;
     private DefendLayout defendLayout;
+    private IntentLayout intentLayout;
     private MovingAnimation animation;
     private BattleView battleView;
     private boolean attackMode = false;
@@ -26,6 +26,9 @@ public class EnemyLayout extends VBox {
         this.battleView = battleView;
         healthBarLayout = new HealthBarLayout(100);
         defendLayout = new DefendLayout();
+        intentLayout = new IntentLayout();
+
+        intentLayout.setTranslateY(50);
 
         HBox defendHealthBar = new HBox();
         defendHealthBar.getChildren().addAll(defendLayout, healthBarLayout);
@@ -33,7 +36,7 @@ public class EnemyLayout extends VBox {
         defendHealthBar.setTranslateX(-25);
         defendHealthBar.setSpacing(-105);
 
-        this.getChildren().addAll(image(), defendHealthBar);
+        this.getChildren().addAll(intentLayout, image(), defendHealthBar);
 
         // Die HP Bar muss nachjustiert werden
         setMargin(healthBarLayout, new Insets(0, 100, 0, 0));
@@ -48,6 +51,7 @@ public class EnemyLayout extends VBox {
 
     public void updateEnemy() {
         healthBarLayout.setHealthText(enemy.getHealth(), enemy.getMaxHealth());
+        intentLayout.setIntentText(enemy.getIntent());
     }
 
     private ImageView image() {

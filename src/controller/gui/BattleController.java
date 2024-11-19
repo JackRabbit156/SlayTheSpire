@@ -44,6 +44,7 @@ public class BattleController implements BattleViewEvents, PlayerEventListener, 
         this.enemies = enemies;
         for (Enemy enemy : enemies) {
             enemy.setEnemyEventListener(this);
+            enemy.calcIntent();
         }
 
         this.battleDeck = new BattleDeck(player.getDeck());
@@ -59,6 +60,9 @@ public class BattleController implements BattleViewEvents, PlayerEventListener, 
     }
 
     private void playerBOT() {
+        for (Enemy enemy : enemies) {
+            enemy.calcIntent();
+        }
         battleDeck.fillHand(battleDeck.getStartHandSize());
         player.resetEnergy();
         player.resetBlock();
