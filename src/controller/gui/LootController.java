@@ -32,7 +32,7 @@ public class LootController implements LootViewEvents {
      * @param player wird für die Loot-Deckerstellung benötigt.
      * @param fieldType Gold Faktor für den Loot
      */
-    public LootController(Player player, String fieldType) {
+    public LootController(Player player, FieldEnum fieldType) {
         this.player = player;
         int amount = 5;
         initGoldLoot(fieldType);
