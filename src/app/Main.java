@@ -11,8 +11,8 @@ public class Main extends Application {
         IroncladPlayer player = new IroncladPlayer();
         player.setPrimaryStage(primaryStage);
 
-        GuiHelper.Scenes.startLoadSaveStateScene(primaryStage);
-        //GuiHelper.Scenes.startMapScene(player, true);
+//        GuiHelper.Scenes.startLoadSaveStateScene(primaryStage);
+        GuiHelper.Scenes.startMapScene(player, true);
     }
 
     public static void main(String[] args) {

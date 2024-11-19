@@ -69,7 +69,7 @@ public class LootController implements LootViewEvents {
     @Override
     public void onBackClicked() {
         ConsoleAssistent.print(Color.YELLOW, "LootView Leaved!");
-        GuiHelper.Scenes.startMapScene(player.getPrimaryStage(), player, true);
+        GuiHelper.Scenes.startMapScene(player, true);
     }
 
     /**
