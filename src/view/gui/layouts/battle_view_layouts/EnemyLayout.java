@@ -39,9 +39,6 @@ public class EnemyLayout extends VBox {
 
     public void updateEnemy() {
         healthBarLayout.setHealthText(enemy.getHealth(), enemy.getMaxHealth());
-        if (!enemy.isAlive()) {
-
-        }
     }
 
     private ImageView image() {

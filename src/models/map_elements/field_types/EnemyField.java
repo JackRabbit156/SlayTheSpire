@@ -49,9 +49,12 @@ public class EnemyField extends Field{
         if(isFieldBeaten())
             return;
 
+
         Stage primaryStage = player.getPrimaryStage();
 
         GuiHelper.Scenes.startBattleScene(primaryStage, player, enemies);
+
+        setFieldBeaten();
     }
 
     /**
