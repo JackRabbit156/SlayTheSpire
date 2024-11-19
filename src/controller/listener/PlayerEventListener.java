@@ -22,5 +22,5 @@ public interface PlayerEventListener {
      */
     void onDamageReceived(PlayerDamageEvent event);
 
-    void onDamageDealed();
+    void onDamageDealt();
 }

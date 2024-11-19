@@ -1,6 +1,8 @@
 package controller.gui;
 
+import controller.listener.EnemyEventListener;
 import controller.listener.PlayerEventListener;
+import events.EnemyDamageEvent;
 import events.PlayerBlockEvent;
 import events.PlayerDamageEvent;
 import helper.GuiHelper;
@@ -26,7 +28,7 @@ import java.util.List;
  *
  * @author Warawa Alexander, Willig Daniel
  */
-public class BattleController implements BattleViewEvents, PlayerEventListener {
+public class BattleController implements BattleViewEvents, PlayerEventListener, EnemyEventListener {
     private final BattleView battleView;
 
     private final Player player;
@@ -40,12 +42,16 @@ public class BattleController implements BattleViewEvents, PlayerEventListener {
     public BattleController(Player player, List<Enemy> enemies) {
         this.player = player;
         this.enemies = enemies;
+        for (Enemy enemy : enemies) {
+            enemy.setEnemyEventListener(this);
+        }
 
         this.battleDeck = new BattleDeck(player.getDeck());
 
         this.gameContext = new GameContext(player, enemies, battleDeck);
         this.battleView = new BattleView(player, enemies, this, battleDeck);
-        player.setListener(this);
+        player.setPlayerEventListener(this);
+
 
         battleDeck.fillHand(battleDeck.getStartHandSize());
 
@@ -221,7 +227,23 @@ public class BattleController implements BattleViewEvents, PlayerEventListener {
     }
 
     @Override
-    public void onDamageDealed() {
+    public void onDamageDealt() {
 
+    }
+
+    @Override
+    public void onDamageReceived(EnemyDamageEvent event) {
+
+    }
+
+    @Override
+    public void onEnemyDeath(Enemy enemy) {
+        for (Enemy singleEnemy : enemies) {
+            if (singleEnemy.isAlive()) {
+                return;
+            }
+        }
+        Stage primaryStage = player.getPrimaryStage();
+        GuiHelper.Scenes.startMapScene(primaryStage, player, true);
     }
 }

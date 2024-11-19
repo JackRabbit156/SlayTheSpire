@@ -47,7 +47,7 @@ public class BattleViewController implements PlayerEventListener{
         this.battleDeck = new BattleDeck(player.getDeck());
         this.gameContext = new GameContext(player, enemies, battleDeck);
         //player.setListener(this);
-        player.setListener(this);
+        player.setPlayerEventListener(this);
     }
 
     /**
@@ -221,6 +221,6 @@ public class BattleViewController implements PlayerEventListener{
     }
 
     @Override
-    public void onDamageDealed() {
+    public void onDamageDealt() {
     }
 }

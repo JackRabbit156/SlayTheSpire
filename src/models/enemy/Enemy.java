@@ -1,5 +1,7 @@
 package models.enemy;
 
+import controller.listener.EnemyEventListener;
+import events.EnemyDamageEvent;
 import models.battle.GameContext;
 import models.game_settings.GameSettings;
 import models.game_settings.structure.DifficultyLevel;
@@ -22,6 +24,9 @@ public abstract class Enemy {
     private String imagePath;
     private int block;
 
+
+    private EnemyEventListener enemyEventListener;
+
     /**
      * Konstruktor für die Enemy-Klasse.
      * Initialisiert einen Gegner mit einem Namen und einem maximalen Gesundheitsbereich.
@@ -35,6 +40,7 @@ public abstract class Enemy {
 
         this.maxHealth = generateMaxHealth(lowestMaxHealthPossible, highestMaxHealthPossible);
         this.currentHealth = maxHealth;
+        enemyEventListener = null;
     }
 
 
@@ -125,6 +131,16 @@ public abstract class Enemy {
         return lowestMaxHealthPossible + hp;
     }
 
+    protected void notifyDamageReceived(int damageAmount) {
+        EnemyDamageEvent event = new EnemyDamageEvent(this, damageAmount);
+        enemyEventListener.onDamageReceived(event);
+
+        if (!isAlive()) {
+            enemyEventListener.onEnemyDeath(this);
+        }
+    }
+
+
     public String getName() {
         return name;
     }
@@ -161,6 +177,8 @@ public abstract class Enemy {
         GameSettings.increaseDistributedDamageStats(damage);
         if (currentHealth < 0)
             currentHealth = 0;
+
+        notifyDamageReceived(damage);
     }
 
     public void setBlock(int block){
@@ -174,4 +192,9 @@ public abstract class Enemy {
     public void addBlock(int block){
         this.block += block;
     }
+
+    public void setEnemyEventListener(EnemyEventListener enemyEventListener) {
+        this.enemyEventListener = enemyEventListener;
+    }
+
 }

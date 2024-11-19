@@ -46,7 +46,7 @@ public abstract class Player {
 
     private PlayerType playerType;
 
-    private PlayerEventListener listener;
+    private PlayerEventListener playerEventListener;
 
     private String imagePath;
 
@@ -70,7 +70,7 @@ public abstract class Player {
         this.currentField = "1";
         this.playerType = playerType;
         this.symbol = symbol;
-        listener = null;
+        playerEventListener = null;
     }
 
     public Stage getPrimaryStage() {
@@ -214,7 +214,7 @@ public abstract class Player {
      */
     protected void notifyBlockReceived(int blockAmount) {
         PlayerBlockEvent event = new PlayerBlockEvent(this, blockAmount);
-        listener.onBlockReceived(event);
+        playerEventListener.onBlockReceived(event);
     }
 
     /**
@@ -225,7 +225,8 @@ public abstract class Player {
      */
     protected void notifyDamageReceived(int damageAmount, boolean damageFromCard) {
         PlayerDamageEvent event = new PlayerDamageEvent(this, damageAmount, damageFromCard);
-        listener.onDamageReceived(event);
+        playerEventListener.onDamageReceived(event);
+
     }
 
 
@@ -305,12 +306,12 @@ public abstract class Player {
         return playerType;
     }
 
-    public PlayerEventListener getListener() {
-        return listener;
+    public PlayerEventListener getPlayerEventListener() {
+        return playerEventListener;
     }
 
-    public void setListener(PlayerEventListener listener){
-            this.listener = listener;
+    public void setPlayerEventListener(PlayerEventListener playerEventListener){
+            this.playerEventListener = playerEventListener;
     }
     public String getCurrentField() {
         return currentField;
