@@ -19,7 +19,6 @@ public class BodySlamCard extends AttackCard {
     public BodySlamCard() {
         super("Body Slam", "Deal damage equal to your Block.", 1, 0, CardRarity.COMMON, CardGrave.DISCARD);
         setImagePath(new PathAssistent().toPath(this));
-        targetIsRequired();
     }
 
     @Override

@@ -9,7 +9,6 @@ public class DefendCard extends SkillCard {
     public DefendCard() {
         super("Defend", "Gain 5 Block.", 1, CardRarity.COMMON, CardGrave.DISCARD);
         setImagePath(new PathAssistent().toPath(this));
-        targetIsRequired();
     }
 
     @Override

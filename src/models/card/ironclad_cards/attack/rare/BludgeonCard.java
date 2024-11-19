@@ -20,7 +20,6 @@ public class BludgeonCard extends AttackCard {
     public BludgeonCard() {
         super("Bludgeon", "Deal 32 damage.", 3, 32, CardRarity.RARE, CardGrave.DISCARD);
         setImagePath(new PathAssistent().toPath(this));
-        targetIsRequired();
     }
 
     @Override

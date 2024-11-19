@@ -24,7 +24,6 @@ public class PerfectedStrikeCard extends AttackCard {
     public PerfectedStrikeCard() {
         super("Perfected Strike", "Deal 6 damage. Deals 2 additional damage for ALL your cards containing \"Strike\".", 2, 6, CardRarity.COMMON, CardGrave.DISCARD);
         setImagePath(new PathAssistent().toPath(this));
-        targetIsRequired();
     }
 
     @Override

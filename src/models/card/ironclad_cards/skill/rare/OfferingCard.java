@@ -22,7 +22,6 @@ public class OfferingCard extends SkillCard{
     public OfferingCard() {
             super("Offering", "Lose 6 HP. Gain 2 Energy. Draw 3 cards. Exhaust.", 0, CardRarity.RARE, CardGrave.EXHAUST);
         setImagePath(new PathAssistent().toPath(this));
-        targetIsRequired();
         }
 
         @Override

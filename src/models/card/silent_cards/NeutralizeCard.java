@@ -20,7 +20,6 @@ public class NeutralizeCard extends AttackCard {
     public NeutralizeCard() {
         super("Neutralize", "Deal 3 damage. Apply 1 Weak.", 0, 3, CardRarity.COMMON, CardGrave.DISCARD);
         setImagePath(new PathAssistent().toPath(this));
-        targetIsRequired();
     }
 
     @Override

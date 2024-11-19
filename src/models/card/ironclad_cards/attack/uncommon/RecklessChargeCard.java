@@ -20,7 +20,6 @@ public class RecklessChargeCard extends AttackCard {
     public RecklessChargeCard() {
         super("Reckless Charge", "Deal 7 damage. Shuffle a Dazed into your draw pile.", 0, 7, CardRarity.UNCOMMON, CardGrave.DISCARD);
         setImagePath(new PathAssistent().toPath(this));
-        targetIsRequired();
     }
 
     @Override

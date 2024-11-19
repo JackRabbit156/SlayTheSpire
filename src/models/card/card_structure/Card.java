@@ -29,13 +29,6 @@ public abstract class Card {
         this.cardType = cardType;
     }
 
-    public void targetIsRequired(){
-        targetRequired = true;
-    }
-    public boolean isTargetRequired(){
-        return targetRequired;
-    }
-
     public String getImagePath() {
         return imagePath;
     }

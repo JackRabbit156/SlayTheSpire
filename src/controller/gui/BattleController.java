@@ -125,10 +125,7 @@ public class BattleController implements BattleViewEvents, PlayerEventListener, 
      * @param index index of selected card
      */
     private void playerTurn(Card card, int index) {
-        if(card.isTargetRequired())
-            selectedCard = card;
-         else
-            card.play(gameContext);
+        selectedCard = card;
     }
 
     private void playerEOT() {

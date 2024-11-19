@@ -22,7 +22,6 @@ public class FlexCard extends SkillCard{
     public FlexCard() {
             super("Flex", "Gain 2 Strength. At the end of this turn, lose 2 Strength.", 0, CardRarity.COMMON, CardGrave.DISCARD);
         setImagePath(new PathAssistent().toPath(this));
-        targetIsRequired();
         }
 
         @Override

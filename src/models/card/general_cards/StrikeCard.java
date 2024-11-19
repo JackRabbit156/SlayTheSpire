@@ -13,7 +13,6 @@ public class StrikeCard extends AttackCard {
         super("Strike", "Deal 6 damage.", 1, 6, CardRarity.COMMON, CardGrave.DISCARD);
 
         setImagePath(new PathAssistent().toPath(this));
-        targetIsRequired();
     }
 
     @Override

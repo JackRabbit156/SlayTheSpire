@@ -20,7 +20,6 @@ public class SeverSoulCard extends AttackCard {
     public SeverSoulCard() {
         super("Sever Soul", "Exhaust all non-Attack cards in your hand. Deal 16 damage.", 2, 16, CardRarity.UNCOMMON, CardGrave.DISCARD);
         setImagePath(new PathAssistent().toPath(this));
-        targetIsRequired();
     }
 
     @Override

@@ -20,7 +20,6 @@ public class WildStrikeCard extends AttackCard {
     public WildStrikeCard() {
         super("Wild Strike", "Deal 12 damage. Shuffle a Wound into your draw pile.", 1, 12, CardRarity.COMMON, CardGrave.DISCARD);
         setImagePath(new PathAssistent().toPath(this));
-        targetIsRequired();
     }
 
     @Override

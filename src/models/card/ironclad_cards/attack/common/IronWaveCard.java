@@ -20,7 +20,6 @@ public class IronWaveCard extends AttackCard {
     public IronWaveCard() {
         super("Iron Wave", "Gain 5 Icon Block Block. Deal 5 damage.", 1, 5, CardRarity.COMMON, CardGrave.DISCARD);
         setImagePath(new PathAssistent().toPath(this));
-        targetIsRequired();
     }
 
     @Override

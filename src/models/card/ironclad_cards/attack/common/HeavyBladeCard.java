@@ -19,7 +19,6 @@ public class HeavyBladeCard extends AttackCard {
     public HeavyBladeCard() {
         super("Heavy Blade", "Deal 14 damage. Strength affects this card 3 times.", 2, 14, CardRarity.COMMON, CardGrave.DISCARD);
         setImagePath(new PathAssistent().toPath(this));
-        targetIsRequired();
     }
 
     @Override

@@ -20,7 +20,6 @@ public class HemokinesisCard extends AttackCard {
     public HemokinesisCard() {
         super("Hemokinesis", "Lose 2 HP. Deal 15 damage.", 1, 15, CardRarity.UNCOMMON, CardGrave.DISCARD);
         setImagePath(new PathAssistent().toPath(this));
-        targetIsRequired();
     }
 
     @Override
