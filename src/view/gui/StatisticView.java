@@ -145,10 +145,9 @@ public class StatisticView extends BorderPane {
         label.setTextFill(Paint.valueOf("White"));
         label.setStyle("-fx-font-size: 24;");
         GuiHelper.setButtonHoverEffect(imgView, label);
+        imgView.setOnMouseClicked(event -> GuiHelper.Scenes.startMapScene(player.getPrimaryStage(), player, true));
+        label.setOnMouseClicked(event -> GuiHelper.Scenes.startMapScene(player.getPrimaryStage(), player, true));
 
-        //TODO Übergang Act I zu II
-        // imgView.setOnMouseClicked(event -> viewEvent.onBackClicked());
-        // label.setOnMouseClicked(event -> viewEvent.onBackClicked());
         btnPane.getChildren().add(label);
 //        btnPane.setBackground(new Background(new BackgroundFill(Paint.valueOf("Red"),null, null))); // DEBUG
 
