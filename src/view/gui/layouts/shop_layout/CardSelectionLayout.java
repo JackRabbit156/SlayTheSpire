@@ -72,25 +72,6 @@ public class CardSelectionLayout extends FlowPane {
         return imageViewCard;
     }
 
-//    private void setHoverEffect(ImageView imageView) {
-//        DropShadow glow = new DropShadow();
-//        glow.setColor(Color.YELLOW);
-//        glow.setHeight(30);
-//        glow.setWidth(30);
-//
-//        imageView.addEventHandler(MouseEvent.MOUSE_ENTERED, e -> {
-//            imageView.setEffect(glow);
-//            imageView.setScaleX(1.1); // Slightly increase the width
-//            imageView.setScaleY(1.1); // Slightly increase the height
-//        });
-//
-//        imageView.addEventHandler(MouseEvent.MOUSE_EXITED, e -> {
-//            imageView.setEffect(null);
-//            imageView.setScaleX(1.0); // Reset the width to original
-//            imageView.setScaleY(1.0); // Reset the height to original
-//        });
-//    }
-
     public void handleCardClick(Card card, int index) {
         // Verarbeite hier den Klick auf die Karte, z.B. öffne Details oder führe eine Aktion aus
         this.shopView.onCardClick(card, index);

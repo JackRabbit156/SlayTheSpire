@@ -9,8 +9,6 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Paint;
-import javafx.scene.shape.StrokeLineJoin;
-import javafx.scene.shape.StrokeType;
 import javafx.stage.Popup;
 import models.card.card_structure.Card;
 import models.player.player_structure.Player;
@@ -80,7 +78,8 @@ public class ShopView extends BorderPane {
         label.setText("Welcome to Shop.");
         label.setId("title");
         label.setTextFill(Paint.valueOf("White"));
-        label.setStyle("-fx-font-size: 56px;");
+        label.setStyle("-fx-font-size: 56px;" +
+                "-fx-font-family: Kreon;");
 
         topVBox.getChildren().add(label);
         topVBox.setAlignment(Pos.BOTTOM_CENTER);

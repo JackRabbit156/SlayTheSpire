@@ -7,6 +7,8 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import models.player.IroncladPlayer;
 
+import java.util.Objects;
+
 /**
  * @author Keil, Vladislav
  */
@@ -54,6 +56,7 @@ public class ShopControllerTester extends Application {
         shopController.entryShop();
 
         Scene scene = new Scene(shopController.getShopView(), 1920, 1080);
+        scene.getStylesheets().add(Objects.requireNonNull(GuiHelper.class.getResource("/css/mapStyle.css")).toExternalForm());
 
         player.setPrimaryStage(primaryStage);
 
