@@ -1,5 +1,6 @@
 package view.gui;
 
+import controller.gui.LootController;
 import helper.GuiHelper;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -9,37 +10,37 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Paint;
-import javafx.scene.shape.StrokeLineJoin;
-import javafx.scene.shape.StrokeType;
-import javafx.stage.Popup;
-import view.gui.layouts.layout_events.RestViewEvents;
+import models.card.card_structure.Card;
+import models.player.player_structure.Player;
+import view.gui.layouts.layout_events.LootViewEvents;
+import view.gui.layouts.loot_layout.CardSelectionLayout;
 
-/**
- * @author Keil, Vladislav
- */
-public class RestView extends BorderPane {
-    private RestViewEvents restViewEvents;
+import java.util.List;
+
+public class LootView extends BorderPane {
+    private List<Card> lootCards;
+    private Player player;
+    private int gold;
+    private LootViewEvents lootViewEvents;
 
     private Insets insets = new Insets(15,15,15,15);
     private VBox centerVBox;
     private VBox topVBox;
-    private Popup popup;
 
 
-    public RestView(RestViewEvents restViewEvents) {
-        this.restViewEvents = restViewEvents;
+    public LootView(Player player, List<Card> lootCards,int gold, LootViewEvents lootViewEvents) {
+        this.player = player;
+        this.lootCards = lootCards;
+        this.gold = gold;
+        this.lootViewEvents = lootViewEvents;
         display();
-    }
-
-    public void initRestViewEvents(RestViewEvents restViewEvents){
-        this.restViewEvents = restViewEvents;
     }
 
     /**
      * Initialisiert die View.
      */
     public void display() {
-        setBackground(new Background(GuiHelper.background("/images/backgrounds/RestViewBG.jpeg")));
+        setBackground(new Background(GuiHelper.background("/images/backgrounds/LootViewBG.jpeg")));
         initTop();
         initBottom();
         initLeft();
@@ -48,29 +49,35 @@ public class RestView extends BorderPane {
     }
 
     private void initCenter(){
+        // Card Options
+        CardSelectionLayout cardSelectionLayout = new CardSelectionLayout(this.lootCards, this.player, this);
+
         centerVBox = new VBox();
-        Image img = new Image(getClass().getResource("/images/buttons/blankButton.png").toExternalForm());
-        ImageView imgView = new ImageView(img);
-        
-        // Options
-        Label label = new Label("Rest - 30% Healing");
-        label.setTextFill(Paint.valueOf("White"));
-        label.setStyle("-fx-font-size: 24;");
-
-        centerVBox.getChildren().add(GuiHelper.addButtonStackPane(imgView, label, 0.35, 0.25));
-        label.setOnMouseClicked(event -> restViewEvents.onHealClicked());
-        imgView.setOnMouseClicked(event -> restViewEvents.onHealClicked());
-
-        centerVBox.setSpacing(50);
-        centerVBox.setPadding(new Insets(50,15,15,280));
+        centerVBox.setSpacing(30);
+        centerVBox.setPadding(insets);
         centerVBox.setAlignment(Pos.TOP_CENTER);
+        centerVBox.getChildren().add(cardSelectionLayout);
+
+        Image btnImage = new Image(getClass().getResource("/images/buttons/blankButton.png").toExternalForm());
+        ImageView itemPanelView = new ImageView(btnImage);
+        itemPanelView.setScaleY(0.25);
+        itemPanelView.setScaleX(0.25);
+
+        StackPane itemStackPanel = new StackPane(itemPanelView);
+        Label label = new Label("Gold: " + gold);
+        label.setTextFill(Paint.valueOf("Gold"));
+        label.setStyle("-fx-font-size: 24;");
+        itemStackPanel.getChildren().add(label);
+        centerVBox.getChildren().add(itemStackPanel);
+
+
         setCenter(centerVBox);
     }
 
     private void initTop(){
         topVBox = new VBox();
         Label label = new Label();
-        label.setText("Restsite..");
+        label.setText("Loot");
         label.setId("title");
         label.setTextFill(Paint.valueOf("White"));
         label.setStyle("-fx-font-size: 56px;");
@@ -78,7 +85,6 @@ public class RestView extends BorderPane {
         topVBox.getChildren().add(label);
         topVBox.setAlignment(Pos.BOTTOM_CENTER);
         topVBox.setPrefHeight(200);
-
         setTop(topVBox);
     }
 
@@ -87,17 +93,17 @@ public class RestView extends BorderPane {
      * Bottom side
      */
     private void initBottom(){
-        Image img = new Image(getClass().getResource("/images/buttons/buttonL.png").toExternalForm());
-        ImageView imgView = new ImageView(img);
+        Image btnImage = new Image(getClass().getResource("/images/buttons/buttonL.png").toExternalForm());
+        ImageView imgView = new ImageView(btnImage);
         HBox bottomHBox = new HBox();
-
         Label label = new Label("Back");
         label.setTextFill(Paint.valueOf("White"));
         label.setStyle("-fx-font-size: 24;");
+
         bottomHBox.getChildren().add(GuiHelper.addButtonStackPane(imgView, label, 0.7));
 
-        imgView.setOnMouseClicked(event -> restViewEvents.onBackClicked());
-        label.setOnMouseClicked(event -> restViewEvents.onBackClicked());
+        imgView.setOnMouseClicked(event -> lootViewEvents.onBackClicked());
+        label.setOnMouseClicked(event -> lootViewEvents.onBackClicked());
 
         bottomHBox.setAlignment(Pos.CENTER);
         Region placeHolder = new Region();
@@ -129,4 +135,15 @@ public class RestView extends BorderPane {
         rightVBox.getChildren().add(bottomPlaceholder);
         setRight(rightVBox);
     }
+
+    public void onCardClick(Card card, int index) {
+        lootViewEvents.onCardClick(card, index);
+    }
+
+    public void setLootCards(List<Card> selectableCards) {
+        this.lootCards = selectableCards;
+        initCenter();
+    }
+
+    public void initLootViewEvents(LootViewEvents lootViewEvents) { this.lootViewEvents = lootViewEvents; }
 }

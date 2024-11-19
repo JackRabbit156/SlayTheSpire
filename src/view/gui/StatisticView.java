@@ -41,7 +41,6 @@ public class StatisticView extends BorderPane {
     private void initCenter(){
         centerVBox = new VBox();
         centerVBox.setSpacing(-150);
-//        centerHBox.setBackground(new Background(new BackgroundFill(Paint.valueOf("Blue"),null, null))); // DEBUG
         Image btnImage = new Image(getClass().getResource("/images/panel/rewardPanel.png").toExternalForm());
         ImageView rewardPanelImgView = new ImageView(btnImage);
         StackPane rewardStackPanel = new StackPane(rewardPanelImgView);
@@ -149,7 +148,6 @@ public class StatisticView extends BorderPane {
         label.setOnMouseClicked(event -> GuiHelper.Scenes.startMapScene(player.getPrimaryStage(), player, true));
 
         btnPane.getChildren().add(label);
-//        btnPane.setBackground(new Background(new BackgroundFill(Paint.valueOf("Red"),null, null))); // DEBUG
 
         return btnPane;
     }

@@ -3,18 +3,18 @@ package helper;
 import controller.gui.BattleController;
 import controller.gui.LoadController;
 import controller.gui.MapController;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.BackgroundImage;
-import javafx.scene.layout.BackgroundPosition;
-import javafx.scene.layout.BackgroundRepeat;
-import javafx.scene.layout.BackgroundSize;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
 import javafx.stage.Stage;
 import models.enemy.Enemy;
 import models.player.player_structure.Player;
@@ -142,7 +142,10 @@ public class GuiHelper {
         );
     }
 
-
+    /**
+     * Lässt ein ImageView beim Hovern aufleuchten.
+     * @param imageView ImageView
+     */
     public static void setHoverEffect(ImageView imageView) {
         double downScaleX = imageView.getScaleX();;
         double downScaleY = imageView.getScaleY();;
@@ -167,6 +170,11 @@ public class GuiHelper {
         });
     }
 
+    /**
+     * Lässt ein ImageView beim Hovern über das Bild oder den Text aufleuchten.
+     * @param imageView ImageView
+     * @param label Schrift, die über dem Image gelegt wird.
+     */
     public static void setButtonHoverEffect(ImageView imageView, Label label) {
         double downScaleX = imageView.getScaleX();;
         double downScaleY = imageView.getScaleY();;
@@ -201,5 +209,24 @@ public class GuiHelper {
             imageView.setScaleX(downScaleX); // Reset the width to original
             imageView.setScaleY(downScaleY); // Reset the height to original
         });
+    }
+
+    public static Node addButtonStackPane(ImageView imgView, Label label, double scale) {
+        return addButtonStackPane(imgView, label, scale, scale);
+    }
+
+    public static Node addButtonStackPane(ImageView imgView, Label label, double scaleX, double scaleY) {
+        Button btn = new Button();
+        StackPane btnStackPane = new StackPane(imgView);
+
+        btnStackPane.getChildren().add(label);
+        btn.setGraphic(imgView);
+
+        imgView.setScaleX(scaleX);
+        imgView.setScaleY(scaleY);
+
+        setButtonHoverEffect(imgView, label);
+
+        return btnStackPane;
     }
 }

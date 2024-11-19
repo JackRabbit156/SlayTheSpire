@@ -1,16 +1,14 @@
-package view.gui.layouts.shop_layout;
+package view.gui.layouts.loot_layout;
 
 import helper.GuiHelper;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
-import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import models.card.card_structure.Card;
 import models.player.player_structure.Player;
@@ -24,18 +22,6 @@ public class CardSelectionLayout extends FlowPane {
     private LootView lootView;
     private List<Card> selectableCards;
     private Player player;
-    private ShopView shopView;
-
-    public CardSelectionLayout(List<Card> cardList, Player player, ShopView shopView) {
-        this.selectableCards = cardList;
-        this.player = player;
-        this.shopView = shopView;
-
-        // Center of the bottom
-        setAlignment(Pos.CENTER);
-
-        showCards();
-    }
 
     public CardSelectionLayout(List<Card> cardList, Player player, LootView lootView) {
         this.selectableCards = cardList;
@@ -55,11 +41,7 @@ public class CardSelectionLayout extends FlowPane {
             VBox box = new VBox();
 
             card = selectableCards.get(i);
-            Label label = new Label();
-            label.setText("Gold: " + card.getPrice());
-            label.setStyle("-fx-size: 46;");
-            label.setTextFill(Paint.valueOf("White"));
-            box.getChildren().addAll(images(card), label);
+            box.getChildren().addAll(images(card));
             box.setAlignment(Pos.CENTER);
             nodes.add(box);
         }
@@ -86,6 +68,6 @@ public class CardSelectionLayout extends FlowPane {
 
     public void handleCardClick(Card card, int index) {
         // Verarbeite hier den Klick auf die Karte, z.B. öffne Details oder führe eine Aktion aus
-        this.shopView.onCardClick(card, index);
+        this.lootView.onCardClick(card, index);
     }
 }
