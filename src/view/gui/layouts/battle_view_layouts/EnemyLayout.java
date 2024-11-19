@@ -7,6 +7,7 @@ import javafx.scene.effect.Effect;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import models.enemy.Enemy;
@@ -15,6 +16,7 @@ import view.gui.BattleView;
 public class EnemyLayout extends VBox {
     private Enemy enemy;
     private HealthBarLayout healthBarLayout;
+    private DefendLayout defendLayout;
     private MovingAnimation animation;
     private BattleView battleView;
     private boolean attackMode = false;
@@ -23,8 +25,15 @@ public class EnemyLayout extends VBox {
         this.enemy = enemy;
         this.battleView = battleView;
         healthBarLayout = new HealthBarLayout(100);
+        defendLayout = new DefendLayout();
 
-        this.getChildren().addAll(image(), healthBarLayout);
+        HBox defendHealthBar = new HBox();
+        defendHealthBar.getChildren().addAll(defendLayout, healthBarLayout);
+        defendHealthBar.setAlignment(Pos.CENTER);
+        defendHealthBar.setTranslateX(-25);
+        defendHealthBar.setSpacing(-105);
+
+        this.getChildren().addAll(image(), defendHealthBar);
 
         // Die HP Bar muss nachjustiert werden
         setMargin(healthBarLayout, new Insets(0, 100, 0, 0));
