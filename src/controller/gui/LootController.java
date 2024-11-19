@@ -6,6 +6,7 @@ import helper.GuiHelper;
 import models.card.DeckFactory;
 import models.card.card_structure.Card;
 import models.game_settings.GameSettings;
+import models.map_elements.field_types.FieldEnum;
 import models.player.player_structure.Player;
 import view.gui.LootView;
 import view.gui.ShopView;
@@ -84,57 +85,24 @@ public class LootController implements LootViewEvents {
         return this.deckFactory.init();
     }
 
-    private void initGoldLoot(String fieldType) {
+    private void initGoldLoot(FieldEnum fieldType) {
         // Initialisierung
         switch (fieldType) {
-            case "BossField": {
+            case BOSSFIELD: {
                 // Boss Encounter: 95-105 Gold
                 this.gold = rand.nextInt(105 + 1 - 95) + 95;
                 break;
             }
-            case "EliteField": {
+            case ELITEFIELD: {
                 // Elite Encounter: 25-35 Gold
                 this.gold = rand.nextInt(35 + 1 - 25) + 25;
                 break;
             }
-            case "EnemyField": {
+            case ENEMYFIELD: {
                 // Normal Encounter: 10-20 Gold
                 this.gold = rand.nextInt(20 + 1 - 10) + 10;
                 break;
             }
-        }
-    }
-
-    /**
-     * Öffnet den LootView.
-     * @param player um Spieler Gold/ Karten zu übergeben
-     */
-    public void openLootView(Player player) {
-        int input = 0;
-
-        while(true){
-//            lootView.display( this.selectedCards, this.gold);
-//            lootView.displayCardChoiceMenu(this.selectedCards.size());
-            try{
-                break;
-            } catch (InputMismatchException | NumberFormatException e) {
-                ConsoleAssistent.print(Color.YELLOW, "Wrong input...");
-            }
-        }
-
-        switch (input) {
-            case 1:
-            case 2:
-            case 3:
-            case 4:
-            case 5:
-                addCardToDeck(this.selectedCards.get(input - 1));
-                break;
-            case 0:
-                return;
-            default:
-                ConsoleAssistent.print(Color.YELLOW, "Wrong input...");
-                openLootView(player);
         }
     }
 

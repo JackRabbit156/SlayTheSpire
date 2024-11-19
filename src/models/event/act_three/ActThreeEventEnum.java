@@ -2,8 +2,8 @@ package models.event.act_three;
 
 public enum ActThreeEventEnum {
     // General
-    NoteForYourself,
-    BonfireSpirits,
-    Duplicator,
-    GoldenShrine
+    NOTE_FOR_YOURSELF,
+    BONFIRE_SPIRITS,
+    DUPLICATOR,
+    GOLDEN_SHRINE
 }

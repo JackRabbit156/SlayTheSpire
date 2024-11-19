@@ -31,23 +31,23 @@ public class EventViewControllerTester {
         ActOneEventEnum[] events = ActOneEventEnum.values();
         ActOneEventEnum event = events[randi.nextInt(events.length)];
         switch (event) {
-            case BigFish:
+            case BIG_FISH:
                 return new BigFishEvent(player);
-            case BonfireSpirits:
+            case BONFIRE_SPIRITS:
                 return new BonfireSpiritsEvent(player);
-            case DeadAdventurer:
+            case DEAD_ADVENTURER:
                 return new DeadAdventurerEvent(player);
-            case Duplicator:
+            case DUPLICATOR:
                 return new DuplicatorEvent(player);
-            case NoteForYourself:
+            case NOTE_FOR_YOURSELF:
                 return new NoteForYourselfEvent(player);
-            case ScrapOoze:
+            case SCRAP_OOZE:
                 return new ScrapOozeEvent(player);
-            case TheCleric:
+            case THE_CLERIC:
                 return new TheClericEvent(player);
-            case TheSsssserpent:
+            case THE_SSSSSERPENT:
                 return new TheSssssserpentEvent(player);
-            case WorldofGoo:
+            case WORLDOF_GOO:
                 return new WorldOfGooEvent(player);
             default:
                 return new GoldenShrineEvent(player);
