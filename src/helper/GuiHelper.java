@@ -216,11 +216,9 @@ public class GuiHelper {
     }
 
     public static Node addButtonStackPane(ImageView imgView, Label label, double scaleX, double scaleY) {
-        Button btn = new Button();
         StackPane btnStackPane = new StackPane(imgView);
 
         btnStackPane.getChildren().add(label);
-        btn.setGraphic(imgView);
 
         imgView.setScaleX(scaleX);
         imgView.setScaleY(scaleY);
