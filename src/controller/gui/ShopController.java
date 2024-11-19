@@ -16,7 +16,7 @@ import java.util.List;
 /**
  * @author Keil, Vladislav
  */
-public class ShopViewController implements ShopViewEvents {
+public class ShopController implements ShopViewEvents {
     private Player player;
     private List<Card> purchasableCards;
     private DeckFactory deckFactory;
@@ -24,7 +24,7 @@ public class ShopViewController implements ShopViewEvents {
     private List<PotionCard> purchasablePotions;
     private List<Relic> purchasableRelics;
 
-    public ShopViewController(Player player) {
+    public ShopController(Player player) {
         this.player = player;
 
         this.deckFactory = new DeckFactory(player, 5);
@@ -56,7 +56,6 @@ public class ShopViewController implements ShopViewEvents {
             this.purchasableCards.remove(card);
             refreshSelectableCards();
             ConsoleAssistent.print(Color.YELLOW, "Refresh Cards!");
-
         } else {
             System.out.println();
             this.shopView.showDialog("Not enough Gold!");
@@ -76,11 +75,14 @@ public class ShopViewController implements ShopViewEvents {
 
     @Override
     public void onBackClicked() {
-        // TODO Back Option wie?
         ConsoleAssistent.print(Color.YELLOW, "Shop Leaved!");
         GuiHelper.Scenes.startMapScene(player.getPrimaryStage(), player, true);
     }
 
+    /**
+     * Übergabe der ShopView
+     * @return ShopView
+     */
     public ShopView getShopView() {
         return this.shopView;
     }

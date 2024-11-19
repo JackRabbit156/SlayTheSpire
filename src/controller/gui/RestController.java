@@ -11,16 +11,18 @@ import view.gui.layouts.layout_events.RestViewEvents;
 /**
  * @author Vladislav Keil
  */
-public class RestViewController implements RestViewEvents {
-    private RestSiteView rest;
+public class RestController implements RestViewEvents {
     private Player player;
     private RestView restView;
 
-    public RestViewController(Player player) {
+    public RestController(Player player) {
         this.player = player;
-        this.rest = new RestSiteView();
+        this.startRest();
     }
 
+    /**
+     * Startet die Rast.
+     */
     public void startRest() {
         this.restView = new RestView(this);
         this.restView.initRestViewEvents(this);
@@ -40,6 +42,10 @@ public class RestViewController implements RestViewEvents {
         GuiHelper.Scenes.startMapScene(player.getPrimaryStage(), player, true);
     }
 
+    /**
+     * Übergabe der RestView
+     * @return RestView
+     */
     public RestView getRestView() {
         return restView;
     }
