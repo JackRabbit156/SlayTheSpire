@@ -16,9 +16,7 @@ public class EnemyLayout extends VBox {
     private Enemy enemy;
     private HealthBarLayout healthBarLayout;
     private MovingAnimation animation;
-
     private BattleView battleView;
-
     private boolean attackMode = false;
 
     public EnemyLayout(Enemy enemy, BattleView battleView){

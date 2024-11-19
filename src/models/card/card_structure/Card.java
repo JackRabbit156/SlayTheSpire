@@ -35,6 +35,7 @@ public abstract class Card {
     public boolean isTargetRequired(){
         return targetRequired;
     }
+
     public String getImagePath() {
         return imagePath;
     }

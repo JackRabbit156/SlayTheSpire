@@ -5,6 +5,8 @@ import models.card.card_structure.Card;
 import models.card.general_cards.DefendCard;
 import models.card.general_cards.StrikeCard;
 import models.card.ironclad_cards.attack.common.BashCard;
+import models.card.ironclad_cards.skill.common.FlexCard;
+import models.card.ironclad_cards.skill.rare.OfferingCard;
 import models.player.player_structure.Player;
 import models.player.player_structure.PlayerType;
 import models.relic.BurningBloodRelic;

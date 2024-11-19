@@ -16,7 +16,7 @@ public class HealthBarLayout extends StackPane {
 
     public HealthBarLayout(int maxHealth){
         initHealthBar();
-        initlabel();
+        initLabel();
 
         getChildren().addAll(healthBar, healthText);
     }
@@ -26,7 +26,7 @@ public class HealthBarLayout extends StackPane {
         healthText.setText(current + " / " + max);
     }
 
-    private void initlabel(){
+    private void initLabel(){
         healthText = new Label("80/80");
         healthText.setFont(Font.font("Arial", FontWeight.BOLD, 16));
         setMargin(healthText, new Insets(7, 0, 0, MARGIN_LEFT));

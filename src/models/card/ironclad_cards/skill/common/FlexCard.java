@@ -22,6 +22,7 @@ public class FlexCard extends SkillCard{
     public FlexCard() {
             super("Flex", "Gain 2 Strength. At the end of this turn, lose 2 Strength.", 0, CardRarity.COMMON, CardGrave.DISCARD);
         setImagePath(new PathAssistent().toPath(this));
+        targetIsRequired();
         }
 
         @Override
@@ -29,7 +30,7 @@ public class FlexCard extends SkillCard{
             Player player = gameContext.getPlayer();
             BattleDeck battleDeck = gameContext.getBattleDeck();
 
-            battleDeck.drawCard(1);
+//            battleDeck.drawCard(1);
             //TODO 2 Strength
             //TODO -2 Strength at eot
 
