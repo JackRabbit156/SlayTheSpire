@@ -16,6 +16,7 @@ import models.card.ironclad_cards.skill.common.*;
 import models.card.ironclad_cards.skill.rare.*;
 import models.card.ironclad_cards.skill.uncommon.*;
 import models.player.player_structure.Player;
+import models.potion.*;
 import models.potion.potion_structure.PotionCard;
 
 import java.util.ArrayList;
@@ -36,6 +37,34 @@ public class DeckFactory {
         this.player = player;
         this.amount = amount;
         this.genDeck = new ArrayList<>();
+    }
+
+    /**
+     * Gibt einen Zufälligen Potion aus.
+     * @return PotionCard
+     */
+    public PotionCard generatePotion() {
+        List availablePotions = Arrays.asList(PotionEnum.values());
+
+        if (availablePotions == null) {
+            ConsoleAssistent.print(Color.YELLOW, "DeckFactory.class: Potion Initialisierung hat nicht korrekt funktioniert.");
+        }
+        int randomNumber = randi.nextInt(availablePotions.size());
+        String potion = availablePotions.get(randomNumber).toString();
+        return assignPotion(potion);
+    }
+
+    private PotionCard assignPotion(String potion) {
+        switch (potion) {
+            case "ATTACKPOTION": return new AttackPotion();
+            case "BLOCKPOTION": return new BlockPotion();
+            case "BLOODPOTION": return new BloodPotion();
+            case "DISTILLEDCHAOSPOTION": return new DistilledChaosPotion();
+            case "ENERGYPOTION": return new EnergyPotion();
+            case "EXPLOSIVEPOTION": return new ExplosivePotion();
+            case "FIREPOTION": return new FirePotion();
+            default: return new SwiftPotion();
+        }
     }
 
     public List<Card> init() {
@@ -69,10 +98,6 @@ public class DeckFactory {
             genDeck.add(assignCard(cardName));
         }
         return genDeck;
-    }
-
-    public PotionCard addPotionCard() {
-        return null;
     }
 
     public static Card assignCard(String cardName){

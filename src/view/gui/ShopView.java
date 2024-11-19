@@ -12,8 +12,10 @@ import javafx.scene.paint.Paint;
 import javafx.stage.Popup;
 import models.card.card_structure.Card;
 import models.player.player_structure.Player;
+import models.potion.potion_structure.PotionCard;
 import view.gui.layouts.layout_events.ShopViewEvents;
 import view.gui.layouts.shop_layout.CardSelectionLayout;
+import view.gui.layouts.shop_layout.PotionSelectionLayout;
 
 import java.util.List;
 
@@ -21,6 +23,7 @@ public class ShopView extends BorderPane {
     private List<Card> shopCards;
     private Player player;
     private ShopViewEvents shopViewEvents;
+    private PotionCard potionCard;
 
     private Insets insets = new Insets(15,15,15,15);
     private VBox centerVBox;
@@ -28,10 +31,11 @@ public class ShopView extends BorderPane {
     private Popup popup;
 
 
-    public ShopView(Player player, List<Card> shopCards, ShopViewEvents shopViewEvents) {
+    public ShopView(Player player, List<Card> shopCards, ShopViewEvents shopViewEvents, PotionCard... potionCard) {
         this.player = player;
         this.shopCards = shopCards;
         this.shopViewEvents = shopViewEvents;
+        this.potionCard = potionCard[0] != null ? potionCard[0] :  null;
         display();
     }
 
@@ -39,7 +43,7 @@ public class ShopView extends BorderPane {
      * Initialisiert die View.
      */
     public void display() {
-        setBackground(new Background(GuiHelper.background("/images/backgrounds/ShopViewBG.jpeg")));
+        setBackground(new Background(GuiHelper.background("/images/backgrounds/shop_panel_bg.png")));
         initTop();
         initBottom();
         initLeft();
@@ -52,23 +56,26 @@ public class ShopView extends BorderPane {
     }
 
     private void initCenter(){
-        // Card Options
-        CardSelectionLayout cardSelectionLayout = new CardSelectionLayout(this.shopCards, this.player, this);
-        // Potion Options
-        // Relics Options
-
         centerVBox = new VBox();
-        if (shopCards.isEmpty()) {
-            Region placeHolder = new Region();
-            placeHolder.setPrefWidth(400);
-            setCenter(placeHolder);
-            return;
-        }
+
+        // Card Options
+        CardSelectionLayout cardSelectionLayout = new CardSelectionLayout(this.shopCards, this);
+
+
         centerVBox.setSpacing(30);
         centerVBox.setPadding(insets);
         centerVBox.setAlignment(Pos.TOP_CENTER);
         centerVBox.getChildren().add(cardSelectionLayout);
 
+        // Potion Options
+        FlowPane potionSelectionLayout;
+        if (this.potionCard != null) {
+            potionSelectionLayout = new PotionSelectionLayout(this.potionCard, this);
+        } else {
+            potionSelectionLayout = new FlowPane();
+            potionSelectionLayout.setPrefHeight(500);
+        }
+        centerVBox.getChildren().add(potionSelectionLayout);
         setCenter(centerVBox);
     }
 
@@ -83,7 +90,7 @@ public class ShopView extends BorderPane {
 
         topVBox.getChildren().add(label);
         topVBox.setAlignment(Pos.BOTTOM_CENTER);
-        topVBox.setPrefHeight(200);
+        topVBox.setPrefHeight(120);
         setTop(topVBox);
     }
 
@@ -114,7 +121,7 @@ public class ShopView extends BorderPane {
         label.setOnMouseClicked(event -> shopViewEvents.onBackClicked());
         GuiHelper.setButtonHoverEffect(backImgView, label);
 
-        bottomHBox.setAlignment(Pos.CENTER);
+        bottomHBox.setAlignment(Pos.BOTTOM_CENTER);
         Region placeHolder = new Region();
         placeHolder.setPrefHeight(150); // Festlegen der konstanten Höhe
         bottomHBox.getChildren().add(placeHolder);
@@ -146,7 +153,11 @@ public class ShopView extends BorderPane {
     }
 
     public void onCardClick(Card card, int index) {
-        shopViewEvents.onCardClick(card,index);
+        shopViewEvents.onCardClick(card, index);
+    }
+
+    public void onPotionClick(PotionCard card) {
+        shopViewEvents.onPotionClick(card);
     }
 
     public void setShopCards(List<Card> purchasableCards) {
@@ -171,5 +182,10 @@ public class ShopView extends BorderPane {
         this.popup.setAutoHide(true);
         this.popup.getContent().add(stackPopup);
         this.popup.show(this.centerVBox.getScene().getWindow(), 800, 500);
+    }
+
+    public void setPurchaseablePotion() {
+        this.potionCard = null;
+        initCenter();
     }
 }

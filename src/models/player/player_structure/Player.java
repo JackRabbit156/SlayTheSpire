@@ -90,9 +90,6 @@ public abstract class Player {
     }
 
     public void addPotionCard(PotionCard potionCards) {
-        if (this.potionCards.size() == 3) {
-            return;
-        }
         this.potionCards.add(potionCards);
     }
 

@@ -12,12 +12,14 @@ import javafx.scene.layout.*;
 import javafx.scene.paint.Paint;
 import models.card.card_structure.Card;
 import models.player.player_structure.Player;
+import models.potion.potion_structure.PotionCard;
 import view.gui.layouts.layout_events.LootViewEvents;
 import view.gui.layouts.loot_layout.CardSelectionLayout;
 
 import java.util.List;
 
 public class LootView extends BorderPane {
+    private PotionCard potionCard;
     private List<Card> lootCards;
     private Player player;
     private int gold;
@@ -32,6 +34,15 @@ public class LootView extends BorderPane {
         this.player = player;
         this.lootCards = lootCards;
         this.gold = gold;
+        this.lootViewEvents = lootViewEvents;
+        display();
+    }
+
+    public LootView(Player player, List<Card> lootCards, int gold, PotionCard potionCard, LootViewEvents lootViewEvents) {
+        this.player = player;
+        this.lootCards = lootCards;
+        this.gold = gold;
+        this.potionCard = potionCard;
         this.lootViewEvents = lootViewEvents;
         display();
     }

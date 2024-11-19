@@ -21,8 +21,16 @@ public class ShopController implements ShopViewEvents {
     private List<Card> purchasableCards;
     private DeckFactory deckFactory;
     private ShopView shopView;
-    private List<PotionCard> purchasablePotions;
+    private PotionCard purchasablePotion;
     private List<Relic> purchasableRelics;
+
+    /*
+    3 Potions
+        Common: 48 - 52 Gold
+        Uncommon: 72 - 78 Gold
+        Rare: 95 - 105 Gold
+     */
+
 
     public ShopController(Player player) {
         this.player = player;
@@ -31,13 +39,14 @@ public class ShopController implements ShopViewEvents {
         // Bei jeder Initialisierung wird der Shop befüllt.
         // Wird beim Spielstart ausgeführt und bei jedem Act.
         this.purchasableCards = this.deckFactory.init();
+        this.purchasablePotion = this.deckFactory.generatePotion();
     }
 
     /**
-     * Auswahl der Kaufoptionen.
+     * Initialisierung des Shops und des ShopViewEvents
      */
     public void entryShop() {
-        this.shopView = new ShopView(player, purchasableCards, this);
+        this.shopView = new ShopView(player, purchasableCards, this, purchasablePotion);
         this.shopView.initShopViewEvents(this);
     }
 
@@ -64,8 +73,17 @@ public class ShopController implements ShopViewEvents {
     }
 
     @Override
-    public void onPotionClick(PotionCard potion, int index) {
+    public void onPotionClick(PotionCard potion) {
+        if(this.player.getPotionCards().size() < 3) {
+            this.player.addPotionCard(potion);
+            refreshSelectablePotion();
+            return;
+        }
+        shopView.showDialog("You have reached the maximum of Potion.");
+    }
 
+    private void refreshSelectablePotion() {
+        this.shopView.setPurchaseablePotion();
     }
 
     @Override
