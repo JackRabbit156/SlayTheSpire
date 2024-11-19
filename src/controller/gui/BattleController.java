@@ -137,6 +137,7 @@ public class BattleController implements BattleViewEvents, PlayerEventListener {
             if (enemy.isAlive()) {
                 enemy.action(gameContext);
             }
+
         }
     }
 

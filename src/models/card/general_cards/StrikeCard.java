@@ -10,7 +10,7 @@ import models.player.player_structure.Player;
 
 public class StrikeCard extends AttackCard {
     public StrikeCard() {
-        super("Strike", "Deal 6 damage.", 1, 6, CardRarity.COMMON, CardGrave.DISCARD);
+        super("Strike", "Deal 6 damage.", 1, 6000, CardRarity.COMMON, CardGrave.DISCARD);
 
         setImagePath(new PathAssistent().toPath(this));
         targetIsRequired();
