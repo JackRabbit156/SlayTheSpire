@@ -6,8 +6,10 @@ import javafx.stage.Stage;
 import controller.listener.*;
 import models.card.card_structure.Card;
 import models.game_settings.GameSettings;
+import models.potion.potion_structure.PotionCard;
 import models.relic.relic_structure.Relic;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -35,6 +37,7 @@ public abstract class Player {
     private int block;
 
     private List<Card> deck;
+    private List<PotionCard> potionCards;
 
     private Relic relic;
 
@@ -70,11 +73,27 @@ public abstract class Player {
         this.currentField = "1";
         this.playerType = playerType;
         this.symbol = symbol;
+        this.potionCards = new ArrayList<>();
         listener = null;
     }
 
     public Stage getPrimaryStage() {
         return primaryStage;
+    }
+
+    public List<PotionCard> getPotionCards() {
+        return potionCards;
+    }
+
+    public void setPotionCards(List<PotionCard> potionCards) {
+        this.potionCards = potionCards;
+    }
+
+    public void addPotionCard(PotionCard potionCards) {
+        if (this.potionCards.size() == 3) {
+            return;
+        }
+        this.potionCards.add(potionCards);
     }
 
     public void setPrimaryStage(Stage primaryStage) {
