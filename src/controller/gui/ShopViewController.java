@@ -55,12 +55,12 @@ public class ShopViewController implements ShopViewEvents {
             this.player.addCardToDeck(card);
             this.purchasableCards.remove(card);
             refreshSelectableCards();
-            ConsoleAssistent.print(Color.YELLOW, "Refresh Cards in Shop!");
+            ConsoleAssistent.print(Color.YELLOW, "Refresh Cards!");
 
         } else {
             System.out.println();
-            this.shopView.showDialog("Not enough Gold in Shop!");
-            ConsoleAssistent.print(Color.YELLOW, "Not enough Gold in Shop!");
+            this.shopView.showDialog("Not enough Gold!");
+            ConsoleAssistent.print(Color.YELLOW, "Not enough Gold!");
         }
     }
 
@@ -75,7 +75,7 @@ public class ShopViewController implements ShopViewEvents {
     }
 
     @Override
-    public void onBackClick() {
+    public void onBackClicked() {
         // TODO Back Option wie?
         ConsoleAssistent.print(Color.YELLOW, "Shop Leaved!");
         GuiHelper.Scenes.startMapScene(player.getPrimaryStage(), player, true);

@@ -1,10 +1,12 @@
 package view.gui;
 
+import helper.GuiHelper;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.StrokeLineJoin;
@@ -35,19 +37,20 @@ public class ShopView extends BorderPane {
         display();
     }
 
-    public void initShopViewEvents(ShopViewEvents shopViewEvents){
-        this.shopViewEvents = shopViewEvents;
+    /**
+     * Initialisiert die View.
+     */
+    public void display() {
+        setBackground(new Background(GuiHelper.background("/images/backgrounds/ShopViewBG.jpeg")));
+        initTop();
+        initBottom();
+        initLeft();
+        initRight();
+        initCenter();
     }
 
-    private BackgroundImage background() {
-        Image backgroundImage = new Image(getClass().getResource("/images/backgrounds/ShopViewBG.jpeg").toExternalForm());
-        return new BackgroundImage(
-                backgroundImage,
-                BackgroundRepeat.NO_REPEAT, // Option: NO_REPEAT, REPEAT, REPEAT_X, REPEAT_Y
-                BackgroundRepeat.NO_REPEAT,
-                BackgroundPosition.DEFAULT,
-                new BackgroundSize(BackgroundSize.AUTO, BackgroundSize.AUTO, true, true, true, true)
-        );
+    public void initShopViewEvents(ShopViewEvents shopViewEvents){
+        this.shopViewEvents = shopViewEvents;
     }
 
     private void initCenter(){
@@ -63,7 +66,6 @@ public class ShopView extends BorderPane {
             setCenter(placeHolder);
             return;
         }
-//        centerVBox.setBackground(new Background(new BackgroundFill(Paint.valueOf("Red"),null, this.insets)));
         centerVBox.setSpacing(30);
         centerVBox.setPadding(insets);
         centerVBox.setAlignment(Pos.TOP_CENTER);
@@ -91,11 +93,28 @@ public class ShopView extends BorderPane {
      * Bottom side
      */
     private void initBottom(){
+        Image btnImage = new Image(getClass().getResource("/images/buttons/buttonL.png").toExternalForm());
+        ImageView backImgView = new ImageView(btnImage);
         HBox bottomHBox = new HBox();
-        Button backBtn = new Button("Back");
-        backBtn.setOnAction(event -> shopViewEvents.onBackClick());
-        bottomHBox.getChildren().add(backBtn);
-//        bottomHBox.setBackground(new Background(new BackgroundFill(Paint.valueOf("Blue"),null, this.insets)));
+        Button backBtn = new Button();
+        backBtn.setGraphic(backImgView);
+
+        backImgView.setFitWidth(backBtn.getWidth());
+        backImgView.setFitHeight(backBtn.getHeight());
+        backImgView.setScaleX(0.7);
+        backImgView.setScaleY(0.7);
+
+        StackPane backBtnPane = new StackPane(backImgView);
+        Label label = new Label("Back");
+        label.setTextFill(Paint.valueOf("White"));
+        label.setStyle("-fx-font-size: 24;");
+        backBtnPane.getChildren().add(label);
+        bottomHBox.getChildren().add(backBtnPane);
+
+        backImgView.setOnMouseClicked(event -> shopViewEvents.onBackClicked());
+        label.setOnMouseClicked(event -> shopViewEvents.onBackClicked());
+        GuiHelper.setButtonHoverEffect(backImgView, label);
+
         bottomHBox.setAlignment(Pos.CENTER);
         Region placeHolder = new Region();
         placeHolder.setPrefHeight(150); // Festlegen der konstanten Höhe
@@ -108,7 +127,6 @@ public class ShopView extends BorderPane {
      */
     private void initLeft(){
         VBox leftVBox = new VBox();
-//        leftVBox.setBackground(new Background(new BackgroundFill(Paint.valueOf("Yellow"),null, this.insets)));
         leftVBox.setAlignment(Pos.CENTER);
         Region placeHolder = new Region();
         placeHolder.setPrefWidth(200); // Festlegen der konstanten Höhe
@@ -121,25 +139,11 @@ public class ShopView extends BorderPane {
      */
     private void initRight(){
         VBox rightVBox = new VBox();
-//        rightVBox.setBackground(new Background(new BackgroundFill(Paint.valueOf("Green"),null, this.insets)));
         rightVBox.setAlignment(Pos.CENTER);
         Region bottomPlaceholder = new Region();
         bottomPlaceholder.setPrefWidth(200); // Festlegen der konstanten Höhe
         rightVBox.getChildren().add(bottomPlaceholder);
         setRight(rightVBox);
-    }
-
-
-    /**
-     * Initialisiert die View.
-     */
-    public void display() {
-        setBackground(new Background(background()));
-        initTop();
-        initBottom();
-        initLeft();
-        initRight();
-        initCenter();
     }
 
     public void onCardClick(Card card, int index) {

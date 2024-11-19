@@ -37,9 +37,7 @@ public class RestViewController implements RestViewEvents {
     @Override
     public void onBackClicked() {
         ConsoleAssistent.println(Color.YELLOW, "Back wurde im RestViewController angeklickt");
-
         GuiHelper.Scenes.startMapScene(player.getPrimaryStage(), player, true);
-
     }
 
     public RestView getRestView() {

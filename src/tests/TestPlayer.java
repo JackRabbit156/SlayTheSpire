@@ -1,6 +1,7 @@
 package tests;
 
 import helper.ConsoleAssistent;
+import helper.PathAssistent;
 import models.card.card_structure.*;
 import models.card.ironclad_cards.attack.common.BashCard;
 import models.battle.GameContext;
@@ -16,6 +17,7 @@ import java.util.List;
 public class TestPlayer extends Player {
     public TestPlayer() {
         super("TesterPlayer", 1000, 1000, PlayerType.IRONCLAD, "⚒");
+        setImagePath("/images/player/IroncladPlayer.png");
         initRelic();
         initDeck();
     }
@@ -45,14 +47,13 @@ public class TestPlayer extends Player {
     private class BossCard extends AttackCard {
         public BossCard() {
             super("Boss Card", "CheaterCard", 0, 40,CardRarity.RARE, CardGrave.DISCARD);
+            setImagePath("/images/card/ironclad_cards/attack/rare/ReaperCard.png");
+            targetIsRequired();
         }
 
         @Override
         public void play(GameContext gameContext) {
-            System.out.print("Choose an enemy to target: ");
-            int targetIndex = ConsoleAssistent.scannerAutoAim(gameContext.getEnemies().size());
-
-            Enemy enemy = gameContext.getEnemies().get(targetIndex);
+            Enemy enemy = gameContext.getSelectedEnemy();
             enemy.takeDamage(dealDamage());
 
             Player player = gameContext.getPlayer();

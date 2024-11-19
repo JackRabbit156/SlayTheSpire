@@ -10,5 +10,5 @@ public interface ShopViewEvents {
     void onPotionClick(PotionCard potion, int index);
     void onRelicClick(Relic relic, int index);
 
-    void onBackClick();
+    void onBackClicked();
 }

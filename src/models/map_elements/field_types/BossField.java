@@ -5,6 +5,7 @@ import controller.cli.LootViewController;
 import models.enemy.Enemy;
 import models.player.player_structure.Player;
 import view.cli.StatisticsView;
+import view.gui.StatisticView;
 
 import java.util.List;
 
@@ -16,7 +17,6 @@ public class BossField extends Field{
 
     private LootViewController lootViewController;
     private List<Enemy> enemies;
-    private StatisticsView statisticsView;
 
     public BossField(List<Enemy> enemies) {
         super(imagePath);
@@ -37,8 +37,7 @@ public class BossField extends Field{
 
         setFieldBeaten();
 
-        statisticsView = new StatisticsView();
-        statisticsView.display(player);
+        new StatisticView(player);
 
         lootViewController = new LootViewController(player, "BossField");
         lootViewController.openLootView(player);
