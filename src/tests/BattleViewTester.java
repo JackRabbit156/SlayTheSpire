@@ -25,7 +25,7 @@ public class BattleViewTester extends Application {
 //        BattleViewTester tester = new BattleViewTester();
 //        BossField bossField = new BossField(tester.createBossEnemies());
 
-        Player player = new TestPlayer();
+        TestPlayer player = new TestPlayer();
 
         // Es muss gekämpft werden, um die ausgabe zu erhalten.
         // FALL 1: ERWARTE : Hier kommt die StatisticsView mit Loot View
