@@ -1,14 +1,11 @@
 package tests;
 
-import controller.gui.ShopViewController;
+import controller.gui.ShopController;
+import helper.GuiHelper;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import models.card.card_structure.Card;
 import models.player.IroncladPlayer;
-import models.potion.potion_structure.PotionCard;
-import models.relic.relic_structure.Relic;
-import view.gui.layouts.layout_events.ShopViewEvents;
 
 /**
  * @author Keil, Vladislav
@@ -46,20 +43,25 @@ public class ShopControllerTester extends Application {
 //    }
 
     @Override
-    public void start(Stage primaryStage) throws Exception {
-        IroncladPlayer player = new IroncladPlayer();
-//        player.setGold(500);
-        ShopViewController shopViewController = new ShopViewController(player);
+    public void start(Stage primaryStage) {
+//        IroncladPlayer player = new IroncladPlayer();
+        TestPlayer player = new TestPlayer();
 
-        shopViewController.entryShop();
+        player.setGold(500);
 
-        Scene scene = new Scene(shopViewController.getShopView(), 1920, 1080);
+        ShopController shopController = new ShopController(player);
 
-//        scene.getStylesheets().add(getClass().getResource("/debug.css").toExternalForm());
+        shopController.entryShop();
+
+        Scene scene = new Scene(shopController.getShopView(), 1920, 1080);
+
         player.setPrimaryStage(primaryStage);
 
-        primaryStage.setScene(scene);
-        primaryStage.setTitle("Slay the Spire - JavaFX");
-        primaryStage.show();
+        GuiHelper.Scenes.startScene(primaryStage, scene, "Slay the Spire - JavaFX");
+
+//        primaryStage.setScene(scene);
+
+//        primaryStage.setTitle("Slay the Spire - JavaFX");
+//        primaryStage.show();
     }
 }

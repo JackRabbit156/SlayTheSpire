@@ -2,6 +2,7 @@ package tests;
 
 import controller.cli.MapViewController;
 import controller.gui.MapController;
+import helper.GuiHelper;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -16,12 +17,8 @@ public class MapViewTester  extends Application {
         MapController map = new MapController(player, true);
 
         Scene scene = new Scene(map.getMapView(), 1920, 1080);
-
-//        scene.getStylesheets().add(getClass().getResource("/debug.css").toExternalForm());
         player.setPrimaryStage(primaryStage);
+        GuiHelper.Scenes.startScene(primaryStage, scene, "Slay the Spire - JavaFX");
 
-        primaryStage.setScene(scene);
-        primaryStage.setTitle("Slay the Spire - JavaFX");
-        primaryStage.show();
     }
 }

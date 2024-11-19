@@ -1,6 +1,7 @@
 package tests;
 
 import controller.gui.BattleController;
+import helper.GuiHelper;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -22,26 +23,13 @@ public class BattleViewTester extends Application {
     public static void main(String[] args) { launch(args); }
     @Override
     public void start(Stage primaryStage) {
-//        BattleViewTester tester = new BattleViewTester();
-//        BossField bossField = new BossField(tester.createBossEnemies());
-
         TestPlayer player = new TestPlayer();
 
-        // Es muss gekämpft werden, um die ausgabe zu erhalten.
-        // FALL 1: ERWARTE : Hier kommt die StatisticsView mit Loot View
-//        bossField.doFieldThing(player);
-        // Ausgabe alles 0
-
         BattleController battleController = new BattleController(player, generateEnemies());
-
         Scene scene = new Scene(battleController.getBattleView(), 1920, 1080);
-
-//        scene.getStylesheets().add(getClass().getResource("/debug.css").toExternalForm());
         player.setPrimaryStage(primaryStage);
 
-        primaryStage.setScene(scene);
-        primaryStage.setTitle("Slay the Spire - JavaFX");
-        primaryStage.show();
+        GuiHelper.Scenes.startScene(primaryStage, scene, "Slay the Spire - JavaFX");
     }
 
     private List<Enemy> generateEnemies(){
@@ -94,7 +82,6 @@ public class BattleViewTester extends Application {
         }
         return enemies;
     }
-
 
     private List<Enemy> createElitesEnemies() {
         List<Enemy> enemies = new ArrayList<>();
