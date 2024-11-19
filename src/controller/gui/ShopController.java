@@ -76,7 +76,7 @@ public class ShopController implements ShopViewEvents {
     @Override
     public void onBackClicked() {
         ConsoleAssistent.print(Color.YELLOW, "Shop Leaved!");
-        GuiHelper.Scenes.startMapScene(player.getPrimaryStage(), player, true);
+        GuiHelper.Scenes.startMapScene(player, true);
     }
 
     /**

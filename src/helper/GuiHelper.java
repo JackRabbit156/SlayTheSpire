@@ -129,7 +129,7 @@ public class GuiHelper {
             }
 
             // Fade-Out der aktuellen Szene
-            FadeTransition fadeOut = new FadeTransition(Duration.seconds(1), currentScene.getRoot());
+            FadeTransition fadeOut = new FadeTransition(Duration.seconds(0.5), currentScene.getRoot());
             fadeOut.setFromValue(1.0);
             fadeOut.setToValue(0.0);
             fadeOut.setOnFinished(event -> {
@@ -137,7 +137,7 @@ public class GuiHelper {
                 primaryStage.setScene(scene);
                 primaryStage.setFullScreen(true);
                 scene.getRoot().setOpacity(0.0); // Stellen Sie sicher, dass die neue Szene unsichtbar ist, bevor sie einblendet
-                FadeTransition fadeIn = new FadeTransition(Duration.seconds(1), scene.getRoot());
+                FadeTransition fadeIn = new FadeTransition(Duration.seconds(0.5), scene.getRoot());
                 fadeIn.setFromValue(0.0);
                 fadeIn.setToValue(1.0);
                 fadeIn.play();

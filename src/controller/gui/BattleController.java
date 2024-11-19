@@ -165,6 +165,7 @@ public class BattleController implements BattleViewEvents {
     }
 
     private void startingMap(){
+        Stage primaryStage = player.getPrimaryStage();
         GuiHelper.Scenes.startMapScene(player, true);
     }
 

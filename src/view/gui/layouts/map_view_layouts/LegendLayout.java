@@ -18,13 +18,13 @@ public class LegendLayout extends StackPane {
 
         ImageView backgound = image("/images/map/legend.png");
 
-        LegendItemLayout item1 = new LegendItemLayout("Unknown", "/images/map_elements/field_types/EnemyField.png");
+        LegendItemLayout item1 = new LegendItemLayout("Unknown", "/images/map_elements/field_types/UnknownField.png");
         item1.setPadding(new Insets(140, 0, 0, 80));
-        LegendItemLayout item2 = new LegendItemLayout("Merchant", "/images/map_elements/field_types/EnemyField.png");
-        LegendItemLayout item3 = new LegendItemLayout("Treasure", "/images/map_elements/field_types/EnemyField.png");
-        LegendItemLayout item4 = new LegendItemLayout("Rest", "/images/map_elements/field_types/EnemyField.png");
+        LegendItemLayout item2 = new LegendItemLayout("Merchant", "/images/map_elements/field_types/ShopField.png");
+        LegendItemLayout item3 = new LegendItemLayout("Treasure", "/images/map_elements/field_types/TreasureField.png");
+        LegendItemLayout item4 = new LegendItemLayout("Rest", "/images/map_elements/field_types/RestField.png");
         LegendItemLayout item5 = new LegendItemLayout("Enemy", "/images/map_elements/field_types/EnemyField.png");
-        LegendItemLayout item6 = new LegendItemLayout("Elite", "/images/map_elements/field_types/EnemyField.png");
+        LegendItemLayout item6 = new LegendItemLayout("Elite", "/images/map_elements/field_types/EliteField.png");
 
         legendItems.getChildren().addAll(item1, item2, item3, item4, item5, item6);
         getChildren().addAll(backgound, legendItems);
