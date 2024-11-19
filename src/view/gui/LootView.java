@@ -48,9 +48,13 @@ public class LootView extends BorderPane {
         initCenter();
     }
 
+    /**
+     * Center Side
+     */
     private void initCenter(){
         // Card Options
         CardSelectionLayout cardSelectionLayout = new CardSelectionLayout(this.lootCards, this.player, this);
+        Image btnImage = new Image(getClass().getResource("/images/buttons/blankButton.png").toExternalForm());
 
         centerVBox = new VBox();
         centerVBox.setSpacing(30);
@@ -58,7 +62,6 @@ public class LootView extends BorderPane {
         centerVBox.setAlignment(Pos.TOP_CENTER);
         centerVBox.getChildren().add(cardSelectionLayout);
 
-        Image btnImage = new Image(getClass().getResource("/images/buttons/blankButton.png").toExternalForm());
         ImageView itemPanelView = new ImageView(btnImage);
         itemPanelView.setScaleY(0.25);
         itemPanelView.setScaleX(0.25);
@@ -74,6 +77,9 @@ public class LootView extends BorderPane {
         setCenter(centerVBox);
     }
 
+    /**
+     * Top side
+     */
     private void initTop(){
         topVBox = new VBox();
         Label label = new Label();
@@ -136,14 +142,18 @@ public class LootView extends BorderPane {
         setRight(rightVBox);
     }
 
+    /**
+     * Auswahl der Karte und Beendigung des LootView im Controller.
+     * @param card ein Karte
+     * @param index Karten index
+     */
     public void onCardClick(Card card, int index) {
         lootViewEvents.onCardClick(card, index);
     }
 
-    public void setLootCards(List<Card> selectableCards) {
-        this.lootCards = selectableCards;
-        initCenter();
-    }
-
+    /**
+     * Übergabe des LootViewEvents
+     * @param lootViewEvents LootViewEvents
+     */
     public void initLootViewEvents(LootViewEvents lootViewEvents) { this.lootViewEvents = lootViewEvents; }
 }
