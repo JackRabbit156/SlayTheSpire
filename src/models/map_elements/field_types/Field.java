@@ -14,17 +14,17 @@ import models.player.player_structure.Player;
  */
 public abstract class Field {
 
-    private String symbol;
+    private String imagePath;
 
     private boolean fieldBeaten;
 
     /**
      * Konstruktor für die Klasse Field.
      *
-     * @param symbol das Symbol, das dieses Feld repräsentiert
+     * @param imagePath das Symbol, das dieses Feld repräsentiert
      */
-    public Field(String symbol){
-        this.symbol = symbol;
+    public Field(String imagePath){
+        this.imagePath = imagePath;
         fieldBeaten = false;
     }
 
@@ -36,9 +36,8 @@ public abstract class Field {
      */
     public abstract void doFieldThing(Player player);
 
-
-    public String getSymbol() {
-        return symbol;
+    public String getImagePath() {
+        return imagePath;
     }
 
     public boolean isFieldBeaten() {
