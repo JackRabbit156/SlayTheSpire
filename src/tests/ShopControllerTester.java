@@ -47,7 +47,7 @@ public class ShopControllerTester extends Application {
 //        IroncladPlayer player = new IroncladPlayer();
         TestPlayer player = new TestPlayer();
 
-        player.setGold(500);
+//        player.setGold(500);
 
         ShopController shopController = new ShopController(player);
 

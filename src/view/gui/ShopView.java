@@ -156,21 +156,21 @@ public class ShopView extends BorderPane {
     }
 
     public void showDialog(String text) {
-        popup = new Popup();
-        HBox box = new HBox();
+        Image popupImage = new Image(getClass().getResource("/images/popup/popupBg.png").toExternalForm());
+        ImageView imageView = new ImageView(popupImage);
+        imageView.setScaleX(0.5);
+        imageView.setScaleY(0.5);
+
+        StackPane stackPopup = new StackPane();
         Label label = new Label(text);
+        label.setStyle("-fx-font-size: 36;");
         label.setTextFill(Paint.valueOf("White"));
         label.autosize();
-        box.setPrefHeight(150);
-        box.setBorder(new Border(new BorderStroke(Paint.valueOf("Black"), new BorderStrokeStyle(StrokeType.CENTERED, StrokeLineJoin.ROUND, null, 0,0, null),null,null)));
-        box.setPrefWidth(250);
-        box.setOpacity(0.95);
-        box.setAlignment(Pos.CENTER);
-        box.getChildren().add(label);
-        box.setBackground(new Background(new BackgroundFill(Paint.valueOf("Grey"), null, null)));
+        stackPopup.getChildren().addAll(imageView, label);
 
-        popup.setAutoHide(true);
-        popup.getContent().add(box);
-        popup.show(centerVBox.getScene().getWindow(), 800, 500);
+        this.popup = new Popup();
+        this.popup.setAutoHide(true);
+        this.popup.getContent().add(stackPopup);
+        this.popup.show(this.centerVBox.getScene().getWindow(), 800, 500);
     }
 }
