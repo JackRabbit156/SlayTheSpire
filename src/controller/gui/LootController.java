@@ -8,6 +8,7 @@ import models.card.card_structure.Card;
 import models.game_settings.GameSettings;
 import models.map_elements.field_types.FieldEnum;
 import models.player.player_structure.Player;
+import models.potion.potion_structure.PotionCard;
 import view.gui.LootView;
 import view.gui.ShopView;
 import view.gui.layouts.layout_events.LootViewEvents;
@@ -21,6 +22,7 @@ public class LootController implements LootViewEvents {
 
     private Player player;
     private List<Card> selectedCards;
+    private PotionCard potion;
     private DeckFactory deckFactory;
     private LootView lootView;
     private int gold = 0;
