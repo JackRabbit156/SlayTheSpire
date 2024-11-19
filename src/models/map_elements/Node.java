@@ -53,7 +53,7 @@ public class Node {
     }
 
     public String getSymbol(){
-        return field.getSymbol();
+        return field.getImagePath();
     }
 
     public int getX(){

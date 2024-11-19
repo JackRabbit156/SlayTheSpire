@@ -4,6 +4,7 @@ import controller.gui.BattleController;
 import controller.gui.LoadController;
 import controller.gui.MapController;
 import javafx.scene.Node;
+import javafx.animation.FadeTransition;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
@@ -14,6 +15,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 import models.enemy.Enemy;
 import models.player.player_structure.Player;
 
@@ -31,51 +33,48 @@ import java.util.Objects;
  * @author Warawa Alexander, ...
  */
 public class GuiHelper {
+    private static final String DEFAULT_TITLE = "Slay the Spire - JavaFX";
+
     /**
      * Verschachtelte Klasse mit Hilfsmethoden zur Verwaltung von Szenen.
      */
     public static class Scenes {
-        private static final String DEFAULT_TITLE = "Slay the Spire - JavaFX";
         /**
          * Startet die Karten-Szene (Map Scene), die es dem Spieler ermöglicht, zwischen Knoten auf der Karte zu navigieren.
          * Wenn das Spiel zum ersten Mal gestartet wird, lädt der 'MapController' automatisch den ersten Kampf.
          *
-         * @param primaryStage das primäre {@code Stage}-Objekt der Anwendung
          * @param player die {@code Player}-Instanz des aktuellen Spiels
          * @param fromFile ein Flag, das angibt, ob das Spiel aus einer Speicherdatei geladen wurde
          */
-        public static void startMapScene(Stage primaryStage, Player player, boolean fromFile) {
+        public static void startMapScene(Player player, boolean fromFile) {
             MapController mapController = new MapController(player, fromFile);
+            Stage primaryStage = player.getPrimaryStage();
 
             // Früher Rücksprung, wenn das Spiel zum ersten Mal gestartet wird,
             // damit der MapController den ersten Kampf laden kann.
-            if(!fromFile)
+            if (!fromFile)
                 return;
 
             Scene scene = new Scene(mapController.getMapView(), 1920, 1080);
             scene.getStylesheets().add(Objects.requireNonNull(GuiHelper.class.getResource("/css/mapStyle.css")).toExternalForm());
-            primaryStage.setScene(scene);
-            primaryStage.setTitle(DEFAULT_TITLE);
-            primaryStage.setFullScreen(true);
-            primaryStage.show();
+            fadeTransition(primaryStage, scene);
         }
+
         /**
          * Startet die Kampf-Szene (Battle Scene), in der der Spieler gegen eine Liste von Gegnern kämpfen kann.
          *
-         * @param primaryStage das primäre 'Stage'-Objekt der Anwendung
          * @param player die 'Player'-Instanz, die den Spieler im Spiel repräsentiert
          * @param enemies eine Liste von 'Enemy'-Instanzen, die die Gegner im Kampf darstellen
          */
-        public static void startBattleScene(Stage primaryStage, Player player, List<Enemy> enemies) {
+        public static void startBattleScene(Player player, List<Enemy> enemies) {
             BattleController battle = new BattleController(player, enemies);
+            Stage primaryStage = player.getPrimaryStage();
 
             Scene scene = new Scene(battle.getBattleView(), 1920, 1080);
             scene.getStylesheets().add(Objects.requireNonNull(Scenes.class.getResource("/css/battleStyle.css")).toExternalForm());
-            primaryStage.setScene(scene);
-            primaryStage.setTitle(DEFAULT_TITLE);
-            primaryStage.setFullScreen(true);
-            primaryStage.show();
+            fadeTransition(primaryStage, scene);
         }
+
         /**
          * Startet die Szene zum Laden eines gespeicherten Spielstands (Load Save State Scene).
          *
@@ -85,11 +84,7 @@ public class GuiHelper {
             LoadController loadController = new LoadController(primaryStage);
 
             Scene scene = new Scene(loadController.getLoadView(), 1920, 1080);
-
-            primaryStage.setScene(scene);
-            primaryStage.setTitle(DEFAULT_TITLE);
-            primaryStage.setFullScreen(true);
-            primaryStage.show();
+            fadeTransition(primaryStage, scene);
         }
 
         /**
@@ -101,10 +96,7 @@ public class GuiHelper {
          */
         public static void startScene(Stage primaryStage, Parent parentToShow, String title) {
             Scene scene = new Scene(parentToShow, 1920, 1080);
-            primaryStage.setScene(scene);
-            primaryStage.setTitle(title);
-            primaryStage.setFullScreen(true);
-            primaryStage.show();
+            fadeTransition(primaryStage, scene);
         }
 
         /**
@@ -115,12 +107,45 @@ public class GuiHelper {
          * @param title der Titel der Szene, der im Stage angezeigt wird
          */
         public static void startScene(Stage primaryStage, Scene scene, String title) {
-            primaryStage.setScene(scene);
-            primaryStage.setTitle(title);
-            primaryStage.setFullScreen(true);
-            primaryStage.show();
+            fadeTransition(primaryStage, scene);
+        }
+
+        /**
+         * Führt eine Fade-Transition für die Szene durch.
+         *
+         * @param primaryStage das primäre 'Stage'-Objekt der Anwendung
+         * @param scene das 'Scene'-Objekt, das angezeigt werden soll
+         */
+        private static void fadeTransition(Stage primaryStage, Scene scene) {
+            Scene currentScene = primaryStage.getScene();
+
+            // Direkt die neue Szene setzen, falls die aktuelle Szene oder deren Root-Node ungültig ist
+            if (currentScene == null || currentScene.getRoot() == null) {
+                System.out.println("NO Fade");
+                primaryStage.setScene(scene);
+                primaryStage.setFullScreen(true);
+                primaryStage.show(); // Zeigt die neue Szene sofort an
+                return;
+            }
+
+            // Fade-Out der aktuellen Szene
+            FadeTransition fadeOut = new FadeTransition(Duration.seconds(1), currentScene.getRoot());
+            fadeOut.setFromValue(1.0);
+            fadeOut.setToValue(0.0);
+            fadeOut.setOnFinished(event -> {
+                // Setzen der neuen Szene nach dem Fade-Out
+                primaryStage.setScene(scene);
+                primaryStage.setFullScreen(true);
+                scene.getRoot().setOpacity(0.0); // Stellen Sie sicher, dass die neue Szene unsichtbar ist, bevor sie einblendet
+                FadeTransition fadeIn = new FadeTransition(Duration.seconds(1), scene.getRoot());
+                fadeIn.setFromValue(0.0);
+                fadeIn.setToValue(1.0);
+                fadeIn.play();
+            });
+            fadeOut.play();
         }
     }
+
     /**
      * Erstellt ein 'BackgroundImage' mit dem angegebenen Pfad zu einem Bild.
      *
@@ -128,7 +153,7 @@ public class GuiHelper {
      * @return ein 'BackgroundImage', das mit den angegebenen Eigenschaften konfiguriert ist
      * @throws NullPointerException wenn der angegebene Pfad nicht existiert oder ungültig ist
      */
-    public static BackgroundImage background(String backgroundPath){
+    public static BackgroundImage background(String backgroundPath) {
         Image backgroundImage = new Image(Objects.requireNonNull(GuiHelper.class.getResource(backgroundPath)).toExternalForm());
         // Erstelle das Hintergrundbild mit den gewünschten Eigenschaften
         return new BackgroundImage(

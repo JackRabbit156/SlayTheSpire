@@ -7,6 +7,7 @@ import javafx.scene.layout.*;
 import models.map_elements.Node;
 import models.player.player_structure.Player;
 import view.gui.layouts.layout_events.MapViewEvents;
+import view.gui.layouts.map_view_layouts.LegendLayout;
 import view.gui.layouts.map_view_layouts.MapLayout;
 
 import java.util.List;
@@ -24,7 +25,9 @@ import java.util.List;
 public class MapView extends BorderPane {
     private MapViewEvents mapViewEvents;
 
-    private MapLayout map;
+    private MapLayout mapCenter;
+    private LegendLayout legendRight;
+
     private Player player;
     private List<Node> nodes;
 
@@ -36,10 +39,11 @@ public class MapView extends BorderPane {
 
         setStyle("-fx-background-color: #9a9990;");
         //setBackground(new Background(background()));
-        map = new MapLayout(this, nodes, mapWidth, mapHeight);
+        mapCenter = new MapLayout(this, nodes, mapWidth, mapHeight);
 
         initTopSide();
         initLeftSide();
+        initRightSide();
     }
 
     public void clickedOnValidField(Node node){
@@ -70,5 +74,10 @@ public class MapView extends BorderPane {
         Region placeHolder = new Region();
         placeHolder.setMinWidth(800); // Festlegen der konstanten Höhe
         setLeft(placeHolder);
+    }
+
+    private void initRightSide() {
+        legendRight = new LegendLayout();
+        setRight(legendRight);
     }
 }
