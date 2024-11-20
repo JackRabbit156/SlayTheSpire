@@ -28,7 +28,7 @@ public class PlayerLayout extends VBox {
         this.battleView = battleView;
 
         this.imagePath = player.getImagePath();
-        healthBarLayout = new HealthBarLayout(100);
+        healthBarLayout = new HealthBarLayout();
         defendLayout = new DefendLayout();
 
         HBox defendHealthBar = new HBox();

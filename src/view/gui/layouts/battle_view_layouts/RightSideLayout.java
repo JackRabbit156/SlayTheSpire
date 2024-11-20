@@ -40,9 +40,5 @@ public class RightSideLayout extends HBox {
             }
         }
         enemies.removeIf(enemy -> !enemy.isAlive());
-
-        if (enemies.isEmpty()) {
-
-        }
     }
 }

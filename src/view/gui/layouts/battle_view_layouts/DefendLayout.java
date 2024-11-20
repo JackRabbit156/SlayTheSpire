@@ -1,38 +1,49 @@
 package view.gui.layouts.battle_view_layouts;
 
-import helper.PathAssistent;
-import javafx.geometry.Insets;
-import javafx.scene.control.Label;
-import javafx.scene.control.ProgressBar;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
+import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
+import javafx.scene.text.FontSmoothingType;
 import javafx.scene.text.FontWeight;
+import javafx.scene.text.Text;
 
 public class DefendLayout extends StackPane {
-    private static final int MARGIN_LEFT = 100;
-
-
-    private Label blockText;
+    private Text blockTextStroke = new Text();
+    private Text blockText = new Text();
     private ImageView blockShieldView;
+
+
+    private String strokeColor = "#13503e";
+    private int strokeWidth = 3;
+
+    private String textColor = "#fdf9fc";
+
+    private final Font font = Font.font("Kreon", FontWeight.BOLD, 20);
+    private final FontSmoothingType smoothingType = FontSmoothingType.GRAY;
+
 
     public DefendLayout(){
         initBlockShield();
-        initLabel();
+        initText();
 
-        getChildren().addAll(blockShieldView, blockText);
+        getChildren().addAll(blockShieldView, blockTextStroke, blockText);
     }
 
     public void setBlockText(int block) {
+        blockTextStroke.setText(String.valueOf(block));
         blockText.setText(String.valueOf(block));
     }
 
-    private void initLabel(){
-        blockText = new Label("0");
-        blockText.setFont(Font.font("Arial", FontWeight.BOLD, 20));
-//        setMargin(blockText, new Insets(7, 0, 0, MARGIN_LEFT));
-        blockText.setStyle("-fx-text-fill: white; -fx-accent: blue;");
+    private void initText(){
+        blockTextStroke.setStroke(Paint.valueOf(strokeColor));
+        blockTextStroke.setStrokeWidth(strokeWidth);
+        blockText.setFill(Paint.valueOf(textColor));
+        blockTextStroke.setFont(font);
+        blockTextStroke.setFontSmoothingType(smoothingType);
+        blockText.setFont(font);
+        blockText.setFontSmoothingType(smoothingType);
     }
 
     private void initBlockShield(){
@@ -40,7 +51,7 @@ public class DefendLayout extends StackPane {
         Image blockShield = new Image(getClass().getResource(path).toExternalForm());
         blockShieldView = new ImageView(blockShield);
 
-        blockShieldView.setFitHeight(50);
-        blockShieldView.setFitWidth(50);
+        blockShieldView.setFitHeight(34);
+        blockShieldView.setFitWidth(34);
     }
 }

@@ -24,7 +24,7 @@ public class EnemyLayout extends VBox {
     public EnemyLayout(Enemy enemy, BattleView battleView){
         this.enemy = enemy;
         this.battleView = battleView;
-        healthBarLayout = new HealthBarLayout(100);
+        healthBarLayout = new HealthBarLayout();
         defendLayout = new DefendLayout();
         intentLayout = new IntentLayout();
 
@@ -51,6 +51,7 @@ public class EnemyLayout extends VBox {
 
     public void updateEnemy() {
         healthBarLayout.setHealthText(enemy.getHealth(), enemy.getMaxHealth());
+        defendLayout.setBlockText(enemy.getBlock());
         intentLayout.setIntentText(enemy.getIntent());
     }
 
