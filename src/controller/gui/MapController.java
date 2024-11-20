@@ -26,24 +26,31 @@ public class MapController implements MapViewEvents {
 
     private Act act;
 
-    public MapController (Player player, boolean loadingFromFile) {
+    public MapController (Player player, boolean firstMapEntrance) {
         this.player = player;
 
         switch (player.getCurrentAct()){
-            case 1: act = new ActOne(player, loadingFromFile); break;
-            case 2: act = new ActTwo(player, loadingFromFile); break; // TODO: Für GUI
-            case 3:  break; // TODO: Act 3, Für GUI
-            case 4: act = new ActFour(player, loadingFromFile); break;
+            case 1: act = new ActOne(player, firstMapEntrance); break;
+            case 2: act = new ActTwo(player, firstMapEntrance); break;
+            case 3:  break;
+            case 4: act = new ActFour(player, firstMapEntrance); break;
             default:
                 System.out.println("Weird"); return;
         }
 
+        if(getCurrentFieldFromAct().equals(act.getLastField())){
+            switch (player.getCurrentAct()){
+                case 1:
+                    act = new ActTwo(player, false); break;
+                case 2 :
+                case 4:
+                    act = new ActFour(player, false); break;
+                default:
+                    System.out.println("Weird"); return;
+            }
+        }
+
         this.mapView = new MapView(player, act.getNodes(), act.getMapWidth(), act.getMapHeight(), this);
-
-    }
-
-    public MapView getMapView(){
-        return mapView;
     }
 
     @Override
@@ -52,11 +59,15 @@ public class MapController implements MapViewEvents {
 
         node.doFieldThing(player);
 
-        act.setBeatenNode(player, node); // TODO: Evtl. nach Sieg eines Feldes setzen.
+        //act.setBeatenNode(player, node); // TODO: Evtl. nach Sieg eines Feldes setzen.
         player.setCurrentField(getCurrentFieldFromAct());
     }
 
     private String getCurrentFieldFromAct(){
         return act.getCurrentField();
+    }
+
+    public MapView getMapView(){
+        return mapView;
     }
 }

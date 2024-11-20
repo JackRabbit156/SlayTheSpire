@@ -35,14 +35,14 @@ public class ActFour extends Act{
      * Initialisiert den Akt und platziert den Spieler auf dem Startfeld, mit der Option einen Spieler auf einem bestimmten Floor zu spawnen.
      *
      * @param player der Spieler, der sich im Akt bewegen soll
-     * @param loadingFromFile ob der Spieler von einer Datei geladen wurde.
+     * @param playerAlreadyOnAct ob der Spieler von einer Datei geladen wurde.
      */
-    public ActFour(Player player, boolean loadingFromFile){
+    public ActFour(Player player, boolean playerAlreadyOnAct){
         super(4, MAP_WIDTH, MAP_HEIGHT);
         initNodes();
 
         Node playerNode = null;
-        if(loadingFromFile)
+        if(playerAlreadyOnAct)
             playerNode = getNoteByName(player.getCurrentField());
         else
             playerNode = getNoteByName(getFirstField());
@@ -53,8 +53,9 @@ public class ActFour extends Act{
         }
 
         playerNode.setPlayer(player);
-        if(loadingFromFile)
+        if(playerAlreadyOnAct)
             playerNode.setFieldBeaten();
+
     }
 
     private void initNodes(){
