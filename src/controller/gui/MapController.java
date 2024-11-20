@@ -41,6 +41,7 @@ public class MapController implements MapViewEvents {
         if(getCurrentFieldFromAct().equals(act.getLastField())){
             switch (player.getCurrentAct()){
                 case 1:
+                    System.out.println("Here!");
                     act = new ActTwo(player, false); break;
                 case 2 :
                 case 4:
@@ -48,6 +49,9 @@ public class MapController implements MapViewEvents {
                 default:
                     System.out.println("Weird"); return;
             }
+
+            act.getNodes().get(0).doFieldThing(player);
+            return;
         }
 
         this.mapView = new MapView(player, act.getNodes(), act.getMapWidth(), act.getMapHeight(), this);
