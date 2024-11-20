@@ -7,6 +7,8 @@ import helper.GuiHelper;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import models.game_settings.GameSettings;
+import models.game_settings.structure.DifficultyLevel;
 import models.map_elements.field_types.FieldEnum;
 import view.gui.LootView;
 
@@ -23,7 +25,7 @@ public class LootViewTester extends Application {
         TestPlayer player = new TestPlayer();
 
         LootController lootController = new LootController(player, FieldEnum.ENEMYFIELD);
-
+        GameSettings.setDifficultyLevel(DifficultyLevel.EASY);
         Scene scene = new Scene(lootController.getLootView(), 1920, 1080);
         scene.getStylesheets().add(Objects.requireNonNull(GuiHelper.class.getResource("/css/mapStyle.css")).toExternalForm());
 

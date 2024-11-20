@@ -4,16 +4,14 @@ import helper.GuiHelper;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
-import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.FlowPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import models.card.card_structure.Card;
-import models.player.player_structure.Player;
 import view.gui.LootView;
 import view.gui.ShopView;
 
@@ -23,28 +21,13 @@ import java.util.List;
 public class CardSelectionLayout extends FlowPane {
     private LootView lootView;
     private List<Card> selectableCards;
-    private Player player;
     private ShopView shopView;
 
-    public CardSelectionLayout(List<Card> cardList, Player player, ShopView shopView) {
+    public CardSelectionLayout(List<Card> cardList, ShopView shopView) {
         this.selectableCards = cardList;
-        this.player = player;
         this.shopView = shopView;
-
         // Center of the bottom
         setAlignment(Pos.CENTER);
-
-        showCards();
-    }
-
-    public CardSelectionLayout(List<Card> cardList, Player player, LootView lootView) {
-        this.selectableCards = cardList;
-        this.player = player;
-        this.lootView = lootView;
-
-        // Center of the bottom
-        setAlignment(Pos.CENTER);
-
         showCards();
     }
 
@@ -53,13 +36,21 @@ public class CardSelectionLayout extends FlowPane {
         Card card;
         for(int i = 0; i < selectableCards.size(); i++){
             VBox box = new VBox();
+            HBox priceBox = new HBox();
 
             card = selectableCards.get(i);
+
+            Image img = new Image(getClass().getResource("/images/gold.png").toExternalForm());
+            ImageView imgView = new ImageView(img);
             Label label = new Label();
-            label.setText("Gold: " + card.getPrice());
-            label.setStyle("-fx-size: 46;");
+            label.setText(String.valueOf(card.getPrice()));
+            label.setStyle("-fx-font-size: 28px;" +
+                    "-fx-font-family: Kreon;");
             label.setTextFill(Paint.valueOf("White"));
-            box.getChildren().addAll(images(card), label);
+            priceBox.setAlignment(Pos.CENTER);
+            priceBox.getChildren().addAll(imgView,label);
+
+            box.getChildren().addAll(images(card), priceBox);
             box.setAlignment(Pos.CENTER);
             nodes.add(box);
         }

@@ -11,7 +11,7 @@ import models.potion.potion_structure.PotionCard;
 public class FirePotion extends PotionCard {
 
     public FirePotion() {
-        super("Fire Potion", "Deal 20 Damage to target enemy.", 0, CardRarity.POTION, CardGrave.POTION);
+        super("Fire Potion", "Deal 20 Damage to target enemy.", 0, CardRarity.COMMON, CardGrave.POTION);
         setImagePath(new PathAssistent().toPath(this));
     }
 

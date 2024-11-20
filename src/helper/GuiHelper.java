@@ -85,7 +85,6 @@ public class GuiHelper {
             LoadController loadController = new LoadController(primaryStage);
 
             Scene scene = new Scene(loadController.getLoadView(), 1920, 1080);
-            scene.getStylesheets().add(Objects.requireNonNull(Scenes.class.getResource("/css/loadViewStyle.css")).toExternalForm());
             fadeTransition(primaryStage, scene);
         }
 
@@ -246,16 +245,18 @@ public class GuiHelper {
         return addButtonStackPane(imgView, label, scale, scale);
     }
 
-    public static Node addButtonStackPane(ImageView imgView, Label label, double scaleX, double scaleY) {
+    public static StackPane addButtonStackPane(ImageView imgView, Label label, double scaleX, double scaleY) {
         StackPane btnStackPane = new StackPane(imgView);
-
-        btnStackPane.getChildren().add(label);
-
         imgView.setScaleX(scaleX);
         imgView.setScaleY(scaleY);
 
-        setButtonHoverEffect(imgView, label);
+        label.setStyle("-fx-font-size: 24; -fx-font-family: Kreon;");
+        //DEBUGGER
+//        btnStackPane.setBackground(new Background(new BackgroundFill(Paint.valueOf("Purple"), null, null)));
+        btnStackPane.getChildren().add(label);
+        btnStackPane.setMaxHeight(100);
 
+        setButtonHoverEffect(imgView, label);
         return btnStackPane;
     }
 }

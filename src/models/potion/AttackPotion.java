@@ -12,7 +12,7 @@ import java.util.List;
 public class AttackPotion extends PotionCard {
 
     public AttackPotion() {
-        super("Attack Potion", "Add 1 of 3 random Attack cards to your hand", 0, CardRarity.POTION, CardGrave.POTION);
+        super("Attack Potion", "Add 1 of 3 random Attack cards to your hand", 0, CardRarity.COMMON, CardGrave.POTION);
         setImagePath(new PathAssistent().toPath(this));
     }
 

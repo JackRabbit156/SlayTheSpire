@@ -5,6 +5,8 @@ import helper.GuiHelper;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import models.game_settings.GameSettings;
+import models.game_settings.structure.DifficultyLevel;
 import models.player.IroncladPlayer;
 
 import java.util.Objects;
@@ -50,7 +52,7 @@ public class ShopControllerTester extends Application {
         TestPlayer player = new TestPlayer();
 
 //        player.setGold(500);
-
+        GameSettings.setDifficultyLevel(DifficultyLevel.HARD);
         ShopController shopController = new ShopController(player);
 
         shopController.entryShop();

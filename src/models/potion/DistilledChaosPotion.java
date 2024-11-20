@@ -12,7 +12,7 @@ import java.util.List;
 public class DistilledChaosPotion extends PotionCard {
 
     public DistilledChaosPotion() {
-        super("Distilled Chaos", "Play the top 3 cards of your draw pile.", 0, CardRarity.POTION, CardGrave.POTION);
+        super("Distilled Chaos", "Play the top 3 cards of your draw pile.", 0, CardRarity.UNCOMMON, CardGrave.POTION);
         setImagePath(new PathAssistent().toPath(this));
     }
 

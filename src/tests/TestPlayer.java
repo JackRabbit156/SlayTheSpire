@@ -47,7 +47,7 @@ public class TestPlayer extends Player {
     private class BossCard extends AttackCard {
         public BossCard() {
             super("Boss Card", "CheaterCard", 0, 40,CardRarity.RARE, CardGrave.DISCARD);
-            setImagePath("/images/card/ironclad_cards/attack/rare/ReaperCard.png");
+            setImagePath("/images/card/BossCard.jpg");
             targetIsRequired();
         }
 

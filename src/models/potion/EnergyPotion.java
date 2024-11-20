@@ -10,7 +10,7 @@ import models.potion.potion_structure.PotionCard;
 public class EnergyPotion extends PotionCard {
 
     public EnergyPotion() {
-        super("Energy Potion", "Gain 2 Energy.", 0, CardRarity.POTION, CardGrave.POTION);
+        super("Energy Potion", "Gain 2 Energy.", 0, CardRarity.COMMON, CardGrave.POTION);
         setImagePath(new PathAssistent().toPath(this));
     }
 

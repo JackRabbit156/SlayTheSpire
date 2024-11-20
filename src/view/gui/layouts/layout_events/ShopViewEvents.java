@@ -6,8 +6,9 @@ import models.relic.relic_structure.Relic;
 
 public interface ShopViewEvents {
     void onCardClick(Card card, int index);
-    void onPotionClick(PotionCard potion, int index);
+    void onPotionClick(PotionCard potion);
     void onRelicClick(Relic relic, int index);
 
     void onBackClicked();
+
 }

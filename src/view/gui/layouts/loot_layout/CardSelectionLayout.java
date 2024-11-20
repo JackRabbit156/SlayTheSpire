@@ -8,6 +8,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.FlowPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Paint;
 import models.card.card_structure.Card;
@@ -15,17 +16,16 @@ import models.player.player_structure.Player;
 import view.gui.LootView;
 import view.gui.ShopView;
 
+import javax.swing.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CardSelectionLayout extends FlowPane {
+public class CardSelectionLayout extends HBox {
     private LootView lootView;
     private List<Card> selectableCards;
-    private Player player;
 
-    public CardSelectionLayout(List<Card> cardList, Player player, LootView lootView) {
+    public CardSelectionLayout(List<Card> cardList, LootView lootView) {
         this.selectableCards = cardList;
-        this.player = player;
         this.lootView = lootView;
 
         // Center of the bottom
@@ -61,13 +61,18 @@ public class CardSelectionLayout extends FlowPane {
 
         // Klick-Event hinzufügen
         imageViewCard.addEventHandler(MouseEvent.MOUSE_CLICKED, e -> {
-            handleCardClick(card, selectableCards.indexOf(card)); // Hier eine Methode aufrufen, die das Klick-Event verarbeitet
+            handleCardClick(card, this.selectableCards.indexOf(card));
+            disableCardSelectionButton();
         });
         return imageViewCard;
     }
 
+    private void disableCardSelectionButton() {
+        lootView.disableCardSelection();
+        this.setVisible(false);
+    }
+
     public void handleCardClick(Card card, int index) {
-        // Verarbeite hier den Klick auf die Karte, z.B. öffne Details oder führe eine Aktion aus
         this.lootView.onCardClick(card, index);
     }
 }

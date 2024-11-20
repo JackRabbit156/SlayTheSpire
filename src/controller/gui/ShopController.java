@@ -21,23 +21,24 @@ public class ShopController implements ShopViewEvents {
     private List<Card> purchasableCards;
     private DeckFactory deckFactory;
     private ShopView shopView;
-    private List<PotionCard> purchasablePotions;
+    private PotionCard purchasablePotion;
     private List<Relic> purchasableRelics;
 
-    public ShopController(Player player) {
+     public ShopController(Player player) {
         this.player = player;
 
         this.deckFactory = new DeckFactory(player, 5);
         // Bei jeder Initialisierung wird der Shop befüllt.
         // Wird beim Spielstart ausgeführt und bei jedem Act.
         this.purchasableCards = this.deckFactory.init();
+        this.purchasablePotion = this.deckFactory.generatePotion();
     }
 
     /**
-     * Auswahl der Kaufoptionen.
+     * Initialisierung des Shops und des ShopViewEvents
      */
     public void entryShop() {
-        this.shopView = new ShopView(player, purchasableCards, this);
+        this.shopView = new ShopView(player, purchasableCards, this, purchasablePotion);
         this.shopView.initShopViewEvents(this);
     }
 
@@ -45,17 +46,35 @@ public class ShopController implements ShopViewEvents {
         this.shopView.setShopCards(purchasableCards);
     }
 
-
     @Override
     public void onCardClick(Card card, int index) {
         int cardPrice = card.getPrice();
 
-        if (this.player.getGold() > cardPrice) {
+        if (this.player.getGold() >= cardPrice) {
             this.player.decreaseGold(cardPrice);
             this.player.addCardToDeck(card);
             this.purchasableCards.remove(card);
             refreshSelectableCards();
             ConsoleAssistent.print(Color.YELLOW, "Refresh Cards!");
+        } else {
+            this.shopView.showDialog("Not enough Gold!");
+            ConsoleAssistent.print(Color.YELLOW, "Not enough Gold!");
+        }
+    }
+
+    @Override
+    public void onPotionClick(PotionCard potion) {
+        int cardPrice = potion.getPrice();
+
+        if (this.player.getGold() >= cardPrice) {
+            if(this.player.getPotionCards().size() < 3) {
+                this.player.decreaseGold(cardPrice);
+                this.player.addPotionCard(potion);
+                refreshSelectablePotion();
+                ConsoleAssistent.print(Color.YELLOW, "Refresh Cards!");
+            } else {
+                this.shopView.showDialog("You have reached the maximum of Potion.");
+            }
         } else {
             System.out.println();
             this.shopView.showDialog("Not enough Gold!");
@@ -63,9 +82,8 @@ public class ShopController implements ShopViewEvents {
         }
     }
 
-    @Override
-    public void onPotionClick(PotionCard potion, int index) {
-
+    private void refreshSelectablePotion() {
+        this.shopView.setPurchaseablePotion();
     }
 
     @Override
