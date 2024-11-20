@@ -1,5 +1,6 @@
 package view.gui;
 
+import helper.GuiHelper;
 import javafx.geometry.Insets;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
@@ -7,8 +8,10 @@ import javafx.scene.layout.*;
 import models.map_elements.Node;
 import models.player.player_structure.Player;
 import view.gui.layouts.layout_events.MapViewEvents;
+import view.gui.layouts.map_view_layouts.GameMenuLayer;
 import view.gui.layouts.map_view_layouts.LegendLayout;
 import view.gui.layouts.map_view_layouts.MapLayout;
+import view.gui.layouts.map_view_layouts.TopBarLayout;
 
 import java.util.List;
 
@@ -22,28 +25,41 @@ import java.util.List;
  *
  * @author Warawa Alexander
  */
-public class MapView extends BorderPane {
+public class MapView extends StackPane {
     private MapViewEvents mapViewEvents;
 
+
+    private BorderPane mainMap;
     private MapLayout mapCenter;
     private LegendLayout legendRight;
+
+    private GameMenuLayer gameMenu;
 
     private Player player;
     private List<Node> nodes;
 
+    public BorderPane getMainMap(){
+        return mainMap;
+    }
 
     public MapView(Player player, List<Node> nodes, int mapWidth, int mapHeight, MapViewEvents mapViewEvents) {
         this.nodes = nodes;
         this.mapViewEvents = mapViewEvents;
         this.player = player;
 
+        gameMenu = new GameMenuLayer();
+        mainMap = new BorderPane();
+
         setStyle("-fx-background-color: #9a9990;");
-        //setBackground(new Background(background()));
+        mainMap.setBackground(new Background(GuiHelper.background("/images/map/mapMid.png")));
+
         mapCenter = new MapLayout(this, nodes, mapWidth, mapHeight);
 
         initTopSide();
         initLeftSide();
         initRightSide();
+
+        getChildren().addAll(mainMap);
     }
 
     public void clickedOnValidField(Node node){
@@ -51,33 +67,20 @@ public class MapView extends BorderPane {
     }
 
     private void initTopSide() {
-        HBox topHBox = new HBox(30);
-        topHBox.setPadding(new Insets(0,0,0,300));
-        topHBox.setStyle("-fx-background-color: rgba(34, 34, 34, 0.8);");
-        topHBox.setPrefHeight(50);
+        HBox topHBox = new TopBarLayout(player);
 
-        Label playerNameLabel = new Label(player.getName());
-        playerNameLabel.getStyleClass().add("name-label");
-        Label playerFloorLabel = new Label("Floor " +player.getCurrentField());
-        playerFloorLabel.getStyleClass().add("floor-label");
-        Label playerMoneyLabel = new Label("Gold "+player.getGold());
-        playerMoneyLabel.getStyleClass().add("gold-label");
-        Label playerHealthLabel = new Label("Health " + player.getCurrentHealth() +"/" + player.getMaxHealth());
-        playerHealthLabel.getStyleClass().add("health-label");
 
-        topHBox.getChildren().addAll(playerNameLabel, playerHealthLabel, playerMoneyLabel, playerFloorLabel);
-
-        setTop(topHBox);
+        mainMap.setTop(topHBox);
     }
 
     private void initLeftSide() {
         Region placeHolder = new Region();
         placeHolder.setMinWidth(800); // Festlegen der konstanten Höhe
-        setLeft(placeHolder);
+        mainMap.setLeft(placeHolder);
     }
 
     private void initRightSide() {
         legendRight = new LegendLayout();
-        setRight(legendRight);
+        mainMap.setRight(legendRight);
     }
 }

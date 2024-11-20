@@ -6,66 +6,50 @@
 
 /* styles.css */
 .health-label {
-    -fx-background-color: #FF4742;         /* Background color */
-    -fx-border-color: #FF4742;             /* Border color */
-    -fx-border-width: 1px;                 /* Border width */
-    -fx-background-radius: 6px;            /* Border radius */
-    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.1), 4, 1, 1, 2); /* Box shadow */
-    -fx-text-fill: white;                   /* Text color */
+    -fx-text-fill: red;                   /* Text color */
     -fx-font-family: "Kreon-Bold"; /* Font family   "Nunito", "Roboto", "Proxima Nova", "sans-serif"*/
-    -fx-font-size: 16px;                    /* Font size */
+    -fx-font-size: 24px;                    /* Font size */
     -fx-font-weight: Bold;                  /* Font weight */
-    -fx-padding: 12 14 12 14;              /* Padding (top right bottom left) */
+    -fx-padding: 10 60 0 0;              /* Padding (top right bottom left) */
     -fx-min-height: 0px;                  /* Minimum height */
     -fx-alignment: center;                  /* Text alignment */
     -fx-cursor: hand;                       /* Cursor style */
     -fx-user-select: none;                  /* Disable text selection */
+    -fx-effect: dropshadow(gaussian, grey, 0.5, 0.5, 0.5, 0.5); /* Optionaler Schatten */
 }
 .name-label {
-    -fx-background-color: #c4c2bb;         /* Background color */
-    -fx-border-color: #c4c2bb;             /* Border color */
-    -fx-border-width: 1px;                 /* Border width */
-    -fx-background-radius: 6px;            /* Border radius */
-    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.1), 4, 1, 1, 2); /* Box shadow */
-    -fx-text-fill: white;                   /* Text color */
-    -fx-font-family: "Kreon-Bold"; /* Font family */
-    -fx-font-size: 16px;                    /* Font size */
+    -fx-text-fill: grey;                   /* Text color */
+    -fx-font-family: "Kreon-Bold"; /* Font family   "Nunito", "Roboto", "Proxima Nova", "sans-serif"*/
+    -fx-font-size: 24px;                    /* Font size */
     -fx-font-weight: Bold;                  /* Font weight */
-    -fx-padding: 12 14 12 14;              /* Padding (top right bottom left) */
-    -fx-min-height: 40px;                  /* Minimum height */
+    -fx-padding: 10 60 0 0;              /* Padding (top right bottom left) */
+    -fx-min-height: 0px;                  /* Minimum height */
     -fx-alignment: center;                  /* Text alignment */
     -fx-cursor: hand;                       /* Cursor style */
     -fx-user-select: none;                  /* Disable text selection */
+-fx-effect: dropshadow(gaussian, grey, 0.5, 0.5, 0.5, 0.5); /* Optionaler Schatten */
 }
 .gold-label {
-    -fx-background-color: #f2bd29;         /* Background color */
-    -fx-border-color: #f2bd29;             /* Border color */
-    -fx-border-width: 1px;                 /* Border width */
-    -fx-background-radius: 6px;            /* Border radius */
-    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.1), 4, 1, 1, 2); /* Box shadow */
-    -fx-text-fill: white;                   /* Text color */
-    -fx-font-family: "Kreon-Bold"; /* Font family */
-    -fx-font-size: 16px;                    /* Font size */
+    -fx-text-fill: #f2bd29;                   /* Text color */
+    -fx-font-family: "Kreon-Bold"; /* Font family   "Nunito", "Roboto", "Proxima Nova", "sans-serif"*/
+    -fx-font-size: 24px;                    /* Font size */
     -fx-font-weight: Bold;                  /* Font weight */
-    -fx-padding: 12 14 12 14;              /* Padding (top right bottom left) */
-    -fx-min-height: 40px;                  /* Minimum height */
+    -fx-padding: 10 60 0 0;              /* Padding (top right bottom left) */
+    -fx-min-height: 0px;                  /* Minimum height */
     -fx-alignment: center;                  /* Text alignment */
     -fx-cursor: hand;                       /* Cursor style */
     -fx-user-select: none;                  /* Disable text selection */
+-fx-effect: dropshadow(gaussian, grey, 0.5, 0.5, 0.5, 0.5); /* Optionaler Schatten */
 }
 .floor-label {
-    -fx-background-color: #665937;         /* Background color */
-    -fx-border-color: #665937;             /* Border color */
-    -fx-border-width: 1px;                 /* Border width */
-    -fx-background-radius: 6px;            /* Border radius */
-    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.1), 4, 1, 1, 2); /* Box shadow */
-    -fx-text-fill: white;                   /* Text color */
-    -fx-font-family: "Kreon-Bold"; /* Font family */
-    -fx-font-size: 16px;                    /* Font size */
+    -fx-text-fill: brown;                   /* Text color */
+    -fx-font-family: "Kreon-Bold"; /* Font family   "Nunito", "Roboto", "Proxima Nova", "sans-serif"*/
+    -fx-font-size: 24px;                    /* Font size */
     -fx-font-weight: Bold;                  /* Font weight */
-    -fx-padding: 12 14 12 14;              /* Padding (top right bottom left) */
-    -fx-min-height: 40px;                  /* Minimum height */
+    -fx-padding: 10 60 0 0;              /* Padding (top right bottom left) */
+    -fx-min-height: 0px;                  /* Minimum height */
     -fx-alignment: center;                  /* Text alignment */
     -fx-cursor: hand;                       /* Cursor style */
     -fx-user-select: none;                  /* Disable text selection */
+-fx-effect: dropshadow(gaussian, grey, 0.5, 0.5, 0.5, 0.5); /* Optionaler Schatten */
 }
