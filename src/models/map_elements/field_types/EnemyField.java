@@ -50,6 +50,9 @@ public class EnemyField extends Field{
             return;
 
         GuiHelper.Scenes.startBattleScene(player, enemies);
+
+        setFieldBeaten();
+
     }
 
     /**

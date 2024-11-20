@@ -97,6 +97,6 @@ public class MapViewController {
     }
 
     public String getCurrentFieldFromAct(){
-        return act.getCurrentField();
+        return act.getCurrentFieldName();
     }
 }

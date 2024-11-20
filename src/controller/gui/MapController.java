@@ -41,7 +41,6 @@ public class MapController implements MapViewEvents {
         if(getCurrentFieldFromAct().equals(act.getLastField())){
             switch (player.getCurrentAct()){
                 case 1:
-                    System.out.println("Here!");
                     act = new ActTwo(player, false); break;
                 case 2 :
                 case 4:
@@ -59,16 +58,15 @@ public class MapController implements MapViewEvents {
 
     @Override
     public void onValidFieldClick(Player player, Node node) {
-        System.out.println("clicked on valid Field! " + node.getFieldName());
-
         node.doFieldThing(player);
 
-        //act.setBeatenNode(player, node); // TODO: Evtl. nach Sieg eines Feldes setzen.
-        player.setCurrentField(getCurrentFieldFromAct());
+        act.getCurrentField().setPlayer(null);
+        node.setPlayer(player);
+        player.setCurrentField(node.getFieldName());
     }
 
     private String getCurrentFieldFromAct(){
-        return act.getCurrentField();
+        return act.getCurrentFieldName();
     }
 
     public MapView getMapView(){

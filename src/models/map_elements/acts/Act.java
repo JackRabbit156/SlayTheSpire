@@ -138,8 +138,12 @@ public abstract class Act {
         return nodes.get(nodes.size()-1).getFieldName();
     }
 
-    public String getCurrentField(){
+    public String getCurrentFieldName(){
         return getPlayerNode().getFieldName();
+    }
+
+    public Node getCurrentField(){
+        return getPlayerNode();
     }
     /**
      * Führt eine spezialisierte Aktion auf dem aktuellen Feld des Aktes aus.

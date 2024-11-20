@@ -41,7 +41,7 @@ public class MapLayout extends GridPane {
 
         // Füge GridPane und Linie-Ebene zum StackPane hinzu
         stackPane.getChildren().addAll(lineLayer, this);
-        mapView.setCenter(stackPane);
+        mapView.getMainMap().setCenter(stackPane);
     }
 
     private void drawLines(List<Node> nodes) {
