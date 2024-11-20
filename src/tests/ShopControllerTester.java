@@ -55,8 +55,6 @@ public class ShopControllerTester extends Application {
         GameSettings.setDifficultyLevel(DifficultyLevel.HARD);
         ShopController shopController = new ShopController(player);
 
-        shopController.entryShop();
-
         Scene scene = new Scene(shopController.getShopView(), 1920, 1080);
         scene.getStylesheets().add(Objects.requireNonNull(GuiHelper.class.getResource("/css/mapStyle.css")).toExternalForm());
 

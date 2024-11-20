@@ -16,8 +16,6 @@ public class RestSiteViewTester extends Application {
 //        player.setGold(500);
         RestController shopViewController = new RestController(player);
 
-        shopViewController.startRest();
-
         Scene scene = new Scene(shopViewController.getRestView(), 1920, 1080);
 
         player.setPrimaryStage(primaryStage);

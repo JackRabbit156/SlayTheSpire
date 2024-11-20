@@ -1,11 +1,19 @@
 package models.map_elements.acts;
 
 import models.enemy.Enemy;
+import models.enemy.EnemyEnum;
 import models.enemy.act_one.AcidSlimeEnemy;
 import models.enemy.act_one.CultistEnemy;
 import models.enemy.act_one.MadGremlinEnemy;
+import models.enemy.act_one.bosses.SlimeBoss;
+import models.enemy.act_one.elites.GremlinNobElite;
+import models.enemy.act_one.elites.LagavulinElite;
 import models.enemy.act_two.ByrdEnemy;
 import models.enemy.act_two.SphericGuardianEnemy;
+import models.enemy.act_two.boss.BronzeAutomaton;
+import models.enemy.act_two.boss.TheChamp;
+import models.enemy.act_two.elites.BookOfStabbing;
+import models.enemy.act_two.elites.GremlinLeader;
 import models.map_elements.Coordinates;
 import models.map_elements.Node;
 import models.map_elements.field_types.*;
@@ -156,6 +164,77 @@ public class ActTwo extends Act {
         }
         return enemies;
     }
+
+    /**
+     * @author Keil, Vladislav
+     * @return List of Enemies
+     */
+    private List<Enemy> createBossEnemies() {
+        List<Enemy> enemies = new ArrayList<>();
+
+        int randBoss = randi.nextInt(2);
+        int randAmountEnemies = randi.nextInt(4);
+        EnemyEnum type;
+        switch (randBoss) {
+            case 0:
+                enemies.add(new BronzeAutomaton());
+                type = EnemyEnum.GUARDIAN;
+                break;
+            default:
+                enemies.add(new TheChamp());
+                type = EnemyEnum.LAGAVULIN;
+                break;
+        }
+        for (int i = 0; i < randAmountEnemies; i++) {
+            enemies.add(createEnemiesOfType(type));
+        }
+        return enemies;
+    }
+
+
+    /**
+     * @author Keil, Vladislav
+     * @return List of Enemies
+     */
+    public List<Enemy> createElitesEnemies() {
+        List<Enemy> enemies = new ArrayList<>();
+        int randElite = randi.nextInt(2);
+        int randAmountEnemies = randi.nextInt(2);
+        EnemyEnum type;
+        switch (randElite) {
+            case 0:
+                enemies.add(new GremlinLeader());
+                type = EnemyEnum.GOBLIN;
+                break;
+            default:
+                enemies.add(new BookOfStabbing());
+                type = EnemyEnum.STABBING;
+                break;
+        }
+        for (int i = 0; i < randAmountEnemies; i++) {
+            enemies.add(createEnemiesOfType(type));
+        }
+        return enemies;
+    }
+
+
+    /**
+     * @author Keil, Vladislav
+     * @return An Enemy
+     */
+    private Enemy createEnemiesOfType(EnemyEnum type) {
+        switch (type) {
+            case STABBING:
+                return new ByrdEnemy();
+            case GUARDIAN:
+                return new SphericGuardianEnemy();
+            case LAGAVULIN:
+                return new CultistEnemy();
+            default: // GREMLIN
+                return new MadGremlinEnemy();
+        }
+    }
+
 
     @Override
     public void doFieldThing() {
