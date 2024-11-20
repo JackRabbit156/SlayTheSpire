@@ -20,7 +20,6 @@ public class RampageCard extends AttackCard {
     public RampageCard() {
         super("Rampage", "Deal 8 damage. Increase this card's damage by 5 this combat.", 1, 8, CardRarity.UNCOMMON, CardGrave.DISCARD);
         setImagePath(new PathAssistent().toPath(this));
-        targetIsRequired();
     }
 
     @Override

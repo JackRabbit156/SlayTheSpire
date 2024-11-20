@@ -1,5 +1,10 @@
 package controller.gui;
 
+import controller.listener.EnemyEventListener;
+import controller.listener.PlayerEventListener;
+import events.EnemyDamageEvent;
+import events.PlayerBlockEvent;
+import events.PlayerDamageEvent;
 import helper.GuiHelper;
 import javafx.stage.Stage;
 import models.battle.BattleDeck;
@@ -23,7 +28,7 @@ import java.util.List;
  *
  * @author Warawa Alexander, Willig Daniel
  */
-public class BattleController implements BattleViewEvents {
+public class BattleController implements BattleViewEvents, PlayerEventListener, EnemyEventListener {
     private final BattleView battleView;
 
     private final Player player;
@@ -37,11 +42,17 @@ public class BattleController implements BattleViewEvents {
     public BattleController(Player player, List<Enemy> enemies) {
         this.player = player;
         this.enemies = enemies;
+        for (Enemy enemy : enemies) {
+            enemy.setEnemyEventListener(this);
+            enemy.calcIntent();
+        }
 
         this.battleDeck = new BattleDeck(player.getDeck());
 
         this.gameContext = new GameContext(player, enemies, battleDeck);
         this.battleView = new BattleView(player, enemies, this, battleDeck);
+        player.setPlayerEventListener(this);
+
 
         battleDeck.fillHand(battleDeck.getStartHandSize());
 
@@ -49,6 +60,9 @@ public class BattleController implements BattleViewEvents {
     }
 
     private void playerBOT() {
+        for (Enemy enemy : enemies) {
+            enemy.calcIntent();
+        }
         battleDeck.fillHand(battleDeck.getStartHandSize());
         player.resetEnergy();
         player.resetBlock();
@@ -74,13 +88,23 @@ public class BattleController implements BattleViewEvents {
         if(selectedCard == null)
             return;
 
-        playCardIfPossible(enemy);
+        playCard(enemy);
 
         selectedCard = null;
 
         if(enemies.isEmpty()) {
             startingMap();
         }
+    }
+
+    @Override
+    public void onPlayerClick() {
+        if(selectedCard == null)
+            return;
+
+        playCard();
+
+        selectedCard = null;
     }
 
     @Override
@@ -105,10 +129,7 @@ public class BattleController implements BattleViewEvents {
      * @param index index of selected card
      */
     private void playerTurn(Card card, int index) {
-        if(card.isTargetRequired())
-            selectedCard = card;
-         else
-            card.play(gameContext);
+        selectedCard = card;
     }
 
     private void playerEOT() {
@@ -123,6 +144,7 @@ public class BattleController implements BattleViewEvents {
             if (enemy.isAlive()) {
                 enemy.action(gameContext);
             }
+
         }
     }
 
@@ -133,10 +155,10 @@ public class BattleController implements BattleViewEvents {
         }
     }
 
-    private void playCardIfPossible(Enemy enemy) {
+    private boolean isCardPlayable() {
         if(selectedCard.getCost() > player.getCurrentEnergy()){
             System.out.println("\nNot enough Energy!");
-            return;
+            return false;
         }
 
         if (selectedCard.getName().equals("Clash")) {
@@ -144,24 +166,46 @@ public class BattleController implements BattleViewEvents {
             for (Card card : hand) {
                 if (!card.getCardType().equals(CardType.ATTACK)) {
                     System.out.println("\nOnly playable if only Attack-Cards in Hand");
-                    return;
+                    return false;
                 }
             }
+        }
+        return true;
+    }
+
+    private void cardDeath() {
+        if (selectedCard.getCardGrave().equals(CardGrave.EXHAUST)) {
+            battleDeck.exhaustCardFromHand(selectedCard);
+        }
+        else if (selectedCard.getCardGrave().equals(CardGrave.DISCARD)) {
+            battleDeck.discardCardFromHand(selectedCard);
+        }
+        else {
+            battleDeck.removeCardFromHand(selectedCard);
+        }
+    }
+
+    private void playCard(Enemy enemy) {
+        if (!isCardPlayable()) {
+            return;
         }
 
         // Play the card (and add the enemy)
         gameContext.setSelectedEnemy(enemy);
         selectedCard.play(gameContext);
 
-        if (selectedCard.getCardGrave() == CardGrave.EXHAUST) {
-            battleDeck.exhaustCardFromHand(selectedCard);
+        cardDeath();
+    }
+
+    private void playCard() {
+        if (!isCardPlayable()) {
+            return;
         }
-        else if (selectedCard.getCardGrave() == CardGrave.DISCARD) {
-            battleDeck.discardCardFromHand(selectedCard);
-        }
-        else {
-            battleDeck.removeCardFromHand(selectedCard);
-        }
+
+        // Play the card
+        selectedCard.play(gameContext);
+
+        cardDeath();
     }
 
     private void startingMap(){
@@ -171,5 +215,35 @@ public class BattleController implements BattleViewEvents {
 
     public BattleView getBattleView(){
         return this.battleView;
+    }
+
+    @Override
+    public void onBlockReceived(PlayerBlockEvent event) {
+
+    }
+
+    @Override
+    public void onDamageReceived(PlayerDamageEvent event) {
+
+    }
+
+    @Override
+    public void onDamageDealt() {
+
+    }
+
+    @Override
+    public void onDamageReceived(EnemyDamageEvent event) {
+
+    }
+
+    @Override
+    public void onEnemyDeath(Enemy enemy) {
+        for (Enemy singleEnemy : enemies) {
+            if (singleEnemy.isAlive()) {
+                return;
+            }
+        }
+        GuiHelper.Scenes.startMapScene(player, true);
     }
 }

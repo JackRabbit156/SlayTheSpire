@@ -20,7 +20,6 @@ public class SearingBlowCard extends AttackCard {
     public SearingBlowCard() {
         super("Searing Blow", "Deal 12 damage. Can be Upgraded any number of times.", 2, 12, CardRarity.UNCOMMON, CardGrave.DISCARD);
         setImagePath(new PathAssistent().toPath(this));
-        targetIsRequired();
     }
 
     @Override

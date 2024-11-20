@@ -1,5 +1,7 @@
 package models.enemy;
 
+import controller.listener.EnemyEventListener;
+import events.EnemyDamageEvent;
 import models.battle.GameContext;
 import models.game_settings.GameSettings;
 import models.game_settings.structure.DifficultyLevel;
@@ -18,9 +20,13 @@ public abstract class Enemy {
     private String name;
     private int currentHealth;
     private int maxHealth;
+    private String intent;
 
     private String imagePath;
     private int block;
+
+
+    private EnemyEventListener enemyEventListener;
 
     /**
      * Konstruktor für die Enemy-Klasse.
@@ -35,6 +41,7 @@ public abstract class Enemy {
 
         this.maxHealth = generateMaxHealth(lowestMaxHealthPossible, highestMaxHealthPossible);
         this.currentHealth = maxHealth;
+        enemyEventListener = null;
     }
 
 
@@ -52,6 +59,15 @@ public abstract class Enemy {
      * @author OF Daniel Willig
      */
     public void action(GameContext gameContext) {
+        if (getIntent().equals("attack")) {
+            attack(gameContext);
+        }
+        else {
+            System.out.println(doNothing());
+        }
+    }
+
+    public void calcIntent() {
         DifficultyLevel difficulty = GameSettings.getDifficultyLevel();
         int randomNumber = (new Random().nextInt(100) + 1);
         int attackPercentage = 100; //should be normal
@@ -72,10 +88,10 @@ public abstract class Enemy {
         }
 
         if (attackPercentage >= randomNumber) {
-            attack(gameContext);
+            setIntent("attack");
         }
         else {
-            System.out.println(doNothing());
+            setIntent("insult");
         }
     }
 
@@ -125,6 +141,16 @@ public abstract class Enemy {
         return lowestMaxHealthPossible + hp;
     }
 
+    protected void notifyDamageReceived(int damageAmount) {
+        EnemyDamageEvent event = new EnemyDamageEvent(this, damageAmount);
+        enemyEventListener.onDamageReceived(event);
+
+        if (!isAlive()) {
+            enemyEventListener.onEnemyDeath(this);
+        }
+    }
+
+
     public String getName() {
         return name;
     }
@@ -161,6 +187,8 @@ public abstract class Enemy {
         GameSettings.increaseDistributedDamageStats(damage);
         if (currentHealth < 0)
             currentHealth = 0;
+
+        notifyDamageReceived(damage);
     }
 
     public void setBlock(int block){
@@ -173,5 +201,17 @@ public abstract class Enemy {
 
     public void addBlock(int block){
         this.block += block;
+    }
+
+    public void setEnemyEventListener(EnemyEventListener enemyEventListener) {
+        this.enemyEventListener = enemyEventListener;
+    }
+
+    public String getIntent() {
+        return intent;
+    }
+
+    public void setIntent(String intent) {
+        this.intent = intent;
     }
 }

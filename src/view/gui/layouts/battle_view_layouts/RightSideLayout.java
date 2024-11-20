@@ -32,8 +32,13 @@ public class RightSideLayout extends HBox {
     }
 
     public void refreshRightSide(){
-        for(int i = 0; i< enemyLayout.size();i++){
+        for(int i = enemyLayout.size() - 1; i >= 0; i--){
             enemyLayout.get(i).updateEnemy();
+            if (!enemies.get(i).isAlive()) {
+                getChildren().remove(i);
+                enemyLayout.remove(i);
+            }
         }
+        enemies.removeIf(enemy -> !enemy.isAlive());
     }
 }

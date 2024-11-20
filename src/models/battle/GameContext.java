@@ -1,6 +1,5 @@
 package models.battle;
 
-import models.battle.BattleDeck;
 import models.enemy.Enemy;
 import models.player.player_structure.Player;
 

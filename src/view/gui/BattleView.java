@@ -28,7 +28,7 @@ import java.util.List;
  */
 public class BattleView extends BorderPane implements BattleDeckListener {
     public enum Mode {
-        NORMAL, ATTACK
+        NORMAL, ATTACK, SKILL
     }
     public SimpleObjectProperty<Mode> modeProperty() {
         return mode;
@@ -108,7 +108,7 @@ public class BattleView extends BorderPane implements BattleDeckListener {
      * Left side for the player
      */
     private void initLeft(){
-        leftVBox = new LeftSideLayout(player);
+        leftVBox = new LeftSideLayout(this, player);
 
         this.setLeft(leftVBox);
     }
@@ -131,6 +131,10 @@ public class BattleView extends BorderPane implements BattleDeckListener {
             mode.set(Mode.ATTACK);
             selectEnemyView();
         }
+        else if (card.getCardType() == CardType.SKILL) {
+            mode.set(Mode.SKILL);
+            selectPlayerView();
+        }
 
         battleViewEvents.onCardClick(card, index);
 
@@ -139,9 +143,18 @@ public class BattleView extends BorderPane implements BattleDeckListener {
 
     public void clickedOnEnemy(Enemy enemy){
         mode.set(Mode.NORMAL);
-        enableBatteView();
+        enableBattleView();
 
         battleViewEvents.onEnemyClick(enemy);
+
+        updateInformation();
+    }
+
+    public void clickedOnPlayer(){
+        mode.set(Mode.NORMAL);
+        enableBattleView();
+
+        battleViewEvents.onPlayerClick();
 
         updateInformation();
     }
@@ -156,6 +169,7 @@ public class BattleView extends BorderPane implements BattleDeckListener {
 
     public void updateInformation(){
         rightVBox.refreshRightSide();
+        leftVBox.updatePlayer();
         bottomHBox.updateBottom();
         leftVBox.updatePlayer();
     }
@@ -166,9 +180,16 @@ public class BattleView extends BorderPane implements BattleDeckListener {
         bottomHBox.setDisable(true);
     }
 
-    public void enableBatteView(){
+    public void selectPlayerView(){
+        topHBox.setDisable(true);
+        rightVBox.setDisable(true);
+        bottomHBox.setDisable(true);
+    }
+
+    public void enableBattleView(){
         topHBox.setDisable(false);
         leftVBox.setDisable(false);
+        rightVBox.setDisable(false);
         bottomHBox.setDisable(false);
     }
 

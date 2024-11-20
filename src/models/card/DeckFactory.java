@@ -3,8 +3,8 @@ package models.card;
 import helper.Color;
 import helper.ConsoleAssistent;
 import models.card.card_structure.Card;
-import models.card.general_cards.DefendCard;
-import models.card.general_cards.StrikeCard;
+import models.card.ironclad_cards.IroncladDefendCard;
+import models.card.ironclad_cards.IroncladStrikeCard;
 import models.card.ironclad_cards.IroncladCardEnum;
 import models.card.ironclad_cards.attack.common.*;
 import models.card.ironclad_cards.attack.uncommon.*;
@@ -106,8 +106,8 @@ public class DeckFactory {
         switch (cardName){
             // AttackCards
             // GeneralCards
-            case "STRIKE_CARD": cardToTransform = new StrikeCard(); break;
-            case "DEFEND_CARD": cardToTransform = new DefendCard(); break;
+            case "STRIKE_CARD": cardToTransform = new IroncladStrikeCard(); break;
+            case "DEFEND_CARD": cardToTransform = new IroncladDefendCard(); break;
             // CommonCards
             case "ANGER_CARD": cardToTransform = new AngerCard(); break;
             case "BASH_CARD": cardToTransform = new BashCard(); break;

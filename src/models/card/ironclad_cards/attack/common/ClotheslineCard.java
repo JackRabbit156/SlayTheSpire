@@ -19,7 +19,6 @@ public class ClotheslineCard extends AttackCard {
     public ClotheslineCard() {
         super("Clothesline", "Deal 12 damage. Apply 2 Icon Weak Weak.", 2, 12, CardRarity.COMMON, CardGrave.DISCARD);
         setImagePath(new PathAssistent().toPath(this));
-        targetIsRequired();
     }
 
     @Override

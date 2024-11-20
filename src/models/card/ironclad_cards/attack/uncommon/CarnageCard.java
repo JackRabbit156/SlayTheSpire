@@ -20,7 +20,6 @@ public class CarnageCard extends AttackCard {
     public CarnageCard() {
         super("Carnage", "Ethereal. Deal 20 damage.", 2, 20, CardRarity.UNCOMMON, CardGrave.DISCARD);
         setImagePath(new PathAssistent().toPath(this));
-        targetIsRequired();
     }
 
     @Override

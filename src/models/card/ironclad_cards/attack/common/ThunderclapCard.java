@@ -22,7 +22,6 @@ public class ThunderclapCard extends AttackCard {
     public ThunderclapCard() {
         super("Thunderclap", "Deal 4 damage and apply 1 Vulnerable to ALL enemies.", 1, 4, CardRarity.COMMON, CardGrave.DISCARD);
         setImagePath(new PathAssistent().toPath(this));
-        targetIsRequired();
     }
 
     @Override

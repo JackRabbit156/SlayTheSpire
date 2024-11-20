@@ -29,7 +29,7 @@ public class FlexCard extends SkillCard{
             Player player = gameContext.getPlayer();
             BattleDeck battleDeck = gameContext.getBattleDeck();
 
-            battleDeck.drawCard(1);
+//            battleDeck.drawCard(1);
             //TODO 2 Strength
             //TODO -2 Strength at eot
 

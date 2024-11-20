@@ -8,19 +8,11 @@ import models.card.card_structure.CardRarity;
 import models.enemy.Enemy;
 import models.player.player_structure.Player;
 
-/**
- * Die Neutralize Karte.
- *
- * @author OF Daniel Willig
- */
-public class NeutralizeCard extends AttackCard {
-    /**
-     * Constructor Neutralize card.
-     */
-    public NeutralizeCard() {
-        super("Neutralize", "Deal 3 damage. Apply 1 Weak.", 0, 3, CardRarity.COMMON, CardGrave.DISCARD);
+public class SilentStrikeCard extends AttackCard {
+    public SilentStrikeCard() {
+        super("Strike", "Deal 6 damage.", 1, 6, CardRarity.COMMON, CardGrave.DISCARD);
+
         setImagePath(new PathAssistent().toPath(this));
-        targetIsRequired();
     }
 
     @Override
@@ -30,8 +22,6 @@ public class NeutralizeCard extends AttackCard {
 
         Player player = gameContext.getPlayer();
         player.decreaseCurrentEnergy(getCost());
-
-        //TODO Apply Debuff 1 Weak
     }
 
     @Override

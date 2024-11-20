@@ -6,7 +6,7 @@ import models.card.card_structure.AttackCard;
 import models.card.card_structure.Card;
 import models.card.card_structure.CardGrave;
 import models.card.card_structure.CardRarity;
-import models.card.general_cards.StrikeCard;
+import models.card.ironclad_cards.IroncladStrikeCard;
 import models.enemy.Enemy;
 import models.player.player_structure.Player;
 
@@ -24,7 +24,6 @@ public class PerfectedStrikeCard extends AttackCard {
     public PerfectedStrikeCard() {
         super("Perfected Strike", "Deal 6 damage. Deals 2 additional damage for ALL your cards containing \"Strike\".", 2, 6, CardRarity.COMMON, CardGrave.DISCARD);
         setImagePath(new PathAssistent().toPath(this));
-        targetIsRequired();
     }
 
     @Override
@@ -33,7 +32,7 @@ public class PerfectedStrikeCard extends AttackCard {
 
         PerfectedStrikeCard perfectedStrikeCard = new PerfectedStrikeCard();
         PommelStrikeCard pommelStrikeCard = new PommelStrikeCard();
-        StrikeCard strikeCard = new StrikeCard();
+        IroncladStrikeCard ironcladStrikeCard = new IroncladStrikeCard();
         TwinStrikeCard twinStrikeCard = new TwinStrikeCard();
         WildStrikeCard wildStrikeCard = new WildStrikeCard();
         //SwiftStrikeCard swiftStrikeCard = new SwiftStrikeCard();
@@ -42,7 +41,7 @@ public class PerfectedStrikeCard extends AttackCard {
         List<Card> deck = player.getDeck();
 
         for (Card card : deck) {
-            if (card.equals(perfectedStrikeCard) || card.equals(pommelStrikeCard) || card.equals(strikeCard) || card.equals(twinStrikeCard) || card.equals(wildStrikeCard)) {
+            if (card.equals(perfectedStrikeCard) || card.equals(pommelStrikeCard) || card.equals(ironcladStrikeCard) || card.equals(twinStrikeCard) || card.equals(wildStrikeCard)) {
                 bonusDmg += 2;
             }
         }

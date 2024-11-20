@@ -20,7 +20,6 @@ public class BloodForBloodCard extends AttackCard {
     public BloodForBloodCard() {
         super("Blood for Blood", "Costs 1 less Energy for each time you lose HP this combat.Deal 18 damage.", 4, 18, CardRarity.UNCOMMON, CardGrave.DISCARD);
         setImagePath(new PathAssistent().toPath(this));
-        targetIsRequired();
     }
 
     @Override

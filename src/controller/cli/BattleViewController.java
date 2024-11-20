@@ -47,7 +47,7 @@ public class BattleViewController implements PlayerEventListener{
         this.battleDeck = new BattleDeck(player.getDeck());
         this.gameContext = new GameContext(player, enemies, battleDeck);
         //player.setListener(this);
-        player.setListener(this);
+        player.setPlayerEventListener(this);
     }
 
     /**
@@ -197,6 +197,9 @@ public class BattleViewController implements PlayerEventListener{
     @Override
     public void onBlockReceived(PlayerBlockEvent event) {
         List<PowerCard> powerCards = battleDeck.getCurrentPowerCards();
+        if (powerCards.isEmpty()) {
+            return;
+        }
         for (PowerCard powerCard : powerCards) {
             if (powerCard.getCardTrigger().equals(CardTrigger.GAIN_BLOCK)) {
                 powerCard.ability(gameContext);
@@ -207,6 +210,9 @@ public class BattleViewController implements PlayerEventListener{
     @Override
     public void onDamageReceived(PlayerDamageEvent event) {
         List<PowerCard> powerCards = battleDeck.getCurrentPowerCards();
+        if (powerCards.isEmpty()) {
+            return;
+        }
         for (PowerCard powerCard : powerCards) {
             if (powerCard.getCardTrigger().equals(CardTrigger.LOSE_HP_CARD)) {
                 powerCard.ability(gameContext);
@@ -215,7 +221,6 @@ public class BattleViewController implements PlayerEventListener{
     }
 
     @Override
-    public void onDamageDealed() {
-
+    public void onDamageDealt() {
     }
 }

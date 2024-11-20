@@ -48,7 +48,6 @@ public class TestPlayer extends Player {
         public BossCard() {
             super("Boss Card", "CheaterCard", 0, 40,CardRarity.RARE, CardGrave.DISCARD);
             setImagePath("/images/card/BossCard.jpg");
-            targetIsRequired();
         }
 
         @Override

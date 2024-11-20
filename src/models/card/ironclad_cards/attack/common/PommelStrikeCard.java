@@ -21,7 +21,6 @@ public class PommelStrikeCard extends AttackCard {
     public PommelStrikeCard() {
         super("Pommel Strike", "Deal 9 damage. Draw 1 card.", 1, 9, CardRarity.COMMON, CardGrave.DISCARD);
         setImagePath(new PathAssistent().toPath(this));
-        targetIsRequired();
     }
 
     @Override
