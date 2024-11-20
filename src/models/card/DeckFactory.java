@@ -74,8 +74,8 @@ public class DeckFactory {
         switch (cardName){
             // AttackCards
             // GeneralCards
-            case "StrikeCard": cardToTransform = new IroncladStrikeCard(); break;
-            case "DefendCard": cardToTransform = new IroncladDefendCard(); break;
+            case "IroncladStrikeCard": cardToTransform = new IroncladStrikeCard(); break;
+            case "IroncladDefendCard": cardToTransform = new IroncladDefendCard(); break;
             // CommonCards
             case "AngerCard": cardToTransform = new AngerCard(); break;
             case "BashCard": cardToTransform = new BashCard(); break;
