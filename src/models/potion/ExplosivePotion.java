@@ -12,7 +12,7 @@ import java.util.List;
 public class ExplosivePotion extends PotionCard {
 
     public ExplosivePotion() {
-        super("Explosive Potion", "Deal 10 Damage to all enemies.", 0, CardRarity.POTION, CardGrave.POTION);
+        super("Explosive Potion", "Deal 10 Damage to all enemies.", 0, CardRarity.COMMON, CardGrave.POTION);
         setImagePath(new PathAssistent().toPath(this));
     }
 

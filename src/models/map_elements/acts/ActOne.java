@@ -1,6 +1,7 @@
 package models.map_elements.acts;
 
 import models.enemy.Enemy;
+import models.enemy.EnemyEnum;
 import models.enemy.act_one.AcidSlimeEnemy;
 import models.enemy.act_one.CultistEnemy;
 import models.enemy.act_one.MadGremlinEnemy;
@@ -43,15 +44,15 @@ public class ActOne extends Act {
      * Initialisiert den Akt und platziert den Spieler auf dem Startfeld.
      *
      * @param player der Spieler, der sich im Akt bewegen soll
-     * @param loadingFromFile ob der Spieler von einer Datei geladen wurde.
+     * @param playerAlreadyOnAct ob der Spieler von einer Datei geladen wurde.
      */
-    public ActOne(Player player, boolean loadingFromFile){
+    public ActOne(Player player, boolean playerAlreadyOnAct){
         super(1, MAP_WIDTH, MAP_HEIGHT);
         this.player = player;
         initNodes();
 
         Node playerNode = null;
-        if(loadingFromFile)
+        if(playerAlreadyOnAct)
             playerNode = getNoteByName(player.getCurrentField());
         else
             playerNode = getNoteByName(getFirstField());
@@ -63,7 +64,7 @@ public class ActOne extends Act {
 
         playerNode.setPlayer(player);
 
-        if(loadingFromFile)
+        if(playerAlreadyOnAct)
             playerNode.setFieldBeaten();
         else
             playerNode.doFieldThing(player);
@@ -145,29 +146,33 @@ public class ActOne extends Act {
         return enemies;
     }
 
+    /**
+     * @author Keil, Vladislav
+     * @return List of Enemies
+     */
     private List<Enemy> createBossEnemies() {
         List<Enemy> enemies = new ArrayList<>();
 
         int randBoss = randi.nextInt(3);
         int randAmountEnemies = randi.nextInt(4);
-        String type;
+        EnemyEnum type;
         switch (randBoss) {
             case 0:
                 // 1 - SlimeBoss
                 enemies.add(new SlimeBoss());
-                type = "Slime";
+                type = EnemyEnum.SLIME;
                 break;
             case 1:
                 // 2 - TheGuardian (Soll)
                 enemies.add(new SlimeBoss());
 //                type = "Guardian";
-                type = "Slime";
+                type = EnemyEnum.SLIME;
                 break;
             default:
                 // 3 - Hexaghost (Kann)
                 enemies.add(new SlimeBoss());
 //                type = "Hexa";
-                type = "Slime";
+                type = EnemyEnum.SLIME;
                 break;
             }
         for (int i = 0; i < randAmountEnemies; i++) {
@@ -177,21 +182,25 @@ public class ActOne extends Act {
     }
 
 
+    /**
+     * @author Keil, Vladislav
+     * @return List of Enemies
+     */
     public List<Enemy> createElitesEnemies() {
         List<Enemy> enemies = new ArrayList<>();
         int randElite = randi.nextInt(2);
         int randAmountEnemies = randi.nextInt(2);
-        String type;
+        EnemyEnum type;
         switch (randElite) {
             case 0:
                 // 1 - Gremlin Nob
                 enemies.add(new GremlinNobElite());
-                type = "Goblin";
+                type = EnemyEnum.GOBLIN;
                 break;
             default:
                 // 2 - Lagavulin
                 enemies.add(new LagavulinElite());
-                type = "Lagavulin";
+                type = EnemyEnum.LAGAVULIN;
                 break;
         }
         for (int i = 0; i < randAmountEnemies; i++) {
@@ -200,17 +209,22 @@ public class ActOne extends Act {
         return enemies;
     }
 
-    private Enemy createEnemiesOfType(String type) {
+
+    /**
+     * @author Keil, Vladislav
+     * @return An Enemy
+     */
+    private Enemy createEnemiesOfType(EnemyEnum type) {
         switch (type) {
-            case "Hexa":
+            case HEXA:
                 return new MadGremlinEnemy();
-            case "Guardian":
+            case GUARDIAN:
                 return new CultistEnemy();
-            case "Lagavulin":
+            case LAGAVULIN:
                 return new CultistEnemy();
-            case "Goblin":
+            case GOBLIN:
                 return new MadGremlinEnemy();
-            default: // "Slime"
+            default: // SLIME
                 return new AcidSlimeEnemy();
         }
     }
@@ -230,23 +244,23 @@ public class ActOne extends Act {
         ActOneEventEnum[] events = ActOneEventEnum.values();
         ActOneEventEnum event = events[randi.nextInt(events.length)];
         switch (event) {
-            case BigFish:
+            case BIG_FISH:
                 return new BigFishEvent(this.player);
-            case BonfireSpirits:
+            case BONFIRE_SPIRITS:
                 return new BonfireSpiritsEvent(this.player);
-            case DeadAdventurer:
+            case DEAD_ADVENTURER:
                 return new DeadAdventurerEvent(this.player);
-            case Duplicator:
+            case DUPLICATOR:
                 return new DuplicatorEvent(this.player);
-            case NoteForYourself:
+            case NOTE_FOR_YOURSELF:
                 return new NoteForYourselfEvent(this.player);
-            case ScrapOoze:
+            case SCRAP_OOZE:
                 return new ScrapOozeEvent(this.player);
-            case TheCleric:
+            case THE_CLERIC:
                 return new TheClericEvent(this.player);
-            case TheSsssserpent:
+            case THE_SSSSSERPENT:
                 return new TheSssssserpentEvent(this.player);
-            case WorldofGoo:
+            case WORLDOF_GOO:
                 return new WorldOfGooEvent(this.player);
             default:
                 return new GoldenShrineEvent(this.player);

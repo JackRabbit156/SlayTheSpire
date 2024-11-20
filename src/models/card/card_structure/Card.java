@@ -68,8 +68,6 @@ public abstract class Card {
     }
 
     public int genPrice() {
-        // TODO - ShopController - One of the cards will always be On Sale, reducing its cost by 50%.
-        // TODO - ShopController - There will always be 2 Attack cards, 2 Skill cards, and 1 Power card.
         // Existieren nur 3 Typen
         // https://slay-the-spire.fandom.com/wiki/Merchant
         switch (this.cardRarity) {

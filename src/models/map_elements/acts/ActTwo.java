@@ -1,9 +1,19 @@
 package models.map_elements.acts;
 
+import models.enemy.Enemy;
+import models.enemy.act_one.AcidSlimeEnemy;
+import models.enemy.act_one.CultistEnemy;
+import models.enemy.act_one.MadGremlinEnemy;
+import models.enemy.act_two.ByrdEnemy;
+import models.enemy.act_two.SphericGuardianEnemy;
 import models.map_elements.Coordinates;
 import models.map_elements.Node;
 import models.map_elements.field_types.*;
 import models.player.player_structure.Player;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
 
 /**
  * Die Klasse ActTwo ist eine konkrete Implementierung des zweiten Aktes im Spiel.
@@ -19,21 +29,23 @@ public class ActTwo extends Act {
     private static final int MAP_WIDTH = 4;
     private static final int MAP_HEIGHT= 14;
 
+    private Random randi = new Random();
+
     private Player player;
     /**
      * Konstruktor für die Klasse ActTwo.
      * Initialisiert den Akt und platziert den Spieler auf dem Startfeld, mit der Option einen Spieler auf einem bestimmten Floor zu spawnen.
      *
      * @param player der Spieler, der sich im Akt bewegen soll
-     * @param loadingFromFile ob der Spieler von einer Datei geladen wurde.
+     * @param playerAlreadyOnAct ob der Spieler von einer Datei geladen wurde.
      */
-    public ActTwo(Player player, boolean loadingFromFile){
+    public ActTwo(Player player, boolean playerAlreadyOnAct){
         super(2, MAP_WIDTH, MAP_HEIGHT);
         this.player = player;
         initNodes();
 
         Node playerNode = null;
-        if(loadingFromFile)
+        if(playerAlreadyOnAct)
             playerNode = getNoteByName(player.getCurrentField());
         else
             playerNode = getNoteByName(getFirstField());
@@ -44,26 +56,27 @@ public class ActTwo extends Act {
         }
 
         playerNode.setPlayer(player);
-        if(loadingFromFile)
+        if(playerAlreadyOnAct)
             playerNode.setFieldBeaten();
+
     }
 
     private void initNodes(){
-        Node start17 = new Node("17", new EnemyField(), new Coordinates(2, 14));
+        Node start17 = new Node("17", new EnemyField(generateEnemies()), new Coordinates(2, 14));
         Node unknown18 = new Node("18", new UnknownField(null, null, null, null), new Coordinates(0, 12));
-        Node fight19 = new Node("19", new EnemyField(), new Coordinates(2, 12));
-        Node fight20 = new Node("20", new EnemyField(), new Coordinates(4, 12));
+        Node fight19 = new Node("19", new EnemyField(generateEnemies()), new Coordinates(2, 12));
+        Node fight20 = new Node("20", new EnemyField(generateEnemies()), new Coordinates(4, 12));
         Node unknown21 = new Node("21", new UnknownField(null, null, null, null), new Coordinates(0, 10));
-        Node fight22 = new Node("22", new EnemyField(), new Coordinates(2, 10));
-        Node fight23 = new Node("23", new EnemyField(), new Coordinates(4, 10));
+        Node fight22 = new Node("22", new EnemyField(generateEnemies()), new Coordinates(2, 10));
+        Node fight23 = new Node("23", new EnemyField(generateEnemies()), new Coordinates(4, 10));
         Node shop24 = new Node("24", new ShopField(), new Coordinates(0, 8));
         Node elite25 = new Node("25", new EliteField(null), new Coordinates(2, 8));
         Node unknown26 = new Node("26", new UnknownField(null, null, null, null), new Coordinates(0, 6));
-        Node fight27 = new Node("27", new EnemyField(), new Coordinates(2, 6));
+        Node fight27 = new Node("27", new EnemyField(generateEnemies()), new Coordinates(2, 6));
         Node unknown28 = new Node("28", new UnknownField(null, null, null, null), new Coordinates(4, 6));
         Node unknown29 = new Node("29", new UnknownField(null, null, null, null), new Coordinates(0, 4));
-        Node fight30 = new Node("30", new EnemyField(), new Coordinates(2, 4));
-        Node fight31 = new Node("31", new EnemyField(), new Coordinates(4, 4));
+        Node fight30 = new Node("30", new EnemyField(generateEnemies()), new Coordinates(2, 4));
+        Node fight31 = new Node("31", new EnemyField(generateEnemies()), new Coordinates(4, 4));
         Node rest32 = new Node("32", new RestField(), new Coordinates(2, 2));
         Node boss33 = new Node("33", new BossField(null), new Coordinates(2,0));
 
@@ -122,6 +135,26 @@ public class ActTwo extends Act {
 
         rest32.setMiddleNode(boss33);
 
+    }
+
+    private List<Enemy> generateEnemies(){
+        List<Enemy> enemies = new ArrayList<>();
+
+        String[] possibleEnemies = {"Byrd", "Cultist", "SphericGuardian"};
+
+        int numberOfEnemies = randi.nextInt(4) + 1;
+
+        for(int i = 0; i< numberOfEnemies; i++){
+            int randomNumber = randi.nextInt(possibleEnemies.length);
+            switch (randomNumber){
+                case 0: enemies.add(new ByrdEnemy()); break;
+                case 1: enemies.add(new CultistEnemy()); break;
+                case 2: enemies.add(new SphericGuardianEnemy()); break;
+                default:
+                    System.out.println("Weird..."); break;
+            }
+        }
+        return enemies;
     }
 
     @Override

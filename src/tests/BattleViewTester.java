@@ -1,5 +1,10 @@
 package tests;
 
+import controller.gui.BattleController;
+import helper.GuiHelper;
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
 import models.enemy.Enemy;
 import models.enemy.act_one.AcidSlimeEnemy;
 import models.enemy.act_one.CultistEnemy;
@@ -7,30 +12,47 @@ import models.enemy.act_one.MadGremlinEnemy;
 import models.enemy.act_one.bosses.SlimeBoss;
 import models.enemy.act_one.elites.GremlinNobElite;
 import models.enemy.act_one.elites.LagavulinElite;
-import models.map_elements.field_types.BossField;
 import models.player.player_structure.Player;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class BossFieldTester {
+public class BattleViewTester extends Application {
     Random randi = new Random();
+    public static void main(String[] args) { launch(args); }
+    @Override
+    public void start(Stage primaryStage) {
+        TestPlayer player = new TestPlayer();
 
-    public static void main(String[] args) {
-        BossFieldTester tester = new BossFieldTester();
+        BattleController battleController = new BattleController(player, generateEnemies());
+        Scene scene = new Scene(battleController.getBattleView(), 1920, 1080);
+        player.setPrimaryStage(primaryStage);
 
-        BossField bossField = new BossField(tester.createBossEnemies());
-
-        Player player = new TestPlayer();
-
-        // Es muss gekämpft werden, um die ausgabe zu erhalten.
-        // FALL 1: ERWARTE : Hier kommt die StatisticsView mit Loot View
-        bossField.doFieldThing(player);
-        // Ausgabe alles 0
+        GuiHelper.Scenes.startScene(primaryStage, scene, "Slay the Spire - JavaFX");
     }
 
-    public List<Enemy> createBossEnemies() {
+    private List<Enemy> generateEnemies(){
+        List<Enemy> enemies = new ArrayList<>();
+
+        String[] possibleEnemies = {"AcidSlime", "Cultist", "MadGremlin"};
+
+        int numberOfEnemies = randi.nextInt(4) + 1;
+
+        for(int i = 0; i< numberOfEnemies; i++){
+            int randomNumber = randi.nextInt(possibleEnemies.length);
+            switch (randomNumber){
+                case 0: enemies.add(new AcidSlimeEnemy()); break;
+                case 1: enemies.add(new CultistEnemy()); break;
+                case 2: enemies.add(new MadGremlinEnemy()); break;
+                default:
+                    System.out.println("Weird..."); break;
+            }
+        }
+        return enemies;
+    }
+
+    private List<Enemy> createBossEnemies() {
         List<Enemy> enemies = new ArrayList<>();
 
         int randBoss = randi.nextInt(3);
@@ -60,7 +82,6 @@ public class BossFieldTester {
         }
         return enemies;
     }
-
 
     private List<Enemy> createElitesEnemies() {
         List<Enemy> enemies = new ArrayList<>();

@@ -1,6 +1,7 @@
 package controller.gui;
 
 import controller.listener.LoadEventListener;
+import helper.GuiHelper;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import models.card.DeckFactory;
@@ -98,15 +99,8 @@ public class LoadController implements LoadEventListener {
 
         player.setPrimaryStage(primaryStage);
 
-
         //MapViewController map = new MapViewController(player, true);
-        MapController mapController = new MapController(player, true);
-        Scene scene = new Scene(mapController.getMapView(), 1920, 1080);
-        scene.getStylesheets().add(getClass().getResource("/css/mapStyle.css").toExternalForm());
-        primaryStage.setScene(scene);
-        primaryStage.setTitle("Slay the Spire - JavaFX");
-        primaryStage.setFullScreen(true);
-        primaryStage.show();
+        GuiHelper.Scenes.startMapScene(player, true);
     }
 
 
@@ -155,5 +149,10 @@ public class LoadController implements LoadEventListener {
     @Override
     public void onSelectedItem(int id) {
         startLoadedGame(id);
+    }
+
+    @Override
+    public void onBackButtonClick() {
+        System.out.println("Back button");
     }
 }
