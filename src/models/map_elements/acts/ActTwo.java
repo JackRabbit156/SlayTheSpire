@@ -58,6 +58,7 @@ public class ActTwo extends Act {
         playerNode.setPlayer(player);
         if(playerAlreadyOnAct)
             playerNode.setFieldBeaten();
+
     }
 
     private void initNodes(){

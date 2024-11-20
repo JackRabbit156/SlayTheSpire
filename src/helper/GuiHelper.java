@@ -84,6 +84,7 @@ public class GuiHelper {
             LoadController loadController = new LoadController(primaryStage);
 
             Scene scene = new Scene(loadController.getLoadView(), 1920, 1080);
+            scene.getStylesheets().add(Objects.requireNonNull(Scenes.class.getResource("/css/loadViewStyle.css")).toExternalForm());
             fadeTransition(primaryStage, scene);
         }
 

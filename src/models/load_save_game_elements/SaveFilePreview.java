@@ -62,14 +62,14 @@ public class SaveFilePreview {
 
     @Override
     public String toString() {
-        return "SaveFilePreview{" +
-                "characterName='" + characterName + '\'' +
-                ", playerType='" + playerType + '\'' +
-                ", field=" + field +
-                ", currentAct=" + currentAct +
-                ", lastSession='" + lastSession + '\'' +
-                ", timePlayed='" + timePlayed + '\'' +
-                '}';
-    }
+        String returnString = "";
 
+        returnString += playerType + "\n";
+        returnString += String.format("\t%-25s %s\n", "Last Session:", lastSession);
+        returnString += String.format("\t%-25s %s\n", "Time wasted:", timePlayed);
+        returnString += String.format("\t%-25s %s\n", "Current Act:", currentAct);
+        returnString += String.format("\t%-25s %s", "Current Field:", field);
+
+        return returnString;
+    }
 }
