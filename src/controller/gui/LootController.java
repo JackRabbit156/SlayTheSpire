@@ -23,7 +23,10 @@ public class LootController implements LootViewEvents {
     private PotionCard potionCard;
     private DeckFactory deckFactory;
     private LootView lootView;
+
     private int gold = 0;
+    private int amount = 5;
+    private double potionsChance = 0.8;
 
 
     /**
@@ -34,10 +37,20 @@ public class LootController implements LootViewEvents {
      */
     public LootController(Player player, FieldEnum fieldType) {
         this.player = player;
-        int amount = 5;
-        double potionsChance = 0.80;
-        initGoldLoot(fieldType);
+        this.deckFactory = new DeckFactory(player, amount);
 
+        initGoldLoot(fieldType);
+        initItemChanceAndAmount();
+        generatePotionByChance();
+
+        this.selectedCards = initialLootDeck();
+
+        this.lootView = new LootView(this.selectedCards, this.gold, this.potionCard, this);
+        this.lootView.initLootViewEvents(this);
+    }
+
+
+    private void initItemChanceAndAmount() {
         switch (GameSettings.getDifficultyLevel()) {
             case SUPEREASY:
             case EASY:
@@ -55,21 +68,11 @@ public class LootController implements LootViewEvents {
                 this.gold = (int) (this.gold * 0.5);
                 break;
         }
-        this.deckFactory = new DeckFactory(player, amount);
-        this.selectedCards = initialLootDeck();
-
-        generatePotionByChance(potionsChance);
-
-        if (this.potionCard != null) {
-            this.lootView = new LootView(player, this.selectedCards, this.gold, this.potionCard, this);
-        } else {
-            this.lootView = new LootView(player, this.selectedCards, this.gold, this);
-        }
-        this.lootView.initLootViewEvents(this);
     }
 
-    private void generatePotionByChance(double potionsChance) {
-        if (randi.nextDouble() < potionsChance) {
+    private void generatePotionByChance() {
+        double rand = randi.nextDouble();
+        if (rand < this.potionsChance) {
             this.potionCard = deckFactory.generatePotion();
         }
     }
@@ -77,7 +80,21 @@ public class LootController implements LootViewEvents {
     @Override
     public void onCardClick(Card card, int index) {
         addCardToDeck(this.selectedCards.get(index - 1));
-        onBackClicked();
+    }
+
+    @Override
+    public void onGoldClick(int gold) {
+        this.player.increaseGold(gold);
+    }
+
+    @Override
+    public void onPotionClick(PotionCard potion) {
+        if (this.player.getPotionCards().size() < 3) {
+            ConsoleAssistent.print(Color.YELLOW, "Got an Potion: " + potion.getName());
+            this.player.addPotionCard(potion);
+        } else {
+            this.lootView.showDialog("You have reached the maximum of Potion.");
+        }
     }
 
     @Override
@@ -93,7 +110,6 @@ public class LootController implements LootViewEvents {
     public LootView getLootView() {
         return this.lootView;
     }
-
 
     private List<Card> initialLootDeck() {
         return this.deckFactory.init();
@@ -121,6 +137,9 @@ public class LootController implements LootViewEvents {
     }
 
     private void addCardToDeck(Card card) {
+        ConsoleAssistent.print(Color.YELLOW, "Got an Card: " + card.getName());
+        ConsoleAssistent.print(Color.YELLOW, "Got Gold: " + this.gold);
+
         this.player.addCardToDeck(card);
         this.player.increaseGold(this.gold);
     }

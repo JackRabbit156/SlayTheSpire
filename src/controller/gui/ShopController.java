@@ -24,15 +24,7 @@ public class ShopController implements ShopViewEvents {
     private PotionCard purchasablePotion;
     private List<Relic> purchasableRelics;
 
-    /*
-    3 Potions
-        Common: 48 - 52 Gold
-        Uncommon: 72 - 78 Gold
-        Rare: 95 - 105 Gold
-     */
-
-
-    public ShopController(Player player) {
+     public ShopController(Player player) {
         this.player = player;
 
         this.deckFactory = new DeckFactory(player, 5);
@@ -54,7 +46,6 @@ public class ShopController implements ShopViewEvents {
         this.shopView.setShopCards(purchasableCards);
     }
 
-
     @Override
     public void onCardClick(Card card, int index) {
         int cardPrice = card.getPrice();
@@ -66,7 +57,6 @@ public class ShopController implements ShopViewEvents {
             refreshSelectableCards();
             ConsoleAssistent.print(Color.YELLOW, "Refresh Cards!");
         } else {
-            System.out.println();
             this.shopView.showDialog("Not enough Gold!");
             ConsoleAssistent.print(Color.YELLOW, "Not enough Gold!");
         }
@@ -85,7 +75,6 @@ public class ShopController implements ShopViewEvents {
             } else {
                 this.shopView.showDialog("You have reached the maximum of Potion.");
             }
-            return;
         } else {
             System.out.println();
             this.shopView.showDialog("Not enough Gold!");

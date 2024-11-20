@@ -14,10 +14,12 @@ import javafx.scene.shape.StrokeType;
 import javafx.stage.Popup;
 import view.gui.layouts.layout_events.RestViewEvents;
 
+import java.util.Stack;
+
 /**
  * @author Keil, Vladislav
  */
-public class RestView extends BorderPane {
+public class RestView extends StackPane {
     private RestViewEvents restViewEvents;
 
     private Insets insets = new Insets(15,15,15,15);
@@ -25,8 +27,12 @@ public class RestView extends BorderPane {
     private VBox topVBox;
     private Popup popup;
 
+    private BorderPane restLayout;
+    private BorderPane bottomLayout;
 
     public RestView(RestViewEvents restViewEvents) {
+        this.restLayout = new BorderPane();
+        this.bottomLayout = new BorderPane();
         this.restViewEvents = restViewEvents;
         display();
     }
@@ -39,11 +45,23 @@ public class RestView extends BorderPane {
      * Initialisiert die View.
      */
     public void display() {
+        getChildren().add(restLayout);
+        getChildren().add(bottomLayout);
+
         setBackground(new Background(GuiHelper.background("/images/backgrounds/RestViewBG.jpeg")));
-        initTop();
+        initRestLayout();
+        initBottomLayout();
+    }
+
+    private void initBottomLayout() {
+        restLayout.setPickOnBounds(false);
         initBottom();
-        initLeft();
-        initRight();
+
+    }
+
+    private void initRestLayout() {
+        bottomLayout.setPickOnBounds(false);
+        initTop();
         initCenter();
     }
 
@@ -55,7 +73,7 @@ public class RestView extends BorderPane {
         // Options
         Label label = new Label("Rest - 30% Healing");
         label.setTextFill(Paint.valueOf("White"));
-        label.setStyle("-fx-font-size: 24;");
+        label.setStyle("-fx-font-size: 24; -fx-font-family: Kreon;");
 
         centerVBox.getChildren().add(GuiHelper.addButtonStackPane(imgView, label, 0.35, 0.25));
         label.setOnMouseClicked(event -> restViewEvents.onHealClicked());
@@ -64,24 +82,22 @@ public class RestView extends BorderPane {
         centerVBox.setSpacing(50);
         centerVBox.setPadding(new Insets(50,15,15,280));
         centerVBox.setAlignment(Pos.TOP_CENTER);
-        setCenter(centerVBox);
+        restLayout.setCenter(centerVBox);
     }
 
     private void initTop(){
         topVBox = new VBox();
         Label label = new Label();
         label.setText("Restsite..");
-        label.setId("title");
         label.setTextFill(Paint.valueOf("White"));
-        label.setStyle("-fx-font-size: 56px;");
+        label.setStyle("-fx-font-size: 56; -fx-font-family: Kreon;");
 
         topVBox.getChildren().add(label);
         topVBox.setAlignment(Pos.BOTTOM_CENTER);
         topVBox.setPrefHeight(200);
 
-        setTop(topVBox);
+        restLayout.setTop(topVBox);
     }
-
 
     /**
      * Bottom side
@@ -99,34 +115,8 @@ public class RestView extends BorderPane {
         imgView.setOnMouseClicked(event -> restViewEvents.onBackClicked());
         label.setOnMouseClicked(event -> restViewEvents.onBackClicked());
 
-        bottomHBox.setAlignment(Pos.CENTER);
-        Region placeHolder = new Region();
-        placeHolder.setPrefHeight(150); // Festlegen der konstanten Höhe
-        bottomHBox.getChildren().add(placeHolder);
-        setBottom(bottomHBox);
-    }
-
-    /**
-     * Left side
-     */
-    private void initLeft(){
-        VBox leftVBox = new VBox();
-        leftVBox.setAlignment(Pos.CENTER);
-        Region placeHolder = new Region();
-        placeHolder.setPrefWidth(200); // Festlegen der konstanten Höhe
-        leftVBox.getChildren().add(placeHolder);
-        setLeft(leftVBox);
-    }
-
-    /**
-     * Right side
-     */
-    private void initRight(){
-        VBox rightVBox = new VBox();
-        rightVBox.setAlignment(Pos.CENTER);
-        Region bottomPlaceholder = new Region();
-        bottomPlaceholder.setPrefWidth(200); // Festlegen der konstanten Höhe
-        rightVBox.getChildren().add(bottomPlaceholder);
-        setRight(rightVBox);
+        bottomHBox.setAlignment(Pos.TOP_LEFT);
+        bottomHBox.setTranslateY(150);
+        bottomLayout.setBottom(bottomHBox);
     }
 }

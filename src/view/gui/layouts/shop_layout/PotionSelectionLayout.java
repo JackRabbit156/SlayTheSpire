@@ -12,7 +12,6 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Paint;
 import models.card.card_structure.Card;
-import models.player.player_structure.Player;
 import models.potion.potion_structure.PotionCard;
 import view.gui.ShopView;
 

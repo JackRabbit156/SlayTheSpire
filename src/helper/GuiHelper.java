@@ -245,16 +245,13 @@ public class GuiHelper {
         imgView.setScaleX(scaleX);
         imgView.setScaleY(scaleY);
 
-        label.setStyle("-fx-font-size: 24;" +
-                "-fx-font-family: Kreon;");
+        label.setStyle("-fx-font-size: 24; -fx-font-family: Kreon;");
         //DEBUGGER
 //        btnStackPane.setBackground(new Background(new BackgroundFill(Paint.valueOf("Purple"), null, null)));
         btnStackPane.getChildren().add(label);
+        btnStackPane.setMaxHeight(100);
 
-        btnStackPane.setMaxHeight(imgView.getFitHeight());
-        btnStackPane.setMaxWidth(imgView.getFitWidth());
         setButtonHoverEffect(imgView, label);
-
         return btnStackPane;
     }
 }
