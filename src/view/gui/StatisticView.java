@@ -144,7 +144,7 @@ public class StatisticView extends BorderPane {
         label.setTextFill(Paint.valueOf("White"));
         label.setStyle("-fx-font-size: 24;");
         GuiHelper.setButtonHoverEffect(imgView, label);
-        imgView.setOnMouseClicked(event -> GuiHelper.Scenes.startMapScene( player, true));
+        imgView.setOnMouseClicked(event -> GuiHelper.Scenes.startMapScene(player, true));
         label.setOnMouseClicked(event -> GuiHelper.Scenes.startMapScene(player, true));
 
         btnPane.getChildren().add(label);

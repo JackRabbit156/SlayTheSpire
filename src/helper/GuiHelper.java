@@ -3,7 +3,7 @@ package helper;
 import controller.gui.BattleController;
 import controller.gui.LoadController;
 import controller.gui.MapController;
-import javafx.geometry.Pos;
+import javafx.scene.ImageCursor;
 import javafx.scene.Node;
 import javafx.animation.FadeTransition;
 import javafx.scene.Parent;
@@ -15,7 +15,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import models.enemy.Enemy;
@@ -120,7 +119,7 @@ public class GuiHelper {
          */
         private static void fadeTransition(Stage primaryStage, Scene scene) {
             Scene currentScene = primaryStage.getScene();
-
+            setCursor(scene);
             // Direkt die neue Szene setzen, falls die aktuelle Szene oder deren Root-Node ungültig ist
             if (currentScene == null || currentScene.getRoot() == null) {
                 System.out.println("NO Fade");
@@ -131,7 +130,7 @@ public class GuiHelper {
             }
 
             // Fade-Out der aktuellen Szene
-            FadeTransition fadeOut = new FadeTransition(Duration.seconds(1), currentScene.getRoot());
+            FadeTransition fadeOut = new FadeTransition(Duration.seconds(0.5), currentScene.getRoot());
             fadeOut.setFromValue(1.0);
             fadeOut.setToValue(0.0);
             fadeOut.setOnFinished(event -> {
@@ -139,12 +138,18 @@ public class GuiHelper {
                 primaryStage.setScene(scene);
                 primaryStage.setFullScreen(true);
                 scene.getRoot().setOpacity(0.0); // Stellen Sie sicher, dass die neue Szene unsichtbar ist, bevor sie einblendet
-                FadeTransition fadeIn = new FadeTransition(Duration.seconds(1), scene.getRoot());
+                FadeTransition fadeIn = new FadeTransition(Duration.seconds(0.5), scene.getRoot());
                 fadeIn.setFromValue(0.0);
                 fadeIn.setToValue(1.0);
                 fadeIn.play();
             });
             fadeOut.play();
+        }
+
+        private static void setCursor(Scene scene){
+            Image cursorImage = new Image(Objects.requireNonNull(GuiHelper.class.getResource("/images/scene/cursor.png")).toExternalForm());
+            ImageCursor customCursor = new ImageCursor(cursorImage);
+            scene.setCursor(customCursor);
         }
     }
 

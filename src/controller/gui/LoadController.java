@@ -150,4 +150,9 @@ public class LoadController implements LoadEventListener {
     public void onSelectedItem(int id) {
         startLoadedGame(id);
     }
+
+    @Override
+    public void onBackButtonClick() {
+        System.out.println("Back button");
+    }
 }

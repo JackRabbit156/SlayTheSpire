@@ -21,7 +21,8 @@ public class MapLayout extends GridPane {
     private int mapWidth;
     private int mapHeight;
 
-    private static final int TILE_SIZE = 40;
+    private static final int TILE_SIZE = 60;
+    private static final int CENTER_OFFSET = 40;
     public MapLayout(MapView mapView, List<Node> nodes, int mapWidth, int mapHeight) {
         this.mapHeight = mapHeight;
         this.mapWidth = mapWidth;
@@ -59,10 +60,10 @@ public class MapLayout extends GridPane {
 
     private void connectNodes(Node fromNode, Node toNode) {
         // Berechne die Start- und Endposition im Grid für die Linien
-        double startX = fromNode.getX() * TILE_SIZE + 30; // Beispiel: Zellenbreite 60, Offset 30 für Zentrierung
-        double startY = fromNode.getY() * TILE_SIZE + 30;
-        double endX = toNode.getX() * TILE_SIZE + 30;
-        double endY = toNode.getY() * TILE_SIZE + 30;
+        double startX = fromNode.getX() * TILE_SIZE + CENTER_OFFSET; // Beispiel: Zellenbreite 60, Offset 30 für Zentrierung
+        double startY = fromNode.getY() * TILE_SIZE + CENTER_OFFSET;
+        double endX = toNode.getX() * TILE_SIZE + CENTER_OFFSET;
+        double endY = toNode.getY() * TILE_SIZE + CENTER_OFFSET;
 
         // Linie erstellen
         Line line = new Line(startX, startY, endX, endY);

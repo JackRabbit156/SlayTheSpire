@@ -37,15 +37,15 @@ public class ActTwo extends Act {
      * Initialisiert den Akt und platziert den Spieler auf dem Startfeld, mit der Option einen Spieler auf einem bestimmten Floor zu spawnen.
      *
      * @param player der Spieler, der sich im Akt bewegen soll
-     * @param loadingFromFile ob der Spieler von einer Datei geladen wurde.
+     * @param playerAlreadyOnAct ob der Spieler von einer Datei geladen wurde.
      */
-    public ActTwo(Player player, boolean loadingFromFile){
+    public ActTwo(Player player, boolean playerAlreadyOnAct){
         super(2, MAP_WIDTH, MAP_HEIGHT);
         this.player = player;
         initNodes();
 
         Node playerNode = null;
-        if(loadingFromFile)
+        if(playerAlreadyOnAct)
             playerNode = getNoteByName(player.getCurrentField());
         else
             playerNode = getNoteByName(getFirstField());
@@ -56,8 +56,9 @@ public class ActTwo extends Act {
         }
 
         playerNode.setPlayer(player);
-        if(loadingFromFile)
+        if(playerAlreadyOnAct)
             playerNode.setFieldBeaten();
+
     }
 
     private void initNodes(){
