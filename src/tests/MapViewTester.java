@@ -12,11 +12,7 @@ public class MapViewTester  extends Application {
     @Override
     public void start(Stage primaryStage) {
         TestPlayer player = new TestPlayer();
-        MapController map = new MapController(player, true);
-
-        Scene scene = new Scene(map.getMapView(), 1920, 1080);
         player.setPrimaryStage(primaryStage);
-        GuiHelper.Scenes.startScene(primaryStage, scene, "Slay the Spire - JavaFX");
-
+        GuiHelper.Scenes.startMapScene(player, true);
     }
 }
