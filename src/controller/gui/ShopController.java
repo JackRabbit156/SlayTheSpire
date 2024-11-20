@@ -50,7 +50,7 @@ public class ShopController implements ShopViewEvents {
     public void onCardClick(Card card, int index) {
         int cardPrice = card.getPrice();
 
-        if (this.player.getGold() > cardPrice) {
+        if (this.player.getGold() >= cardPrice) {
             this.player.decreaseGold(cardPrice);
             this.player.addCardToDeck(card);
             this.purchasableCards.remove(card);
@@ -66,7 +66,7 @@ public class ShopController implements ShopViewEvents {
     public void onPotionClick(PotionCard potion) {
         int cardPrice = potion.getPrice();
 
-        if (this.player.getGold() > cardPrice) {
+        if (this.player.getGold() >= cardPrice) {
             if(this.player.getPotionCards().size() < 3) {
                 this.player.decreaseGold(cardPrice);
                 this.player.addPotionCard(potion);
