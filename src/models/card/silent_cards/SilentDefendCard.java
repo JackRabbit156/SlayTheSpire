@@ -1,12 +1,14 @@
-package models.card.general_cards;
+package models.card.silent_cards;
 
 import helper.PathAssistent;
 import models.battle.GameContext;
-import models.card.card_structure.*;
+import models.card.card_structure.CardGrave;
+import models.card.card_structure.CardRarity;
+import models.card.card_structure.SkillCard;
 import models.player.player_structure.Player;
 
-public class DefendCard extends SkillCard {
-    public DefendCard() {
+public class SilentDefendCard extends SkillCard {
+    public SilentDefendCard() {
         super("Defend", "Gain 5 Block.", 1, CardRarity.COMMON, CardGrave.DISCARD);
         setImagePath(new PathAssistent().toPath(this));
     }

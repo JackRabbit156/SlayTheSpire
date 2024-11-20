@@ -1,4 +1,4 @@
-package models.card.silent_cards;
+package models.card.silent_cards.skill.common;
 
 import helper.ConsoleAssistent;
 import helper.PathAssistent;

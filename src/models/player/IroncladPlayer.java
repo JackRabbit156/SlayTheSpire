@@ -2,11 +2,9 @@ package models.player;
 
 import helper.PathAssistent;
 import models.card.card_structure.Card;
-import models.card.general_cards.DefendCard;
-import models.card.general_cards.StrikeCard;
+import models.card.ironclad_cards.IroncladDefendCard;
+import models.card.ironclad_cards.IroncladStrikeCard;
 import models.card.ironclad_cards.attack.common.BashCard;
-import models.card.ironclad_cards.skill.common.FlexCard;
-import models.card.ironclad_cards.skill.rare.OfferingCard;
 import models.player.player_structure.Player;
 import models.player.player_structure.PlayerType;
 import models.relic.BurningBloodRelic;
@@ -45,10 +43,10 @@ public class IroncladPlayer extends Player {
     protected void initDeck() {
         List<Card> deck = new ArrayList<>();
         for (int i = 0; i < 5; i++)
-            deck.add(new StrikeCard());
+            deck.add(new IroncladStrikeCard());
 
         for (int i = 0; i < 4; i++)
-            deck.add(new DefendCard());
+            deck.add(new IroncladDefendCard());
 
         deck.add(new BashCard());
 

@@ -1,15 +1,15 @@
-package models.card.general_cards;
+package models.card.silent_cards;
 
 import helper.PathAssistent;
+import models.battle.GameContext;
 import models.card.card_structure.AttackCard;
 import models.card.card_structure.CardGrave;
 import models.card.card_structure.CardRarity;
-import models.battle.GameContext;
 import models.enemy.Enemy;
 import models.player.player_structure.Player;
 
-public class StrikeCard extends AttackCard {
-    public StrikeCard() {
+public class SilentStrikeCard extends AttackCard {
+    public SilentStrikeCard() {
         super("Strike", "Deal 6 damage.", 1, 6, CardRarity.COMMON, CardGrave.DISCARD);
 
         setImagePath(new PathAssistent().toPath(this));

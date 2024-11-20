@@ -3,9 +3,9 @@ package models.card;
 import helper.Color;
 import helper.ConsoleAssistent;
 import models.card.card_structure.Card;
-import models.card.general_cards.DefendCard;
-import models.card.general_cards.StrikeCard;
-import models.card.ironclad_cards.IroncladsCards;
+import models.card.ironclad_cards.IroncladDefendCard;
+import models.card.ironclad_cards.IroncladStrikeCard;
+import models.card.ironclad_cards.IroncladCards;
 import models.card.ironclad_cards.attack.common.*;
 import models.card.ironclad_cards.attack.uncommon.*;
 import models.card.ironclad_cards.attack.rare.*;
@@ -55,7 +55,7 @@ public class DeckFactory {
     }
 
     private List<Card> initIroncladCards() {
-        List availableCards = Arrays.asList(IroncladsCards.values());
+        List availableCards = Arrays.asList(IroncladCards.values());
 
         if (availableCards == null) {
             ConsoleAssistent.print(Color.RED, "DeckFactory.class: Karten Initialisierung hat nicht korrekt funktioniert.");
@@ -74,8 +74,8 @@ public class DeckFactory {
         switch (cardName){
             // AttackCards
             // GeneralCards
-            case "StrikeCard": cardToTransform = new StrikeCard(); break;
-            case "DefendCard": cardToTransform = new DefendCard(); break;
+            case "StrikeCard": cardToTransform = new IroncladStrikeCard(); break;
+            case "DefendCard": cardToTransform = new IroncladDefendCard(); break;
             // CommonCards
             case "AngerCard": cardToTransform = new AngerCard(); break;
             case "BashCard": cardToTransform = new BashCard(); break;

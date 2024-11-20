@@ -1,24 +1,17 @@
-package models.card.silent_cards;
+package models.card.ironclad_cards;
 
 import helper.PathAssistent;
-import models.battle.GameContext;
 import models.card.card_structure.AttackCard;
 import models.card.card_structure.CardGrave;
 import models.card.card_structure.CardRarity;
+import models.battle.GameContext;
 import models.enemy.Enemy;
 import models.player.player_structure.Player;
 
-/**
- * Die Neutralize Karte.
- *
- * @author OF Daniel Willig
- */
-public class NeutralizeCard extends AttackCard {
-    /**
-     * Constructor Neutralize card.
-     */
-    public NeutralizeCard() {
-        super("Neutralize", "Deal 3 damage. Apply 1 Weak.", 0, 3, CardRarity.COMMON, CardGrave.DISCARD);
+public class IroncladStrikeCard extends AttackCard {
+    public IroncladStrikeCard() {
+        super("Strike", "Deal 6 damage.", 1, 6, CardRarity.COMMON, CardGrave.DISCARD);
+
         setImagePath(new PathAssistent().toPath(this));
     }
 
@@ -29,8 +22,6 @@ public class NeutralizeCard extends AttackCard {
 
         Player player = gameContext.getPlayer();
         player.decreaseCurrentEnergy(getCost());
-
-        //TODO Apply Debuff 1 Weak
     }
 
     @Override

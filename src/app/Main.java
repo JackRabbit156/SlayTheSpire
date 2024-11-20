@@ -8,6 +8,7 @@ import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import models.enemy.Enemy;
+import models.player.SilentPlayer;
 import models.player.player_structure.Player;
 import view.gui.LoadView;
 
@@ -19,6 +20,7 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) {
         IroncladPlayer player = new IroncladPlayer();
+//        SilentPlayer player = new SilentPlayer();
         player.setPrimaryStage(primaryStage);
 
         GuiHelper.Scenes.startMapScene(primaryStage, player, true);

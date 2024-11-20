@@ -1,8 +1,8 @@
 package models.card.ironclad_cards;
 
-public enum IroncladsCards {
-    StrikeCard,
-    DefendCard,
+public enum IroncladCards {
+    IroncladStrikeCard,
+    IroncladDefendCard,
     AngerCard,
     BashCard,
     BodySlamCard,
