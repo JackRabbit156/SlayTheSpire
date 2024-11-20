@@ -53,6 +53,7 @@ public class EnemyLayout extends VBox {
         healthBarLayout.setHealthText(enemy.getHealth(), enemy.getMaxHealth());
         defendLayout.setBlockText(enemy.getBlock());
         intentLayout.setIntentText(enemy.getIntent());
+        intentLayout.setIntentIcon(enemy.getIntent());
     }
 
     private ImageView image() {
