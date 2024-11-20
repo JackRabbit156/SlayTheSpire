@@ -10,7 +10,7 @@ import models.potion.potion_structure.PotionCard;
 public class BloodPotion extends PotionCard {
 
     public BloodPotion() {
-        super("Blood Potion", "Heal for 20% of your Max HP.", 0, CardRarity.POTION, CardGrave.POTION);
+        super("Blood Potion", "Heal for 20% of your Max HP.", 0, CardRarity.COMMON, CardGrave.POTION);
         setImagePath(new PathAssistent().toPath(this));
     }
 

@@ -10,7 +10,7 @@ import models.potion.potion_structure.PotionCard;
 public class BlockPotion extends PotionCard {
 
     public BlockPotion() {
-        super("Block Potion", "Gain 12 Block.", 0, CardRarity.POTION, CardGrave.POTION);
+        super("Block Potion", "Gain 12 Block.", 0, CardRarity.COMMON, CardGrave.POTION);
         setImagePath(new PathAssistent().toPath(this));
     }
 

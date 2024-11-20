@@ -10,7 +10,7 @@ import models.potion.potion_structure.PotionCard;
 public class SwiftPotion extends PotionCard {
 
     public SwiftPotion() {
-        super("Swift Potion", "Draw 3 cards.", 0, CardRarity.POTION, CardGrave.POTION);
+        super("Swift Potion", "Draw 3 cards.", 0, CardRarity.COMMON, CardGrave.POTION);
         setImagePath(new PathAssistent().toPath(this));
     }
 
