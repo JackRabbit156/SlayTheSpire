@@ -8,6 +8,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.FlowPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Paint;
 import models.card.card_structure.Card;
@@ -30,18 +31,27 @@ public class PotionSelectionLayout extends FlowPane {
 
     private void showPotion(){
         VBox box = new VBox();
+        HBox priceBox = new HBox();
+        Image img = new Image(getClass().getResource("/images/gold.png").toExternalForm());
+        ImageView imgView = new ImageView(img);
         Label label = new Label();
-        label.setText("Gold: " + this.potionCard.getPrice()); //TODO RARITÄT DER KARTEN!
-        label.setStyle("-fx-size: 46;");
+
+
+        label.setText(String.valueOf(this.potionCard.getPrice()));
+        label.setStyle("-fx-font-size: 28px;" +
+                "-fx-font-family: Kreon;");
         label.setTextFill(Paint.valueOf("White"));
-        box.getChildren().addAll(images(this.potionCard), label);
+        priceBox.setAlignment(Pos.CENTER);
+        priceBox.getChildren().addAll(imgView,label);
+
+        box.getChildren().addAll(images(this.potionCard), priceBox);
         box.setAlignment(Pos.CENTER);
 
         getChildren().addAll(box);
     }
 
     private Node images(Card potion) {
-        Image imageCard = new Image(getClass().getResource(potion.getImagePath()).toExternalForm());
+        Image imageCard = new Image(getClass().getResource(potion.getImagePath()).toExternalForm()); //TODO DANIEL Images für Karten fehlen noch
         ImageView imageViewCard = new ImageView(imageCard);
 
         imageViewCard.setFitWidth(100); // Breite in Pixel

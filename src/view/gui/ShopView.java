@@ -3,6 +3,7 @@ package view.gui;
 import helper.GuiHelper;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
@@ -57,10 +58,9 @@ public class ShopView extends BorderPane {
 
     private void initCenter(){
         centerVBox = new VBox();
-
+//        centerVBox.setBackground(new Background(new BackgroundFill(Paint.valueOf("Blue"), null, null)));
         // Card Options
         CardSelectionLayout cardSelectionLayout = new CardSelectionLayout(this.shopCards, this);
-
 
         centerVBox.setSpacing(30);
         centerVBox.setPadding(insets);
@@ -73,14 +73,16 @@ public class ShopView extends BorderPane {
             potionSelectionLayout = new PotionSelectionLayout(this.potionCard, this);
         } else {
             potionSelectionLayout = new FlowPane();
-            potionSelectionLayout.setPrefHeight(500);
         }
         centerVBox.getChildren().add(potionSelectionLayout);
+        centerVBox.setMinHeight(600);
         setCenter(centerVBox);
     }
 
     private void initTop(){
         topVBox = new VBox();
+//        topVBox.setBackground(new Background(new BackgroundFill(Paint.valueOf("Yellow"), null, null)));
+
         Label label = new Label();
         label.setText("Welcome to Shop.");
         label.setId("title");
@@ -100,31 +102,23 @@ public class ShopView extends BorderPane {
      */
     private void initBottom(){
         Image btnImage = new Image(getClass().getResource("/images/buttons/buttonL.png").toExternalForm());
-        ImageView backImgView = new ImageView(btnImage);
+        ImageView imgView = new ImageView(btnImage);
         HBox bottomHBox = new HBox();
-        Button backBtn = new Button();
-        backBtn.setGraphic(backImgView);
 
-        backImgView.setFitWidth(backBtn.getWidth());
-        backImgView.setFitHeight(backBtn.getHeight());
-        backImgView.setScaleX(0.7);
-        backImgView.setScaleY(0.7);
-
-        StackPane backBtnPane = new StackPane(backImgView);
+        // Label Setzen
         Label label = new Label("Back");
         label.setTextFill(Paint.valueOf("White"));
-        label.setStyle("-fx-font-size: 24;");
-        backBtnPane.getChildren().add(label);
-        bottomHBox.getChildren().add(backBtnPane);
 
-        backImgView.setOnMouseClicked(event -> shopViewEvents.onBackClicked());
+        // Events und Button erstellung
+        StackPane stackPaneBtn = GuiHelper.addButtonStackPane(imgView, label, 0.7, 0.7);
+        stackPaneBtn.setTranslateY(-100);
+        imgView.setOnMouseClicked(event -> shopViewEvents.onBackClicked());
         label.setOnMouseClicked(event -> shopViewEvents.onBackClicked());
-        GuiHelper.setButtonHoverEffect(backImgView, label);
 
-        bottomHBox.setAlignment(Pos.BOTTOM_CENTER);
-        Region placeHolder = new Region();
-        placeHolder.setPrefHeight(150); // Festlegen der konstanten Höhe
-        bottomHBox.getChildren().add(placeHolder);
+        // HBox Config
+//        bottomHBox.setBackground(new Background(new BackgroundFill(Paint.valueOf("Green"), null, null)));
+        bottomHBox.setAlignment(Pos.TOP_CENTER);
+        bottomHBox.getChildren().add(stackPaneBtn);
         setBottom(bottomHBox);
     }
 
@@ -173,7 +167,8 @@ public class ShopView extends BorderPane {
 
         StackPane stackPopup = new StackPane();
         Label label = new Label(text);
-        label.setStyle("-fx-font-size: 36;");
+        label.setStyle("-fx-font-size: 36;" +
+                "-fx-font-family: Kreon;");
         label.setTextFill(Paint.valueOf("White"));
         label.autosize();
         stackPopup.getChildren().addAll(imageView, label);

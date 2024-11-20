@@ -74,12 +74,23 @@ public class ShopController implements ShopViewEvents {
 
     @Override
     public void onPotionClick(PotionCard potion) {
-        if(this.player.getPotionCards().size() < 3) {
-            this.player.addPotionCard(potion);
-            refreshSelectablePotion();
+        int cardPrice = potion.getPrice();
+
+        if (this.player.getGold() > cardPrice) {
+            if(this.player.getPotionCards().size() < 3) {
+                this.player.decreaseGold(cardPrice);
+                this.player.addPotionCard(potion);
+                refreshSelectablePotion();
+                ConsoleAssistent.print(Color.YELLOW, "Refresh Cards!");
+            } else {
+                this.shopView.showDialog("You have reached the maximum of Potion.");
+            }
             return;
+        } else {
+            System.out.println();
+            this.shopView.showDialog("Not enough Gold!");
+            ConsoleAssistent.print(Color.YELLOW, "Not enough Gold!");
         }
-        shopView.showDialog("You have reached the maximum of Potion.");
     }
 
     private void refreshSelectablePotion() {

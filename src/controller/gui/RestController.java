@@ -14,6 +14,7 @@ import view.gui.layouts.layout_events.RestViewEvents;
 public class RestController implements RestViewEvents {
     private Player player;
     private RestView restView;
+    private boolean healed = false;
 
     public RestController(Player player) {
         this.player = player;
@@ -24,15 +25,19 @@ public class RestController implements RestViewEvents {
      * Startet die Rast.
      */
     public void startRest() {
+        this.healed = false;
         this.restView = new RestView(this);
         this.restView.initRestViewEvents(this);
     }
 
     @Override
     public void onHealClicked() {
-        int increasedHp = (int) (player.getMaxHealth() * 0.30);
-        player.increaseCurrentHealth(increasedHp);
-        ConsoleAssistent.println(Color.YELLOW, "Es wurde geheilt.");
+        if (!this.healed) {
+            int increasedHp = (int) (player.getMaxHealth() * 0.30);
+            player.increaseCurrentHealth(increasedHp);
+            ConsoleAssistent.println(Color.YELLOW, "Es wurde geheilt.");
+            this.healed = true;
+        }
         onBackClicked();
     }
 

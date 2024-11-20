@@ -3,6 +3,7 @@ package helper;
 import controller.gui.BattleController;
 import controller.gui.LoadController;
 import controller.gui.MapController;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.animation.FadeTransition;
 import javafx.scene.Parent;
@@ -14,6 +15,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import models.enemy.Enemy;
@@ -238,14 +240,19 @@ public class GuiHelper {
         return addButtonStackPane(imgView, label, scale, scale);
     }
 
-    public static Node addButtonStackPane(ImageView imgView, Label label, double scaleX, double scaleY) {
+    public static StackPane addButtonStackPane(ImageView imgView, Label label, double scaleX, double scaleY) {
         StackPane btnStackPane = new StackPane(imgView);
-
-        btnStackPane.getChildren().add(label);
-
         imgView.setScaleX(scaleX);
         imgView.setScaleY(scaleY);
 
+        label.setStyle("-fx-font-size: 24;" +
+                "-fx-font-family: Kreon;");
+        //DEBUGGER
+//        btnStackPane.setBackground(new Background(new BackgroundFill(Paint.valueOf("Purple"), null, null)));
+        btnStackPane.getChildren().add(label);
+
+        btnStackPane.setMaxHeight(imgView.getFitHeight());
+        btnStackPane.setMaxWidth(imgView.getFitWidth());
         setButtonHoverEffect(imgView, label);
 
         return btnStackPane;
