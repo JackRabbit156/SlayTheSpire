@@ -2,6 +2,8 @@ package models.map_elements.field_types;
 
 import controller.cli.BattleViewController;
 import controller.cli.LootViewController;
+import controller.gui.LootController;
+import helper.GuiHelper;
 import models.enemy.Enemy;
 import models.player.player_structure.Player;
 
@@ -10,7 +12,7 @@ import java.util.List;
 public class EliteField extends Field {
     private static final String imagePath = "/images/map_elements/field_types/EliteField.png";
 
-    private LootViewController lootViewController;
+    private LootController lootController;
     private List<Enemy> enemies;
 
     public EliteField(List<Enemy> enemies) {
@@ -23,8 +25,7 @@ public class EliteField extends Field {
         if(isFieldBeaten())
             return;
 
-        BattleViewController battle = new BattleViewController(player, enemies);
-        battle.startBattle();
+        GuiHelper.Scenes.startBattleScene(player, enemies);
 
         if(!player.isAlive()) {
             return;
@@ -32,7 +33,8 @@ public class EliteField extends Field {
 
         setFieldBeaten();
 
-        lootViewController = new LootViewController(player, "EliteField");
-        lootViewController.openLootView(player);
+        // TODO Start LootView over GUIHelper
+
+//        new LootController(player, FieldEnum.ELITEFIELD);
     }
 }

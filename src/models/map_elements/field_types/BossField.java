@@ -2,6 +2,8 @@ package models.map_elements.field_types;
 
 import controller.cli.BattleViewController;
 import controller.cli.LootViewController;
+import controller.gui.LootController;
+import helper.GuiHelper;
 import models.enemy.Enemy;
 import models.player.player_structure.Player;
 import view.cli.StatisticsView;
@@ -28,18 +30,19 @@ public class BossField extends Field{
         if(isFieldBeaten())
             return;
 
-        BattleViewController battle = new BattleViewController(player, enemies);
-        battle.startBattle();
+        GuiHelper.Scenes.startBattleScene(player, enemies);
 
         if(!player.isAlive()) {
             return;
         }
 
         setFieldBeaten();
+        // TODO Start StatisticsView over GUIHelper
 
-        new StatisticView(player);
+//        new StatisticView(player);
 
-        lootViewController = new LootViewController(player, "BossField");
-        lootViewController.openLootView(player);
+        // TODO Start LootView over GUIHelper
+
+//        new LootController(player, FieldEnum.BOSSFIELD);
     }
 }

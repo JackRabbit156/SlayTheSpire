@@ -1,9 +1,7 @@
 package tests;
 
-import controller.gui.MapController;
 import helper.GuiHelper;
 import javafx.application.Application;
-import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 public class MapViewTester  extends Application {
