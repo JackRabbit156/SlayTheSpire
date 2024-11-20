@@ -53,6 +53,8 @@ public class EnemyField extends Field{
 
         setFieldBeaten();
 
+        //TODO Alle Szenen starten beim aufruf
+//        GuiHelper.Scenes.startLootScene(player, FieldEnum.ENEMYFIELD);
     }
 
     /**

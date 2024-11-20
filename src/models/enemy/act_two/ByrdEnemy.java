@@ -18,7 +18,6 @@ public class ByrdEnemy extends Enemy {
     public ByrdEnemy() {
         super("Byrd", 25, 31);
         setImagePath(new PathAssistent().toPath(this));
-        setBlock(40);
     }
 
     @Override
