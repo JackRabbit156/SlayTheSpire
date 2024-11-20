@@ -37,10 +37,11 @@ public class LootController implements LootViewEvents {
      */
     public LootController(Player player, FieldEnum fieldType) {
         this.player = player;
-        this.deckFactory = new DeckFactory(player, amount);
 
         initGoldLoot(fieldType);
         initItemChanceAndAmount();
+
+        this.deckFactory = new DeckFactory(player, amount);
         generatePotionByChance();
 
         this.selectedCards = initialLootDeck();
@@ -79,7 +80,7 @@ public class LootController implements LootViewEvents {
 
     @Override
     public void onCardClick(Card card, int index) {
-        addCardToDeck(this.selectedCards.get(index - 1));
+        addCardToDeck(this.selectedCards.get(index));
     }
 
     @Override
