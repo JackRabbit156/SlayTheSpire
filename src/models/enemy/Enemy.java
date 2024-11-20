@@ -89,9 +89,11 @@ public abstract class Enemy {
 
         if (attackPercentage >= randomNumber) {
             setIntent("attack");
+
+
         }
         else {
-            setIntent("doNothing");
+            setIntent("");
         }
     }
 
