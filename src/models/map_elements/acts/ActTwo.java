@@ -2,12 +2,8 @@ package models.map_elements.acts;
 
 import models.enemy.Enemy;
 import models.enemy.EnemyEnum;
-import models.enemy.act_one.AcidSlimeEnemy;
 import models.enemy.act_one.CultistEnemy;
 import models.enemy.act_one.MadGremlinEnemy;
-import models.enemy.act_one.bosses.SlimeBoss;
-import models.enemy.act_one.elites.GremlinNobElite;
-import models.enemy.act_one.elites.LagavulinElite;
 import models.enemy.act_two.ByrdEnemy;
 import models.enemy.act_two.SphericGuardianEnemy;
 import models.enemy.act_two.boss.BronzeAutomaton;
