@@ -33,13 +33,6 @@ public class LootView extends StackPane {
     private boolean cardSelectionDisabled;
     private StackPane cardSelectionButtonStackPane;
 
-    public LootView(List<Card> lootCards, LootViewEvents lootViewEvents) {
-        this.lootLayout = new BorderPane();
-        this.bottomLayout = new BorderPane();
-        this.lootCards = lootCards;
-        this.lootViewEvents = lootViewEvents;
-    }
-
     public LootView(List<Card> lootCards, int gold, LootViewEvents lootViewEvents) {
         this.lootLayout = new BorderPane();
         this.bottomLayout = new BorderPane();

@@ -53,18 +53,6 @@ public class LootController implements LootViewEvents {
         this.lootView.initTreasureViewEvents(this);
     }
 
-    public LootController(Player player, CardType cardType) {
-        this.player = player;
-
-        this.deckFactory = new DeckFactory(player, amount, cardType);
-
-        this.selectedCards = initialLootDeck();
-
-        this.lootView = new LootView(this.selectedCards, this);
-        this.lootView.initLootViewEvents(this);
-    }
-
-
     private void initItemChanceAndAmount() {
         switch (GameSettings.getDifficultyLevel()) {
             case SUPEREASY:
