@@ -13,6 +13,7 @@ import models.card.card_structure.Card;
 import models.card.card_structure.CardGrave;
 import models.card.card_structure.CardType;
 import models.enemy.Enemy;
+import models.map_elements.field_types.FieldEnum;
 import models.player.player_structure.Player;
 
 import models.potion.potion_structure.PotionCard;
@@ -30,6 +31,7 @@ import java.util.List;
  */
 public class BattleController implements BattleViewEvents, PlayerEventListener, EnemyEventListener {
     private final BattleView battleView;
+    private FieldEnum enemyField;
 
     private final Player player;
     private final List<Enemy> enemies;
@@ -107,8 +109,12 @@ public class BattleController implements BattleViewEvents, PlayerEventListener, 
         selectedCard = null;
 
         if(enemies.isEmpty()) {
-            startingMap();
+            startingLoot();
         }
+    }
+
+    private void startingLoot() {
+        GuiHelper.Scenes.startLootScene(this.player, this.enemyField);
     }
 
     @Override
@@ -226,10 +232,6 @@ public class BattleController implements BattleViewEvents, PlayerEventListener, 
         cardDeath();
     }
 
-    private void startingMap(){
-        GuiHelper.Scenes.startMapScene(player, true);
-    }
-
     public BattleView getBattleView(){
         return this.battleView;
     }
@@ -261,6 +263,14 @@ public class BattleController implements BattleViewEvents, PlayerEventListener, 
                 return;
             }
         }
-        GuiHelper.Scenes.startMapScene(player, true);
+        startingLoot();
+    }
+
+    public void setEnemyField(FieldEnum enemyField) {
+        this.enemyField = enemyField;
+    }
+
+    public FieldEnum getEnemyField() {
+        return enemyField;
     }
 }

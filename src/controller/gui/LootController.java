@@ -24,6 +24,7 @@ public class LootController implements LootViewEvents {
     private PotionCard potionCard;
     private DeckFactory deckFactory;
     private LootView lootView;
+    private FieldEnum fieldType;
 
     private int gold = 0;
     private int amount = 5;
@@ -38,6 +39,7 @@ public class LootController implements LootViewEvents {
      */
     public LootController(Player player, FieldEnum fieldType) {
         this.player = player;
+        this.fieldType = fieldType;
 
         initGoldLoot(fieldType);
         initItemChanceAndAmount();
@@ -113,6 +115,10 @@ public class LootController implements LootViewEvents {
     @Override
     public void onBackClicked() {
         ConsoleAssistent.print(Color.YELLOW, "LootView Leaved!");
+        if (this.fieldType == FieldEnum.BOSSFIELD) {
+            GuiHelper.Scenes.startStatisticScene(player);
+            return;
+        }
         GuiHelper.Scenes.startMapScene(player, true);
     }
 
