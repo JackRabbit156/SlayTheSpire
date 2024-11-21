@@ -1,6 +1,7 @@
 package models.map_elements.field_types;
 
 import controller.cli.TreasureViewController;
+import helper.GuiHelper;
 import models.player.player_structure.Player;
 
 /**
@@ -15,6 +16,6 @@ public class TreasureField extends Field {
 
     @Override
     public void doFieldThing(Player player) {
-        new TreasureViewController(player);
+        GuiHelper.Scenes.startTreasureScene(player);
     }
 }

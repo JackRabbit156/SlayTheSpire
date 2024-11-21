@@ -6,24 +6,22 @@ import helper.GuiHelper;
 import models.card.DeckFactory;
 import models.card.card_structure.Card;
 import models.game_settings.GameSettings;
-import models.map_elements.field_types.FieldEnum;
 import models.player.player_structure.Player;
 import models.potion.potion_structure.PotionCard;
-import view.gui.LootView;
-import view.gui.layouts.layout_events.LootViewEvents;
+import view.gui.TreasureView;
+import view.gui.layouts.layout_events.TreasureViewEvents;
 
 import java.util.List;
 import java.util.Random;
 
-public class LootController implements LootViewEvents {
+public class TreasureController implements TreasureViewEvents {
     private Random randi = new Random();
 
     private Player player;
     private List<Card> selectedCards;
     private PotionCard potionCard;
     private DeckFactory deckFactory;
-    private LootView lootView;
-    private FieldEnum fieldType;
+    private TreasureView treasureView;
 
     private int gold = 0;
     private int amount = 5;
@@ -32,24 +30,21 @@ public class LootController implements LootViewEvents {
 
     /**
      * Anzahl an möglichen Karten wird initialisiert, je nach Schwierigkeit.
-     * Für eine neuinitialisierung muss ein neuer LootViewCohtroller geschaffen werden.
+     * Für eine neuinitialisierung muss ein neuer TreasureController geschaffen werden.
      * @param player wird für die Loot-Deckerstellung benötigt.
-     * @param fieldType Gold Faktor für den Loot
      */
-    public LootController(Player player, FieldEnum fieldType) {
+    public TreasureController(Player player) {
         this.player = player;
-        this.fieldType = fieldType;
-
-        initGoldLoot(fieldType);
+        this.gold = randi.nextInt(80 + 1 - 25) + 35;
         initItemChanceAndAmount();
 
         this.deckFactory = new DeckFactory(player, amount);
         generatePotionByChance();
 
-        this.selectedCards = initialLootDeck();
+        this.selectedCards = initTreasureDeck();
 
-        this.lootView = new LootView(this.selectedCards, this.gold, this.potionCard, this);
-        this.lootView.initTreasureViewEvents(this);
+        this.treasureView = new TreasureView(this.selectedCards, this.gold, this.potionCard, this);
+        this.treasureView.initTreasureViewEvents(this);
     }
 
 
@@ -60,13 +55,13 @@ public class LootController implements LootViewEvents {
                 this.gold = (int) (this.gold * 1.5);
                 break;
             case NORMAL:
-                amount = 3;
-                potionsChance = 0.50;
+                this.amount = 3;
+                this.potionsChance = 0.50;
                 break;
             case IMPOSSIBLE:
             case HARD:
-                potionsChance = 0.10;
-                amount = 1;
+                this.potionsChance = 0.10;
+                this.amount = 1;
 
                 this.gold = (int) (this.gold * 0.5);
                 break;
@@ -96,51 +91,26 @@ public class LootController implements LootViewEvents {
             ConsoleAssistent.print(Color.YELLOW, "Got an Potion: " + potion.getName());
             this.player.addPotionCard(potion);
         } else {
-            this.lootView.showDialog("You have reached the maximum of Potion.");
+            this.treasureView.showDialog("You have reached the maximum of Potion.");
         }
     }
 
     @Override
     public void onBackClicked() {
-        ConsoleAssistent.print(Color.YELLOW, "LootView Leaved!");
-        if (this.fieldType == FieldEnum.BOSSFIELD) {
-            GuiHelper.Scenes.startStatisticScene(player);
-            return;
-        }
+        ConsoleAssistent.print(Color.YELLOW, "TreasureView Leaved!");
         GuiHelper.Scenes.startMapScene(player, true);
     }
 
     /**
-     * Übergabe der LootView
-     * @return LootView
+     * Übergabe der TreasureView
+     * @return TreasureView
      */
-    public LootView getLootView() {
-        return this.lootView;
+    public TreasureView getTreasureView() {
+        return this.treasureView;
     }
 
-    private List<Card> initialLootDeck() {
+    private List<Card> initTreasureDeck() {
         return this.deckFactory.init();
-    }
-
-    private void initGoldLoot(FieldEnum fieldType) {
-        // Initialisierung
-        switch (fieldType) {
-            case BOSSFIELD: {
-                // Boss Encounter: 95-105 Gold
-                this.gold = randi.nextInt(105 + 1 - 95) + 95;
-                break;
-            }
-            case ELITEFIELD: {
-                // Elite Encounter: 25-35 Gold
-                this.gold = randi.nextInt(35 + 1 - 25) + 25;
-                break;
-            }
-            case ENEMYFIELD: {
-                // Normal Encounter: 10-20 Gold
-                this.gold = randi.nextInt(20 + 1 - 10) + 10;
-                break;
-            }
-        }
     }
 
     private void addCardToDeck(Card card) {

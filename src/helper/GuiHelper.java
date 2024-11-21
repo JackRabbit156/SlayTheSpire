@@ -95,6 +95,21 @@ public class GuiHelper {
         }
 
         /**
+         * Startet die Treasure-Szene, in der der Spieler eine Liste von Items erhalten kann, wenn er will.
+         *
+         * @param player die 'Player'-Instanz, die den Spieler im Spiel repräsentiert
+         * @param fieldType Welchen fieldType man vorher besucht hat.
+         */
+        public static void startTreasureScene(Player player) {
+            TreasureController treasureController = new TreasureController(player);
+            Stage primaryStage = player.getPrimaryStage();
+
+            Scene scene = new Scene(treasureController.getTreasureView(), 1920, 1080);
+            scene.getStylesheets().add(Objects.requireNonNull(Scenes.class.getResource("/css/battleStyle.css")).toExternalForm());
+            fadeTransition(primaryStage, scene);
+        }
+
+        /**
          * Startet die Rest-Szene, in der der Spieler sich ausruhen kann.
          *
          * @param player die 'Player'-Instanz, die den Spieler im Spiel repräsentiert
