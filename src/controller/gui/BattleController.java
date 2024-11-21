@@ -53,6 +53,7 @@ public class BattleController implements BattleViewEvents, PlayerEventListener, 
         this.potions = player.getPotionCards();
 
         this.gameContext = new GameContext(player, enemies, battleDeck);
+        resetEnergyAndBlock();
         this.battleView = new BattleView(player, enemies, this, battleDeck);
         player.setPlayerEventListener(this);
 
@@ -67,6 +68,10 @@ public class BattleController implements BattleViewEvents, PlayerEventListener, 
             enemy.calcIntent();
         }
         battleDeck.fillHand(battleDeck.getStartHandSize());
+        resetEnergyAndBlock();
+    }
+
+    public void resetEnergyAndBlock() {
         player.resetEnergy();
         player.resetBlock();
     }
