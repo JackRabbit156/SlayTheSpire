@@ -6,7 +6,6 @@ import events.EnemyDamageEvent;
 import events.PlayerBlockEvent;
 import events.PlayerDamageEvent;
 import helper.GuiHelper;
-import javafx.stage.Stage;
 import models.battle.BattleDeck;
 import models.battle.GameContext;
 
@@ -54,21 +53,28 @@ public class BattleController implements BattleViewEvents, PlayerEventListener, 
 
         this.gameContext = new GameContext(player, enemies, battleDeck);
         resetEnergyAndBlock();
+        calcIntentForAllEnemies(enemies);
+
+
         this.battleView = new BattleView(player, enemies, this, battleDeck);
         player.setPlayerEventListener(this);
 
 
         battleDeck.fillHand(battleDeck.getStartHandSize());
 
-        playerBOT();
+//        playerBOT();
     }
 
     private void playerBOT() {
+        calcIntentForAllEnemies(enemies);
+        resetEnergyAndBlock();
+        battleDeck.fillHand(battleDeck.getStartHandSize());
+    }
+
+    private void calcIntentForAllEnemies(List<Enemy> enemies) {
         for (Enemy enemy : enemies) {
             enemy.calcIntent();
         }
-        battleDeck.fillHand(battleDeck.getStartHandSize());
-        resetEnergyAndBlock();
     }
 
     public void resetEnergyAndBlock() {
