@@ -27,16 +27,18 @@ public class TheChamp extends Enemy {
         int randomAttack = randi.nextInt(3);
 
         switch (randomAttack) {
-            case 0:
-                attackExecute(gameContext);
-                break;
-            case 1:
-                attackFaceSlap(gameContext);
-                break;
-            case 2:
-                attackHeavySlash(gameContext);
-                break;
+            case 0: attackExecute(gameContext); break;
+            case 1: attackFaceSlap(gameContext); break;
+            case 2: attackHeavySlash(gameContext); break;
+            default:  attackDefensiveStance();
         }
+    }
+
+    private void attackDefensiveStance() {
+        int block = 15;
+        this.setBlock(block);
+
+        System.out.printf("%s used %s and gained %d Block!\n\n", getName(), "Defensive Stance", block);
     }
 
     private void attackFaceSlap(GameContext gameContext) {

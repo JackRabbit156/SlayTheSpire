@@ -27,12 +27,8 @@ public class BookOfStabbing  extends Enemy {
         int randomAttack = randi.nextInt(2);
 
         switch (randomAttack) {
-            case 0:
-                attackMultiStab(gameContext);
-                break;
-            case 1:
-                attackSingleStab(gameContext);
-                break;
+            case 0: attackMultiStab(gameContext); break;
+            case 1: attackSingleStab(gameContext); break;
         }
     }
 
