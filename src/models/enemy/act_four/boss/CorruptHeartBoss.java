@@ -21,10 +21,8 @@ public class CorruptHeartBoss extends Enemy {
     @Override
     public void attack(GameContext gameContext) {
         switch (rand.nextInt(2)) {
-            case 0:
-                attackBloodShots(gameContext);
-            case 1:
-                attackEcho(gameContext);
+            case 0: attackBloodShots(gameContext); break;
+            case 1: attackEcho(gameContext); break;
         }
     }
 
@@ -33,7 +31,7 @@ public class CorruptHeartBoss extends Enemy {
         Player player = gameContext.getPlayer();
 
         player.decreaseCurrentHealth(attackDamage, false);
-        System.out.printf("%s used %s, %s took %d damage!\n", getName(), "Dark Strike", player.getName(), attackDamage);
+        System.out.printf("%s used %s, %s took %d damage!\n", getName(), "Blood Shots", player.getName(), attackDamage);
     }
 
     private void attackEcho(GameContext gameContext){
@@ -41,6 +39,6 @@ public class CorruptHeartBoss extends Enemy {
         Player player = gameContext.getPlayer();
 
         player.decreaseCurrentHealth(attackDamage, false);
-        System.out.printf("%s used %s, %s took %d damage!\n", getName(), "Dark Strike", player.getName(), attackDamage);
+        System.out.printf("%s used %s, %s took %d damage!\n", getName(), "Echo", player.getName(), attackDamage);
     }
 }
