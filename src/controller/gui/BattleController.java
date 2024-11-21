@@ -100,7 +100,7 @@ public class BattleController implements BattleViewEvents, PlayerEventListener, 
     }
 
     private void startingLoot() {
-        GuiHelper.Scenes.startLootScene(this.player, this.enemyField);
+        //GuiHelper.Scenes.startLootScene(this.player, this.enemyField);
     }
 
     @Override

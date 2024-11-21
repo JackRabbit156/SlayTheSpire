@@ -19,6 +19,28 @@ public class CreditView {
     private Button back = new Button();
     private VBox output = new VBox();
 
+    public CreditView(){
+        initButton();
+    }
+
+    public void initButton(){
+        back.setText("Back");
+        back.setTextFill(Color.WHITE);
+        back.setFont(Font.font("/resources/font/kreon/static/Kreon-Bold.ttf", 24));
+        back.setTextAlignment(TextAlignment.CENTER);
+        back.setBackground(new Background(GuiHelper.background("/images/buttons/endTurnButton.png")));
+        back.setMinSize(200, 200);
+
+        back.setOnMouseEntered(event1 -> {
+            back.setBackground(new Background(
+                    GuiHelper.background("/images/buttons/endTurnButtonGlow.png")));
+        });
+        back.setOnMouseExited(event1 -> {
+            back.setBackground(new Background(
+                    GuiHelper.background("/images/buttons/endTurnButton.png")));
+        });
+    }
+
     public Button getBackButton() {
         return back;
     }
@@ -35,13 +57,9 @@ public class CreditView {
         creditText.setTextAlignment(TextAlignment.CENTER);
         ImageView creditImage = new ImageView(new Image(Objects.requireNonNull(
                 GuiHelper.class.getResource("/images/backgrounds/STSLogo.png")).toExternalForm()));
-        back.setText("Back");
-        back.setTextFill(Color.WHITE);
-        back.setFont(Font.font("/resources/font/kreon/static/Kreon-Bold.ttf", 24));
-        back.setTextAlignment(TextAlignment.CENTER);
-        back.setBackground(new Background(GuiHelper.background("/images/buttons/endTurnButton.png")));
-        back.setMinSize(200, 200);
+
         output.setAlignment(Pos.CENTER);
+        output.getChildren().clear();
         output.getChildren().addAll(creditImage, creditText, back);
 
         return output;

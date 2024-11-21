@@ -22,31 +22,32 @@ public class MainMenuView {
     private Button yes = new Button("Yes");
     private Button no = new Button("No");
 
+    public MainMenuView(){
+        initButtons();
+    }
+    public void initButtons(){
 
-    private VBox msg = new VBox();
-    private HBox nrg = new HBox();
-
-    public Button getNo() {
         no.setText("No");
         no.setTextFill(Color.WHITE);
         no.setFont(Font.font(fontPath, 24));
         no.setAlignment(Pos.CENTER);
         no.setBackground(new Background(GuiHelper.background("/images/buttons/endTurnButton.png")));
         no.setPrefSize(120, 120);
-        return no;
-    }
 
-    public Button getYes() {
         yes.setText("Yes");
         yes.setTextFill(Color.WHITE);
         yes.setFont(Font.font(fontPath, 24));
         yes.setAlignment(Pos.CENTER);
         yes.setBackground(new Background(GuiHelper.background("/images/buttons/endTurnButton.png")));
         yes.setPrefSize(120, 120);
-        return yes;
-    }
-
-    public Button getNewGameButton(){
+        yes.setOnMouseEntered(event1 -> {
+            yes.setBackground(new Background(
+                    GuiHelper.background("/images/buttons/endTurnButtonGlow.png")));
+        });
+        yes.setOnMouseExited(event1 -> {
+            yes.setBackground(new Background(
+                    GuiHelper.background("/images/buttons/endTurnButton.png")));
+        });
         newGame.setText("New Game");
         newGame.setTextFill(Color.WHITE);
         newGame.setFont(Font.font(fontPath, 30));
@@ -59,10 +60,7 @@ public class MainMenuView {
         newGame.setOnMouseExited(event -> {
             newGame.setBackground(Background.EMPTY);
         });
-        return newGame;
-    }
 
-    public Button getLoadGameButton() {
         loadGame.setText("Load Game");
         loadGame.setTextFill(Color.WHITE);
         loadGame.setFont(Font.font(fontPath, 30));
@@ -75,10 +73,7 @@ public class MainMenuView {
         loadGame.setOnMouseExited(event -> {
             loadGame.setBackground(Background.EMPTY);
         });
-        return loadGame;
-    }
 
-    public Button getDelSaveGameButton() {
         delSaveGame.setText("Delete Save");
         delSaveGame.setTextFill(Color.WHITE);
         delSaveGame.setFont(Font.font(fontPath, 30));
@@ -91,10 +86,7 @@ public class MainMenuView {
         delSaveGame.setOnMouseExited(event -> {
             delSaveGame.setBackground(Background.EMPTY);
         });
-        return delSaveGame;
-    }
 
-    public Button getCreditsButton() {
         credits.setText("Credits");
         credits.setTextFill(Color.WHITE);
         credits.setFont(Font.font(fontPath, 30));
@@ -107,10 +99,7 @@ public class MainMenuView {
         credits.setOnMouseExited(event -> {
             credits.setBackground(Background.EMPTY);
         });
-        return credits;
-    }
 
-    public Button getQuitButton() {
         quit.setText("Quit");
         quit.setTextFill(Color.WHITE);
         quit.setFont(Font.font(fontPath, 30));
@@ -123,6 +112,36 @@ public class MainMenuView {
         quit.setOnMouseExited(event -> {
             quit.setBackground(Background.EMPTY);
         });
+    }
+
+    private VBox msg = new VBox();
+    private HBox nrg = new HBox();
+
+    public Button getNo() {
+        return no;
+    }
+
+    public Button getYes() {
+        return yes;
+    }
+
+    public Button getNewGameButton(){
+        return newGame;
+    }
+
+    public Button getLoadGameButton() {
+        return loadGame;
+    }
+
+    public Button getDelSaveGameButton() {
+        return delSaveGame;
+    }
+
+    public Button getCreditsButton() {
+        return credits;
+    }
+
+    public Button getQuitButton() {
         return quit;
     }
 

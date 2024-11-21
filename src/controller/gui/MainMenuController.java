@@ -53,32 +53,17 @@ public class MainMenuController {
             quitUp.hide();
             quitUp.getContent().remove(view.displayQuitMessage());
             menuStage.getScene().setRoot(creditView.display());
-            creditView.getBackButton().setOnMouseEntered(event1 -> {
-                creditView.getBackButton().setBackground(new Background(
-                        GuiHelper.background("/images/buttons/endTurnButtonGlow.png")));
-            });
-            creditView.getBackButton().setOnMouseExited(event1 -> {
-                creditView.getBackButton().setBackground(new Background(
-                        GuiHelper.background("/images/buttons/endTurnButton.png")));
             });
             creditView.getBackButton().setOnMouseClicked(event1 -> {
                 menuStage.getScene().setRoot(view.display());
-                creditView.getOutput().getChildren().removeAll();
             });
-        });
+
     }
     public void quit(Button quit){
         quit.setOnMouseClicked(event -> {
             quitUp.getContent().add(view.displayQuitMessage());
             quitUp.show(menuStage);
-            view.getYes().setOnMouseEntered(event1 -> {
-                view.getYes().setBackground(new Background(
-                            GuiHelper.background("/images/buttons/endTurnButtonGlow.png")));
-            });
-            view.getYes().setOnMouseExited(event1 -> {
-                view.getYes().setBackground(new Background(
-                            GuiHelper.background("/images/buttons/endTurnButton.png")));
-            });
+
             view.getNo().setOnMouseEntered(event1 -> {
                 view.getNo().setBackground(new Background(
                         GuiHelper.background("/images/buttons/endTurnButtonGlow.png")));
