@@ -1,4 +1,4 @@
-package models.enemy.act_one.bosses;
+package models.enemy.act_one.boss;
 
 import helper.PathAssistent;
 import models.battle.GameContext;
