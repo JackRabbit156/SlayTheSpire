@@ -16,6 +16,7 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import models.enemy.Enemy;
+import models.map_elements.field_types.EnemyField;
 import models.map_elements.field_types.FieldEnum;
 import models.player.player_structure.Player;
 import view.cli.StatisticsView;
@@ -68,8 +69,9 @@ public class GuiHelper {
          * @param player die 'Player'-Instanz, die den Spieler im Spiel repräsentiert
          * @param enemies eine Liste von 'Enemy'-Instanzen, die die Gegner im Kampf darstellen
          */
-        public static void startBattleScene(Player player, List<Enemy> enemies) {
+        public static void startBattleScene(Player player, List<Enemy> enemies, FieldEnum enemyField) {
             BattleController battle = new BattleController(player, enemies);
+            battle.setEnemyField(enemyField);
             Stage primaryStage = player.getPrimaryStage();
 
             Scene scene = new Scene(battle.getBattleView(), 1920, 1080);

@@ -30,16 +30,12 @@ public class BossField extends Field{
         if(isFieldBeaten())
             return;
 
-        GuiHelper.Scenes.startBattleScene(player, enemies);
+        GuiHelper.Scenes.startBattleScene(player, enemies, FieldEnum.BOSSFIELD);
 
         if(!player.isAlive()) {
             return;
         }
 
         setFieldBeaten();
-        // TODO Alle Szenen starten beim aufruf
-//        GuiHelper.Scenes.startStatisticScene(player);
-
-//        GuiHelper.Scenes.startLootScene(player, FieldEnum.BOSSFIELD);
     }
 }
