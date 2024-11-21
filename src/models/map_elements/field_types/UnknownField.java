@@ -40,7 +40,7 @@ public class UnknownField extends Field {
      */
     public UnknownField(EventField eventField, EnemyField enemyField, EliteField eliteField, ShopField shopField) {
         super(imagePath);
-        this.fields = new Field[]{eventField, enemyField, eliteField, shopField};
+        this.fields = new Field[]{shopField, enemyField, eliteField, shopField};
     }
 
     @Override

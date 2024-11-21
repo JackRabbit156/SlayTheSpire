@@ -32,12 +32,13 @@ public class ShopController implements ShopViewEvents {
         // Wird beim Spielstart ausgeführt und bei jedem Act.
         this.purchasableCards = this.deckFactory.init();
         this.purchasablePotion = this.deckFactory.generatePotion();
+        entryShop();
     }
 
     /**
      * Initialisierung des Shops und des ShopViewEvents
      */
-    public void entryShop() {
+    private void entryShop() {
         this.shopView = new ShopView(player, purchasableCards, this, purchasablePotion);
         this.shopView.initShopViewEvents(this);
     }

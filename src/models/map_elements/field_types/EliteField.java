@@ -32,9 +32,7 @@ public class EliteField extends Field {
         }
 
         setFieldBeaten();
-
-        // TODO Start LootView over GUIHelper
-
-//        new LootController(player, FieldEnum.ELITEFIELD);
+        //TODO Alle Szenen starten beim aufruf
+//        GuiHelper.Scenes.startLootScene(player, FieldEnum.ELITEFIELD);
     }
 }

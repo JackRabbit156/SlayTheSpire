@@ -1,6 +1,7 @@
 package models.map_elements.field_types;
 
 import controller.gui.ShopController;
+import helper.GuiHelper;
 import models.player.player_structure.Player;
 
 public class ShopField extends Field{
@@ -12,9 +13,11 @@ public class ShopField extends Field{
 
     @Override
     public void doFieldThing(Player player) {
-        // TODO Start ShopView over GUIHelper
+        if(isFieldBeaten())
+            return;
 
-        ShopController shop = new ShopController(player);
-        shop.entryShop();
+        setFieldBeaten();
+
+        GuiHelper.Scenes.startShopScene(player);
     }
 }

@@ -2,6 +2,7 @@ package models.map_elements.field_types;
 
 import controller.cli.RestViewController;
 import controller.gui.RestController;
+import helper.GuiHelper;
 import models.player.player_structure.Player;
 
 public class RestField extends Field{
@@ -16,10 +17,8 @@ public class RestField extends Field{
         if(isFieldBeaten())
             return;
 
-        // TODO Start RestView  over GUIHelper
-//        new RestController(player);
-
-
         setFieldBeaten();
+
+        GuiHelper.Scenes.startRestScene(player);
     }
 }

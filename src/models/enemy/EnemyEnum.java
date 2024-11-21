@@ -6,5 +6,5 @@ public enum EnemyEnum {
     LAGAVULIN,
     GOBLIN,
     SLIME,
-
+    STABBING
 }

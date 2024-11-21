@@ -37,12 +37,9 @@ public class BossField extends Field{
         }
 
         setFieldBeaten();
-        // TODO Start StatisticsView over GUIHelper
+        // TODO Alle Szenen starten beim aufruf
+//        GuiHelper.Scenes.startStatisticScene(player);
 
-//        new StatisticView(player);
-
-        // TODO Start LootView over GUIHelper
-
-//        new LootController(player, FieldEnum.BOSSFIELD);
+//        GuiHelper.Scenes.startLootScene(player, FieldEnum.BOSSFIELD);
     }
 }
