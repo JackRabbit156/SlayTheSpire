@@ -10,7 +10,8 @@ public class MapViewTester  extends Application {
     @Override
     public void start(Stage primaryStage) {
         TestPlayer player = new TestPlayer();
-        player.setCurrentField("15");
+        player.setCurrentAct(2);
+        player.setCurrentField("32");
         player.setPrimaryStage(primaryStage);
         GuiHelper.Scenes.startMapScene(player, true);
     }
