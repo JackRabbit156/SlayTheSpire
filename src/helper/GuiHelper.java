@@ -98,7 +98,6 @@ public class GuiHelper {
          * Startet die Treasure-Szene, in der der Spieler eine Liste von Items erhalten kann, wenn er will.
          *
          * @param player die 'Player'-Instanz, die den Spieler im Spiel repräsentiert
-         * @param fieldType Welchen fieldType man vorher besucht hat.
          */
         public static void startTreasureScene(Player player) {
             TreasureController treasureController = new TreasureController(player);
