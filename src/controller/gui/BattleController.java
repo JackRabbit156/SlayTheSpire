@@ -6,7 +6,6 @@ import events.EnemyDamageEvent;
 import events.PlayerBlockEvent;
 import events.PlayerDamageEvent;
 import helper.GuiHelper;
-import javafx.stage.Stage;
 import models.battle.BattleDeck;
 import models.battle.GameContext;
 
@@ -17,6 +16,7 @@ import models.enemy.Enemy;
 import models.map_elements.field_types.FieldEnum;
 import models.player.player_structure.Player;
 
+import models.potion.potion_structure.PotionCard;
 import view.gui.BattleView;
 import view.gui.layouts.layout_events.BattleViewEvents;
 
@@ -37,6 +37,7 @@ public class BattleController implements BattleViewEvents, PlayerEventListener, 
     private final List<Enemy> enemies;
 
     private final BattleDeck battleDeck;
+    private List<PotionCard> potions;
     private final GameContext gameContext;
 
     private Card selectedCard;
@@ -51,22 +52,35 @@ public class BattleController implements BattleViewEvents, PlayerEventListener, 
         }
 
         this.battleDeck = new BattleDeck(player.getDeck());
+        this.potions = player.getPotionCards();
 
         this.gameContext = new GameContext(player, enemies, battleDeck);
+        resetEnergyAndBlock();
+        calcIntentForAllEnemies(enemies);
+
+
         this.battleView = new BattleView(player, enemies, this, battleDeck);
         player.setPlayerEventListener(this);
 
 
         battleDeck.fillHand(battleDeck.getStartHandSize());
 
-        playerBOT();
+//        playerBOT();
     }
 
     private void playerBOT() {
+        calcIntentForAllEnemies(enemies);
+        resetEnergyAndBlock();
+        battleDeck.fillHand(battleDeck.getStartHandSize());
+    }
+
+    private void calcIntentForAllEnemies(List<Enemy> enemies) {
         for (Enemy enemy : enemies) {
             enemy.calcIntent();
         }
-        battleDeck.fillHand(battleDeck.getStartHandSize());
+    }
+
+    public void resetEnergyAndBlock() {
         player.resetEnergy();
         player.resetBlock();
     }
@@ -181,6 +195,10 @@ public class BattleController implements BattleViewEvents, PlayerEventListener, 
     }
 
     private void cardDeath() {
+        if (selectedCard.getCardGrave().equals(CardGrave.POTION)) {
+            potions.remove(selectedCard);
+        }
+
         if (selectedCard.getCardGrave().equals(CardGrave.EXHAUST)) {
             battleDeck.exhaustCardFromHand(selectedCard);
         }
@@ -198,7 +216,13 @@ public class BattleController implements BattleViewEvents, PlayerEventListener, 
         }
 
         // Play the card (and add the enemy)
-        gameContext.setSelectedEnemy(enemy);
+        if (enemy == null) {
+            gameContext.setRandomEnemy();
+        }
+        else {
+            gameContext.setSelectedEnemy(enemy);
+        }
+
         selectedCard.play(gameContext);
 
         cardDeath();

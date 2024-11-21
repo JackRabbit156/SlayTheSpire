@@ -11,6 +11,7 @@ import models.card.card_structure.Card;
 import models.card.card_structure.CardType;
 import models.enemy.Enemy;
 import models.player.player_structure.Player;
+import models.potion.potion_structure.PotionCard;
 import view.gui.layouts.battle_view_layouts.*;
 import javafx.scene.control.Button;
 import view.gui.layouts.layout_events.BattleViewEvents;
@@ -45,7 +46,10 @@ public class BattleView extends BorderPane implements BattleDeckListener {
 
     private BottomSideLayout bottomHBox;
 
-    private HBox topHBox; // Die obere HBox;
+
+    private TopSideLayout topVBox;
+
+
     private Label information;
     private Button openGameMenuButton;
 
@@ -66,6 +70,8 @@ public class BattleView extends BorderPane implements BattleDeckListener {
         this.battleDeck = battleDeck;
         this.battleDeck.setBattleDeckListener(this);
 
+
+
         setBackground(new Background(GuiHelper.background("/images/act1.png")));
         initNodes();
     }
@@ -75,23 +81,20 @@ public class BattleView extends BorderPane implements BattleDeckListener {
         initLeft();
         initRight();
         initBottom();
+
+        leftVBox.setTranslateY(-50);
+        rightVBox.setTranslateY(-50);
+        bottomHBox.setTranslateY(-50);
+
+        updateInformation();
     }
 
     /**
      * Top side for the Player Information
      */
     private void initTop() {
-        topHBox = new HBox(50);
-        topHBox.setStyle("-fx-background-color: rgba(34, 34, 34, 0.8);");
-        topHBox.setPrefHeight(50);
-
-        openGameMenuButton = new Button();
-        openGameMenuButton.setText("Game Menu");
-
-        information = new Label("Some Information about the player");
-
-        topHBox.getChildren().addAll(openGameMenuButton, information);
-        this.setTop(topHBox);
+        topVBox = new TopSideLayout(this, player);
+        this.setTop(topVBox);
     }
 
     /**
@@ -141,6 +144,21 @@ public class BattleView extends BorderPane implements BattleDeckListener {
         updateInformation();
     }
 
+    public void clickedOnPotion(PotionCard potion, int index){
+        if(potion.getCardType() == CardType.ATTACK){
+            mode.set(Mode.ATTACK);
+            selectEnemyView();
+        }
+        else if (potion.getCardType() == CardType.SKILL) {
+            mode.set(Mode.SKILL);
+            selectPlayerView();
+        }
+
+        battleViewEvents.onCardClick(potion, index);
+
+        updateInformation();
+    }
+
     public void clickedOnEnemy(Enemy enemy){
         mode.set(Mode.NORMAL);
         enableBattleView();
@@ -171,23 +189,24 @@ public class BattleView extends BorderPane implements BattleDeckListener {
         rightVBox.refreshRightSide();
         leftVBox.updatePlayer();
         bottomHBox.updateBottom();
+        topVBox.updateTop();
         leftVBox.updatePlayer();
     }
 
     public void selectEnemyView(){
-        topHBox.setDisable(true);
+        topVBox.setDisable(true);
         leftVBox.setDisable(true);
         bottomHBox.setDisable(true);
     }
 
     public void selectPlayerView(){
-        topHBox.setDisable(true);
+        topVBox.setDisable(true);
         rightVBox.setDisable(true);
         bottomHBox.setDisable(true);
     }
 
     public void enableBattleView(){
-        topHBox.setDisable(false);
+        topVBox.setDisable(false);
         leftVBox.setDisable(false);
         rightVBox.setDisable(false);
         bottomHBox.setDisable(false);

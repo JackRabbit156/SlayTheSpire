@@ -1,7 +1,6 @@
 package models.potion;
 
 public enum PotionEnum {
-    ATTACKPOTION,
     BLOCKPOTION,
     BLOODPOTION,
     DISTILLEDCHAOSPOTION,

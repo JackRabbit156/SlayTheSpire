@@ -28,11 +28,11 @@ public class ReaperCard extends AttackCard {
     public void play(GameContext gameContext) {
         List<Enemy> allEnemies = gameContext.getEnemies();
         int bonusHp = 0;
-        for (Enemy allEnemy : allEnemies) {
-            int enemyHealthOld = allEnemy.getHealth();
-            allEnemy.takeDamage(dealDamage());
-            if (allEnemy.getHealth() < enemyHealthOld) {
-                bonusHp += (allEnemy.getHealth() - enemyHealthOld);
+        for (Enemy enemy : allEnemies) {
+            int enemyHealthOld = enemy.getHealth();
+            enemy.takeDamage(dealDamage());
+            if (enemy.getHealth() < enemyHealthOld) {
+                bonusHp += (enemyHealthOld - enemy.getHealth());
             }
         }
 
