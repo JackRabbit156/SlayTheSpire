@@ -16,6 +16,7 @@ import models.card.card_structure.CardType;
 import models.enemy.Enemy;
 import models.player.player_structure.Player;
 
+import models.potion.potion_structure.PotionCard;
 import view.gui.BattleView;
 import view.gui.layouts.layout_events.BattleViewEvents;
 
@@ -35,6 +36,7 @@ public class BattleController implements BattleViewEvents, PlayerEventListener, 
     private final List<Enemy> enemies;
 
     private final BattleDeck battleDeck;
+    private List<PotionCard> potions;
     private final GameContext gameContext;
 
     private Card selectedCard;
@@ -48,6 +50,7 @@ public class BattleController implements BattleViewEvents, PlayerEventListener, 
         }
 
         this.battleDeck = new BattleDeck(player.getDeck());
+        this.potions = player.getPotionCards();
 
         this.gameContext = new GameContext(player, enemies, battleDeck);
         this.battleView = new BattleView(player, enemies, this, battleDeck);
@@ -174,6 +177,10 @@ public class BattleController implements BattleViewEvents, PlayerEventListener, 
     }
 
     private void cardDeath() {
+        if (selectedCard.getCardGrave().equals(CardGrave.POTION)) {
+            potions.remove(selectedCard);
+        }
+
         if (selectedCard.getCardGrave().equals(CardGrave.EXHAUST)) {
             battleDeck.exhaustCardFromHand(selectedCard);
         }
