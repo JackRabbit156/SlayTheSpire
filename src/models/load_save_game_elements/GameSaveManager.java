@@ -1,8 +1,12 @@
 package models.load_save_game_elements;
 
 import helper.ConsoleAssistent;
+import models.card.card_structure.Card;
+import models.card.ironclad_cards.IroncladStrikeCard;
+import models.card.silent_cards.SilentStrikeCard;
 import models.game_settings.GameSettings;
 import models.player.player_structure.Player;
+import models.player.player_structure.PlayerType;
 
 import java.time.LocalDateTime;
 
@@ -158,7 +162,8 @@ public class GameSaveManager {
         gameData.put("difficulty", GameSettings.getDifficultyLevel().toString());
 
         for (int i = 0; i < player.getDeck().size(); i++) {
-            gameData.put("card" + i, player.getDeck().get(i).getName() + "Card");
+            Card card = player.getDeck().get(i);
+            gameData.put("card" + i, card.getClass().getSimpleName());
         }
 
         return gameData;

@@ -32,9 +32,26 @@ public class LoadController implements LoadEventListener {
     private LoadView loadView;
 
     private Stage primaryStage;
+    private Player player;
 
     public LoadController(Stage primaryStage){
         this.primaryStage = primaryStage;
+
+        gameSaveManager = new GameSaveManager();
+
+        List<SaveFilePreview> saveFilePreviewList = saveFilePreviewList();
+        this.loadView = new LoadView(this, saveFilePreviewList);
+
+        if(saveFilePreviewList.isEmpty()){
+            // TODO: View if there are no files
+            return;
+        }
+    }
+
+    public LoadController(Player player){
+        this.player = player;
+        this.primaryStage = player.getPrimaryStage();
+
         gameSaveManager = new GameSaveManager();
 
         List<SaveFilePreview> saveFilePreviewList = saveFilePreviewList();
@@ -153,6 +170,11 @@ public class LoadController implements LoadEventListener {
 
     @Override
     public void onBackButtonClick() {
-        System.out.println("Back button");
+        if(player == null) {
+            // TODO: Starting Main Menu
+        } else {
+            GuiHelper.Scenes.startMapScene(player, true);
+        }
+
     }
 }
