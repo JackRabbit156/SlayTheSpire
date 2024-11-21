@@ -18,10 +18,8 @@ public class GremlinNobElite extends Enemy {
     @Override
     public void attack(GameContext gameContext) {
         switch (randi.nextInt(2)) {
-            case 0:
-                attackRush(gameContext);
-            default:
-                attackSkullBash(gameContext);
+            case 0: attackRush(gameContext); break;
+            default: attackSkullBash(gameContext);
         }
     }
 
