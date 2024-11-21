@@ -19,6 +19,7 @@ public class Main extends Application {
 
 //        GuiHelper.Scenes.startLoadSaveStateScene(primaryStage);
         GuiHelper.Scenes.startMapScene(player, true);
+        
     }
 
     public static void main(String[] args) {

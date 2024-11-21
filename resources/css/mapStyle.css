@@ -1,55 +1,14 @@
 @font-face {
-    font-family: 'Kreon-Bold'; /* Der Name, den Sie der Schriftart geben möchten */
+    font-family: 'Kreon'; /* Der Name, den Sie der Schriftart geben möchten */
     src: url('/font/kreon/static/Kreon-Bold.ttf'); /* Relativer Pfad zur Schriftart im resources-Ordner */
     /* src: url('fonts/YourFontName.ttf') format('truetype');  bei Bedarf */
 }
 
-/* styles.css */
-.health-label {
-    -fx-text-fill: red;                   /* Text color */
-    -fx-font-family: "Kreon-Bold"; /* Font family   "Nunito", "Roboto", "Proxima Nova", "sans-serif"*/
-    -fx-font-size: 24px;                    /* Font size */
-    -fx-font-weight: Bold;                  /* Font weight */
-    -fx-padding: 10 60 0 0;              /* Padding (top right bottom left) */
-    -fx-min-height: 0px;                  /* Minimum height */
-    -fx-alignment: center;                  /* Text alignment */
-    -fx-cursor: hand;                       /* Cursor style */
-    -fx-user-select: none;                  /* Disable text selection */
-    -fx-effect: dropshadow(gaussian, grey, 0.5, 0.5, 0.5, 0.5); /* Optionaler Schatten */
-}
-.name-label {
-    -fx-text-fill: grey;                   /* Text color */
-    -fx-font-family: "Kreon-Bold"; /* Font family   "Nunito", "Roboto", "Proxima Nova", "sans-serif"*/
-    -fx-font-size: 24px;                    /* Font size */
-    -fx-font-weight: Bold;                  /* Font weight */
-    -fx-padding: 10 60 0 0;              /* Padding (top right bottom left) */
-    -fx-min-height: 0px;                  /* Minimum height */
-    -fx-alignment: center;                  /* Text alignment */
-    -fx-cursor: hand;                       /* Cursor style */
-    -fx-user-select: none;                  /* Disable text selection */
--fx-effect: dropshadow(gaussian, grey, 0.5, 0.5, 0.5, 0.5); /* Optionaler Schatten */
-}
-.gold-label {
-    -fx-text-fill: #f2bd29;                   /* Text color */
-    -fx-font-family: "Kreon-Bold"; /* Font family   "Nunito", "Roboto", "Proxima Nova", "sans-serif"*/
-    -fx-font-size: 24px;                    /* Font size */
-    -fx-font-weight: Bold;                  /* Font weight */
-    -fx-padding: 10 60 0 0;              /* Padding (top right bottom left) */
-    -fx-min-height: 0px;                  /* Minimum height */
-    -fx-alignment: center;                  /* Text alignment */
-    -fx-cursor: hand;                       /* Cursor style */
-    -fx-user-select: none;                  /* Disable text selection */
--fx-effect: dropshadow(gaussian, grey, 0.5, 0.5, 0.5, 0.5); /* Optionaler Schatten */
-}
-.floor-label {
-    -fx-text-fill: brown;                   /* Text color */
-    -fx-font-family: "Kreon-Bold"; /* Font family   "Nunito", "Roboto", "Proxima Nova", "sans-serif"*/
-    -fx-font-size: 24px;                    /* Font size */
-    -fx-font-weight: Bold;                  /* Font weight */
-    -fx-padding: 10 60 0 0;              /* Padding (top right bottom left) */
-    -fx-min-height: 0px;                  /* Minimum height */
-    -fx-alignment: center;                  /* Text alignment */
-    -fx-cursor: hand;                       /* Cursor style */
-    -fx-user-select: none;                  /* Disable text selection */
--fx-effect: dropshadow(gaussian, grey, 0.5, 0.5, 0.5, 0.5); /* Optionaler Schatten */
+.header-label {
+    -fx-font-size: 36px;                    /* Schriftgröße vergrößert */
+    -fx-font-weight: bold;                   /* Fettdruck */
+    -fx-text-fill: #FFD700;                  /* Gelbe Textfarbe (Gold) */
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.9), 10, 0.0, 1, 1); /* Dickerer Schatten-Effekt */
+    -fx-padding: 10px;                       /* Innenabstand */
+    -fx-background-radius: 5px;              /* Abrundung der Ecken */
 }
