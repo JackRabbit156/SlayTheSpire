@@ -39,21 +39,49 @@ public class CharacterView {
 
         ic.setBackground(icImg);
         ic.setPrefSize(120, 120);
+        ic.setOnMouseEntered(event -> {
+            ic.setBackground(new Background(
+                    GuiHelper.background("/images/buttons/ironcladButtonHighlighted.png")));
+        });
+        ic.setOnMouseExited(event -> {
+            ic.setBackground(icImg);
+        });
 
         sl.setBackground(slImg);
         sl.setPrefSize(120, 120);
+        sl.setOnMouseEntered(event -> {
+            sl.setBackground(new Background(
+                    GuiHelper.background("/images/buttons/silentButtonHighlighted.png")));
+        });
+        sl.setOnMouseExited(event -> {
+            sl.setBackground(slImg);
+        });
 
         embark.setText("Embark");
-        embark.setBackground(Background.EMPTY);
+        embark.setBackground(embarkBG);
         embark.setFont(Font.font("/resources/font/kreon/static/Kreon-Bold.ttf", 30));
         embark.setTextFill(Color.WHITE);
-        embark.setPrefSize(220, 220);
+        embark.setPrefSize(200, 200);
+        embark.setOnMouseEntered(event -> {
+            embark.setBackground(new Background(
+                    GuiHelper.background("/images/buttons/confirmButtonSelected.png")));
+        });
+        embark.setOnMouseExited(event -> {
+            embark.setBackground(embarkBG);
+        });
 
         back.setText("Back");
-        back.setBackground(Background.EMPTY);
+        back.setBackground(backBG);
         back.setFont(Font.font("/resources/font/kreon/static/Kreon-Bold.ttf", 30));
         back.setTextFill(Color.WHITE);
-        back.setPrefSize(220, 220);
+        back.setPrefSize(220, 200);
+        back.setOnMouseEntered(event -> {
+            back.setBackground(new Background(
+                    GuiHelper.background("/images/buttons/cancelButtonSelected.png")));
+        });
+        back.setOnMouseExited(event -> {
+            back.setBackground(backBG);
+        });
 
     }
 
@@ -62,12 +90,11 @@ public class CharacterView {
         ground.setBackground(bgImg);
 
         left.setAlignment(Pos.BASELINE_LEFT);
-        left.setBackground(backBG);
         left.getChildren().add(back);
 
         right.setAlignment(Pos.BASELINE_RIGHT);
-        right.setBackground(embarkBG);
         right.getChildren().add(embark);
+
         HBox.setHgrow(left, Priority.ALWAYS);
         HBox.setHgrow(ic, Priority.ALWAYS);
         HBox.setHgrow(sl, Priority.ALWAYS);
