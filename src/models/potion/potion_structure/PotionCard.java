@@ -7,8 +7,8 @@ import models.card.card_structure.CardType;
 import models.battle.GameContext;
 
 public abstract class PotionCard extends Card {
-    public PotionCard(String name, String description, int cost, CardRarity rarity, CardGrave cardGrave) {
-        super(name, description, cost, rarity, cardGrave, CardType.POTION);
+    public PotionCard(String name, String description, int cost, CardRarity rarity, CardGrave cardGrave, CardType cardType) {
+        super(name, description, cost, rarity, cardGrave, cardType);
     }
 
 

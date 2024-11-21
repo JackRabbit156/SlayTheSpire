@@ -28,7 +28,7 @@ public class EnemyLayout extends VBox {
         defendLayout = new DefendLayout();
         intentLayout = new IntentLayout();
 
-        intentLayout.setTranslateY(50);
+//        intentLayout.setTranslateY(50);
 
         HBox defendHealthBar = new HBox();
         defendHealthBar.getChildren().addAll(defendLayout, healthBarLayout);

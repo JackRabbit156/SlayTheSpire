@@ -9,7 +9,7 @@ public class LeftSideLayout extends VBox {
     private Player player;
     private BattleView battleView;
 
-    private PlayerLayout playerLayout;
+    private final PlayerLayout playerLayout;
 
     public LeftSideLayout(BattleView battleView, Player player) {
         this.battleView = battleView;

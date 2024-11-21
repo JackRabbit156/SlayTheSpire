@@ -5,6 +5,7 @@ import models.card.card_structure.Card;
 import models.card.card_structure.CardGrave;
 import models.card.card_structure.CardRarity;
 import models.battle.GameContext;
+import models.card.card_structure.CardType;
 import models.potion.potion_structure.PotionCard;
 
 import java.util.List;
@@ -12,7 +13,7 @@ import java.util.List;
 public class AttackPotion extends PotionCard {
 
     public AttackPotion() {
-        super("Attack Potion", "Add 1 of 3 random Attack cards to your hand", 0, CardRarity.COMMON, CardGrave.POTION);
+        super("Attack Potion", "Add 1 of 3 random Attack cards to your hand", 0, CardRarity.COMMON, CardGrave.POTION, CardType.SKILL);
         setImagePath(new PathAssistent().toPath(this));
     }
 

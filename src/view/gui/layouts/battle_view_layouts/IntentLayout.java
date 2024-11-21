@@ -41,8 +41,6 @@ public class IntentLayout extends StackPane {
     }
 
     public void setIntentIcon(String intent) {
-
-
         if (intent.equals("attack")) {
             intentIconView.setImage(attackIntentIcon);
         }
