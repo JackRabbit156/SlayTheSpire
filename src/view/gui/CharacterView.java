@@ -19,7 +19,7 @@ public class CharacterView {
     private Text text = new Text("Choose your Character");
     private Button ic = new Button();
     private Button sl = new Button();
-    private Button back = new Button();
+    private Button backs = new Button();
     private Button embark = new Button();
 
     public CharacterView(){
@@ -61,21 +61,36 @@ public class CharacterView {
             embark.setBackground(new Background(GuiHelper.background("/images/buttons/confirmButton.png")));
         });
 
-        back.setText("Back");
-        back.setBackground(new Background(GuiHelper.background("/images/buttons/cancelButton.png")));
-        back.setFont(Font.font("/resources/font/kreon/static/Kreon-Bold.ttf", 30));
-        back.setTextFill(Color.WHITE);
-        back.setPrefSize(220, 200);
-        back.setOnMouseEntered(event -> {
-            back.setBackground(new Background(
+        backs.setText("Back");
+        backs.setBackground(new Background(GuiHelper.background("/images/buttons/cancelButton.png")));
+        backs.setFont(Font.font("/resources/font/kreon/static/Kreon-Bold.ttf", 30));
+        backs.setTextFill(Color.WHITE);
+        backs.setPrefSize(220, 200);
+        backs.setOnMouseEntered(event -> {
+            backs.setBackground(new Background(
                     GuiHelper.background("/images/buttons/cancelButtonSelected.png")));
         });
-        back.setOnMouseExited(event -> {
-            back.setBackground(new Background(GuiHelper.background("/images/buttons/cancelButton.png")));
+        backs.setOnMouseExited(event -> {
+            backs.setBackground(new Background(GuiHelper.background("/images/buttons/cancelButton.png")));
         });
 
     }
 
+    public Button getIc() {
+        return ic;
+    }
+
+    public Button getSl() {
+        return sl;
+    }
+
+    public Button getBacks() {
+        return backs;
+    }
+
+    public Button getEmbark() {
+        return embark;
+    }
 
     public BorderPane display() {
         left.getChildren().clear();
@@ -87,7 +102,7 @@ public class CharacterView {
         ground.setBackground(new Background(GuiHelper.background("/images/backgrounds/MainMenuBG.png")));
 
         left.setAlignment(Pos.BASELINE_LEFT);
-        left.getChildren().add(back);
+        left.getChildren().add(backs);
 
         right.setAlignment(Pos.BASELINE_RIGHT);
         right.getChildren().add(embark);
