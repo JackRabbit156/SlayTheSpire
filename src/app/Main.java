@@ -16,6 +16,7 @@ public class Main extends Application {
        // System.out.println(new AngerCard().getClass().getSimpleName());
 //        GuiHelper.Scenes.startLoadSaveStateScene(primaryStage);
         GuiHelper.Scenes.startMapScene(player, true);
+        
     }
 
     public static void main(String[] args) {
