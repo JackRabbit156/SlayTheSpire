@@ -70,8 +70,7 @@ public class GuiHelper {
          * @param enemies eine Liste von 'Enemy'-Instanzen, die die Gegner im Kampf darstellen
          */
         public static void startBattleScene(Player player, List<Enemy> enemies, FieldEnum enemyField) {
-            BattleController battle = new BattleController(player, enemies);
-            battle.setEnemyField(enemyField);
+            BattleController battle = new BattleController(player, enemies, enemyField);
             Stage primaryStage = player.getPrimaryStage();
 
             Scene scene = new Scene(battle.getBattleView(), 1920, 1080);

@@ -19,6 +19,7 @@ import models.enemy.act_two.boss.BronzeAutomaton;
 import models.enemy.act_two.boss.TheChamp;
 import models.enemy.act_two.elites.BookOfStabbing;
 import models.enemy.act_two.elites.GremlinLeader;
+import models.map_elements.field_types.FieldEnum;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,7 +32,7 @@ public class BattleViewTester extends Application {
     public void start(Stage primaryStage) {
         TestPlayer player = new TestPlayer();
 
-        BattleController battleController = new BattleController(player, createElitesEnemiesActTwo());
+        BattleController battleController = new BattleController(player, createElitesEnemiesActTwo(), FieldEnum.ENEMYFIELD);
         
         
         Scene scene = new Scene(battleController.getBattleView(), 1920, 1080);
