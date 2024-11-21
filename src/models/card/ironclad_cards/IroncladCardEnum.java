@@ -3,7 +3,7 @@ package models.card.ironclad_cards;
 
 public enum IroncladCardEnum {
     STRIKE_CARD("IroncladStrikeCard"),
-    DEFEND_CARD("IroncladDefendCARD"),
+    DEFEND_CARD("IroncladDefendCard"),
     ANGER_CARD("AngerCard"),
     BASH_CARD("BashCard"),
     BODY_SLAM_CARD("BodyslamCard"),
