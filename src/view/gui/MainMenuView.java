@@ -79,7 +79,7 @@ public class MainMenuView {
         delSaveGame.setFont(Font.font(fontPath, 30));
         delSaveGame.setAlignment(Pos.BASELINE_LEFT);
         delSaveGame.setBackground(Background.EMPTY);
-        delSaveGame.setMaxSize(180, 50);
+        delSaveGame.setMaxSize(200, 50);
         delSaveGame.setOnMouseEntered(event -> {
             delSaveGame.setBackground(new Background(GuiHelper.background(highlightPath)));
         });
