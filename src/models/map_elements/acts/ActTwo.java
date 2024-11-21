@@ -71,22 +71,22 @@ public class ActTwo extends Act {
 
     private void initNodes(){
         Node start17 = new Node("17", new EnemyField(generateEnemies()), new Coordinates(2, 14));
-        Node unknown18 = new Node("18", new UnknownField(null, null, null, null), new Coordinates(0, 12));
+        Node unknown18 = new Node("18", new UnknownField(null, new EnemyField(generateEnemies()), new EliteField(createElitesEnemies()), new ShopField()), new Coordinates(0, 12));
         Node fight19 = new Node("19", new EnemyField(generateEnemies()), new Coordinates(2, 12));
         Node fight20 = new Node("20", new EnemyField(generateEnemies()), new Coordinates(4, 12));
         Node unknown21 = new Node("21", new UnknownField(null, null, null, null), new Coordinates(0, 10));
         Node fight22 = new Node("22", new EnemyField(generateEnemies()), new Coordinates(2, 10));
         Node fight23 = new Node("23", new EnemyField(generateEnemies()), new Coordinates(4, 10));
         Node shop24 = new Node("24", new ShopField(), new Coordinates(0, 8));
-        Node elite25 = new Node("25", new EliteField(null), new Coordinates(2, 8));
-        Node unknown26 = new Node("26", new UnknownField(null, null, null, null), new Coordinates(0, 6));
+        Node elite25 = new Node("25", new EliteField(createElitesEnemies()), new Coordinates(2, 8));
+        Node unknown26 = new Node("26", new UnknownField(null, new EnemyField(generateEnemies()), new EliteField(createElitesEnemies()), new ShopField()), new Coordinates(0, 6));
         Node fight27 = new Node("27", new EnemyField(generateEnemies()), new Coordinates(2, 6));
-        Node unknown28 = new Node("28", new UnknownField(null, null, null, null), new Coordinates(4, 6));
-        Node unknown29 = new Node("29", new UnknownField(null, null, null, null), new Coordinates(0, 4));
+        Node unknown28 = new Node("28", new UnknownField(null, new EnemyField(generateEnemies()), new EliteField(createElitesEnemies()), new ShopField()), new Coordinates(4, 6));
+        Node unknown29 = new Node("29", new UnknownField(null, new EnemyField(generateEnemies()), new EliteField(createElitesEnemies()), new ShopField()), new Coordinates(0, 4));
         Node fight30 = new Node("30", new EnemyField(generateEnemies()), new Coordinates(2, 4));
         Node fight31 = new Node("31", new EnemyField(generateEnemies()), new Coordinates(4, 4));
         Node rest32 = new Node("32", new RestField(), new Coordinates(2, 2));
-        Node boss33 = new Node("33", new BossField(null), new Coordinates(2,0));
+        Node boss33 = new Node("33", new BossField(createBossEnemies()), new Coordinates(2,0));
 
         nodes.add(start17);
         nodes.add(unknown18);

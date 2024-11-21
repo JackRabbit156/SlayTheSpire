@@ -25,14 +25,12 @@ public class EliteField extends Field {
         if(isFieldBeaten())
             return;
 
-        GuiHelper.Scenes.startBattleScene(player, enemies);
+        GuiHelper.Scenes.startBattleScene(player, enemies, FieldEnum.ELITEFIELD);
 
         if(!player.isAlive()) {
             return;
         }
 
         setFieldBeaten();
-        //TODO Alle Szenen starten beim aufruf
-//        GuiHelper.Scenes.startLootScene(player, FieldEnum.ELITEFIELD);
     }
 }
