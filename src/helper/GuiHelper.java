@@ -86,6 +86,12 @@ public class GuiHelper {
             fadeTransition(primaryStage, scene);
         }
 
+        public static void startCharSelection(Stage primaryStage){
+            CharacterController cc = new CharacterController();
+            Scene scene = new Scene(cc.startSelection(primaryStage), 1920, 1080);
+            primaryStage.setScene(scene);
+            primaryStage.setFullScreen(true);
+        }
         /**
          * Startet die Szene zum Laden eines gespeicherten Spielstands (Load Save State Scene).
          *

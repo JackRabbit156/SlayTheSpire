@@ -22,6 +22,9 @@ public class MainMenuView {
     private Button yes = new Button("Yes");
     private Button no = new Button("No");
 
+    private VBox msg = new VBox();
+    private HBox nrg = new HBox();
+
     public MainMenuView(){
         initButtons();
     }
@@ -114,9 +117,6 @@ public class MainMenuView {
             quit.setBackground(Background.EMPTY);
         });
     }
-
-    private VBox msg = new VBox();
-    private HBox nrg = new HBox();
 
     public Button getNo() {
         return no;

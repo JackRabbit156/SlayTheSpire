@@ -16,7 +16,6 @@ import java.util.Objects;
 public class MainMenuController {
     private MainMenuView view = new MainMenuView();
     private CreditView creditView = new CreditView();
-    private CharacterView cv = new CharacterView();
     private Stage menuStage;
     private Popup quitUp = new Popup();
 
@@ -35,7 +34,7 @@ public class MainMenuController {
 
     public void newGame(Button newGameButton){
         newGameButton.setOnMouseClicked(event -> {
-            menuStage.getScene().setRoot(cv.display());
+            GuiHelper.Scenes.startCharSelection(menuStage);
         });
     }
     public void loadGame(Button loadButton){

@@ -2,15 +2,11 @@ package view.gui;
 
 import helper.GuiHelper;
 import javafx.geometry.Pos;
-import javafx.geometry.VPos;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
-import javafx.scene.text.TextAlignment;
-import jdk.internal.org.objectweb.asm.tree.analysis.Value;
 
 public class CharacterView {
     private BorderPane ground = new BorderPane();
@@ -18,13 +14,8 @@ public class CharacterView {
     private HBox right = new HBox();
     private HBox left = new HBox();
     private VBox wrap = new VBox();
-    private Background bgImg = new Background(GuiHelper.background("/images/backgrounds/MainMenuBG.png"));
-    private Background icImg = new Background(GuiHelper.background("/images/buttons/ironcladButton.png"));
-    private Background slImg = new Background(GuiHelper.background("/images/buttons/silentButton.png"));
     private Background icBG = new Background(GuiHelper.background("/images/backgrounds/ironcladPortrait.jpg"));
     private Background slBG = new Background(GuiHelper.background("/images/backgrounds/silentPortrait.jpg"));
-    private Background backBG = new Background(GuiHelper.background("/images/buttons/cancelButton.png"));
-    private Background embarkBG = new Background(GuiHelper.background("/images/buttons/confirmButton.png"));
     private Text text = new Text("Choose your Character");
     private Button ic = new Button();
     private Button sl = new Button();
@@ -37,28 +28,28 @@ public class CharacterView {
 
     private void initButtons() {
 
-        ic.setBackground(icImg);
+        ic.setBackground(new Background(GuiHelper.background("/images/buttons/ironcladButton.png")));
         ic.setPrefSize(120, 120);
         ic.setOnMouseEntered(event -> {
             ic.setBackground(new Background(
                     GuiHelper.background("/images/buttons/ironcladButtonHighlighted.png")));
         });
         ic.setOnMouseExited(event -> {
-            ic.setBackground(icImg);
+            ic.setBackground(new Background(GuiHelper.background("/images/buttons/ironcladButton.png")));
         });
 
-        sl.setBackground(slImg);
+        sl.setBackground(new Background(GuiHelper.background("/images/buttons/silentButton.png")));
         sl.setPrefSize(120, 120);
         sl.setOnMouseEntered(event -> {
             sl.setBackground(new Background(
                     GuiHelper.background("/images/buttons/silentButtonHighlighted.png")));
         });
         sl.setOnMouseExited(event -> {
-            sl.setBackground(slImg);
+            sl.setBackground(new Background(GuiHelper.background("/images/buttons/silentButton.png")));
         });
 
         embark.setText("Embark");
-        embark.setBackground(embarkBG);
+        embark.setBackground(new Background(GuiHelper.background("/images/buttons/confirmButton.png")));
         embark.setFont(Font.font("/resources/font/kreon/static/Kreon-Bold.ttf", 30));
         embark.setTextFill(Color.WHITE);
         embark.setPrefSize(200, 200);
@@ -67,11 +58,11 @@ public class CharacterView {
                     GuiHelper.background("/images/buttons/confirmButtonSelected.png")));
         });
         embark.setOnMouseExited(event -> {
-            embark.setBackground(embarkBG);
+            embark.setBackground(new Background(GuiHelper.background("/images/buttons/confirmButton.png")));
         });
 
         back.setText("Back");
-        back.setBackground(backBG);
+        back.setBackground(new Background(GuiHelper.background("/images/buttons/cancelButton.png")));
         back.setFont(Font.font("/resources/font/kreon/static/Kreon-Bold.ttf", 30));
         back.setTextFill(Color.WHITE);
         back.setPrefSize(220, 200);
@@ -80,14 +71,20 @@ public class CharacterView {
                     GuiHelper.background("/images/buttons/cancelButtonSelected.png")));
         });
         back.setOnMouseExited(event -> {
-            back.setBackground(backBG);
+            back.setBackground(new Background(GuiHelper.background("/images/buttons/cancelButton.png")));
         });
 
     }
 
 
     public BorderPane display() {
-        ground.setBackground(bgImg);
+        left.getChildren().clear();
+        right.getChildren().clear();
+        wrap.getChildren().clear();
+        buttonBox.getChildren().clear();
+        ground.getChildren().clear();
+
+        ground.setBackground(new Background(GuiHelper.background("/images/backgrounds/MainMenuBG.png")));
 
         left.setAlignment(Pos.BASELINE_LEFT);
         left.getChildren().add(back);
