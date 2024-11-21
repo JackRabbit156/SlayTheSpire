@@ -16,6 +16,6 @@ public class TreasureField extends Field {
 
     @Override
     public void doFieldThing(Player player) {
-        GuiHelper.Scenes.startTreasureScene(player);
+        //GuiHelper.Scenes.startTreasureScene(player);
     }
 }

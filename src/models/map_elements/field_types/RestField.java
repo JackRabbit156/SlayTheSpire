@@ -19,6 +19,6 @@ public class RestField extends Field{
 
         setFieldBeaten();
 
-        GuiHelper.Scenes.startRestScene(player);
+        //GuiHelper.Scenes.startRestScene(player);
     }
 }

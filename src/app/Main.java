@@ -1,5 +1,6 @@
 package app;
 
+import controller.gui.MainMenuController;
 import helper.GuiHelper;
 import javafx.application.Application;
 import javafx.stage.Stage;
@@ -12,7 +13,11 @@ public class Main extends Application {
         player.setPrimaryStage(primaryStage);
 
 //        GuiHelper.Scenes.startLoadSaveStateScene(primaryStage);
-        GuiHelper.Scenes.startMapScene(player, true);
+        //GuiHelper.Scenes.startMapScene(player, true);
+        //MainMenuController mmc = new MainMenuController();
+        GuiHelper.Scenes.startMainMenuScene(primaryStage);
+        primaryStage.show();
+        //mmc.startMenu();
     }
 
     public static void main(String[] args) {
