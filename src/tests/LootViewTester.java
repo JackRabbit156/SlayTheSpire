@@ -13,7 +13,9 @@ import models.map_elements.field_types.FieldEnum;
 import view.gui.LootView;
 
 import java.util.Objects;
-
+/**
+ * @author Keil, Vladislav
+ */
 public class LootViewTester extends Application {
 
     public static void main(String[] args) {

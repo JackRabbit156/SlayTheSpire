@@ -13,7 +13,9 @@ import models.relic.relic_structure.Relic;
 
 import java.util.ArrayList;
 import java.util.List;
-
+/**
+ * @author Keil, Vladislav
+ */
 public class TestPlayer extends Player {
     public TestPlayer() {
         super("TesterPlayer", 1000, 1000, PlayerType.IRONCLAD, "⚒");

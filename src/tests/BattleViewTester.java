@@ -24,7 +24,9 @@ import models.map_elements.field_types.FieldEnum;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-
+/**
+ * @author Keil, Vladislav
+ */
 public class BattleViewTester extends Application {
     Random randi = new Random();
     public static void main(String[] args) { launch(args); }

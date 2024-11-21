@@ -5,7 +5,9 @@ import helper.GuiHelper;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-
+/**
+ * @author Keil, Vladislav
+ */
 public class RestSiteViewTester extends Application {
     public static void main(String[] args) { launch(args); }
     @Override

@@ -10,7 +10,9 @@ import models.map_elements.field_types.EventField;
 import models.player.player_structure.Player;
 
 import java.util.Random;
-
+/**
+ * @author Keil, Vladislav
+ */
 public class EventViewControllerTester {
     public static void main(String[] args) {
         Player player = new TestPlayer();

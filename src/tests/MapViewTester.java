@@ -3,7 +3,9 @@ package tests;
 import helper.GuiHelper;
 import javafx.application.Application;
 import javafx.stage.Stage;
-
+/**
+ * @author Keil, Vladislav
+ */
 public class MapViewTester  extends Application {
     public static void main(String[] args) { launch(args); }
 

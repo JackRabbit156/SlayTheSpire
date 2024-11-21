@@ -13,7 +13,9 @@ import models.player.player_structure.Player;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-
+/**
+ * @author Keil, Vladislav
+ */
 public class UnknownFieldTester {
     Random randi = new Random();
 

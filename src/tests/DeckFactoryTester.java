@@ -6,7 +6,9 @@ import models.player.IroncladPlayer;
 
 import java.util.ArrayList;
 import java.util.List;
-
+/**
+ * @author Keil, Vladislav
+ */
 public class DeckFactoryTester {
     public static void main(String[] args) {
         IroncladPlayer player = new IroncladPlayer();
