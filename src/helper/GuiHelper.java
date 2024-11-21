@@ -154,11 +154,25 @@ public class GuiHelper {
          *
          * @param primaryStage das primäre 'Stage'-Objekt der Anwendung
          */
-        public static void startLoadSaveStateScene(Stage primaryStage) {
+        public static void startLoadGameFromMenuScene(Stage primaryStage) {
             LoadController loadController = new LoadController(primaryStage);
 
             Scene scene = new Scene(loadController.getLoadView(), 1920, 1080);
+            scene.getStylesheets().add(Objects.requireNonNull(Scenes.class.getResource("/css/loadViewStyle.css")).toExternalForm());
             fadeTransition(primaryStage, scene);
+        }
+
+        /**
+         * Startet die Szene zum Laden eines gespeicherten Spielstands (Load Save State Scene).
+         *
+         * @param player der Player, im aktuellen Spiel
+         */
+        public static void startLoadGameFromMapScene(Player player) {
+            LoadController loadController = new LoadController(player);
+
+            Scene scene = new Scene(loadController.getLoadView(), 1920, 1080);
+            scene.getStylesheets().add(Objects.requireNonNull(Scenes.class.getResource("/css/loadViewStyle.css")).toExternalForm());
+            fadeTransition(player.getPrimaryStage(), scene);
         }
 
         /**
