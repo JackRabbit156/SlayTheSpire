@@ -11,38 +11,39 @@ import javafx.scene.paint.Paint;
 import javafx.stage.Popup;
 import models.card.card_structure.Card;
 import models.potion.potion_structure.PotionCard;
-import view.gui.layouts.layout_events.LootViewEvents;
-import view.gui.layouts.loot_layout.CardSelectionLayout;
+import view.gui.layouts.layout_events.TreasureViewEvents;
+import view.gui.layouts.treasure_layout.CardSelectionLayout;
 
 import java.util.List;
 
-public class LootView extends StackPane {
+public class TreasureView extends StackPane {
     private PotionCard potionCard;
-    private List<Card> lootCards;
+    private List<Card> cardList;
     private int gold;
-    private LootViewEvents lootViewEvents;
+    private TreasureViewEvents treasureViewEvents;
 
     private Popup popup;
     private Insets insets = new Insets(15,15,15,15);
     private VBox centerVBox;
     private VBox topVBox;
     private Popup cardSelectionPopup;
+    private double PANEL_SCALE = 0.7;
 
-    private BorderPane lootLayout;
+    private BorderPane treasureLayout;
     private BorderPane bottomLayout;
     private boolean cardSelectionDisabled;
     private StackPane cardSelectionButtonStackPane;
 
-    public LootView(List<Card> lootCards, int gold, LootViewEvents lootViewEvents) {
-        this.lootLayout = new BorderPane();
+    public TreasureView(List<Card> cardList, int gold, TreasureViewEvents treasureViewEvents) {
+        this.treasureLayout = new BorderPane();
         this.bottomLayout = new BorderPane();
-        this.lootCards = lootCards;
+        this.cardList = cardList;
         this.gold = gold;
-        this.lootViewEvents = lootViewEvents;
+        this.treasureViewEvents = treasureViewEvents;
     }
 
-    public LootView(List<Card> lootCards, int gold, PotionCard potionCard, LootViewEvents lootViewEvents) {
-        this(lootCards, gold, lootViewEvents);
+    public TreasureView(List<Card> cardList, int gold, PotionCard potionCard, TreasureViewEvents treasureViewEvents) {
+        this(cardList, gold, treasureViewEvents);
         this.potionCard = potionCard;
         this.cardSelectionPopup = new Popup();
         display();
@@ -52,17 +53,18 @@ public class LootView extends StackPane {
      * Initialisiert die View.
      */
     public void display() {
-        getChildren().add(lootLayout);
+        getChildren().add(treasureLayout);
         getChildren().add(bottomLayout);
 
-        setBackground(new Background(GuiHelper.background("/images/backgrounds/greenBg.jpg")));
-        initLootLayout();
+        setBackground(new Background(GuiHelper.background("/images/backgrounds/TreasureViewBG.jpeg")));
+
+        initTreasureLayout();
         initBottomLayout();
 
     }
 
-    private void initLootLayout() {
-        lootLayout.setPickOnBounds(false);
+    private void initTreasureLayout() {
+        treasureLayout.setPickOnBounds(false);
         initTop();
         initCenter();
     }
@@ -77,7 +79,10 @@ public class LootView extends StackPane {
     private void initCenter(){
         // Card Options
         centerVBox = new VBox();
-        centerVBox.setSpacing(10);
+        centerVBox.setTranslateX(65);
+        centerVBox.setTranslateY(190);
+        centerVBox.setSpacing(-20);
+//        centerVBox.
         centerVBox.setAlignment(Pos.TOP_CENTER);
 
         // Gold Option
@@ -93,12 +98,12 @@ public class LootView extends StackPane {
         // Card Selection Option
         setCardSelectionLayout();
 
-        lootLayout.setCenter(centerVBox);
+        treasureLayout.setCenter(centerVBox);
     }
 
     private void setCardSelectionLayout() {
         // Card Selection Layout
-        CardSelectionLayout cardSelectionLayout = new CardSelectionLayout(this.lootCards, this);
+        CardSelectionLayout cardSelectionLayout = new CardSelectionLayout(this.cardList, this);
         cardSelectionLayout.setPadding(new Insets(50,50,15,50));
         this.cardSelectionButtonStackPane = getCardSelectionStackPane();
         this.centerVBox.getChildren().add(this.cardSelectionButtonStackPane);
@@ -119,12 +124,15 @@ public class LootView extends StackPane {
         Image img = new Image(getClass().getResource("/images/card/cardSymbol.png").toExternalForm());
         ImageView imgView = new ImageView(img);
         ImageView itemPanelView = new ImageView(btnImage);
-        imgView.setScaleY(0.6);
-        imgView.setScaleX(0.6);
+
+        itemPanelView.setScaleY(PANEL_SCALE);
+        itemPanelView.setScaleX(PANEL_SCALE);
+        imgView.setScaleX(0.25);
+        imgView.setScaleY(0.25);
 
         // Label
         Label label = new Label("New Cards!");
-        label.setStyle("-fx-font-size: 28px; -fx-font-family: Kreon;");
+        label.setStyle("-fx-font-size: 24; -fx-font-family: Kreon;");
         label.setTextFill(Paint.valueOf("White"));
 
         // Loot
@@ -146,10 +154,15 @@ public class LootView extends StackPane {
         ImageView imgView = new ImageView(img);
         ImageView itemPanelView = new ImageView(btnImage);
 
+        itemPanelView.setScaleY(PANEL_SCALE);
+        itemPanelView.setScaleX(PANEL_SCALE);
+        imgView.setScaleX(PANEL_SCALE);
+        imgView.setScaleY(PANEL_SCALE);
+
         // Label
         Label label = new Label(String.valueOf(gold));
         label.setText(String.valueOf(gold));
-        label.setStyle("-fx-font-size: 28px; -fx-font-family: Kreon;");
+        label.setStyle("-fx-font-size: 24; -fx-font-family: Kreon;");
         label.setTextFill(Paint.valueOf("White"));
         // Loot
         HBox lootBox = new HBox();
@@ -180,10 +193,15 @@ public class LootView extends StackPane {
         Image img = new Image(getClass().getResource(potionCard.getImagePath()).toExternalForm());
         ImageView imgView = new ImageView(img);
 
+        itemPanelView.setScaleY(PANEL_SCALE);
+        itemPanelView.setScaleX(PANEL_SCALE);
+        imgView.setScaleX(PANEL_SCALE);
+        imgView.setScaleY(PANEL_SCALE);
+
         // Label
         Label label = new Label();
         label.setText(potionCard.getName());
-        label.setStyle("-fx-font-size: 28px; -fx-font-family: Kreon;");
+        label.setStyle("-fx-font-size: 24; -fx-font-family: Kreon;");
         label.setTextFill(Paint.valueOf("White"));
 
         // Loot
@@ -221,7 +239,7 @@ public class LootView extends StackPane {
         topVBox.getChildren().add(label);
         topVBox.setAlignment(Pos.BOTTOM_CENTER);
         topVBox.setPrefHeight(200);
-        lootLayout.setTop(topVBox);
+        treasureLayout.setTop(topVBox);
     }
 
     /**
@@ -238,8 +256,8 @@ public class LootView extends StackPane {
 
         bottomHBox.getChildren().add(GuiHelper.addButtonStackPane(imgView, label, 0.7));
 
-        imgView.setOnMouseClicked(event -> lootViewEvents.onBackClicked());
-        label.setOnMouseClicked(event -> lootViewEvents.onBackClicked());
+        imgView.setOnMouseClicked(event -> treasureViewEvents.onBackClicked());
+        label.setOnMouseClicked(event -> treasureViewEvents.onBackClicked());
 
         bottomHBox.setAlignment(Pos.TOP_LEFT);
         bottomHBox.setTranslateY(150);
@@ -252,22 +270,22 @@ public class LootView extends StackPane {
      * @param index Karten index
      */
     public void onCardClick(Card card, int index) {
-        lootViewEvents.onCardClick(card, index);
+        treasureViewEvents.onCardClick(card, index);
     }
 
     private void onGoldClick(){
-        lootViewEvents.onGoldClick(this.gold);
+        treasureViewEvents.onGoldClick(this.gold);
     }
 
     private void onPotionClick(){
-        lootViewEvents.onPotionClick(this.potionCard);
+        treasureViewEvents.onPotionClick(this.potionCard);
     }
 
     /**
-     * Übergabe des LootViewEvents
-     * @param lootViewEvents LootViewEvents
+     * Übergabe des TreasureViewEvents
+     * @param treasureViewEvents TreasureViewEvents
      */
-    public void initTreasureViewEvents(LootViewEvents lootViewEvents) { this.lootViewEvents = lootViewEvents; }
+    public void initTreasureViewEvents(TreasureViewEvents treasureViewEvents) { this.treasureViewEvents = treasureViewEvents; }
 
     /**
      * Es ploppt ein Popup Fenster auf und gibt eine Nachricht aus.
@@ -289,7 +307,7 @@ public class LootView extends StackPane {
         this.popup = new Popup();
         this.popup.setAutoHide(true);
         this.popup.getContent().add(stackPopup);
-        this.popup.show(this.lootLayout.getScene().getWindow(), 800, 500);
+        this.popup.show(this.treasureLayout.getScene().getWindow(), 800, 500);
     }
 
     public void disableCardSelection() {
