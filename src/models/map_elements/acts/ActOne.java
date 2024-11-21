@@ -66,8 +66,10 @@ public class ActOne extends Act {
 
         if(playerAlreadyOnAct)
             playerNode.setFieldBeaten();
-        else
+        else {
             playerNode.doFieldThing(player);
+            player.setCurrentField(this.getCurrentFieldName());
+        }
     }
 
     private void initNodes(){

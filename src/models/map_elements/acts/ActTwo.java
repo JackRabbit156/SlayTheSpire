@@ -66,7 +66,6 @@ public class ActTwo extends Act {
             playerNode.doFieldThing(player);
             player.setCurrentField(this.getCurrentFieldName());
         }
-
     }
 
     private void initNodes(){
