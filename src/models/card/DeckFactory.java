@@ -106,64 +106,64 @@ public class DeckFactory {
         switch (cardName){
             // AttackCards
             // GeneralCards
-            case "STRIKE_CARD": cardToTransform = new IroncladStrikeCard(); break;
-            case "DEFEND_CARD": cardToTransform = new IroncladDefendCard(); break;
+            case "IroncladStrikeCard": cardToTransform = new IroncladStrikeCard(); break;
+            case "IroncladDefendCard": cardToTransform = new IroncladDefendCard(); break;
             // CommonCards
-            case "ANGER_CARD": cardToTransform = new AngerCard(); break;
-            case "BASH_CARD": cardToTransform = new BashCard(); break;
-            case "BODY_SLAM_CARD": cardToTransform = new BodySlamCard(); break;
-            case "CLASH_CARD": cardToTransform = new ClashCard(); break;
-            case "CLEAVE_CARD": cardToTransform = new CleaveCard(); break;
-            case "CLOTHESLINE_CARD": cardToTransform = new ClotheslineCard(); break;
-            case "HEADBUTT_CARD": cardToTransform = new HeadbuttCard(); break;
-            case "HEAVY_BLADE_CARD": cardToTransform = new HeavyBladeCard(); break;
-            case "IRON_WAVE_CARD": cardToTransform = new IronWaveCard(); break;
-            case "PERFECTED_STRIKE_CARD": cardToTransform = new PerfectedStrikeCard(); break;
-            case "POMMEL_STRIKE_CARD": cardToTransform = new PommelStrikeCard(); break;
-            case "SWORD_BOOMERANG_CARD": cardToTransform = new SwordBoomerangCard(); break;
-            case "THUNDERCLAP_CARD": cardToTransform = new ThunderclapCard(); break;
-            case "TWIN_STRIKE_CARD": cardToTransform = new TwinStrikeCard(); break;
-            case "WILD_STRIKE_CARD": cardToTransform = new WildStrikeCard(); break;
+            case "AngerCard": cardToTransform = new AngerCard(); break;
+            case "BashCard": cardToTransform = new BashCard(); break;
+            case "BodyslamCard": cardToTransform = new BodySlamCard(); break;
+            case "ClashCard": cardToTransform = new ClashCard(); break;
+            case "CleaveCard": cardToTransform = new CleaveCard(); break;
+            case "ClotheslineCard": cardToTransform = new ClotheslineCard(); break;
+            case "HeadbuttCard": cardToTransform = new HeadbuttCard(); break;
+            case "HeavyBladeCard": cardToTransform = new HeavyBladeCard(); break;
+            case "IronWaveCard": cardToTransform = new IronWaveCard(); break;
+            case "PerfectedStrikeCard": cardToTransform = new PerfectedStrikeCard(); break;
+            case "PommelStrikeCard": cardToTransform = new PommelStrikeCard(); break;
+            case "SwordBoomerangCard": cardToTransform = new SwordBoomerangCard(); break;
+            case "ThunderclapCard": cardToTransform = new ThunderclapCard(); break;
+            case "TwinStrikeCard": cardToTransform = new TwinStrikeCard(); break;
+            case "WildStrikeCard": cardToTransform = new WildStrikeCard(); break;
             // RareCard
-            case "BLUDGEON_CARD": cardToTransform = new BludgeonCard(); break;
-            case "FEED_CARD": cardToTransform = new FeedCard(); break;
-            case "FIEND_FIRE_CARD": cardToTransform = new FiendFireCard(); break;
-            case "IMMOLATE_CARD": cardToTransform = new ImmolateCard(); break;
-            case "REAPER_CARD": cardToTransform = new ReaperCard(); break;
+            case "BludgeonCard": cardToTransform = new BludgeonCard(); break;
+            case "FeedCard": cardToTransform = new FeedCard(); break;
+            case "FiendFireCard": cardToTransform = new FiendFireCard(); break;
+            case "ImmolateCard": cardToTransform = new ImmolateCard(); break;
+            case "ReaperCard": cardToTransform = new ReaperCard(); break;
             // UncommonCard
-            case "BLOOD_FOR_BLOOD_CARD": cardToTransform = new BloodForBloodCard(); break;
-            case "CARNAGE_CARD": cardToTransform = new CarnageCard(); break;
-            case "DROPKICK_CARD": cardToTransform = new DropkickCard(); break;
-            case "HEMOKINESIS_CARD": cardToTransform = new HemokinesisCard(); break;
-            case "PUMMEL_CARD": cardToTransform = new PummelCard(); break;
-            case "RAMPAGE_CARD": cardToTransform = new RampageCard(); break;
-            case "RECKLESS_CHARGE_CARD": cardToTransform = new RecklessChargeCard(); break;
-            case "SEARING_BLOW_CARD": cardToTransform = new SearingBlowCard(); break;
-            case "SEVER_SOUL_CARD": cardToTransform = new SeverSoulCard(); break;
-            case "UPPERCUT_CARD": cardToTransform = new UppercutCard(); break;
-            case "WHIRLWIND_CARD": cardToTransform = new WhirlwindCard(); break;
+            case "BloodForBloodCard": cardToTransform = new BloodForBloodCard(); break;
+            case "CarnageCard": cardToTransform = new CarnageCard(); break;
+            case "DropkickCard": cardToTransform = new DropkickCard(); break;
+            case "HemokinesisCard": cardToTransform = new HemokinesisCard(); break;
+            case "PummelCard": cardToTransform = new PummelCard(); break;
+            case "RampageCard": cardToTransform = new RampageCard(); break;
+            case "RecklessChargeCard": cardToTransform = new RecklessChargeCard(); break;
+            case "SearingBlowCard": cardToTransform = new SearingBlowCard(); break;
+            case "SeveralSoulCard": cardToTransform = new SeverSoulCard(); break;
+            case "UpperCutCard": cardToTransform = new UppercutCard(); break;
+            case "WhirlwindCard": cardToTransform = new WhirlwindCard(); break;
 
             // Skill
             // RareCard
-            case "BERSERK_CARD": cardToTransform = new BerserkCard(); break;
-            case "JUGGERNAUT_CARD": cardToTransform = new JuggernautCard(); break;
+            case "BerserkCard": cardToTransform = new BerserkCard(); break;
+            case "JuggernautCard": cardToTransform = new JuggernautCard(); break;
             // UncommonCard
-            case "INFLAME_CARD": cardToTransform = new InflameCard(); break;
-            case "METALLICIZE_CARD": cardToTransform = new MetallicizeCard(); break;
-            case "RUPTURE_CARD": cardToTransform = new RuptureCard(); break;
+            case "InflameCard": cardToTransform = new InflameCard(); break;
+            case "MetallicizeCard": cardToTransform = new MetallicizeCard(); break;
+            case "RuptureCard": cardToTransform = new RuptureCard(); break;
 
             // Power
             // CommonCards
-            case "FLEX_CARD": cardToTransform = new FlexCard(); break;
-            case "SHRUG_IT_OFF_CARD": cardToTransform = new ShrugItOffCard(); break;
-            case "WARCRY_CARD": cardToTransform = new WarcryCard(); break;
+            case "FlexCard": cardToTransform = new FlexCard(); break;
+            case "ShrugltOffCard": cardToTransform = new ShrugItOffCard(); break;
+            case "WarcryCard": cardToTransform = new WarcryCard(); break;
             // RareCard
-            case "OFFERING_CARD": cardToTransform = new OfferingCard(); break;
+            case "OfferingCard": cardToTransform = new OfferingCard(); break;
             // UncommonCard
-            case "ENTRENCH_CARD": cardToTransform = new EntrenchCard(); break;
-            case "GHOSTLY_ARMOR_CARD": cardToTransform = new GhostlyArmorCard(); break;
-            case "RAGE_CARD": cardToTransform = new RageCard(); break;
-            case "SPOT_WEAKNESS_CARD": cardToTransform = new SpotWeaknessCard(); break;
+            case "EntrenchCard": cardToTransform = new EntrenchCard(); break;
+            case "GhostlyArmorCard": cardToTransform = new GhostlyArmorCard(); break;
+            case "RageCard": cardToTransform = new RageCard(); break;
+            case "SpotWeaknessCard": cardToTransform = new SpotWeaknessCard(); break;
             default:
                 System.out.println("ERROR IN DECKFACTORY"); break;
         }
