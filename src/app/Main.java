@@ -16,7 +16,6 @@ public class Main extends Application {
 
         player.addPotionCard(new EnergyPotion());
         player.addPotionCard(new BloodPotion());
-        player.addPotionCard(new EnergyPotion());
 
 //        GuiHelper.Scenes.startLoadSaveStateScene(primaryStage);
         GuiHelper.Scenes.startMapScene(player, true);

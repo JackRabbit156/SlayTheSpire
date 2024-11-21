@@ -3,6 +3,7 @@ package models.card;
 import helper.Color;
 import helper.ConsoleAssistent;
 import models.card.card_structure.Card;
+import models.card.card_structure.CardType;
 import models.card.ironclad_cards.IroncladDefendCard;
 import models.card.ironclad_cards.IroncladStrikeCard;
 import models.card.ironclad_cards.IroncladCardEnum;
@@ -31,11 +32,19 @@ public class DeckFactory {
     private List<Card> genDeck;
     private Player player;
     private int amount;
+    private CardType cardType = CardType.CURSE; //Platzhalter, damit irgendwas gesetzt ist, liegt an der AttackPotion!
     private Random randi = new Random();
 
     public DeckFactory(Player player, int amount) {
         this.player = player;
         this.amount = amount;
+        this.genDeck = new ArrayList<>();
+    }
+
+    public DeckFactory(Player player, int amount, CardType cardType) {
+        this.player = player;
+        this.amount = amount;
+        this.cardType = cardType;
         this.genDeck = new ArrayList<>();
     }
 
@@ -56,7 +65,6 @@ public class DeckFactory {
 
     private PotionCard assignPotion(String potion) {
         switch (potion) {
-            case "ATTACKPOTION": return new AttackPotion();
             case "BLOCKPOTION": return new BlockPotion();
             case "BLOODPOTION": return new BloodPotion();
             case "DISTILLEDCHAOSPOTION": return new DistilledChaosPotion();
@@ -90,13 +98,35 @@ public class DeckFactory {
         if (availableCards == null) {
             ConsoleAssistent.print(Color.RED, "DeckFactory.class: Karten Initialisierung hat nicht korrekt funktioniert.");
         }
-        for (int i = 0; i < this.amount; i++) {
-            int randomNumber = randi.nextInt(availableCards.size());
 
-            String cardName = availableCards.get(randomNumber).toString();
 
-            genDeck.add(assignCard(cardName));
+        if (cardType.equals(CardType.ATTACK)) {
+            for (int i = 0; i < this.amount; i++) {
+                int randomNumber = randi.nextInt(availableCards.size());
+
+                String cardName = availableCards.get(randomNumber).toString();
+
+                if (assignCard(cardName).getCardType().equals(cardType)) {
+                    genDeck.add(assignCard(cardName));
+                }
+                else {
+                    i--;
+                }
+
+            }
         }
+        else {
+            for (int i = 0; i < this.amount; i++) {
+                int randomNumber = randi.nextInt(availableCards.size());
+
+                String cardName = availableCards.get(randomNumber).toString();
+
+                genDeck.add(assignCard(cardName));
+            }
+        }
+
+
+
         return genDeck;
     }
 

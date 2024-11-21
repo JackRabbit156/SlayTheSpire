@@ -5,6 +5,7 @@ import helper.ConsoleAssistent;
 import helper.GuiHelper;
 import models.card.DeckFactory;
 import models.card.card_structure.Card;
+import models.card.card_structure.CardType;
 import models.game_settings.GameSettings;
 import models.map_elements.field_types.FieldEnum;
 import models.player.player_structure.Player;
@@ -47,6 +48,17 @@ public class LootController implements LootViewEvents {
         this.selectedCards = initialLootDeck();
 
         this.lootView = new LootView(this.selectedCards, this.gold, this.potionCard, this);
+        this.lootView.initLootViewEvents(this);
+    }
+
+    public LootController(Player player, CardType cardType) {
+        this.player = player;
+
+        this.deckFactory = new DeckFactory(player, amount, cardType);
+
+        this.selectedCards = initialLootDeck();
+
+        this.lootView = new LootView(this.selectedCards, this);
         this.lootView.initLootViewEvents(this);
     }
 
