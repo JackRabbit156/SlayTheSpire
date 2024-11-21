@@ -194,8 +194,11 @@ public class DeckFactory {
             case "GhostlyArmorCard": cardToTransform = new GhostlyArmorCard(); break;
             case "RageCard": cardToTransform = new RageCard(); break;
             case "SpotWeaknessCard": cardToTransform = new SpotWeaknessCard(); break;
-            default:
-                System.out.println("ERROR IN DECKFACTORY"); break;
+            default: {
+                System.out.println(cardName);
+                System.out.println("ERROR IN DECKFACTORY");
+                break;
+            }
         }
 
         return cardToTransform;
