@@ -22,7 +22,6 @@ import java.util.Stack;
 public class RestView extends StackPane {
     private RestViewEvents restViewEvents;
 
-    private Insets insets = new Insets(15,15,15,15);
     private VBox centerVBox;
     private VBox topVBox;
     private Popup popup;

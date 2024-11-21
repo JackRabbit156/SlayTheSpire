@@ -13,6 +13,7 @@ import models.card.card_structure.Card;
 import models.card.card_structure.CardGrave;
 import models.card.card_structure.CardType;
 import models.enemy.Enemy;
+import models.map_elements.field_types.FieldEnum;
 import models.player.player_structure.Player;
 
 import models.potion.potion_structure.PotionCard;
@@ -30,6 +31,7 @@ import java.util.List;
  */
 public class BattleController implements BattleViewEvents, PlayerEventListener, EnemyEventListener {
     private final BattleView battleView;
+    private FieldEnum fieldType;
 
     private final Player player;
     private final List<Enemy> enemies;
@@ -40,9 +42,10 @@ public class BattleController implements BattleViewEvents, PlayerEventListener, 
 
     private Card selectedCard;
 
-    public BattleController(Player player, List<Enemy> enemies) {
+    public BattleController(Player player, List<Enemy> enemies, FieldEnum fieldType) {
         this.player = player;
         this.enemies = enemies;
+        this.fieldType = fieldType;
         for (Enemy enemy : enemies) {
             enemy.setEnemyEventListener(this);
             enemy.calcIntent();
@@ -107,8 +110,12 @@ public class BattleController implements BattleViewEvents, PlayerEventListener, 
         selectedCard = null;
 
         if(enemies.isEmpty()) {
-            startingMap();
+            startingLoot();
         }
+    }
+
+    private void startingLoot() {
+        GuiHelper.Scenes.startLootScene(this.player, this.fieldType);
     }
 
     @Override
@@ -232,10 +239,6 @@ public class BattleController implements BattleViewEvents, PlayerEventListener, 
         cardDeath();
     }
 
-    private void startingMap(){
-        GuiHelper.Scenes.startMapScene(player, true);
-    }
-
     public BattleView getBattleView(){
         return this.battleView;
     }
@@ -267,6 +270,10 @@ public class BattleController implements BattleViewEvents, PlayerEventListener, 
                 return;
             }
         }
-        GuiHelper.Scenes.startMapScene(player, true);
+        startingLoot();
+    }
+
+    public FieldEnum getFieldType() {
+        return fieldType;
     }
 }

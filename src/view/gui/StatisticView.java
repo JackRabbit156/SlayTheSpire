@@ -16,23 +16,67 @@ import view.gui.layouts.layout_events.StatisticViewEvents;
 /**
  * @author Keil, Vladislav
  */
-public class StatisticView extends BorderPane {
+public class StatisticView extends StackPane {
     private StatisticViewEvents statisticViewEvents;
     private VBox centerVBox;
     private Player player;
 
+    private BorderPane statisticLayout;
+    private BorderPane bottomLayout;
+
     public StatisticView(Player player) {
+        this.statisticLayout = new BorderPane();
+        this.bottomLayout = new BorderPane();
         this.player = player;
+        switch (this.player.getCurrentAct()) {
+            case 1: this.player.setCurrentAct(2); break;
+            case 2:
+            case 4: this.player.setCurrentAct(4); break;
+        }
+        System.out.println(player.getCurrentAct() + " act" );
+        display();
     }
     /**
      * Initialisiert die View.
      */
     public void display() {
         setBackground(new Background(GuiHelper.background("/images/backgrounds/greenBg.jpg")));
-        initLeft();
-        initRight();
-        initCenter();
+        getChildren().add(statisticLayout);
+        getChildren().add(bottomLayout);
+
+        initStatisticLayout();
+        initBottomLayout();
+
+
+    }
+
+    private void initBottomLayout() {
+        statisticLayout.setPickOnBounds(false);
+        initBottom();
+    }
+
+    private void initBottom() {
+        Image img = new Image(getClass().getResource("/images/buttons/buttonL.png").toExternalForm());
+        ImageView imgView = new ImageView(img);
+        HBox bottomHBox = new HBox();
+
+        Label label = new Label("Back");
+        label.setTextFill(Paint.valueOf("White"));
+        label.setStyle("-fx-font-size: 24;");
+        bottomHBox.getChildren().add(GuiHelper.addButtonStackPane(imgView, label, 0.7));
+
+        imgView.setOnMouseClicked(event -> GuiHelper.Scenes.startMapScene(player, false));
+        label.setOnMouseClicked(event -> GuiHelper.Scenes.startMapScene(player, false));
+
+        bottomHBox.setAlignment(Pos.TOP_LEFT);
+        bottomHBox.setTranslateY(150);
+        bottomLayout.setBottom(bottomHBox);
+    }
+
+    private void initStatisticLayout() {
+        bottomLayout.setPickOnBounds(false);
         initTop();
+        initCenter();
     }
 
     /**
@@ -76,33 +120,8 @@ public class StatisticView extends BorderPane {
         rewardStackPanel.setAlignment(Pos.CENTER);
         centerVBox.getChildren().add(rewardStackPanel);
         centerLeft.setAlignment(Pos.CENTER);
-        centerVBox.getChildren().add(createButton("Next Act"));
-        setCenter(centerVBox);
-    }
 
-
-    /**
-     * Left side
-     */
-    private void initLeft(){
-        VBox leftVBox = new VBox();
-        leftVBox.setAlignment(Pos.CENTER);
-        Region placeHolder = new Region();
-        placeHolder.setPrefWidth(200); // Festlegen der konstanten Höhe
-        leftVBox.getChildren().add(placeHolder);
-        setLeft(leftVBox);
-    }
-
-    /**
-     * Right side
-     */
-    private void initRight(){
-        VBox rightVBox = new VBox();
-        rightVBox.setAlignment(Pos.CENTER);
-        Region bottomPlaceholder = new Region();
-        bottomPlaceholder.setPrefWidth(200); // Festlegen der konstanten Höhe
-        rightVBox.getChildren().add(bottomPlaceholder);
-        setRight(rightVBox);
+        statisticLayout.setCenter(centerVBox);
     }
 
     /**
@@ -118,37 +137,7 @@ public class StatisticView extends BorderPane {
         topVBox.getChildren().add(label);
         topVBox.setAlignment(Pos.BOTTOM_CENTER);
         topVBox.setPrefHeight(100);
-        setTop(topVBox);
+        statisticLayout.setTop(topVBox);
     }
 
-    /**
-     * Create Button
-     */
-    private Node createButton(String labelText){
-        Image btnImage = new Image(getClass().getResource("/images/buttons/buttonL.png").toExternalForm());
-        ImageView imgView = new ImageView(btnImage);
-        imgView.maxHeight(100);
-        StackPane btnPane = new StackPane(imgView);
-        Label label = new Label(labelText);
-        Button btn = new Button();
-
-        btn.setGraphic(imgView);
-
-        // ImgView
-        imgView.setFitWidth(btn.getWidth());
-        imgView.setFitHeight(btn.getHeight());
-        imgView.setScaleX(0.7);
-        imgView.setScaleY(0.7);
-
-        // Label
-        label.setTextFill(Paint.valueOf("White"));
-        label.setStyle("-fx-font-size: 24;");
-        GuiHelper.setButtonHoverEffect(imgView, label);
-        imgView.setOnMouseClicked(event -> GuiHelper.Scenes.startMapScene(player, true));
-        label.setOnMouseClicked(event -> GuiHelper.Scenes.startMapScene(player, true));
-
-        btnPane.getChildren().add(label);
-
-        return btnPane;
-    }
 }

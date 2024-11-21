@@ -24,7 +24,7 @@ public class RestController implements RestViewEvents {
     /**
      * Startet die Rast.
      */
-    public void startRest() {
+    private void startRest() {
         this.healed = false;
         this.restView = new RestView(this);
         this.restView.initRestViewEvents(this);

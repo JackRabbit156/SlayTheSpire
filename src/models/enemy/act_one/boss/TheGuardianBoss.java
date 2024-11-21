@@ -1,4 +1,4 @@
-package models.enemy.act_one.bosses;
+package models.enemy.act_one.boss;
 
 import models.battle.GameContext;
 import helper.PathAssistent;
@@ -21,15 +21,21 @@ public class TheGuardianBoss extends Enemy {
 
     @Override
     public void attack(GameContext gameContext) {
-        switch (randi.nextInt(2)) {
-            case 0:
-                atttackFierceBash(gameContext);
-            default:
-                atttackWhirlwind(gameContext);
+        switch (randi.nextInt(3)) {
+            case 0:  attackFierceBash(gameContext); break;
+            case 1: attackChargingUp(); break;
+            default: attackWhirlwind(gameContext);
         }
     }
 
-    private void atttackFierceBash(GameContext gameContext){
+    private void attackChargingUp(){
+        int block = 9;
+        this.addBlock(15);
+
+        System.out.printf("%s used %s and gained %d Block!\n\n", getName(), "Charging Up", block);
+    }
+
+    private void attackFierceBash(GameContext gameContext){
         int attackDamage = 32;
         Player player = gameContext.getPlayer();
 
@@ -37,7 +43,7 @@ public class TheGuardianBoss extends Enemy {
         System.out.printf("%s used %s, %s took %d damage!\n", getName(), "Dark Strike", player.getName(), attackDamage);
     }
 
-    private void atttackWhirlwind(GameContext gameContext){
+    private void attackWhirlwind(GameContext gameContext){
         int attackDamage = 20;
         Player player = gameContext.getPlayer();
 

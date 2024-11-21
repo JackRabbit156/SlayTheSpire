@@ -5,5 +5,6 @@ import models.player.player_structure.Player;
 
 public interface MapViewEvents {
     void onValidFieldClick(Player player, Node node);
+    void onSettingsClick();
 
 }

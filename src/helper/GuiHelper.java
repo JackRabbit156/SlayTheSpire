@@ -1,8 +1,6 @@
 package helper;
 
-import controller.gui.BattleController;
-import controller.gui.LoadController;
-import controller.gui.MapController;
+import controller.gui.*;
 import javafx.scene.ImageCursor;
 import javafx.scene.Node;
 import javafx.animation.FadeTransition;
@@ -18,7 +16,11 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import models.enemy.Enemy;
+import models.map_elements.field_types.EnemyField;
+import models.map_elements.field_types.FieldEnum;
 import models.player.player_structure.Player;
+import view.cli.StatisticsView;
+import view.gui.StatisticView;
 
 import java.util.List;
 import java.util.Objects;
@@ -67,11 +69,82 @@ public class GuiHelper {
          * @param player die 'Player'-Instanz, die den Spieler im Spiel repräsentiert
          * @param enemies eine Liste von 'Enemy'-Instanzen, die die Gegner im Kampf darstellen
          */
-        public static void startBattleScene(Player player, List<Enemy> enemies) {
-            BattleController battle = new BattleController(player, enemies);
+        public static void startBattleScene(Player player, List<Enemy> enemies, FieldEnum enemyField) {
+            BattleController battle = new BattleController(player, enemies, enemyField);
             Stage primaryStage = player.getPrimaryStage();
 
             Scene scene = new Scene(battle.getBattleView(), 1920, 1080);
+            scene.getStylesheets().add(Objects.requireNonNull(Scenes.class.getResource("/css/battleStyle.css")).toExternalForm());
+            fadeTransition(primaryStage, scene);
+        }
+
+        /**
+         * Startet die Loot-Szene, in der der Spieler eine Liste von Items erhalten kann, wenn er will.
+         *
+         * @param player die 'Player'-Instanz, die den Spieler im Spiel repräsentiert
+         * @param fieldType Welchen fieldType man vorher besucht hat.
+         */
+        public static void startLootScene(Player player, FieldEnum fieldType) {
+            LootController loot = new LootController(player, fieldType);
+            Stage primaryStage = player.getPrimaryStage();
+
+            Scene scene = new Scene(loot.getLootView(), 1920, 1080);
+            scene.getStylesheets().add(Objects.requireNonNull(Scenes.class.getResource("/css/battleStyle.css")).toExternalForm());
+            fadeTransition(primaryStage, scene);
+        }
+
+        /**
+         * Startet die Treasure-Szene, in der der Spieler eine Liste von Items erhalten kann, wenn er will.
+         *
+         * @param player die 'Player'-Instanz, die den Spieler im Spiel repräsentiert
+         */
+        public static void startTreasureScene(Player player) {
+            TreasureController treasureController = new TreasureController(player);
+            Stage primaryStage = player.getPrimaryStage();
+
+            Scene scene = new Scene(treasureController.getTreasureView(), 1920, 1080);
+            scene.getStylesheets().add(Objects.requireNonNull(Scenes.class.getResource("/css/battleStyle.css")).toExternalForm());
+            fadeTransition(primaryStage, scene);
+        }
+
+        /**
+         * Startet die Rest-Szene, in der der Spieler sich ausruhen kann.
+         *
+         * @param player die 'Player'-Instanz, die den Spieler im Spiel repräsentiert
+         */
+        public static void startRestScene(Player player) {
+            RestController rest = new RestController(player);
+            Stage primaryStage = player.getPrimaryStage();
+
+            Scene scene = new Scene(rest.getRestView(), 1920, 1080);
+            scene.getStylesheets().add(Objects.requireNonNull(Scenes.class.getResource("/css/battleStyle.css")).toExternalForm());
+            fadeTransition(primaryStage, scene);
+        }
+
+        /**
+         * Startet die Shop-Szene, in der der Spieler eine Liste von Items kaufen kann, wenn er will.
+         *
+         * @param player die 'Player'-Instanz, die den Spieler im Spiel repräsentiert
+         */
+        public static void startShopScene(Player player) {
+            ShopController shop = new ShopController(player);
+            Stage primaryStage = player.getPrimaryStage();
+
+            Scene scene = new Scene(shop.getShopView(), 1920, 1080);
+            scene.getStylesheets().add(Objects.requireNonNull(Scenes.class.getResource("/css/battleStyle.css")).toExternalForm());
+            fadeTransition(primaryStage, scene);
+        }
+
+        /**
+         * Startet die Statistik-Szene, in der der Spieler eine Liste von Daten aus den letzten Akten erhält.
+         *
+         * @param player die 'Player'-Instanz, die den Spieler im Spiel repräsentiert
+         */
+        public static void startStatisticScene(Player player) {
+            StatisticView view = new StatisticView(player);
+            Stage primaryStage = player.getPrimaryStage();
+
+            Scene scene = new Scene(view, 1920, 1080);
             scene.getStylesheets().add(Objects.requireNonNull(Scenes.class.getResource("/css/battleStyle.css")).toExternalForm());
             fadeTransition(primaryStage, scene);
         }
@@ -81,11 +154,25 @@ public class GuiHelper {
          *
          * @param primaryStage das primäre 'Stage'-Objekt der Anwendung
          */
-        public static void startLoadSaveStateScene(Stage primaryStage) {
+        public static void startLoadGameFromMenuScene(Stage primaryStage) {
             LoadController loadController = new LoadController(primaryStage);
 
             Scene scene = new Scene(loadController.getLoadView(), 1920, 1080);
+            scene.getStylesheets().add(Objects.requireNonNull(Scenes.class.getResource("/css/loadViewStyle.css")).toExternalForm());
             fadeTransition(primaryStage, scene);
+        }
+
+        /**
+         * Startet die Szene zum Laden eines gespeicherten Spielstands (Load Save State Scene).
+         *
+         * @param player der Player, im aktuellen Spiel
+         */
+        public static void startLoadGameFromMapScene(Player player) {
+            LoadController loadController = new LoadController(player);
+
+            Scene scene = new Scene(loadController.getLoadView(), 1920, 1080);
+            scene.getStylesheets().add(Objects.requireNonNull(Scenes.class.getResource("/css/loadViewStyle.css")).toExternalForm());
+            fadeTransition(player.getPrimaryStage(), scene);
         }
 
         /**

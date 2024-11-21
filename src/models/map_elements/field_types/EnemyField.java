@@ -22,7 +22,6 @@ public class EnemyField extends Field{
     private static final String imagePath = "/images/map_elements/field_types/EnemyField.png";
 
     private List<Enemy> enemies = new ArrayList<>();
-    private LootViewController lootViewController;
     public EnemyField(){
         super(imagePath);
     }
@@ -49,10 +48,9 @@ public class EnemyField extends Field{
         if(isFieldBeaten())
             return;
 
-        GuiHelper.Scenes.startBattleScene(player, enemies);
+        GuiHelper.Scenes.startBattleScene(player, enemies, FieldEnum.ENEMYFIELD);
 
         setFieldBeaten();
-
     }
 
     /**

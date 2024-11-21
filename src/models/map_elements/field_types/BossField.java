@@ -30,19 +30,12 @@ public class BossField extends Field{
         if(isFieldBeaten())
             return;
 
-        GuiHelper.Scenes.startBattleScene(player, enemies);
+        GuiHelper.Scenes.startBattleScene(player, enemies, FieldEnum.BOSSFIELD);
 
         if(!player.isAlive()) {
             return;
         }
 
         setFieldBeaten();
-        // TODO Start StatisticsView over GUIHelper
-
-//        new StatisticView(player);
-
-        // TODO Start LootView over GUIHelper
-
-//        new LootController(player, FieldEnum.BOSSFIELD);
     }
 }

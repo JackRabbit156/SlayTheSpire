@@ -66,7 +66,7 @@ public class SaveFilePreview {
 
         returnString += playerType + "\n";
         returnString += String.format("\t%-25s %s\n", "Last Session:", lastSession);
-        returnString += String.format("\t%-25s %s\n", "Time wasted:", timePlayed);
+        returnString += String.format("\t%-23s %s\n", "Time wasted:", timePlayed);
         returnString += String.format("\t%-25s %s\n", "Current Act:", currentAct);
         returnString += String.format("\t%-25s %s", "Current Field:", field);
 

@@ -5,7 +5,7 @@ import models.enemy.EnemyEnum;
 import models.enemy.act_one.AcidSlimeEnemy;
 import models.enemy.act_one.CultistEnemy;
 import models.enemy.act_one.MadGremlinEnemy;
-import models.enemy.act_one.bosses.SlimeBoss;
+import models.enemy.act_one.boss.SlimeBoss;
 import models.enemy.act_one.elites.GremlinNobElite;
 import models.enemy.act_one.elites.LagavulinElite;
 import models.event.Event;
@@ -66,8 +66,10 @@ public class ActOne extends Act {
 
         if(playerAlreadyOnAct)
             playerNode.setFieldBeaten();
-        else
+        else {
             playerNode.doFieldThing(player);
+            player.setCurrentField(this.getCurrentFieldName());
+        }
     }
 
     private void initNodes(){
