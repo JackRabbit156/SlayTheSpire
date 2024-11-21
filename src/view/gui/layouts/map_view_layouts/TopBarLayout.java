@@ -10,6 +10,9 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 import models.player.player_structure.Player;
 import view.gui.MapView;
 
@@ -25,35 +28,57 @@ public class TopBarLayout extends HBox {
     }
 
     private void initTopBar() {
-        setPadding(new Insets(0,0,0,300));
+        //Font kreonFont = Font.font("Kreon", FontWeight.BOLD, 24);
+        Font kreonFont = Font.loadFont(getClass().getResourceAsStream("/font/kreon/static/Kreon-Bold.ttf"), 24);
+        setPadding(new Insets(10,0,0,50));
 
         HBox leftSide = new HBox();
+        leftSide.setAlignment(Pos.CENTER_LEFT);
         HBox centerSide = new HBox();
+        centerSide.setAlignment(Pos.CENTER);
         HBox rightSide = new HBox();
-        rightSide.setAlignment(Pos.TOP_RIGHT);
+        rightSide.setAlignment(Pos.CENTER_RIGHT);
 
         HBox.setHgrow(leftSide, Priority.ALWAYS);
         HBox.setHgrow(centerSide, Priority.ALWAYS);
         HBox.setHgrow(rightSide, Priority.ALWAYS);
-        //setStyle("-fx-background-color: rgba(34, 34, 34, 0.8);");
         setBackground(new Background(GuiHelper.background("/images/map/bar.png")));
         setPrefHeight(50);
 
+
+        /* LEFT SIDE */
         Label playerNameLabel = new Label(player.getName());
-        playerNameLabel.getStyleClass().add("name-label");
+        playerNameLabel.setFont(kreonFont);
+        playerNameLabel.setTextFill(Color.WHITE);
+        playerNameLabel.setPadding(new Insets(0, 30, 0, 0));
 
         ImageView floor = image("/images/map/floor.png");
         Label playerFloorLabel = new Label("" +player.getCurrentField());
-        playerFloorLabel.getStyleClass().add("floor-label");
+        playerFloorLabel.setFont(kreonFont);
+        playerFloorLabel.setTextFill(Color.DARKGRAY);
+        playerFloorLabel.setPadding(new Insets(0, 30, 0, 0));
 
         ImageView gold = image("/images/map/panelGoldBag.png");
         Label playerMoneyLabel = new Label(""+player.getGold());
-        playerMoneyLabel.getStyleClass().add("gold-label");
+        playerMoneyLabel.setFont(kreonFont);
+        playerMoneyLabel.setTextFill(Color.GOLD);
+        playerMoneyLabel.setPadding(new Insets(0, 30, 0, 0));
 
         ImageView heart = image("/images/map/panelHeart.png");
         Label playerHealthLabel = new Label("" + player.getCurrentHealth() +"/" + player.getMaxHealth());
-        playerHealthLabel.getStyleClass().add("health-label");
+        playerHealthLabel.setFont(kreonFont);
+        playerHealthLabel.setTextFill(Color.RED);
+        playerHealthLabel.setPadding(new Insets(0, 30, 0, 0));
 
+        /* CENTER SIDE */
+        ImageView deckImage = image("/images/map/deck.png");
+        Label deckSizeLabel = new Label(""+player.getDeck().size());
+        deckSizeLabel.setTranslateZ(-100);
+        deckSizeLabel.setFont(kreonFont);
+        deckSizeLabel.setTextFill(Color.WHITE);
+        //deckSizeLabel.setPadding(new Insets(0, 30, 0, 0));
+
+        /* RIGHT SIDE */
         ImageView settings = image("/images/map/settings.png");
 
         settings.addEventHandler(MouseEvent.MOUSE_CLICKED, e -> {
@@ -61,8 +86,8 @@ public class TopBarLayout extends HBox {
             mapView.clickedOnSettings();
         });
 
-
         leftSide.getChildren().addAll(playerNameLabel, heart, playerHealthLabel, gold, playerMoneyLabel, floor, playerFloorLabel);
+        centerSide.getChildren().addAll(deckImage, deckSizeLabel);
         rightSide.getChildren().addAll(settings);
 
         getChildren().addAll(leftSide, centerSide, rightSide);
