@@ -28,6 +28,7 @@ public class StatisticView extends StackPane {
         this.statisticLayout = new BorderPane();
         this.bottomLayout = new BorderPane();
         this.player = player;
+        display();
     }
     /**
      * Initialisiert die View.
