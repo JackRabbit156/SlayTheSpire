@@ -18,6 +18,12 @@ import view.gui.layouts.shop_layout.PotionSelectionLayout;
 
 import java.util.List;
 
+/**
+ * Die Klasse ShopView verwaltet die grafische Darstellung der Shop-Ansicht im Spiel.
+ * Sie zeigt die kaufbaren Karten und Tränke an und ermöglicht es dem Spieler, mit diesen zu interagieren.
+ *
+ * @autor Vladislav Keil
+ */
 public class ShopView extends StackPane {
     private List<Card> shopCards;
     private Player player;
@@ -32,6 +38,15 @@ public class ShopView extends StackPane {
     private BorderPane shopLayout;
     private BorderPane bottomLayout;
 
+    /**
+     * Konstruktor für die Klasse ShopView.
+     * Initialisiert die Ansicht mit einem Spieler, kaufbaren Karten und Ereignissen der Shop-Ansicht.
+     *
+     * @param player           Der Spieler, der den Shop betritt.
+     * @param shopCards        Die Liste der im Shop verfügbaren Karten.
+     * @param shopViewEvents   Die Ereignisse der Shop-Ansicht.
+     * @param potionCard       Optional: Die im Shop verfügbare Trankkarte.
+     */
     public ShopView(Player player, List<Card> shopCards, ShopViewEvents shopViewEvents, PotionCard... potionCard) {
         shopLayout = new BorderPane();
         bottomLayout = new BorderPane();
@@ -54,21 +69,35 @@ public class ShopView extends StackPane {
         initBottomLayout();
     }
 
+    /**
+     * Initialisiert das untere Layout der Shop-Ansicht.
+     */
     private void initBottomLayout() {
         bottomLayout.setPickOnBounds(false);
         initBottom();
     }
 
+    /**
+     * Initialisiert das Layout der Shop-Ansicht.
+     */
     private void initShopLayout() {
         shopLayout.setPickOnBounds(false);
         initTop();
         initCenter();
     }
 
+    /**
+     * Initialisiert die Ereignisse der Shop-Ansicht.
+     *
+     * @param shopViewEvents Die Ereignisse der Shop-Ansicht.
+     */
     public void initShopViewEvents(ShopViewEvents shopViewEvents){
         this.shopViewEvents = shopViewEvents;
     }
 
+    /**
+     * Initialisiert das zentrale Layout der Shop-Ansicht.
+     */
     private void initCenter(){
         centerVBox = new VBox();
         // Card Options
@@ -90,6 +119,9 @@ public class ShopView extends StackPane {
         shopLayout.setCenter(centerVBox);
     }
 
+    /**
+     * Initialisiert das obere Layout der Shop-Ansicht.
+     */
     private void initTop(){
         topVBox = new VBox();
 
@@ -104,9 +136,8 @@ public class ShopView extends StackPane {
         shopLayout.setTop(topVBox);
     }
 
-
     /**
-     * Bottom side
+     * Initialisiert das untere Layout der Shop-Ansicht.
      */
     private void initBottom(){
         Image btnImage = new Image(getClass().getResource("/images/buttons/buttonL.png").toExternalForm());
@@ -124,53 +155,37 @@ public class ShopView extends StackPane {
         label.setOnMouseClicked(event -> shopViewEvents.onBackClicked());
 
         // HBox Config
-//        bottomHBox.setBackground(new Background(new BackgroundFill(Paint.valueOf("Green"), null, null)));
         bottomHBox.setAlignment(Pos.TOP_LEFT);
         bottomHBox.setTranslateY(150);
         bottomHBox.getChildren().add(stackPaneBtn);
         bottomLayout.setBottom(bottomHBox);
     }
 
-//    /**
-//     * Left side
-//     */
-//    private void initLeft(){
-//        VBox leftVBox = new VBox();
-//        leftVBox.setAlignment(Pos.CENTER);
-//        Region placeHolder = new Region();
-//        placeHolder.setPrefWidth(200); // Festlegen der konstanten Höhe
-//        leftVBox.getChildren().add(placeHolder);
-//        shopLayout.setLeft(leftVBox);
-//    }
-//
-//    /**
-//     * Right side
-//     */
-//    private void initRight(){
-//        VBox rightVBox = new VBox();
-//        rightVBox.setAlignment(Pos.CENTER);
-//        Region bottomPlaceholder = new Region();
-//        bottomPlaceholder.setPrefWidth(200); // Festlegen der konstanten Höhe
-//        rightVBox.getChildren().add(bottomPlaceholder);
-//        shopLayout.setRight(rightVBox);
-//    }
-
     /**
      * Aktion bei Klicken auf eine Karte.
-     * @param card Card
-     * @param index int
+     * Ruft das entsprechende Ereignis auf.
+     *
+     * @param card  Die angeklickte Karte.
+     * @param index Der Index der angeklickten Karte.
      */
     public void onCardClick(Card card, int index) {
         shopViewEvents.onCardClick(card, index);
     }
 
+    /**
+     * Aktion bei Klicken auf einen Trank.
+     * Ruft das entsprechende Ereignis auf.
+     *
+     * @param card Der angeklickte Trank.
+     */
     public void onPotionClick(PotionCard card) {
         shopViewEvents.onPotionClick(card);
     }
 
     /**
-     * Initialisiert die Center View mit den übergabenen Karten.
-     * @param purchasableCards List of Cards
+     * Initialisiert die Center View mit den übergebenen Karten.
+     *
+     * @param purchasableCards Die Liste der kaufbaren Karten.
      */
     public void setShopCards(List<Card> purchasableCards) {
         this.shopCards = purchasableCards;
@@ -178,8 +193,9 @@ public class ShopView extends StackPane {
     }
 
     /**
-     * Es ploppt ein Popup Fenster auf und gibt eine Nachricht aus.
-     * @param text Popup Text
+     * Zeigt ein Popup-Fenster mit einer Nachricht an.
+     *
+     * @param text Der Text im Popup-Fenster.
      */
     public void showDialog(String text) {
         Image popupImage = new Image(getClass().getResource("/images/popup/popupBg.png").toExternalForm());
@@ -201,6 +217,9 @@ public class ShopView extends StackPane {
         this.popup.show(this.centerVBox.getScene().getWindow(), 800, 500);
     }
 
+    /**
+     * Setzt die kaufbare Trankkarte auf null und initialisiert die Center View neu.
+     */
     public void setPurchaseablePotion() {
         this.potionCard = null;
         initCenter();

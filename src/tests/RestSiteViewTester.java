@@ -11,17 +11,12 @@ import javafx.stage.Stage;
 public class RestSiteViewTester extends Application {
     public static void main(String[] args) { launch(args); }
     @Override
-    public void start(Stage primaryStage) throws Exception {
+    public void start(Stage primaryStage) {
 //        IroncladPlayer player = new IroncladPlayer();
         TestPlayer player = new TestPlayer();
-
 //        player.setGold(500);
-        RestController shopViewController = new RestController(player);
-
-        Scene scene = new Scene(shopViewController.getRestView(), 1920, 1080);
-
         player.setPrimaryStage(primaryStage);
 
-        GuiHelper.Scenes.startScene(primaryStage, scene, "Slay the Spire - JavaFX");
+        GuiHelper.Scenes.startRestScene(player);
     }
 }

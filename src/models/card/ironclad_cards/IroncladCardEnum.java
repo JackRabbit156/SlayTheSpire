@@ -1,6 +1,8 @@
 package models.card.ironclad_cards;
 
-
+/**
+ * @author Keil, Vladislav
+ */
 public enum IroncladCardEnum {
     STRIKE_CARD("IroncladStrikeCard"),
     DEFEND_CARD("IroncladDefendCard"),

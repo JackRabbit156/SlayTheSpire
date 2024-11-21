@@ -2,7 +2,9 @@ package view.gui.layouts.layout_events;
 
 import models.card.card_structure.Card;
 import models.potion.potion_structure.PotionCard;
-
+/**
+ * @author Keil, Vladislav
+ */
 public interface TreasureViewEvents {
     void onCardClick(Card card, int index);
     void onGoldClick(int gold);
