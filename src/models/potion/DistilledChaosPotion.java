@@ -23,6 +23,7 @@ public class DistilledChaosPotion extends PotionCard {
 
         for (int i = 1; i <= 3; i++) {
             deck.get(deck.size() - i).play(gameContext);
+            gameContext.getPlayer().increaseCurrentEnergy(deck.get(deck.size() - i).getCost());
         }
 
     }

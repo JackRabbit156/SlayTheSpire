@@ -209,7 +209,13 @@ public class BattleController implements BattleViewEvents, PlayerEventListener, 
         }
 
         // Play the card (and add the enemy)
-        gameContext.setSelectedEnemy(enemy);
+        if (enemy == null) {
+            gameContext.setRandomEnemy();
+        }
+        else {
+            gameContext.setSelectedEnemy(enemy);
+        }
+
         selectedCard.play(gameContext);
 
         cardDeath();

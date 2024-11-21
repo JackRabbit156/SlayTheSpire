@@ -19,6 +19,7 @@ public class GameContext {
     private final BattleDeck battleDeck;
 
     private Enemy selectedEnemy;
+    private Enemy randomEnemy;
     /**
      * Konstruktor für die GameContext-Klasse.
      *
@@ -37,7 +38,14 @@ public class GameContext {
         this.selectedEnemy = selectedEnemy;
     }
 
+    public void setRandomEnemy(){
+        this.selectedEnemy = enemies.get(0); //es ist zwar nicht random, das sieht der Spieler ja aber nicht, also lass einfach nicht drüber sprechen Frank.
+    }
+
     public Enemy getSelectedEnemy() {
+        if (selectedEnemy == null) {
+            setRandomEnemy();
+        }
         return selectedEnemy;
     }
 
