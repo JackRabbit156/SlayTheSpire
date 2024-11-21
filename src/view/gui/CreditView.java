@@ -31,11 +31,11 @@ public class CreditView {
         back.setBackground(new Background(GuiHelper.background("/images/buttons/endTurnButton.png")));
         back.setMinSize(200, 200);
 
-        back.setOnMouseEntered(event1 -> {
+        back.setOnMouseEntered(event -> {
             back.setBackground(new Background(
                     GuiHelper.background("/images/buttons/endTurnButtonGlow.png")));
         });
-        back.setOnMouseExited(event1 -> {
+        back.setOnMouseExited(event -> {
             back.setBackground(new Background(
                     GuiHelper.background("/images/buttons/endTurnButton.png")));
         });

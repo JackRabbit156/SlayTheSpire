@@ -48,6 +48,7 @@ public class MainMenuView {
             yes.setBackground(new Background(
                     GuiHelper.background("/images/buttons/endTurnButton.png")));
         });
+
         newGame.setText("New Game");
         newGame.setTextFill(Color.WHITE);
         newGame.setFont(Font.font(fontPath, 30));

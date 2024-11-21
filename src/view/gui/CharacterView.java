@@ -15,6 +15,8 @@ import jdk.internal.org.objectweb.asm.tree.analysis.Value;
 public class CharacterView {
     private BorderPane ground = new BorderPane();
     private HBox buttonBox = new HBox();
+    private HBox right = new HBox();
+    private HBox left = new HBox();
     private VBox wrap = new VBox();
     private Background bgImg = new Background(GuiHelper.background("/images/backgrounds/MainMenuBG.png"));
     private Background icImg = new Background(GuiHelper.background("/images/buttons/ironcladButton.png"));
@@ -29,32 +31,43 @@ public class CharacterView {
     private Button back = new Button();
     private Button embark = new Button();
 
-    public BorderPane display() {
-        ground.setBackground(bgImg);
+    public CharacterView(){
+        initButtons();
+    }
+
+    private void initButtons() {
 
         ic.setBackground(icImg);
         ic.setPrefSize(120, 120);
+
         sl.setBackground(slImg);
         sl.setPrefSize(120, 120);
 
-        back.setText("Back");
-        HBox left = new HBox(back);
-        back.setBackground(Background.EMPTY);
-        back.setFont(Font.font("/resources/font/kreon/static/Kreon-Bold.ttf", 30));
-        back.setTextFill(Color.WHITE);
-        back.setPrefSize(220, 220);
-        left.setAlignment(Pos.BASELINE_LEFT);
-        left.setBackground(backBG);
-
         embark.setText("Embark");
-        HBox right = new HBox(embark);
         embark.setBackground(Background.EMPTY);
         embark.setFont(Font.font("/resources/font/kreon/static/Kreon-Bold.ttf", 30));
         embark.setTextFill(Color.WHITE);
         embark.setPrefSize(220, 220);
+
+        back.setText("Back");
+        back.setBackground(Background.EMPTY);
+        back.setFont(Font.font("/resources/font/kreon/static/Kreon-Bold.ttf", 30));
+        back.setTextFill(Color.WHITE);
+        back.setPrefSize(220, 220);
+
+    }
+
+
+    public BorderPane display() {
+        ground.setBackground(bgImg);
+
+        left.setAlignment(Pos.BASELINE_LEFT);
+        left.setBackground(backBG);
+        left.getChildren().add(back);
+
         right.setAlignment(Pos.BASELINE_RIGHT);
         right.setBackground(embarkBG);
-
+        right.getChildren().add(embark);
         HBox.setHgrow(left, Priority.ALWAYS);
         HBox.setHgrow(ic, Priority.ALWAYS);
         HBox.setHgrow(sl, Priority.ALWAYS);
@@ -67,8 +80,8 @@ public class CharacterView {
         buttonBox.setAlignment(Pos.CENTER);
         wrap.getChildren().addAll(text, buttonBox);
         wrap.setAlignment(Pos.CENTER);
-        //ground.getChildren().addAll(left, wrap, right);
         ground.setBottom(wrap);
+
         return ground;
     }
 
