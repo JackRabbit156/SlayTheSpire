@@ -17,6 +17,7 @@ public class BloodPotion extends PotionCard {
 
     @Override
     public void play(GameContext gameContext) {
+        System.out.println("dfikghsdfhio");
         Player player = gameContext.getPlayer();
         player.increaseCurrentHealth((int) (player.getMaxHealth() * 0.2));
     }
