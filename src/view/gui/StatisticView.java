@@ -28,6 +28,12 @@ public class StatisticView extends StackPane {
         this.statisticLayout = new BorderPane();
         this.bottomLayout = new BorderPane();
         this.player = player;
+        switch (this.player.getCurrentAct()) {
+            case 1: this.player.setCurrentAct(2); break;
+            case 2:
+            case 4: this.player.setCurrentAct(4); break;
+        }
+        System.out.println(player.getCurrentAct() + " act" );
         display();
     }
     /**
@@ -59,8 +65,8 @@ public class StatisticView extends StackPane {
         label.setStyle("-fx-font-size: 24;");
         bottomHBox.getChildren().add(GuiHelper.addButtonStackPane(imgView, label, 0.7));
 
-        imgView.setOnMouseClicked(event -> GuiHelper.Scenes.startMapScene(player, true));
-        label.setOnMouseClicked(event -> GuiHelper.Scenes.startMapScene(player, true));
+        imgView.setOnMouseClicked(event -> GuiHelper.Scenes.startMapScene(player, false));
+        label.setOnMouseClicked(event -> GuiHelper.Scenes.startMapScene(player, false));
 
         bottomHBox.setAlignment(Pos.TOP_LEFT);
         bottomHBox.setTranslateY(150);
