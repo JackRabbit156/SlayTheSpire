@@ -16,6 +16,13 @@ import view.gui.layouts.treasure_layout.CardSelectionLayout;
 
 import java.util.List;
 
+/**
+ * Die Klasse TreasureView verwaltet die grafische Darstellung der Schatz-Ansicht im Spiel.
+ * Sie zeigt die Beuteoptionen einschließlich Karten, Gold und Tränken an und ermöglicht es
+ * dem Spieler, mit diesen zu interagieren.
+ *
+ * @autor Vladislav Keil
+ */
 public class TreasureView extends StackPane {
     private PotionCard potionCard;
     private List<Card> cardList;
@@ -23,7 +30,7 @@ public class TreasureView extends StackPane {
     private TreasureViewEvents treasureViewEvents;
 
     private Popup popup;
-    private Insets insets = new Insets(15,15,15,15);
+    private Insets insets = new Insets(15, 15, 15, 15);
     private VBox centerVBox;
     private VBox topVBox;
     private Popup cardSelectionPopup;
@@ -34,6 +41,14 @@ public class TreasureView extends StackPane {
     private boolean cardSelectionDisabled;
     private StackPane cardSelectionButtonStackPane;
 
+    /**
+     * Konstruktor für die Klasse TreasureView.
+     * Initialisiert die Ansicht ohne eine Trankkarte.
+     *
+     * @param cardList             Die Liste der verfügbaren Karten.
+     * @param gold                 Die Menge an Gold im Schatz.
+     * @param treasureViewEvents   Die Ereignisse der Schatz-Ansicht.
+     */
     public TreasureView(List<Card> cardList, int gold, TreasureViewEvents treasureViewEvents) {
         this.treasureLayout = new BorderPane();
         this.bottomLayout = new BorderPane();
@@ -42,6 +57,15 @@ public class TreasureView extends StackPane {
         this.treasureViewEvents = treasureViewEvents;
     }
 
+    /**
+     * Konstruktor für die Klasse TreasureView.
+     * Initialisiert die Ansicht mit einer Trankkarte.
+     *
+     * @param cardList             Die Liste der verfügbaren Karten.
+     * @param gold                 Die Menge an Gold im Schatz.
+     * @param potionCard           Die im Schatz enthaltene Trankkarte.
+     * @param treasureViewEvents   Die Ereignisse der Schatz-Ansicht.
+     */
     public TreasureView(List<Card> cardList, int gold, PotionCard potionCard, TreasureViewEvents treasureViewEvents) {
         this(cardList, gold, treasureViewEvents);
         this.potionCard = potionCard;
@@ -50,7 +74,7 @@ public class TreasureView extends StackPane {
     }
 
     /**
-     * Initialisiert die View.
+     * Initialisiert die View und zeigt die Schatz-Ansicht an.
      */
     public void display() {
         getChildren().add(treasureLayout);
@@ -60,29 +84,33 @@ public class TreasureView extends StackPane {
 
         initTreasureLayout();
         initBottomLayout();
-
     }
 
+    /**
+     * Initialisiert das Layout des Schatzes.
+     */
     private void initTreasureLayout() {
         treasureLayout.setPickOnBounds(false);
         initTop();
         initCenter();
     }
 
+    /**
+     * Initialisiert das untere Layout.
+     */
     private void initBottomLayout() {
         bottomLayout.setPickOnBounds(false);
         initBottom();
     }
+
     /**
-     * Center Side
+     * Initialisiert das zentrale Layout der Schatz-Ansicht.
      */
-    private void initCenter(){
-        // Card Options
+    private void initCenter() {
         centerVBox = new VBox();
         centerVBox.setTranslateX(65);
         centerVBox.setTranslateY(190);
         centerVBox.setSpacing(-20);
-//        centerVBox.
         centerVBox.setAlignment(Pos.TOP_CENTER);
 
         // Gold Option
@@ -101,10 +129,12 @@ public class TreasureView extends StackPane {
         treasureLayout.setCenter(centerVBox);
     }
 
+    /**
+     * Setzt das Layout für die Kartenauswahl.
+     */
     private void setCardSelectionLayout() {
-        // Card Selection Layout
         CardSelectionLayout cardSelectionLayout = new CardSelectionLayout(this.cardList, this);
-        cardSelectionLayout.setPadding(new Insets(50,50,15,50));
+        cardSelectionLayout.setPadding(new Insets(50, 50, 15, 50));
         this.cardSelectionButtonStackPane = getCardSelectionStackPane();
         this.centerVBox.getChildren().add(this.cardSelectionButtonStackPane);
 
@@ -119,6 +149,11 @@ public class TreasureView extends StackPane {
         });
     }
 
+    /**
+     * Erzeugt das StackPane für die Kartenauswahl.
+     *
+     * @return Das StackPane für die Kartenauswahl.
+     */
     private StackPane getCardSelectionStackPane() {
         Image btnImage = new Image(getClass().getResource("/images/panel/rewardListItemPanel.png").toExternalForm());
         Image img = new Image(getClass().getResource("/images/card/cardSymbol.png").toExternalForm());
@@ -148,6 +183,13 @@ public class TreasureView extends StackPane {
         return cardSelectionStackPane;
     }
 
+    /** ÄNDERUNG **/
+
+    /**
+     * Erzeugt das StackPane für die Gold-Option.
+     *
+     * @return Das StackPane für die Gold-Option.
+     */
     private StackPane getGoldStackPane() {
         Image btnImage = new Image(getClass().getResource("/images/panel/rewardListItemPanel.png").toExternalForm());
         Image img = new Image(getClass().getResource("/images/gold.png").toExternalForm());
@@ -164,20 +206,19 @@ public class TreasureView extends StackPane {
         label.setText(String.valueOf(gold));
         label.setStyle("-fx-font-size: 24; -fx-font-family: Kreon;");
         label.setTextFill(Paint.valueOf("White"));
+
         // Loot
         HBox lootBox = new HBox();
         lootBox.setAlignment(Pos.CENTER);
-        lootBox.getChildren().addAll(imgView,label);
+        lootBox.getChildren().addAll(imgView, label);
 
         // Panel
         StackPane goldStackPane = new StackPane(itemPanelView);
         goldStackPane.getChildren().add(lootBox);
         goldStackPane.setAlignment(Pos.CENTER);
 
-//        GuiHelper.setButtonHoverEffect(itemPanelView, label);
-
         goldStackPane.setOnMouseClicked(event -> {
-            if(!goldStackPane.isDisabled()) {
+            if (!goldStackPane.isDisabled()) {
                 onGoldClick();
             }
             goldStackPane.setOpacity(0.6);
@@ -187,6 +228,11 @@ public class TreasureView extends StackPane {
         return goldStackPane;
     }
 
+    /**
+     * Erzeugt das StackPane für die Trank-Option.
+     *
+     * @return Das StackPane für die Trank-Option.
+     */
     private StackPane getPotionStackPane() {
         Image btnImage = new Image(getClass().getResource("/images/panel/rewardListItemPanel.png").toExternalForm());
         ImageView itemPanelView = new ImageView(btnImage);
@@ -215,7 +261,7 @@ public class TreasureView extends StackPane {
         potionStackPane.setAlignment(Pos.CENTER);
 
         potionStackPane.setOnMouseClicked(event -> {
-            if(!potionStackPane.isDisabled()) {
+            if (!potionStackPane.isDisabled()) {
                 onPotionClick();
             }
             potionStackPane.setOpacity(0.6);
@@ -226,9 +272,9 @@ public class TreasureView extends StackPane {
     }
 
     /**
-     * Top side
+     * Initialisiert das obere Layout der Schatz-Ansicht.
      */
-    private void initTop(){
+    private void initTop() {
         topVBox = new VBox();
         Label label = new Label();
         label.setText("Loot");
@@ -243,9 +289,9 @@ public class TreasureView extends StackPane {
     }
 
     /**
-     * Bottom side
+     * Initialisiert das untere Layout der Schatz-Ansicht.
      */
-    private void initBottom(){
+    private void initBottom() {
         Image btnImage = new Image(getClass().getResource("/images/buttons/buttonL.png").toExternalForm());
         ImageView imgView = new ImageView(btnImage);
         HBox bottomHBox = new HBox();
@@ -265,31 +311,42 @@ public class TreasureView extends StackPane {
     }
 
     /**
-     * Auswahl der Karte und Beendigung des LootView im Controller.
-     * @param card ein Karte
-     * @param index Karten index
+     * Event-Handler für Klicks auf Karten im Schatz.
+     *
+     * @param card  Die angeklickte Karte.
+     * @param index Der Index der angeklickten Karte.
      */
     public void onCardClick(Card card, int index) {
         treasureViewEvents.onCardClick(card, index);
     }
 
-    private void onGoldClick(){
+    /**
+     * Event-Handler für Klicks auf das Gold im Schatz.
+     */
+    private void onGoldClick() {
         treasureViewEvents.onGoldClick(this.gold);
     }
 
-    private void onPotionClick(){
+    /**
+     * Event-Handler für Klicks auf einen Trank im Schatz.
+     */
+    private void onPotionClick() {
         treasureViewEvents.onPotionClick(this.potionCard);
     }
 
     /**
-     * Übergabe des TreasureViewEvents
-     * @param treasureViewEvents TreasureViewEvents
+     * Initialisiert die Ereignisse der Schatz-Ansicht.
+     *
+     * @param treasureViewEvents Die Ereignisse der Schatz-Ansicht.
      */
-    public void initTreasureViewEvents(TreasureViewEvents treasureViewEvents) { this.treasureViewEvents = treasureViewEvents; }
+    public void initTreasureViewEvents(TreasureViewEvents treasureViewEvents) {
+        this.treasureViewEvents = treasureViewEvents;
+    }
 
     /**
-     * Es ploppt ein Popup Fenster auf und gibt eine Nachricht aus.
-     * @param text Popup Text
+     * Zeigt ein Popup-Fenster mit einer Nachricht an.
+     *
+     * @param text Die Nachricht im Popup-Fenster.
      */
     public void showDialog(String text) {
         Image popupImage = new Image(getClass().getResource("/images/popup/popupBg.png").toExternalForm());
@@ -310,9 +367,16 @@ public class TreasureView extends StackPane {
         this.popup.show(this.treasureLayout.getScene().getWindow(), 800, 500);
     }
 
+    /**
+     * Deaktiviert die Kartenauswahl im Schatz.
+     */
     public void disableCardSelection() {
         this.cardSelectionDisabled = true;
         this.cardSelectionButtonStackPane.setOpacity(0.6);
         this.cardSelectionButtonStackPane.setDisable(true);
     }
 }
+
+
+
+

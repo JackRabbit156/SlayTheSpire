@@ -14,7 +14,9 @@ import javafx.scene.paint.Paint;
 import models.card.card_structure.Card;
 import models.potion.potion_structure.PotionCard;
 import view.gui.ShopView;
-
+/**
+ * @author Keil, Vladislav
+ */
 public class PotionSelectionLayout extends FlowPane {
     private PotionCard potionCard;
     private ShopView shopView;

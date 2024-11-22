@@ -328,7 +328,7 @@ public class GuiHelper {
         });
     }
 
-    public static Node addButtonStackPane(ImageView imgView, Label label, double scale) {
+    public static StackPane addButtonStackPane(ImageView imgView, Label label, double scale) {
         return addButtonStackPane(imgView, label, scale, scale);
     }
 

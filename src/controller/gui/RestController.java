@@ -9,6 +9,9 @@ import view.gui.RestView;
 import view.gui.layouts.layout_events.RestViewEvents;
 
 /**
+ * Die Klasse RestController steuert den Rastvorgang im Spiel und verwaltet die Anzeige der Rast-Ansicht.
+ * Sie ermöglicht dem Spieler, sich zu heilen und kehrt zur Kartenansicht zurück.
+ *
  * @author Vladislav Keil
  */
 public class RestController implements RestViewEvents {
@@ -16,13 +19,19 @@ public class RestController implements RestViewEvents {
     private RestView restView;
     private boolean healed = false;
 
+    /**
+     * Konstruktor für die Klasse RestController.
+     * Initialisiert den Spieler und startet die Rast.
+     *
+     * @param player Der Spieler, der die Rast durchführt.
+     */
     public RestController(Player player) {
         this.player = player;
         this.startRest();
     }
 
     /**
-     * Startet die Rast.
+     * Startet die Rast und initialisiert die Rast-Ansicht.
      */
     private void startRest() {
         this.healed = false;
@@ -30,6 +39,10 @@ public class RestController implements RestViewEvents {
         this.restView.initRestViewEvents(this);
     }
 
+    /**
+     * Event-Handler für den Heilungs-Klick.
+     * Erhöht die aktuelle Gesundheit des Spielers um 30% seiner maximalen Gesundheit.
+     */
     @Override
     public void onHealClicked() {
         if (!this.healed) {
@@ -41,6 +54,10 @@ public class RestController implements RestViewEvents {
         onBackClicked();
     }
 
+    /**
+     * Event-Handler für den Zurück-Klick.
+     * Kehrt zur Kartenansicht zurück.
+     */
     @Override
     public void onBackClicked() {
         ConsoleAssistent.println(Color.YELLOW, "Back wurde im RestViewController angeklickt");
@@ -48,11 +65,11 @@ public class RestController implements RestViewEvents {
     }
 
     /**
-     * Übergabe der RestView
-     * @return RestView
+     * Gibt die Rest-Ansicht zurück.
+     *
+     * @return Die RestView-Instanz.
      */
     public RestView getRestView() {
         return restView;
     }
 }
-

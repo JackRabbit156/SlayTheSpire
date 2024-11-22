@@ -14,6 +14,9 @@ import view.gui.layouts.layout_events.ShopViewEvents;
 import java.util.List;
 
 /**
+ * Die Klasse ShopController steuert den Shop-Vorgang im Spiel und verwaltet die Anzeige der Shop-Ansicht.
+ * Sie ermöglicht es dem Spieler, Karten und Tränke zu kaufen und in das Spieldeck aufzunehmen.
+ *
  * @author Keil, Vladislav
  */
 public class ShopController implements ShopViewEvents {
@@ -24,7 +27,13 @@ public class ShopController implements ShopViewEvents {
     private PotionCard purchasablePotion;
     private List<Relic> purchasableRelics;
 
-     public ShopController(Player player) {
+    /**
+     * Konstruktor für die Klasse ShopController.
+     * Initialisiert den Spieler und füllt den Shop mit kaufbaren Gegenständen.
+     *
+     * @param player Der Spieler, der den Shop betritt.
+     */
+    public ShopController(Player player) {
         this.player = player;
 
         this.deckFactory = new DeckFactory(player, 5);
@@ -36,17 +45,27 @@ public class ShopController implements ShopViewEvents {
     }
 
     /**
-     * Initialisierung des Shops und des ShopViewEvents
+     * Initialisiert den Shop und die ShopViewEvents.
      */
     private void entryShop() {
         this.shopView = new ShopView(player, purchasableCards, this, purchasablePotion);
         this.shopView.initShopViewEvents(this);
     }
 
-    private void refreshSelectableCards(){
+    /**
+     * Aktualisiert die Liste der kaufbaren Karten im Shop.
+     */
+    private void refreshSelectableCards() {
         this.shopView.setShopCards(purchasableCards);
     }
 
+    /**
+     * Event-Handler für Klicks auf Karten im Shop.
+     * Verringert das Gold des Spielers und fügt die Karte dem Deck des Spielers hinzu.
+     *
+     * @param card  Die geklickte Karte.
+     * @param index Der Index der geklickten Karte.
+     */
     @Override
     public void onCardClick(Card card, int index) {
         int cardPrice = card.getPrice();
@@ -63,12 +82,18 @@ public class ShopController implements ShopViewEvents {
         }
     }
 
+    /**
+     * Event-Handler für Klicks auf Tränke im Shop.
+     * Verringert das Gold des Spielers und fügt den Trank dem Inventar des Spielers hinzu.
+     *
+     * @param potion Der geklickte Trank.
+     */
     @Override
     public void onPotionClick(PotionCard potion) {
         int cardPrice = potion.getPrice();
 
         if (this.player.getGold() >= cardPrice) {
-            if(this.player.getPotionCards().size() < 3) {
+            if (this.player.getPotionCards().size() < 3) {
                 this.player.decreaseGold(cardPrice);
                 this.player.addPotionCard(potion);
                 refreshSelectablePotion();
@@ -77,21 +102,33 @@ public class ShopController implements ShopViewEvents {
                 this.shopView.showDialog("You have reached the maximum of Potion.");
             }
         } else {
-            System.out.println();
             this.shopView.showDialog("Not enough Gold!");
             ConsoleAssistent.print(Color.YELLOW, "Not enough Gold!");
         }
     }
 
+    /**
+     * Aktualisiert die kaufbaren Tränke im Shop.
+     */
     private void refreshSelectablePotion() {
         this.shopView.setPurchaseablePotion();
     }
 
+    /**
+     * Event-Handler für Klicks auf Relikte im Shop.
+     *
+     * @param relic  Das geklickte Relikt.
+     * @param index Der Index des geklickten Relikts.
+     */
     @Override
     public void onRelicClick(Relic relic, int index) {
-
+        // Logik zum Kaufen von Relikten kann hier hinzugefügt werden.
     }
 
+    /**
+     * Event-Handler für den Zurück-Klick im Shop.
+     * Kehrt zur Kartenansicht zurück.
+     */
     @Override
     public void onBackClicked() {
         ConsoleAssistent.print(Color.YELLOW, "Shop Leaved!");
@@ -99,8 +136,9 @@ public class ShopController implements ShopViewEvents {
     }
 
     /**
-     * Übergabe der ShopView
-     * @return ShopView
+     * Gibt die Shop-Ansicht zurück.
+     *
+     * @return Die ShopView-Instanz.
      */
     public ShopView getShopView() {
         return this.shopView;
