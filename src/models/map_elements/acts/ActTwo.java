@@ -41,9 +41,9 @@ public class ActTwo extends Act {
      * Initialisiert den Akt und platziert den Spieler auf dem Startfeld, mit der Option einen Spieler auf einem bestimmten Floor zu spawnen.
      *
      * @param player der Spieler, der sich im Akt bewegen soll
-     * @param playerAlreadyOnAct ob der Spieler von einer Datei geladen wurde.
+
      */
-    public ActTwo(Player player, boolean playerAlreadyOnAct){
+    public ActTwo(Player player){
         super(2, MAP_WIDTH, MAP_HEIGHT);
         this.player = player;
         initNodes();

@@ -35,9 +35,8 @@ public class ActFour extends Act{
      * Initialisiert den Akt und platziert den Spieler auf dem Startfeld, mit der Option einen Spieler auf einem bestimmten Floor zu spawnen.
      *
      * @param player der Spieler, der sich im Akt bewegen soll
-     * @param playerAlreadyOnAct ob der Spieler von einer Datei geladen wurde.
      */
-    public ActFour(Player player, boolean playerAlreadyOnAct){
+    public ActFour(Player player){
         super(4, MAP_WIDTH, MAP_HEIGHT);
         initNodes();
 

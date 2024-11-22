@@ -44,9 +44,8 @@ public class ActOne extends Act {
      * Initialisiert den Akt und platziert den Spieler auf dem Startfeld.
      *
      * @param player der Spieler, der sich im Akt bewegen soll
-     * @param playerAlreadyOnAct ob der Spieler von einer Datei geladen wurde.
      */
-    public ActOne(Player player, boolean playerAlreadyOnAct){
+    public ActOne(Player player){
         super(1, MAP_WIDTH, MAP_HEIGHT);
         this.player = player;
 

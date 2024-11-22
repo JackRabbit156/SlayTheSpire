@@ -17,6 +17,6 @@ public class MapViewTester  extends Application {
 //        IroncladPlayer player = new IroncladPlayer();
         player.setCurrentField("15");
         player.setPrimaryStage(primaryStage);
-        GuiHelper.Scenes.startMapScene(player, false);
+        GuiHelper.Scenes.startMapScene(player);
     }
 }
