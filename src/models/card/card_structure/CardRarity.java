@@ -31,5 +31,6 @@ public enum CardRarity {
     /**
      * Potions
      */
-    POTION
+    POTION,
+    ENEMY
 }

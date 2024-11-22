@@ -3,6 +3,7 @@ package models.enemy.act_four.elites;
 import helper.PathAssistent;
 import models.battle.GameContext;
 import models.enemy.Enemy;
+import models.enemy_card.act_four.elites.spire_shield_elite_cards.SmashEnemyCard;
 import models.player.player_structure.Player;
 
 /**
@@ -16,14 +17,6 @@ public class SpireShieldElite extends Enemy {
 
     @Override
     public void attack(GameContext gameContext) {
-        attackSmash(gameContext);
-    }
-
-    private void attackSmash(GameContext gameContext){
-        int attackDamage = 34;
-        Player player = gameContext.getPlayer();
-
-        player.decreaseCurrentHealth(attackDamage, false);
-        System.out.printf("%s used %s, %s took %d damage!\n", getName(), "Dark Strike", player.getName(), attackDamage);
+        new SmashEnemyCard().play(gameContext);
     }
 }

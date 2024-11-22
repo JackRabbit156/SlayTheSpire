@@ -6,5 +6,6 @@ public enum CardType {
     POWER,
     CURSE,
     STATUS,
-    POTION
+    POTION,
+    ENEMY
 }

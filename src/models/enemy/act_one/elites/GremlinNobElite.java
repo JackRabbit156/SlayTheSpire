@@ -3,7 +3,9 @@ package models.enemy.act_one.elites;
 import helper.PathAssistent;
 import models.battle.GameContext;
 import models.enemy.Enemy;
-import models.player.player_structure.Player;
+import models.enemy_card.act_one.elites.gremlin_nob_elite_cards.RushEnemyCard;
+import models.enemy_card.act_one.elites.gremlin_nob_elite_cards.SkullBashEnemyCard;
+
 import java.util.Random;
 /**
  * @author Keil, Vladislav
@@ -18,24 +20,8 @@ public class GremlinNobElite extends Enemy {
     @Override
     public void attack(GameContext gameContext) {
         switch (randi.nextInt(2)) {
-            case 0: attackRush(gameContext); break;
-            default: attackSkullBash(gameContext);
+            case 0: new RushEnemyCard().play(gameContext); break;
+            default: new SkullBashEnemyCard().play(gameContext);
         }
-    }
-
-    private void attackRush(GameContext gameContext) {
-        int attackDamage = 14;
-        Player player = gameContext.getPlayer();
-
-        player.decreaseCurrentHealth(attackDamage, false);
-        System.out.printf("%s used %s, %s took %d damage!\n", getName(), "Dark Strike", player.getName(), attackDamage);
-    }
-
-    private void attackSkullBash(GameContext gameContext) {
-        int attackDamage = 6;
-        Player player = gameContext.getPlayer();
-
-        player.decreaseCurrentHealth(attackDamage, false);
-        System.out.printf("%s used %s, %s took %d damage!\n", getName(), "Dark Strike", player.getName(), attackDamage);
     }
 }

@@ -3,6 +3,7 @@ package models.enemy.act_four;
 import helper.PathAssistent;
 import models.battle.GameContext;
 import models.enemy.Enemy;
+import models.enemy_card.act_four.spiker_enemy_cards.CutEnemyCard;
 import models.player.player_structure.Player;
 
 
@@ -17,14 +18,6 @@ public class SpikerEnemy extends Enemy {
 
     @Override
     public void attack(GameContext gameContext) {
-        attackCut(gameContext);
-    }
-
-    private void attackCut(GameContext gameContext){
-        int attackDamage = 7;
-        Player player = gameContext.getPlayer();
-
-        player.decreaseCurrentHealth(attackDamage, false);
-        System.out.printf("%s used %s, %s took %d damage!\n", getName(), "Dark Strike", player.getName(), attackDamage);
+        new CutEnemyCard().play(gameContext);
     }
 }

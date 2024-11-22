@@ -3,7 +3,7 @@ package models.enemy.act_one.elites;
 import helper.PathAssistent;
 import models.battle.GameContext;
 import models.enemy.Enemy;
-import models.player.player_structure.Player;
+import models.enemy_card.act_one.elites.lagavulin_elite_cards.AttackEnemyCard;
 
 /**
  * @author Keil, Vladislav
@@ -16,10 +16,6 @@ public class LagavulinElite extends Enemy {
 
     @Override
     public void attack(GameContext gameContext) {
-        int attackDamage = 18;
-        Player player = gameContext.getPlayer();
-
-        player.decreaseCurrentHealth(attackDamage, false);
-        System.out.printf("%s used %s, %s took %d damage!\n", getName(), "Dark Strike", player.getName(), attackDamage);
+        new AttackEnemyCard().play(gameContext);
     }
 }

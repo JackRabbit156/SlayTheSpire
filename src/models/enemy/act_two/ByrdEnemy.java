@@ -3,6 +3,9 @@ package models.enemy.act_two;
 import helper.PathAssistent;
 import models.battle.GameContext;
 import models.enemy.Enemy;
+import models.enemy_card.act_two.byrd_enemy_cards.HeadbuttEnemyCard;
+import models.enemy_card.act_two.byrd_enemy_cards.PeckEnemyCard;
+import models.enemy_card.act_two.byrd_enemy_cards.SwoopEnemyCard;
 import models.player.player_structure.Player;
 
 import java.util.Random;
@@ -26,34 +29,10 @@ public class ByrdEnemy extends Enemy {
         int randomAttack = randi.nextInt(3);
 
         switch (randomAttack){
-            case 0: attackPeck(gameContext); break;
-            case 1: attackSwoop(gameContext); break;
-            case 2: attackHeadbutt(gameContext); break;
+            case 0: new PeckEnemyCard().play(gameContext); break;
+            case 1: new SwoopEnemyCard().play(gameContext); break;
+            case 2: new HeadbuttEnemyCard().play(gameContext); break;
         }
-    }
-
-    private void attackPeck(GameContext gameContext){
-        int attackDamage = 5;
-        Player player = gameContext.getPlayer();
-
-        player.decreaseCurrentHealth(attackDamage, false);
-        System.out.printf("%s used %s, %s took %d damage!\n", getName(), "Peck", player.getName(), attackDamage);
-    }
-
-    private void attackSwoop(GameContext gameContext){
-        int attackDamage = 12;
-        Player player = gameContext.getPlayer();
-
-        player.decreaseCurrentHealth(attackDamage, false);
-        System.out.printf("%s used %s, %s took %d damage!\n", getName(), "Swoop", player.getName(), attackDamage);
-    }
-
-    private void attackHeadbutt(GameContext gameContext){
-        int attackDamage = 3;
-        Player player = gameContext.getPlayer();
-
-        player.decreaseCurrentHealth(attackDamage, false);
-        System.out.printf("%s used %s, %s took %d damage!\n", getName(), "Headbutt", player.getName(), attackDamage);
     }
 
 }

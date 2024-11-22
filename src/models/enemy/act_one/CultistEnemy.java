@@ -3,7 +3,7 @@ package models.enemy.act_one;
 import helper.PathAssistent;
 import models.battle.GameContext;
 import models.enemy.Enemy;
-import models.player.player_structure.Player;
+import models.enemy_card.act_one.cultist_enemy_cards.DarkStrikeEnemyCard;
 
 /**
  * Diese Klasse repräsentiert den Gegner "Cultist" im ersten Akt des Spiels.
@@ -20,15 +20,6 @@ public class CultistEnemy extends Enemy {
 
     @Override
     public void attack(GameContext gameContext) {
-        attackDarkStrike(gameContext);
+        new DarkStrikeEnemyCard().play(gameContext);
     }
-
-    private void attackDarkStrike(GameContext gameContext){
-        int attackDamage = 6;
-        Player player = gameContext.getPlayer();
-
-        player.decreaseCurrentHealth(attackDamage, false);
-        System.out.printf("%s used %s, %s took %d damage!\n", getName(), "Dark Strike", player.getName(), attackDamage);
-    }
-
 }
