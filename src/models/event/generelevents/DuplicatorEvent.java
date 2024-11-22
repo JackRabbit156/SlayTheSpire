@@ -5,7 +5,6 @@ import helper.PathAssistent;
 import models.card.card_structure.Card;
 import models.event.Event;
 import models.player.player_structure.Player;
-import view.cli.EventView;
 
 import java.util.List;
 import java.util.Scanner;
@@ -16,7 +15,7 @@ import java.util.Scanner;
  * @author Loeschner, Marijan
  */
 public class DuplicatorEvent extends Event {
-    private Player player;
+  /*  private Player player;
     private Scanner scanner = new Scanner(System.in);
 
     public DuplicatorEvent(Player player) {
@@ -51,6 +50,6 @@ public class DuplicatorEvent extends Event {
             System.out.println("\n\tWrong input, please try again");
             startEvent();
         }
-    }
+    }*/
 }
 

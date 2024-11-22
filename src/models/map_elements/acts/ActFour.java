@@ -120,20 +120,4 @@ public class ActFour extends Act{
         Node currentNode = getPlayerNode();
         currentNode.doFieldThing(currentNode.getPlayer());
     }
-
-    @Override
-    public String[][] getRawMap(){
-        String[][] rawMap= {
-                {"  "},
-                {"|  "},
-                {"  "},
-                {"|  "},
-                {"  "},
-                {"|  "},
-                {"  "},
-
-        };
-
-        return rawMap;
-    }
 }

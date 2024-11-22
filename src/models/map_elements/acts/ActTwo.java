@@ -240,9 +240,4 @@ public class ActTwo extends Act {
         Node currentNode = getPlayerNode();
         currentNode.doFieldThing(currentNode.getPlayer());
     }
-
-    @Override
-    public String[][] getRawMap() {
-        return new String[0][];
-    }
 }

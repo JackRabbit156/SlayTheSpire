@@ -1,6 +1,5 @@
 package models.map_elements.field_types;
 
-import controller.cli.LootViewController;
 import controller.gui.BattleController;
 import helper.GuiHelper;
 import javafx.scene.Scene;
