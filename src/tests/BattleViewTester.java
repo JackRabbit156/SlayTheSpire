@@ -33,14 +33,9 @@ public class BattleViewTester extends Application {
     @Override
     public void start(Stage primaryStage) {
         TestPlayer player = new TestPlayer();
-
-        BattleController battleController = new BattleController(player, createElitesEnemiesActTwo(), FieldEnum.ENEMYFIELD);
-        
-        
-        Scene scene = new Scene(battleController.getBattleView(), 1920, 1080);
         player.setPrimaryStage(primaryStage);
 
-        GuiHelper.Scenes.startScene(primaryStage, scene, "Slay the Spire - JavaFX");
+        GuiHelper.Scenes.startBattleScene(player, generateEnemiesActOne(), FieldEnum.ENEMYFIELD);
     }
 
     private List<Enemy> generateEnemiesActOne(){
@@ -83,10 +78,6 @@ public class BattleViewTester extends Application {
         return enemies;
     }
 
-    /**
-     * @author Keil, Vladislav
-     * @return List of Enemies
-     */
     private List<Enemy> createBossEnemiesActTwo() {
         List<Enemy> enemies = new ArrayList<>();
 
@@ -109,11 +100,6 @@ public class BattleViewTester extends Application {
         return enemies;
     }
 
-
-    /**
-     * @author Keil, Vladislav
-     * @return List of Enemies
-     */
     public List<Enemy> createElitesEnemiesActTwo() {
         List<Enemy> enemies = new ArrayList<>();
         int randElite = randi.nextInt(2);
@@ -135,11 +121,6 @@ public class BattleViewTester extends Application {
         return enemies;
     }
 
-
-    /**
-     * @author Keil, Vladislav
-     * @return An Enemy
-     */
     private Enemy createEnemiesOfTypeActTwo(EnemyEnum type) {
         switch (type) {
             case STABBING:
@@ -152,8 +133,7 @@ public class BattleViewTester extends Application {
                 return new MadGremlinEnemy();
         }
     }
-    
-    
+
     private List<Enemy> createBossEnemiesActOne() {
         List<Enemy> enemies = new ArrayList<>();
 
