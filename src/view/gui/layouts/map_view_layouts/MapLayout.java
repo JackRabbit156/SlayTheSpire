@@ -20,13 +20,15 @@ public class MapLayout extends GridPane {
     private MapView mapView;
     private int mapWidth;
     private int mapHeight;
+    private int playerField;
 
     private static final int TILE_SIZE = 60;
     private static final int CENTER_OFFSET = 40;
-    public MapLayout(MapView mapView, List<Node> nodes, int mapWidth, int mapHeight) {
+    public MapLayout(MapView mapView, List<Node> nodes, int mapWidth, int mapHeight, int playerField) {
         this.mapHeight = mapHeight;
         this.mapWidth = mapWidth;
         this.mapView = mapView;
+        this.playerField = playerField;
         lineLayer = new Pane();
 
         // Raster der GridPane setzen
@@ -101,7 +103,7 @@ public class MapLayout extends GridPane {
                 movingAnimation.start();
                 this.add(playerImage, nodes.get(i).getX(), nodes.get(i).getY());
                 continue;
-            } else if(!nodes.get(0).isFieldBeaten()) {
+            } else if( Integer.parseInt(nodes.get(0).getFieldName()) > playerField) {
                 availablePosFromPlayer.add(nodes.get(0));
             }
 

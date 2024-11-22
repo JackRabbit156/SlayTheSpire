@@ -222,8 +222,12 @@ public class GuiHelper {
             fadeOut.setToValue(0.0);
             fadeOut.setOnFinished(event -> {
                 // Setzen der neuen Szene nach dem Fade-Out
-                primaryStage.setScene(scene);
-                primaryStage.setFullScreen(true);
+                Parent root = scene.getRoot();
+                scene.setRoot(new Pane());
+                primaryStage.getScene().setRoot(root);
+                primaryStage.getScene().getStylesheets().addAll(scene.getStylesheets()); // TODO: Change Scene to root and css path
+//                primaryStage.setScene(scene);
+//                primaryStage.setFullScreen(true);
                 scene.getRoot().setOpacity(0.0); // Stellen Sie sicher, dass die neue Szene unsichtbar ist, bevor sie einblendet
                 FadeTransition fadeIn = new FadeTransition(Duration.seconds(0.5), scene.getRoot());
                 fadeIn.setFromValue(0.0);
