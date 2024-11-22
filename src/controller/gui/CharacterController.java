@@ -26,10 +26,12 @@ public class CharacterController {
             //TODO: Nur nach auswahl eines characters gehts weiter
             if(cv.getIc().isSelected()) {
                 player = new IroncladPlayer();
+                player.setPrimaryStage(charStage);
                 GuiHelper.Scenes.startMapScene(player, false);
             }
             else if(cv.getSl().isSelected()){
                 player = new SilentPlayer();
+                player.setPrimaryStage(charStage);
                 GuiHelper.Scenes.startMapScene(player, false);
             }
         });
