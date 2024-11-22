@@ -80,8 +80,8 @@ public class StatisticView extends StackPane {
         label.setStyle("-fx-font-size: 24;");
         bottomHBox.getChildren().add(GuiHelper.addButtonStackPane(imgView, label, 0.7));
 
-        imgView.setOnMouseClicked(event -> GuiHelper.Scenes.startMapScene(player, false));
-        label.setOnMouseClicked(event -> GuiHelper.Scenes.startMapScene(player, false));
+        imgView.setOnMouseClicked(event -> GuiHelper.Scenes.startMapScene(player, true));
+        label.setOnMouseClicked(event -> GuiHelper.Scenes.startMapScene(player, true));
 
         bottomHBox.setAlignment(Pos.TOP_LEFT);
         bottomHBox.setTranslateY(150);

@@ -101,6 +101,8 @@ public class MapLayout extends GridPane {
                 movingAnimation.start();
                 this.add(playerImage, nodes.get(i).getX(), nodes.get(i).getY());
                 continue;
+            } else if(!nodes.get(0).isFieldBeaten()) {
+                availablePosFromPlayer.add(nodes.get(0));
             }
 
             for(int j = 0; j< availablePosFromPlayer.size(); j++){

@@ -56,7 +56,7 @@ public class ActFour extends Act{
         if(playerAlreadyOnAct)
             playerNode.setFieldBeaten();
         else {
-            playerNode.doFieldThing(player);
+//            playerNode.doFieldThing(player);
             player.setCurrentField(this.getCurrentFieldName());
         }
     }

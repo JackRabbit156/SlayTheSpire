@@ -58,7 +58,7 @@ public class ActOne extends Act {
             playerNode = getNoteByName(getFirstField());
 
         if(playerNode == null){
-            System.out.println("ERROR");
+            System.out.println("ActOne: ERROR - No Player on node");
             return;
         }
 
