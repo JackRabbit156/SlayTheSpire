@@ -3,6 +3,8 @@ package models.enemy.act_four.boss;
 import helper.PathAssistent;
 import models.battle.GameContext;
 import models.enemy.Enemy;
+import models.enemy_card.act_four.boss.corrupt_heart_boss_cards.BloodShotsEnemyCard;
+import models.enemy_card.act_four.boss.corrupt_heart_boss_cards.EchoEnemyCard;
 import models.player.player_structure.Player;
 
 import java.util.Random;
@@ -11,7 +13,6 @@ import java.util.Random;
  * @author Keil, Vladislav
  */
 public class CorruptHeartBoss extends Enemy {
-    private Random rand = new Random();
 
     public CorruptHeartBoss() {
         super("CorruptHeart",750, 750);
@@ -20,25 +21,10 @@ public class CorruptHeartBoss extends Enemy {
 
     @Override
     public void attack(GameContext gameContext) {
+        Random rand = new Random();
         switch (rand.nextInt(2)) {
-            case 0: attackBloodShots(gameContext); break;
-            case 1: attackEcho(gameContext); break;
+            case 0: new BloodShotsEnemyCard().play(gameContext); break;
+            case 1: new EchoEnemyCard().play(gameContext); break;
         }
-    }
-
-    private void attackBloodShots(GameContext gameContext){
-        int attackDamage = 24;
-        Player player = gameContext.getPlayer();
-
-        player.decreaseCurrentHealth(attackDamage, false);
-        System.out.printf("%s used %s, %s took %d damage!\n", getName(), "Blood Shots", player.getName(), attackDamage);
-    }
-
-    private void attackEcho(GameContext gameContext){
-        int attackDamage = 40;
-        Player player = gameContext.getPlayer();
-
-        player.decreaseCurrentHealth(attackDamage, false);
-        System.out.printf("%s used %s, %s took %d damage!\n", getName(), "Echo", player.getName(), attackDamage);
     }
 }

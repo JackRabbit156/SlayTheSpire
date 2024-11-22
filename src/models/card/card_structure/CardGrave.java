@@ -22,5 +22,6 @@ public enum CardGrave {
     /**
      * Extra für Potions.
      */
-    POTION
+    POTION,
+    ENEMY
 }

@@ -3,7 +3,7 @@ package models.enemy.act_one;
 import models.battle.GameContext;
 import helper.PathAssistent;
 import models.enemy.Enemy;
-import models.player.player_structure.Player;
+import models.enemy_card.act_one.acid_slime_enemy_cards.CorrosiveSpitEnemyCard;
 
 /**
  * Diese Klasse repräsentiert den Gegner "Acid Slime" im ersten Akt des Spiels.
@@ -20,15 +20,6 @@ public class AcidSlimeEnemy extends Enemy {
 
     @Override
     public void attack(GameContext gameContext) {
-        attackCorrosiveSpit(gameContext);
+        new CorrosiveSpitEnemyCard().play(gameContext);
     }
-
-    private void attackCorrosiveSpit(GameContext gameContext){
-        int attackDamage = 11;
-        Player player = gameContext.getPlayer();
-
-        player.decreaseCurrentHealth(attackDamage, false);
-        System.out.printf("%s used %s, %s took %d damage!\n", getName(), "Dark Strike", player.getName(), attackDamage);
-    }
-
 }

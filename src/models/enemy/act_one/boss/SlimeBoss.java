@@ -3,7 +3,7 @@ package models.enemy.act_one.boss;
 import helper.PathAssistent;
 import models.battle.GameContext;
 import models.enemy.Enemy;
-import models.player.player_structure.Player;
+import models.enemy_card.act_one.boss.slime_boss_cards.SlamEnemyCard;
 
 import java.util.Random;
 
@@ -21,13 +21,6 @@ public class SlimeBoss extends Enemy {
 
     @Override
     public void attack(GameContext gameContext) {
-        attackSlam(gameContext);
-    }
-
-    private void attackSlam(GameContext gameContext){
-        int attackDamage = 35;
-        Player player = gameContext.getPlayer();
-        player.decreaseCurrentHealth(attackDamage, false);
-        System.out.printf("%s used %s, %s took %d damage!%n", getName(), "Slam", player.getName(), attackDamage);
+        new SlamEnemyCard().play(gameContext);
     }
 }
