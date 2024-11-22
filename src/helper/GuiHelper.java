@@ -2,7 +2,6 @@ package helper;
 
 import controller.gui.*;
 import javafx.scene.ImageCursor;
-import javafx.scene.Node;
 import javafx.animation.FadeTransition;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -16,10 +15,8 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import models.enemy.Enemy;
-import models.map_elements.field_types.EnemyField;
 import models.map_elements.field_types.FieldEnum;
 import models.player.player_structure.Player;
-import view.cli.StatisticsView;
 import view.gui.StatisticView;
 
 import java.util.List;
@@ -58,9 +55,8 @@ public class GuiHelper {
             if (!fromFile)
                 return;
 
-            Scene scene = new Scene(mapController.getMapView(), 1920, 1080);
-            scene.getStylesheets().add(Objects.requireNonNull(GuiHelper.class.getResource("/css/mapStyle.css")).toExternalForm());
-            fadeTransition(primaryStage, scene);
+            String cssPath = "/css/mapStyle.css";
+            fadeTransition(primaryStage, mapController.getMapView(), cssPath);
         }
 
         /**
@@ -73,9 +69,8 @@ public class GuiHelper {
             BattleController battle = new BattleController(player, enemies, enemyField);
             Stage primaryStage = player.getPrimaryStage();
 
-            Scene scene = new Scene(battle.getBattleView(), 1920, 1080);
-            scene.getStylesheets().add(Objects.requireNonNull(Scenes.class.getResource("/css/battleStyle.css")).toExternalForm());
-            fadeTransition(primaryStage, scene);
+            String cssPath = "/css/battleStyle.css";
+            fadeTransition(primaryStage, battle.getBattleView(), cssPath);
         }
 
         /**
@@ -88,9 +83,8 @@ public class GuiHelper {
             LootController loot = new LootController(player, fieldType);
             Stage primaryStage = player.getPrimaryStage();
 
-            Scene scene = new Scene(loot.getLootView(), 1920, 1080);
-            scene.getStylesheets().add(Objects.requireNonNull(Scenes.class.getResource("/css/battleStyle.css")).toExternalForm());
-            fadeTransition(primaryStage, scene);
+            String cssPath = "/css/battleStyle.css";
+            fadeTransition(primaryStage, loot.getLootView(), cssPath);
         }
 
         /**
@@ -102,9 +96,8 @@ public class GuiHelper {
             TreasureController treasureController = new TreasureController(player);
             Stage primaryStage = player.getPrimaryStage();
 
-            Scene scene = new Scene(treasureController.getTreasureView(), 1920, 1080);
-            scene.getStylesheets().add(Objects.requireNonNull(Scenes.class.getResource("/css/battleStyle.css")).toExternalForm());
-            fadeTransition(primaryStage, scene);
+            String cssPath = "/css/battleStyle.css";
+            fadeTransition(primaryStage, treasureController.getTreasureView(), cssPath);
         }
 
         /**
@@ -116,9 +109,8 @@ public class GuiHelper {
             RestController rest = new RestController(player);
             Stage primaryStage = player.getPrimaryStage();
 
-            Scene scene = new Scene(rest.getRestView(), 1920, 1080);
-            scene.getStylesheets().add(Objects.requireNonNull(Scenes.class.getResource("/css/battleStyle.css")).toExternalForm());
-            fadeTransition(primaryStage, scene);
+            String cssPath = "/css/battleStyle.css";
+            fadeTransition(primaryStage, rest.getRestView(), cssPath);
         }
 
         /**
@@ -130,9 +122,8 @@ public class GuiHelper {
             ShopController shop = new ShopController(player);
             Stage primaryStage = player.getPrimaryStage();
 
-            Scene scene = new Scene(shop.getShopView(), 1920, 1080);
-            scene.getStylesheets().add(Objects.requireNonNull(Scenes.class.getResource("/css/battleStyle.css")).toExternalForm());
-            fadeTransition(primaryStage, scene);
+            String cssPath = "/css/battleStyle.css";
+            fadeTransition(primaryStage, shop.getShopView(), cssPath);
         }
 
         /**
@@ -144,9 +135,8 @@ public class GuiHelper {
             StatisticView view = new StatisticView(player);
             Stage primaryStage = player.getPrimaryStage();
 
-            Scene scene = new Scene(view, 1920, 1080);
-            scene.getStylesheets().add(Objects.requireNonNull(Scenes.class.getResource("/css/battleStyle.css")).toExternalForm());
-            fadeTransition(primaryStage, scene);
+             String cssPath = "/css/battleStyle.css";
+             fadeTransition(primaryStage, view, cssPath);
         }
 
         /**
@@ -157,9 +147,8 @@ public class GuiHelper {
         public static void startLoadGameFromMenuScene(Stage primaryStage) {
             LoadController loadController = new LoadController(primaryStage);
 
-            Scene scene = new Scene(loadController.getLoadView(), 1920, 1080);
-            scene.getStylesheets().add(Objects.requireNonNull(Scenes.class.getResource("/css/loadViewStyle.css")).toExternalForm());
-            fadeTransition(primaryStage, scene);
+            String cssPath = "/css/loadViewStyle.css";
+            fadeTransition(primaryStage, loadController.getLoadView(), cssPath);
         }
 
         /**
@@ -169,10 +158,10 @@ public class GuiHelper {
          */
         public static void startLoadGameFromMapScene(Player player) {
             LoadController loadController = new LoadController(player);
+            Stage primaryStage = player.getPrimaryStage();
 
-            Scene scene = new Scene(loadController.getLoadView(), 1920, 1080);
-            scene.getStylesheets().add(Objects.requireNonNull(Scenes.class.getResource("/css/loadViewStyle.css")).toExternalForm());
-            fadeTransition(player.getPrimaryStage(), scene);
+            String cssPath = "/css/loadViewStyle.css";
+            fadeTransition(primaryStage, loadController.getLoadView(), cssPath);
         }
 
         /**
@@ -183,8 +172,8 @@ public class GuiHelper {
          * @param title der Titel der Szene, der im Stage angezeigt wird
          */
         public static void startScene(Stage primaryStage, Parent parentToShow, String title) {
-            Scene scene = new Scene(parentToShow, 1920, 1080);
-            fadeTransition(primaryStage, scene);
+            String cssPath = "/css/loadViewStyle.css";
+            fadeTransition(primaryStage, parentToShow, cssPath);
         }
 
         /**
@@ -195,23 +184,28 @@ public class GuiHelper {
          * @param title der Titel der Szene, der im Stage angezeigt wird
          */
         public static void startScene(Stage primaryStage, Scene scene, String title) {
-            fadeTransition(primaryStage, scene);
+            primaryStage.setScene(scene);
+            primaryStage.setTitle(title);
+            primaryStage.show();
         }
-
         /**
          * Führt eine Fade-Transition für die Szene durch.
          *
          * @param primaryStage das primäre 'Stage'-Objekt der Anwendung
-         * @param scene das 'Scene'-Objekt, das angezeigt werden soll
+         * @param parent das 'Parent'-Objekt, das angezeigt werden soll
+         * @param cssPath falls keien Css-Datei geladen werden soll, leer lassen
          */
-        private static void fadeTransition(Stage primaryStage, Scene scene) {
+        private static void fadeTransition(Stage primaryStage, Parent parent, String cssPath) {
             Scene currentScene = primaryStage.getScene();
-            setCursor(scene);
+
             // Direkt die neue Szene setzen, falls die aktuelle Szene oder deren Root-Node ungültig ist
             if (currentScene == null || currentScene.getRoot() == null) {
                 System.out.println("NO Fade");
+                Scene scene = new Scene(parent, 1920, 1080);
+                setCursor(scene);
                 primaryStage.setScene(scene);
                 primaryStage.setFullScreen(true);
+                primaryStage.setTitle(DEFAULT_TITLE);
                 primaryStage.show(); // Zeigt die neue Szene sofort an
                 return;
             }
@@ -221,15 +215,14 @@ public class GuiHelper {
             fadeOut.setFromValue(1.0);
             fadeOut.setToValue(0.0);
             fadeOut.setOnFinished(event -> {
-                // Setzen der neuen Szene nach dem Fade-Out
-                Parent root = scene.getRoot();
-                scene.setRoot(new Pane());
-                primaryStage.getScene().setRoot(root);
-                primaryStage.getScene().getStylesheets().addAll(scene.getStylesheets()); // TODO: Change Scene to root and css path
-//                primaryStage.setScene(scene);
-//                primaryStage.setFullScreen(true);
-                scene.getRoot().setOpacity(0.0); // Stellen Sie sicher, dass die neue Szene unsichtbar ist, bevor sie einblendet
-                FadeTransition fadeIn = new FadeTransition(Duration.seconds(0.5), scene.getRoot());
+
+                primaryStage.getScene().setRoot(parent);
+
+                if(!cssPath.equals(""))
+                    primaryStage.getScene().getStylesheets().addAll(cssPath);
+
+                parent.setOpacity(0.0); // Stellen Sie sicher, dass die neue Szene unsichtbar ist, bevor sie einblendet
+                FadeTransition fadeIn = new FadeTransition(Duration.seconds(0.5), parent);
                 fadeIn.setFromValue(0.0);
                 fadeIn.setToValue(1.0);
                 fadeIn.play();
