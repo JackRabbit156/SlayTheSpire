@@ -70,7 +70,7 @@ public abstract class Player {
         this.currentEnergy = this.maxEnergy;
         this.gold = 0;
         this.currentAct = 1;
-        this.currentField = "1";
+        this.currentField = "0";
         this.playerType = playerType;
         this.symbol = symbol;
         this.potionCards = new ArrayList<>();

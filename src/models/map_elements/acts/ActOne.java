@@ -44,32 +44,16 @@ public class ActOne extends Act {
      * Initialisiert den Akt und platziert den Spieler auf dem Startfeld.
      *
      * @param player der Spieler, der sich im Akt bewegen soll
-     * @param playerAlreadyOnAct ob der Spieler von einer Datei geladen wurde.
      */
-    public ActOne(Player player, boolean playerAlreadyOnAct){
+    public ActOne(Player player){
         super(1, MAP_WIDTH, MAP_HEIGHT);
         this.player = player;
+
         initNodes();
 
-        Node playerNode = null;
-        if(playerAlreadyOnAct)
-            playerNode = getNoteByName(player.getCurrentField());
-        else
-            playerNode = getNoteByName(getFirstField());
-
-        if(playerNode == null){
-            System.out.println("ActOne: ERROR - No Player on node");
-            return;
-        }
-
-        playerNode.setPlayer(player);
-
-        if(playerAlreadyOnAct)
-            playerNode.setFieldBeaten();
-        else {
-            playerNode.doFieldThing(player);
-            player.setCurrentField(this.getCurrentFieldName());
-        }
+        Node playerNode = getNoteByName(player.getCurrentField());
+        if(playerNode != null)
+            playerNode.setPlayer(player);
     }
 
     private void initNodes(){
