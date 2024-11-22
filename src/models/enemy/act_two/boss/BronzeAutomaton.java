@@ -27,13 +27,17 @@ public class BronzeAutomaton extends Enemy {
         int randomAttack = randi.nextInt(2);
 
         switch (randomAttack) {
-            case 0:
-                attackFlail(gameContext);
-                break;
-            case 1:
-                attackHyperBeam(gameContext);
-                break;
+            case 0: attackFlail(gameContext); break;
+            case 1: attackHyperBeam(gameContext); break;
+            default: attackBoost();
         }
+    }
+
+    private void attackBoost() {
+        int block = 9;
+        this.setBlock(block);
+
+        System.out.printf("%s used %s and gained %d Block!\n\n", getName(), "Encourage", block);
     }
 
     private void attackFlail(GameContext gameContext) {

@@ -1,5 +1,8 @@
 package controller.gui;
 
+import controller.listener.GameMenuListener;
+import helper.GuiHelper;
+import models.load_save_game_elements.GameSaveManager;
 import models.map_elements.Node;
 import models.map_elements.acts.Act;
 import models.map_elements.acts.ActFour;
@@ -20,7 +23,7 @@ import view.gui.layouts.layout_events.MapViewEvents;
  *
  * @author Warawa Alexander
  */
-public class MapController implements MapViewEvents {
+public class MapController implements MapViewEvents, GameMenuListener {
     private MapView mapView;
     private Player player;
 
@@ -38,22 +41,7 @@ public class MapController implements MapViewEvents {
                 System.out.println("Weird"); return;
         }
 
-        if(getCurrentFieldFromAct().equals(act.getLastField())){
-            switch (player.getCurrentAct()){
-                case 1:
-                    act = new ActTwo(player, false); break;
-                case 2 :
-                case 4:
-                    act = new ActFour(player, false); break;
-                default:
-                    System.out.println("Weird"); return;
-            }
-
-            act.getNodes().get(0).doFieldThing(player);
-            return;
-        }
-
-        this.mapView = new MapView(player, act.getNodes(), act.getMapWidth(), act.getMapHeight(), this);
+        this.mapView = new MapView(player, act.getNodes(), act.getMapWidth(), act.getMapHeight(), this, this);
     }
 
     @Override
@@ -65,6 +53,28 @@ public class MapController implements MapViewEvents {
         player.setCurrentField(node.getFieldName());
     }
 
+    @Override
+    public void onSettingsClick() {
+        mapView.openGameMenu();
+    }
+
+    @Override
+    public void onSaveClick() {
+        GameSaveManager saveManager = new GameSaveManager();
+        saveManager.saveGame(player);
+        mapView.closeGameMenu();
+    }
+
+    @Override
+    public void onBackClick() {
+        mapView.closeGameMenu();
+    }
+
+    @Override
+    public void onLoadClick() {
+        GuiHelper.Scenes.startLoadGameFromMapScene(player);
+    }
+
     private String getCurrentFieldFromAct(){
         return act.getCurrentFieldName();
     }
@@ -72,4 +82,6 @@ public class MapController implements MapViewEvents {
     public MapView getMapView(){
         return mapView;
     }
+
+
 }

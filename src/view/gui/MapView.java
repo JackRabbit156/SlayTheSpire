@@ -1,9 +1,8 @@
 package view.gui;
 
+import controller.listener.GameMenuListener;
 import helper.GuiHelper;
-import javafx.geometry.Insets;
 import javafx.scene.control.Label;
-import javafx.scene.image.Image;
 import javafx.scene.layout.*;
 import models.map_elements.Node;
 import models.player.player_structure.Player;
@@ -27,13 +26,14 @@ import java.util.List;
  */
 public class MapView extends StackPane {
     private MapViewEvents mapViewEvents;
-
+    private GameMenuListener gameMenuListener;
 
     private BorderPane mainMap;
     private MapLayout mapCenter;
     private LegendLayout legendRight;
 
     private GameMenuLayer gameMenu;
+
 
     private Player player;
     private List<Node> nodes;
@@ -42,12 +42,15 @@ public class MapView extends StackPane {
         return mainMap;
     }
 
-    public MapView(Player player, List<Node> nodes, int mapWidth, int mapHeight, MapViewEvents mapViewEvents) {
+    public MapView(Player player, List<Node> nodes, int mapWidth, int mapHeight, MapViewEvents mapViewEvents, GameMenuListener gameMenuListener) {
         this.nodes = nodes;
         this.mapViewEvents = mapViewEvents;
+        this.gameMenuListener = gameMenuListener;
         this.player = player;
 
-        gameMenu = new GameMenuLayer();
+        gameMenu = new GameMenuLayer(player, this);
+        gameMenu.setVisible(false);
+
         mainMap = new BorderPane();
 
         setStyle("-fx-background-color: #9a9990;");
@@ -59,15 +62,32 @@ public class MapView extends StackPane {
         initLeftSide();
         initRightSide();
 
-        getChildren().addAll(mainMap);
+        getChildren().addAll(mainMap, gameMenu);
     }
 
     public void clickedOnValidField(Node node){
         mapViewEvents.onValidFieldClick(player, node);
     }
 
+    public void clickedOnSettings(){
+        mapViewEvents.onSettingsClick();
+    }
+
+
+    public void clickedOnSaveButton(){
+        gameMenuListener.onSaveClick();
+    }
+
+    public void clickedOnLoadButton(){
+        gameMenuListener.onLoadClick();
+    }
+
+    public void clickedOnBackButton(){
+        gameMenuListener.onBackClick();
+    }
+
     private void initTopSide() {
-        HBox topHBox = new TopBarLayout(player);
+        HBox topHBox = new TopBarLayout(player, this);
 
 
         mainMap.setTop(topHBox);
@@ -82,5 +102,15 @@ public class MapView extends StackPane {
     private void initRightSide() {
         legendRight = new LegendLayout();
         mainMap.setRight(legendRight);
+    }
+
+    public void openGameMenu() {
+        mainMap.setVisible(false);
+        gameMenu.setVisible(true);
+    }
+
+    public void closeGameMenu() {
+        mainMap.setVisible(true);
+        gameMenu.setVisible(false);
     }
 }

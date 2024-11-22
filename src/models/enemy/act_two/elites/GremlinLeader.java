@@ -5,10 +5,13 @@ import models.battle.GameContext;
 import models.enemy.Enemy;
 import models.player.player_structure.Player;
 
+import java.util.Random;
+
 /**
  * @author Keil, Vladislav
  */
 public class GremlinLeader extends Enemy {
+    private Random randi = new Random();
 
     /**
      * Konstruktor für die Enemy-Klasse.
@@ -21,7 +24,19 @@ public class GremlinLeader extends Enemy {
 
     @Override
     public void attack(GameContext gameContext) {
-        attackStab(gameContext);
+        switch (randi.nextInt(2)) {
+            case 0: attackStab(gameContext); break;
+            default: attackEncourage(gameContext);
+        }
+    }
+
+    private void attackEncourage(GameContext gameContext){
+        int block = 6;
+        for (Enemy enemy : gameContext.getEnemies()) {
+            enemy.addBlock(block);
+        }
+
+        System.out.printf("%s used %s and gained %d Block!\n\n", getName(), "Encourage", block);
     }
 
     private void attackStab(GameContext gameContext){

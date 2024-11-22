@@ -31,7 +31,7 @@ import java.util.List;
  */
 public class BattleController implements BattleViewEvents, PlayerEventListener, EnemyEventListener {
     private final BattleView battleView;
-    private FieldEnum enemyField;
+    private FieldEnum fieldType;
 
     private final Player player;
     private final List<Enemy> enemies;
@@ -41,9 +41,10 @@ public class BattleController implements BattleViewEvents, PlayerEventListener, 
 
     private Card selectedCard;
 
-    public BattleController(Player player, List<Enemy> enemies) {
+    public BattleController(Player player, List<Enemy> enemies, FieldEnum fieldType) {
         this.player = player;
         this.enemies = enemies;
+        this.fieldType = fieldType;
         for (Enemy enemy : enemies) {
             enemy.setEnemyEventListener(this);
             enemy.calcIntent();
@@ -100,7 +101,7 @@ public class BattleController implements BattleViewEvents, PlayerEventListener, 
     }
 
     private void startingLoot() {
-        //GuiHelper.Scenes.startLootScene(this.player, this.enemyField);
+        GuiHelper.Scenes.startLootScene(this.player, this.fieldType);
     }
 
     @Override
@@ -248,11 +249,7 @@ public class BattleController implements BattleViewEvents, PlayerEventListener, 
         startingLoot();
     }
 
-    public void setEnemyField(FieldEnum enemyField) {
-        this.enemyField = enemyField;
-    }
-
-    public FieldEnum getEnemyField() {
-        return enemyField;
+    public FieldEnum getFieldType() {
+        return fieldType;
     }
 }
