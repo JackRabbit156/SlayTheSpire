@@ -4,7 +4,6 @@ import helper.ConsoleAssistent;
 import helper.PathAssistent;
 import models.event.Event;
 import models.player.player_structure.Player;
-import view.cli.EventView;
 
 import java.util.Scanner;
 
@@ -14,7 +13,7 @@ import java.util.Scanner;
  * @author Loeschner, Marijan
  */
 public class GoldenShrineEvent extends Event {
-    private Player player;
+  /*  private Player player;
     private Scanner scanner = new Scanner(System.in);
 
     public GoldenShrineEvent(Player player) {
@@ -27,7 +26,7 @@ public class GoldenShrineEvent extends Event {
     @Override
     public void startEvent() {
         ConsoleAssistent.clearScreen();
-        EventView.displayHead(getTitle(), getStory());
+        //EventView.displayHead(getTitle(), getStory());
 
         player.increaseGold(100);
         System.out.println();
@@ -35,5 +34,5 @@ public class GoldenShrineEvent extends Event {
         System.out.println();
         System.out.println("\tPress (0) for exit");
         scanner.next();
-    }
+    }*/
 }

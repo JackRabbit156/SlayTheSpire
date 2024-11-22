@@ -14,16 +14,25 @@ import models.player.player_structure.Player;
 import view.gui.layouts.layout_events.StatisticViewEvents;
 
 /**
- * @author Keil, Vladislav
+ * Die Klasse StatisticView verwaltet die grafische Darstellung der Statistik-Ansicht im Spiel.
+ * Sie zeigt verschiedene Statistiken des Spielers an und ermöglicht es dem Spieler,
+ * zur Kartenansicht zurückzukehren.
+ *
+ * @autor Vladislav Keil
  */
 public class StatisticView extends StackPane {
-    private StatisticViewEvents statisticViewEvents;
     private VBox centerVBox;
     private Player player;
 
     private BorderPane statisticLayout;
     private BorderPane bottomLayout;
 
+    /**
+     * Konstruktor für die Klasse StatisticView.
+     * Initialisiert die Ansicht mit einem Spieler und setzt den aktuellen Akt des Spielers.
+     *
+     * @param player Der Spieler, dessen Statistiken angezeigt werden.
+     */
     public StatisticView(Player player) {
         this.statisticLayout = new BorderPane();
         this.bottomLayout = new BorderPane();
@@ -50,11 +59,17 @@ public class StatisticView extends StackPane {
 
     }
 
+    /**
+     * Initialisiert das untere Layout der Statistik-Ansicht.
+     */
     private void initBottomLayout() {
         statisticLayout.setPickOnBounds(false);
         initBottom();
     }
 
+    /**
+     * Initialisiert das Layout der Statistik-Ansicht.
+     */
     private void initBottom() {
         Image img = new Image(getClass().getResource("/images/buttons/buttonL.png").toExternalForm());
         ImageView imgView = new ImageView(img);
@@ -65,14 +80,17 @@ public class StatisticView extends StackPane {
         label.setStyle("-fx-font-size: 24;");
         bottomHBox.getChildren().add(GuiHelper.addButtonStackPane(imgView, label, 0.7));
 
-        imgView.setOnMouseClicked(event -> GuiHelper.Scenes.startMapScene(player, false));
-        label.setOnMouseClicked(event -> GuiHelper.Scenes.startMapScene(player, false));
+        imgView.setOnMouseClicked(event -> GuiHelper.Scenes.startMapScene(player, true));
+        label.setOnMouseClicked(event -> GuiHelper.Scenes.startMapScene(player, true));
 
         bottomHBox.setAlignment(Pos.TOP_LEFT);
         bottomHBox.setTranslateY(150);
         bottomLayout.setBottom(bottomHBox);
     }
 
+    /**
+     * Initialisiert das zentrale Layout der Statistik-Ansicht.
+     */
     private void initStatisticLayout() {
         bottomLayout.setPickOnBounds(false);
         initTop();
@@ -80,7 +98,7 @@ public class StatisticView extends StackPane {
     }
 
     /**
-     * init Center
+     * Initialisiert das obere Layout der Statistik-Ansicht.
      */
     private void initCenter(){
         centerVBox = new VBox();
@@ -125,7 +143,7 @@ public class StatisticView extends StackPane {
     }
 
     /**
-     * Top side
+     * Initialisiert das untere Layout der Statistik-Ansicht.
      */
     private void initTop(){
         VBox topVBox = new VBox();
@@ -139,5 +157,4 @@ public class StatisticView extends StackPane {
         topVBox.setPrefHeight(100);
         statisticLayout.setTop(topVBox);
     }
-
 }

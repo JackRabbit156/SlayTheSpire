@@ -44,7 +44,6 @@ public class CardLayout extends HBox {
         getChildren().addAll(nodes);
     }
 
-
     private Node images(Card card) {
         Image imageCard = new Image(getClass().getResource(card.getImagePath()).toExternalForm());
         ImageView imageViewCard = new ImageView(imageCard);

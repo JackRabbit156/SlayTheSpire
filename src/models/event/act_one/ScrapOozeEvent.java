@@ -4,7 +4,6 @@ import helper.ConsoleAssistent;
 import helper.PathAssistent;
 import models.event.Event;
 import models.player.player_structure.Player;
-import view.cli.EventView;
 
 import java.util.Scanner;
 /**
@@ -13,7 +12,7 @@ import java.util.Scanner;
  * @author  Loeschner, Marijan
  */
 public class ScrapOozeEvent extends Event {
-    private Player player;
+/*    private Player player;
     private Scanner scanner = new Scanner(System.in);
 
     public ScrapOozeEvent(Player player) {
@@ -44,5 +43,5 @@ public class ScrapOozeEvent extends Event {
             System.out.println("\n\tWrong input, please try agian...");
             startEvent();
         }
-    }
+    }*/
 }

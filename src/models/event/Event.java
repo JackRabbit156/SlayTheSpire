@@ -4,7 +4,7 @@ package models.event;
  * @author Keil, Vladislav
  */
 public abstract class Event {
-    private String story;
+   /* private String story;
     private String title;
     private String imagePath;
 
@@ -37,5 +37,5 @@ public abstract class Event {
 
     public void setTitle(String title) {
         this.title = title;
-    }
+    }*/
 }

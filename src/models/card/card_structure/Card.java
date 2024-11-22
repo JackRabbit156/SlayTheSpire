@@ -67,6 +67,9 @@ public abstract class Card {
         return cardType;
     }
 
+    /**
+     * @author Keil, Vladislav
+     */
     public int genPrice() {
         // Existieren nur 3 Typen
         // https://slay-the-spire.fandom.com/wiki/Merchant

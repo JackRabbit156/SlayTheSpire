@@ -1,6 +1,5 @@
 package models.game_settings;
 
-import controller.cli.menus.GameMenuViewController;
 import models.game_settings.structure.DifficultyLevel;
 import models.game_settings.structure.GameMode;
 import models.player.player_structure.Player;
@@ -13,7 +12,7 @@ import models.player.player_structure.Player;
 public class GameSettings {
     private static GameMode gameMode = GameMode.NORMAL;
     private static DifficultyLevel difficultyLevel = DifficultyLevel.EASY;
-    private static GameMenuViewController gameMenu = new GameMenuViewController();
+    //private static GameMenuViewController gameMenu = new GameMenuViewController();
     // Statics
     private static int distributedDamageStats = 0;
     private static int receivedDamageStats = 0;
@@ -40,9 +39,9 @@ public class GameSettings {
         difficultyLevel = difLevel;
     }
 
-    public static int openGameMenu(Player player) {
+    /*public static int openGameMenu(Player player) {
         return gameMenu.display(player);
-    }
+    }*/
 
     public static void startTimer(){
         time = new GameCounter();

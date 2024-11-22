@@ -18,11 +18,7 @@ public class StatisticsViewTester extends Application {
     @Override
     public void start(Stage primaryStage) {
         TestPlayer player = new TestPlayer();
-        StatisticView statisticView = new StatisticView(player);
-        statisticView.display();
-        Scene scene = new Scene(statisticView, 1920, 1080);
-
         player.setPrimaryStage(primaryStage);
-        GuiHelper.Scenes.startScene(primaryStage, scene, "Slay the Spire - JavaFX");
+        GuiHelper.Scenes.startTreasureScene(player);
     }
 }

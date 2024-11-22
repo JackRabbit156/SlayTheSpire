@@ -6,7 +6,9 @@ import javafx.stage.Stage;
 import models.game_settings.GameSettings;
 import models.game_settings.structure.DifficultyLevel;
 import models.map_elements.field_types.FieldEnum;
-
+/**
+ * @author Keil, Vladislav
+ */
 public class TreasureControllerTester extends Application {
 
     public static void main(String[] args) {

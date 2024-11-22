@@ -1,6 +1,5 @@
 package models.map_elements.field_types;
 
-import controller.cli.TreasureViewController;
 import helper.GuiHelper;
 import models.player.player_structure.Player;
 
@@ -9,7 +8,6 @@ import models.player.player_structure.Player;
  */
 public class TreasureField extends Field {
     private static final String imagePath = "/images/map_elements/field_types/TreasureField.png";
-    TreasureViewController treasureViewController;
     public TreasureField() {
         super(imagePath);
     }

@@ -10,15 +10,15 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 
 public class DefendLayout extends StackPane {
-    private Text blockTextStroke = new Text();
-    private Text blockText = new Text();
+    private final Text blockTextStroke = new Text();
+    private final Text blockText = new Text();
     private ImageView blockShieldView;
 
 
-    private String strokeColor = "#13503e";
-    private int strokeWidth = 3;
+    private final String strokeColor = "#13503e";
+    private final int strokeWidth = 3;
 
-    private String textColor = "#fdf9fc";
+    private final String textColor = "#fdf9fc";
 
     private final Font font = Font.font("Kreon", FontWeight.BOLD, 20);
     private final FontSmoothingType smoothingType = FontSmoothingType.GRAY;

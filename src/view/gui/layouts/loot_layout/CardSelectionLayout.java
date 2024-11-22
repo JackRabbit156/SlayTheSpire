@@ -20,10 +20,23 @@ import javax.swing.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Die Klasse CardSelectionLayout verwaltet die grafische Darstellung der Kartenauswahl im Loot-Layout.
+ * Sie zeigt die verfügbaren Karten im Loot an und ermöglicht es dem Spieler, eine Karte auszuwählen.
+ *
+ * @autor Vladislav Keil
+ */
 public class CardSelectionLayout extends HBox {
     private LootView lootView;
     private List<Card> selectableCards;
 
+    /**
+     * Konstruktor für die Klasse CardSelectionLayout.
+     * Initialisiert die Kartenauswahl mit einer Liste von Karten und der Loot-Ansicht.
+     *
+     * @param cardList  Die Liste der auswählbaren Karten.
+     * @param lootView  Die Loot-Ansicht, in der die Kartenauswahl angezeigt wird.
+     */
     public CardSelectionLayout(List<Card> cardList, LootView lootView) {
         this.selectableCards = cardList;
         this.lootView = lootView;
@@ -34,6 +47,9 @@ public class CardSelectionLayout extends HBox {
         showCards();
     }
 
+    /**
+     * Zeigt die Karten in der Ansicht an.
+     */
     private void showCards(){
         List<Node> nodes = new ArrayList<>();
         Card card;
@@ -49,7 +65,12 @@ public class CardSelectionLayout extends HBox {
         getChildren().addAll(nodes);
     }
 
-
+    /**
+     * Erzeugt die grafische Darstellung einer Karte.
+     *
+     * @param card Die darzustellende Karte.
+     * @return Die grafische Darstellung der Karte als Node.
+     */
     private Node images(Card card) {
         Image imageCard = new Image(getClass().getResource(card.getImagePath()).toExternalForm());
         ImageView imageViewCard = new ImageView(imageCard);
@@ -67,11 +88,21 @@ public class CardSelectionLayout extends HBox {
         return imageViewCard;
     }
 
+    /**
+     * Deaktiviert den Kartenauswahl-Button.
+     */
     private void disableCardSelectionButton() {
         lootView.disableCardSelection();
         this.setVisible(false);
     }
 
+    /**
+     * Event-Handler für Klicks auf eine Karte.
+     * Ruft das entsprechende Ereignis der Loot-Ansicht auf.
+     *
+     * @param card  Die angeklickte Karte.
+     * @param index Der Index der angeklickten Karte.
+     */
     public void handleCardClick(Card card, int index) {
         this.lootView.onCardClick(card, index);
     }

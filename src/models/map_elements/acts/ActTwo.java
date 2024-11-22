@@ -55,7 +55,7 @@ public class ActTwo extends Act {
             playerNode = getNoteByName(getFirstField());
 
         if(playerNode == null){
-            System.out.println("ERROR");
+            System.out.println("ActTwo: ERROR - No Player on node");
             return;
         }
 
@@ -63,7 +63,7 @@ public class ActTwo extends Act {
         if(playerAlreadyOnAct)
             playerNode.setFieldBeaten();
         else {
-            playerNode.doFieldThing(player);
+//            playerNode.doFieldThing(player);
             player.setCurrentField(this.getCurrentFieldName());
         }
     }
@@ -239,10 +239,5 @@ public class ActTwo extends Act {
     public void doFieldThing() {
         Node currentNode = getPlayerNode();
         currentNode.doFieldThing(currentNode.getPlayer());
-    }
-
-    @Override
-    public String[][] getRawMap() {
-        return new String[0][];
     }
 }

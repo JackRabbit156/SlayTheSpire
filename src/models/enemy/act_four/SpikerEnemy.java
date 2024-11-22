@@ -25,6 +25,6 @@ public class SpikerEnemy extends Enemy {
         Player player = gameContext.getPlayer();
 
         player.decreaseCurrentHealth(attackDamage, false);
-        System.out.printf("%s used %s, %s took %d damage!\n", getName(), "Dark Strike", player.getName(), attackDamage);
+        System.out.printf("%s used %s, %s took %d damage!\n", getName(), "Cut", player.getName(), attackDamage);
     }
 }

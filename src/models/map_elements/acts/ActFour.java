@@ -56,7 +56,7 @@ public class ActFour extends Act{
         if(playerAlreadyOnAct)
             playerNode.setFieldBeaten();
         else {
-            playerNode.doFieldThing(player);
+//            playerNode.doFieldThing(player);
             player.setCurrentField(this.getCurrentFieldName());
         }
     }
@@ -119,21 +119,5 @@ public class ActFour extends Act{
     public void doFieldThing(){
         Node currentNode = getPlayerNode();
         currentNode.doFieldThing(currentNode.getPlayer());
-    }
-
-    @Override
-    public String[][] getRawMap(){
-        String[][] rawMap= {
-                {"  "},
-                {"|  "},
-                {"  "},
-                {"|  "},
-                {"  "},
-                {"|  "},
-                {"  "},
-
-        };
-
-        return rawMap;
     }
 }

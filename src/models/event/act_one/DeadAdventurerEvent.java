@@ -4,7 +4,6 @@ import helper.ConsoleAssistent;
 import helper.PathAssistent;
 import models.event.Event;
 import models.player.player_structure.Player;
-import view.cli.EventView;
 
 import java.util.Random;
 import java.util.Scanner;
@@ -14,7 +13,7 @@ import java.util.Scanner;
  * @author  Loeschner, Marijan
  */
 public class DeadAdventurerEvent extends Event {
-    private Player player;
+   /* private Player player;
     private Scanner scanner = new Scanner(System.in);
     private Random rand = new Random();
 
@@ -54,5 +53,5 @@ public class DeadAdventurerEvent extends Event {
             System.out.println("\n\tWrong input, please try agian...");
             startEvent();
         }
-    }
+    }*/
 }

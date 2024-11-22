@@ -1,6 +1,5 @@
 package tests;
 
-import controller.cli.LootViewController;
 import controller.gui.LootController;
 import controller.gui.ShopController;
 import helper.GuiHelper;
@@ -13,7 +12,9 @@ import models.map_elements.field_types.FieldEnum;
 import view.gui.LootView;
 
 import java.util.Objects;
-
+/**
+ * @author Keil, Vladislav
+ */
 public class LootViewTester extends Application {
 
     public static void main(String[] args) {

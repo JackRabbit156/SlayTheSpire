@@ -1,6 +1,5 @@
 package models.map_elements.field_types;
 
-import controller.cli.RestViewController;
 import controller.gui.RestController;
 import helper.GuiHelper;
 import models.player.player_structure.Player;

@@ -58,7 +58,7 @@ public class ActOne extends Act {
             playerNode = getNoteByName(getFirstField());
 
         if(playerNode == null){
-            System.out.println("ERROR");
+            System.out.println("ActOne: ERROR - No Player on node");
             return;
         }
 
@@ -242,7 +242,7 @@ public class ActOne extends Act {
     }
 
     private Event randomEvent() {
-        Random randi = new Random();
+       /* Random randi = new Random();
         ActOneEventEnum[] events = ActOneEventEnum.values();
         ActOneEventEnum event = events[randi.nextInt(events.length)];
         switch (event) {
@@ -266,31 +266,7 @@ public class ActOne extends Act {
                 return new WorldOfGooEvent(this.player);
             default:
                 return new GoldenShrineEvent(this.player);
-        }
-    }
-
-    @Override
-    public String[][] getRawMap(){
-        String[][] rawMap= {
-                {"  ", "  ", "  ", "  ", "", "  ", "  "},
-                {"  ", "  ", "  ", "  ", "| ", "  ", "  "},
-                {"  ", "┌ ", "──", "──", "", "  ", "  "},
-                {"  ", "| ", "  ", "  ", "| ", "──", "┐ "},
-                {"  ", "| ", "  ", "  ", "", "  ", ""},
-                {"  ", "| ", "  ", "  ", "| ", "  ", "| "},
-                {"┌ ", "", " ┐", "  ", "", "  ", ""},
-                {"| ", "  ", "| ", "  ", "└─", "┬─", "┘ "},
-                {"| ", "  ", "", "  ", "  ", "", "  "},
-                {"| ", "  ", "| ", "  ", "  ", "| ", "  "},
-                {"", "  ", "", "  ", "  ", "", "  "},
-                {"└─", "┬─", "┘ ", "  ", "  ", "| ", "  "},
-                {"  ", "", "  ", "  ", "  ", "", "  "},
-                {"  ", "└─", "──", "┬─", "──", "┘ ", " "},
-                {"  ", "  ", "  ", "", "  ", "  ", "  "},
-                {"  ", "  ", "  ", "| ", "  ", "  ", "  "},
-                {"  ", "  ", "  ", "", "  ", "  ", "  "}, // 16/3
-        };
-
-        return rawMap;
+        }*/
+        return null;
     }
 }
