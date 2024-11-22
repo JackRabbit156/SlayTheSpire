@@ -4,7 +4,6 @@ import helper.Color;
 import helper.ConsoleAssistent;
 import helper.GuiHelper;
 import models.player.player_structure.Player;
-import view.cli.RestSiteView;
 import view.gui.RestView;
 import view.gui.layouts.layout_events.RestViewEvents;
 

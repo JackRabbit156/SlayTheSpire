@@ -203,6 +203,7 @@ public class GuiHelper {
                 System.out.println("NO Fade");
                 Scene scene = new Scene(parent, 1920, 1080);
                 setCursor(scene);
+                primaryStage.getIcons().add(new Image(Scenes.class.getResource("/images/icon.png").toExternalForm()));
                 primaryStage.setScene(scene);
                 primaryStage.setFullScreen(true);
                 primaryStage.setTitle(DEFAULT_TITLE);

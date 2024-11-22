@@ -5,7 +5,6 @@ import helper.PathAssistent;
 import models.card.card_structure.Card;
 import models.event.Event;
 import models.player.player_structure.Player;
-import view.cli.EventView;
 
 import java.util.List;
 import java.util.Scanner;
@@ -15,7 +14,7 @@ import java.util.Scanner;
  * @author  Loeschner, Marijan
  */
 public class TheClericEvent extends Event {
-    private Player player;
+  /*  private Player player;
     private Scanner scanner = new Scanner(System.in);
 
     public TheClericEvent(Player player) {
@@ -60,5 +59,5 @@ public class TheClericEvent extends Event {
                 System.out.println("\tWrong input, try again...");
                 startEvent();
         }
-    }
+    }*/
 }

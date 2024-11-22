@@ -16,6 +16,6 @@ public class EventField extends Field{
 
     @Override
     public void doFieldThing(Player player) {
-        this.event.startEvent();
+       // this.event.startEvent();
     }
 }

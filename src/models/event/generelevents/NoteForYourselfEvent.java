@@ -5,7 +5,6 @@ import helper.PathAssistent;
 import models.card.card_structure.Card;
 import models.event.Event;
 import models.player.player_structure.Player;
-import view.cli.EventView;
 
 import java.util.List;
 import java.util.Random;
@@ -17,7 +16,7 @@ import java.util.Scanner;
  * @author Loeschner, Marijan
  */
 public class NoteForYourselfEvent extends Event {
-    private Player player;
+ /*   private Player player;
     private Random randi = new Random();
     private Scanner scanner = new Scanner(System.in);
 
@@ -49,5 +48,5 @@ public class NoteForYourselfEvent extends Event {
 
     private Card chooseExistingCard(List<Card> playerDeck) {
         return playerDeck.get(randi.nextInt(playerDeck.size()));
-    }
+    }*/
 }

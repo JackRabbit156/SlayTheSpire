@@ -49,55 +49,6 @@ public abstract class Act {
     }
 
     /**
-     * Erlaubt dem Spieler, sich in eine gültige Richtung zu bewegen, basierend auf den
-     * vorhandenen Verbindungen des aktuellen Knotens.
-     *
-     * <p>Es werden mögliche Richtungen angezeigt und die Nutzereingabe wird verwendet,
-     * um die Richtung zu wählen. Falls die Eingabe gültig ist, wird der Spieler an die
-     * neue Position verschoben.</p>
-     *
-     * @param player der Spieler, der sich im aktuellen Akt bewegt
-     * @return is it a Direction or Menu decision.
-     */
-    public boolean goToValidDirection(Player player) {
-        Node node = getPlayerNode();
-        HashMap<String, Node> nextNodes = new HashMap<>();
-
-        if(node.getLeftNode() != null){
-            nextNodes.put("left", node.getLeftNode());
-        }
-        if(node.getMiddleNode() != null){
-            nextNodes.put("straight", node.getMiddleNode());
-        }
-        if(node.getRightNode() != null){
-            nextNodes.put("right", node.getRightNode());
-        }
-        System.out.println("\n(open menu with 'menu')");
-        System.out.println("\nPossible direction/s: \n");
-        for (Map.Entry<String, Node> entry : nextNodes.entrySet()) {
-            String direction = entry.getKey(); // Wert (Richtung als String)
-            System.out.println(" - " + direction);
-        }
-        System.out.print("Choose: ");
-        String userInput = new Scanner(System.in).next();
-
-        if(userInput.equals("menu")){
-            int menuResult = GameSettings.openGameMenu(player);
-            switch (menuResult){
-                case 2:
-                case 4: return false;
-            }
-        }
-
-        if(nextNodes.get(userInput) != null){
-            node.setPlayer(null);
-            nextNodes.get(userInput).setPlayer(player);
-            System.out.println("\nYeah!\n");
-        }
-        return true;
-    }
-
-    /**
      * Findet und gibt den Node zurück, auf dem sich der Spieler aktuell befindet.
      * Falls kein Node den Spieler enthält, wird `null` zurückgegeben.
      *
@@ -151,11 +102,4 @@ public abstract class Act {
      */
     public abstract void doFieldThing();
 
-    /**
-     * Gibt eine 2D-Kartenrepräsentation des Aktes zurück.
-     * Diese Methode wird in den Unterklassen definiert und bietet eine grafische Darstellung des Aktes.
-     *
-     * @return ein zweidimensionales Array, das die Karte des Aktes darstellt
-     */
-    public abstract String[][] getRawMap();
 }

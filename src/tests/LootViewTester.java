@@ -1,6 +1,5 @@
 package tests;
 
-import controller.cli.LootViewController;
 import controller.gui.LootController;
 import controller.gui.ShopController;
 import helper.GuiHelper;
