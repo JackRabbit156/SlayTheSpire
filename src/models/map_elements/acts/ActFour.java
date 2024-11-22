@@ -41,24 +41,9 @@ public class ActFour extends Act{
         super(4, MAP_WIDTH, MAP_HEIGHT);
         initNodes();
 
-        Node playerNode = null;
-        if(playerAlreadyOnAct)
-            playerNode = getNoteByName(player.getCurrentField());
-        else
-            playerNode = getNoteByName(getFirstField());
-
-        if(playerNode == null){
-            System.out.println("ERROR");
-            return;
-        }
-
-        playerNode.setPlayer(player);
-        if(playerAlreadyOnAct)
-            playerNode.setFieldBeaten();
-        else {
-//            playerNode.doFieldThing(player);
-            player.setCurrentField(this.getCurrentFieldName());
-        }
+        Node playerNode = getNoteByName(player.getCurrentField());
+        if(playerNode != null)
+            playerNode.setPlayer(player);
     }
 
     private void initNodes(){

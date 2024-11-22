@@ -48,11 +48,6 @@ public class MapController implements MapViewEvents, GameMenuListener {
     public void onValidFieldClick(Player player, Node node) {
         node.doFieldThing(player);
 
-        Node currentActField =  act.getCurrentField();
-        if(currentActField!= null)
-            currentActField.setPlayer(null);
-
-        node.setPlayer(player);
         player.setCurrentField(node.getFieldName());
     }
 

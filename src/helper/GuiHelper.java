@@ -50,10 +50,6 @@ public class GuiHelper {
             MapController mapController = new MapController(player, fromFile);
             Stage primaryStage = player.getPrimaryStage();
 
-            // Früher Rücksprung, wenn das Spiel zum ersten Mal gestartet wird,
-            // damit der MapController den ersten Kampf laden kann.
-            if (!fromFile)
-                return;
 
             String cssPath = "/css/mapStyle.css";
             fadeTransition(primaryStage, mapController.getMapView(), cssPath);

@@ -22,7 +22,7 @@ public class Main extends Application {
         player.addPotionCard(new BloodPotion());
 
 //        GuiHelper.Scenes.startLoadSaveStateScene(primaryStage);
-        GuiHelper.Scenes.startMapScene(player, true);
+        GuiHelper.Scenes.startMapScene(player, false);
     }
 
     public static void main(String[] args) {
