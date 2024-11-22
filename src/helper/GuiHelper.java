@@ -88,6 +88,7 @@ public class GuiHelper {
         public static void startCharSelection(Stage primaryStage){
             CharacterController cc = new CharacterController();
             Scene scene = new Scene(cc.startSelection(primaryStage), 1920, 1080);
+            setCursor(scene);
             primaryStage.setScene(scene);
             primaryStage.setFullScreen(true);
         }
