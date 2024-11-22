@@ -49,7 +49,7 @@ public class TreasureController implements TreasureViewEvents {
 
         this.selectedCards = initTreasureDeck();
 
-        this.treasureView = new TreasureView(this.selectedCards, this.gold, this.potionCard, this);
+        this.treasureView = new TreasureView(this.selectedCards, this.gold, this.potionCard, player.getImagePath(), this);
         this.treasureView.initTreasureViewEvents(this);
     }
 
