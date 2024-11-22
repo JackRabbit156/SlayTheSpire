@@ -1,8 +1,6 @@
 package view.gui;
 
 import helper.GuiHelper;
-import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.SimpleObjectProperty;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.ToggleButton;
@@ -10,8 +8,6 @@ import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
-import models.player.IroncladPlayer;
-import models.player.player_structure.Player;
 
 public class CharacterView {
     private BorderPane ground = new BorderPane();
@@ -24,6 +20,8 @@ public class CharacterView {
     private Background slBG = new Background(GuiHelper.background("/images/backgrounds/silentPortrait.jpg"));
     private Background icHighlight = new Background(GuiHelper.background("/images/buttons/ironcladButtonHighlighted.png"));
     private Background slHighlight = new Background(GuiHelper.background("/images/buttons/silentButtonHighlighted.png"));
+    private Background slButtonBG = new Background(GuiHelper.background("/images/buttons/silentButton.png"));
+    private Background icButtonBG = new Background(GuiHelper.background("/images/buttons/ironcladButton.png"));
     private Text text = new Text("Choose your Character");
     private Text head = new Text();
     private ToggleButton ic = new ToggleButton();
@@ -39,21 +37,11 @@ public class CharacterView {
 
         ic.setBackground(new Background(GuiHelper.background("/images/buttons/ironcladButton.png")));
         ic.setPrefSize(120, 120);
-        ic.setOnMouseEntered(event -> {
-            ic.setBackground(icHighlight);
-        });
-        ic.setOnMouseExited(event -> {
-            ic.setBackground(new Background(GuiHelper.background("/images/buttons/ironcladButton.png")));
-        });
+
 
         sl.setBackground(new Background(GuiHelper.background("/images/buttons/silentButton.png")));
         sl.setPrefSize(120, 120);
-        sl.setOnMouseEntered(event -> {
-            sl.setBackground(slHighlight);
-        });
-        sl.setOnMouseExited(event -> {
-            sl.setBackground(new Background(GuiHelper.background("/images/buttons/silentButton.png")));
-        });
+
 
 
         embark.setText("Embark");
@@ -89,14 +77,6 @@ public class CharacterView {
         head.setFill(Color.GOLD);
     }
 
-    public Background getIcHighlight() {
-        return icHighlight;
-    }
-
-    public Background getSlHighlight() {
-        return slHighlight;
-    }
-
     public ToggleButton getIc() {
         return ic;
     }
@@ -113,6 +93,14 @@ public class CharacterView {
         return embark;
     }
 
+    public Background getIcButtonBG() {
+        return icButtonBG;
+    }
+
+    public Background getSlButtonBG() {
+        return slButtonBG;
+    }
+
     public BorderPane display() {
         left.getChildren().clear();
         right.getChildren().clear();
@@ -120,6 +108,24 @@ public class CharacterView {
         buttonBox.getChildren().clear();
         ground.getChildren().clear();
         infoBox.getChildren().clear();
+
+        ic.setOnMouseEntered(event -> {
+            ic.setBackground(icHighlight);
+        });
+        ic.setOnMouseExited(event -> {
+            if(!ic.isSelected()) {
+                ic.setBackground(icButtonBG);
+            }
+        });
+
+        sl.setOnMouseEntered(event -> {
+            sl.setBackground(slHighlight);
+        });
+        sl.setOnMouseExited(event -> {
+                    if(!sl.isSelected()) {
+                        sl.setBackground(slButtonBG);
+                    }
+        });
 
         ground.setBackground(new Background(GuiHelper.background("/images/backgrounds/MainMenuBG.png")));
 
@@ -144,12 +150,10 @@ public class CharacterView {
 
         return ground;
     }
-
-    public boolean selectIC(){
-
+//TODO: ToggleButtons aufhübschen (Auch nach Auswahl weiter leuchten)
+    public void selectIC(){
         infoBox.getChildren().clear();
         sl.setSelected(false);
-        ic.setBackground(icHighlight);
 
         head.setText("The Ironclad");
         text.setText("The remaining soldier of the Ironclads.\nSold his soul to harness demonic energies.");
@@ -158,13 +162,12 @@ public class CharacterView {
         infoBox.getChildren().addAll(head, text);
         ground.setLeft(infoBox);
         ground.setBackground(icBG);
-        return ic.isSelected();
+        ic.isSelected();
     }
 
-    public boolean selectSL(){
+    public void selectSL(){
         infoBox.getChildren().clear();
         ic.setSelected(false);
-        sl.setBackground(slHighlight);
 
         head.setText("The Silent");
         text.setText("A deadly huntress from the foglands. \nEradicates foes with daggers and poisons.");
@@ -173,6 +176,6 @@ public class CharacterView {
         infoBox.getChildren().addAll(head, text);
         ground.setLeft(infoBox);
         ground.setBackground(slBG);
-        return sl.isSelected();
+        sl.isSelected();
     }
 }

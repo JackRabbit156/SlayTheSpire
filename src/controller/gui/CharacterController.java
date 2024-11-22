@@ -11,7 +11,6 @@ import view.gui.CharacterView;
 public class CharacterController {
     private CharacterView cv = new CharacterView();
     private Player player;
-    //TODO: Player je nach Auswahl erstellen
 
     private Stage charStage;
 
@@ -23,7 +22,6 @@ public class CharacterController {
             GuiHelper.Scenes.startMainMenuScene(charStage);
         });
         cv.getEmbark().setOnMouseClicked(event -> {
-            //TODO: Nur nach auswahl eines characters gehts weiter
             if(cv.getIc().isSelected()) {
                 player = new IroncladPlayer();
                 player.setPrimaryStage(charStage);
@@ -37,11 +35,11 @@ public class CharacterController {
         });
 
         cv.getIc().setOnMouseClicked(event -> {
-            cv.getIc().setBackground(cv.getIcHighlight());
+            cv.getSl().setBackground(cv.getSlButtonBG());
             cv.selectIC();
         });
         cv.getSl().setOnMouseClicked(event -> {
-            cv.getSl().setBackground(cv.getSlHighlight());
+            cv.getIc().setBackground(cv.getIcButtonBG());
             cv.selectSL();
         });
         return cv.display();
