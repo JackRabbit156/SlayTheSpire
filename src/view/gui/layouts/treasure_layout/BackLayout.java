@@ -7,10 +7,11 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Paint;
 import view.gui.TreasureView;
 
-public class BackLayout extends BorderPane {
+public class BackLayout extends VBox {
     private TreasureView view;
     private BorderPane layout;
 
@@ -22,9 +23,6 @@ public class BackLayout extends BorderPane {
 
     private void init() {
         initBackButton();
-//        getChildren().add(this.layout);
-        setCenter(this.layout);
-        setPickOnBounds(false);
     }
 
     private void initBackButton() {

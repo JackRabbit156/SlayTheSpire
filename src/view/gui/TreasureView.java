@@ -95,9 +95,12 @@ public class TreasureView extends StackPane {
     }
 
     private void initBackLayout() {
-        this.backLayout.getChildren().add(new BackLayout(this));
-        this.backLayout.setPickOnBounds(false);
         this.getChildren().add(this.backLayout);
+        this.backLayout.setPickOnBounds(false);
+
+        BackLayout backLayer = new BackLayout(this);
+        HBox hBox = new HBox(backLayer);
+        backLayout.setBottom(backLayer);
     }
 
     /**
