@@ -8,6 +8,8 @@ import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
+import javafx.scene.text.TextAlignment;
+import models.player.player_structure.Player;
 
 public class CharacterView {
     private BorderPane ground = new BorderPane();
@@ -24,10 +26,12 @@ public class CharacterView {
     private Background icButtonBG = new Background(GuiHelper.background("/images/buttons/ironcladButton.png"));
     private Text text = new Text("Choose your Character");
     private Text head = new Text();
+    private Text hp = new Text();
     private ToggleButton ic = new ToggleButton();
     private ToggleButton sl = new ToggleButton();
     private Button backs = new Button();
     private Button embark = new Button();
+    private Player player;
 
     public CharacterView(){
         initButtons();
@@ -75,6 +79,11 @@ public class CharacterView {
 
         head.setFont(Font.font("/resources/font/kreon/static/Kreon-Bold.ttf", 44));
         head.setFill(Color.GOLD);
+        head.setTextAlignment(TextAlignment.LEFT);
+
+        hp.setFont(Font.font("/resources/font/kreon/static/Kreon-Bold.ttf", 30));
+        hp.setFill(Color.RED);
+        hp.setTextAlignment(TextAlignment.LEFT);
     }
 
     public ToggleButton getIc() {
@@ -113,18 +122,14 @@ public class CharacterView {
             ic.setBackground(icHighlight);
         });
         ic.setOnMouseExited(event -> {
-            if(!ic.isSelected()) {
-                ic.setBackground(icButtonBG);
-            }
+            if(!ic.isSelected()) { ic.setBackground(icButtonBG); }
         });
 
         sl.setOnMouseEntered(event -> {
             sl.setBackground(slHighlight);
         });
         sl.setOnMouseExited(event -> {
-                    if(!sl.isSelected()) {
-                        sl.setBackground(slButtonBG);
-                    }
+                    if(!sl.isSelected()) { sl.setBackground(slButtonBG); }
         });
 
         ground.setBackground(new Background(GuiHelper.background("/images/backgrounds/MainMenuBG.png")));
@@ -150,16 +155,17 @@ public class CharacterView {
 
         return ground;
     }
-//TODO: ToggleButtons aufhübschen (Auch nach Auswahl weiter leuchten)
+    //TODO: HP Alignment to left
     public void selectIC(){
         infoBox.getChildren().clear();
         sl.setSelected(false);
 
-        head.setText("The Ironclad");
-        text.setText("The remaining soldier of the Ironclads.\nSold his soul to harness demonic energies.");
+        head.setText("\nThe Ironclad");
+        hp.setText("\nHP: 80/80");
+        text.setText(" \n\tThe remaining soldier of the Ironclads.\n\tSold his soul to harness demonic energies.");
         infoBox.setBackground(Background.EMPTY);
         infoBox.setAlignment(Pos.BASELINE_RIGHT);
-        infoBox.getChildren().addAll(head, text);
+        infoBox.getChildren().addAll(head, text, hp);
         ground.setLeft(infoBox);
         ground.setBackground(icBG);
         ic.isSelected();
@@ -169,11 +175,12 @@ public class CharacterView {
         infoBox.getChildren().clear();
         ic.setSelected(false);
 
-        head.setText("The Silent");
-        text.setText("A deadly huntress from the foglands. \nEradicates foes with daggers and poisons.");
+        head.setText("\nThe Silent");
+        hp.setText("\nHP: 70/70");
+        text.setText(" \n\tA deadly huntress from the foglands. \n\tEradicates foes with daggers and poisons.");
         infoBox.setBackground(Background.EMPTY);
         infoBox.setAlignment(Pos.BASELINE_RIGHT);
-        infoBox.getChildren().addAll(head, text);
+        infoBox.getChildren().addAll(head, text, hp);
         ground.setLeft(infoBox);
         ground.setBackground(slBG);
         sl.isSelected();
