@@ -7,16 +7,12 @@ import models.enemy_card.enemy_card_structure.EnemyCard;
 
 public class ChargingUpEnemyCard extends EnemyCard {
     public ChargingUpEnemyCard() {
-        super("Charging Up", "Gains 15 block.");
+        super("Charging Up", "Gains 9 block.", "");
         setImagePath(new PathAssistent().toPath(this));
     }
 
     @Override
-    public void play(GameContext gameContext) {
-    }
-
-    @Override
-    public void play(GameContext gameContext, Enemy enemy) {
+    public void playEnemy(GameContext gameContext, Enemy enemy) {
         enemy.addBlock(15);
     }
 }

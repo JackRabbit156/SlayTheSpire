@@ -8,18 +8,12 @@ import models.player.player_structure.Player;
 
 public class HyperBeamEnemyCard extends EnemyCard {
     public HyperBeamEnemyCard() {
-        super("Hyper Beam", "Deals 45 damage.");
+        super("Hyper Beam", "Deals 45 damage.", "45");
         setImagePath(new PathAssistent().toPath(this));
     }
 
     @Override
-    public void play(GameContext gameContext, Enemy enemy) {
-        Player player = gameContext.getPlayer();
-        player.decreaseCurrentHealth(45, false);
-    }
-
-    @Override
-    public void play(GameContext gameContext) {
+    public void playEnemy(GameContext gameContext, Enemy enemy) {
         Player player = gameContext.getPlayer();
         player.decreaseCurrentHealth(45, false);
     }

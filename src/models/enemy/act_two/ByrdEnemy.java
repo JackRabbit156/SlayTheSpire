@@ -25,14 +25,7 @@ public class ByrdEnemy extends Enemy {
 
     @Override
     public void attack(GameContext gameContext) {
-        Random randi = new Random();
-        int randomAttack = randi.nextInt(3);
-
-        switch (randomAttack){
-            case 0: new PeckEnemyCard().play(gameContext); break;
-            case 1: new SwoopEnemyCard().play(gameContext); break;
-            case 2: new HeadbuttEnemyCard().play(gameContext); break;
-        }
+        getEnemyDeck().get(getEnemyCardToBePlayed()).playEnemy(gameContext, this);
     }
 
 }

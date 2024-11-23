@@ -8,18 +8,12 @@ import models.player.player_structure.Player;
 
 public class CorrosiveSpitEnemyCard extends EnemyCard {
     public CorrosiveSpitEnemyCard() {
-        super("Corrosive Spit", "Deals 11 damage, shuffles 2 Slimed into the discard pile.");
+        super("Corrosive Spit", "Deals 11 damage.", "11");
         setImagePath(new PathAssistent().toPath(this));
     }
 
     @Override
-    public void play(GameContext gameContext, Enemy enemy) {
-        Player player = gameContext.getPlayer();
-        player.decreaseCurrentHealth(11, false);
-    }
-
-    @Override
-    public void play(GameContext gameContext) {
+    public void playEnemy(GameContext gameContext, Enemy enemy) {
         Player player = gameContext.getPlayer();
         player.decreaseCurrentHealth(11, false);
     }

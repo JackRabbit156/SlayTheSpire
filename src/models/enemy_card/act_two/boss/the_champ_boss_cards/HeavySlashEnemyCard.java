@@ -8,18 +8,12 @@ import models.player.player_structure.Player;
 
 public class HeavySlashEnemyCard extends EnemyCard {
     public HeavySlashEnemyCard() {
-        super("Heavy Slash", "Deals 16 damage.");
+        super("Heavy Slash", "Deals 16 damage.", "16");
         setImagePath(new PathAssistent().toPath(this));
     }
 
     @Override
-    public void play(GameContext gameContext, Enemy enemy) {
-        Player player = gameContext.getPlayer();
-        player.decreaseCurrentHealth(16, false);
-    }
-
-    @Override
-    public void play(GameContext gameContext) {
+    public void playEnemy(GameContext gameContext, Enemy enemy) {
         Player player = gameContext.getPlayer();
         player.decreaseCurrentHealth(16, false);
     }

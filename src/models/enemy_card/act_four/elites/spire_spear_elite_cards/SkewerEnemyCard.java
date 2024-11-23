@@ -8,19 +8,15 @@ import models.player.player_structure.Player;
 
 public class SkewerEnemyCard extends EnemyCard {
     public SkewerEnemyCard() {
-        super("Peck", "Deals 30 damage.");
+        super("Skewer", "Deals 10 x 3 damage.", "10 x 3");
         setImagePath(new PathAssistent().toPath(this));
     }
 
     @Override
-    public void play(GameContext gameContext, Enemy enemy) {
+    public void playEnemy(GameContext gameContext, Enemy enemy) {
         Player player = gameContext.getPlayer();
-        player.decreaseCurrentHealth(30, false);
-    }
-
-    @Override
-    public void play(GameContext gameContext) {
-        Player player = gameContext.getPlayer();
-        player.decreaseCurrentHealth(30, false);
+        for (int i = 0; i < 3; i++) {
+            player.decreaseCurrentHealth(10, false);
+        }
     }
 }

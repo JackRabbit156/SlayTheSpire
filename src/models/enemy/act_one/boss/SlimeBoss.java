@@ -4,7 +4,11 @@ import helper.PathAssistent;
 import models.battle.GameContext;
 import models.enemy.Enemy;
 import models.enemy_card.act_one.boss.slime_boss_cards.SlamEnemyCard;
+import models.enemy_card.act_one.cultist_enemy_cards.DarkStrikeEnemyCard;
+import models.enemy_card.enemy_card_structure.EnemyCard;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 /**
@@ -17,10 +21,19 @@ public class SlimeBoss extends Enemy {
     public SlimeBoss() {
         super("Slime Boss", 150, 150);
         setImagePath(new PathAssistent().toPath(this));
+        initEnemyDeck();
+    }
+
+    private void initEnemyDeck() {
+        List<EnemyCard> deck = new ArrayList<>();
+
+        deck.add(new SlamEnemyCard());
+
+        setEnemyDeck(deck);
     }
 
     @Override
     public void attack(GameContext gameContext) {
-        new SlamEnemyCard().play(gameContext);
+        getEnemyDeck().get(getEnemyCardToBePlayed()).playEnemy(gameContext, this);
     }
 }

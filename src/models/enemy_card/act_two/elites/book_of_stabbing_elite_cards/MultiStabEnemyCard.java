@@ -9,30 +9,21 @@ import models.player.player_structure.Player;
 import java.util.Random;
 
 public class MultiStabEnemyCard extends EnemyCard {
+    Random randi = new Random();
+    int randomAttack = randi.nextInt(3);
+
     public MultiStabEnemyCard() {
-        super("Multi Stab", "Deals a lot of damage.");
+        super("Multi Stab", "Deals 6 x N damage.", "6 x N");
         setImagePath(new PathAssistent().toPath(this));
     }
 
     @Override
-    public void play(GameContext gameContext, Enemy enemy) {
-        Random randi = new Random();
-        int randomAttack = randi.nextInt(3);
-
-        int attackDamage = 6 * randomAttack;
+    public void playEnemy(GameContext gameContext, Enemy enemy) {
         Player player = gameContext.getPlayer();
 
-        player.decreaseCurrentHealth(attackDamage, false);
-    }
+        for (int i = 0; i < randomAttack; i++) {
+            player.decreaseCurrentHealth(6, false);
 
-    @Override
-    public void play(GameContext gameContext) {
-        Random randi = new Random();
-        int randomAttack = randi.nextInt(3);
-
-        int attackDamage = 6 * randomAttack;
-        Player player = gameContext.getPlayer();
-
-        player.decreaseCurrentHealth(attackDamage, false);
+        }
     }
 }

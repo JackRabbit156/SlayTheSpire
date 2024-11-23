@@ -8,18 +8,12 @@ import models.player.player_structure.Player;
 
 public class SingleStabEnemyCard extends EnemyCard {
     public SingleStabEnemyCard() {
-        super("Corrosive Spit", "Deals 21 damage.");
+        super("Corrosive Spit", "Deals 21 damage.", "21");
         setImagePath(new PathAssistent().toPath(this));
     }
 
     @Override
-    public void play(GameContext gameContext, Enemy enemy) {
-        Player player = gameContext.getPlayer();
-        player.decreaseCurrentHealth(21, false);
-    }
-
-    @Override
-    public void play(GameContext gameContext) {
+    public void playEnemy(GameContext gameContext, Enemy enemy) {
         Player player = gameContext.getPlayer();
         player.decreaseCurrentHealth(21, false);
     }

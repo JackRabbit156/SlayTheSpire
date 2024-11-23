@@ -26,9 +26,6 @@ public class GremlinLeaderElite extends Enemy {
 
     @Override
     public void attack(GameContext gameContext) {
-        switch (randi.nextInt(2)) {
-            case 0: new StabGEnemyCard().play(gameContext); break;
-            default: new EncourageEnemyCard().play(gameContext, this);
-        }
+        getEnemyDeck().get(getEnemyCardToBePlayed()).playEnemy(gameContext, this);
     }
 }

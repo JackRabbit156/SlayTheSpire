@@ -8,18 +8,12 @@ import models.player.player_structure.Player;
 
 public class SwoopEnemyCard extends EnemyCard {
     public SwoopEnemyCard() {
-        super("Swoop", "Deals 12 damage.");
+        super("Swoop", "Deals 12 damage.", "12");
         setImagePath(new PathAssistent().toPath(this));
     }
 
     @Override
-    public void play(GameContext gameContext, Enemy enemy) {
-        Player player = gameContext.getPlayer();
-        player.decreaseCurrentHealth(12, false);
-    }
-
-    @Override
-    public void play(GameContext gameContext) {
+    public void playEnemy(GameContext gameContext, Enemy enemy) {
         Player player = gameContext.getPlayer();
         player.decreaseCurrentHealth(12, false);
     }

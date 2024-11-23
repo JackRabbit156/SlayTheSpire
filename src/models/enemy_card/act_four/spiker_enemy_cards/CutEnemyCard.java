@@ -8,18 +8,12 @@ import models.player.player_structure.Player;
 
 public class CutEnemyCard extends EnemyCard {
     public CutEnemyCard() {
-        super("Cut", "Deals 7 damage.");
+        super("Cut", "Deals 7 damage.", "7");
         setImagePath(new PathAssistent().toPath(this));
     }
 
     @Override
-    public void play(GameContext gameContext, Enemy enemy) {
-        Player player = gameContext.getPlayer();
-        player.decreaseCurrentHealth(7, false);
-    }
-
-    @Override
-    public void play(GameContext gameContext) {
+    public void playEnemy(GameContext gameContext, Enemy enemy) {
         Player player = gameContext.getPlayer();
         player.decreaseCurrentHealth(7, false);
     }

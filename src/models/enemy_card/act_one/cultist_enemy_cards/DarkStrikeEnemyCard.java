@@ -8,21 +8,16 @@ import models.player.player_structure.Player;
 
 public class DarkStrikeEnemyCard extends EnemyCard {
     public DarkStrikeEnemyCard() {
-        super("Dark Strike", "Deal 6 damage.");
+        super("Dark Strike", "Deal 6 damage.", "6");
         setImagePath(new PathAssistent().toPath(this));
     }
 
 
     @Override
-    public void play(GameContext gameContext, Enemy enemy) {
+    public void playEnemy(GameContext gameContext, Enemy enemy) {
         Player player = gameContext.getPlayer();
         player.decreaseCurrentHealth(6, false);
     }
 
-    @Override
-    public void play(GameContext gameContext) {
-        Player player = gameContext.getPlayer();
-        player.decreaseCurrentHealth(6, false);
-        // Cards need to be implemented fast, code is not that clean because of that, schmorry
-    }
+
 }
