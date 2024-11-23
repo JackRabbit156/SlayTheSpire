@@ -1,6 +1,7 @@
 package models.card.card_structure;
 
 import models.battle.GameContext;
+import models.enemy.Enemy;
 
 import java.util.Random;
 

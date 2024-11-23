@@ -8,21 +8,14 @@ import models.player.player_structure.Player;
 
 public class AttackEnemyCard extends EnemyCard {
     public AttackEnemyCard() {
-        super("Attack", "Deal 18 damage.");
+        super("Attack", "Deal 18 damage.", "18");
         setImagePath(new PathAssistent().toPath(this));
     }
 
 
     @Override
-    public void play(GameContext gameContext, Enemy enemy) {
+    public void playEnemy(GameContext gameContext, Enemy enemy) {
         Player player = gameContext.getPlayer();
         player.decreaseCurrentHealth(18, false);
-    }
-
-    @Override
-    public void play(GameContext gameContext) {
-        Player player = gameContext.getPlayer();
-        player.decreaseCurrentHealth(18, false);
-        // Cards need to be implemented fast, code is not that clean because of that, schmorry
     }
 }

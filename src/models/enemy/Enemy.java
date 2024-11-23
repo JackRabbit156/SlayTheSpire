@@ -3,10 +3,13 @@ package models.enemy;
 import controller.listener.EnemyEventListener;
 import events.EnemyDamageEvent;
 import models.battle.GameContext;
+import models.enemy_card.InsultEnemyCard;
+import models.enemy_card.enemy_card_structure.EnemyCard;
 import models.game_settings.GameSettings;
 import models.game_settings.structure.DifficultyLevel;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -20,10 +23,15 @@ public abstract class Enemy {
     private String name;
     private int currentHealth;
     private int maxHealth;
-    private String intent;
+    private EnemyCard intent;
 
     private String imagePath;
     private int block;
+
+    private List<EnemyCard> enemyDeck;
+    private int enemyCardToBePlayed;
+
+    private EnemyCard insult = new InsultEnemyCard();
 
 
     private EnemyEventListener enemyEventListener;
@@ -59,11 +67,11 @@ public abstract class Enemy {
      * @author OF Daniel Willig
      */
     public void action(GameContext gameContext) {
-        if (getIntent().equals("attack")) {
-            attack(gameContext);
+        if (getIntent().equals(insult)) {
+            System.out.println(doNothing());
         }
         else {
-            System.out.println(doNothing());
+            attack(gameContext);
         }
     }
 
@@ -88,10 +96,11 @@ public abstract class Enemy {
         }
 
         if (attackPercentage >= randomNumber) {
-            setIntent("attack");
+            setEnemyCardToBePlayed(new Random().nextInt(getEnemyDeck().size()));
+            setIntent(getEnemyDeck().get(getEnemyCardToBePlayed()));
         }
         else {
-            setIntent("insult");
+            setIntent(insult);
         }
     }
 
@@ -207,11 +216,27 @@ public abstract class Enemy {
         this.enemyEventListener = enemyEventListener;
     }
 
-    public String getIntent() {
+    public EnemyCard getIntent() {
         return intent;
     }
 
-    public void setIntent(String intent) {
+    public void setIntent(EnemyCard intent) {
         this.intent = intent;
+    }
+
+    public List<EnemyCard> getEnemyDeck() {
+        return enemyDeck;
+    }
+
+    public void setEnemyDeck(List<EnemyCard> enemyDeck) {
+        this.enemyDeck = enemyDeck;
+    }
+
+    public int getEnemyCardToBePlayed() {
+        return enemyCardToBePlayed;
+    }
+
+    public void setEnemyCardToBePlayed(int enemyCardToBePlayed) {
+        this.enemyCardToBePlayed = enemyCardToBePlayed;
     }
 }

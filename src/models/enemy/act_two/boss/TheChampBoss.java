@@ -27,14 +27,6 @@ public class TheChampBoss extends Enemy {
 
     @Override
     public void attack(GameContext gameContext) {
-        Random randi = new Random();
-        int randomAttack = randi.nextInt(3);
-
-        switch (randomAttack) {
-            case 0: new ExecuteEnemyCard().play(gameContext); break;
-            case 1: new FaceSlapEnemyCard().play(gameContext); break;
-            case 2: new HeavySlashEnemyCard().play(gameContext); break;
-            default:  new DefensiveStanceEnemyCard().play(gameContext, this);
-        }
+        getEnemyDeck().get(getEnemyCardToBePlayed()).playEnemy(gameContext, this);
     }
 }

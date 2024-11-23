@@ -8,19 +8,15 @@ import models.player.player_structure.Player;
 
 public class StabGEnemyCard extends EnemyCard {
     public StabGEnemyCard() {
-        super("Stab", "Deals 18 damage.");
+        super("Stab", "Deals 6 x 3 damage.", "6 x 3");
         setImagePath(new PathAssistent().toPath(this));
     }
 
     @Override
-    public void play(GameContext gameContext, Enemy enemy) {
+    public void playEnemy(GameContext gameContext, Enemy enemy) {
         Player player = gameContext.getPlayer();
-        player.decreaseCurrentHealth(18, false);
-    }
-
-    @Override
-    public void play(GameContext gameContext) {
-        Player player = gameContext.getPlayer();
-        player.decreaseCurrentHealth(18, false);
+        for (int i = 0; i < 3; i++) {
+            player.decreaseCurrentHealth(6, false);
+        }
     }
 }

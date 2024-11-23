@@ -8,18 +8,14 @@ import models.player.player_structure.Player;
 
 public class HardenEnemyCard extends EnemyCard {
     public HardenEnemyCard() {
-        super("Corrosive Spit", "Deals 10 damage, gains 15 block.");
+        super("Corrosive Spit", "Deals 10 damage, gains 15 block.", "10");
         setImagePath(new PathAssistent().toPath(this));
     }
 
     @Override
-    public void play(GameContext gameContext, Enemy enemy) {
+    public void playEnemy(GameContext gameContext, Enemy enemy) {
         Player player = gameContext.getPlayer();
         player.decreaseCurrentHealth(10, false);
         enemy.addBlock(15);
-    }
-
-    @Override
-    public void play(GameContext gameContext) {
     }
 }

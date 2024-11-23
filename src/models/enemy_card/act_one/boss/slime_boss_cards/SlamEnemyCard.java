@@ -8,18 +8,12 @@ import models.player.player_structure.Player;
 
 public class SlamEnemyCard extends EnemyCard {
     public SlamEnemyCard() {
-        super("Slam", "Deals 35 damage.");
+        super("Slam", "Deals 35 damage.", "35");
         setImagePath(new PathAssistent().toPath(this));
     }
 
     @Override
-    public void play(GameContext gameContext) {
-        Player player = gameContext.getPlayer();
-        player.decreaseCurrentHealth(35, false);
-    }
-
-    @Override
-    public void play(GameContext gameContext, Enemy enemy) {
+    public void playEnemy(GameContext gameContext, Enemy enemy) {
         Player player = gameContext.getPlayer();
         player.decreaseCurrentHealth(35, false);
     }

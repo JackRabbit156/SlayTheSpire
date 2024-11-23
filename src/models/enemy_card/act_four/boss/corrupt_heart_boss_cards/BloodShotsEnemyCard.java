@@ -8,19 +8,15 @@ import models.player.player_structure.Player;
 
 public class BloodShotsEnemyCard extends EnemyCard {
     public BloodShotsEnemyCard() {
-        super("Blood Shots", "Deals 24 damage.");
+        super("Blood Shots", "Deal 2 x 12 damage.", "2 x 12");
         setImagePath(new PathAssistent().toPath(this));
     }
 
     @Override
-    public void play(GameContext gameContext, Enemy enemy) {
+    public void playEnemy(GameContext gameContext, Enemy enemy) {
         Player player = gameContext.getPlayer();
-        player.decreaseCurrentHealth(24, false);
-    }
-
-    @Override
-    public void play(GameContext gameContext) {
-        Player player = gameContext.getPlayer();
-        player.decreaseCurrentHealth(24, false);
+        for (int i = 0; i < 12; i++) {
+            player.decreaseCurrentHealth(2, false);
+        }
     }
 }

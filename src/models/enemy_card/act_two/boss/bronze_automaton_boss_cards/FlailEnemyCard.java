@@ -8,19 +8,15 @@ import models.player.player_structure.Player;
 
 public class FlailEnemyCard extends EnemyCard {
     public FlailEnemyCard() {
-        super("Flail", "Deals 14 damage.");
+        super("Flail", "Deals 7 x 2 damage.", "7 x 2");
         setImagePath(new PathAssistent().toPath(this));
     }
 
     @Override
-    public void play(GameContext gameContext, Enemy enemy) {
+    public void playEnemy(GameContext gameContext, Enemy enemy) {
         Player player = gameContext.getPlayer();
-        player.decreaseCurrentHealth(14, false);
-    }
-
-    @Override
-    public void play(GameContext gameContext) {
-        Player player = gameContext.getPlayer();
-        player.decreaseCurrentHealth(14, false);
+        for (int i = 0; i < 2; i++) {
+            player.decreaseCurrentHealth(7, false);
+        }
     }
 }

@@ -26,13 +26,6 @@ public class BronzeAutomatonBoss extends Enemy {
 
     @Override
     public void attack(GameContext gameContext) {
-        Random randi = new Random();
-        int randomAttack = randi.nextInt(2);
-
-        switch (randomAttack) {
-            case 0: new FlailEnemyCard().play(gameContext); break;
-            case 1: new HyperBeamEnemyCard().play(gameContext); break;
-            default: new BoostEnemyCard().play(gameContext, this);
-        }
+        getEnemyDeck().get(getEnemyCardToBePlayed()).playEnemy(gameContext, this);
     }
 }

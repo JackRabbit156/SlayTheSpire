@@ -8,19 +8,15 @@ import models.player.player_structure.Player;
 
 public class ExecuteEnemyCard extends EnemyCard {
     public ExecuteEnemyCard() {
-        super("Execute", "Deals 20 damage.");
+        super("Execute", "Deals 10 x 2 damage.", "10 x 2");
         setImagePath(new PathAssistent().toPath(this));
     }
 
     @Override
-    public void play(GameContext gameContext, Enemy enemy) {
+    public void playEnemy(GameContext gameContext, Enemy enemy) {
         Player player = gameContext.getPlayer();
-        player.decreaseCurrentHealth(20, false);
-    }
-
-    @Override
-    public void play(GameContext gameContext) {
-        Player player = gameContext.getPlayer();
-        player.decreaseCurrentHealth(20, false);
+        for (int i = 0; i < 2; i++) {
+            player.decreaseCurrentHealth(10, false);
+        }
     }
 }

@@ -7,17 +7,11 @@ import models.player.player_structure.Player;
 
 public class SkullBashEnemyCard extends EnemyCard {
     public SkullBashEnemyCard() {
-        super("Skull Bash", "Deal 6 damage.");
+        super("Skull Bash", "Deals 6 damage.", "6");
     }
 
     @Override
-    public void play(GameContext gameContext, Enemy enemy) {
-        Player player = gameContext.getPlayer();
-        player.decreaseCurrentHealth(6, false);
-    }
-
-    @Override
-    public void play(GameContext gameContext) {
+    public void playEnemy(GameContext gameContext, Enemy enemy) {
         Player player = gameContext.getPlayer();
         player.decreaseCurrentHealth(6, false);
     }

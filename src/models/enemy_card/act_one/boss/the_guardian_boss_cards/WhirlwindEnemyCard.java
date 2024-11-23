@@ -8,19 +8,15 @@ import models.player.player_structure.Player;
 
 public class WhirlwindEnemyCard extends EnemyCard {
     public WhirlwindEnemyCard() {
-        super("Whirlwind", "Deals 20 damage.");
+        super("Whirlwind", "Deals 5 x 4 damage.", "5 x 4");
         setImagePath(new PathAssistent().toPath(this));
     }
 
     @Override
-    public void play(GameContext gameContext) {
+    public void playEnemy(GameContext gameContext, Enemy enemy) {
         Player player = gameContext.getPlayer();
-        player.decreaseCurrentHealth(20, false);
-    }
-
-    @Override
-    public void play(GameContext gameContext, Enemy enemy) {
-        Player player = gameContext.getPlayer();
-        player.decreaseCurrentHealth(20, false);
+        for (int i = 0; i < 4; i++) {
+            player.decreaseCurrentHealth(5, false);
+        }
     }
 }

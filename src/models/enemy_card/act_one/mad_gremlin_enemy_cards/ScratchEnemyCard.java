@@ -8,18 +8,12 @@ import models.player.player_structure.Player;
 
 public class ScratchEnemyCard extends EnemyCard {
     public ScratchEnemyCard() {
-        super("Scratch", "Deal 4 damage.");
+        super("Scratch", "Deals 4 damage.", "4");
         setImagePath(new PathAssistent().toPath(this));
     }
 
     @Override
-    public void play(GameContext gameContext) {
-        Player player = gameContext.getPlayer();
-        player.decreaseCurrentHealth(4, false);
-    }
-
-    @Override
-    public void play(GameContext gameContext, Enemy enemy) {
+    public void playEnemy(GameContext gameContext, Enemy enemy) {
         Player player = gameContext.getPlayer();
         player.decreaseCurrentHealth(4, false);
     }
