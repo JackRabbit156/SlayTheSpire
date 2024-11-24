@@ -256,12 +256,17 @@ public class BattleController implements BattleViewEvents, PlayerEventListener, 
 
     @Override
     public void onBlockReceived(PlayerBlockEvent event) {
-
+        triggerPowerCards(CardTrigger.GAIN_BLOCK);
     }
 
     @Override
     public void onDamageReceived(PlayerDamageEvent event) {
-
+        if (event.isCard()) {
+            triggerPowerCards(CardTrigger.LOSE_HP_CARD);
+        }
+        else {
+            triggerPowerCards(CardTrigger.LOSE_HP_ENEMY);
+        }
     }
 
     @Override
