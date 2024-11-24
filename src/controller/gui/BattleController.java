@@ -70,6 +70,8 @@ public class BattleController implements BattleViewEvents, PlayerEventListener, 
         calcIntentForAllEnemies(enemies);
         resetEnergyAndBlock();
         battleDeck.fillHand(battleDeck.getStartHandSize());
+
+        triggerPowerCards(CardTrigger.PLAYER_BOT);
     }
 
     private void calcIntentForAllEnemies(List<Enemy> enemies) {
@@ -154,9 +156,13 @@ public class BattleController implements BattleViewEvents, PlayerEventListener, 
     private void playerEOT() {
         removeHandAfterEndOfTurn();
 
+        triggerPowerCards(CardTrigger.PLAYER_EOT);
+    }
+
+    private void triggerPowerCards(CardTrigger trigger) {
         List<PowerCard> powerCards = battleDeck.getCurrentPowerCards();
         for (PowerCard powerCard : powerCards) {
-            if (powerCard.getCardTrigger().equals(CardTrigger.PLAYER_EOT)) {
+            if (powerCard.getCardTrigger().equals(trigger)) {
                 powerCard.ability(gameContext);
             }
         }
