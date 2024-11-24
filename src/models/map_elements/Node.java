@@ -76,8 +76,8 @@ public class Node {
         return middleNode;
     }
 
-    public void setMiddleNode(Node moddleNode) {
-        this.middleNode = moddleNode;
+    public void setMiddleNode(Node middleNode) {
+        this.middleNode = middleNode;
     }
 
     public Node getRightNode() {
