@@ -34,12 +34,9 @@ public class SurvivorCard extends SkillCard {
 
         player.setBlock(8);
 
-        System.out.print("Choose a card to discard: ");
-
-        int targetIndex = ConsoleAssistent.scannerAutoAim(gameContext.getBattleDeck().getStartHandSize());
-        Card targetCard = hand.get(targetIndex);
-
-        battleDeck.discardCardFromHand(targetCard);
+        if (!hand.isEmpty()) {
+            battleDeck.discardCardFromHand(hand.get(0));
+        }
 
 
         player.decreaseCurrentEnergy(getCost());
