@@ -9,9 +9,7 @@ import helper.GuiHelper;
 import models.battle.BattleDeck;
 import models.battle.GameContext;
 
-import models.card.card_structure.Card;
-import models.card.card_structure.CardGrave;
-import models.card.card_structure.CardType;
+import models.card.card_structure.*;
 import models.enemy.Enemy;
 import models.map_elements.field_types.FieldEnum;
 import models.player.player_structure.Player;
@@ -155,6 +153,13 @@ public class BattleController implements BattleViewEvents, PlayerEventListener, 
 
     private void playerEOT() {
         removeHandAfterEndOfTurn();
+
+        List<PowerCard> powerCards = battleDeck.getCurrentPowerCards();
+        for (PowerCard powerCard : powerCards) {
+            if (powerCard.getCardTrigger().equals(CardTrigger.PLAYER_EOT)) {
+                powerCard.ability(gameContext);
+            }
+        }
     }
 
     private void enemyTurn() {
