@@ -9,6 +9,12 @@ import javafx.scene.text.FontSmoothingType;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 
+/**
+ * Das Energy layout.
+ * Das kleine Icon linkt, welches angibt wie viel energy der spieler noch hat
+ *
+ * @author OF Daniel Willig
+ */
 public class EnergyLayout extends StackPane {
     private final Text energyTextStroke = new Text();
     private final Text energyText = new Text();

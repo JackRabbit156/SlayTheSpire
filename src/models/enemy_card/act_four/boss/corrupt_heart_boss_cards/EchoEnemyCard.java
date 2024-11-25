@@ -6,7 +6,15 @@ import models.enemy.Enemy;
 import models.enemy_card.enemy_card_structure.EnemyCard;
 import models.player.player_structure.Player;
 
+/**
+ * Die Echo enemy card.
+ *
+ * @author OF Daniel Willig
+ */
 public class EchoEnemyCard extends EnemyCard {
+    /**
+     * Constructor Echo enemy card.
+     */
     public EchoEnemyCard() {
         super("Echo", "Deals 40 damage.", "40");
         setImagePath(new PathAssistent().toPath(this));

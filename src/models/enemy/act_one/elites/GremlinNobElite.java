@@ -13,6 +13,7 @@ import java.util.List;
 import java.util.Random;
 /**
  * @author Keil, Vladislav
+ * @author OF Daniel Willig
  */
 public class GremlinNobElite extends Enemy {
     public GremlinNobElite() {

@@ -15,6 +15,7 @@ import java.util.Random;
 
 /**
  * @author Keil, Vladislav
+ * @author OF Daniel Willig
  */
 public class TheGuardianBoss extends Enemy {
     // https://slay-the-spire.fandom.com/wiki/The_Guardian

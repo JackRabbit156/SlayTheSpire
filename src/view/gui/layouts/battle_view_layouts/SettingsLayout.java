@@ -12,6 +12,14 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import models.player.player_structure.Player;
 
+
+/**
+ * Das Settings layout. Rein kosmetisch
+ * Die drei kleinen Icons auf der rechten Seite der grauen Leiste.
+ * Das Deck gibt an wie viel Karten gerade im Deck sind.
+ *
+ * @author OF Daniel Willig
+ */
 public class SettingsLayout extends HBox {
     private final Text libraryTextStroke = new Text();
     private final Text libraryText = new Text();

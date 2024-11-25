@@ -8,10 +8,18 @@ import models.player.player_structure.Player;
 
 import java.util.Random;
 
+/**
+ * Die Multi stab enemy card.
+ *
+ * @author OF Daniel Willig
+ */
 public class MultiStabEnemyCard extends EnemyCard {
     Random randi = new Random();
     int randomAttack = randi.nextInt(3);
 
+    /**
+     * Constructor Multi stab enemy card.
+     */
     public MultiStabEnemyCard() {
         super("Multi Stab", "Deals 6 x N damage.", "6 x N");
         setImagePath(new PathAssistent().toPath(this));

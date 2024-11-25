@@ -13,6 +13,7 @@ import java.util.List;
 
 /**
  * @author Keil, Vladislav
+ * @author OF Daniel Willig
  */
 public class SpireShieldElite extends Enemy {
     public SpireShieldElite() {

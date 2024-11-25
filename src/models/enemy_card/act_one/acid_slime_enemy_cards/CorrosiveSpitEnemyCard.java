@@ -6,7 +6,15 @@ import models.enemy.Enemy;
 import models.enemy_card.enemy_card_structure.EnemyCard;
 import models.player.player_structure.Player;
 
+/**
+ * Die Corrosive spit enemy card.
+ *
+ * @author OF Daniel Willig
+ */
 public class CorrosiveSpitEnemyCard extends EnemyCard {
+    /**
+     * Constructor Corrosive spit enemy card.
+     */
     public CorrosiveSpitEnemyCard() {
         super("Corrosive Spit", "Deals 11 damage.", "11");
         setImagePath(new PathAssistent().toPath(this));

@@ -10,10 +10,18 @@ import models.potion.potion_structure.PotionCard;
 
 import java.util.List;
 
+/**
+ * Die Explosive potion.
+ *
+ * @author OF Daniel Willig
+ */
 public class ExplosivePotion extends PotionCard {
 
+    /**
+     * Constructor Explosive potion.
+     */
     public ExplosivePotion() {
-        super("Explosive Potion", "Deal 10 Damage to all enemies.", 0, CardRarity.COMMON, CardGrave.POTION, CardType.ATTACK);
+        super("Explosive Potion", "Deal 10 Damage to all enemies.",  CardRarity.COMMON,  CardType.ATTACK);
         setImagePath(new PathAssistent().toPath(this));
     }
 

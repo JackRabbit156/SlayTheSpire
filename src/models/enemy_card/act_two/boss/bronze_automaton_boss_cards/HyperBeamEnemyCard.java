@@ -6,7 +6,15 @@ import models.enemy.Enemy;
 import models.enemy_card.enemy_card_structure.EnemyCard;
 import models.player.player_structure.Player;
 
+/**
+ * Die Hyper beam enemy card.
+ *
+ * @author OF Daniel Willig
+ */
 public class HyperBeamEnemyCard extends EnemyCard {
+    /**
+     * Constructor Hyper beam enemy card.
+     */
     public HyperBeamEnemyCard() {
         super("Hyper Beam", "Deals 45 damage.", "45");
         setImagePath(new PathAssistent().toPath(this));

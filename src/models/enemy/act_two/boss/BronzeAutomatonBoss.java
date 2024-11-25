@@ -12,6 +12,7 @@ import java.util.Random;
 
 /**
  * @author Keil, Vladislav
+ * @author OF Daniel Willig
  */
 public class BronzeAutomatonBoss extends Enemy {
     /**

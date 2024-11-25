@@ -12,6 +12,13 @@ import javafx.scene.paint.Color;
 import models.player.player_structure.Player;
 import view.gui.BattleView;
 
+/**
+ * Das Player layout.
+ * Der Player auf der linken Seite
+ *
+ * @author Warawa Alex
+ * @author OF Daniel Willig
+ */
 public class PlayerLayout extends VBox {
     private Player player;
     private HealthBarLayout healthBarLayout;

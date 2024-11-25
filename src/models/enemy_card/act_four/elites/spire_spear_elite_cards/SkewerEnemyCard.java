@@ -6,7 +6,15 @@ import models.enemy.Enemy;
 import models.enemy_card.enemy_card_structure.EnemyCard;
 import models.player.player_structure.Player;
 
+/**
+ * Die Skewer enemy card.
+ *
+ * @author OF Daniel Willig
+ */
 public class SkewerEnemyCard extends EnemyCard {
+    /**
+     * Constructor Skewer enemy card.
+     */
     public SkewerEnemyCard() {
         super("Skewer", "Deals 10 x 3 damage.", "10 x 3");
         setImagePath(new PathAssistent().toPath(this));

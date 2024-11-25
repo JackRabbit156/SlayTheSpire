@@ -10,10 +10,18 @@ import models.potion.potion_structure.PotionCard;
 
 import java.util.List;
 
+/**
+ * Die Distilled chaos potion.
+ *
+ * @author OF Daniel Willig
+ */
 public class DistilledChaosPotion extends PotionCard {
 
+    /**
+     * Constructor Distilled chaos potion.
+     */
     public DistilledChaosPotion() {
-        super("Distilled Chaos", "Play the top 3 cards of your draw pile.", 0, CardRarity.UNCOMMON, CardGrave.POTION, CardType.SKILL);
+        super("Distilled Chaos", "Play the top 3 cards of your draw pile.",  CardRarity.UNCOMMON, CardType.SKILL);
         setImagePath(new PathAssistent().toPath(this));
     }
 

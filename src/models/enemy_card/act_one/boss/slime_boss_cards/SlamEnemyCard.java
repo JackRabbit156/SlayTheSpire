@@ -6,7 +6,15 @@ import models.enemy.Enemy;
 import models.enemy_card.enemy_card_structure.EnemyCard;
 import models.player.player_structure.Player;
 
+/**
+ * Die Slam enemy card.
+ *
+ * @author OF Daniel Willig
+ */
 public class SlamEnemyCard extends EnemyCard {
+    /**
+     * Constructor Slam enemy card.
+     */
     public SlamEnemyCard() {
         super("Slam", "Deals 35 damage.", "35");
         setImagePath(new PathAssistent().toPath(this));
