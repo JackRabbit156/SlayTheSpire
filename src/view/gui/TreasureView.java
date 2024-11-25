@@ -53,7 +53,7 @@ public class TreasureView extends StackPane {
      * @param gold                 Die Menge an Gold im Schatz.
      * @param treasureViewEvents   Die Ereignisse der Schatz-Ansicht.
      */
-    public TreasureView(List<Card> cardList, int gold,String playerImagePath, TreasureViewEvents treasureViewEvents) {
+    public TreasureView(List<Card> cardList, int gold, String playerImagePath, TreasureViewEvents treasureViewEvents) {
         this.treasureLayout = new BorderPane();
         this.entryLayout = new BorderPane();
         this.backLayout = new BorderPane();
@@ -185,6 +185,7 @@ public class TreasureView extends StackPane {
 
         // Label
         Label label = new Label("New Cards!");
+        label.setTranslateX(-30);
         label.setStyle("-fx-font-size: 24; -fx-font-family: Kreon;");
         label.setTextFill(Paint.valueOf("White"));
 
@@ -291,14 +292,19 @@ public class TreasureView extends StackPane {
      * Initialisiert das obere Layout der Schatz-Ansicht.
      */
     private void treasureTitleLayout() {
+        Image img = new Image(getClass().getResource("/images/banner/abandon.png").toExternalForm());
+        ImageView imageView = new ImageView(img);
+        StackPane titlePane = new StackPane();
+
         VBox topVBox = new VBox();
         Label label = new Label();
         label.setText("Loot");
         label.setId("title");
         label.setTextFill(Paint.valueOf("White"));
-        label.setStyle("-fx-font-size: 56px; -fx-font-family: Kreon;");
+        label.setStyle("-fx-font-size: 38px; -fx-font-family: Kreon;");
 
-        topVBox.getChildren().add(label);
+        titlePane.getChildren().addAll(imageView,label);
+        topVBox.getChildren().add(titlePane);
         topVBox.setAlignment(Pos.BOTTOM_CENTER);
         topVBox.setPrefHeight(200);
         this.treasureLayout.setTop(topVBox);
