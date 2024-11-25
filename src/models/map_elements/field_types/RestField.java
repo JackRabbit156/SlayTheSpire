@@ -13,11 +13,6 @@ public class RestField extends Field{
 
     @Override
     public void doFieldThing(Player player) {
-        if(isFieldBeaten())
-            return;
-
-        setFieldBeaten();
-
         GuiHelper.Scenes.startRestScene(player);
     }
 }

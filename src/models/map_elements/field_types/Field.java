@@ -6,8 +6,7 @@ import models.player.player_structure.Player;
 
 /**
  * Die abstrakte Klasse Field repräsentiert ein Spielfeld in einem Akt.
- * Jedes Spielfeld hat ein Symbol und einen Status, der angibt, ob das Feld
- * besiegt wurde. Abgeleitete Klassen müssen die Methode `doFieldThing`
+ * Jedes Spielfeld hat ein Bild. Abgeleitete Klassen müssen die Methode `doFieldThing`
  * implementieren, um spezifische Aktionen für das jeweilige Feld durchzuführen.
  *
  * @author Warawa Alexander
@@ -16,8 +15,6 @@ public abstract class Field {
 
     private String imagePath;
 
-    private boolean fieldBeaten;
-
     /**
      * Konstruktor für die Klasse Field.
      *
@@ -25,7 +22,6 @@ public abstract class Field {
      */
     public Field(String imagePath){
         this.imagePath = imagePath;
-        fieldBeaten = false;
     }
 
     /**
@@ -38,14 +34,6 @@ public abstract class Field {
 
     public String getImagePath() {
         return imagePath;
-    }
-
-    public boolean isFieldBeaten() {
-        return fieldBeaten;
-    }
-
-    public void setFieldBeaten() {
-        this.fieldBeaten = true;
     }
 
 }

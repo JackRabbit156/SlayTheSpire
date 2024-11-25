@@ -52,7 +52,7 @@ public class Node {
         this.player = player;
     }
 
-    public String getSymbol(){
+    public String getImagePath(){
         return field.getImagePath();
     }
 
@@ -86,14 +86,6 @@ public class Node {
 
     public void setRightNode(Node rightNode) {
         this.rightNode = rightNode;
-    }
-
-    public boolean isFieldBeaten() {
-        return field.isFieldBeaten();
-    }
-
-    public void setFieldBeaten() {
-        field.setFieldBeaten();
     }
 
     public String getFieldName() {

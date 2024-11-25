@@ -13,11 +13,6 @@ public class ShopField extends Field{
 
     @Override
     public void doFieldThing(Player player) {
-        if(isFieldBeaten())
-            return;
-
-        setFieldBeaten();
-
         GuiHelper.Scenes.startShopScene(player);
     }
 }

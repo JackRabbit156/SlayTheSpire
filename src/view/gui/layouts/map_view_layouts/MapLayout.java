@@ -64,6 +64,7 @@ public class MapLayout extends GridPane {
         // StackPane, um GridPane und Linien-Ebene übereinander zu legen
         StackPane stackPane = new StackPane();
 
+
         // Füge GridPane und Linie-Ebene zum StackPane hinzu
         stackPane.getChildren().addAll(lineLayer, this);
         mapView.getMainMap().setCenter(stackPane);
@@ -123,7 +124,7 @@ public class MapLayout extends GridPane {
 
         ImageView image = null;
         for(int i = 0; i< nodes.size(); i++){
-            image = image(nodes.get(i).getSymbol());
+            image = image(nodes.get(i).getImagePath());
 
             if(nodes.get(i).getPlayer() != null){
                 // saving the next possible nodes of the player
