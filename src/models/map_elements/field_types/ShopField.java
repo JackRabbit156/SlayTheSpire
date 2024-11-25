@@ -18,6 +18,6 @@ public class ShopField extends Field{
 
         setFieldBeaten();
 
-        //GuiHelper.Scenes.startShopScene(player);
+        GuiHelper.Scenes.startShopScene(player);
     }
 }

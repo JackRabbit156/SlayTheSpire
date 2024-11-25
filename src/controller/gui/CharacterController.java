@@ -24,14 +24,12 @@ public class CharacterController {
         });
         cv.getEmbark().setOnMouseClicked(event -> {
             if(cv.getIc().isSelected()) {
-                player = new IroncladPlayer();
-                player.setPrimaryStage(charStage);
+                player = new IroncladPlayer(charStage);
                 GuiHelper.Scenes.startMapScene(player);
                 GameSettings.startTimer();
             }
             else if(cv.getSl().isSelected()){
-                player = new SilentPlayer();
-                player.setPrimaryStage(charStage);
+                player = new SilentPlayer(charStage);
                 GuiHelper.Scenes.startMapScene(player);
                 GameSettings.startTimer();
             }

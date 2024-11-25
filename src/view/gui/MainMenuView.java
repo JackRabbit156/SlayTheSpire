@@ -37,6 +37,15 @@ public class MainMenuView {
         no.setBackground(new Background(GuiHelper.background("/images/buttons/endTurnButton.png")));
         no.setPrefSize(120, 120);
 
+        no.setOnMouseEntered(event1 -> {
+            no.setBackground(new Background(
+                    GuiHelper.background("/images/buttons/endTurnButtonGlow.png")));
+        });
+        no.setOnMouseExited(event1 -> {
+            no.setBackground(new Background(
+                    GuiHelper.background("/images/buttons/endTurnButton.png")));
+        });
+
         yes.setText("Yes");
         yes.setTextFill(Color.WHITE);
         yes.setFont(Font.font(fontPath, 24));

@@ -39,7 +39,7 @@ public class MainMenuController {
     }
     public void loadGame(Button loadButton){
         loadButton.setOnMouseClicked(event ->  {
-
+            GuiHelper.Scenes.startLoadGameFromMenuScene(menuStage);
         });
     }
     public void deleteSaveGame(Button dsg){
@@ -63,14 +63,6 @@ public class MainMenuController {
             quitUp.getContent().add(view.displayQuitMessage());
             quitUp.show(menuStage);
 
-            view.getNo().setOnMouseEntered(event1 -> {
-                view.getNo().setBackground(new Background(
-                        GuiHelper.background("/images/buttons/endTurnButtonGlow.png")));
-            });
-            view.getNo().setOnMouseExited(event1 -> {
-                view.getNo().setBackground(new Background(
-                        GuiHelper.background("/images/buttons/endTurnButton.png")));
-            });
             view.getNo().setOnMouseClicked(event1 -> {
                 quitUp.hide();
                 quitUp.getContent().remove(view.displayQuitMessage());
