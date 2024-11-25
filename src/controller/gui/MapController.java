@@ -2,6 +2,7 @@ package controller.gui;
 
 import controller.listener.GameMenuListener;
 import helper.GuiHelper;
+import javafx.stage.Stage;
 import models.load_save_game_elements.GameSaveManager;
 import models.map_elements.Node;
 import models.map_elements.acts.Act;
@@ -57,6 +58,13 @@ public class MapController implements MapViewEvents, GameMenuListener {
     }
 
     @Override
+    public void onFullscreenClick() {
+        Stage primaryStage = player.getPrimaryStage();
+
+        primaryStage.setFullScreen(!primaryStage.isFullScreen());
+    }
+
+    @Override
     public void onSaveClick() {
         GameSaveManager saveManager = new GameSaveManager();
         saveManager.saveGame(player);
@@ -71,6 +79,16 @@ public class MapController implements MapViewEvents, GameMenuListener {
     @Override
     public void onLoadClick() {
         GuiHelper.Scenes.startLoadGameFromMapScene(player);
+    }
+
+    @Override
+    public void onMainMenuClick() {
+        GuiHelper.Scenes.startMainMenuScene(player.getPrimaryStage());
+    }
+
+    @Override
+    public void onExitClick() {
+        System.exit(0);
     }
 
     private String getCurrentFieldFromAct(){

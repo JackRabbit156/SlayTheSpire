@@ -52,26 +52,26 @@ public class TopBarLayout extends HBox {
         playerNameLabel.setTextFill(Color.WHITE);
         playerNameLabel.setPadding(new Insets(0, 30, 0, 0));
 
-        ImageView floor = image("/images/map/floor.png");
+        ImageView floor = image("/images/map/floor.png", 55, 55);
         Label playerFloorLabel = new Label("" +player.getCurrentField());
         playerFloorLabel.setFont(kreonFont);
         playerFloorLabel.setTextFill(Color.DARKGRAY);
         playerFloorLabel.setPadding(new Insets(0, 30, 0, 0));
 
-        ImageView gold = image("/images/map/panelGoldBag.png");
+        ImageView gold = image("/images/map/panelGoldBag.png", 55, 55);
         Label playerMoneyLabel = new Label(""+player.getGold());
         playerMoneyLabel.setFont(kreonFont);
         playerMoneyLabel.setTextFill(Color.GOLD);
         playerMoneyLabel.setPadding(new Insets(0, 30, 0, 0));
 
-        ImageView heart = image("/images/map/panelHeart.png");
+        ImageView heart = image("/images/map/panelHeart.png", 55, 55);
         Label playerHealthLabel = new Label("" + player.getCurrentHealth() +"/" + player.getMaxHealth());
         playerHealthLabel.setFont(kreonFont);
         playerHealthLabel.setTextFill(Color.RED);
         playerHealthLabel.setPadding(new Insets(0, 30, 0, 0));
 
         /* CENTER SIDE */
-        ImageView deckImage = image("/images/map/deck.png");
+        ImageView deckImage = image("/images/map/deck.png", 55, 55);
         Label deckSizeLabel = new Label(""+player.getDeck().size());
         deckSizeLabel.setTranslateZ(-100);
         deckSizeLabel.setFont(kreonFont);
@@ -79,26 +79,32 @@ public class TopBarLayout extends HBox {
         //deckSizeLabel.setPadding(new Insets(0, 30, 0, 0));
 
         /* RIGHT SIDE */
-        ImageView settings = image("/images/map/settings.png");
+        ImageView settings = image("/images/map/settings.png", 55, 55);
+
+        ImageView fullscreen = image("/images/map/fullscreen.png", 40, 40);
+        fullscreen.setTranslateX(-20);
 
         settings.addEventHandler(MouseEvent.MOUSE_CLICKED, e -> {
-            System.out.println("Here it goes!");
             mapView.clickedOnSettings();
+        });
+
+        fullscreen.addEventHandler(MouseEvent.MOUSE_CLICKED, e -> {
+            mapView.clickedOnFullscreen();
         });
 
         leftSide.getChildren().addAll(playerNameLabel, heart, playerHealthLabel, gold, playerMoneyLabel, floor, playerFloorLabel);
         centerSide.getChildren().addAll(deckImage, deckSizeLabel);
-        rightSide.getChildren().addAll(settings);
+        rightSide.getChildren().addAll(fullscreen, settings);
 
         getChildren().addAll(leftSide, centerSide, rightSide);
         //getChildren().addAll(playerNameLabel, heart, playerHealthLabel, gold, playerMoneyLabel, floor, playerFloorLabel, settings);
     }
 
-    private ImageView image(String imagePath) {
+    private ImageView image(String imagePath, int width, int height) {
         Image figureImage = new Image(getClass().getResource(imagePath).toExternalForm());
         ImageView imageViewFigure = new ImageView(figureImage);
-        imageViewFigure.setFitWidth(55);
-        imageViewFigure.setFitHeight(55);
+        imageViewFigure.setFitWidth(width);
+        imageViewFigure.setFitHeight(height);
         imageViewFigure.setPreserveRatio(true);
         return imageViewFigure;
     }

@@ -73,6 +73,10 @@ public class MapView extends StackPane {
         mapViewEvents.onSettingsClick();
     }
 
+    public void clickedOnFullscreen(){
+        mapViewEvents.onFullscreenClick();
+    }
+
 
     public void clickedOnSaveButton(){
         gameMenuListener.onSaveClick();
@@ -82,8 +86,16 @@ public class MapView extends StackPane {
         gameMenuListener.onLoadClick();
     }
 
+    public void clickedOnMainMenuButton(){
+        gameMenuListener.onMainMenuClick();
+    }
+
     public void clickedOnBackButton(){
         gameMenuListener.onBackClick();
+    }
+
+    public void clickedOnExitButton(){
+        gameMenuListener.onExitClick();
     }
 
     private void initTopSide() {
