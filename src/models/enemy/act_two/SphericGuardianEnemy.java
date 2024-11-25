@@ -3,11 +3,15 @@ package models.enemy.act_two;
 import helper.PathAssistent;
 import models.battle.GameContext;
 import models.enemy.Enemy;
+import models.enemy_card.act_one.cultist_enemy_cards.DarkStrikeEnemyCard;
 import models.enemy_card.act_two.spheric_guardian_enemy_cards.ActivateEnemyCard;
 import models.enemy_card.act_two.spheric_guardian_enemy_cards.HardenEnemyCard;
 import models.enemy_card.act_two.spheric_guardian_enemy_cards.SlamSEnemyCard;
+import models.enemy_card.enemy_card_structure.EnemyCard;
 import models.player.player_structure.Player;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 /**
@@ -23,6 +27,17 @@ public class SphericGuardianEnemy extends Enemy {
         super("Spheric Guardian", 20, 20);
         setImagePath(new PathAssistent().toPath(this));
         setBlock(40);
+        initEnemyDeck();
+    }
+
+    private void initEnemyDeck() {
+        List<EnemyCard> deck = new ArrayList<>();
+
+        deck.add(new SlamSEnemyCard());
+        deck.add(new ActivateEnemyCard());
+        deck.add(new HardenEnemyCard());
+
+        setEnemyDeck(deck);
     }
 
     @Override
