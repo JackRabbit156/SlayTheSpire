@@ -16,19 +16,39 @@ import javafx.scene.text.FontWeight;
 import models.player.player_structure.Player;
 import view.gui.MapView;
 
+/**
+ * Die Klasse 'TopBarLayout' stellt die oberste Leiste der Map dar .
+ * Diese Leiste zeigt wichtige Spielerinformationen wie
+ * den Namen des Spielers, den aktuellen Gesundheitszustand, den Goldbetrag
+ * und die aktuelle Etage an. Sie enthält auch Schaltflächen für Einstellungen
+ * und Vollbildmodus.
+ *
+ * <p>
+ * Die Klasse erstellt eine horizontale Anordnung von Labels und Bildern,
+ * die sich an den entsprechenden Seiten der Leiste befinden. Die Klasse
+ * behandelt auch Mausklickereignisse für die Schaltflächen in der oberen Leiste.
+ * </p>
+ *
+ * @author Warawa Alexander
+ */
 public class TopBarLayout extends HBox {
-    private MapView mapView;
+    private MapView mapView;  // Die MapView, die für die Benutzeroberfläche verantwortlich ist
     private Player player;
+
+    /**
+     * Konstruktor für die Klasse 'TopBarLayout'.
+     *
+     * @param player Der Spieler, dessen Informationen angezeigt werden
+     * @param mapView Die MapView, die zur Anzeige der Karte verwendet wird
+     */
     public TopBarLayout(Player player, MapView mapView) {
         this.mapView = mapView;
         this.player = player;
 
-        //setSpacing(30);
         initTopBar();
     }
 
     private void initTopBar() {
-        //Font kreonFont = Font.font("Kreon", FontWeight.BOLD, 24);
         Font kreonFont = Font.loadFont(getClass().getResourceAsStream("/font/kreon/static/Kreon-Bold.ttf"), 24);
         setPadding(new Insets(10,0,0,50));
 

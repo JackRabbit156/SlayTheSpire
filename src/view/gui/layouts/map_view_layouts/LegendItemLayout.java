@@ -7,6 +7,20 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 
+/**
+ * Die Klasse 'LegendItemLayout' stellt ein einzelnes Element der
+ * Legende für die Spielkarte dar, das einen Namen und ein
+ * zugehöriges Bild anzeigt.
+ *
+ * <p>
+ * Jedes Legendenelement beinhaltet ein Bild (z.B.
+ * für Gegner, Händler usw.) und eine beschreibende
+ * Beschriftung. Die Elemente werden in einem horizontalen Layout
+ * (HBox) dargestellt.
+ * </p>
+ *
+ * @author Warawa Alexander
+ */
 public class LegendItemLayout extends HBox {
 
     public LegendItemLayout(String itemName, String itemPath) {

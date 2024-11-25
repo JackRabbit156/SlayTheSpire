@@ -15,6 +15,18 @@ import view.gui.layouts.battle_view_layouts.MovingAnimation;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Die Klasse 'MapLayout' ist eine benutzerdefinierte Layout-Klasse für die Anzeige der Karte.
+ * Sie erweitert die 'GridPane'-Klasse und stellt eine Rasterdarstellung von Knoten auf der Karte dar,
+ * einschließlich Linien zwischen den Knoten und grafischen Darstellungen für Spieler und verfügbare Felder.
+ *
+ * <p>
+ * Die Klasse kümmert sich um das Zeichnen der Knoten und deren Verbindungen, das Verarbeiten von
+ * Mausklickereignissen auf den Knoten und das Setzen visueller Effekte auf die Knoten.
+ * </p>
+ *
+ * @author Warawa Alexander
+ */
 public class MapLayout extends GridPane {
     private Pane lineLayer;
     private MapView mapView;
@@ -24,6 +36,17 @@ public class MapLayout extends GridPane {
 
     private static final int TILE_SIZE = 58;
     private static final int CENTER_OFFSET = 39;
+
+    /**
+     * Konstruktor für die Klasse 'MapLayout'.
+     *
+     * @param mapView Die MapView, die zur Anzeige der Karte verwendet wird
+     * @param nodes Eine Liste von Knoten, die auf der Karte angezeigt werden
+     * @param mapWidth Die Breite der Karte in Kacheln
+     * @param mapHeight Die Höhe der Karte in Kacheln
+     * @param playerField Das Feld des Spielers
+     */
+
     public MapLayout(MapView mapView, List<Node> nodes, int mapWidth, int mapHeight, int playerField) {
         this.mapHeight = mapHeight;
         this.mapWidth = mapWidth;
@@ -46,6 +69,11 @@ public class MapLayout extends GridPane {
         mapView.getMainMap().setCenter(stackPane);
     }
 
+    /**
+     * Zeichnet die Linien zwischen den Knoten auf der Karte.
+     *
+     * @param nodes Die Liste der Knoten, zwischen denen die Linien gezeichnet werden
+     */
     private void drawLines(List<Node> nodes) {
         for (Node currentNode : nodes) {
             if (currentNode.getRightNode() != null) {
@@ -60,6 +88,12 @@ public class MapLayout extends GridPane {
         }
     }
 
+    /**
+     * Erstellt eine Linie zwischen zwei Knoten und fügt sie der Linien-Ebene hinzu.
+     *
+     * @param fromNode Der Ausgangsknoten
+     * @param toNode Der Zielknoten
+     */
     private void connectNodes(Node fromNode, Node toNode) {
         // Berechne die Start- und Endposition im Grid für die Linien
         double startX = fromNode.getX() * TILE_SIZE + CENTER_OFFSET; // Beispiel: Zellenbreite 60, Offset 30 für Zentrierung
@@ -79,6 +113,11 @@ public class MapLayout extends GridPane {
         lineLayer.getChildren().add(line);
     }
 
+    /**
+     * Fügt die Knoten zur Karte hinzu und behandelt deren Status.
+     *
+     * @param nodes Die Liste von Knoten, die auf der Karte angezeigt werden sollen
+     */
     private void setNodesOnMap(List<Node> nodes) {
         List<Node> availablePosFromPlayer = new ArrayList<>();
 
@@ -90,15 +129,12 @@ public class MapLayout extends GridPane {
                 // saving the next possible nodes of the player
                 if (nodes.get(i).getRightNode() != null) {
                     availablePosFromPlayer.add(nodes.get(i).getRightNode());
-                    System.out.println("left...");
                 }
                 if (nodes.get(i).getLeftNode() != null) {
                     availablePosFromPlayer.add(nodes.get(i).getLeftNode());
-                    System.out.println("center...");
                 }
                 if (nodes.get(i).getMiddleNode() != null) {
                     availablePosFromPlayer.add(nodes.get(i).getMiddleNode());
-                    System.out.println("right...");
                 }
 
                 ImageView playerImage =image("/images/map/player/ironclad.png");
@@ -107,13 +143,11 @@ public class MapLayout extends GridPane {
                 this.add(playerImage, nodes.get(i).getX(), nodes.get(i).getY());
                 continue;
             } else if( Integer.parseInt(nodes.get(0).getFieldName()) > playerField &&  availablePosFromPlayer.size() < 1 ) {
-                System.out.println("Weird...");
                 availablePosFromPlayer.add(nodes.get(0));
             }
 
             for(int j = 0; j< availablePosFromPlayer.size(); j++){
                 if(availablePosFromPlayer.get(j).getX() == nodes.get(i).getX() && availablePosFromPlayer.get(j).getY() == nodes.get(i).getY()) {
-                    //setColorEffekt(image(availablePosFromPlayer.get(i).getSymbol()));
                     setColorEffekt(image);
 
                     int finalI = i;

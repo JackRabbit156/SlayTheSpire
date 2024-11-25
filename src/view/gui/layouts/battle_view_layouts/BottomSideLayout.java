@@ -13,6 +13,21 @@ import view.gui.BattleView;
 
 import java.util.List;
 
+/**
+ * Die Klasse 'BottomSideLayout' repräsentiert das untere Layout im
+ * Schlachtansicht (Battle View), das die Energieleiste des Spielers,
+ * die Handkarten und die Schaltfläche zum Beenden des Zuges anzeigt.
+ *
+ * <p>
+ * Dieses Layout besteht aus drei Hauptkomponenten: einer
+ * {@link EnergyLayout} für die Energieanzeige des Spielers,
+ * einem {@link CardLayout} zur Darstellung der Handkarten und
+ * einer Schaltfläche zum Beenden des Zuges. Es ermöglicht
+ * den Spielern, ihre Züge zu planen und auszuführen.
+ * </p>
+ *
+ * @author Warawa Alexander, Willig Daniel
+ */
 public class BottomSideLayout extends HBox {
     private BattleView battleView;
     private List<Card> hand;
