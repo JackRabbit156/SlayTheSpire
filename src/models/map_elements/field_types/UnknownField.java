@@ -41,7 +41,7 @@ public class UnknownField extends Field {
     public UnknownField(EventField eventField, EnemyField enemyField, EliteField eliteField, ShopField shopField) {
         super(imagePath);
         // TODO 1. Pos eventFied statt Shop - events aktuell nicht vorhanden.
-        this.fields = new Field[]{shopField, enemyField, eliteField, shopField};
+        this.fields = new Field[]{eventField, enemyField, eliteField, shopField};
     }
 
     @Override
