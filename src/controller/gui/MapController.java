@@ -2,6 +2,7 @@ package controller.gui;
 
 import controller.listener.GameMenuListener;
 import helper.GuiHelper;
+import javafx.stage.Stage;
 import models.load_save_game_elements.GameSaveManager;
 import models.map_elements.Node;
 import models.map_elements.acts.Act;
@@ -54,6 +55,13 @@ public class MapController implements MapViewEvents, GameMenuListener {
     @Override
     public void onSettingsClick() {
         mapView.openGameMenu();
+    }
+
+    @Override
+    public void onFullscreenClick() {
+        Stage primaryStage = player.getPrimaryStage();
+
+        primaryStage.setFullScreen(!primaryStage.isFullScreen());
     }
 
     @Override

@@ -73,6 +73,10 @@ public class MapView extends StackPane {
         mapViewEvents.onSettingsClick();
     }
 
+    public void clickedOnFullscreen(){
+        mapViewEvents.onFullscreenClick();
+    }
+
 
     public void clickedOnSaveButton(){
         gameMenuListener.onSaveClick();
