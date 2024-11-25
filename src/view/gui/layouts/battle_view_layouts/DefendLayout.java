@@ -9,6 +9,12 @@ import javafx.scene.text.FontSmoothingType;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 
+/**
+ * Das Defend layout.
+ * Das kleine Icon neben der Healthbar welches zeigt wie viel verteidigung das Objekt gerade hat
+ *
+ * @author OF Daniel Willig
+ */
 public class DefendLayout extends StackPane {
     private final Text blockTextStroke = new Text();
     private final Text blockText = new Text();
@@ -24,6 +30,9 @@ public class DefendLayout extends StackPane {
     private final FontSmoothingType smoothingType = FontSmoothingType.GRAY;
 
 
+    /**
+     * Constructor Defend layout.
+     */
     public DefendLayout(){
         initBlockShield();
         initText();

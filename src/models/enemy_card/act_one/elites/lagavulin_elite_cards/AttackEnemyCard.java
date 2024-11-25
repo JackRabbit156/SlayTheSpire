@@ -6,7 +6,15 @@ import models.enemy.Enemy;
 import models.enemy_card.enemy_card_structure.EnemyCard;
 import models.player.player_structure.Player;
 
+/**
+ * Die Attack enemy card.
+ *
+ * @author OF Daniel Willig
+ */
 public class AttackEnemyCard extends EnemyCard {
+    /**
+     * Constructor Attack enemy card.
+     */
     public AttackEnemyCard() {
         super("Attack", "Deal 18 damage.", "18");
         setImagePath(new PathAssistent().toPath(this));

@@ -6,7 +6,15 @@ import models.enemy.Enemy;
 import models.enemy_card.enemy_card_structure.EnemyCard;
 import models.player.player_structure.Player;
 
+/**
+ * Die Execute enemy card.
+ *
+ * @author OF Daniel Willig
+ */
 public class ExecuteEnemyCard extends EnemyCard {
+    /**
+     * Constructor Execute enemy card.
+     */
     public ExecuteEnemyCard() {
         super("Execute", "Deals 10 x 2 damage.", "10 x 2");
         setImagePath(new PathAssistent().toPath(this));

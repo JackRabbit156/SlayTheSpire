@@ -13,6 +13,7 @@ import java.util.Random;
 
 /**
  * @author Keil, Vladislav
+ * @author OF Daniel Willig
  */
 public class SlimeBoss extends Enemy {
     // https://slay-the-spire.fandom.com/wiki/Slime_Boss

@@ -5,7 +5,15 @@ import models.battle.GameContext;
 import models.enemy.Enemy;
 import models.enemy_card.enemy_card_structure.EnemyCard;
 
+/**
+ * Die Encourage enemy card.
+ *
+ * @author OF Daniel Willig
+ */
 public class EncourageEnemyCard extends EnemyCard {
+    /**
+     * Constructor Encourage enemy card.
+     */
     public EncourageEnemyCard() {
         super("Encourage", "All enemies gain 6 Block.", "");
         setImagePath(new PathAssistent().toPath(this));

@@ -1,5 +1,10 @@
 package models.card.silent_cards;
 
+/**
+ * Das Silent card enum.
+ *
+ * @author OF Daniel Willig
+ */
 public enum SilentCardEnum {
     STRIKE_CARD("SilentStrikeCard"),
     DEFEND_CARD("SilentDefendCard"),

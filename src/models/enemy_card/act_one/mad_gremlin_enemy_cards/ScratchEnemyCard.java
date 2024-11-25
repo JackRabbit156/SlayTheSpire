@@ -6,7 +6,15 @@ import models.enemy.Enemy;
 import models.enemy_card.enemy_card_structure.EnemyCard;
 import models.player.player_structure.Player;
 
+/**
+ * Die Scratch enemy card.
+ *
+ * @author OF Daniel Willig
+ */
 public class ScratchEnemyCard extends EnemyCard {
+    /**
+     * Constructor Scratch enemy card.
+     */
     public ScratchEnemyCard() {
         super("Scratch", "Deals 4 damage.", "4");
         setImagePath(new PathAssistent().toPath(this));

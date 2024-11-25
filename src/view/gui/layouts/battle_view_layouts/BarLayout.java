@@ -10,6 +10,12 @@ import javafx.scene.layout.VBox;
 import models.player.player_structure.Player;
 import view.gui.BattleView;
 
+/**
+ * Die Bar layout.
+ * Der graue Balken im Kampf oben auf die alles drauf gepackt wird
+ *
+ * @author OF Daniel Willig
+ */
 public class BarLayout extends StackPane {
     private Player player;
     private BattleView battleView;
@@ -21,6 +27,12 @@ public class BarLayout extends StackPane {
     private final Image topbarIcon = new Image(getClass().getResource("/images/view/gui/layouts/battle_view_layouts/topbar_layout/Topbar.png").toExternalForm());
     private ImageView topbarIconView = new ImageView(topbarIcon);
 
+    /**
+     * Constructor Bar layout.
+     *
+     * @param battleview die battleview
+     * @param player     der player
+     */
     public BarLayout(BattleView battleview, Player player) {
         this.battleView = battleview;
         this.player = player;
@@ -31,7 +43,6 @@ public class BarLayout extends StackPane {
 
         HBox icons = new HBox();
 
-//        HBox.setHgrow(infoLayout, Priority.ALWAYS);
         HBox.setHgrow(potionLayout, Priority.ALWAYS);
         HBox.setHgrow(settingsLayout, Priority.ALWAYS);
 
@@ -44,6 +55,10 @@ public class BarLayout extends StackPane {
         getChildren().addAll(topbarIconView, icons);
     }
 
+    /**
+     * Refresh bar.
+     * falls eine Änderung passiert, wird alles einmal aktualisiert
+     */
     public void refreshBar() {
         infoLayout.setPlayerText(player.getName());
         infoLayout.setMoneyText(player.getGold());

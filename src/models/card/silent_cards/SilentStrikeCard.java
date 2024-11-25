@@ -8,7 +8,15 @@ import models.card.card_structure.CardRarity;
 import models.enemy.Enemy;
 import models.player.player_structure.Player;
 
+/**
+ * Die Silent strike card.
+ *
+ * @author OF Daniel Willig
+ */
 public class SilentStrikeCard extends AttackCard {
+    /**
+     * Constructor Silent strike card.
+     */
     public SilentStrikeCard() {
         super("Strike", "Deal 6 damage.", 1, 6, CardRarity.COMMON, CardGrave.DISCARD);
 

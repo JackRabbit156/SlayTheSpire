@@ -6,7 +6,15 @@ import models.enemy.Enemy;
 import models.enemy_card.enemy_card_structure.EnemyCard;
 import models.player.player_structure.Player;
 
+/**
+ * Die Whirlwind enemy card.
+ *
+ * @author OF Daniel Willig
+ */
 public class WhirlwindEnemyCard extends EnemyCard {
+    /**
+     * Constructor Whirlwind enemy card.
+     */
     public WhirlwindEnemyCard() {
         super("Whirlwind", "Deals 5 x 4 damage.", "5 x 4");
         setImagePath(new PathAssistent().toPath(this));

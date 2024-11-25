@@ -6,7 +6,15 @@ import models.enemy.Enemy;
 import models.enemy_card.enemy_card_structure.EnemyCard;
 import models.player.player_structure.Player;
 
+/**
+ * Die Heavy slash enemy card.
+ *
+ * @author OF Daniel Willig
+ */
 public class HeavySlashEnemyCard extends EnemyCard {
+    /**
+     * Constructor Heavy slash enemy card.
+     */
     public HeavySlashEnemyCard() {
         super("Heavy Slash", "Deals 16 damage.", "16");
         setImagePath(new PathAssistent().toPath(this));

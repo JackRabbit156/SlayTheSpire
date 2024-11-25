@@ -14,6 +14,14 @@ import view.gui.BattleView;
 import java.util.ArrayList;
 import java.util.List;
 
+
+/**
+ * Das Potion layout.
+ * bis zu drei kleine Icons rechts der Info; wird nur angezeigt, wenn auch Potions im Inventar sind.
+ * Sind anklickbar.
+ *
+ * @author OF Daniel Willig
+ */
 public class PotionLayout extends HBox {
     private final List<PotionCard> potions;
     private final BattleView battleView;

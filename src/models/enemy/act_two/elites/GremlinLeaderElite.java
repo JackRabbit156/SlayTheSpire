@@ -11,6 +11,7 @@ import java.util.Random;
 
 /**
  * @author Keil, Vladislav
+ * @author OF Daniel Willig
  */
 public class GremlinLeaderElite extends Enemy {
     private Random randi = new Random();

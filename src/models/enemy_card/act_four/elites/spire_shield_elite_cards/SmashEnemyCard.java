@@ -6,7 +6,15 @@ import models.enemy.Enemy;
 import models.enemy_card.enemy_card_structure.EnemyCard;
 import models.player.player_structure.Player;
 
+/**
+ * Die Smash enemy card.
+ *
+ * @author OF Daniel Willig
+ */
 public class SmashEnemyCard extends EnemyCard {
+    /**
+     * Constructor Smash enemy card.
+     */
     public SmashEnemyCard() {
         super("Smash", "Deals 34 damage. Gains Block equal to its damage output.", "34");
         setImagePath(new PathAssistent().toPath(this));

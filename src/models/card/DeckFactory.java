@@ -32,6 +32,7 @@ import java.util.Random;
 
 /**
  * @author Keil, Vladislav
+ * @author OF Daniel Willig
  */
 public class DeckFactory {
     private List<Card> genDeck;

@@ -11,6 +11,13 @@ import javafx.scene.text.FontSmoothingType;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 
+
+/**
+ * Das Info layout.
+ * das zeug ganz links auf der grauen Leiste, Name, HP, Gold
+ *
+ * @author OF Daniel Willig
+ */
 public class InfoLayout extends HBox {
     private final Text playerTextStroke = new Text();
     private final Text playerText = new Text();
