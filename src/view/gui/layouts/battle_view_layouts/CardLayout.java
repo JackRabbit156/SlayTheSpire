@@ -14,10 +14,36 @@ import view.gui.BattleView;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Die Klasse 'CardLayout' repräsentiert das Layout für die
+ * Handkarten eines Spielers im Schlachtansicht (Battle View).
+ * Sie stellt die Karten visuell dar und ermöglicht
+ * Interaktionen wie das Klicken auf eine Karte.
+ *
+ * <p>
+ * Jede Karte wird als Bild in einer horizontalen Anordnung angezeigt,
+ * und es gibt Hover- und Click-Effekte, die die Interaktivität
+ * der Karten erhöhen.
+ * </p>
+ *
+ * @author Warawa Alexander, Willig Daniel
+ */
 public class CardLayout extends HBox {
     private List<Card> hand;
     private BattleView battleView;
 
+    /**
+     * Konstruktor für die Klasse 'CardLayout'.
+     *
+     * <p>
+     * Dieser Konstruktor initialisiert das Layout mit der angegebenen
+     * Handkartenliste und der Schlachtansicht. Die Karten werden
+     * durch die Methode 'showCards()' angezeigt.
+     * </p>
+     *
+     * @param hand       Die Liste der Handkarten des Spielers
+     * @param battleView Die aktuelle Instanz der Schlachtansicht
+     */
     public CardLayout(List<Card> hand, BattleView battleView){
         this.battleView = battleView;
         this.hand = hand;
@@ -29,6 +55,10 @@ public class CardLayout extends HBox {
         showCards();
     }
 
+    /**
+     * Aktualisiert das Layout, indem es die aktuellen Handkarten
+     * des Spielers erneut anzeigt.
+     */
     public void refreshHand() {
         this.getChildren().clear();
         showCards();
@@ -85,6 +115,12 @@ public class CardLayout extends HBox {
         });
     }
 
+    /**
+     * Verarbeitet das Klicken auf eine Karte.
+     *
+     * @param card  Die angeklickte Karte
+     * @param index Der Index der Karte in der Hand
+     */
     public void handleCardClick(Card card, int index) {
         // Verarbeite hier den Klick auf die Karte, z.B. öffne Details oder führe eine Aktion aus
         battleView.clickedOnCard(card, index);

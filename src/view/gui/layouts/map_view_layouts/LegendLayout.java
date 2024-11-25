@@ -7,7 +7,20 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 
-
+/**
+ * Die Klasse 'LegendLayout' stellt die Legende für die Spielkarte dar,
+ * die verschiedene Elemente (wie Gegner, Schätze usw.) visuell
+ * repräsentiert und dem Spieler hilft, die Karte besser zu verstehen.
+ *
+ * <p>
+ * Die Legende enthält mehrere Legendenpunkte, die durch Bilder
+ * und Beschriftungen dargestellt werden. Jedes Element der Legende
+ * wird in einem vertikalen Layout (VBox) angeordnet und
+ * in einen StackPane gelegt, um die Hintergrundgrafik anzuzeigen.
+ * </p>
+ *
+ * @author Warawa Alexander
+ */
 public class LegendLayout extends StackPane {
     public LegendLayout() {
         VBox legendItems = new VBox();

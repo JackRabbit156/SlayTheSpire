@@ -12,6 +12,21 @@ import javafx.scene.paint.Color;
 import models.enemy.Enemy;
 import view.gui.BattleView;
 
+/**
+ * Die Klasse 'EnemyLayout' repräsentiert das Layout für einen
+ * Feind im Schlachtansicht (Battle View). Sie zeigt die
+ * Gesundheitsleiste des Feindes, seine Verteidigungswerte und
+ * die Absicht des Feindes an.
+ *
+ * <p>
+ * Diese Klasse verwaltet auch die visuelle Darstellung des Feindes
+ * und ermöglicht Interaktionen wie das Klicken auf die feindliche
+ * Figur. Mit Hover-Effekten werden visuelle Hinweise gegeben,
+ * ob der Spieler angreifen kann.
+ * </p>
+ *
+ * @author Warawa Alexander, Willig Daniel
+ */
 public class EnemyLayout extends VBox {
     private Enemy enemy;
     private HealthBarLayout healthBarLayout;
@@ -21,6 +36,19 @@ public class EnemyLayout extends VBox {
     private BattleView battleView;
     private boolean attackMode = false;
 
+
+    /**
+     * Konstruktor für die Klasse 'EnemyLayout'.
+     *
+     * <p>
+     * Dieser Konstruktor initialisiert das Layout mit dem angegebenen
+     * Feind und der Schlachtansicht. Es werden die Gesundheitsleiste,
+     * der Verteidigungswert und die Absicht des Feindes angezeigt.
+     * </p>
+     *
+     * @param enemy     Der Feind, der angezeigt werden soll
+     * @param battleView Die aktuelle Instanz der Schlachtansicht
+     */
     public EnemyLayout(Enemy enemy, BattleView battleView){
         this.enemy = enemy;
         this.battleView = battleView;
@@ -49,6 +77,10 @@ public class EnemyLayout extends VBox {
         animation.start();
     }
 
+    /**
+     * Aktualisiert das Layout des Feindes mit den aktuellen
+     * Gesundheitswerten, Verteidigungswerten und Absichten.
+     */
     public void updateEnemy() {
         healthBarLayout.setHealthText(enemy.getHealth(), enemy.getMaxHealth());
         defendLayout.setBlockText(enemy.getBlock());
@@ -121,6 +153,11 @@ public class EnemyLayout extends VBox {
         });
     }
 
+    /**
+     * Verarbeitet das Klicken auf den Feind.
+     *
+     * @param enemy Der angeklickte Feind
+     */
     public void handleEnemyClick(Enemy enemy) {
         // Verarbeite hier den Klick auf die Karte, z.B. öffne Details oder führe eine Aktion aus
         battleView.clickedOnEnemy(enemy);

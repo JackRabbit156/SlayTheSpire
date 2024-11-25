@@ -17,18 +17,30 @@ import models.load_save_game_elements.GameSaveManager;
 import models.player.player_structure.Player;
 import view.gui.MapView;
 
+/**
+ * Die Klasse 'GameMenuLayer' stellt das Menü für das Spiel in der Benutzeroberfläche dar.
+ * Sie erweitert die 'BorderPane'-Klasse und enthält verschiedene Schaltflächen für
+ * Aktionen im Spiel, wie das Laden, Speichern und Beenden eines Spiels.
+ *
+ * <p>
+ * Die Klasse ermöglicht die Interaktion des Spielers mit dem Spielmenü, bietet visuelle Effekte
+ * für Schaltflächen und passt das Layout an den Spieler und den aktuellen Zustand des Spiels an.
+ * </p>
+ *
+ * @author Warawa Alexander
+ */
 public class GameMenuLayer extends BorderPane {
     private MapView mapView;
     private Player player;
 
     private Label header;
 
-    private Button loadGameButton;
-    private Button saveGameButton;
-    private Button mainMenuButton;
-    private Button backButton;
-    private Button exitButton;
-
+    /**
+     * Konstruktor für die Klasse 'GameMenuLayer'.
+     *
+     * @param player Der Spieler, der das Menü nutzt
+     * @param mapView Die MapView, die zur Anzeige der Karte verwendet wird
+     */
     public GameMenuLayer(Player player, MapView mapView) {
         this.player = player;
         this.mapView = mapView;
@@ -53,11 +65,6 @@ public class GameMenuLayer extends BorderPane {
         topBar.getChildren().addAll(header);
 
         setTop(topBar);
-
-
-        /*Region placeHolder = new Region();
-        placeHolder.setMinWidth(850); // Festlegen der konstanten Höhe
-        setLeft(placeHolder);*/
 
         initMenuButtons();
     }
