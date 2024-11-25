@@ -64,6 +64,7 @@ public class MapLayout extends GridPane {
         // StackPane, um GridPane und Linien-Ebene übereinander zu legen
         StackPane stackPane = new StackPane();
 
+
         // Füge GridPane und Linie-Ebene zum StackPane hinzu
         stackPane.getChildren().addAll(lineLayer, this);
         mapView.getMainMap().setCenter(stackPane);
