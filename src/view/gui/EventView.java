@@ -10,14 +10,18 @@ import javafx.scene.effect.DropShadow;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.ArcTo;
-import javafx.scene.shape.Circle;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import models.event.Event;
 import models.player.player_structure.Player;
 
+/**
+ * View für die Darstellung der Events, dynamisch aufgebaut. Es können Events über den Controller eingefügt werden,
+ * diese erhalten dann ein Layout über diese View
+ *
+ * @author Loeschner, Marijan
+ */
 public class EventView {
 
     BorderPane layoutPane = new BorderPane();
@@ -79,92 +83,105 @@ public class EventView {
         label.setTextFill(Color.GOLDENROD);
         label.setEffect(dr);
 
+
         story.setFont(textFont);
         story.setFill(Color.WHITE);
         story.setTextOrigin(VPos.BOTTOM);
         story.setTextAlignment(TextAlignment.CENTER);
         story.setLineSpacing(50);
 
-        option1.setPrefSize(1200, 100);
-        option1.setScaleX(0.8);
-        option1.setScaleY(0.8);
-        option1.setFont(textFont);
-        option1.setAlignment(Pos.BASELINE_LEFT);
-        option1.setTextFill(Color.WHITE);
-        option1.setBackground(buttonBG);
-        option1.setOnMouseEntered(event1 -> {
-            option1.setBackground(buttonHighlight);
-        });
-        option1.setOnMouseExited(event1 -> {
+        if (option1 != null) {
+            option1.setPrefSize(1200, 100);
+            option1.setScaleX(0.8);
+            option1.setScaleY(0.8);
+            option1.setFont(textFont);
+            option1.setAlignment(Pos.BASELINE_LEFT);
+            option1.setTextFill(Color.WHITE);
             option1.setBackground(buttonBG);
-        });
-        option1.setOnMousePressed(event1 -> {
-            option1.setBackground(buttonBG);
-            option1.setScaleX(option1.getScaleX() * 0.99);
-            option1.setScaleY(option1.getScaleY() * 0.9);
-        });
-        option1.setOnMouseReleased(event1 -> {
-            option1.setBackground(buttonHighlight);
-            option1.setScaleX(option1.getScaleX() * 1.01);
-            option1.setScaleY(option1.getScaleY() * 1.1);
-        });
-        option1.setOnMouseClicked(event1 -> {
-            rightBox.getChildren().removeAll(option1, option2, option3);
-        });
+            option1.setOnMouseEntered(event1 -> {
+                option1.setBackground(buttonHighlight);
+            });
+            option1.setOnMouseExited(event1 -> {
+                option1.setBackground(buttonBG);
+            });
+            option1.setOnMousePressed(event1 -> {
+                option1.setBackground(buttonBG);
+                option1.setScaleX(option1.getScaleX() * 0.99);
+                option1.setScaleY(option1.getScaleY() * 0.9);
+            });
+            option1.setOnMouseReleased(event1 -> {
+                option1.setBackground(buttonHighlight);
+                option1.setScaleX(option1.getScaleX() * 1.01);
+                option1.setScaleY(option1.getScaleY() * 1.1);
+            });
+            option1.setOnMouseClicked(event1 -> {
+                option1.setVisible(false);
+                if (option2 != null) option2.setVisible(false);
+                if (option3 != null) option3.setVisible(false);
+            });
+        }
 
-        option2.setPrefSize(1200, 100);
-        option2.setScaleX(0.8);
-        option2.setScaleY(0.8);
-        option2.setFont(textFont);
-        option2.setAlignment(Pos.BASELINE_LEFT);
-        option2.setTextFill(Color.WHITE);
-        option2.setBackground(buttonBG);
-        option2.setOnMouseEntered(event1 -> {
-            option2.setBackground(buttonHighlight);
-        });
-        option2.setOnMouseExited(event1 -> {
+        if (option2 != null) {
+            option2.setPrefSize(1200, 100);
+            option2.setScaleX(0.8);
+            option2.setScaleY(0.8);
+            option2.setFont(textFont);
+            option2.setAlignment(Pos.BASELINE_LEFT);
+            option2.setTextFill(Color.WHITE);
             option2.setBackground(buttonBG);
-        });
-        option2.setOnMousePressed(event1 -> {
-            option2.setBackground(buttonBG);
-            option2.setScaleX(option2.getScaleX() * 0.99);
-            option2.setScaleY(option2.getScaleY() * 0.9);
-        });
-        option2.setOnMouseReleased(event1 -> {
-            option2.setBackground(buttonHighlight);
-            option2.setScaleX(option2.getScaleX() * 1.01);
-            option2.setScaleY(option2.getScaleY() * 1.1);
-        });
-        option2.setOnMouseClicked(event1 -> {
-            rightBox.getChildren().removeAll(option1, option2, option3);
-        });
+            option2.setOnMouseEntered(event1 -> {
+                option2.setBackground(buttonHighlight);
+            });
+            option2.setOnMouseExited(event1 -> {
+                option2.setBackground(buttonBG);
+            });
+            option2.setOnMousePressed(event1 -> {
+                option2.setBackground(buttonBG);
+                option2.setScaleX(option2.getScaleX() * 0.99);
+                option2.setScaleY(option2.getScaleY() * 0.9);
+            });
+            option2.setOnMouseReleased(event1 -> {
+                option2.setBackground(buttonHighlight);
+                option2.setScaleX(option2.getScaleX() * 1.01);
+                option2.setScaleY(option2.getScaleY() * 1.1);
+            });
+            option2.setOnMouseClicked(event1 -> {
+                if (option1 != null) option1.setVisible(false);
+                option2.setVisible(false);
+                if (option3 != null) option3.setVisible(false);
+            });
+        }
 
-        option3.setPrefSize(1200, 100);
-        option3.setScaleX(0.8);
-        option3.setScaleY(0.8);
-        option3.setFont(textFont);
-        option3.setAlignment(Pos.BASELINE_LEFT);
-        option3.setTextFill(Color.WHITE);
-        option3.setBackground(buttonBG);
-        option3.setOnMouseEntered(event1 -> {
-            option3.setBackground(buttonHighlight);
-        });
-        option3.setOnMouseExited(event1 -> {
+        if (option3 != null) {
+            option3.setPrefSize(1200, 100);
+            option3.setScaleX(0.8);
+            option3.setScaleY(0.8);
+            option3.setFont(textFont);
+            option3.setAlignment(Pos.BASELINE_LEFT);
+            option3.setTextFill(Color.WHITE);
             option3.setBackground(buttonBG);
-        });
-        option3.setOnMousePressed(event1 -> {
-            option3.setBackground(buttonBG);
-            option3.setScaleX(option3.getScaleX() * 0.99);
-            option3.setScaleY(option3.getScaleY() * 0.9);
-        });
-        option3.setOnMouseReleased(event1 -> {
-            option3.setBackground(buttonHighlight);
-            option3.setScaleX(option3.getScaleX() * 1.01);
-            option3.setScaleY(option3.getScaleY() * 1.1);
-        });
-        option3.setOnMouseClicked(event1 -> {
-            rightBox.getChildren().removeAll(option1, option2, option3);
-        });
+            option3.setOnMouseEntered(event1 -> {
+                option3.setBackground(buttonHighlight);
+            });
+            option3.setOnMouseExited(event1 -> {
+                option3.setBackground(buttonBG);
+            });
+            option3.setOnMousePressed(event1 -> {
+                option3.setBackground(buttonBG);
+                option3.setScaleX(option3.getScaleX() * 0.99);
+                option3.setScaleY(option3.getScaleY() * 0.9);
+            });
+            option3.setOnMouseReleased(event1 -> {
+                option3.setBackground(buttonHighlight);
+                option3.setScaleX(option3.getScaleX() * 1.01);
+                option3.setScaleY(option3.getScaleY() * 1.1);
+            });
+            option3.setOnMouseClicked(event1 -> {
+                if (option1 != null) option1.setVisible(false);
+                if (option2 != null) option2.setVisible(false);
+                option3.setVisible(false);
+            });
+        }
 
         leave.setPrefSize(1200, 100);
         leave.setScaleX(0.8);

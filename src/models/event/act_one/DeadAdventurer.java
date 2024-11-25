@@ -1,18 +1,58 @@
 package models.event.act_one;
 
-import helper.ConsoleAssistent;
-import helper.PathAssistent;
+import javafx.scene.control.Button;
+import javafx.scene.image.Image;
 import models.event.Event;
 import models.player.player_structure.Player;
 
 import java.util.Random;
-import java.util.Scanner;
+
 /**
  * Der Spieler kann mit einer bestimmten Wahrscheinlichkeit Gold finden
- * @author Keil, Vladislav
+ *
  * @author  Loeschner, Marijan
  */
-public class DeadAdventurerEvent extends Event {
+public class DeadAdventurer extends Event {
+    private static Image image = new Image("/images/event/act_one/DeadAdventurerEvent.png");
+    private String title = "Big Fish";
+    private String story = "\n\nYou come across a dead adventurer on the floor.\n" +
+            "His pants have been stolen! Also, it looks as though he's been gouged and trampled by a horned beast. \n" +
+            "Though his possessions are still intact, you're in no mind to find out what happened here...\n";
+    private Button search = new Button("\t[Search] Find Loot. ");
+    private Random rand = new Random();
+    private int chance = rand.nextInt(100);
+
+    public DeadAdventurer() {
+        super();
+    }
+
+    @Override
+    public String getTitle() {
+        return title;
+    }
+
+    public String getStory() {
+        return story;
+    }
+
+    public Image getImage() {
+        return image;
+    }
+
+    public Button getButton1(Player player){
+        search.setOnMouseClicked(event -> {
+            if (chance <= 50) {
+                setStory("You Found 30 Gold.");
+                player.increaseGold(30);
+            }
+            else {
+                setStory("You Found Nothing.");
+            }
+        });
+        return search;
+    }
+
+
    /* private Player player;
     private Scanner scanner = new Scanner(System.in);
     private Random rand = new Random();

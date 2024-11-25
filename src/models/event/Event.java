@@ -31,6 +31,10 @@ public abstract class Event {
         return story;
     }
 
+    public void setStory(String story) {
+        this.story = story;
+    }
+
     public String getTitle() {
         return title;
     }
