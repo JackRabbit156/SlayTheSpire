@@ -41,8 +41,17 @@ public class ActFour extends Act{
         initNodes();
 
         Node playerNode = getNoteByName(player.getCurrentField());
-        if(playerNode != null)
-            playerNode.setPlayer(player);
+
+        if(playerNode != null){
+            // wenn der Spieler auf dem Boss Feld ist, wird der Spieler wieder an den Anfang gesetzt
+            if(playerNode.getFieldName().equals(this.getLastField())){
+                playerNode.setPlayer(null);
+                int start = Integer.parseInt(this.getFirstField()) - 1;
+                player.setCurrentField(start+"");
+            } else {
+                playerNode.setPlayer(player);
+            }
+        }
     }
 
     private void initNodes(){
