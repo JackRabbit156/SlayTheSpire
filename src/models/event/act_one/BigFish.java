@@ -6,6 +6,7 @@ import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import models.event.Event;
 import models.player.player_structure.Player;
+import view.gui.EventView;
 
 import java.util.Scanner;
 /**
@@ -13,7 +14,6 @@ import java.util.Scanner;
  * @author  Loeschner, Marijan
  */
 public class BigFish extends Event{
-
     private static Image image = new Image("/images/event/act_one/BigFishEvent.png");
     private String title = "Big Fish";
     private String story = "\n\nAs you make your way down a long corridor you see a banana, a donut, and a box floating about. \n" +
@@ -43,6 +43,9 @@ public class BigFish extends Event{
     public Button getButton1(Player player){
         banana.setOnMouseClicked(event -> {
             player.increaseCurrentHealth(player.getMaxHealth() / 3);
+            donut.setVisible(false);
+            banana.setVisible(false);
+            box.setVisible(false);
         });
         return banana;
     }
@@ -50,6 +53,9 @@ public class BigFish extends Event{
     public Button getButton2(Player player){
         donut.setOnMouseClicked(event -> {
             player.increaseMaxHealth(5);
+            donut.setVisible(false);
+            banana.setVisible(false);
+            box.setVisible(false);
         });
         return donut;
     }
@@ -58,6 +64,12 @@ public class BigFish extends Event{
     public Button getButton3(Player player) {
         box.setOnMouseClicked(event -> {
             //Hier würde ich meine Relics aufbewahren. WENN ICH WELCHE HÄTTE!
+            story = "You grab the box. \n" +
+                    "Inside you find Nothing!\n" +
+                    "However, you really craved the donut...";
+            donut.setVisible(false);
+            banana.setVisible(false);
+            box.setVisible(false);
         });
         return box;
     }

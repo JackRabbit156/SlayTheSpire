@@ -20,7 +20,6 @@ public class DeadAdventurer extends Event {
             "Though his possessions are still intact, you're in no mind to find out what happened here...\n";
     private Button search = new Button("\t[Search] Find Loot. ");
     private Random rand = new Random();
-    private int chance = rand.nextInt(100);
 
     public DeadAdventurer() {
         super();
@@ -40,13 +39,15 @@ public class DeadAdventurer extends Event {
     }
 
     public Button getButton1(Player player){
+
         search.setOnMouseClicked(event -> {
-            if (chance <= 50) {
-                setStory("You Found 30 Gold.");
+            boolean chance = rand.nextInt(100) <= 50;
+            if (chance) {
                 player.increaseGold(30);
+                search.setVisible(false);
             }
             else {
-                setStory("You Found Nothing.");
+                search.setVisible(false);
             }
         });
         return search;

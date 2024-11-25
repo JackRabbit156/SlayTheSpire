@@ -53,6 +53,7 @@ public class EventView {
         layoutPane.getChildren().clear();
 
         this.event = event;
+        this.player = player;
         this.label.setText(event.getTitle());
         this.story.setText(event.getStory());
         this.option1 = event.getButton1(player);
@@ -114,11 +115,6 @@ public class EventView {
                 option1.setScaleX(option1.getScaleX() * 1.01);
                 option1.setScaleY(option1.getScaleY() * 1.1);
             });
-            option1.setOnMouseClicked(event1 -> {
-                option1.setVisible(false);
-                if (option2 != null) option2.setVisible(false);
-                if (option3 != null) option3.setVisible(false);
-            });
         }
 
         if (option2 != null) {
@@ -144,11 +140,6 @@ public class EventView {
                 option2.setBackground(buttonHighlight);
                 option2.setScaleX(option2.getScaleX() * 1.01);
                 option2.setScaleY(option2.getScaleY() * 1.1);
-            });
-            option2.setOnMouseClicked(event1 -> {
-                if (option1 != null) option1.setVisible(false);
-                option2.setVisible(false);
-                if (option3 != null) option3.setVisible(false);
             });
         }
 
@@ -176,11 +167,6 @@ public class EventView {
                 option3.setScaleX(option3.getScaleX() * 1.01);
                 option3.setScaleY(option3.getScaleY() * 1.1);
             });
-            option3.setOnMouseClicked(event1 -> {
-                if (option1 != null) option1.setVisible(false);
-                if (option2 != null) option2.setVisible(false);
-                option3.setVisible(false);
-            });
         }
 
         leave.setPrefSize(1200, 100);
@@ -206,6 +192,9 @@ public class EventView {
         leave.setOnMouseExited(event1 -> {
             leave.setBackground(buttonBG);
         });
+        leave.setOnMouseClicked(event1 -> {
+            System.exit(1);
+        });
     }
 
     public Button getOption1() {
@@ -226,16 +215,20 @@ public class EventView {
 
     public BorderPane display() {
         initStyle();
+        //TODO: Story müssen so angepasst werden, dass sie sich nach Buttonclick ändern.
 
         rightBox.getChildren().add(story);
         if (option1 != null) {
             rightBox.getChildren().add(option1);
+            event.getButton1(player);
         }
         if (option2 != null) {
             rightBox.getChildren().add(option2);
+            event.getButton2(player);
         }
         if (option3 != null) {
             rightBox.getChildren().add(option3);
+            event.getButton3(player);
         }
         rightBox.getChildren().add(leave);
 
