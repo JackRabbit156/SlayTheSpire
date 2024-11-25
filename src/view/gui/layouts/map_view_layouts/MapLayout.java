@@ -124,7 +124,7 @@ public class MapLayout extends GridPane {
 
         ImageView image = null;
         for(int i = 0; i< nodes.size(); i++){
-            image = image(nodes.get(i).getSymbol());
+            image = image(nodes.get(i).getImagePath());
 
             if(nodes.get(i).getPlayer() != null){
                 // saving the next possible nodes of the player

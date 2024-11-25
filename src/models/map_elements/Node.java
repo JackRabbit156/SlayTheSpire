@@ -52,7 +52,7 @@ public class Node {
         this.player = player;
     }
 
-    public String getSymbol(){
+    public String getImagePath(){
         return field.getImagePath();
     }
 
