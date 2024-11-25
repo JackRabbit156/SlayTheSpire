@@ -60,6 +60,31 @@ public class GuiHelper {
          * @param player die 'Player'-Instanz, die den Spieler im Spiel repräsentiert
          * @param enemies eine Liste von 'Enemy'-Instanzen, die die Gegner im Kampf darstellen
          */
+        public static void startMainMenuScene(Stage primaryStage) {
+            MainMenuController mmc = new MainMenuController();
+
+            String cssPath = "";
+            fadeTransition(primaryStage, mmc.startMenu(primaryStage), cssPath);
+        }
+
+        /**
+         * Startet die Kampf-Szene (Battle Scene), in der der Spieler gegen eine Liste von Gegnern kämpfen kann.
+         *
+         * @param player die 'Player'-Instanz, die den Spieler im Spiel repräsentiert
+         * @param enemies eine Liste von 'Enemy'-Instanzen, die die Gegner im Kampf darstellen
+         */
+        public static void startCharSelection(Stage primaryStage) {
+            CharacterController cc = new CharacterController();
+            String cssPath = "";
+            fadeTransition(primaryStage, cc.startSelection(primaryStage), cssPath);
+        }
+
+        /**
+         * Startet die Kampf-Szene (Battle Scene), in der der Spieler gegen eine Liste von Gegnern kämpfen kann.
+         *
+         * @param player die 'Player'-Instanz, die den Spieler im Spiel repräsentiert
+         * @param enemies eine Liste von 'Enemy'-Instanzen, die die Gegner im Kampf darstellen
+         */
         public static void startBattleScene(Player player, List<Enemy> enemies, FieldEnum enemyField) {
             BattleController battle = new BattleController(player, enemies, enemyField);
             Stage primaryStage = player.getPrimaryStage();

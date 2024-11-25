@@ -20,6 +20,6 @@ public class TreasureControllerTester extends Application {
         TestPlayer player = new TestPlayer(primaryStage);
         GameSettings.setDifficultyLevel(DifficultyLevel.EASY);
         player.setPrimaryStage(primaryStage);
-        GuiHelper.Scenes.startTreasureScene(player);
+        //GuiHelper.Scenes.startTreasureScene(player);
     }
 }
