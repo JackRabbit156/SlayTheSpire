@@ -57,12 +57,10 @@ public class GuiHelper {
         /**
          * Startet die Kampf-Szene (Battle Scene), in der der Spieler gegen eine Liste von Gegnern kämpfen kann.
          *
-         * @param player die 'Player'-Instanz, die den Spieler im Spiel repräsentiert
-         * @param enemies eine Liste von 'Enemy'-Instanzen, die die Gegner im Kampf darstellen
+         * @param primaryStage die Stage die Übergeben wird
          */
         public static void startMainMenuScene(Stage primaryStage) {
             MainMenuController mmc = new MainMenuController();
-
             String cssPath = "";
             fadeTransition(primaryStage, mmc.startMenu(primaryStage), cssPath);
         }
@@ -70,8 +68,7 @@ public class GuiHelper {
         /**
          * Startet die Kampf-Szene (Battle Scene), in der der Spieler gegen eine Liste von Gegnern kämpfen kann.
          *
-         * @param player die 'Player'-Instanz, die den Spieler im Spiel repräsentiert
-         * @param enemies eine Liste von 'Enemy'-Instanzen, die die Gegner im Kampf darstellen
+         * @param primaryStage die Stage die Übergeben wird
          */
         public static void startCharSelection(Stage primaryStage) {
             CharacterController cc = new CharacterController();
