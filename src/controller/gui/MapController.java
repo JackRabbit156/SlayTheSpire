@@ -29,14 +29,14 @@ public class MapController implements MapViewEvents, GameMenuListener {
 
     private Act act;
 
-    public MapController (Player player, boolean firstMapEntrance) {
+    public MapController (Player player) {
         this.player = player;
 
         switch (player.getCurrentAct()){
-            case 1: act = new ActOne(player, firstMapEntrance); break;
-            case 2: act = new ActTwo(player, firstMapEntrance); break;
+            case 1: act = new ActOne(player); break;
+            case 2: act = new ActTwo(player); break;
             case 3:  break;
-            case 4: act = new ActFour(player, firstMapEntrance); break;
+            case 4: act = new ActFour(player); break;
             default:
                 System.out.println("Weird"); return;
         }
@@ -48,11 +48,6 @@ public class MapController implements MapViewEvents, GameMenuListener {
     public void onValidFieldClick(Player player, Node node) {
         node.doFieldThing(player);
 
-        Node currentActField =  act.getCurrentField();
-        if(currentActField!= null)
-            currentActField.setPlayer(null);
-
-        node.setPlayer(player);
         player.setCurrentField(node.getFieldName());
     }
 

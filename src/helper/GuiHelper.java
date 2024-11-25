@@ -44,16 +44,11 @@ public class GuiHelper {
          * Wenn das Spiel zum ersten Mal gestartet wird, lädt der 'MapController' automatisch den ersten Kampf.
          *
          * @param player die {@code Player}-Instanz des aktuellen Spiels
-         * @param fromFile ein Flag, das angibt, ob das Spiel aus einer Speicherdatei geladen wurde
          */
-        public static void startMapScene(Player player, boolean fromFile) {
-            MapController mapController = new MapController(player, fromFile);
+        public static void startMapScene(Player player) {
+            MapController mapController = new MapController(player);
             Stage primaryStage = player.getPrimaryStage();
 
-            // Früher Rücksprung, wenn das Spiel zum ersten Mal gestartet wird,
-            // damit der MapController den ersten Kampf laden kann.
-            if (!fromFile)
-                return;
 
             String cssPath = "/css/mapStyle.css";
             fadeTransition(primaryStage, mapController.getMapView(), cssPath);

@@ -120,7 +120,7 @@ public class LootController implements LootViewEvents {
             //GuiHelper.Scenes.startStatisticScene(player);
             return;
         }
-        GuiHelper.Scenes.startMapScene(player, true);
+        GuiHelper.Scenes.startMapScene(player);
     }
 
     /**

@@ -128,7 +128,7 @@ public class TreasureController implements TreasureViewEvents {
     @Override
     public void onBackClicked() {
         ConsoleAssistent.print(Color.YELLOW, "TreasureView Leaved!");
-        GuiHelper.Scenes.startMapScene(player, true);
+        GuiHelper.Scenes.startMapScene(player);
     }
 
     /**

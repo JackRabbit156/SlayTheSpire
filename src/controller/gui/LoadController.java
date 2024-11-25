@@ -117,7 +117,7 @@ public class LoadController implements LoadEventListener {
         player.setPrimaryStage(primaryStage);
 
         //MapViewController map = new MapViewController(player, true);
-        GuiHelper.Scenes.startMapScene(player, true);
+        GuiHelper.Scenes.startMapScene(player);
     }
 
 
@@ -173,7 +173,7 @@ public class LoadController implements LoadEventListener {
         if(player == null) {
             // TODO: Starting Main Menu
         } else {
-            GuiHelper.Scenes.startMapScene(player, true);
+            GuiHelper.Scenes.startMapScene(player);
         }
 
     }
