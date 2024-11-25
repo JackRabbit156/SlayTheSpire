@@ -170,7 +170,7 @@ public class LoadController implements LoadEventListener {
     @Override
     public void onBackButtonClick() {
         if(player == null) {
-            // TODO: Starting Main Menu
+            GuiHelper.Scenes.startMainMenuScene(primaryStage);
         } else {
             GuiHelper.Scenes.startMapScene(player);
         }
