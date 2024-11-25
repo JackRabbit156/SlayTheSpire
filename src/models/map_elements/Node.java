@@ -88,14 +88,6 @@ public class Node {
         this.rightNode = rightNode;
     }
 
-    public boolean isFieldBeaten() {
-        return field.isFieldBeaten();
-    }
-
-    public void setFieldBeaten() {
-        field.setFieldBeaten();
-    }
-
     public String getFieldName() {
         return name;
     }
