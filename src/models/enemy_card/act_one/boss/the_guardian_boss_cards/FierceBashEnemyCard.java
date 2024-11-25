@@ -6,7 +6,15 @@ import models.enemy.Enemy;
 import models.enemy_card.enemy_card_structure.EnemyCard;
 import models.player.player_structure.Player;
 
+/**
+ * Die Fierce bash enemy card.
+ *
+ * @author OF Daniel Willig
+ */
 public class FierceBashEnemyCard extends EnemyCard {
+    /**
+     * Constructor Fierce bash enemy card.
+     */
     public FierceBashEnemyCard() {
         super("Fierce Bash", "Deals 32 damage.", "32");
         setImagePath(new PathAssistent().toPath(this));

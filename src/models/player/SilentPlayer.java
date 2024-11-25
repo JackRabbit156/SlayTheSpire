@@ -2,6 +2,7 @@ package models.player;
 
 
 import helper.PathAssistent;
+import javafx.stage.Stage;
 import models.card.card_structure.Card;
 import models.card.ironclad_cards.IroncladDefendCard;
 import models.card.ironclad_cards.IroncladStrikeCard;
@@ -17,11 +18,20 @@ import models.relic.relic_structure.Relic;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Der Silent player.
+ *
+ * Diese Klasse repräsentiert den Ironclad-Spieler, eine von mehreren möglichen Spielerklassen im Spiel. Ironclad hat spezifische Attribute, eine Startreliktie und ein Deck von Karten, die für seine Spielweise geeignet sind.
+ * Author:
+ *
+ * @author OF Daniel Willig
+ */
 public class SilentPlayer extends Player {
     // * Constructor *
-    public SilentPlayer() {
-        super("Silent", 70, 3, PlayerType.SILENT, "⚖");
+    public SilentPlayer(Stage primaryStage) {
+        super("Silent", 70, 3, PlayerType.SILENT, primaryStage);
         setImagePath(new PathAssistent().toPath(this));
+        setGold(99);
         initRelic();
         initDeck();
     }

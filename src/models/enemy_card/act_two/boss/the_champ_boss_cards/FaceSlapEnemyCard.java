@@ -6,7 +6,15 @@ import models.enemy.Enemy;
 import models.enemy_card.enemy_card_structure.EnemyCard;
 import models.player.player_structure.Player;
 
+/**
+ * Die Face slap enemy card.
+ *
+ * @author OF Daniel Willig
+ */
 public class FaceSlapEnemyCard extends EnemyCard {
+    /**
+     * Constructor Face slap enemy card.
+     */
     public FaceSlapEnemyCard() {
         super("Face Slap", "Deals 12 damage.", "12");
         setImagePath(new PathAssistent().toPath(this));

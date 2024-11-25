@@ -7,7 +7,15 @@ import models.card.card_structure.CardRarity;
 import models.card.card_structure.SkillCard;
 import models.player.player_structure.Player;
 
+/**
+ * Die Silent defend card.
+ *
+ * @author OF Daniel Willig
+ */
 public class SilentDefendCard extends SkillCard {
+    /**
+     * Constructor Silent defend card.
+     */
     public SilentDefendCard() {
         super("Defend", "Gain 5 Block.", 1, CardRarity.COMMON, CardGrave.DISCARD);
         setImagePath(new PathAssistent().toPath(this));

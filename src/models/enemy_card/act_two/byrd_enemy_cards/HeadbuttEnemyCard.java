@@ -6,7 +6,15 @@ import models.enemy.Enemy;
 import models.enemy_card.enemy_card_structure.EnemyCard;
 import models.player.player_structure.Player;
 
+/**
+ * Die Headbutt enemy card.
+ *
+ * @author OF Daniel Willig
+ */
 public class HeadbuttEnemyCard extends EnemyCard {
+    /**
+     * Constructor Headbutt enemy card.
+     */
     public HeadbuttEnemyCard() {
         super("Headbutt", "Deals 3 damage.", "3");
         setImagePath(new PathAssistent().toPath(this));

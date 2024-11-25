@@ -11,7 +11,7 @@ import java.util.List;
  */
 public class DeckFactoryTester {
     public static void main(String[] args) {
-        IroncladPlayer player = new IroncladPlayer();
+        IroncladPlayer player = new IroncladPlayer(null);
         for (int i = 0; i < 100; i++) {
             DeckFactory deckFactory = new DeckFactory(player, 5);
             List<Card> cards = deckFactory.init();

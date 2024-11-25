@@ -6,7 +6,15 @@ import models.enemy.Enemy;
 import models.enemy_card.enemy_card_structure.EnemyCard;
 import models.player.player_structure.Player;
 
+/**
+ * Die Flail enemy card.
+ *
+ * @author OF Daniel Willig
+ */
 public class FlailEnemyCard extends EnemyCard {
+    /**
+     * Constructor Flail enemy card.
+     */
     public FlailEnemyCard() {
         super("Flail", "Deals 7 x 2 damage.", "7 x 2");
         setImagePath(new PathAssistent().toPath(this));

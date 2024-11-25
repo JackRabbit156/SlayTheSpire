@@ -10,8 +10,7 @@ import models.player.IroncladPlayer;
 public class Main extends Application {
     @Override
     public void start(Stage primaryStage) {
-        IroncladPlayer player = new IroncladPlayer();
-        player.setPrimaryStage(primaryStage);
+        IroncladPlayer player = new IroncladPlayer(primaryStage);
 
        // System.out.println(new AngerCard().getClass().getSimpleName());
 //        GuiHelper.Scenes.startLoadSaveStateScene(primaryStage);

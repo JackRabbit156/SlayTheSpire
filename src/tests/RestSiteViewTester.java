@@ -13,9 +13,8 @@ public class RestSiteViewTester extends Application {
     @Override
     public void start(Stage primaryStage) {
 //        IroncladPlayer player = new IroncladPlayer();
-        TestPlayer player = new TestPlayer();
+        TestPlayer player = new TestPlayer(primaryStage);
 //        player.setGold(500);
-        player.setPrimaryStage(primaryStage);
 
         GuiHelper.Scenes.startRestScene(player);
     }

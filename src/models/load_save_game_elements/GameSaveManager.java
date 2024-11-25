@@ -145,7 +145,6 @@ public class GameSaveManager {
 
         Map<String, String> gameData = new HashMap<>();
 
-        gameData.put("username", player.getUsername());
         gameData.put("character", player.getPlayerType().toString());
         gameData.put("field", player.getCurrentField());
         gameData.put("currentAct", String.valueOf(player.getCurrentAct()));

@@ -6,9 +6,23 @@ import models.card.card_structure.CardRarity;
 import models.card.card_structure.CardType;
 import models.battle.GameContext;
 
+/**
+ * Die Potion card.
+ * Genannt so, da sie im prinzip eine einmal einsetzbare Karte ist.
+ *
+ * @author OF Daniel Willig
+ */
 public abstract class PotionCard extends Card {
-    public PotionCard(String name, String description, int cost, CardRarity rarity, CardGrave cardGrave, CardType cardType) {
-        super(name, description, cost, rarity, cardGrave, cardType);
+    /**
+     * Constructor Potion card.
+     *
+     * @param name        der name
+     * @param description die description
+     * @param rarity      die rarity
+     * @param cardType    der card type
+     */
+    public PotionCard(String name, String description, CardRarity rarity, CardType cardType) {
+        super(name, description, 0, rarity, CardGrave.POTION, cardType);
     }
 
 

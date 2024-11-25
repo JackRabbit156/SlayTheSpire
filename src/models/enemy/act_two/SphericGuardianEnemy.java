@@ -16,6 +16,7 @@ import java.util.Random;
  * Angriff zufällig ausgewählt werden.
  *
  * @author Warawa Alexander
+ * @author OF Daniel Willig
  */
 public class SphericGuardianEnemy extends Enemy {
     public SphericGuardianEnemy() {

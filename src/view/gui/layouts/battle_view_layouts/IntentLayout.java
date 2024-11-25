@@ -11,6 +11,13 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import models.enemy.Enemy;
 
+
+/**
+ * Das Intent layout.
+ * Die Icons über jeden Gegner, welches die nächste Aktion hervorsagt
+ *
+ * @author OF Daniel Willig
+ */
 public class IntentLayout extends StackPane {
     private final Text intentText = new Text();
     private final Text intentTextStroke = new Text();

@@ -1,6 +1,7 @@
 package models.player;
 
 import helper.PathAssistent;
+import javafx.stage.Stage;
 import models.card.card_structure.Card;
 import models.card.ironclad_cards.IroncladDefendCard;
 import models.card.ironclad_cards.IroncladStrikeCard;
@@ -22,9 +23,10 @@ import java.util.List;
  */
 public class IroncladPlayer extends Player {
     // * Constructor *
-    public IroncladPlayer() {
-        super("Ironclad", 80, 3, PlayerType.IRONCLAD,"⚒");
+    public IroncladPlayer(Stage primaryStage) {
+        super("Ironclad", 80, 3, PlayerType.IRONCLAD, primaryStage);
         setImagePath(new PathAssistent().toPath(this));
+        setGold(99);
 
         initRelic();
         initDeck();

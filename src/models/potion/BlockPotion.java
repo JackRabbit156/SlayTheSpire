@@ -8,10 +8,18 @@ import models.card.card_structure.CardType;
 import models.player.player_structure.Player;
 import models.potion.potion_structure.PotionCard;
 
+/**
+ * Die Block potion.
+ *
+ * @author OF Daniel Willig
+ */
 public class BlockPotion extends PotionCard {
 
+    /**
+     * Constructor Block potion.
+     */
     public BlockPotion() {
-        super("Block Potion", "Gain 12 Block.", 0, CardRarity.COMMON, CardGrave.POTION, CardType.SKILL);
+        super("Block Potion", "Gain 12 Block.", CardRarity.COMMON, CardType.SKILL);
         setImagePath(new PathAssistent().toPath(this));
     }
 

@@ -6,7 +6,15 @@ import models.enemy.Enemy;
 import models.enemy_card.enemy_card_structure.EnemyCard;
 import models.player.player_structure.Player;
 
+/**
+ * Die Harden enemy card.
+ *
+ * @author OF Daniel Willig
+ */
 public class HardenEnemyCard extends EnemyCard {
+    /**
+     * Constructor Harden enemy card.
+     */
     public HardenEnemyCard() {
         super("Corrosive Spit", "Deals 10 damage, gains 15 block.", "10");
         setImagePath(new PathAssistent().toPath(this));

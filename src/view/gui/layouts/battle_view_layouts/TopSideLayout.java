@@ -8,6 +8,12 @@ import javafx.scene.layout.VBox;
 import models.player.player_structure.Player;
 import view.gui.BattleView;
 
+
+/**
+ * Das TopSide layout.
+ *
+ * @author OF Daniel Willig
+ */
 public class TopSideLayout extends VBox {
     private Player player;
     private BattleView battleView;

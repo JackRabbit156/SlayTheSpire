@@ -2,6 +2,7 @@ package tests;
 
 import helper.ConsoleAssistent;
 import helper.PathAssistent;
+import javafx.stage.Stage;
 import models.card.card_structure.*;
 import models.card.ironclad_cards.attack.common.BashCard;
 import models.battle.GameContext;
@@ -17,8 +18,8 @@ import java.util.List;
  * @author Keil, Vladislav
  */
 public class TestPlayer extends Player {
-    public TestPlayer() {
-        super("TesterPlayer", 1000, 1000, PlayerType.IRONCLAD, "⚒");
+    public TestPlayer(Stage primaryStage) {
+        super("TesterPlayer", 1000, 1000, PlayerType.IRONCLAD, primaryStage);
         setImagePath("/images/player/IroncladPlayer.png");
         initRelic();
         initDeck();

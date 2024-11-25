@@ -16,6 +16,7 @@ import java.util.List;
  * die im Kampf verwendet werden können.
  *
  * @author Warawa Alexander
+ * @author OF Daniel Willig
  */
 public class CultistEnemy extends Enemy {
     public CultistEnemy() {

@@ -75,6 +75,10 @@ public abstract class Enemy {
         }
     }
 
+    /**
+     * berechnet die Aktion bevor sie ausgeführt wird. Wie bei diesem Film indem die Polizei Bösewichte fangen bevor sie Straftaten begehen.
+     * @author OF Daniel Willig
+     */
     public void calcIntent() {
         DifficultyLevel difficulty = GameSettings.getDifficultyLevel();
         int randomNumber = (new Random().nextInt(100) + 1);

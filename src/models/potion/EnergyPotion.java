@@ -8,10 +8,18 @@ import models.card.card_structure.CardType;
 import models.player.player_structure.Player;
 import models.potion.potion_structure.PotionCard;
 
+/**
+ * Die Energy potion.
+ *
+ * @author OF Daniel Willig
+ */
 public class EnergyPotion extends PotionCard {
 
+    /**
+     * Constructor Energy potion.
+     */
     public EnergyPotion() {
-        super("Energy Potion", "Gain 2 Energy.", 0, CardRarity.COMMON, CardGrave.POTION, CardType.SKILL);
+        super("Energy Potion", "Gain 2 Energy.",  CardRarity.COMMON,  CardType.SKILL);
         setImagePath(new PathAssistent().toPath(this));
     }
 
