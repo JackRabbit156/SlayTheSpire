@@ -52,7 +52,7 @@ public class PotionSelectionLayout extends FlowPane {
     }
 
     private Node images(Card potion) {
-        Image imageCard = new Image(getClass().getResource(potion.getImagePath()).toExternalForm()); //TODO DANIEL Images für Karten fehlen noch
+        Image imageCard = new Image(getClass().getResource(potion.getImagePath()).toExternalForm());
         ImageView imageViewCard = new ImageView(imageCard);
 
         imageViewCard.setFitWidth(100); // Breite in Pixel
