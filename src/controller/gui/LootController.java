@@ -117,7 +117,7 @@ public class LootController implements LootViewEvents {
     public void onBackClicked() {
         ConsoleAssistent.print(Color.YELLOW, "LootView Leaved!");
         if (this.fieldType == FieldEnum.BOSSFIELD) {
-            //GuiHelper.Scenes.startStatisticScene(player);
+            GuiHelper.Scenes.startStatisticScene(player);
             return;
         }
         GuiHelper.Scenes.startMapScene(player);
