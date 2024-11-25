@@ -24,6 +24,7 @@ import view.gui.layouts.loot_layout.PlayerLayout;
 public class StatisticView extends StackPane {
     private VBox centerVBox;
     private Player player;
+    private int act;
 
     private BorderPane statisticLayout;
     private BorderPane bottomLayout;
@@ -40,7 +41,8 @@ public class StatisticView extends StackPane {
         this.bottomLayout = new BorderPane();
         this.backgroundLayout = new BorderPane();
         this.player = player;
-        switch (this.player.getCurrentAct()) {
+        this.act = this.player.getCurrentAct();
+        switch (this.act) {
             case 1: this.player.setCurrentAct(2); break;
             case 2:
             case 4: this.player.setCurrentAct(4); break;
@@ -142,7 +144,7 @@ public class StatisticView extends StackPane {
         centerRight.setWrapText(true);
         centerRight.setAlignment(Pos.CENTER_RIGHT);
         centerRight.setText(
-                player.getCurrentAct() + "\n" +
+                this.act + "\n" +
                 GameSettings.getDistributedDamageStats() + "\n" +
                 GameSettings.getReceivedDamageStats() + "\n" +
                 GameSettings.getReceivedGoldStats() + "\n" +
