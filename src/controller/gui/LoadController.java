@@ -98,9 +98,7 @@ public class LoadController implements LoadEventListener {
 
         player.setDeck(deck);
 
-        GameSettings.setTimerSeconds(Integer.parseInt(gameData.get("seconds")));
-        GameSettings.setTimerMinutes(Integer.parseInt(gameData.get("minutes")));
-        GameSettings.setTimerHours(Integer.parseInt(gameData.get("hours")));
+
 
         String difficulty = gameData.get("difficulty");
 
@@ -116,7 +114,12 @@ public class LoadController implements LoadEventListener {
 
         //MapViewController map = new MapViewController(player, true);
         GuiHelper.Scenes.startMapScene(player);
+
         GameSettings.restartTimer();
+
+        GameSettings.setTimerSeconds(Integer.parseInt(gameData.get("seconds")));
+        GameSettings.setTimerMinutes(Integer.parseInt(gameData.get("minutes")));
+        GameSettings.setTimerHours(Integer.parseInt(gameData.get("hours")));
     }
 
     /**
