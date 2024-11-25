@@ -51,6 +51,7 @@ public abstract class Player {
     private PlayerEventListener playerEventListener;
 
     private String imagePath;
+    private String altImagePath;
 
     /**
      * Konstruktor für die Player-Klasse.
@@ -152,20 +153,19 @@ public abstract class Player {
      */
     public void decreaseCurrentHealth(int dmg, boolean damageFromCard) {
         GameSettings.increaseReceivedDamageStats(dmg);
-        int tmpDmg = dmg;
-        if (damageFromCard) {
-            notifyDamageReceived(dmg, true);
+        int tmpDmg;
+
+        notifyDamageReceived(dmg, damageFromCard);
+
+        if (getBlock() - dmg >= 0) {
+            setBlock(getBlock() - dmg);
+            tmpDmg = 0;
         }
         else {
-            if (getBlock() - dmg >= 0) {
-                setBlock(getBlock() - dmg);
-                tmpDmg = 0;
-            }
-            else {
-                tmpDmg = Math.abs(getBlock() - dmg);
-                setBlock(0);
-            }
+            tmpDmg = Math.abs(getBlock() - dmg);
+            setBlock(0);
         }
+
         currentHealth -= tmpDmg;
         if (currentHealth < 0) {
             currentHealth = 0;
@@ -344,7 +344,15 @@ public abstract class Player {
         return imagePath;
     }
 
+    public String getAltImagePath() {
+        return altImagePath;
+    }
+
     public void setImagePath(String imagePath) {
         this.imagePath = imagePath;
+    }
+
+    public void setAltImagePath(String altImagePath) {
+        this.altImagePath = altImagePath;
     }
 }

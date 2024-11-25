@@ -17,6 +17,7 @@ import javafx.util.Duration;
 import models.enemy.Enemy;
 import models.map_elements.field_types.FieldEnum;
 import models.player.player_structure.Player;
+import view.gui.GameOverView;
 import view.gui.StatisticView;
 
 import java.util.List;
@@ -159,6 +160,14 @@ public class GuiHelper {
              fadeTransition(primaryStage, view, cssPath);
         }
 
+        public static void startGameOverScene(Player player) {
+            GameOverView view = new GameOverView(player);
+            Stage primaryStage = player.getPrimaryStage();
+
+            String cssPath = "/css/battleStyle.css";
+            fadeTransition(primaryStage, view, cssPath);
+        }
+
         /**
          * Startet die Szene zum Laden eines gespeicherten Spielstands (Load Save State Scene).
          *
@@ -256,6 +265,8 @@ public class GuiHelper {
             ImageCursor customCursor = new ImageCursor(cursorImage);
             scene.setCursor(customCursor);
         }
+
+
     }
 
     /**

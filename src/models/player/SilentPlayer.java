@@ -21,7 +21,7 @@ import java.util.List;
 /**
  * Der Silent player.
  *
- * Diese Klasse repräsentiert den Ironclad-Spieler, eine von mehreren möglichen Spielerklassen im Spiel. Ironclad hat spezifische Attribute, eine Startreliktie und ein Deck von Karten, die für seine Spielweise geeignet sind.
+ * Diese Klasse repräsentiert den Silent-Spieler, eine von mehreren möglichen Spielerklassen im Spiel. Silent hat spezifische Attribute, eine Startreliktie und ein Deck von Karten, die für seine Spielweise geeignet sind.
  * Author:
  *
  * @author OF Daniel Willig
@@ -31,6 +31,7 @@ public class SilentPlayer extends Player {
     public SilentPlayer(Stage primaryStage) {
         super("Silent", 70, 3, PlayerType.SILENT, primaryStage);
         setImagePath(new PathAssistent().toPath(this));
+        setAltImagePath(new PathAssistent().toAltPath(this,1));
         setGold(99);
         initRelic();
         initDeck();
