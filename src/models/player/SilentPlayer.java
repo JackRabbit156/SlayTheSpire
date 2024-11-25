@@ -22,6 +22,7 @@ public class SilentPlayer extends Player {
     public SilentPlayer() {
         super("Silent", 70, 3, PlayerType.SILENT, "⚖");
         setImagePath(new PathAssistent().toPath(this));
+        setGold(99);
         initRelic();
         initDeck();
     }
