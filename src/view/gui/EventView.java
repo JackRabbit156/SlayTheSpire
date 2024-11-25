@@ -203,11 +203,23 @@ public class EventView {
         return option3;
     }
 
+    public Button getLeave() {
+        return leave;
+    }
+
     public BorderPane display() {
         initStyle();
 
         rightBox.getChildren().add(story);
-        rightBox.getChildren().addAll(option1, option2, option3);
+        if (option1 != null) {
+            rightBox.getChildren().add(option1);
+        }
+        if (option2 != null) {
+            rightBox.getChildren().add(option2);
+        }
+        if (option3 != null) {
+            rightBox.getChildren().add(option3);
+        }
         rightBox.getChildren().add(leave);
 
         return layoutPane;

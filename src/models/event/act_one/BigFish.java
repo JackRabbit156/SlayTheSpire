@@ -48,7 +48,7 @@ public class BigFish extends Event{
     }
 
     public Button getButton2(Player player){
-        banana.setOnMouseClicked(event -> {
+        donut.setOnMouseClicked(event -> {
             player.increaseMaxHealth(5);
         });
         return donut;
@@ -56,6 +56,9 @@ public class BigFish extends Event{
 
     @Override
     public Button getButton3(Player player) {
+        box.setOnMouseClicked(event -> {
+            //Hier würde ich meine Relics aufbewahren. WENN ICH WELCHE HÄTTE!
+        });
         return box;
     }
 }
