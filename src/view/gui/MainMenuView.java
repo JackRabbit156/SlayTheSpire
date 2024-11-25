@@ -12,7 +12,7 @@ import javafx.scene.text.TextAlignment;
 
 public class MainMenuView {
     private BorderPane selection = new BorderPane();
-    private String fontPath = "/resources/font/kreon/static/Kreon-Bold.ttf";
+    private String fontPath = "/font/kreon/static/Kreon-Bold.ttf";
     private String highlightPath = "/images/buttons/menu_highlight.png";
     private Button newGame = new Button();
     private Button loadGame = new Button();
@@ -32,7 +32,7 @@ public class MainMenuView {
 
         no.setText("No");
         no.setTextFill(Color.WHITE);
-        no.setFont(Font.font(fontPath, 24));
+        no.setFont(Font.loadFont(getClass().getResourceAsStream(fontPath), 24));
         no.setAlignment(Pos.CENTER);
         no.setBackground(new Background(GuiHelper.background("/images/buttons/endTurnButton.png")));
         no.setPrefSize(120, 120);
@@ -48,7 +48,7 @@ public class MainMenuView {
 
         yes.setText("Yes");
         yes.setTextFill(Color.WHITE);
-        yes.setFont(Font.font(fontPath, 24));
+        yes.setFont(Font.loadFont(getClass().getResourceAsStream(fontPath), 24));
         yes.setAlignment(Pos.CENTER);
         yes.setBackground(new Background(GuiHelper.background("/images/buttons/endTurnButton.png")));
         yes.setPrefSize(120, 120);
@@ -63,7 +63,7 @@ public class MainMenuView {
 
         newGame.setText("New Game");
         newGame.setTextFill(Color.WHITE);
-        newGame.setFont(Font.font(fontPath, 30));
+        newGame.setFont(Font.loadFont(getClass().getResourceAsStream(fontPath), 30));
         newGame.setAlignment(Pos.BASELINE_LEFT);
         newGame.setBackground(Background.EMPTY);
         newGame.setMinSize(180, 50);
@@ -76,7 +76,7 @@ public class MainMenuView {
 
         loadGame.setText("Load Game");
         loadGame.setTextFill(Color.WHITE);
-        loadGame.setFont(Font.font(fontPath, 30));
+        loadGame.setFont(Font.loadFont(getClass().getResourceAsStream(fontPath), 30));
         loadGame.setAlignment(Pos.BASELINE_LEFT);
         loadGame.setBackground(Background.EMPTY);
         loadGame.setMinSize(180, 50);
@@ -89,7 +89,7 @@ public class MainMenuView {
 
         delSaveGame.setText("Delete Save");
         delSaveGame.setTextFill(Color.WHITE);
-        delSaveGame.setFont(Font.font(fontPath, 30));
+        delSaveGame.setFont(Font.loadFont(getClass().getResourceAsStream(fontPath), 30));
         delSaveGame.setAlignment(Pos.BASELINE_LEFT);
         delSaveGame.setBackground(Background.EMPTY);
         delSaveGame.setMaxSize(200, 50);
@@ -102,7 +102,7 @@ public class MainMenuView {
 
         credits.setText("Credits");
         credits.setTextFill(Color.WHITE);
-        credits.setFont(Font.font(fontPath, 30));
+        credits.setFont(Font.loadFont(getClass().getResourceAsStream(fontPath), 30));
         credits.setAlignment(Pos.BASELINE_LEFT);
         credits.setBackground(Background.EMPTY);
         credits.setMinSize(180, 50);
@@ -115,7 +115,7 @@ public class MainMenuView {
 
         quit.setText("Quit");
         quit.setTextFill(Color.WHITE);
-        quit.setFont(Font.font(fontPath, 30));
+        quit.setFont(Font.loadFont(getClass().getResourceAsStream(fontPath), 30));
         quit.setAlignment(Pos.BASELINE_LEFT);
         quit.setBackground(Background.EMPTY);
         quit.setMinSize(180, 50);
@@ -168,7 +168,7 @@ public class MainMenuView {
         Text text = new Text("Are you sure that you \nwant to Quit the Game?");
         text.setFill(Color.WHITE);
         text.setTextAlignment(TextAlignment.CENTER);
-        text.setFont(Font.font(fontPath, 30));
+        text.setFont(Font.loadFont(getClass().getResourceAsStream(fontPath), 30));
 
         msg.setBackground(new Background(GuiHelper.background("/images/popup/popupBg.png")));
         msg.setPrefSize(900, 500);
