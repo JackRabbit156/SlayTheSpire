@@ -9,6 +9,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Paint;
 import javafx.stage.Popup;
+import jdk.nashorn.internal.runtime.regexp.joni.constants.EncloseType;
 import models.card.card_structure.Card;
 import models.player.player_structure.PlayerType;
 import models.potion.potion_structure.PotionCard;
@@ -86,20 +87,20 @@ public class TreasureView extends StackPane {
      * Initialisiert die View und zeigt die Schatz-Ansicht an.
      */
     public void display() {
+        this.getChildren().add(this.backLayout);
+        this.getChildren().add(this.entryLayout);
+
         initEntryLayout();
         initBackLayout();
 //        initTreasureLayout();
-
 //        setBackground(new Background(GuiHelper.background("/images/backgrounds/TreasureViewBG.jpeg")));
         this.setBackground(new Background(GuiHelper.background("/images/act1.png")));
     }
 
     private void initBackLayout() {
-        this.getChildren().add(this.backLayout);
         this.backLayout.setPickOnBounds(false);
 
         BackLayout backLayer = new BackLayout(this);
-        HBox hBox = new HBox(backLayer);
         backLayout.setBottom(backLayer);
     }
 
@@ -107,9 +108,9 @@ public class TreasureView extends StackPane {
      * Initialisiert das Layout beim Eintritt in das Encounter.
      */
     private void initEntryLayout() {
-        this.entryLayout.getChildren().add(new EntryLayout(this, playerImagePath));
+        EntryLayout entryLayout = new EntryLayout(this, playerImagePath);
         this.entryLayout.setPickOnBounds(false);
-        this.getChildren().add(this.entryLayout);
+        this.entryLayout.setCenter(entryLayout);
     }
 
     /**

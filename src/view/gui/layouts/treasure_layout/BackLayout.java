@@ -13,10 +13,8 @@ import view.gui.TreasureView;
 
 public class BackLayout extends VBox {
     private TreasureView view;
-    private BorderPane layout;
 
     public BackLayout(TreasureView view) {
-        this.layout = new BorderPane();
         this.view = view;
         init();
     }
@@ -41,7 +39,7 @@ public class BackLayout extends VBox {
 
         bottomHBox.setAlignment(Pos.TOP_LEFT);
         bottomHBox.setTranslateY(150);
-        layout.setBottom(bottomHBox);
+        getChildren().add(bottomHBox);
     }
 
     private void onBackClick() {

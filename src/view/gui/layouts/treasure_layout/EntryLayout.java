@@ -8,17 +8,15 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import view.gui.TreasureView;
 
-public class EntryLayout extends BorderPane {
+public class EntryLayout extends HBox {
     private String playerImagePath;
     private TreasureView treasureView;
-    private BorderPane layout;
     private Image treasureImg;
     private ImageView treasureImgView;
 
     public EntryLayout(TreasureView treasureView, String playerImagePath) {
         this.treasureView = treasureView;
         this.playerImagePath = playerImagePath;
-        this.layout = new BorderPane();
         setPickOnBounds(false);
         init();
     }
@@ -27,30 +25,24 @@ public class EntryLayout extends BorderPane {
         setTreasureImageView(false);
         initLeft();
         initRight();
-        initBottom();
-        setCenter(this.layout);
-    }
-
-    private void initBottom() {
-        this.layout.setBottom(new Region());
     }
 
     private void initLeft() {
-        HBox hBox = new HBox();
-        HBox.setHgrow(hBox, Priority.ALWAYS);
-        hBox.setAlignment(Pos.CENTER);
-        hBox.setTranslateY(150);
-        hBox.setTranslateX(150);
-        hBox.getChildren().add(getPlayerImageView());
-        this.layout.setLeft(hBox);
+        VBox vPlayer = new VBox();
+        HBox.setHgrow(vPlayer, Priority.ALWAYS);
+        vPlayer.setAlignment(Pos.CENTER);
+        vPlayer.setTranslateY(150);
+        vPlayer.setTranslateX(150);
+        vPlayer.getChildren().add(getPlayerImageView());
+        getChildren().add(vPlayer);
     }
 
     private void initRight() {
-        HBox hBox = new HBox();
-        HBox.setHgrow(hBox, Priority.ALWAYS);
-        hBox.setAlignment(Pos.CENTER);
-        hBox.setTranslateY(50);
-        hBox.setTranslateX(-150);
+        VBox vTreasure = new VBox();
+        HBox.setHgrow(vTreasure, Priority.ALWAYS);
+        vTreasure.setAlignment(Pos.CENTER);
+        vTreasure.setTranslateY(50);
+        vTreasure.setTranslateX(-150);
 
         this.treasureImgView.setOnMouseClicked(event -> {
             ConsoleAssistent.println(Color.YELLOW, "Clicked on Treasure");
@@ -59,8 +51,8 @@ public class EntryLayout extends BorderPane {
             this.treasureImgView.setDisable(true);
         });
 
-        hBox.getChildren().add(this.treasureImgView);
-        this.layout.setRight(hBox);
+        vTreasure.getChildren().add(this.treasureImgView);
+        getChildren().add(vTreasure);
     }
 
     private ImageView getPlayerImageView() {
