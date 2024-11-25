@@ -77,14 +77,21 @@ public class StatisticView extends StackPane {
 
         Label label = new Label("Back");
         label.setTextFill(Paint.valueOf("White"));
-        label.setStyle("-fx-font-size: 24;");
-        bottomHBox.getChildren().add(GuiHelper.addButtonStackPane(imgView, label, 0.7));
+        label.setStyle("-fx-font-size: 38px; -fx-font-family: Kreon;");
+        bottomHBox.getChildren().add(GuiHelper.addButtonStackPane(imgView, label, 14));
 
-        imgView.setOnMouseClicked(event -> GuiHelper.Scenes.startMapScene(player));
-        label.setOnMouseClicked(event -> GuiHelper.Scenes.startMapScene(player));
+        imgView.setOnMouseClicked(event -> {
+            imgView.setDisable(true);
+            label.setDisable(true);
+            GuiHelper.Scenes.startMapScene(player);
+        });
+        label.setOnMouseClicked(event -> {
+            imgView.setDisable(true);
+            label.setDisable(true);
+            GuiHelper.Scenes.startMapScene(player);
+        });
 
-        bottomHBox.setAlignment(Pos.TOP_LEFT);
-        bottomHBox.setTranslateY(150);
+        bottomHBox.setAlignment(Pos.TOP_CENTER);
         bottomLayout.setBottom(bottomHBox);
     }
 

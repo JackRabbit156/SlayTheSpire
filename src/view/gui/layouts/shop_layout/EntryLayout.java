@@ -2,14 +2,15 @@ package view.gui.layouts.shop_layout;
 
 import helper.Color;
 import helper.ConsoleAssistent;
+import helper.GuiHelper;
 import javafx.geometry.Pos;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.Background;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import view.gui.ShopView;
-import view.gui.TreasureView;
 
 
 public class EntryLayout extends HBox {
@@ -43,17 +44,20 @@ public class EntryLayout extends HBox {
 
     private void initRight() {
         this.vMerchant = new VBox();
+        setMerchantImageView();
         HBox.setHgrow(this.vMerchant, Priority.ALWAYS);
         this.vMerchant.setAlignment(Pos.CENTER);
-        this.vMerchant.setTranslateY(50);
-        this.vMerchant.setTranslateX(-150);
+        this.vMerchant.setTranslateY(150);
+        this.vMerchant.setTranslateX(-100);
 
         this.merchantImgView.setOnMouseClicked(event -> {
             ConsoleAssistent.println(Color.YELLOW, "Clicked on Merchant");
-            setTreasureImageView(true);
-//            onMerchantClick();
+            onMerchantClick();
             this.merchantImgView.setDisable(true);
         });
+
+        GuiHelper.setHoverEffect(this.merchantImgView);
+
         this.vMerchant.getChildren().add(this.merchantImgView);
         getChildren().add(this.vMerchant);
     }
@@ -64,18 +68,12 @@ public class EntryLayout extends HBox {
         return imageView;
     }
 
-    private void setTreasureImageView(boolean open) {
-        if (!open) {
-            this.merchantImg = new Image(getClass().getResource("/images/treasure/treasure.png").toExternalForm());
-        } else {
-            ConsoleAssistent.println(Color.YELLOW, "Treasure Open");
-            this.merchantImg = new Image(getClass().getResource("/images/treasure/treasureOpen.png").toExternalForm());
-        }
+    private void setMerchantImageView() {
+        this.merchantImg = new Image(getClass().getResource("/images/shop/MerchantWithProps.png").toExternalForm());
         this.merchantImgView = new ImageView(this.merchantImg);
     }
 
-
     private void onMerchantClick() {
-        init();
+        this.parentView.onMerchantClick();
     }
 }

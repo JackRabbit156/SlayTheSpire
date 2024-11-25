@@ -25,9 +25,7 @@ public class LootView extends StackPane {
     private LootViewEvents lootViewEvents;
 
     private Popup popup;
-    private Insets insets = new Insets(15,15,15,15);
     private VBox centerVBox;
-    private VBox topVBox;
     private Popup cardSelectionPopup;
 
     private BorderPane lootLayout;
@@ -74,7 +72,7 @@ public class LootView extends StackPane {
         getChildren().add(lootLayout);
         getChildren().add(bottomLayout);
 
-        setBackground(new Background(GuiHelper.background("/images/backgrounds/greenBg.jpg")));
+        setBackground(new Background(GuiHelper.background("/images/backgrounds/LootViewBG.jpeg")));
         initLootLayout();
         initBottomLayout();
 
@@ -105,6 +103,7 @@ public class LootView extends StackPane {
         centerVBox = new VBox();
         centerVBox.setSpacing(10);
         centerVBox.setAlignment(Pos.TOP_CENTER);
+        centerVBox.setMaxWidth(100);
 
         // Gold Option
         StackPane goldStackPane = getGoldStackPane();
@@ -127,14 +126,22 @@ public class LootView extends StackPane {
      * Initialisiert das obere Layout der Loot-Ansicht.
      */
     private void initTop(){
-        topVBox = new VBox();
+        Image img = new Image(getClass().getResource("/images/banner/abandon.png").toExternalForm());
+        ImageView imageView = new ImageView(img);
+
+        VBox topVBox = new VBox();
+        StackPane titlePane = new StackPane();
+
         Label label = new Label();
         label.setText("Loot");
         label.setId("title");
         label.setTextFill(Paint.valueOf("White"));
-        label.setStyle("-fx-font-size: 56px;");
+        label.setStyle("-fx-font-size: 38px; -fx-font-family: Kreon;");
 
-        topVBox.getChildren().add(label);
+        titlePane.getChildren().addAll(imageView,label);
+
+
+        topVBox.getChildren().add(titlePane);
         topVBox.setAlignment(Pos.BOTTOM_CENTER);
         topVBox.setPrefHeight(200);
         lootLayout.setTop(topVBox);
@@ -144,21 +151,21 @@ public class LootView extends StackPane {
      * Initialisiert das untere Layout der Loot-Ansicht.
      */
     private void initBottom(){
-        Image btnImage = new Image(getClass().getResource("/images/buttons/buttonL.png").toExternalForm());
+        Image btnImage = new Image(getClass().getResource("/images/buttons/buttonL-small.png").toExternalForm());
         ImageView imgView = new ImageView(btnImage);
         HBox bottomHBox = new HBox();
 
         Label label = new Label("Back");
         label.setTextFill(Paint.valueOf("White"));
-        label.setStyle("-fx-font-size: 24;");
+        label.setStyle("-fx-font-size: 38px; -fx-font-family: Kreon;");
 
-        bottomHBox.getChildren().add(GuiHelper.addButtonStackPane(imgView, label, 0.7));
+        bottomHBox.getChildren().add(GuiHelper.addButtonStackPane(imgView, label, 12, 8));
 
         imgView.setOnMouseClicked(event -> lootViewEvents.onBackClicked());
         label.setOnMouseClicked(event -> lootViewEvents.onBackClicked());
 
         bottomHBox.setAlignment(Pos.TOP_LEFT);
-        bottomHBox.setTranslateY(150);
+        bottomHBox.setPadding(new Insets(50, 50, 50, 50));
         bottomLayout.setBottom(bottomHBox);
     }
 
@@ -240,7 +247,7 @@ public class LootView extends StackPane {
         goldStackPane.getChildren().add(lootBox);
         goldStackPane.setAlignment(Pos.CENTER);
 
-//        GuiHelper.setButtonHoverEffect(itemPanelView, label);
+        GuiHelper.setButtonHoverEffect(itemPanelView, label);
 
         goldStackPane.setOnMouseClicked(event -> {
             if(!goldStackPane.isDisabled()) {
