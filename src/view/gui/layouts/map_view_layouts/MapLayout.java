@@ -22,8 +22,8 @@ public class MapLayout extends GridPane {
     private int mapHeight;
     private int playerField;
 
-    private static final int TILE_SIZE = 60;
-    private static final int CENTER_OFFSET = 40;
+    private static final int TILE_SIZE = 58;
+    private static final int CENTER_OFFSET = 39;
     public MapLayout(MapView mapView, List<Node> nodes, int mapWidth, int mapHeight, int playerField) {
         this.mapHeight = mapHeight;
         this.mapWidth = mapWidth;
