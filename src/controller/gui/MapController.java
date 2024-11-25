@@ -73,6 +73,16 @@ public class MapController implements MapViewEvents, GameMenuListener {
         GuiHelper.Scenes.startLoadGameFromMapScene(player);
     }
 
+    @Override
+    public void onMainMenuClick() {
+        GuiHelper.Scenes.startMainMenuScene(player.getPrimaryStage());
+    }
+
+    @Override
+    public void onExitClick() {
+        System.exit(0);
+    }
+
     private String getCurrentFieldFromAct(){
         return act.getCurrentFieldName();
     }
