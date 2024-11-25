@@ -118,33 +118,43 @@ public class TreasureView extends StackPane {
      * Initialisiert das Layout des Schatzes.
      */
     private void initTreasureLayout() {
-        treasureTitleLayout();
         treasureCenterLayer();
+        treasureTitleLayout();
     }
 
     /**
      * Initialisiert das zentrale Layout der Schatz-Ansicht.
      */
     private void treasureCenterLayer() {
-        centerVBox = new VBox();
+        this.centerVBox = new VBox();
+
+        Image btnImage = new Image(getClass().getResource("/images/panel/rewardPanel.png").toExternalForm());
+        ImageView rewardPanelImgView = new ImageView(btnImage);
+        StackPane rewardStackPanel = new StackPane(rewardPanelImgView);
+        rewardPanelImgView.setTranslateY(-140);
+
         centerVBox.setPadding(new Insets(15,0,0,0));
-        centerVBox.setAlignment(Pos.TOP_CENTER);
+        this.centerVBox.setAlignment(Pos.TOP_CENTER);
         centerVBox.setMaxWidth(100);
 
         // Gold Option
         StackPane goldStackPane = getGoldStackPane();
-        centerVBox.getChildren().add(goldStackPane);
+        this.centerVBox.getChildren().add(goldStackPane);
 
         // Potion Option
         if (this.potionCard != null) {
             StackPane getPotionStackPane = getPotionStackPane();
-            centerVBox.getChildren().add(getPotionStackPane);
+            this.centerVBox.getChildren().add(getPotionStackPane);
         }
 
         // Card Selection Option
         setCardSelectionLayout();
 
-        treasureLayout.setCenter(centerVBox);
+        this.centerVBox.getChildren().add(this.cardSelectionButtonStackPane);
+
+        rewardStackPanel.getChildren().add(centerVBox);
+
+        this.treasureLayout.setCenter(rewardStackPanel);
     }
 
     /**
@@ -154,7 +164,6 @@ public class TreasureView extends StackPane {
         CardSelectionLayout cardSelectionLayout = new CardSelectionLayout(this.cardList, this);
         cardSelectionLayout.setPadding(new Insets(50, 50, 15, 50));
         this.cardSelectionButtonStackPane = getCardSelectionStackPane();
-        this.centerVBox.getChildren().add(this.cardSelectionButtonStackPane);
 
         // Popup
         this.cardSelectionPopup.setAutoHide(true);
