@@ -129,15 +129,12 @@ public class MapLayout extends GridPane {
                 // saving the next possible nodes of the player
                 if (nodes.get(i).getRightNode() != null) {
                     availablePosFromPlayer.add(nodes.get(i).getRightNode());
-                    System.out.println("left...");
                 }
                 if (nodes.get(i).getLeftNode() != null) {
                     availablePosFromPlayer.add(nodes.get(i).getLeftNode());
-                    System.out.println("center...");
                 }
                 if (nodes.get(i).getMiddleNode() != null) {
                     availablePosFromPlayer.add(nodes.get(i).getMiddleNode());
-                    System.out.println("right...");
                 }
 
                 ImageView playerImage =image("/images/map/player/ironclad.png");
