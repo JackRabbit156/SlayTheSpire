@@ -4,12 +4,15 @@ import helper.GuiHelper;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.ToggleButton;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import models.player.player_structure.Player;
+
 
 public class CharacterView {
     private BorderPane ground = new BorderPane();
@@ -18,15 +21,19 @@ public class CharacterView {
     private HBox left = new HBox();
     private VBox wrap = new VBox();
     private VBox infoBox = new VBox();
+    private HBox hpGold = new HBox();
     private Background icBG = new Background(GuiHelper.background("/images/backgrounds/ironcladPortrait.jpg"));
     private Background slBG = new Background(GuiHelper.background("/images/backgrounds/silentPortrait.jpg"));
     private Background icHighlight = new Background(GuiHelper.background("/images/buttons/ironcladButtonHighlighted.png"));
     private Background slHighlight = new Background(GuiHelper.background("/images/buttons/silentButtonHighlighted.png"));
     private Background slButtonBG = new Background(GuiHelper.background("/images/buttons/silentButton.png"));
     private Background icButtonBG = new Background(GuiHelper.background("/images/buttons/ironcladButton.png"));
+    private ImageView heart = new ImageView(new Image("/images/panel/panelHeart.png"));
+    private ImageView goldBag = new ImageView(new Image("images/panel/panelGoldBag.png"));
     private Text text = new Text("Choose your Character");
     private Text head = new Text();
     private Text hp = new Text();
+    private Text gold = new Text();
     private ToggleButton ic = new ToggleButton();
     private ToggleButton sl = new ToggleButton();
     private Button backs = new Button();
@@ -83,7 +90,14 @@ public class CharacterView {
 
         hp.setFont(Font.font("/resources/font/kreon/static/Kreon-Bold.ttf", 30));
         hp.setFill(Color.RED);
-        hp.setTextAlignment(TextAlignment.LEFT);
+        hp.setTextAlignment(TextAlignment.CENTER);
+
+        gold.setFont(Font.font("/resources/font/kreon/static/Kreon-Bold.ttf", 30));
+        gold.setFill(Color.GOLD);
+        gold.setTextAlignment(TextAlignment.CENTER);
+        gold.setText("Gold : 99");
+
+        hpGold.setAlignment(Pos.TOP_CENTER);
     }
 
     public ToggleButton getIc() {
@@ -155,17 +169,19 @@ public class CharacterView {
 
         return ground;
     }
-    //TODO: HP Alignment to left
+
     public void selectIC(){
         infoBox.getChildren().clear();
         sl.setSelected(false);
 
         head.setText("\nThe Ironclad");
-        hp.setText("\nHP: 80/80    \t \t");
-        text.setText(" \n\tThe remaining soldier of the Ironclads.\n\tSold his soul to harness demonic energies.");
+        hp.setText("HP: 80/80 \t");
+        hpGold.getChildren().clear();
+        hpGold.getChildren().addAll(heart, hp, goldBag, gold);
+        text.setText(" \n\n\tThe remaining soldier of the Ironclads.\n\tSold his soul to harness demonic energies.");
         infoBox.setBackground(Background.EMPTY);
         infoBox.setAlignment(Pos.BASELINE_RIGHT);
-        infoBox.getChildren().addAll(head, text, hp);
+        infoBox.getChildren().addAll(head, text, hpGold);
         ground.setLeft(infoBox);
         ground.setBackground(icBG);
         ic.isSelected();
@@ -176,11 +192,13 @@ public class CharacterView {
         ic.setSelected(false);
 
         head.setText("\nThe Silent");
-        hp.setText("\nHP: 70/70   \t \t");
-        text.setText(" \n\tA deadly huntress from the foglands. \n\tEradicates foes with daggers and poisons.");
+        hp.setText("HP: 70/70 \t");
+        hpGold.getChildren().clear();
+        hpGold.getChildren().setAll(heart, hp, goldBag, gold);
+        text.setText(" \n\n\tA deadly huntress from the foglands. \n\tEradicates foes with daggers and poisons.");
         infoBox.setBackground(Background.EMPTY);
         infoBox.setAlignment(Pos.BASELINE_RIGHT);
-        infoBox.getChildren().addAll(head, text, hp);
+        infoBox.getChildren().addAll(head, text, hpGold);
         ground.setLeft(infoBox);
         ground.setBackground(slBG);
         sl.isSelected();
