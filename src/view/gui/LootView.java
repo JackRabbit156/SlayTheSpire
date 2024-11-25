@@ -27,6 +27,9 @@ public class LootView extends StackPane {
     private int gold;
     private LootViewEvents lootViewEvents;
 
+    private String STYLE = "-fx-font-size: 38; -fx-font-family: Kreon;";
+    private String STYLE_SMALL = "-fx-font-size: 28; -fx-font-family: Kreon;";
+
     private Popup popup;
     private VBox centerVBox;
     private Popup cardSelectionPopup;
@@ -114,6 +117,8 @@ public class LootView extends StackPane {
         Image img = new Image(getClass().getResource("/images/panel/rewardPanel.png").toExternalForm());
         ImageView imageView = new ImageView(img);
         imageView.setTranslateX(650);
+        imageView.setTranslateY(100);
+
 
         // Card Options
         this.centerVBox = new VBox();
@@ -135,7 +140,7 @@ public class LootView extends StackPane {
         setCardSelectionLayout();
 
         this.lootLayout.getChildren().add(imageView);
-        this.lootLayout.setCenter(centerVBox);
+        this.lootLayout.setCenter(this.centerVBox);
     }
 
 
@@ -153,7 +158,7 @@ public class LootView extends StackPane {
         label.setText("Loot");
         label.setId("title");
         label.setTextFill(Paint.valueOf("White"));
-        label.setStyle("-fx-font-size: 38px; -fx-font-family: Kreon;");
+        label.setStyle(STYLE);
 
         titlePane.getChildren().addAll(imageView,label);
 
@@ -161,7 +166,7 @@ public class LootView extends StackPane {
         topVBox.getChildren().add(titlePane);
         topVBox.setAlignment(Pos.BOTTOM_CENTER);
         topVBox.setPrefHeight(200);
-        lootLayout.setTop(topVBox);
+        this.lootLayout.setTop(topVBox);
     }
 
     /**
@@ -174,16 +179,16 @@ public class LootView extends StackPane {
 
         Label label = new Label("Back");
         label.setTextFill(Paint.valueOf("White"));
-        label.setStyle("-fx-font-size: 38px; -fx-font-family: Kreon;");
+        label.setStyle(STYLE);
 
         bottomHBox.getChildren().add(GuiHelper.addButtonStackPane(imgView, label, 12, 8));
 
-        imgView.setOnMouseClicked(event -> lootViewEvents.onBackClicked());
-        label.setOnMouseClicked(event -> lootViewEvents.onBackClicked());
+        imgView.setOnMouseClicked(event -> this.lootViewEvents.onBackClicked());
+        label.setOnMouseClicked(event -> this.lootViewEvents.onBackClicked());
 
         bottomHBox.setAlignment(Pos.TOP_LEFT);
         bottomHBox.setPadding(new Insets(50, 50, 50, 50));
-        bottomLayout.setBottom(bottomHBox);
+        this.bottomLayout.setBottom(bottomHBox);
     }
 
     /**
@@ -220,10 +225,14 @@ public class LootView extends StackPane {
         imgView.setScaleY(0.6);
         imgView.setScaleX(0.6);
 
+
+
         // Label
         Label label = new Label("New Cards!");
-        label.setStyle("-fx-font-size: 28px; -fx-font-family: Kreon;");
+        label.setStyle(STYLE_SMALL);
         label.setTextFill(Paint.valueOf("White"));
+
+        GuiHelper.setButtonHoverEffect(itemPanelView, label);
 
         // Loot
         HBox lootBox = new HBox();
@@ -252,12 +261,12 @@ public class LootView extends StackPane {
         // Label
         Label label = new Label(String.valueOf(gold));
         label.setText(String.valueOf(gold));
-        label.setStyle("-fx-font-size: 28px; -fx-font-family: Kreon;");
+        label.setStyle(STYLE_SMALL);
         label.setTextFill(Paint.valueOf("White"));
         // Loot
         HBox lootBox = new HBox();
         lootBox.setAlignment(Pos.CENTER);
-        lootBox.getChildren().addAll(imgView,label);
+        lootBox.getChildren().addAll(imgView, label);
 
         // Panel
         StackPane goldStackPane = new StackPane(itemPanelView);
@@ -291,7 +300,7 @@ public class LootView extends StackPane {
         // Label
         Label label = new Label();
         label.setText(potionCard.getName());
-        label.setStyle("-fx-font-size: 28px; -fx-font-family: Kreon;");
+        label.setStyle(STYLE_SMALL);
         label.setTextFill(Paint.valueOf("White"));
 
         // Loot
@@ -303,6 +312,8 @@ public class LootView extends StackPane {
         StackPane potionStackPane = new StackPane(itemPanelView);
         potionStackPane.getChildren().add(lootBox);
         potionStackPane.setAlignment(Pos.CENTER);
+
+        GuiHelper.setButtonHoverEffect(itemPanelView, label);
 
         potionStackPane.setOnMouseClicked(event -> {
             if(!potionStackPane.isDisabled()) {
@@ -359,7 +370,7 @@ public class LootView extends StackPane {
 
         StackPane stackPopup = new StackPane();
         Label label = new Label(text);
-        label.setStyle("-fx-font-size: 36; -fx-font-family: Kreon;");
+        label.setStyle(STYLE_SMALL);
         label.setTextFill(Paint.valueOf("White"));
         label.autosize();
         stackPopup.getChildren().addAll(imageView, label);

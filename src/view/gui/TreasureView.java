@@ -9,9 +9,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Paint;
 import javafx.stage.Popup;
-import jdk.nashorn.internal.runtime.regexp.joni.constants.EncloseType;
 import models.card.card_structure.Card;
-import models.player.player_structure.PlayerType;
 import models.potion.potion_structure.PotionCard;
 import view.gui.layouts.layout_events.TreasureViewEvents;
 import view.gui.layouts.treasure_layout.BackLayout;
@@ -33,6 +31,9 @@ public class TreasureView extends StackPane {
     private int gold;
     private TreasureViewEvents treasureViewEvents;
     private String playerImagePath;
+
+    private String STYLE = "-fx-font-size: 38; -fx-font-family: Kreon;";
+    private String STYLE_SMALL = "-fx-font-size: 28; -fx-font-family: Kreon;";
 
     private Popup popup;
     private VBox centerVBox;
@@ -109,7 +110,6 @@ public class TreasureView extends StackPane {
      */
     private void initEntryLayout() {
         EntryLayout entry = new EntryLayout(this, playerImagePath);
-//        this.entryLayout.setMouseTransparent(true);
         this.entryLayout.setCenter(entry);
 
     }
@@ -187,15 +187,13 @@ public class TreasureView extends StackPane {
         ImageView imgView = new ImageView(img);
         ImageView itemPanelView = new ImageView(btnImage);
 
-        itemPanelView.setScaleY(PANEL_SCALE);
-        itemPanelView.setScaleX(PANEL_SCALE);
         imgView.setScaleX(0.25);
         imgView.setScaleY(0.25);
 
         // Label
         Label label = new Label("New Cards!");
         label.setTranslateX(-30);
-        label.setStyle("-fx-font-size: 24; -fx-font-family: Kreon;");
+        label.setStyle(STYLE_SMALL);
         label.setTextFill(Paint.valueOf("White"));
 
         // Loot
@@ -222,15 +220,13 @@ public class TreasureView extends StackPane {
         ImageView imgView = new ImageView(img);
         ImageView itemPanelView = new ImageView(btnImage);
 
-        itemPanelView.setScaleY(PANEL_SCALE);
-        itemPanelView.setScaleX(PANEL_SCALE);
         imgView.setScaleX(PANEL_SCALE);
         imgView.setScaleY(PANEL_SCALE);
 
         // Label
         Label label = new Label(String.valueOf(gold));
         label.setText(String.valueOf(gold));
-        label.setStyle("-fx-font-size: 24; -fx-font-family: Kreon;");
+        label.setStyle(STYLE_SMALL);
         label.setTextFill(Paint.valueOf("White"));
 
         // Loot
@@ -265,15 +261,13 @@ public class TreasureView extends StackPane {
         Image img = new Image(getClass().getResource(potionCard.getImagePath()).toExternalForm());
         ImageView imgView = new ImageView(img);
 
-        itemPanelView.setScaleY(PANEL_SCALE);
-        itemPanelView.setScaleX(PANEL_SCALE);
         imgView.setScaleX(PANEL_SCALE);
         imgView.setScaleY(PANEL_SCALE);
 
         // Label
         Label label = new Label();
         label.setText(potionCard.getName());
-        label.setStyle("-fx-font-size: 24; -fx-font-family: Kreon;");
+        label.setStyle(STYLE_SMALL);
         label.setTextFill(Paint.valueOf("White"));
 
         // Loot
@@ -310,7 +304,7 @@ public class TreasureView extends StackPane {
         label.setText("Loot");
         label.setId("title");
         label.setTextFill(Paint.valueOf("White"));
-        label.setStyle("-fx-font-size: 38px; -fx-font-family: Kreon;");
+        label.setStyle(STYLE);
 
         titlePane.getChildren().addAll(imageView,label);
         topVBox.getChildren().add(titlePane);
@@ -369,7 +363,7 @@ public class TreasureView extends StackPane {
 
         StackPane stackPopup = new StackPane();
         Label label = new Label(text);
-        label.setStyle("-fx-font-size: 36; -fx-font-family: Kreon;");
+        label.setStyle(STYLE);
         label.setTextFill(Paint.valueOf("White"));
         label.autosize();
         stackPopup.getChildren().addAll(imageView, label);
