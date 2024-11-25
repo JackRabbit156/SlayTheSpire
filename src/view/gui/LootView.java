@@ -13,12 +13,15 @@ import models.card.card_structure.Card;
 import models.potion.potion_structure.PotionCard;
 import view.gui.layouts.layout_events.LootViewEvents;
 import view.gui.layouts.loot_layout.CardSelectionLayout;
+import view.gui.layouts.loot_layout.PlayerLayout;
 
 import java.util.List;
 /**
  * @author Keil, Vladislav
  */
 public class LootView extends StackPane {
+    private String playerImagePath;
+    private BorderPane backgroundLayout;
     private PotionCard potionCard;
     private List<Card> lootCards;
     private int gold;
@@ -44,6 +47,7 @@ public class LootView extends StackPane {
     public LootView(List<Card> lootCards, int gold, LootViewEvents lootViewEvents) {
         this.lootLayout = new BorderPane();
         this.bottomLayout = new BorderPane();
+        this.backgroundLayout = new BorderPane();
         this.lootCards = lootCards;
         this.gold = gold;
         this.lootViewEvents = lootViewEvents;
@@ -58,8 +62,9 @@ public class LootView extends StackPane {
      * @param potionCard         Die im Schatz enthaltene Trankkarte.
      * @param lootViewEvents     Die Ereignisse der Loot-Ansicht.
      */
-    public LootView(List<Card> lootCards, int gold, PotionCard potionCard, LootViewEvents lootViewEvents) {
+    public LootView(List<Card> lootCards, int gold, String playerImagePath, PotionCard potionCard, LootViewEvents lootViewEvents) {
         this(lootCards, gold, lootViewEvents);
+        this.playerImagePath = playerImagePath;
         this.potionCard = potionCard;
         this.cardSelectionPopup = new Popup();
         display();
@@ -69,29 +74,36 @@ public class LootView extends StackPane {
      * Initialisiert die View.
      */
     public void display() {
-        getChildren().add(lootLayout);
-        getChildren().add(bottomLayout);
-
-        setBackground(new Background(GuiHelper.background("/images/backgrounds/LootViewBG.jpeg")));
+        getChildren().add(this.backgroundLayout);
+        getChildren().add(this.lootLayout);
+        getChildren().add(this.bottomLayout);
+        initBackgroundLayout();
         initLootLayout();
         initBottomLayout();
+    }
 
+    private void initBackgroundLayout() {
+        this.backgroundLayout.setPickOnBounds(false);
+        PlayerLayout playerLayout = new PlayerLayout(this.playerImagePath);
+        setBackground(new Background(GuiHelper.background("/images/act1.png")));
+
+        this.backgroundLayout.setCenter(playerLayout);
     }
 
     /**
      * Initialisiert das Layout der Loot-Ansicht.
      */
     private void initLootLayout() {
-        lootLayout.setPickOnBounds(false);
-        initTop();
+        this.lootLayout.setPickOnBounds(false);
         initCenter();
+        initTop();
     }
 
     /**
      * Initialisiert das untere Layout der Loot-Ansicht.
      */
     private void initBottomLayout() {
-        bottomLayout.setPickOnBounds(false);
+        this.bottomLayout.setPickOnBounds(false);
         initBottom();
     }
 
@@ -99,26 +111,31 @@ public class LootView extends StackPane {
      * Initialisiert das zentrale Layout der Loot-Ansicht.
      */
     private void initCenter(){
+        Image img = new Image(getClass().getResource("/images/panel/rewardPanel.png").toExternalForm());
+        ImageView imageView = new ImageView(img);
+        imageView.setTranslateX(650);
+
         // Card Options
-        centerVBox = new VBox();
-        centerVBox.setSpacing(10);
-        centerVBox.setAlignment(Pos.TOP_CENTER);
-        centerVBox.setMaxWidth(100);
+        this.centerVBox = new VBox();
+        this.centerVBox.setSpacing(10);
+        this.centerVBox.setAlignment(Pos.TOP_CENTER);
+        this.centerVBox.setMaxWidth(100);
 
         // Gold Option
         StackPane goldStackPane = getGoldStackPane();
-        centerVBox.getChildren().add(goldStackPane);
+        this.centerVBox.getChildren().add(goldStackPane);
 
         // Potion Option
         if (this.potionCard != null) {
             StackPane getPotionStackPane = getPotionStackPane();
-            centerVBox.getChildren().add(getPotionStackPane);
+            this.centerVBox.getChildren().add(getPotionStackPane);
         }
 
         // Card Selection Option
         setCardSelectionLayout();
 
-        lootLayout.setCenter(centerVBox);
+        this.lootLayout.getChildren().add(imageView);
+        this.lootLayout.setCenter(centerVBox);
     }
 
 
