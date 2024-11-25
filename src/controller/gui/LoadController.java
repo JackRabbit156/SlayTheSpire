@@ -74,13 +74,12 @@ public class LoadController implements LoadEventListener {
 
         String playerTypeAsString = gameData.get("character");
         switch (playerTypeAsString){
-            case "IRONCLAD": player = new IroncladPlayer(); break;
-            case "SILENT": player = new SilentPlayer(); break;
+            case "IRONCLAD": player = new IroncladPlayer(primaryStage); break;
+            case "SILENT": player = new SilentPlayer(primaryStage); break;
             default:
                 System.out.println("Weird...");return;
         }
 
-        player.setUsername(gameData.get("username"));
         player.setCurrentHealth(Integer.parseInt(gameData.get("currentHealth")));
 
         player.setCurrentAct(Integer.parseInt(gameData.get("currentAct")));
@@ -98,9 +97,7 @@ public class LoadController implements LoadEventListener {
 
         player.setDeck(deck);
 
-        GameSettings.setTimerSeconds(Integer.parseInt(gameData.get("seconds")));
-        GameSettings.setTimerMinutes(Integer.parseInt(gameData.get("minutes")));
-        GameSettings.setTimerHours(Integer.parseInt(gameData.get("hours")));
+
 
         String difficulty = gameData.get("difficulty");
 
@@ -114,13 +111,15 @@ public class LoadController implements LoadEventListener {
 
         GameSettings.lastSession = gameData.get("lastSession");
 
-        player.setPrimaryStage(primaryStage);
-
         //MapViewController map = new MapViewController(player, true);
         GuiHelper.Scenes.startMapScene(player);
+
+        GameSettings.restartTimer();
+
+        GameSettings.setTimerSeconds(Integer.parseInt(gameData.get("seconds")));
+        GameSettings.setTimerMinutes(Integer.parseInt(gameData.get("minutes")));
+        GameSettings.setTimerHours(Integer.parseInt(gameData.get("hours")));
     }
-
-
 
     /**
      * Gibt eine Liste der Vorschau-Daten für die Speicherdateien zurück.

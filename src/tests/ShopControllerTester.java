@@ -20,10 +20,10 @@ public class ShopControllerTester extends Application {
     @Override
     public void start(Stage primaryStage) {
 //        IroncladPlayer player = new IroncladPlayer();
-        TestPlayer player = new TestPlayer();
+        TestPlayer player = new TestPlayer(primaryStage);
 //        player.setGold(500);
         GameSettings.setDifficultyLevel(DifficultyLevel.HARD);
-        player.setPrimaryStage(primaryStage);
+
         GuiHelper.Scenes.startShopScene(player);
     }
 }

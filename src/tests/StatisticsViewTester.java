@@ -17,8 +17,8 @@ public class StatisticsViewTester extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        TestPlayer player = new TestPlayer();
-        player.setPrimaryStage(primaryStage);
+        TestPlayer player = new TestPlayer(primaryStage);
+
         GuiHelper.Scenes.startTreasureScene(player);
     }
 }

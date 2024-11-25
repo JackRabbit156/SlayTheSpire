@@ -45,7 +45,6 @@ public abstract class Player {
 
     private String currentField;
 
-    private String symbol;
 
     private PlayerType playerType;
 
@@ -60,9 +59,9 @@ public abstract class Player {
      * @param maxHealth Die maximale Gesundheit des Spielers.
      * @param maxEnergy Die maximale Energie des Spielers.
      * @param playerType Der Typ des Spielers.
-     * @param symbol Das Symbol, das den Spieler darstellt.
+     * @param primaryStage die aktuelle Stage
      */
-    public Player(String name, int maxHealth, int maxEnergy, PlayerType playerType, String symbol) {
+    public Player(String name, int maxHealth, int maxEnergy, PlayerType playerType, Stage primaryStage) {
         this.name = name;
         this.maxHealth = maxHealth;
         this.maxEnergy = maxEnergy;
@@ -72,7 +71,7 @@ public abstract class Player {
         this.currentAct = 1;
         this.currentField = "0";
         this.playerType = playerType;
-        this.symbol = symbol;
+        this.primaryStage = primaryStage;
         this.potionCards = new ArrayList<>();
         playerEventListener = null;
     }
@@ -304,10 +303,6 @@ public abstract class Player {
 
     public void setRelic(Relic relic) {
         this.relic = relic;
-    }
-
-    public String getSymbol() {
-        return symbol;
     }
 
     public void setCurrentAct(int currentAct){

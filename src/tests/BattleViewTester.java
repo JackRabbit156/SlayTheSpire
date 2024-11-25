@@ -32,8 +32,7 @@ public class BattleViewTester extends Application {
     public static void main(String[] args) { launch(args); }
     @Override
     public void start(Stage primaryStage) {
-        TestPlayer player = new TestPlayer();
-        player.setPrimaryStage(primaryStage);
+        TestPlayer player = new TestPlayer(primaryStage);
 
         GuiHelper.Scenes.startBattleScene(player, generateEnemiesActOne(), FieldEnum.ENEMYFIELD);
     }
