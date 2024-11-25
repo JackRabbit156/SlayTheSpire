@@ -15,8 +15,7 @@ import models.potion.EnergyPotion;
 public class Main extends Application {
     @Override
     public void start(Stage primaryStage) {
-        IroncladPlayer player = new IroncladPlayer();
-        player.setPrimaryStage(primaryStage);
+        IroncladPlayer player = new IroncladPlayer(primaryStage);
 
         player.addPotionCard(new EnergyPotion());
         player.addPotionCard(new BloodPotion());

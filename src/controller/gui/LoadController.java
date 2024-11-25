@@ -74,8 +74,8 @@ public class LoadController implements LoadEventListener {
 
         String playerTypeAsString = gameData.get("character");
         switch (playerTypeAsString){
-            case "IRONCLAD": player = new IroncladPlayer(); break;
-            case "SILENT": player = new SilentPlayer(); break;
+            case "IRONCLAD": player = new IroncladPlayer(primaryStage); break;
+            case "SILENT": player = new SilentPlayer(primaryStage); break;
             default:
                 System.out.println("Weird...");return;
         }
@@ -114,13 +114,10 @@ public class LoadController implements LoadEventListener {
 
         GameSettings.lastSession = gameData.get("lastSession");
 
-        player.setPrimaryStage(primaryStage);
-
         //MapViewController map = new MapViewController(player, true);
         GuiHelper.Scenes.startMapScene(player);
+        GameSettings.restartTimer();
     }
-
-
 
     /**
      * Gibt eine Liste der Vorschau-Daten für die Speicherdateien zurück.

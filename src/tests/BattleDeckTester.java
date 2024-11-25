@@ -7,7 +7,7 @@ import models.player.player_structure.Player;
  */
 public class BattleDeckTester {
     public static void main(String[] args) {
-        Player player = new TestPlayer();
+        Player player = new TestPlayer(null);
 
         BattleDeck battleDeck = new BattleDeck(player.getDeck());
 

@@ -2,6 +2,7 @@ package models.player;
 
 
 import helper.PathAssistent;
+import javafx.stage.Stage;
 import models.card.card_structure.Card;
 import models.card.ironclad_cards.IroncladDefendCard;
 import models.card.ironclad_cards.IroncladStrikeCard;
@@ -19,8 +20,8 @@ import java.util.List;
 
 public class SilentPlayer extends Player {
     // * Constructor *
-    public SilentPlayer() {
-        super("Silent", 70, 3, PlayerType.SILENT, "⚖");
+    public SilentPlayer(Stage primaryStage) {
+        super("Silent", 70, 3, PlayerType.SILENT, primaryStage);
         setImagePath(new PathAssistent().toPath(this));
         initRelic();
         initDeck();
