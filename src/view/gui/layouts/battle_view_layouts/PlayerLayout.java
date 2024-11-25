@@ -57,8 +57,8 @@ public class PlayerLayout extends VBox {
         Image figureImage = new Image(getClass().getResource(player.getImagePath()).toExternalForm());
         ImageView imageViewFigure = new ImageView(figureImage);
 
-        imageViewFigure.setFitWidth(350); // Breite in Pixel
-        imageViewFigure.setFitHeight(350); // Höhe in Pixel
+//        imageViewFigure.setFitWidth(350); // Breite in Pixel
+//        imageViewFigure.setFitHeight(350); // Höhe in Pixel
         imageViewFigure.setPreserveRatio(true);
         //handBox = new Pane( imageViewIronclad);
         imageViewFigure.setStyle("-fx-background-color: #926099;");

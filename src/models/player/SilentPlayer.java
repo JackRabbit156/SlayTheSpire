@@ -5,6 +5,8 @@ import helper.PathAssistent;
 import models.card.card_structure.Card;
 import models.card.ironclad_cards.IroncladDefendCard;
 import models.card.ironclad_cards.IroncladStrikeCard;
+import models.card.silent_cards.SilentDefendCard;
+import models.card.silent_cards.SilentStrikeCard;
 import models.card.silent_cards.attack.common.NeutralizeCard;
 import models.card.silent_cards.skill.common.SurvivorCard;
 import models.player.player_structure.Player;
@@ -35,10 +37,10 @@ public class SilentPlayer extends Player {
     protected void initDeck() {
         List<Card> deck = new ArrayList<>();
         for (int i = 0; i < 5; i++)
-            deck.add(new IroncladStrikeCard());
+            deck.add(new SilentStrikeCard());
 
         for (int i = 0; i < 5; i++)
-            deck.add(new IroncladDefendCard());
+            deck.add(new SilentDefendCard());
 
         deck.add(new SurvivorCard());
 

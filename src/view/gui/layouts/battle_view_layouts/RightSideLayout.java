@@ -14,13 +14,11 @@ public class RightSideLayout extends HBox {
     private BattleView battleView;
 
     public RightSideLayout(BattleView battleView, List<Enemy> enemies) {
-        setSpacing(-150);
+        setSpacing(-50);
         this.battleView = battleView;
         this.enemies = enemies;
 
-        for(int i = 0; i< enemies.size(); i++){
-            Enemy enemy = enemies.get(i);
-
+        for (Enemy enemy : enemies) {
             enemyLayout.add(new EnemyLayout(enemy, battleView));
         }
 
