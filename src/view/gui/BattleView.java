@@ -70,8 +70,6 @@ public class BattleView extends BorderPane implements BattleDeckListener {
         this.battleDeck = battleDeck;
         this.battleDeck.setBattleDeckListener(this);
 
-
-
         setBackground(new Background(GuiHelper.background("/images/act1.png")));
         initNodes();
     }
