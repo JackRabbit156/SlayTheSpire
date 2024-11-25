@@ -374,6 +374,9 @@ public class TreasureView extends StackPane {
         this.cardSelectionButtonStackPane.setDisable(true);
     }
 
+    /**
+     * Event-Handler für Klicks auf die Schatzkiste. Öffnet das TreasureLayout und fügt den Zurück Button hinzu.
+     */
     public void onTreasureClick() {
         initTreasureLayout();
         initBackLayout();

@@ -328,10 +328,27 @@ public class GuiHelper {
         });
     }
 
+    /**
+     * Erstellt ein StackPane mit einem ImageView und einem Label.
+     *
+     * @param imgView Das ImageView, das im StackPane angezeigt werden soll.
+     * @param label Das Label, das im StackPane angezeigt werden soll.
+     * @param scale Der Skalierungsfaktor für die Breite und Höhe des ImageView.
+     * @return Ein StackPane, das das ImageView und das Label enthält.
+     */
     public static StackPane addButtonStackPane(ImageView imgView, Label label, double scale) {
         return addButtonStackPane(imgView, label, scale, scale);
     }
 
+    /**
+     * Erstellt ein StackPane mit einem ImageView und einem Label.
+     *
+     * @param imgView Das ImageView, das im StackPane angezeigt werden soll.
+     * @param label Das Label, das im StackPane angezeigt werden soll.
+     * @param scaleX Der Skalierungsfaktor für die Breite des ImageView.
+     * @param scaleY Der Skalierungsfaktor für die Höhe des ImageView.
+     * @return Ein StackPane, das das ImageView und das Label enthält.
+     */
     public static StackPane addButtonStackPane(ImageView imgView, Label label, double scaleX, double scaleY) {
         StackPane btnStackPane = new StackPane(imgView);
 
@@ -342,7 +359,7 @@ public class GuiHelper {
 
         label.setStyle("-fx-font-size: 24; -fx-font-family: Kreon;");
         //DEBUGGER
-//        btnStackPane.setBackground(new Background(new BackgroundFill(Paint.valueOf("Purple"), null, null)));
+//    btnStackPane.setBackground(new Background(new BackgroundFill(Paint.valueOf("Purple"), null, null)));
         btnStackPane.getChildren().add(label);
         btnStackPane.setMaxHeight(100);
 
