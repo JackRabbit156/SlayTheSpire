@@ -2,6 +2,7 @@ package models.event;
 
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
+import models.player.player_structure.Player;
 
 /** Abstrakte Klasse für die Erstellung eines Events
  * @author Loeschner, Marijan
@@ -38,7 +39,7 @@ public abstract class Event {
         return this.title = title;
     }
 
-    public Button getButton1() {
+    public Button getButton1(Player player) {
         return button1;
     }
 
@@ -46,7 +47,7 @@ public abstract class Event {
         this.button1 = button1;
     }
 
-    public Button getButton2() {
+    public Button getButton2(Player player) {
         return button2;
     }
 
@@ -54,7 +55,7 @@ public abstract class Event {
         this.button2 = button2;
     }
 
-    public Button getButton3() {
+    public Button getButton3(Player player) {
         return button3;
     }
 

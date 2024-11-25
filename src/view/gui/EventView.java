@@ -7,15 +7,16 @@ import javafx.geometry.VPos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.effect.DropShadow;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.ArcTo;
+import javafx.scene.shape.Circle;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import models.event.Event;
-import models.event.act_one.BigFish;
+import models.player.player_structure.Player;
 
 public class EventView {
 
@@ -31,16 +32,17 @@ public class EventView {
     Font labelFont = Font.loadFont(getClass().getResourceAsStream("/font/kreon/static/Kreon-Bold.ttf"), 44);
     Text story = new Text();
     Font textFont = Font.loadFont(getClass().getResourceAsStream("/font/kreon/static/Kreon-Bold.ttf"), 30);
-    Button option1 = new Button();
-    Button option2 = new Button();
-    Button option3 = new Button();
+    Button option1;
+    Button option2;
+    Button option3;
     Button leave = new Button("\t[Leave]");
     Background buttonBG = new Background(GuiHelper.background("/images/event/event_layout/disabledButton.png"));
     Background buttonHighlight = new Background(GuiHelper.background("/images/event/event_layout/enabledButton.png"));
     Event event;
+    Player player;
 
 
-    public EventView(Event event){
+    public EventView(Event event, Player player){
         leftBox.getChildren().clear();
         rightBox.getChildren().clear();
         displayBox.getChildren().clear();
@@ -49,9 +51,9 @@ public class EventView {
         this.event = event;
         this.label.setText(event.getTitle());
         this.story.setText(event.getStory());
-        this.option1 = event.getButton1();
-        this.option2 = event.getButton2();
-        this.option3 = event.getButton3();
+        this.option1 = event.getButton1(player);
+        this.option2 = event.getButton2(player);
+        this.option3 = event.getButton3(player);
 
         layoutPane.setBackground(paneBG);
         displayBox.setBackground(eventBG);
@@ -62,7 +64,7 @@ public class EventView {
 
         img.setScaleX(0.8);
         img.setScaleY(0.8);
-        img.setX(100.0);
+        img.setEffect(dr);
         leftBox.setAlignment(Pos.CENTER_LEFT);
         leftBox.getChildren().addAll(label, img);
         rightBox.setAlignment(Pos.CENTER_RIGHT);
@@ -90,6 +92,25 @@ public class EventView {
         option1.setAlignment(Pos.BASELINE_LEFT);
         option1.setTextFill(Color.WHITE);
         option1.setBackground(buttonBG);
+        option1.setOnMouseEntered(event1 -> {
+            option1.setBackground(buttonHighlight);
+        });
+        option1.setOnMouseExited(event1 -> {
+            option1.setBackground(buttonBG);
+        });
+        option1.setOnMousePressed(event1 -> {
+            option1.setBackground(buttonBG);
+            option1.setScaleX(option1.getScaleX() * 0.99);
+            option1.setScaleY(option1.getScaleY() * 0.9);
+        });
+        option1.setOnMouseReleased(event1 -> {
+            option1.setBackground(buttonHighlight);
+            option1.setScaleX(option1.getScaleX() * 1.01);
+            option1.setScaleY(option1.getScaleY() * 1.1);
+        });
+        option1.setOnMouseClicked(event1 -> {
+            rightBox.getChildren().removeAll(option1, option2, option3);
+        });
 
         option2.setPrefSize(1200, 100);
         option2.setScaleX(0.8);
@@ -98,6 +119,25 @@ public class EventView {
         option2.setAlignment(Pos.BASELINE_LEFT);
         option2.setTextFill(Color.WHITE);
         option2.setBackground(buttonBG);
+        option2.setOnMouseEntered(event1 -> {
+            option2.setBackground(buttonHighlight);
+        });
+        option2.setOnMouseExited(event1 -> {
+            option2.setBackground(buttonBG);
+        });
+        option2.setOnMousePressed(event1 -> {
+            option2.setBackground(buttonBG);
+            option2.setScaleX(option2.getScaleX() * 0.99);
+            option2.setScaleY(option2.getScaleY() * 0.9);
+        });
+        option2.setOnMouseReleased(event1 -> {
+            option2.setBackground(buttonHighlight);
+            option2.setScaleX(option2.getScaleX() * 1.01);
+            option2.setScaleY(option2.getScaleY() * 1.1);
+        });
+        option2.setOnMouseClicked(event1 -> {
+            rightBox.getChildren().removeAll(option1, option2, option3);
+        });
 
         option3.setPrefSize(1200, 100);
         option3.setScaleX(0.8);
@@ -106,6 +146,25 @@ public class EventView {
         option3.setAlignment(Pos.BASELINE_LEFT);
         option3.setTextFill(Color.WHITE);
         option3.setBackground(buttonBG);
+        option3.setOnMouseEntered(event1 -> {
+            option3.setBackground(buttonHighlight);
+        });
+        option3.setOnMouseExited(event1 -> {
+            option3.setBackground(buttonBG);
+        });
+        option3.setOnMousePressed(event1 -> {
+            option3.setBackground(buttonBG);
+            option3.setScaleX(option3.getScaleX() * 0.99);
+            option3.setScaleY(option3.getScaleY() * 0.9);
+        });
+        option3.setOnMouseReleased(event1 -> {
+            option3.setBackground(buttonHighlight);
+            option3.setScaleX(option3.getScaleX() * 1.01);
+            option3.setScaleY(option3.getScaleY() * 1.1);
+        });
+        option3.setOnMouseClicked(event1 -> {
+            rightBox.getChildren().removeAll(option1, option2, option3);
+        });
 
         leave.setPrefSize(1200, 100);
         leave.setScaleX(0.8);
@@ -114,12 +173,41 @@ public class EventView {
         leave.setAlignment(Pos.BASELINE_LEFT);
         leave.setTextFill(Color.WHITE);
         leave.setBackground(buttonBG);
+        leave.setOnMouseEntered(event1 -> {
+            leave.setBackground(buttonHighlight);
+        });
+        leave.setOnMousePressed(event1 -> {
+            leave.setBackground(buttonBG);
+            leave.setScaleX(leave.getScaleX() * 0.99);
+            leave.setScaleY(leave.getScaleY() * 0.9);
+        });
+        leave.setOnMouseReleased(event1 -> {
+            leave.setBackground(buttonHighlight);
+            leave.setScaleX(leave.getScaleX() * 1.01);
+            leave.setScaleY(leave.getScaleY() * 1.1);
+        });
+        leave.setOnMouseExited(event1 -> {
+            leave.setBackground(buttonBG);
+        });
+    }
+
+    public Button getOption1() {
+        return option1;
+    }
+
+    public Button getOption2() {
+        return option2;
+    }
+
+    public Button getOption3() {
+        return option3;
     }
 
     public BorderPane display() {
         initStyle();
 
-        rightBox.getChildren().addAll(story, option1, option2, option3);
+        rightBox.getChildren().add(story);
+        rightBox.getChildren().addAll(option1, option2, option3);
         rightBox.getChildren().add(leave);
 
         return layoutPane;

@@ -19,9 +19,9 @@ public class BigFish extends Event{
     private String story = "\n\nAs you make your way down a long corridor you see a banana, a donut, and a box floating about. \n" +
             "No... upon closer inspection they are tied to strings coming from holes in the ceiling.\n " +
             "There is a quiet cackling from above as you approach the objects.\n";
-    private Button banana = new Button("\t[Banana]");
-    private Button donut = new Button("\t[Donut]");
-    private Button box = new Button("\t[Box]");
+    private Button banana = new Button("\t[Banana] Heal 1/3 of your max HP.");
+    private Button donut = new Button("\t[Donut] Max HP +5.");
+    private Button box = new Button("\t[Box] We don't have a relic, stop looking!");
 
     public BigFish() {
         super();
@@ -40,16 +40,22 @@ public class BigFish extends Event{
         return image;
     }
 
-    public Button getButton1(){
+    public Button getButton1(Player player){
+        banana.setOnMouseClicked(event -> {
+            player.increaseCurrentHealth(player.getMaxHealth() / 3);
+        });
         return banana;
     }
 
-    public Button getButton2(){
+    public Button getButton2(Player player){
+        banana.setOnMouseClicked(event -> {
+            player.increaseMaxHealth(5);
+        });
         return donut;
     }
 
     @Override
-    public Button getButton3() {
+    public Button getButton3(Player player) {
         return box;
     }
 }

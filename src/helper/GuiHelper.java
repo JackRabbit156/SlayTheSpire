@@ -79,12 +79,13 @@ public class GuiHelper {
         /**
          * Startet die Kampf-Szene (Battle Scene), in der der Spieler gegen eine Liste von Gegnern kämpfen kann.
          *
-         * @param primaryStage die Stage die Übergeben wird
+         * @param player die Stage die Übergeben wird
          */
-        public static void startEventScene(Stage primaryStage) {
+        public static void startEventScene(Player player) {
             EventController cc = new EventController();
+            Stage primaryStage = player.getPrimaryStage();
             String cssPath = "/css/eventStyle.css";
-            fadeTransition(primaryStage, cc.getEventView(primaryStage), cssPath);
+            fadeTransition(primaryStage, cc.getEventView(player), cssPath);
         }
 
         /**
