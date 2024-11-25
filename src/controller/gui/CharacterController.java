@@ -3,6 +3,7 @@ package controller.gui;
 import helper.GuiHelper;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+import models.game_settings.GameSettings;
 import models.player.IroncladPlayer;
 import models.player.SilentPlayer;
 import models.player.player_structure.Player;
@@ -25,12 +26,14 @@ public class CharacterController {
             if(cv.getIc().isSelected()) {
                 player = new IroncladPlayer();
                 player.setPrimaryStage(charStage);
-                GuiHelper.Scenes.startMapScene(player, false);
+                GuiHelper.Scenes.startMapScene(player);
+                GameSettings.startTimer();
             }
             else if(cv.getSl().isSelected()){
                 player = new SilentPlayer();
                 player.setPrimaryStage(charStage);
-                GuiHelper.Scenes.startMapScene(player, false);
+                GuiHelper.Scenes.startMapScene(player);
+                GameSettings.startTimer();
             }
         });
 

@@ -161,7 +161,7 @@ public class CharacterView {
         sl.setSelected(false);
 
         head.setText("\nThe Ironclad");
-        hp.setText("\nHP: 80/80");
+        hp.setText("\nHP: 80/80    \t \t");
         text.setText(" \n\tThe remaining soldier of the Ironclads.\n\tSold his soul to harness demonic energies.");
         infoBox.setBackground(Background.EMPTY);
         infoBox.setAlignment(Pos.BASELINE_RIGHT);
@@ -176,7 +176,7 @@ public class CharacterView {
         ic.setSelected(false);
 
         head.setText("\nThe Silent");
-        hp.setText("\nHP: 70/70");
+        hp.setText("\nHP: 70/70   \t \t");
         text.setText(" \n\tA deadly huntress from the foglands. \n\tEradicates foes with daggers and poisons.");
         infoBox.setBackground(Background.EMPTY);
         infoBox.setAlignment(Pos.BASELINE_RIGHT);
