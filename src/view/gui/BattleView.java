@@ -29,7 +29,7 @@ import java.util.List;
  */
 public class BattleView extends BorderPane implements BattleDeckListener {
     public enum Mode {
-        NORMAL, ATTACK, SKILL
+        NORMAL, ATTACK, SKILL, POWER
     }
     public SimpleObjectProperty<Mode> modeProperty() {
         return mode;
@@ -136,6 +136,10 @@ public class BattleView extends BorderPane implements BattleDeckListener {
         }
         else if (card.getCardType() == CardType.SKILL) {
             mode.set(Mode.SKILL);
+            selectPlayerView();
+        }
+        else if (card.getCardType() == CardType.POWER) {
+            mode.set(Mode.POWER);
             selectPlayerView();
         }
 
