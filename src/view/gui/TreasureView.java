@@ -36,14 +36,12 @@ public class TreasureView extends StackPane {
 
     private Popup popup;
     private VBox centerVBox;
-    private VBox topVBox;
     private Popup cardSelectionPopup;
     private double PANEL_SCALE = 0.7;
 
     private BorderPane entryLayout;
     private BorderPane backLayout;
     private BorderPane treasureLayout;
-    private BorderPane bottomLayout;
     private boolean cardSelectionDisabled;
     private StackPane cardSelectionButtonStackPane;
 
@@ -56,8 +54,7 @@ public class TreasureView extends StackPane {
      * @param treasureViewEvents   Die Ereignisse der Schatz-Ansicht.
      */
     public TreasureView(List<Card> cardList, int gold,String playerImagePath, TreasureViewEvents treasureViewEvents) {
-//        this.treasureLayout = new BorderPane();
-//        this.bottomLayout = new BorderPane();
+        this.treasureLayout = new BorderPane();
         this.entryLayout = new BorderPane();
         this.backLayout = new BorderPane();
 
@@ -87,37 +84,40 @@ public class TreasureView extends StackPane {
      * Initialisiert die View und zeigt die Schatz-Ansicht an.
      */
     public void display() {
-        this.getChildren().add(this.backLayout);
-        this.getChildren().add(this.entryLayout);
+        this.getChildren().addAll(this.entryLayout, this.treasureLayout, this.backLayout);
 
+        this.entryLayout.setPickOnBounds(false);
+        this.backLayout.setPickOnBounds(false);
+        this.treasureLayout.setPickOnBounds(false);
+
+        this.setBackground(new Background(GuiHelper.background("/images/act1.png")));
         initEntryLayout();
-        initBackLayout();
 //        initTreasureLayout();
 //        setBackground(new Background(GuiHelper.background("/images/backgrounds/TreasureViewBG.jpeg")));
-        this.setBackground(new Background(GuiHelper.background("/images/act1.png")));
     }
 
     private void initBackLayout() {
-        this.backLayout.setPickOnBounds(false);
-
-        BackLayout backLayer = new BackLayout(this);
-        backLayout.setBottom(backLayer);
+        BackLayout back = new BackLayout(this);
+        HBox buttonZone = new HBox(back);
+        buttonZone.setAlignment(Pos.TOP_LEFT);
+        buttonZone.setPadding(new Insets(50,50,50,50));
+        this.backLayout.setBottom(buttonZone);
     }
 
     /**
      * Initialisiert das Layout beim Eintritt in das Encounter.
      */
     private void initEntryLayout() {
-        EntryLayout entryLayout = new EntryLayout(this, playerImagePath);
-        this.entryLayout.setPickOnBounds(false);
-        this.entryLayout.setCenter(entryLayout);
+        EntryLayout entry = new EntryLayout(this, playerImagePath);
+//        this.entryLayout.setMouseTransparent(true);
+        this.entryLayout.setCenter(entry);
+
     }
 
     /**
      * Initialisiert das Layout des Schatzes.
      */
     private void initTreasureLayout() {
-        this.treasureLayout.setPickOnBounds(false);
         treasureTitleLayout();
         treasureCenterLayer();
     }
@@ -127,10 +127,9 @@ public class TreasureView extends StackPane {
      */
     private void treasureCenterLayer() {
         centerVBox = new VBox();
-        centerVBox.setTranslateX(65);
-        centerVBox.setTranslateY(190);
-        centerVBox.setSpacing(-20);
+        centerVBox.setPadding(new Insets(15,0,0,0));
         centerVBox.setAlignment(Pos.TOP_CENTER);
+        centerVBox.setMaxWidth(100);
 
         // Gold Option
         StackPane goldStackPane = getGoldStackPane();
@@ -292,17 +291,17 @@ public class TreasureView extends StackPane {
      * Initialisiert das obere Layout der Schatz-Ansicht.
      */
     private void treasureTitleLayout() {
-        this.topVBox = new VBox();
+        VBox topVBox = new VBox();
         Label label = new Label();
         label.setText("Loot");
         label.setId("title");
         label.setTextFill(Paint.valueOf("White"));
-        label.setStyle("-fx-font-size: 56px;");
+        label.setStyle("-fx-font-size: 56px; -fx-font-family: Kreon;");
 
-        this.topVBox.getChildren().add(label);
-        this.topVBox.setAlignment(Pos.BOTTOM_CENTER);
-        this.topVBox.setPrefHeight(200);
-        this.treasureLayout.setTop(this.topVBox);
+        topVBox.getChildren().add(label);
+        topVBox.setAlignment(Pos.BOTTOM_CENTER);
+        topVBox.setPrefHeight(200);
+        this.treasureLayout.setTop(topVBox);
     }
 
     public void onBackClick() {
@@ -376,7 +375,8 @@ public class TreasureView extends StackPane {
     }
 
     public void onTreasureClick() {
-
+        initTreasureLayout();
+        initBackLayout();
     }
 }
 

@@ -334,8 +334,11 @@ public class GuiHelper {
 
     public static StackPane addButtonStackPane(ImageView imgView, Label label, double scaleX, double scaleY) {
         StackPane btnStackPane = new StackPane(imgView);
-        imgView.setScaleX(scaleX);
-        imgView.setScaleY(scaleY);
+
+        imgView.setFitHeight(Math.sqrt(imgView.getImage().getHeight()) * scaleY);
+        imgView.setFitWidth(Math.sqrt(imgView.getImage().getWidth()) * scaleX);
+
+        btnStackPane.setMaxSize(imgView.getFitWidth(), imgView.getFitHeight());
 
         label.setStyle("-fx-font-size: 24; -fx-font-family: Kreon;");
         //DEBUGGER

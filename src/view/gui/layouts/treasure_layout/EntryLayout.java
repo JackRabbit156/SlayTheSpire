@@ -10,19 +10,19 @@ import view.gui.TreasureView;
 
 public class EntryLayout extends HBox {
     private String playerImagePath;
-    private TreasureView treasureView;
+    private TreasureView parentView;
+    private VBox vTreasure;
     private Image treasureImg;
     private ImageView treasureImgView;
 
-    public EntryLayout(TreasureView treasureView, String playerImagePath) {
-        this.treasureView = treasureView;
+    public EntryLayout(TreasureView parentView, String playerImagePath) {
+        this.parentView = parentView;
         this.playerImagePath = playerImagePath;
-        setPickOnBounds(false);
+        this.setTreasureImageView(false);
         init();
     }
 
     public void init() {
-        setTreasureImageView(false);
         initLeft();
         initRight();
     }
@@ -38,11 +38,11 @@ public class EntryLayout extends HBox {
     }
 
     private void initRight() {
-        VBox vTreasure = new VBox();
-        HBox.setHgrow(vTreasure, Priority.ALWAYS);
-        vTreasure.setAlignment(Pos.CENTER);
-        vTreasure.setTranslateY(50);
-        vTreasure.setTranslateX(-150);
+        this.vTreasure = new VBox();
+        HBox.setHgrow(this.vTreasure, Priority.ALWAYS);
+        this.vTreasure.setAlignment(Pos.CENTER);
+        this.vTreasure.setTranslateY(50);
+        this.vTreasure.setTranslateX(-150);
 
         this.treasureImgView.setOnMouseClicked(event -> {
             ConsoleAssistent.println(Color.YELLOW, "Clicked on Treasure");
@@ -50,9 +50,8 @@ public class EntryLayout extends HBox {
             onTreasureClick();
             this.treasureImgView.setDisable(true);
         });
-
-        vTreasure.getChildren().add(this.treasureImgView);
-        getChildren().add(vTreasure);
+        this.vTreasure.getChildren().add(this.treasureImgView);
+        getChildren().add(this.vTreasure);
     }
 
     private ImageView getPlayerImageView() {
@@ -72,7 +71,8 @@ public class EntryLayout extends HBox {
     }
 
     private void onTreasureClick(){
-        this.treasureView.onTreasureClick();
-        initRight();
+        getChildren().remove(0,2);
+        init();
+        this.parentView.onTreasureClick();
     }
 }
