@@ -1,23 +1,8 @@
 
-.label-outline {
-    -fx-border-style: solid;
-    -fx-border-width: 2;
-    -fx-border-color: #666; /* adjust the color to your liking */
+.label {
+    -fx-font-family: Arial;
+    -fx-font-size: 30px;
+    -fx-font-weight: bold;
 }
 
-.button {
-    -fx-font-size: 20px;
-    -fx-letter-spacing: 2px;
-    -fx-text-transform: uppercase;
-    -fx-padding: 0.7em 2em;
-    -fx-background-radius: 0px; /* Abrundung */
-    -fx-background-color: transparent; /* Hintergrundfarbe */
-    -fx-text-fill: #FFFFFF; /* Textfarbe */
-    -fx-font-weight: bold;
-    -fx-cursor: hand; /* Handcursor */
-    -fx-transition: all 0.3s ease;
-    -fx-background-insets: 0;
-    -fx-padding-left: 100px; /* Standard-Padding setzen */
-    -fx-min-width: 100px; /* Mindestens 100px Breite */
-}
 

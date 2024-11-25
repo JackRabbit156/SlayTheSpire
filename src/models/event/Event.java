@@ -1,41 +1,64 @@
 package models.event;
 
+import javafx.scene.control.Button;
+import javafx.scene.image.Image;
+
 /** Abstrakte Klasse für die Erstellung eines Events
- * @author Keil, Vladislav
+ * @author Loeschner, Marijan
  */
 public abstract class Event {
-   /* private String story;
     private String title;
-    private String imagePath;
+    private String story;
+    private Image image;
+    private Button button1;
+    private Button button2;
+    private Button button3;
 
-    public Event(String story, String title) {
-        this.story = story;
-        this.title = title;
+    public Event(){
+
     }
 
-    public abstract void startEvent();
-
-    public void setImagePath(String imagePath){
-        this.imagePath = imagePath;
+    public Image getImage() {
+        return image;
     }
 
-    public String getImagePath() {
-        return imagePath;
+    public void setImage(Image image) {
+        this.image = image;
     }
 
     public String getStory() {
         return story;
     }
 
-    public void setStory(String story) {
-        this.story = story;
-    }
-
     public String getTitle() {
         return title;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
-    }*/
+    public String setTitle(String title) {
+        return this.title = title;
+    }
+
+    public Button getButton1() {
+        return button1;
+    }
+
+    public void setButton1(Button button1) {
+        this.button1 = button1;
+    }
+
+    public Button getButton2() {
+        return button2;
+    }
+
+    public void setButton2(Button button2) {
+        this.button2 = button2;
+    }
+
+    public Button getButton3() {
+        return button3;
+    }
+
+    public void setButton3(Button button3) {
+        this.button3 = button3;
+    }
 }

@@ -83,8 +83,8 @@ public class GuiHelper {
          */
         public static void startEventScene(Stage primaryStage) {
             EventController cc = new EventController();
-            String cssPath = "/css/eventStyle";
-            fadeTransition(primaryStage, cc.getEvent(primaryStage), cssPath);
+            String cssPath = "/css/eventStyle.css";
+            fadeTransition(primaryStage, cc.getEventView(primaryStage), cssPath);
         }
 
         /**
