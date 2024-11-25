@@ -69,11 +69,11 @@ public class GameMenuLayer extends BorderPane {
         Button backButton = new Button("Back");
         Button exitButton = new Button("Exit");
 
-        assingButtonDesign(loadGameButton);
-        assingButtonDesign(saveGameButton);
-        assingButtonDesign(mainMenuButton);
-        assingButtonDesign(backButton);
-        assingButtonDesign(exitButton);
+        assignButtonDesign(loadGameButton);
+        assignButtonDesign(saveGameButton);
+        assignButtonDesign(mainMenuButton);
+        assignButtonDesign(backButton);
+        assignButtonDesign(exitButton);
 
         loadGameButton.setOnAction(event -> mapView.clickedOnLoadButton());
         saveGameButton.setOnAction(event -> mapView.clickedOnSaveButton());
@@ -90,7 +90,7 @@ public class GameMenuLayer extends BorderPane {
         setCenter(menuItems);
     }
 
-    private void assingButtonDesign(Button button){
+    private void assignButtonDesign(Button button){
         String highlightPath = "/images/buttons/menu_highlight.png";
         String fontPath = "/resources/font/kreon/static/Kreon-Bold.ttf";
 
