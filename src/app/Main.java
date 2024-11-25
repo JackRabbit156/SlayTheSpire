@@ -7,7 +7,8 @@ import javafx.stage.Stage;
 public class Main extends Application {
     @Override
     public void start(Stage primaryStage) {
-        GuiHelper.Scenes.startMainMenuScene(primaryStage);
+        //GuiHelper.Scenes.startMainMenuScene(primaryStage);
+        GuiHelper.Scenes.startEventScene(primaryStage);
     }
 
     public static void main(String[] args) {

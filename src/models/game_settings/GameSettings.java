@@ -40,7 +40,7 @@ public class GameSettings {
     }
 
     /*public static int openGameMenu(Player player) {
-        return gameMenu.display(player);
+        return gameMenu.getEvent(player);
     }*/
 
     public static void startTimer(){

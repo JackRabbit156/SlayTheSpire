@@ -1,11 +1,8 @@
 
-.button:hover {
-    -fx-background-padding-left: 100px;
-    -fx-background-color:  linear-gradient(to right, #f6e27a, transparent);
-}
-
-.button:active:after {
-    -fx-opacity: 0; /* Schatten wird beim Drücken verschwinden */
+.label-outline {
+    -fx-border-style: solid;
+    -fx-border-width: 2;
+    -fx-border-color: #666; /* adjust the color to your liking */
 }
 
 .button {
