@@ -16,6 +16,11 @@ import models.card.ironclad_cards.power.uncommon.*;
 import models.card.ironclad_cards.skill.common.*;
 import models.card.ironclad_cards.skill.rare.*;
 import models.card.ironclad_cards.skill.uncommon.*;
+import models.card.silent_cards.SilentCardEnum;
+import models.card.silent_cards.SilentDefendCard;
+import models.card.silent_cards.SilentStrikeCard;
+import models.card.silent_cards.attack.common.NeutralizeCard;
+import models.card.silent_cards.skill.common.SurvivorCard;
 import models.player.player_structure.Player;
 import models.potion.*;
 import models.potion.potion_structure.PotionCard;
@@ -80,8 +85,7 @@ public class DeckFactory {
             case WATCHER:
             case DEFECT:
             case SILENT:
-                //TODO Weitere Charactere
-//                break;
+                return initSilentCards();
             case IRONCLAD:
                 return initIroncladCards();
             default:
@@ -92,6 +96,28 @@ public class DeckFactory {
         return null;
     }
 
+    private List<Card> initSilentCards() {
+        List availableCards = Arrays.asList(SilentCardEnum.values());
+
+        if (availableCards == null) {
+            ConsoleAssistent.print(Color.RED, "DeckFactory.class: Karten Initialisierung hat nicht korrekt funktioniert.");
+        }
+
+        else {
+            for (int i = 0; i < this.amount; i++) {
+                int randomNumber = randi.nextInt(availableCards.size());
+
+                String cardName = availableCards.get(randomNumber).toString();
+
+                genDeck.add(assignCard(cardName));
+            }
+        }
+
+
+
+        return genDeck;
+    }
+
     private List<Card> initIroncladCards() {
         List availableCards = Arrays.asList(IroncladCardEnum.values());
 
@@ -99,22 +125,6 @@ public class DeckFactory {
             ConsoleAssistent.print(Color.RED, "DeckFactory.class: Karten Initialisierung hat nicht korrekt funktioniert.");
         }
 
-
-        if (cardType.equals(CardType.ATTACK)) {
-            for (int i = 0; i < this.amount; i++) {
-                int randomNumber = randi.nextInt(availableCards.size());
-
-                String cardName = availableCards.get(randomNumber).toString();
-
-                if (assignCard(cardName).getCardType().equals(cardType)) {
-                    genDeck.add(assignCard(cardName));
-                }
-                else {
-                    i--;
-                }
-
-            }
-        }
         else {
             for (int i = 0; i < this.amount; i++) {
                 int randomNumber = randi.nextInt(availableCards.size());
@@ -134,6 +144,7 @@ public class DeckFactory {
         Card cardToTransform = null;
 
         switch (cardName){
+            // Ironclad
             // AttackCards
             // GeneralCards
             case "IroncladStrikeCard": cardToTransform = new IroncladStrikeCard(); break;
@@ -141,7 +152,7 @@ public class DeckFactory {
             // CommonCards
             case "AngerCard": cardToTransform = new AngerCard(); break;
             case "BashCard": cardToTransform = new BashCard(); break;
-            case "BodyslamCard": cardToTransform = new BodySlamCard(); break;
+            case "BodySlamCard": cardToTransform = new BodySlamCard(); break;
             case "ClashCard": cardToTransform = new ClashCard(); break;
             case "CleaveCard": cardToTransform = new CleaveCard(); break;
             case "ClotheslineCard": cardToTransform = new ClotheslineCard(); break;
@@ -173,7 +184,7 @@ public class DeckFactory {
             case "UpperCutCard": cardToTransform = new UppercutCard(); break;
             case "WhirlwindCard": cardToTransform = new WhirlwindCard(); break;
 
-            // Skill
+            // Power
             // RareCard
             case "BerserkCard": cardToTransform = new BerserkCard(); break;
             case "JuggernautCard": cardToTransform = new JuggernautCard(); break;
@@ -182,10 +193,10 @@ public class DeckFactory {
             case "MetallicizeCard": cardToTransform = new MetallicizeCard(); break;
             case "RuptureCard": cardToTransform = new RuptureCard(); break;
 
-            // Power
+            // Skill
             // CommonCards
             case "FlexCard": cardToTransform = new FlexCard(); break;
-            case "ShrugltOffCard": cardToTransform = new ShrugItOffCard(); break;
+            case "ShrugItOffCard": cardToTransform = new ShrugItOffCard(); break;
             case "WarcryCard": cardToTransform = new WarcryCard(); break;
             // RareCard
             case "OfferingCard": cardToTransform = new OfferingCard(); break;
@@ -194,6 +205,21 @@ public class DeckFactory {
             case "GhostlyArmorCard": cardToTransform = new GhostlyArmorCard(); break;
             case "RageCard": cardToTransform = new RageCard(); break;
             case "SpotWeaknessCard": cardToTransform = new SpotWeaknessCard(); break;
+
+
+            // Silent
+            // AttackCards
+            // GeneralCards
+            case "SilentStrikeCard": cardToTransform = new SilentStrikeCard(); break;
+            case "SilentDefendCard": cardToTransform = new SilentDefendCard(); break;
+            // CommonCards
+            case "NeutralizeCard": cardToTransform = new NeutralizeCard(); break;
+
+            // Skill
+            // CommonCards
+            case "SurvivorCard": cardToTransform = new SurvivorCard(); break;
+
+
             default: {
                 System.out.println(cardName);
                 System.out.println("ERROR IN DECKFACTORY");

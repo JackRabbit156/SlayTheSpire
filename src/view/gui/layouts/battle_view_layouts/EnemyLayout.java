@@ -26,7 +26,7 @@ public class EnemyLayout extends VBox {
         this.battleView = battleView;
         healthBarLayout = new HealthBarLayout();
         defendLayout = new DefendLayout();
-        intentLayout = new IntentLayout();
+        intentLayout = new IntentLayout(enemy);
 
 //        intentLayout.setTranslateY(50);
 
@@ -52,16 +52,16 @@ public class EnemyLayout extends VBox {
     public void updateEnemy() {
         healthBarLayout.setHealthText(enemy.getHealth(), enemy.getMaxHealth());
         defendLayout.setBlockText(enemy.getBlock());
-        intentLayout.setIntentText(enemy.getIntent());
-        intentLayout.setIntentIcon(enemy.getIntent());
+        intentLayout.setIntentText(enemy.getIntent().getIconText());
+        intentLayout.setIntentIcon(enemy.getIntent().getImagePath());
     }
 
     private ImageView image() {
         Image figureImage = new Image(getClass().getResource(enemy.getImagePath()).toExternalForm());
         ImageView imageViewFigure = new ImageView(figureImage);
 
-        imageViewFigure.setFitWidth(350); // Breite in Pixel
-        imageViewFigure.setFitHeight(350); // Höhe in Pixel
+        imageViewFigure.setFitWidth(Math.sqrt(imageViewFigure.getImage().getWidth()) * 10); // Breite in Pixel
+        imageViewFigure.setFitHeight(Math.sqrt(imageViewFigure.getImage().getHeight()) * 10); // Höhe in Pixel
         imageViewFigure.setPreserveRatio(true);
         //handBox = new Pane( imageViewIronclad);
         imageViewFigure.setStyle("-fx-background-color: #926099;");

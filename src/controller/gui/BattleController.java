@@ -9,9 +9,7 @@ import helper.GuiHelper;
 import models.battle.BattleDeck;
 import models.battle.GameContext;
 
-import models.card.card_structure.Card;
-import models.card.card_structure.CardGrave;
-import models.card.card_structure.CardType;
+import models.card.card_structure.*;
 import models.enemy.Enemy;
 import models.map_elements.field_types.FieldEnum;
 import models.player.player_structure.Player;
@@ -72,6 +70,8 @@ public class BattleController implements BattleViewEvents, PlayerEventListener, 
         calcIntentForAllEnemies(enemies);
         resetEnergyAndBlock();
         battleDeck.fillHand(battleDeck.getStartHandSize());
+
+        triggerPowerCards(CardTrigger.PLAYER_BOT);
     }
 
     private void calcIntentForAllEnemies(List<Enemy> enemies) {
@@ -155,6 +155,17 @@ public class BattleController implements BattleViewEvents, PlayerEventListener, 
 
     private void playerEOT() {
         removeHandAfterEndOfTurn();
+
+        triggerPowerCards(CardTrigger.PLAYER_EOT);
+    }
+
+    private void triggerPowerCards(CardTrigger trigger) {
+        List<PowerCard> powerCards = battleDeck.getCurrentPowerCards();
+        for (PowerCard powerCard : powerCards) {
+            if (powerCard.getCardTrigger().equals(trigger)) {
+                powerCard.ability(gameContext);
+            }
+        }
     }
 
     private void enemyTurn() {
@@ -245,12 +256,17 @@ public class BattleController implements BattleViewEvents, PlayerEventListener, 
 
     @Override
     public void onBlockReceived(PlayerBlockEvent event) {
-
+        triggerPowerCards(CardTrigger.GAIN_BLOCK);
     }
 
     @Override
     public void onDamageReceived(PlayerDamageEvent event) {
-
+        if (event.isCard()) {
+            triggerPowerCards(CardTrigger.LOSE_HP_CARD);
+        }
+        else {
+            triggerPowerCards(CardTrigger.LOSE_HP_ENEMY);
+        }
     }
 
     @Override

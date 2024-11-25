@@ -19,6 +19,7 @@ public class PlayerLayout extends VBox {
     private MovingAnimation animation;
     private BattleView battleView;
     private boolean skillMode = false;
+    private boolean powerMode = false;
 
     private String imagePath;
 
@@ -57,8 +58,8 @@ public class PlayerLayout extends VBox {
         Image figureImage = new Image(getClass().getResource(player.getImagePath()).toExternalForm());
         ImageView imageViewFigure = new ImageView(figureImage);
 
-        imageViewFigure.setFitWidth(350); // Breite in Pixel
-        imageViewFigure.setFitHeight(350); // Höhe in Pixel
+//        imageViewFigure.setFitWidth(350); // Breite in Pixel
+//        imageViewFigure.setFitHeight(350); // Höhe in Pixel
         imageViewFigure.setPreserveRatio(true);
         //handBox = new Pane( imageViewIronclad);
         imageViewFigure.setStyle("-fx-background-color: #926099;");
@@ -81,8 +82,22 @@ public class PlayerLayout extends VBox {
                 imageViewFigure.setEffect(glowNotSelectedPlayer);
                 imageViewFigure.setScaleX(1.0); // Reset the width to original
                 imageViewFigure.setScaleY(1.0); // Reset the height to original
-            } else {
+            } else if (newMode == BattleView.Mode.POWER) {
+                powerMode = true;
+
+                DropShadow glowNotSelectedPlayer = new DropShadow();
+                glowNotSelectedPlayer.setColor(Color.CYAN);
+                glowNotSelectedPlayer.setHeight(30);
+                glowNotSelectedPlayer.setWidth(30);
+
+                imageViewFigure.setEffect(glowNotSelectedPlayer);
+                imageViewFigure.setScaleX(1.0); // Reset the width to original
+                imageViewFigure.setScaleY(1.0); // Reset the height to original
+            }
+
+            else {
                 skillMode = false;
+                powerMode = false;
                 imageViewFigure.setEffect(null);
             }
         });
@@ -115,6 +130,12 @@ public class PlayerLayout extends VBox {
                 imageView.setScaleX(1.1); // Slightly increase the width
                 imageView.setScaleY(1.1); // Slightly increase the height
             }
+            else if (powerMode) {
+                //TODO WIP
+                imageView.setEffect(glowSelectedPlayer);
+                imageView.setScaleY(1.1); // Slightly increase the height
+                imageView.setScaleX(1.1); // Slightly increase the width
+            }
         });
 
         imageView.addEventHandler(MouseEvent.MOUSE_EXITED, e -> {
@@ -122,6 +143,12 @@ public class PlayerLayout extends VBox {
                 imageView.setEffect(glowNotSelectedPlayer);
                 imageView.setScaleX(1.0); // Reset the width to original
                 imageView.setScaleY(1.0); // Reset the height to original
+            }
+            else if (powerMode) {
+                //TODO WIP
+                imageView.setEffect(glowNotSelectedPlayer);
+                imageView.setScaleY(1.0); // Reset the height to original
+                imageView.setScaleX(1.0); // Reset the width to original
             }
         });
     }
