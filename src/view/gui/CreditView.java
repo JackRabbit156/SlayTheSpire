@@ -52,7 +52,7 @@ public class CreditView {
     public VBox display(){
         output.setBackground(new Background(GuiHelper.background("/images/backgrounds/greenBg.jpg")));
         Text creditText = new Text("Re-Engineered by:\nDaniel Willig\nVladislav Keil\nAlexander Warawa\nMarijan Loeschner");
-        creditText.setFont(Font.font("/resources/font/kreon/static/Kreon-Bold.ttf", 24));
+        creditText.setFont(Font.loadFont("/resources/font/kreon/static/Kreon-Bold.ttf", 24));
         creditText.setFill(Color.WHITE);
         creditText.setTextAlignment(TextAlignment.CENTER);
         ImageView creditImage = new ImageView(new Image(Objects.requireNonNull(

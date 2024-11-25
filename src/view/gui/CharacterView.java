@@ -22,6 +22,7 @@ public class CharacterView {
     private VBox wrap = new VBox();
     private VBox infoBox = new VBox();
     private HBox hpGold = new HBox();
+    private String fontPath = "/font/kreon/static/Kreon-Bold.ttf";
     private Background icBG = new Background(GuiHelper.background("/images/backgrounds/ironcladPortrait.jpg"));
     private Background slBG = new Background(GuiHelper.background("/images/backgrounds/silentPortrait.jpg"));
     private Background icHighlight = new Background(GuiHelper.background("/images/buttons/ironcladButtonHighlighted.png"));
@@ -57,7 +58,7 @@ public class CharacterView {
 
         embark.setText("Embark");
         embark.setBackground(new Background(GuiHelper.background("/images/buttons/confirmButton.png")));
-        embark.setFont(Font.font("/resources/font/kreon/static/Kreon-Bold.ttf", 30));
+        embark.setFont(Font.loadFont(getClass().getResourceAsStream(fontPath), 30));
         embark.setTextFill(Color.WHITE);
         embark.setPrefSize(200, 200);
         embark.setOnMouseEntered(event -> {
@@ -70,7 +71,7 @@ public class CharacterView {
 
         backs.setText("Back");
         backs.setBackground(new Background(GuiHelper.background("/images/buttons/cancelButton.png")));
-        backs.setFont(Font.font("/resources/font/kreon/static/Kreon-Bold.ttf", 30));
+        backs.setFont(Font.loadFont(getClass().getResourceAsStream(fontPath), 30));
         backs.setTextFill(Color.WHITE);
         backs.setPrefSize(220, 200);
         backs.setOnMouseEntered(event -> {
@@ -81,18 +82,18 @@ public class CharacterView {
             backs.setBackground(new Background(GuiHelper.background("/images/buttons/cancelButton.png")));
         });
 
-        text.setFont(Font.font("/resources/font/kreon/static/Kreon-Bold.ttf", 30));
+        text.setFont(Font.loadFont(getClass().getResourceAsStream(fontPath), 30));
         text.setFill(Color.WHITE);
 
-        head.setFont(Font.font("/resources/font/kreon/static/Kreon-Bold.ttf", 44));
+        head.setFont(Font.loadFont(getClass().getResourceAsStream(fontPath), 44));
         head.setFill(Color.GOLD);
         head.setTextAlignment(TextAlignment.LEFT);
 
-        hp.setFont(Font.font("/resources/font/kreon/static/Kreon-Bold.ttf", 30));
+        hp.setFont(Font.loadFont(getClass().getResourceAsStream(fontPath), 30));
         hp.setFill(Color.RED);
         hp.setTextAlignment(TextAlignment.CENTER);
 
-        gold.setFont(Font.font("/resources/font/kreon/static/Kreon-Bold.ttf", 30));
+        gold.setFont(Font.loadFont(getClass().getResourceAsStream(fontPath), 30));
         gold.setFill(Color.GOLD);
         gold.setTextAlignment(TextAlignment.CENTER);
         gold.setText("Gold : 99");
