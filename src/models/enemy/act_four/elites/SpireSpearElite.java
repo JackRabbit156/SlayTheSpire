@@ -3,7 +3,13 @@ package models.enemy.act_four.elites;
 import helper.PathAssistent;
 import models.battle.GameContext;
 import models.enemy.Enemy;
+import models.enemy_card.act_four.elites.spire_spear_elite_cards.SkewerEnemyCard;
+import models.enemy_card.act_one.cultist_enemy_cards.DarkStrikeEnemyCard;
+import models.enemy_card.enemy_card_structure.EnemyCard;
 import models.player.player_structure.Player;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author Keil, Vladislav
@@ -12,18 +18,19 @@ public class SpireSpearElite extends Enemy {
     public SpireSpearElite() {
         super("Spire Spear",160, 160);
         setImagePath(new PathAssistent().toPath(this));
+        initEnemyDeck();
+    }
+
+    private void initEnemyDeck() {
+        List<EnemyCard> deck = new ArrayList<>();
+
+        deck.add(new SkewerEnemyCard());
+
+        setEnemyDeck(deck);
     }
 
     @Override
     public void attack(GameContext gameContext) {
-        attackSkewer(gameContext);
-    }
-
-    private void attackSkewer(GameContext gameContext){
-        int attackDamage = 30;
-        Player player = gameContext.getPlayer();
-
-        player.decreaseCurrentHealth(attackDamage, false);
-        System.out.printf("%s used %s, %s took %d damage!\n", getName(), "Skewer", player.getName(), attackDamage);
+        getEnemyDeck().get(getEnemyCardToBePlayed()).playEnemy(gameContext, this);
     }
 }

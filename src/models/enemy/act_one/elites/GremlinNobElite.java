@@ -3,7 +3,13 @@ package models.enemy.act_one.elites;
 import helper.PathAssistent;
 import models.battle.GameContext;
 import models.enemy.Enemy;
-import models.player.player_structure.Player;
+import models.enemy_card.act_one.cultist_enemy_cards.DarkStrikeEnemyCard;
+import models.enemy_card.act_one.elites.gremlin_nob_elite_cards.RushEnemyCard;
+import models.enemy_card.act_one.elites.gremlin_nob_elite_cards.SkullBashEnemyCard;
+import models.enemy_card.enemy_card_structure.EnemyCard;
+
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 /**
  * @author Keil, Vladislav
@@ -12,30 +18,20 @@ public class GremlinNobElite extends Enemy {
     public GremlinNobElite() {
         super("Gremlin Nob", 82, 86);
         setImagePath(new PathAssistent().toPath(this));
+        initEnemyDeck();
     }
-    private Random randi = new Random();
+
+    private void initEnemyDeck() {
+        List<EnemyCard> deck = new ArrayList<>();
+
+        deck.add(new RushEnemyCard());
+        deck.add(new SkullBashEnemyCard());
+
+        setEnemyDeck(deck);
+    }
 
     @Override
     public void attack(GameContext gameContext) {
-        switch (randi.nextInt(2)) {
-            case 0: attackRush(gameContext); break;
-            default: attackSkullBash(gameContext);
-        }
-    }
-
-    private void attackRush(GameContext gameContext) {
-        int attackDamage = 14;
-        Player player = gameContext.getPlayer();
-
-        player.decreaseCurrentHealth(attackDamage, false);
-        System.out.printf("%s used %s, %s took %d damage!\n", getName(), "Dark Strike", player.getName(), attackDamage);
-    }
-
-    private void attackSkullBash(GameContext gameContext) {
-        int attackDamage = 6;
-        Player player = gameContext.getPlayer();
-
-        player.decreaseCurrentHealth(attackDamage, false);
-        System.out.printf("%s used %s, %s took %d damage!\n", getName(), "Dark Strike", player.getName(), attackDamage);
+        getEnemyDeck().get(getEnemyCardToBePlayed()).playEnemy(gameContext, this);
     }
 }

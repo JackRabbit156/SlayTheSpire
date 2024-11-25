@@ -3,8 +3,12 @@ package models.enemy.act_one.boss;
 import helper.PathAssistent;
 import models.battle.GameContext;
 import models.enemy.Enemy;
-import models.player.player_structure.Player;
+import models.enemy_card.act_one.boss.slime_boss_cards.SlamEnemyCard;
+import models.enemy_card.act_one.cultist_enemy_cards.DarkStrikeEnemyCard;
+import models.enemy_card.enemy_card_structure.EnemyCard;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 /**
@@ -17,17 +21,19 @@ public class SlimeBoss extends Enemy {
     public SlimeBoss() {
         super("Slime Boss", 150, 150);
         setImagePath(new PathAssistent().toPath(this));
+        initEnemyDeck();
+    }
+
+    private void initEnemyDeck() {
+        List<EnemyCard> deck = new ArrayList<>();
+
+        deck.add(new SlamEnemyCard());
+
+        setEnemyDeck(deck);
     }
 
     @Override
     public void attack(GameContext gameContext) {
-        attackSlam(gameContext);
-    }
-
-    private void attackSlam(GameContext gameContext){
-        int attackDamage = 35;
-        Player player = gameContext.getPlayer();
-        player.decreaseCurrentHealth(attackDamage, false);
-        System.out.printf("%s used %s, %s took %d damage!%n", getName(), "Slam", player.getName(), attackDamage);
+        getEnemyDeck().get(getEnemyCardToBePlayed()).playEnemy(gameContext, this);
     }
 }

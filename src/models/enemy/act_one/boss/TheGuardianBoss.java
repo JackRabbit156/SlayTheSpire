@@ -3,8 +3,14 @@ package models.enemy.act_one.boss;
 import models.battle.GameContext;
 import helper.PathAssistent;
 import models.enemy.Enemy;
-import models.player.player_structure.Player;
+import models.enemy_card.act_one.boss.the_guardian_boss_cards.ChargingUpEnemyCard;
+import models.enemy_card.act_one.boss.the_guardian_boss_cards.FierceBashEnemyCard;
+import models.enemy_card.act_one.boss.the_guardian_boss_cards.WhirlwindEnemyCard;
+import models.enemy_card.act_one.cultist_enemy_cards.DarkStrikeEnemyCard;
+import models.enemy_card.enemy_card_structure.EnemyCard;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 /**
@@ -15,39 +21,22 @@ public class TheGuardianBoss extends Enemy {
     public TheGuardianBoss() {
         super("The Guardian", 240, 240);
         setImagePath(new PathAssistent().toPath(this));
+        initEnemyDeck();
     }
-    private Random randi = new Random();
+
+    private void initEnemyDeck() {
+        List<EnemyCard> deck = new ArrayList<>();
+
+        deck.add(new ChargingUpEnemyCard());
+        deck.add(new FierceBashEnemyCard());
+        deck.add(new WhirlwindEnemyCard());
+
+        setEnemyDeck(deck);
+    }
 
 
     @Override
     public void attack(GameContext gameContext) {
-        switch (randi.nextInt(3)) {
-            case 0:  attackFierceBash(gameContext); break;
-            case 1: attackChargingUp(); break;
-            default: attackWhirlwind(gameContext);
-        }
-    }
-
-    private void attackChargingUp(){
-        int block = 9;
-        this.addBlock(15);
-
-        System.out.printf("%s used %s and gained %d Block!\n\n", getName(), "Charging Up", block);
-    }
-
-    private void attackFierceBash(GameContext gameContext){
-        int attackDamage = 32;
-        Player player = gameContext.getPlayer();
-
-        player.decreaseCurrentHealth(attackDamage, false);
-        System.out.printf("%s used %s, %s took %d damage!\n", getName(), "Dark Strike", player.getName(), attackDamage);
-    }
-
-    private void attackWhirlwind(GameContext gameContext){
-        int attackDamage = 20;
-        Player player = gameContext.getPlayer();
-
-        player.decreaseCurrentHealth(attackDamage, false);
-        System.out.printf("%s used %s, %s took %d damage!\n", getName(), "Dark Strike", player.getName(), attackDamage);
+        getEnemyDeck().get(getEnemyCardToBePlayed()).playEnemy(gameContext, this);
     }
 }

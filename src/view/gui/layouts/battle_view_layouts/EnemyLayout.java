@@ -26,7 +26,7 @@ public class EnemyLayout extends VBox {
         this.battleView = battleView;
         healthBarLayout = new HealthBarLayout();
         defendLayout = new DefendLayout();
-        intentLayout = new IntentLayout();
+        intentLayout = new IntentLayout(enemy);
 
 //        intentLayout.setTranslateY(50);
 
@@ -52,8 +52,8 @@ public class EnemyLayout extends VBox {
     public void updateEnemy() {
         healthBarLayout.setHealthText(enemy.getHealth(), enemy.getMaxHealth());
         defendLayout.setBlockText(enemy.getBlock());
-        intentLayout.setIntentText(enemy.getIntent());
-        intentLayout.setIntentIcon(enemy.getIntent());
+        intentLayout.setIntentText(enemy.getIntent().getIconText());
+        intentLayout.setIntentIcon(enemy.getIntent().getImagePath());
     }
 
     private ImageView image() {

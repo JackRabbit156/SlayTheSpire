@@ -3,7 +3,13 @@ package models.enemy.act_four;
 import helper.PathAssistent;
 import models.battle.GameContext;
 import models.enemy.Enemy;
+import models.enemy_card.act_four.spiker_enemy_cards.CutEnemyCard;
+import models.enemy_card.act_one.cultist_enemy_cards.DarkStrikeEnemyCard;
+import models.enemy_card.enemy_card_structure.EnemyCard;
 import models.player.player_structure.Player;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -11,20 +17,21 @@ import models.player.player_structure.Player;
  */
 public class SpikerEnemy extends Enemy {
     public SpikerEnemy() {
-        super("Shapes",42, 56);
+        super("Spiker",42, 56);
         setImagePath(new PathAssistent().toPath(this));
+        initEnemyDeck();
+    }
+
+    private void initEnemyDeck() {
+        List<EnemyCard> deck = new ArrayList<>();
+
+        deck.add(new CutEnemyCard());
+
+        setEnemyDeck(deck);
     }
 
     @Override
     public void attack(GameContext gameContext) {
-        attackCut(gameContext);
-    }
-
-    private void attackCut(GameContext gameContext){
-        int attackDamage = 7;
-        Player player = gameContext.getPlayer();
-
-        player.decreaseCurrentHealth(attackDamage, false);
-        System.out.printf("%s used %s, %s took %d damage!\n", getName(), "Cut", player.getName(), attackDamage);
+        getEnemyDeck().get(getEnemyCardToBePlayed()).playEnemy(gameContext, this);
     }
 }

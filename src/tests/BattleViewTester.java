@@ -15,10 +15,10 @@ import models.enemy.act_one.elites.GremlinNobElite;
 import models.enemy.act_one.elites.LagavulinElite;
 import models.enemy.act_two.ByrdEnemy;
 import models.enemy.act_two.SphericGuardianEnemy;
-import models.enemy.act_two.boss.BronzeAutomaton;
-import models.enemy.act_two.boss.TheChamp;
-import models.enemy.act_two.elites.BookOfStabbing;
-import models.enemy.act_two.elites.GremlinLeader;
+import models.enemy.act_two.boss.BronzeAutomatonBoss;
+import models.enemy.act_two.boss.TheChampBoss;
+import models.enemy.act_two.elites.BookOfStabbingElite;
+import models.enemy.act_two.elites.GremlinLeaderElite;
 import models.map_elements.field_types.FieldEnum;
 
 import java.util.ArrayList;
@@ -86,11 +86,11 @@ public class BattleViewTester extends Application {
         EnemyEnum type;
         switch (randBoss) {
             case 0:
-                enemies.add(new BronzeAutomaton());
+                enemies.add(new BronzeAutomatonBoss());
                 type = EnemyEnum.GUARDIAN;
                 break;
             default:
-                enemies.add(new TheChamp());
+                enemies.add(new TheChampBoss());
                 type = EnemyEnum.LAGAVULIN;
                 break;
         }
@@ -107,11 +107,11 @@ public class BattleViewTester extends Application {
         EnemyEnum type;
         switch (randElite) {
             case 0:
-                enemies.add(new GremlinLeader());
+                enemies.add(new GremlinLeaderElite());
                 type = EnemyEnum.GOBLIN;
                 break;
             default:
-                enemies.add(new BookOfStabbing());
+                enemies.add(new BookOfStabbingElite());
                 type = EnemyEnum.STABBING;
                 break;
         }

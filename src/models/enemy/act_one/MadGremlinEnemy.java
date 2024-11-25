@@ -3,7 +3,12 @@ package models.enemy.act_one;
 import helper.PathAssistent;
 import models.battle.GameContext;
 import models.enemy.Enemy;
-import models.player.player_structure.Player;
+import models.enemy_card.act_one.cultist_enemy_cards.DarkStrikeEnemyCard;
+import models.enemy_card.act_one.mad_gremlin_enemy_cards.ScratchEnemyCard;
+import models.enemy_card.enemy_card_structure.EnemyCard;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Diese Klasse repräsentiert den Gegner "MadGremlin" im ersten Akt des Spiels.
@@ -16,19 +21,21 @@ public class MadGremlinEnemy extends Enemy {
     public MadGremlinEnemy() {
         super("Mad Gremlin", 20, 24);
         setImagePath(new PathAssistent().toPath(this));
+        initEnemyDeck();
+    }
+
+    private void initEnemyDeck() {
+        List<EnemyCard> deck = new ArrayList<>();
+
+        deck.add(new ScratchEnemyCard());
+
+        setEnemyDeck(deck);
     }
 
 
     @Override
     public void attack(GameContext gameContext) {
-        attackScratch(gameContext);
+        getEnemyDeck().get(getEnemyCardToBePlayed()).playEnemy(gameContext, this);
     }
 
-    private void attackScratch(GameContext gameContext){
-        int attackDamage = 4;
-        Player player = gameContext.getPlayer();
-
-        player.decreaseCurrentHealth(attackDamage,false);
-        System.out.printf("%s used %s, %s took %d damage!\n", getName(), "Scratch", player.getName(), attackDamage);
-    }
 }
