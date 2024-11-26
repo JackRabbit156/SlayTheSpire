@@ -70,6 +70,7 @@ public abstract class Card {
 
     /**
      * @author Keil, Vladislav
+     * @return price
      */
     public int genPrice() {
         // Existieren nur 3 Typen

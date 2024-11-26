@@ -77,7 +77,7 @@ public class DeckFactory {
      * und eine entsprechende Trankkarte zurückgegeben.
      * Falls die Liste der verfügbaren Tränke nicht korrekt initialisiert wurde, wird eine Fehlermeldung ausgegeben.
      *
-     * @returns {PotionCard} Eine Trankkarte, die dem zufällig ausgewählten Trank entspricht.
+     * @return {PotionCard} Eine Trankkarte, die dem zufällig ausgewählten Trank entspricht.
      *                       Falls ein Fehler auftritt, kann die Methode in einem fehlerhaften Zustand enden.
      */
     public PotionCard generatePotion() {
@@ -109,7 +109,7 @@ public class DeckFactory {
      * Bei einem unbekannten Spielertyp wird die Methode rekursiv erneut aufgerufen.
      * Falls die Initialisierung fehlschlägt, wird eine Fehlermeldung ausgegeben.
      *
-     * @returns {List<Card>} Eine Liste von Karten, die das Initialisierungsdeck des Spielers darstellt.
+     * @return Eine Liste von Karten, die das Initialisierungsdeck des Spielers darstellt.
      *                       Im Falle eines Fehlers wird null zurückgegeben.
      */
     public List<Card> init() {
@@ -185,19 +185,8 @@ public class DeckFactory {
      * Die Methode assignCard wird verwendet, um ein spezifisches Kartenobjekt basierend auf dem übergebenen Kartenname zu erstellen und zurückzugeben.
      * Sie überprüft den übergebenen Kartenname und instanziiert die entsprechende Kartenklasse.
      *
-     * @param {String} cardName - Der Name der Karte, die zugewiesen werden soll. Der Name entspricht verschiedenen Kartentypen
-     *                             wie "IroncladStrikeCard", "AngerCard", "BerserkCard" usw.
-     *
-     * @returns {Card} Das spezifische Card-Objekt, das dem übergebenen Kartenname entspricht.
-     *                 Wird kein passender Kartenname gefunden, wird null zurückgegeben.
-     *
-     * @throws {IllegalArgumentException} Wenn ein unbekannter Kartenname übergeben wird, wird eine Fehlermeldung in der Konsole ausgegeben.
-     *                                    In diesem Fall wird null zurückgegeben.
-     *
-     * @example
-     * // Beispiel für die Zuweisung einer Karte
-     * Card card = assignCard("IroncladStrikeCard");
-     * // card ist dann eine Instanz von IroncladStrikeCard
+     * @param cardName - Der Name der Karte, die zugewiesen werden soll. Der Name entspricht verschiedenen Kartentypen
+     * @return Card the assigned Card
      */
     public static Card assignCard(String cardName){
         Card cardToTransform = null;

@@ -22,7 +22,7 @@ import java.util.Stack;
  * Sie zeigt die Optionen für das Heilen und die Rückkehr zur Kartenansicht an und ermöglicht es
  * dem Spieler, mit diesen zu interagieren.
  *
- * @autor Vladislav Keil
+ * @author Vladislav Keil
  */
 public class RestView extends StackPane {
     private RestViewEvents restViewEvents;

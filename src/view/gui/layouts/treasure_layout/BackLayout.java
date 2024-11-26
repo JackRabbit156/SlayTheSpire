@@ -13,7 +13,7 @@ import view.gui.TreasureView;
  * Die Klasse BackLayout verwaltet die grafische Darstellung des Zurück-Buttons im Schatz-Layout.
  * Sie zeigt einen Button an, der es dem Spieler ermöglicht, zur vorherigen Ansicht zurückzukehren.
  *
- * @autor Vladislav Keil
+ * @author Vladislav Keil
  */
 public class BackLayout extends HBox {
     private TreasureView view;
