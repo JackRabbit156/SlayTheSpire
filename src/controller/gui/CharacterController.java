@@ -9,6 +9,10 @@ import models.player.SilentPlayer;
 import models.player.player_structure.Player;
 import view.gui.CharacterView;
 
+/**
+ * Controller für die Darstellung der Charaktererstellung
+ * @author Loeschner, Marijan
+ */
 public class CharacterController {
     private CharacterView cv = new CharacterView();
     private Player player;

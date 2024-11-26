@@ -7,7 +7,11 @@ import models.event.Event;
 import models.player.player_structure.Player;
 
 import java.util.Random;
-
+/**
+ * Der Spieler kann einen Preis gewinnen
+ *
+ * @author  Loeschner, Marijan
+ */
 public class WheelOfChange extends Event {
     DeckFactory df;
     private static Image image = new Image("/images/event/generalevents/WheelOfChangeEvent.jpg");
@@ -43,7 +47,7 @@ public class WheelOfChange extends Event {
             int randInt = rand.nextInt(4);
             switch(randInt){
                 case 1:
-                    //TODO: Act 1 100g Act 2 200g if(Act 2 ){gold = 200;}
+                    if(player.getCurrentAct() ==  2 ){gold = 200;}
                     player.increaseGold(100);
                 case 2:
                     df.removeRandomCard(player);

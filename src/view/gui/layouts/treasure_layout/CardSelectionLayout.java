@@ -17,7 +17,7 @@ import java.util.List;
  * Die Klasse CardSelectionLayout verwaltet die grafische Darstellung der Kartenauswahl im Schatz-Layout.
  * Sie zeigt die verfügbaren Karten an und ermöglicht es dem Spieler, eine Karte auszuwählen.
  *
- * @autor Vladislav Keil
+ * @author Vladislav Keil
  */
 public class CardSelectionLayout extends HBox {
     private TreasureView treasureView;

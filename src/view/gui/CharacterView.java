@@ -13,7 +13,11 @@ import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import models.player.player_structure.Player;
 
-
+/**
+ * Darstellungskomponente für die Charaktererstellung
+ *
+ * @author Loeschner, Marijan
+ */
 public class CharacterView {
     private BorderPane ground = new BorderPane();
     private HBox buttonBox = new HBox();

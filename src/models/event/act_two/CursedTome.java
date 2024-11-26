@@ -9,7 +9,11 @@ import models.event.Event;
 import models.player.player_structure.Player;
 
 import java.util.List;
-
+/**
+ * Der Spieler verliert HP wenn er das Tome liest, bekommt aber eine seltene Karte wenn er dran bleibt
+ *
+ * @author  Loeschner, Marijan
+ */
 public class CursedTome extends Event {
     private DeckFactory df;
     private Image image = new Image("/images/event/act_two/cursedTome.jpg");

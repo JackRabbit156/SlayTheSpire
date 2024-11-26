@@ -6,7 +6,11 @@ import models.event.Event;
 import models.player.player_structure.Player;
 
 import java.util.Random;
-
+/**
+ * Der Spieler kann wetten und mit einer bestimmten Wahrscheinlichkeit Gold gewinnen
+ *
+ * @author  Loeschner, Marijan
+ */
 public class TheJoust extends Event {
     private static Image image = new Image("/images/event/act_two/joust.jpg");
     private String title = "Dead Adventurer";

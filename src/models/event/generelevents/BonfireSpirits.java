@@ -27,7 +27,6 @@ import java.util.Scanner;
 
 /**
  * Spieler kann eine Karte je nach Rarität für eine gegenleistung eintauschen.
- * @author Keil, Vladislav
  * @author Loeschner, marijan
  */
 public class BonfireSpirits extends Event {

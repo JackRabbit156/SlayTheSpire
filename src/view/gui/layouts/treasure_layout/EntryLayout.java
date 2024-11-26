@@ -12,7 +12,7 @@ import view.gui.TreasureView;
  * Die Klasse EntryLayout verwaltet die grafische Darstellung des Einstiegslayouts im Schatz-Layout.
  * Sie zeigt das Spieler- und Schatzbild an und ermöglicht es dem Spieler, mit dem Schatzbild zu interagieren.
  *
- * @autor Vladislav Keil
+ * @author Vladislav Keil
  */
 public class EntryLayout extends HBox {
     private String playerImagePath;

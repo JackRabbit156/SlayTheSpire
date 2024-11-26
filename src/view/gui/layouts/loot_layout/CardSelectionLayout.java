@@ -24,7 +24,7 @@ import java.util.List;
  * Die Klasse CardSelectionLayout verwaltet die grafische Darstellung der Kartenauswahl im Loot-Layout.
  * Sie zeigt die verfügbaren Karten im Loot an und ermöglicht es dem Spieler, eine Karte auszuwählen.
  *
- * @autor Vladislav Keil
+ * @author Vladislav Keil
  */
 public class CardSelectionLayout extends HBox {
     private LootView lootView;
