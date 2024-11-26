@@ -15,7 +15,7 @@ public class MapViewTester  extends Application {
     public void start(Stage primaryStage) {
         TestPlayer player = new TestPlayer(primaryStage);
 //        IroncladPlayer player = new IroncladPlayer();
-//        player.setCurrentField("15");
+        player.setCurrentField("15");
         GuiHelper.Scenes.startMapScene(player);
     }
 }
