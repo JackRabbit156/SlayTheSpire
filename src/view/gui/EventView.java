@@ -192,9 +192,6 @@ public class EventView {
         leave.setOnMouseExited(event1 -> {
             leave.setBackground(buttonBG);
         });
-        leave.setOnMouseClicked(event1 -> {
-            System.exit(1);
-        });
     }
 
     public Button getOption1() {

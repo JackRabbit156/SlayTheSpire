@@ -5,6 +5,7 @@ import javafx.scene.image.Image;
 import models.card.DeckFactory;
 import models.event.Event;
 import models.player.player_structure.Player;
+import models.potion.potion_structure.PotionCard;
 
 public class Lab extends Event {
     DeckFactory df;
@@ -35,9 +36,10 @@ public class Lab extends Event {
     }
 
     public Button getButton1(Player player) {
-
+        df = new DeckFactory(player, 3);
+        PotionCard potion = df.generatePotion();
         button1.setOnMouseClicked(event -> {
-            //TODO: 3 Random Potions digga
+            player.addPotionCard(potion);
             button1.setVisible(false);
         });
         return button1;

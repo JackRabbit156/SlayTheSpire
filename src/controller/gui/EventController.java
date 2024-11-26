@@ -3,6 +3,7 @@ package controller.gui;
 import javafx.scene.layout.BorderPane;
 import models.event.Event;
 import models.event.act_one.*;
+import models.event.act_two.*;
 import models.event.generelevents.BonfireSpirits;
 import models.event.generelevents.Duplicator;
 import models.event.generelevents.GoldenShrine;
@@ -14,9 +15,9 @@ public class EventController {
 
     public BorderPane getEventView(Player player){
         EventView ev = new EventView(randomEvent(), player);
-
         ev.getLeave().setOnMouseClicked(event -> {
-            //TODO: zurück zur Map boii
+            //TODO: ÄNDERN!
+            System.exit(1);
         });
         return ev.display();
     }
@@ -34,8 +35,14 @@ public class EventController {
         Event goldenShrine = new GoldenShrine();
         Event duplicator = new Duplicator();
         Event wheelOfChange = new WheelOfChange();
+        Event theNest = new TheNest();
+        Event theMausoleum = new TheMausoleum();
+        //Event lab = new Lab();
+        //Event maskedBandits = new MaskedBandits();
+        Event theLib = new TheLibrary();
+        Event knowingSkull = new KnowingSkull();
         //TODO: randomizer so anpassen dass die acts berücksichtigt werden
-        return randomEvent = wheelOfChange;
+        return randomEvent = knowingSkull;
     }
 
 }
