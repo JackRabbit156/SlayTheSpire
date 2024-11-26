@@ -1,6 +1,7 @@
 package models.map_elements.acts;
 
 
+import helper.MusicBoy;
 import models.enemy.Enemy;
 import models.enemy.act_four.SpikerEnemy;
 import models.enemy.act_four.boss.CorruptHeartBoss;
@@ -38,6 +39,7 @@ public class ActFour extends Act{
      */
     public ActFour(Player player){
         super(4, MAP_WIDTH, MAP_HEIGHT);
+        MusicBoy.play("act4");
         initNodes();
 
         Node playerNode = getNoteByName(player.getCurrentField());

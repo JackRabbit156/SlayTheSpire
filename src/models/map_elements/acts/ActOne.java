@@ -1,5 +1,8 @@
 package models.map_elements.acts;
 
+import helper.MusicBoy;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import models.enemy.Enemy;
 import models.enemy.EnemyEnum;
 import models.enemy.act_one.AcidSlimeEnemy;
@@ -43,6 +46,10 @@ public class ActOne extends Act {
      */
     public ActOne(Player player){
         super(1, MAP_WIDTH, MAP_HEIGHT);
+
+
+        MusicBoy.play("act1");
+
         this.player = player;
 
         initNodes();

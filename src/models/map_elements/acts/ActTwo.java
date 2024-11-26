@@ -1,5 +1,6 @@
 package models.map_elements.acts;
 
+import helper.MusicBoy;
 import models.enemy.Enemy;
 import models.enemy.EnemyEnum;
 import models.enemy.act_one.CultistEnemy;
@@ -45,6 +46,7 @@ public class ActTwo extends Act {
      */
     public ActTwo(Player player){
         super(2, MAP_WIDTH, MAP_HEIGHT);
+        MusicBoy.play("act2");
         this.player = player;
         initNodes();
 
