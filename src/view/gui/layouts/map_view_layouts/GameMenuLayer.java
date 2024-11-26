@@ -78,11 +78,11 @@ public class GameMenuLayer extends BorderPane {
             public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
                 if (newValue) {
                     if(GameSettings.getGameMode().equals(GameMode.HARDCORE)){
-                        saveGameButton.setVisible(false);
-                        changeDifficultyButton.setVisible(false);
+                        saveGameButton.setDisable(true);
+                        changeDifficultyButton.setDisable(true);
                     } else {
-                        saveGameButton.setVisible(true);
-                        changeDifficultyButton.setVisible(true);
+                        saveGameButton.setDisable(false);
+                        changeDifficultyButton.setDisable(false);
                     }
                 }
             }
