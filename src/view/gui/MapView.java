@@ -1,5 +1,6 @@
 package view.gui;
 
+import controller.listener.DifficultyMenuListener;
 import controller.listener.GameMenuListener;
 import helper.GuiHelper;
 import javafx.scene.control.Label;
@@ -7,10 +8,7 @@ import javafx.scene.layout.*;
 import models.map_elements.Node;
 import models.player.player_structure.Player;
 import view.gui.layouts.layout_events.MapViewEvents;
-import view.gui.layouts.map_view_layouts.GameMenuLayer;
-import view.gui.layouts.map_view_layouts.LegendLayout;
-import view.gui.layouts.map_view_layouts.MapLayout;
-import view.gui.layouts.map_view_layouts.TopBarLayout;
+import view.gui.layouts.map_view_layouts.*;
 
 import java.util.List;
 
@@ -27,12 +25,14 @@ import java.util.List;
 public class MapView extends StackPane {
     private MapViewEvents mapViewEvents;
     private GameMenuListener gameMenuListener;
+    private DifficultyMenuListener difficultyMenuListener;
 
     private BorderPane mainMap;
     private MapLayout mapCenter;
     private LegendLayout legendRight;
 
     private GameMenuLayer gameMenu;
+    private DifficultyMenuLayer difficultyMenu;
 
 
     private Player player;
@@ -42,14 +42,18 @@ public class MapView extends StackPane {
         return mainMap;
     }
 
-    public MapView(Player player, List<Node> nodes, int mapWidth, int mapHeight, MapViewEvents mapViewEvents, GameMenuListener gameMenuListener) {
+    public MapView(Player player, List<Node> nodes, int mapWidth, int mapHeight, MapViewEvents mapViewEvents, GameMenuListener gameMenuListener, DifficultyMenuListener difficultyMenuListener) {
         this.nodes = nodes;
         this.mapViewEvents = mapViewEvents;
         this.gameMenuListener = gameMenuListener;
+        this.difficultyMenuListener = difficultyMenuListener;
         this.player = player;
 
         gameMenu = new GameMenuLayer(player, this);
         gameMenu.setVisible(false);
+
+        difficultyMenu = new DifficultyMenuLayer(player, this);
+        difficultyMenu.setVisible(false);
 
         mainMap = new BorderPane();
 
@@ -62,7 +66,7 @@ public class MapView extends StackPane {
         initLeftSide();
         initRightSide();
 
-        getChildren().addAll(mainMap, gameMenu);
+        getChildren().addAll(mainMap, gameMenu, difficultyMenu);
     }
 
     public void clickedOnValidField(Node node){
@@ -76,7 +80,6 @@ public class MapView extends StackPane {
     public void clickedOnFullscreen(){
         mapViewEvents.onFullscreenClick();
     }
-
 
     public void clickedOnSaveButton(){
         gameMenuListener.onSaveClick();
@@ -127,5 +130,27 @@ public class MapView extends StackPane {
     public void closeGameMenu() {
         mainMap.setVisible(true);
         gameMenu.setVisible(false);
+    }
+
+    public void openDifficultyMenu(){
+        difficultyMenu.setVisible(true);
+        gameMenu.setVisible(false);
+    }
+
+    public void closeDifficultyMenu(){
+        difficultyMenu.setVisible(false);
+        gameMenu.setVisible(true);
+    }
+
+    public void clickedOnDifficultyBackButton(){
+        difficultyMenuListener.onDifficultyBackClick();
+    }
+
+    public void clickedOnDifficultyNormalButton(){
+        difficultyMenuListener.onNormalClick();
+    }
+
+    public void clickedOnDifficultyHardcoreButton(){
+        difficultyMenuListener.onHardcoreClick();
     }
 }
