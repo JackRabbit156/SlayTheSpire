@@ -2,6 +2,8 @@ package models.event.generelevents;
 
 import helper.ConsoleAssistent;
 import helper.PathAssistent;
+import javafx.scene.control.Button;
+import javafx.scene.image.Image;
 import models.card.card_structure.Card;
 import models.event.Event;
 import models.player.player_structure.Player;
@@ -13,7 +15,39 @@ import java.util.Scanner;
  * @author Keil, Vladislav
  * @author Loeschner, marijan
  */
-public class BonfireSpiritsEvent extends Event {
+public class BonfireSpirits extends Event {
+    private Image image = new Image("/images/event/generalevents/BonfireSpiritsEvent.png");
+    private String title = "Bonfire Spirits";
+    private String story = "\n\nYou happen to stumble upon a group of what looks like purple fire spirits dancing around a large bonfire.\n" +
+            "The spirits toss small bones and fragments into the fire, which brilliantly erupts each time. \n" +
+            "As you approach, the spirits all turn to you, expectantly...\n";
+    private Button button1 = new Button("\t[Take] ");
+
+    public BonfireSpirits() {
+        super();
+    }
+
+    @Override
+    public String getTitle() {
+        return title;
+    }
+
+    public String getStory() {
+        return story;
+    }
+
+    public Image getImage() {
+        return image;
+    }
+
+    public Button getButton1(Player player) {
+
+        button1.setOnMouseClicked(event -> {
+            //TODO: CardRarity common nichts, uncommon 100% heilung, rare 100%heilung und +10 maxHP
+            button1.setVisible(false);
+        });
+        return button1;
+    }
 /*    private Player player;
     private Scanner scanner = new Scanner(System.in);
 

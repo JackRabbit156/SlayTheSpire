@@ -16,7 +16,6 @@ public abstract class Event {
     private Button button3;
 
     public Event(){
-
     }
 
     public Image getImage() {
