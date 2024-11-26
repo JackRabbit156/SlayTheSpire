@@ -29,7 +29,7 @@ public class RightSideLayout extends HBox {
     private BattleView battleView;
 
     public RightSideLayout(BattleView battleView, List<Enemy> enemies) {
-        setSpacing(-50);
+//        setSpacing(-50);
         this.battleView = battleView;
         this.enemies = enemies;
 
