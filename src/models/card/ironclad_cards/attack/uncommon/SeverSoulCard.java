@@ -18,7 +18,7 @@ public class SeverSoulCard extends AttackCard {
      * Constructor Sever soul card.
      */
     public SeverSoulCard() {
-        super("Sever Soul", "Exhaust all non-Attack cards in your hand. Deal 16 damage.", 2, 16, CardRarity.UNCOMMON, CardGrave.DISCARD);
+        super("Sever Soul", "Deal 16 damage.", 2, 16, CardRarity.UNCOMMON, CardGrave.DISCARD);
         setImagePath(new PathAssistent().toPath(this));
     }
 
@@ -29,8 +29,6 @@ public class SeverSoulCard extends AttackCard {
 
         Player player = gameContext.getPlayer();
         player.decreaseCurrentEnergy(getCost());
-
-        //TODO hand, for (!AttackCards) exhaust
     }
 
     @Override

@@ -43,10 +43,6 @@ public class LoadController implements LoadEventListener {
         List<SaveFilePreview> saveFilePreviewList = saveFilePreviewList();
         this.loadView = new LoadView(this, saveFilePreviewList);
 
-        if(saveFilePreviewList.isEmpty()){
-            // TODO: View if there are no files
-            return;
-        }
     }
 
     public LoadController(Player player){
@@ -58,10 +54,7 @@ public class LoadController implements LoadEventListener {
         List<SaveFilePreview> saveFilePreviewList = saveFilePreviewList();
         this.loadView = new LoadView(this, saveFilePreviewList);
 
-        if(saveFilePreviewList.isEmpty()){
-            // TODO: View if there are no files
-            return;
-        }
+
     }
 
     /**

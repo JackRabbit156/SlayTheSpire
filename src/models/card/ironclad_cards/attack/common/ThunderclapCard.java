@@ -20,7 +20,7 @@ public class ThunderclapCard extends AttackCard {
      * Constructor Thunderclap card.
      */
     public ThunderclapCard() {
-        super("Thunderclap", "Deal 4 damage and apply 1 Vulnerable to ALL enemies.", 1, 4, CardRarity.COMMON, CardGrave.DISCARD);
+        super("Thunderclap", "Deal 4 damage.", 1, 4, CardRarity.COMMON, CardGrave.DISCARD);
         setImagePath(new PathAssistent().toPath(this));
     }
 
@@ -29,10 +29,6 @@ public class ThunderclapCard extends AttackCard {
         Enemy enemy = gameContext.getSelectedEnemy();
         enemy.takeDamage(dealDamage());
 
-        List<Enemy> allEnemies = gameContext.getEnemies();
-        for (Enemy allEnemy : allEnemies) {
-            //TODO Apply Debuff 1 Vulnerable to ALL
-        }
 
         Player player = gameContext.getPlayer();
         player.decreaseCurrentEnergy(getCost());

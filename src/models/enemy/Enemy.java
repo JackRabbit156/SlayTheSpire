@@ -90,14 +90,6 @@ public abstract class Enemy {
         else if (difficulty.equals(DifficultyLevel.EASY)) {
             attackPercentage = 75;
         }
-        else if (difficulty.equals(DifficultyLevel.HARD)) {
-            System.out.println("hard not yet implemented");
-            //TODO hard
-        }
-        else if (difficulty.equals(DifficultyLevel.IMPOSSIBLE)) {
-            System.out.println("impossible not yet implemented");
-            //TODO impossible
-        }
 
         if (attackPercentage >= randomNumber) {
             setEnemyCardToBePlayed(new Random().nextInt(getEnemyDeck().size()));

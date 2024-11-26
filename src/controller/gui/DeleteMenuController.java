@@ -41,10 +41,6 @@ public class DeleteMenuController implements LoadEventListener, DeleteEventListe
         List<SaveFilePreview> saveFilePreviewList = saveFilePreviewList();
         this.deleteMenuView = new DeleteMenuView(this, saveFilePreviewList);
 
-        if(saveFilePreviewList.isEmpty()){
-            // TODO: View if there are no files
-            return;
-        }
     }
 
     /**

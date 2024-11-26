@@ -18,7 +18,7 @@ public class CarnageCard extends AttackCard {
      * Constructor Carnage card.
      */
     public CarnageCard() {
-        super("Carnage", "Ethereal. Deal 20 damage.", 2, 20, CardRarity.UNCOMMON, CardGrave.DISCARD);
+        super("Carnage", "Deal 20 damage.", 2, 20, CardRarity.UNCOMMON, CardGrave.DISCARD);
         setImagePath(new PathAssistent().toPath(this));
     }
 
@@ -29,8 +29,6 @@ public class CarnageCard extends AttackCard {
 
         Player player = gameContext.getPlayer();
         player.decreaseCurrentEnergy(getCost());
-
-        //TODO Ethereal
     }
 
     @Override

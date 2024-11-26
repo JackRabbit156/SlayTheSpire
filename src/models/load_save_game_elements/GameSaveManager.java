@@ -47,7 +47,6 @@ public class GameSaveManager {
         String fileName = "save_" + gameData.get("lastSession") + ".txt";
         saveDataToFile(gameData, new File(SAVE_FOLDER, fileName));
 
-        // TODO: Alert, Game save was successful or not
     }
 
     /**

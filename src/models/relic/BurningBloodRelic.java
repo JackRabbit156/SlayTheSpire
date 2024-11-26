@@ -12,7 +12,6 @@ import models.relic.relic_structure.RelicType;
  *
  * @author OF Daniel Willig
  */
-//TODO adding flavor-text to all relics?
 public class BurningBloodRelic extends PlayerTypeRelic {
     /**
      * Constructor Burning blood relic.

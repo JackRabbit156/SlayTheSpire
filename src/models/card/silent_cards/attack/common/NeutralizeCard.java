@@ -18,7 +18,7 @@ public class NeutralizeCard extends AttackCard {
      * Constructor Neutralize card.
      */
     public NeutralizeCard() {
-        super("Neutralize", "Deal 3 damage. Apply 1 Weak.", 0, 3, CardRarity.COMMON, CardGrave.DISCARD);
+        super("Neutralize", "Deal 3 damage.", 0, 3, CardRarity.COMMON, CardGrave.DISCARD);
         setImagePath(new PathAssistent().toPath(this));
     }
 
@@ -29,8 +29,6 @@ public class NeutralizeCard extends AttackCard {
 
         Player player = gameContext.getPlayer();
         player.decreaseCurrentEnergy(getCost());
-
-        //TODO Apply Debuff 1 Weak
     }
 
     @Override

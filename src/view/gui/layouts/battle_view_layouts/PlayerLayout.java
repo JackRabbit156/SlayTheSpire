@@ -144,7 +144,6 @@ public class PlayerLayout extends VBox {
                 imageView.setScaleY(1.1); // Slightly increase the height
             }
             else if (powerMode) {
-                //TODO WIP
                 imageView.setEffect(glowSelectedPlayer);
                 imageView.setScaleY(1.1); // Slightly increase the height
                 imageView.setScaleX(1.1); // Slightly increase the width
@@ -158,7 +157,6 @@ public class PlayerLayout extends VBox {
                 imageView.setScaleY(1.0); // Reset the height to original
             }
             else if (powerMode) {
-                //TODO WIP
                 imageView.setEffect(glowNotSelectedPlayer);
                 imageView.setScaleY(1.0); // Reset the height to original
                 imageView.setScaleX(1.0); // Reset the width to original
