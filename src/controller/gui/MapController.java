@@ -87,6 +87,11 @@ public class MapController implements MapViewEvents, GameMenuListener {
     }
 
     @Override
+    public void onChangeDifficultyClick() {
+        // TODO: Difficulty
+    }
+
+    @Override
     public void onExitClick() {
         System.exit(0);
     }

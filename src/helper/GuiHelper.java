@@ -1,6 +1,7 @@
 package helper;
 
 import controller.gui.*;
+import controller.listener.DeleteEventListener;
 import javafx.scene.ImageCursor;
 import javafx.animation.FadeTransition;
 import javafx.scene.Parent;
@@ -17,6 +18,7 @@ import javafx.util.Duration;
 import models.enemy.Enemy;
 import models.map_elements.field_types.FieldEnum;
 import models.player.player_structure.Player;
+import view.gui.DeleteMenuView;
 import view.gui.GameOverView;
 import view.gui.StatisticView;
 
@@ -191,6 +193,18 @@ public class GuiHelper {
 
             String cssPath = "/css/loadViewStyle.css";
             fadeTransition(primaryStage, loadController.getLoadView(), cssPath);
+        }
+
+        /**
+         * Startet die Szene zum Laden eines gespeicherten Spielstands (Load Save State Scene).
+         *
+         * @param primaryStage das primäre 'Stage'-Objekt der Anwendung
+         */
+        public static void startDeleteMenuScene(Stage primaryStage) {
+            DeleteMenuController deleteController = new DeleteMenuController(primaryStage);
+
+            String cssPath = "/css/loadViewStyle.css";
+            fadeTransition(primaryStage, deleteController.getDeleteMenuView(), cssPath);
         }
 
         /**

@@ -90,6 +90,10 @@ public class MapView extends StackPane {
         gameMenuListener.onMainMenuClick();
     }
 
+    public void clickedOnChangeDifficultyButton(){
+        gameMenuListener.onChangeDifficultyClick();
+    }
+
     public void clickedOnBackButton(){
         gameMenuListener.onBackClick();
     }
@@ -100,7 +104,6 @@ public class MapView extends StackPane {
 
     private void initTopSide() {
         HBox topHBox = new TopBarLayout(player, this);
-
 
         mainMap.setTop(topHBox);
     }

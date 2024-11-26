@@ -13,6 +13,8 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
+import models.game_settings.GameSettings;
+import models.game_settings.structure.GameMode;
 import models.load_save_game_elements.GameSaveManager;
 import models.player.player_structure.Player;
 import view.gui.MapView;
@@ -72,12 +74,14 @@ public class GameMenuLayer extends BorderPane {
     private void initMenuButtons() {
         Button loadGameButton = new Button("Load Game");
         Button saveGameButton = new Button("Save Game");
+        Button changeDifficultyButton = new Button("Change Difficulty");
         Button mainMenuButton = new Button("Main Menu");
         Button backButton = new Button("Back");
         Button exitButton = new Button("Exit");
 
         assignButtonDesign(loadGameButton);
         assignButtonDesign(saveGameButton);
+        assignButtonDesign(changeDifficultyButton);
         assignButtonDesign(mainMenuButton);
         assignButtonDesign(backButton);
         assignButtonDesign(exitButton);
@@ -85,13 +89,18 @@ public class GameMenuLayer extends BorderPane {
         loadGameButton.setOnAction(event -> mapView.clickedOnLoadButton());
         saveGameButton.setOnAction(event -> mapView.clickedOnSaveButton());
         mainMenuButton.setOnAction(event -> mapView.clickedOnMainMenuButton());
+        changeDifficultyButton.setOnAction(event -> mapView.clickedOnChangeDifficultyButton());
         backButton.setOnAction(event -> mapView.clickedOnBackButton());
         exitButton.setOnAction(event -> mapView.clickedOnExitButton());
 
-
         VBox menuItems = new VBox();
-        menuItems.getChildren().addAll(loadGameButton, saveGameButton, mainMenuButton, backButton, exitButton);
+        menuItems.getChildren().addAll(loadGameButton);
 
+        if(GameSettings.getGameMode() != GameMode.HARDCORE) {
+            menuItems.getChildren().addAll(saveGameButton, changeDifficultyButton);
+        }
+
+        menuItems.getChildren().addAll(mainMenuButton, backButton, exitButton);
         menuItems.setAlignment(Pos.TOP_CENTER);
         menuItems.setPadding(new Insets(150, 0, 0, 0));
         setCenter(menuItems);

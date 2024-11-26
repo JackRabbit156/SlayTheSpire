@@ -3,6 +3,8 @@ package tests;
 import helper.GuiHelper;
 import javafx.application.Application;
 import javafx.stage.Stage;
+import models.game_settings.GameSettings;
+import models.game_settings.structure.GameMode;
 import models.player.IroncladPlayer;
 
 /**
