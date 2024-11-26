@@ -18,7 +18,7 @@ public class RecklessChargeCard extends AttackCard {
      * Constructor Reckless charge card.
      */
     public RecklessChargeCard() {
-        super("Reckless Charge", "Deal 7 damage. Shuffle a Dazed into your draw pile.", 0, 7, CardRarity.UNCOMMON, CardGrave.DISCARD);
+        super("Reckless Charge", "Deal 7 damage.", 0, 7, CardRarity.UNCOMMON, CardGrave.DISCARD);
         setImagePath(new PathAssistent().toPath(this));
     }
 
@@ -29,8 +29,6 @@ public class RecklessChargeCard extends AttackCard {
 
         Player player = gameContext.getPlayer();
         player.decreaseCurrentEnergy(getCost());
-
-        //TODO deck.add dazed
     }
 
     @Override

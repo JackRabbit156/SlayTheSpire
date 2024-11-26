@@ -102,7 +102,6 @@ public abstract class Player {
 
     protected abstract void initRelic();
 
-    //TODO maybe in takeDamage() if(currentHealth <= 0) {alive = false};
     /**
      * Überprüft, ob der Spieler lebt.
      *

@@ -11,7 +11,6 @@ import models.relic.relic_structure.RelicType;
  *
  * @author OF Daniel Willig
  */
-//TODO adding flavor-text to all relics?
 public class RingOfTheSnake extends PlayerTypeRelic {
     /**
      * Constructor Ring of the snake.
@@ -25,6 +24,6 @@ public class RingOfTheSnake extends PlayerTypeRelic {
     // * Methods *
     @Override
     public void getsUsed(GameContext gameContext) {
-        //TODO GameLogic
+
     }
 }

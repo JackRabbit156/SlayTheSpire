@@ -20,7 +20,7 @@ public class ImmolateCard extends AttackCard {
      * Constructor Immolate card.
      */
     public ImmolateCard() {
-        super("Immolate", "Deal 21 damage to ALL enemies. Add a Burn into your discard pile.", 2, 21, CardRarity.RARE, CardGrave.DISCARD);
+        super("Immolate", "Deal 21 damage to ALL enemies.", 2, 21, CardRarity.RARE, CardGrave.DISCARD);
         setImagePath(new PathAssistent().toPath(this));
     }
 
@@ -33,8 +33,6 @@ public class ImmolateCard extends AttackCard {
 
         Player player = gameContext.getPlayer();
         player.decreaseCurrentEnergy(getCost());
-
-        //TODO deck.add burnCard
     }
 
     @Override

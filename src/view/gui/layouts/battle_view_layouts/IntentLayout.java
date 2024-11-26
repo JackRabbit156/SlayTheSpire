@@ -51,7 +51,7 @@ public class IntentLayout extends StackPane {
 
     public void setIntentIcon(String intent) {
         if (intent != null)
-            intentIconView.setImage(new Image(getClass().getResource(intent).toExternalForm())); //TODO GremlinNob fehlendes Icon ERROR
+            intentIconView.setImage(new Image(getClass().getResource(intent).toExternalForm()));
     }
 
     private void initText() {
