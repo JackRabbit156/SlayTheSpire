@@ -1,6 +1,7 @@
 package controller.gui;
 
 import helper.GuiHelper;
+import javafx.geometry.Bounds;
 import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Popup;
@@ -43,11 +44,12 @@ public class MainMenuController {
         AtomicBoolean diffFlag = new AtomicBoolean(false);
         AtomicBoolean modeFlag = new AtomicBoolean(false);
 
-//        newGameUp.setAutoHide(true);
+        newGameUp.setAutoHide(true);
+        newGameUp.getContent().add(view.displayDiffModeMessage());
+
 
         newGameButton.setOnMouseClicked(event -> {
-            newGameUp.getContent().add(view.displayDiffModeMessage());
-            newGameUp.show(menuStage);//TODO LootView Zeile 210
+            newGameUp.show(menuStage);
 
             view.getSupereasyDifficulty().setOnMouseClicked(e1 -> {
                 view.setDifficultyButton(view.getSupereasyDifficulty());
