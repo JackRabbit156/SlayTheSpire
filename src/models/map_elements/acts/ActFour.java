@@ -25,8 +25,8 @@ import java.util.Random;
  * @author Warawa Alexander
  */
 public class ActFour extends Act{
-    private static final int MAP_WIDTH = 7;
-    private static final int MAP_HEIGHT= 16;
+    private static final int MAP_WIDTH = 2;
+    private static final int MAP_HEIGHT= 10;
 
     Random randi = new Random();
 
