@@ -120,9 +120,10 @@ public class MainMenuController {
     }
     public void quit(Button quit){
         quit.setOnMouseClicked(event -> {
+            quitUp.getContent().clear();
             quitUp.getContent().add(view.displayQuitMessage());
             quitUp.show(menuStage);
-
+            quitUp.setAutoHide(true);
             view.getNo().setOnMouseClicked(event1 -> {
                 quitUp.hide();
                 quitUp.getContent().remove(view.displayQuitMessage());

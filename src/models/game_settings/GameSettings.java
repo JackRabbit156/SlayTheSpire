@@ -37,6 +37,10 @@ public class GameSettings {
         difficultyLevel = difLevel;
     }
 
+    /*public static int openGameMenu(Player player) {
+        return gameMenu.display(player);
+    }*/
+
     public static void startTimer(){
         time = new GameCounter();
         time.start();
