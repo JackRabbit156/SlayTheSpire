@@ -42,6 +42,17 @@ public class MapView extends StackPane {
         return mainMap;
     }
 
+    /**
+     * Konstruktor für 'MapView'.
+     *
+     * @param player Der Spieler, der auf der Karte dargestellt wird.
+     * @param nodes  Eine Liste von Knotenpunkten auf der Karte.
+     * @param mapWidth Die Breite der Karte.
+     * @param mapHeight Die Höhe der Karte.
+     * @param mapViewEvents Ereignislistener für die Karteninteraktion.
+     * @param gameMenuListener Listener für das Spielmenü.
+     * @param difficultyMenuListener Listener für das Schwierigkeitsmenü.
+     */
     public MapView(Player player, List<Node> nodes, int mapWidth, int mapHeight, MapViewEvents mapViewEvents, GameMenuListener gameMenuListener, DifficultyMenuListener difficultyMenuListener) {
         this.nodes = nodes;
         this.mapViewEvents = mapViewEvents;

@@ -34,6 +34,13 @@ public class DifficultyMenuLayer extends BorderPane {
     private Button normalButton;
     private Button hardcoreButton;
 
+
+    /**
+     * Konstruktor für 'DifficultyMenuLayer'.
+     *
+     * @param player Der Spieler, der das Menü verwendet.
+     * @param mapView Die zugehörige Kartenansicht.
+     */
     public DifficultyMenuLayer(Player player, MapView mapView) {
         this.player = player;
         this.mapView = mapView;
