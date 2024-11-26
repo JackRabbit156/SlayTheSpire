@@ -3,6 +3,7 @@ package controller.gui;
 import controller.listener.DifficultyMenuListener;
 import controller.listener.GameMenuListener;
 import helper.GuiHelper;
+import helper.MusicBoy;
 import javafx.stage.Stage;
 import models.game_settings.GameSettings;
 import models.game_settings.structure.GameMode;
@@ -35,6 +36,7 @@ public class MapController implements MapViewEvents, GameMenuListener, Difficult
 
     public MapController (Player player) {
         this.player = player;
+        MusicBoy.play("map");
 
         switch (player.getCurrentAct()){
             case 1: act = new ActOne(player); break;

@@ -3,6 +3,7 @@ package controller.gui;
 import helper.Color;
 import helper.ConsoleAssistent;
 import helper.GuiHelper;
+import helper.MusicBoy;
 import models.card.DeckFactory;
 import models.card.card_structure.Card;
 import models.player.player_structure.Player;
@@ -34,6 +35,7 @@ public class ShopController implements ShopViewEvents {
      * @param player Der Spieler, der den Shop betritt.
      */
     public ShopController(Player player) {
+        MusicBoy.play("shop");
         this.player = player;
 
         this.deckFactory = new DeckFactory(player, 5);

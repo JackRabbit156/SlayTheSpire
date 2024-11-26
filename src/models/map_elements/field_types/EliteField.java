@@ -2,6 +2,7 @@ package models.map_elements.field_types;
 
 import controller.gui.LootController;
 import helper.GuiHelper;
+import helper.MusicBoy;
 import models.enemy.Enemy;
 import models.player.player_structure.Player;
 
@@ -15,6 +16,7 @@ public class EliteField extends Field {
 
     public EliteField(List<Enemy> enemies) {
         super(imagePath);
+        MusicBoy.play("elite");
         this.enemies = enemies;
     }
 

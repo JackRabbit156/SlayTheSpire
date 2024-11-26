@@ -1,9 +1,12 @@
 package controller.gui;
 
 import helper.GuiHelper;
+import helper.MusicBoy;
 import javafx.geometry.Bounds;
 import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.stage.Popup;
 import javafx.stage.Stage;
 import models.game_settings.GameSettings;
@@ -26,6 +29,8 @@ public class MainMenuController {
     private Popup newGameUp = new Popup();
 
     public MainMenuController() {
+        MusicBoy.play("mainMenu");
+
         // to remove relation to previous Save File
         GameSettings.lastSession = "";
         GameSettings.resetStats();
