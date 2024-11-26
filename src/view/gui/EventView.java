@@ -18,7 +18,7 @@ import models.player.player_structure.Player;
 
 /**
  * View für die Darstellung der Events, dynamisch aufgebaut. Es können Events über den Controller eingefügt werden,
- * diese erhalten dann ein Layout über diese View
+ * diese erhalten dann ein Layout über diese View.
  *
  * @author Loeschner, Marijan
  */

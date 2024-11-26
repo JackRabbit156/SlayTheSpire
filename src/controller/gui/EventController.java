@@ -15,19 +15,27 @@ import view.gui.EventView;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Random;
 
+/**
+ * Controller für die Events mit Event Randomizer
+ *
+ * @author Loeschner, Marijan
+ */
 public class EventController {
-    private List<Event> eventList = new ArrayList<>();
+    private List<Event> generalEvents = new ArrayList<>();
+    private Random rand = new Random();
+    private int randomIndex;
 
     public BorderPane getEventView(Player player){
-        EventView ev = new EventView(randomEvent(), player);
+        EventView ev = new EventView(randomEvent(player), player);
         ev.getLeave().setOnMouseClicked(event -> {
             GuiHelper.Scenes.startMapScene(player);
         });
         return ev.display();
     }
-    //TODO: random Event auswählen lassen.
-    public Event randomEvent() {
+
+    public Event randomEvent(Player player) {
         Event randomEvent;
         Event bigFish = new BigFish();
         Event deadAdventurer = new DeadAdventurer();
@@ -42,16 +50,22 @@ public class EventController {
         Event wheelOfChange = new WheelOfChange();
         Event theNest = new TheNest();
         Event theMausoleum = new TheMausoleum();
+        Event theJoust =new TheJoust();
         Event lab = new Lab();
         Event maskedBandits = new MaskedBandits();
         Event theLib = new TheLibrary();
         Event knowingSkull = new KnowingSkull();
         Event cursedTome = new CursedTome();
-        eventList.addAll(Arrays.asList(bigFish, deadAdventurer, theCleric, theSerpent, noteforyou,
-                scrapOoze, worldOfGoo, bonfireSpirits, goldenShrine, duplicator, wheelOfChange,
-                theNest, theMausoleum, lab, maskedBandits, theLib, knowingSkull, cursedTome));
-        //TODO: randomizer so anpassen dass die acts berücksichtigt werden
-        return randomEvent = cursedTome;
+
+        generalEvents.addAll(Arrays.asList(noteforyou, bonfireSpirits, goldenShrine, duplicator));
+        randomIndex = rand.nextInt(generalEvents.size());
+        if(player.getCurrentAct() == 1){
+            generalEvents.addAll(Arrays.asList(bigFish, deadAdventurer, lab, scrapOoze, theCleric, theSerpent, wheelOfChange, worldOfGoo));
+        }
+        else if(player.getCurrentAct() == 2) {
+            generalEvents.addAll(Arrays.asList(cursedTome, knowingSkull, maskedBandits, theJoust, theLib, theMausoleum, theNest));
+        }
+        return randomEvent = generalEvents.get(randomIndex);
     }
 
 }
