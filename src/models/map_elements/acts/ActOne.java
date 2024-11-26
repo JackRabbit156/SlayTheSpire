@@ -55,7 +55,7 @@ public class ActOne extends Act {
     private void initNodes(){
         Node start1 = new Node("1", new EnemyField(generateEnemies()), new Coordinates(3, 16));
         Node fight2 = new Node("2", new EnemyField(generateEnemies()), new Coordinates(3, 14));
-        Node unknown3 = new Node("3", new UnknownField(new EventField(randomEvent()), new EnemyField(generateEnemies()), new EliteField(createElitesEnemies()), new ShopField()), new Coordinates(1, 12));
+        Node unknown3 = new Node("3", new UnknownField(new EventField(), new EnemyField(generateEnemies()), new EliteField(createElitesEnemies()), new ShopField()), new Coordinates(1, 12));
         Node fight4 = new Node("4", new EnemyField(generateEnemies()), new Coordinates(5, 12));
         Node fight5 = new Node("5", new EnemyField(generateEnemies()), new Coordinates(0, 10));
         Node elite6 = new Node("6", new EliteField(createElitesEnemies()), new Coordinates(2, 10));
@@ -63,10 +63,10 @@ public class ActOne extends Act {
         Node shop8 = new Node("8", new ShopField(), new Coordinates(2, 8));
         //Node unknown9 = new Node("9", new UnknownField(new EventField(randomEvent()), new EnemyField(generateEnemies()), new EliteField(createElitesEnemies()), new ShopField()), new Coordinates(5, 8));
         Node treasure9 = new Node("9", new TreasureField(), new Coordinates(5, 8));
-        Node event10 = new Node("10", new EventField(randomEvent()), new Coordinates(1, 6));
+        Node event10 = new Node("10", new EventField(), new Coordinates(1, 6));
         Node fight11 = new Node("11", new EnemyField(generateEnemies()), new Coordinates(4, 6));
         Node fight12 = new Node("12", new EnemyField(generateEnemies()), new Coordinates(6, 6));
-        Node unknown13 = new Node("13", new UnknownField(new EventField(randomEvent()), new EnemyField(generateEnemies()), new EliteField(createElitesEnemies()), new ShopField()), new Coordinates(4, 4));
+        Node unknown13 = new Node("13", new UnknownField(new EventField(), new EnemyField(generateEnemies()), new EliteField(createElitesEnemies()), new ShopField()), new Coordinates(4, 4));
         Node elite14 = new Node("14", new EliteField(createElitesEnemies()), new Coordinates(6, 4));
         Node rest15 = new Node("15", new RestField(), new Coordinates(4, 2));
         Node boss16 = new Node("16", new BossField(createBossEnemies()), new Coordinates(4, 0));
@@ -220,33 +220,32 @@ public class ActOne extends Act {
         Node currentNode = getPlayerNode();
         currentNode.doFieldThing(currentNode.getPlayer());
     }
-
-    private Event randomEvent() {
-       /* Random randi = new Random();
-        ActOneEventEnum[] events = ActOneEventEnum.values();
-        ActOneEventEnum event = events[randi.nextInt(events.length)];
-        switch (event) {
-            case BIG_FISH:
-                return new BigFishEvent(this.player);
-            case BONFIRE_SPIRITS:
-                return new BonfireSpiritsEvent(this.player);
-            case DEAD_ADVENTURER:
-                return new DeadAdventurerEvent(this.player);
-            case DUPLICATOR:
-                return new DuplicatorEvent(this.player);
-            case NOTE_FOR_YOURSELF:
-                return new NoteForYourselfEvent(this.player);
-            case SCRAP_OOZE:
-                return new ScrapOozeEvent(this.player);
-            case THE_CLERIC:
-                return new TheClericEvent(this.player);
-            case THE_SSSSSERPENT:
-                return new TheSssssserpentEvent(this.player);
-            case WORLDOF_GOO:
-                return new WorldOfGooEvent(this.player);
-            default:
-                return new GoldenShrineEvent(this.player);
-        }*/
-        return null;
-    }
+//
+//    private Event randomEvent() {
+//        Random randi = new Random();
+//        ActOneEventEnum[] events = ActOneEventEnum.values();
+//        ActOneEventEnum event = events[randi.nextInt(events.length)];
+//        switch (event) {
+//            case BIG_FISH:
+//                return new BigFishEvent(this.player);
+//            case BONFIRE_SPIRITS:
+//                return new BonfireSpiritsEvent(this.player);
+//            case DEAD_ADVENTURER:
+//                return new DeadAdventurerEvent(this.player);
+//            case DUPLICATOR:
+//                return new DuplicatorEvent(this.player);
+//            case NOTE_FOR_YOURSELF:
+//                return new NoteForYourselfEvent(this.player);
+//            case SCRAP_OOZE:
+//                return new ScrapOozeEvent(this.player);
+//            case THE_CLERIC:
+//                return new TheClericEvent(this.player);
+//            case THE_SSSSSERPENT:
+//                return new TheSssssserpentEvent(this.player);
+//            case WORLDOF_GOO:
+//                return new WorldOfGooEvent(this.player);
+//            default:
+//                return new GoldenShrineEvent(this.player);
+//        return null;
+//    }
 }
