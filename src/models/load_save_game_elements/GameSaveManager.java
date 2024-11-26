@@ -7,6 +7,7 @@ import models.card.silent_cards.SilentStrikeCard;
 import models.game_settings.GameSettings;
 import models.player.player_structure.Player;
 import models.player.player_structure.PlayerType;
+import models.potion.potion_structure.PotionCard;
 
 import java.time.LocalDateTime;
 
@@ -164,6 +165,17 @@ public class GameSaveManager {
             Card card = player.getDeck().get(i);
             gameData.put("card" + i, card.getClass().getSimpleName());
         }
+
+        for (int i = 0; i < player.getPotionCards().size(); i++) {
+            PotionCard potionCard = player.getPotionCards().get(i);
+            String potionName = potionCard.getName().replace(" ", "").toUpperCase();
+            gameData.put("potion" + i, potionName);
+        }
+
+        gameData.put("receivedGoldStats", GameSettings.getReceivedGoldStats()+"");
+        gameData.put("receivedDamageStats", GameSettings.getReceivedDamageStats()+"");
+        gameData.put("distributedDamageStats", GameSettings.getDistributedDamageStats()+"");
+        gameData.put("energySpentStats", GameSettings.getEnergySpentStats()+"");
 
         return gameData;
     }

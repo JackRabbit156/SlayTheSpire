@@ -110,6 +110,13 @@ public class GameSettings {
         return receivedGoldStats;
     }
 
+    public static void setStats(int newReceivedGoldStats, int newReceivedDamageStats, int newDistributedDamageStats, int newEnergySpentStats){
+        receivedGoldStats = newReceivedGoldStats;
+        receivedDamageStats = newReceivedDamageStats;
+        distributedDamageStats = newDistributedDamageStats;
+        energySpentStats = newEnergySpentStats;
+    }
+
     public static void resetStats() {
         distributedDamageStats = 0;
         receivedDamageStats = 0;

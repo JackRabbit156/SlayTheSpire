@@ -13,6 +13,7 @@ import models.load_save_game_elements.SaveFilePreview;
 import models.player.IroncladPlayer;
 import models.player.SilentPlayer;
 import models.player.player_structure.Player;
+import models.potion.potion_structure.PotionCard;
 import view.gui.LoadView;
 
 import java.util.ArrayList;
@@ -72,6 +73,7 @@ public class LoadController implements LoadEventListener {
         Map<String, String> gameData = gameSaveManager.loadGame(id);
         Player player = null;
 
+        // Getting the Character
         String playerTypeAsString = gameData.get("character");
         switch (playerTypeAsString){
             case "IRONCLAD": player = new IroncladPlayer(primaryStage); break;
@@ -87,6 +89,7 @@ public class LoadController implements LoadEventListener {
         player.setCurrentField(gameData.get("field"));
         player.setGold( Integer.parseInt(gameData.get("gold")));
 
+        // reading Deck
         List<Card> deck = new ArrayList<>();
         for(int i = 0; gameData.get("card"+i) != null; i++){
             String cardName = gameData.get("card"+i);
@@ -97,8 +100,19 @@ public class LoadController implements LoadEventListener {
 
         player.setDeck(deck);
 
+        // reading Potions
+        List<PotionCard> potions = new ArrayList<>();
+        for(int i = 0; gameData.get("potion"+i) != null; i++){
+            String potionName = gameData.get("potion"+i);
+
+            PotionCard potion = DeckFactory.assignPotion(potionName);
+            potions.add(potion);
+        }
+
+        player.setPotionCards(potions);
 
 
+        // assigning the right difficulty
         String difficulty = gameData.get("difficulty");
 
         switch (difficulty){
@@ -111,11 +125,19 @@ public class LoadController implements LoadEventListener {
 
         GameSettings.lastSession = gameData.get("lastSession");
 
-        //MapViewController map = new MapViewController(player, true);
+        // Setting stats
+        int receivedGoldStats = Integer.parseInt(gameData.get("receivedGoldStats"));
+        int receivedDamageStats = Integer.parseInt(gameData.get("receivedDamageStats"));
+        int distributedDamageStats = Integer.parseInt(gameData.get("distributedDamageStats"));
+        int energySpentStats = Integer.parseInt(gameData.get("energySpentStats"));;
+
+        GameSettings.setStats(receivedGoldStats, receivedDamageStats, distributedDamageStats, energySpentStats);
+
+
         GuiHelper.Scenes.startMapScene(player);
 
+        // Setting played Time
         GameSettings.restartTimer();
-
         GameSettings.setTimerSeconds(Integer.parseInt(gameData.get("seconds")));
         GameSettings.setTimerMinutes(Integer.parseInt(gameData.get("minutes")));
         GameSettings.setTimerHours(Integer.parseInt(gameData.get("hours")));
