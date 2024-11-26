@@ -8,6 +8,21 @@ import view.gui.layouts.battle_view_layouts.EnemyLayout;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Die Klasse 'RightSideLayout' repräsentiert das Layout für die
+ * rechte Seite der Schlachtansicht (Battle View), in der die
+ * feindlichen Gegner angezeigt werden.
+ *
+ * <p>
+ * Diese Klasse verwaltet die Anzeige mehrerer feindlicher Layouts,
+ * die jeweils die individuellen Eigenschaften und Statusanzeigen
+ * der Feinde umfassen. Sie ermöglicht auch die Aktualisierung
+ * der Anzeige, wenn sich der Status der Feinde ändert
+ * (z.B. wenn ein Feind besiegt wird).
+ * </p>
+ *
+ * @author Warawa Alexander, Willig Daniel
+ */
 public class RightSideLayout extends HBox {
     private List<EnemyLayout> enemyLayout = new ArrayList<>();
     private List<Enemy> enemies;

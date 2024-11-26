@@ -14,7 +14,7 @@ package controller.listener;
  *
  * @author Warawa Alexander
  */
-public interface LoadEventListener {
-    void onSelectedItem(int id);
+public interface DeleteEventListener {
+    void onDeleteButtonClick(int id);
     void onBackButtonClick();
 }

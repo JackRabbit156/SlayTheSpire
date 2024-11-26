@@ -57,7 +57,8 @@ public class LootController implements LootViewEvents {
 
         this.selectedCards = initialLootDeck();
 
-        this.lootView = new LootView(this.selectedCards, this.gold, this.potionCard, this);
+        this.lootView = new LootView(this.selectedCards, this.gold, player.getImagePath(), this.potionCard, this);
+
         this.lootView.initTreasureViewEvents(this);
     }
 

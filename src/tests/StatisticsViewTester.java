@@ -19,6 +19,6 @@ public class StatisticsViewTester extends Application {
     public void start(Stage primaryStage) {
         TestPlayer player = new TestPlayer(primaryStage);
 
-        GuiHelper.Scenes.startTreasureScene(player);
+        GuiHelper.Scenes.startStatisticScene(player);
     }
 }

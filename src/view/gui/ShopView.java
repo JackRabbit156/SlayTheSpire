@@ -15,6 +15,8 @@ import models.potion.potion_structure.PotionCard;
 import view.gui.layouts.layout_events.ShopViewEvents;
 import view.gui.layouts.shop_layout.CardSelectionLayout;
 import view.gui.layouts.shop_layout.PotionSelectionLayout;
+import view.gui.layouts.shop_layout.BackLayout;
+import view.gui.layouts.shop_layout.EntryLayout;
 
 import java.util.List;
 
@@ -26,9 +28,9 @@ import java.util.List;
  */
 public class ShopView extends StackPane {
     private List<Card> shopCards;
-    private Player player;
     private ShopViewEvents shopViewEvents;
     private PotionCard potionCard;
+    private String playerImagePath;
 
     private Insets insets = new Insets(15,15,15,15);
     private VBox centerVBox;
@@ -36,21 +38,15 @@ public class ShopView extends StackPane {
     private Popup popup;
 
     private BorderPane shopLayout;
-    private BorderPane bottomLayout;
+    private BorderPane entryLayout;
+    private BorderPane backLayout;
 
-    /**
-     * Konstruktor für die Klasse ShopView.
-     * Initialisiert die Ansicht mit einem Spieler, kaufbaren Karten und Ereignissen der Shop-Ansicht.
-     *
-     * @param player           Der Spieler, der den Shop betritt.
-     * @param shopCards        Die Liste der im Shop verfügbaren Karten.
-     * @param shopViewEvents   Die Ereignisse der Shop-Ansicht.
-     * @param potionCard       Optional: Die im Shop verfügbare Trankkarte.
-     */
-    public ShopView(Player player, List<Card> shopCards, ShopViewEvents shopViewEvents, PotionCard... potionCard) {
-        shopLayout = new BorderPane();
-        bottomLayout = new BorderPane();
-        this.player = player;
+    public ShopView(String playerImagePath, List<Card> shopCards, ShopViewEvents shopViewEvents, PotionCard... potionCard) {
+        this.shopLayout = new BorderPane();
+        this.entryLayout = new BorderPane();
+        this.backLayout = new BorderPane();
+
+        this.playerImagePath = playerImagePath;
         this.shopCards = shopCards;
         this.shopViewEvents = shopViewEvents;
         this.potionCard = potionCard[0] != null ? potionCard[0] :  null;
@@ -61,27 +57,37 @@ public class ShopView extends StackPane {
      * Initialisiert die View.
      */
     public void display() {
-        getChildren().add(shopLayout);
-        getChildren().add(bottomLayout);
+        getChildren().addAll(this.entryLayout, this.shopLayout, this.backLayout);
 
-        setBackground(new Background(GuiHelper.background("/images/backgrounds/shop_panel_bg.png")));
-        initShopLayout();
-        initBottomLayout();
+        setBackground(new Background(GuiHelper.background("/images/act1.png")));
+
+        this.entryLayout.setPickOnBounds(false);
+        this.backLayout.setPickOnBounds(false);
+        this.shopLayout.setPickOnBounds(false);
+
+        initEntryLayout();
+        initBackLayout();
     }
 
-    /**
-     * Initialisiert das untere Layout der Shop-Ansicht.
-     */
-    private void initBottomLayout() {
-        bottomLayout.setPickOnBounds(false);
-        initBottom();
+    private void initEntryLayout() {
+        EntryLayout entry = new EntryLayout(this, playerImagePath);
+        this.entryLayout.setCenter(entry);
+
+    }
+
+    private void initBackLayout() {
+        BackLayout back = new BackLayout(this);
+        HBox buttonZone = new HBox(back);
+        buttonZone.setAlignment(Pos.TOP_LEFT);
+        buttonZone.setPadding(new Insets(50,50,50,50));
+        this.backLayout.setBottom(buttonZone);
     }
 
     /**
      * Initialisiert das Layout der Shop-Ansicht.
      */
     private void initShopLayout() {
-        shopLayout.setPickOnBounds(false);
+        this.shopLayout.setBackground(new Background(GuiHelper.background("/images/backgrounds/shop_panel_bg.png")));
         initTop();
         initCenter();
     }
@@ -123,42 +129,22 @@ public class ShopView extends StackPane {
      * Initialisiert das obere Layout der Shop-Ansicht.
      */
     private void initTop(){
+        Image img = new Image(getClass().getResource("/images/banner/abandon.png").toExternalForm());
+        ImageView imageView = new ImageView(img);
+
         topVBox = new VBox();
+        StackPane titlePane = new StackPane();
 
         Label label = new Label();
         label.setText("Welcome to Shop.");
-        label.setId("title");
         label.setTextFill(Paint.valueOf("White"));
-        label.setStyle("-fx-font-size: 56px; -fx-font-family: Kreon;");
+        label.setStyle("-fx-font-size: 38px; -fx-font-family: Kreon;");
 
-        topVBox.getChildren().add(label);
+        titlePane.getChildren().addAll(imageView,label);
+
+        topVBox.getChildren().add(titlePane);
         topVBox.setAlignment(Pos.BOTTOM_CENTER);
         shopLayout.setTop(topVBox);
-    }
-
-    /**
-     * Initialisiert das untere Layout der Shop-Ansicht.
-     */
-    private void initBottom(){
-        Image btnImage = new Image(getClass().getResource("/images/buttons/buttonL.png").toExternalForm());
-        ImageView imgView = new ImageView(btnImage);
-        HBox bottomHBox = new HBox();
-
-        // Label Setzen
-        Label label = new Label("Back");
-        label.setTextFill(Paint.valueOf("White"));
-
-        // Events und Button erstellung
-        StackPane stackPaneBtn = GuiHelper.addButtonStackPane(imgView, label, 0.7, 0.7);
-        stackPaneBtn.setTranslateY(-100);
-        imgView.setOnMouseClicked(event -> shopViewEvents.onBackClicked());
-        label.setOnMouseClicked(event -> shopViewEvents.onBackClicked());
-
-        // HBox Config
-        bottomHBox.setAlignment(Pos.TOP_LEFT);
-        bottomHBox.setTranslateY(150);
-        bottomHBox.getChildren().add(stackPaneBtn);
-        bottomLayout.setBottom(bottomHBox);
     }
 
     /**
@@ -223,5 +209,13 @@ public class ShopView extends StackPane {
     public void setPurchaseablePotion() {
         this.potionCard = null;
         initCenter();
+    }
+
+    public void onBackClick() {
+        this.shopViewEvents.onBackClicked();
+    }
+
+    public void onMerchantClick() {
+        initShopLayout();
     }
 }

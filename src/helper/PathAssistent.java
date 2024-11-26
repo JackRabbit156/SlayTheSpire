@@ -24,4 +24,12 @@ public class PathAssistent {
 
         return path;
     }
+    public String toAltPath(Object object, int number) {
+        String path = "/" + object.getClass().getPackage().getName() + "." + object.getClass().getSimpleName();
+        path = path.replace(".", "/");
+        path = path.replaceFirst("models", "images");
+        path += "Alt" + number + ".png";
+
+        return path;
+    }
 }

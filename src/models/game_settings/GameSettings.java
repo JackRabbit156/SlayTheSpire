@@ -2,7 +2,6 @@ package models.game_settings;
 
 import models.game_settings.structure.DifficultyLevel;
 import models.game_settings.structure.GameMode;
-import models.player.player_structure.Player;
 
 /**
  * @author Löschner
@@ -12,8 +11,7 @@ import models.player.player_structure.Player;
 public class GameSettings {
     private static GameMode gameMode = GameMode.NORMAL;
     private static DifficultyLevel difficultyLevel = DifficultyLevel.EASY;
-    //private static GameMenuViewController gameMenu = new GameMenuViewController();
-    // Statics
+
     private static int distributedDamageStats = 0;
     private static int receivedDamageStats = 0;
     private static int receivedGoldStats = 0;
@@ -40,7 +38,7 @@ public class GameSettings {
     }
 
     /*public static int openGameMenu(Player player) {
-        return gameMenu.getEvent(player);
+        return gameMenu.display(player);
     }*/
 
     public static void startTimer(){
@@ -114,6 +112,13 @@ public class GameSettings {
 
     public static int getReceivedGoldStats() {
         return receivedGoldStats;
+    }
+
+    public static void resetStats() {
+        distributedDamageStats = 0;
+        receivedDamageStats = 0;
+        receivedGoldStats = 0;
+        energySpentStats = 0;
     }
 
 }

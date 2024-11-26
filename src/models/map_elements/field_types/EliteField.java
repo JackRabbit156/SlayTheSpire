@@ -20,15 +20,6 @@ public class EliteField extends Field {
 
     @Override
     public void doFieldThing(Player player) {
-        if(isFieldBeaten())
-            return;
-
         GuiHelper.Scenes.startBattleScene(player, enemies, FieldEnum.ELITEFIELD);
-
-        if(!player.isAlive()) {
-            return;
-        }
-
-        setFieldBeaten();
     }
 }

@@ -44,12 +44,7 @@ public class EnemyField extends Field{
      */
     @Override
     public void doFieldThing(Player player) {
-        if(isFieldBeaten())
-            return;
-
         GuiHelper.Scenes.startBattleScene(player, enemies, FieldEnum.ENEMYFIELD);
-
-        setFieldBeaten();
     }
 
     /**

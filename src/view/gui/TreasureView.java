@@ -9,9 +9,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Paint;
 import javafx.stage.Popup;
-import jdk.nashorn.internal.runtime.regexp.joni.constants.EncloseType;
 import models.card.card_structure.Card;
-import models.player.player_structure.PlayerType;
 import models.potion.potion_structure.PotionCard;
 import view.gui.layouts.layout_events.TreasureViewEvents;
 import view.gui.layouts.treasure_layout.BackLayout;
@@ -34,6 +32,9 @@ public class TreasureView extends StackPane {
     private TreasureViewEvents treasureViewEvents;
     private String playerImagePath;
 
+    private String STYLE = "-fx-font-size: 38; -fx-font-family: Kreon;";
+    private String STYLE_SMALL = "-fx-font-size: 28; -fx-font-family: Kreon;";
+
     private Popup popup;
     private VBox centerVBox;
     private Popup cardSelectionPopup;
@@ -53,7 +54,7 @@ public class TreasureView extends StackPane {
      * @param gold                 Die Menge an Gold im Schatz.
      * @param treasureViewEvents   Die Ereignisse der Schatz-Ansicht.
      */
-    public TreasureView(List<Card> cardList, int gold,String playerImagePath, TreasureViewEvents treasureViewEvents) {
+    public TreasureView(List<Card> cardList, int gold, String playerImagePath, TreasureViewEvents treasureViewEvents) {
         this.treasureLayout = new BorderPane();
         this.entryLayout = new BorderPane();
         this.backLayout = new BorderPane();
@@ -109,7 +110,6 @@ public class TreasureView extends StackPane {
      */
     private void initEntryLayout() {
         EntryLayout entry = new EntryLayout(this, playerImagePath);
-//        this.entryLayout.setMouseTransparent(true);
         this.entryLayout.setCenter(entry);
 
     }
@@ -118,33 +118,43 @@ public class TreasureView extends StackPane {
      * Initialisiert das Layout des Schatzes.
      */
     private void initTreasureLayout() {
-        treasureTitleLayout();
         treasureCenterLayer();
+        treasureTitleLayout();
     }
 
     /**
      * Initialisiert das zentrale Layout der Schatz-Ansicht.
      */
     private void treasureCenterLayer() {
-        centerVBox = new VBox();
+        this.centerVBox = new VBox();
+
+        Image btnImage = new Image(getClass().getResource("/images/panel/rewardPanel.png").toExternalForm());
+        ImageView rewardPanelImgView = new ImageView(btnImage);
+        StackPane rewardStackPanel = new StackPane(rewardPanelImgView);
+        rewardPanelImgView.setTranslateY(-140);
+
         centerVBox.setPadding(new Insets(15,0,0,0));
-        centerVBox.setAlignment(Pos.TOP_CENTER);
+        this.centerVBox.setAlignment(Pos.TOP_CENTER);
         centerVBox.setMaxWidth(100);
 
         // Gold Option
         StackPane goldStackPane = getGoldStackPane();
-        centerVBox.getChildren().add(goldStackPane);
+        this.centerVBox.getChildren().add(goldStackPane);
 
         // Potion Option
         if (this.potionCard != null) {
             StackPane getPotionStackPane = getPotionStackPane();
-            centerVBox.getChildren().add(getPotionStackPane);
+            this.centerVBox.getChildren().add(getPotionStackPane);
         }
 
         // Card Selection Option
         setCardSelectionLayout();
 
-        treasureLayout.setCenter(centerVBox);
+        this.centerVBox.getChildren().add(this.cardSelectionButtonStackPane);
+
+        rewardStackPanel.getChildren().add(centerVBox);
+
+        this.treasureLayout.setCenter(rewardStackPanel);
     }
 
     /**
@@ -154,7 +164,6 @@ public class TreasureView extends StackPane {
         CardSelectionLayout cardSelectionLayout = new CardSelectionLayout(this.cardList, this);
         cardSelectionLayout.setPadding(new Insets(50, 50, 15, 50));
         this.cardSelectionButtonStackPane = getCardSelectionStackPane();
-        this.centerVBox.getChildren().add(this.cardSelectionButtonStackPane);
 
         // Popup
         this.cardSelectionPopup.setAutoHide(true);
@@ -178,14 +187,13 @@ public class TreasureView extends StackPane {
         ImageView imgView = new ImageView(img);
         ImageView itemPanelView = new ImageView(btnImage);
 
-        itemPanelView.setScaleY(PANEL_SCALE);
-        itemPanelView.setScaleX(PANEL_SCALE);
         imgView.setScaleX(0.25);
         imgView.setScaleY(0.25);
 
         // Label
         Label label = new Label("New Cards!");
-        label.setStyle("-fx-font-size: 24; -fx-font-family: Kreon;");
+        label.setTranslateX(-30);
+        label.setStyle(STYLE_SMALL);
         label.setTextFill(Paint.valueOf("White"));
 
         // Loot
@@ -212,15 +220,13 @@ public class TreasureView extends StackPane {
         ImageView imgView = new ImageView(img);
         ImageView itemPanelView = new ImageView(btnImage);
 
-        itemPanelView.setScaleY(PANEL_SCALE);
-        itemPanelView.setScaleX(PANEL_SCALE);
         imgView.setScaleX(PANEL_SCALE);
         imgView.setScaleY(PANEL_SCALE);
 
         // Label
         Label label = new Label(String.valueOf(gold));
         label.setText(String.valueOf(gold));
-        label.setStyle("-fx-font-size: 24; -fx-font-family: Kreon;");
+        label.setStyle(STYLE_SMALL);
         label.setTextFill(Paint.valueOf("White"));
 
         // Loot
@@ -255,15 +261,13 @@ public class TreasureView extends StackPane {
         Image img = new Image(getClass().getResource(potionCard.getImagePath()).toExternalForm());
         ImageView imgView = new ImageView(img);
 
-        itemPanelView.setScaleY(PANEL_SCALE);
-        itemPanelView.setScaleX(PANEL_SCALE);
         imgView.setScaleX(PANEL_SCALE);
         imgView.setScaleY(PANEL_SCALE);
 
         // Label
         Label label = new Label();
         label.setText(potionCard.getName());
-        label.setStyle("-fx-font-size: 24; -fx-font-family: Kreon;");
+        label.setStyle(STYLE_SMALL);
         label.setTextFill(Paint.valueOf("White"));
 
         // Loot
@@ -291,14 +295,19 @@ public class TreasureView extends StackPane {
      * Initialisiert das obere Layout der Schatz-Ansicht.
      */
     private void treasureTitleLayout() {
+        Image img = new Image(getClass().getResource("/images/banner/abandon.png").toExternalForm());
+        ImageView imageView = new ImageView(img);
+        StackPane titlePane = new StackPane();
+
         VBox topVBox = new VBox();
         Label label = new Label();
         label.setText("Loot");
         label.setId("title");
         label.setTextFill(Paint.valueOf("White"));
-        label.setStyle("-fx-font-size: 56px; -fx-font-family: Kreon;");
+        label.setStyle(STYLE);
 
-        topVBox.getChildren().add(label);
+        titlePane.getChildren().addAll(imageView,label);
+        topVBox.getChildren().add(titlePane);
         topVBox.setAlignment(Pos.BOTTOM_CENTER);
         topVBox.setPrefHeight(200);
         this.treasureLayout.setTop(topVBox);
@@ -354,7 +363,7 @@ public class TreasureView extends StackPane {
 
         StackPane stackPopup = new StackPane();
         Label label = new Label(text);
-        label.setStyle("-fx-font-size: 36; -fx-font-family: Kreon;");
+        label.setStyle(STYLE);
         label.setTextFill(Paint.valueOf("White"));
         label.autosize();
         stackPopup.getChildren().addAll(imageView, label);

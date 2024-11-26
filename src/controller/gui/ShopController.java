@@ -48,7 +48,7 @@ public class ShopController implements ShopViewEvents {
      * Initialisiert den Shop und die ShopViewEvents.
      */
     private void entryShop() {
-        this.shopView = new ShopView(player, purchasableCards, this, purchasablePotion);
+        this.shopView = new ShopView(player.getImagePath(), purchasableCards, this, purchasablePotion);
         this.shopView.initShopViewEvents(this);
     }
 

@@ -1,5 +1,6 @@
 package view.gui.layouts.battle_view_layouts;
 
+import helper.GuiHelper;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.effect.DropShadow;
@@ -27,6 +28,7 @@ public class PlayerLayout extends VBox {
     private BattleView battleView;
     private boolean skillMode = false;
     private boolean powerMode = false;
+    private boolean deadFlag = false;
 
     private String imagePath;
 
@@ -57,6 +59,10 @@ public class PlayerLayout extends VBox {
     }
 
     public void updatePlayer(){
+        if (player.getCurrentHealth() <= 0 && !deadFlag) {
+            GuiHelper.Scenes.startGameOverScene(player);
+            deadFlag = true;
+        }
         healthBarLayout.setHealthText(player.getCurrentHealth(), player.getMaxHealth());
         defendLayout.setBlockText(player.getBlock());
     }

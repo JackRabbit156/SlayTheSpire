@@ -13,22 +13,36 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
+import models.game_settings.GameSettings;
+import models.game_settings.structure.GameMode;
 import models.load_save_game_elements.GameSaveManager;
 import models.player.player_structure.Player;
 import view.gui.MapView;
 
+/**
+ * Die Klasse 'GameMenuLayer' stellt das Menü für das Spiel in der Benutzeroberfläche dar.
+ * Sie erweitert die 'BorderPane'-Klasse und enthält verschiedene Schaltflächen für
+ * Aktionen im Spiel, wie das Laden, Speichern und Beenden eines Spiels.
+ *
+ * <p>
+ * Die Klasse ermöglicht die Interaktion des Spielers mit dem Spielmenü, bietet visuelle Effekte
+ * für Schaltflächen und passt das Layout an den Spieler und den aktuellen Zustand des Spiels an.
+ * </p>
+ *
+ * @author Warawa Alexander
+ */
 public class GameMenuLayer extends BorderPane {
     private MapView mapView;
     private Player player;
 
     private Label header;
 
-    private Button loadGameButton;
-    private Button saveGameButton;
-    private Button mainMenuButton;
-    private Button backButton;
-    private Button exitButton;
-
+    /**
+     * Konstruktor für die Klasse 'GameMenuLayer'.
+     *
+     * @param player Der Spieler, der das Menü nutzt
+     * @param mapView Die MapView, die zur Anzeige der Karte verwendet wird
+     */
     public GameMenuLayer(Player player, MapView mapView) {
         this.player = player;
         this.mapView = mapView;
@@ -54,23 +68,20 @@ public class GameMenuLayer extends BorderPane {
 
         setTop(topBar);
 
-
-        /*Region placeHolder = new Region();
-        placeHolder.setMinWidth(850); // Festlegen der konstanten Höhe
-        setLeft(placeHolder);*/
-
         initMenuButtons();
     }
 
     private void initMenuButtons() {
         Button loadGameButton = new Button("Load Game");
         Button saveGameButton = new Button("Save Game");
+        Button changeDifficultyButton = new Button("Change Difficulty");
         Button mainMenuButton = new Button("Main Menu");
         Button backButton = new Button("Back");
         Button exitButton = new Button("Exit");
 
         assignButtonDesign(loadGameButton);
         assignButtonDesign(saveGameButton);
+        assignButtonDesign(changeDifficultyButton);
         assignButtonDesign(mainMenuButton);
         assignButtonDesign(backButton);
         assignButtonDesign(exitButton);
@@ -78,13 +89,18 @@ public class GameMenuLayer extends BorderPane {
         loadGameButton.setOnAction(event -> mapView.clickedOnLoadButton());
         saveGameButton.setOnAction(event -> mapView.clickedOnSaveButton());
         mainMenuButton.setOnAction(event -> mapView.clickedOnMainMenuButton());
+        changeDifficultyButton.setOnAction(event -> mapView.clickedOnChangeDifficultyButton());
         backButton.setOnAction(event -> mapView.clickedOnBackButton());
         exitButton.setOnAction(event -> mapView.clickedOnExitButton());
 
-
         VBox menuItems = new VBox();
-        menuItems.getChildren().addAll(loadGameButton, saveGameButton, mainMenuButton, backButton, exitButton);
+        menuItems.getChildren().addAll(loadGameButton);
 
+        if(GameSettings.getGameMode() != GameMode.HARDCORE) {
+            menuItems.getChildren().addAll(saveGameButton, changeDifficultyButton);
+        }
+
+        menuItems.getChildren().addAll(mainMenuButton, backButton, exitButton);
         menuItems.setAlignment(Pos.TOP_CENTER);
         menuItems.setPadding(new Insets(150, 0, 0, 0));
         setCenter(menuItems);

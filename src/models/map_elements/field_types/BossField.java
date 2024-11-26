@@ -23,15 +23,6 @@ public class BossField extends Field{
 
     @Override
     public void doFieldThing(Player player) {
-        if(isFieldBeaten())
-            return;
-
         GuiHelper.Scenes.startBattleScene(player, enemies, FieldEnum.BOSSFIELD);
-
-        if(!player.isAlive()) {
-            return;
-        }
-
-        setFieldBeaten();
     }
 }

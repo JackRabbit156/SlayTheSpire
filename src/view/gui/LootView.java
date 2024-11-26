@@ -13,21 +13,25 @@ import models.card.card_structure.Card;
 import models.potion.potion_structure.PotionCard;
 import view.gui.layouts.layout_events.LootViewEvents;
 import view.gui.layouts.loot_layout.CardSelectionLayout;
+import view.gui.layouts.loot_layout.PlayerLayout;
 
 import java.util.List;
 /**
  * @author Keil, Vladislav
  */
 public class LootView extends StackPane {
+    private String playerImagePath;
+    private BorderPane backgroundLayout;
     private PotionCard potionCard;
     private List<Card> lootCards;
     private int gold;
     private LootViewEvents lootViewEvents;
 
+    private String STYLE = "-fx-font-size: 38; -fx-font-family: Kreon;";
+    private String STYLE_SMALL = "-fx-font-size: 28; -fx-font-family: Kreon;";
+
     private Popup popup;
-    private Insets insets = new Insets(15,15,15,15);
     private VBox centerVBox;
-    private VBox topVBox;
     private Popup cardSelectionPopup;
 
     private BorderPane lootLayout;
@@ -46,6 +50,7 @@ public class LootView extends StackPane {
     public LootView(List<Card> lootCards, int gold, LootViewEvents lootViewEvents) {
         this.lootLayout = new BorderPane();
         this.bottomLayout = new BorderPane();
+        this.backgroundLayout = new BorderPane();
         this.lootCards = lootCards;
         this.gold = gold;
         this.lootViewEvents = lootViewEvents;
@@ -60,8 +65,9 @@ public class LootView extends StackPane {
      * @param potionCard         Die im Schatz enthaltene Trankkarte.
      * @param lootViewEvents     Die Ereignisse der Loot-Ansicht.
      */
-    public LootView(List<Card> lootCards, int gold, PotionCard potionCard, LootViewEvents lootViewEvents) {
+    public LootView(List<Card> lootCards, int gold, String playerImagePath, PotionCard potionCard, LootViewEvents lootViewEvents) {
         this(lootCards, gold, lootViewEvents);
+        this.playerImagePath = playerImagePath;
         this.potionCard = potionCard;
         this.cardSelectionPopup = new Popup();
         display();
@@ -71,29 +77,36 @@ public class LootView extends StackPane {
      * Initialisiert die View.
      */
     public void display() {
-        getChildren().add(lootLayout);
-        getChildren().add(bottomLayout);
-
-        setBackground(new Background(GuiHelper.background("/images/backgrounds/greenBg.jpg")));
+        getChildren().add(this.backgroundLayout);
+        getChildren().add(this.lootLayout);
+        getChildren().add(this.bottomLayout);
+        initBackgroundLayout();
         initLootLayout();
         initBottomLayout();
+    }
 
+    private void initBackgroundLayout() {
+        this.backgroundLayout.setPickOnBounds(false);
+        PlayerLayout playerLayout = new PlayerLayout(this.playerImagePath);
+        setBackground(new Background(GuiHelper.background("/images/act1.png")));
+
+        this.backgroundLayout.setCenter(playerLayout);
     }
 
     /**
      * Initialisiert das Layout der Loot-Ansicht.
      */
     private void initLootLayout() {
-        lootLayout.setPickOnBounds(false);
-        initTop();
+        this.lootLayout.setPickOnBounds(false);
         initCenter();
+        initTop();
     }
 
     /**
      * Initialisiert das untere Layout der Loot-Ansicht.
      */
     private void initBottomLayout() {
-        bottomLayout.setPickOnBounds(false);
+        this.bottomLayout.setPickOnBounds(false);
         initBottom();
     }
 
@@ -101,25 +114,33 @@ public class LootView extends StackPane {
      * Initialisiert das zentrale Layout der Loot-Ansicht.
      */
     private void initCenter(){
+        Image img = new Image(getClass().getResource("/images/panel/rewardPanel.png").toExternalForm());
+        ImageView imageView = new ImageView(img);
+        imageView.setTranslateX(650);
+        imageView.setTranslateY(100);
+
+
         // Card Options
-        centerVBox = new VBox();
-        centerVBox.setSpacing(10);
-        centerVBox.setAlignment(Pos.TOP_CENTER);
+        this.centerVBox = new VBox();
+        this.centerVBox.setSpacing(10);
+        this.centerVBox.setAlignment(Pos.TOP_CENTER);
+        this.centerVBox.setMaxWidth(100);
 
         // Gold Option
         StackPane goldStackPane = getGoldStackPane();
-        centerVBox.getChildren().add(goldStackPane);
+        this.centerVBox.getChildren().add(goldStackPane);
 
         // Potion Option
         if (this.potionCard != null) {
             StackPane getPotionStackPane = getPotionStackPane();
-            centerVBox.getChildren().add(getPotionStackPane);
+            this.centerVBox.getChildren().add(getPotionStackPane);
         }
 
         // Card Selection Option
         setCardSelectionLayout();
 
-        lootLayout.setCenter(centerVBox);
+        this.lootLayout.getChildren().add(imageView);
+        this.lootLayout.setCenter(this.centerVBox);
     }
 
 
@@ -127,39 +148,47 @@ public class LootView extends StackPane {
      * Initialisiert das obere Layout der Loot-Ansicht.
      */
     private void initTop(){
-        topVBox = new VBox();
+        Image img = new Image(getClass().getResource("/images/banner/abandon.png").toExternalForm());
+        ImageView imageView = new ImageView(img);
+
+        VBox topVBox = new VBox();
+        StackPane titlePane = new StackPane();
+
         Label label = new Label();
         label.setText("Loot");
         label.setId("title");
         label.setTextFill(Paint.valueOf("White"));
-        label.setStyle("-fx-font-size: 56px;");
+        label.setStyle(STYLE);
 
-        topVBox.getChildren().add(label);
+        titlePane.getChildren().addAll(imageView,label);
+
+
+        topVBox.getChildren().add(titlePane);
         topVBox.setAlignment(Pos.BOTTOM_CENTER);
         topVBox.setPrefHeight(200);
-        lootLayout.setTop(topVBox);
+        this.lootLayout.setTop(topVBox);
     }
 
     /**
      * Initialisiert das untere Layout der Loot-Ansicht.
      */
     private void initBottom(){
-        Image btnImage = new Image(getClass().getResource("/images/buttons/buttonL.png").toExternalForm());
+        Image btnImage = new Image(getClass().getResource("/images/buttons/buttonL-small.png").toExternalForm());
         ImageView imgView = new ImageView(btnImage);
         HBox bottomHBox = new HBox();
 
         Label label = new Label("Back");
         label.setTextFill(Paint.valueOf("White"));
-        label.setStyle("-fx-font-size: 24;");
+        label.setStyle(STYLE);
 
-        bottomHBox.getChildren().add(GuiHelper.addButtonStackPane(imgView, label, 0.7));
+        bottomHBox.getChildren().add(GuiHelper.addButtonStackPane(imgView, label, 12, 8));
 
-        imgView.setOnMouseClicked(event -> lootViewEvents.onBackClicked());
-        label.setOnMouseClicked(event -> lootViewEvents.onBackClicked());
+        imgView.setOnMouseClicked(event -> this.lootViewEvents.onBackClicked());
+        label.setOnMouseClicked(event -> this.lootViewEvents.onBackClicked());
 
         bottomHBox.setAlignment(Pos.TOP_LEFT);
-        bottomHBox.setTranslateY(150);
-        bottomLayout.setBottom(bottomHBox);
+        bottomHBox.setPadding(new Insets(50, 50, 50, 50));
+        this.bottomLayout.setBottom(bottomHBox);
     }
 
     /**
@@ -196,10 +225,14 @@ public class LootView extends StackPane {
         imgView.setScaleY(0.6);
         imgView.setScaleX(0.6);
 
+
+
         // Label
         Label label = new Label("New Cards!");
-        label.setStyle("-fx-font-size: 28px; -fx-font-family: Kreon;");
+        label.setStyle(STYLE_SMALL);
         label.setTextFill(Paint.valueOf("White"));
+
+        GuiHelper.setButtonHoverEffect(itemPanelView, label);
 
         // Loot
         HBox lootBox = new HBox();
@@ -228,19 +261,19 @@ public class LootView extends StackPane {
         // Label
         Label label = new Label(String.valueOf(gold));
         label.setText(String.valueOf(gold));
-        label.setStyle("-fx-font-size: 28px; -fx-font-family: Kreon;");
+        label.setStyle(STYLE_SMALL);
         label.setTextFill(Paint.valueOf("White"));
         // Loot
         HBox lootBox = new HBox();
         lootBox.setAlignment(Pos.CENTER);
-        lootBox.getChildren().addAll(imgView,label);
+        lootBox.getChildren().addAll(imgView, label);
 
         // Panel
         StackPane goldStackPane = new StackPane(itemPanelView);
         goldStackPane.getChildren().add(lootBox);
         goldStackPane.setAlignment(Pos.CENTER);
 
-//        GuiHelper.setButtonHoverEffect(itemPanelView, label);
+        GuiHelper.setButtonHoverEffect(itemPanelView, label);
 
         goldStackPane.setOnMouseClicked(event -> {
             if(!goldStackPane.isDisabled()) {
@@ -267,7 +300,7 @@ public class LootView extends StackPane {
         // Label
         Label label = new Label();
         label.setText(potionCard.getName());
-        label.setStyle("-fx-font-size: 28px; -fx-font-family: Kreon;");
+        label.setStyle(STYLE_SMALL);
         label.setTextFill(Paint.valueOf("White"));
 
         // Loot
@@ -279,6 +312,8 @@ public class LootView extends StackPane {
         StackPane potionStackPane = new StackPane(itemPanelView);
         potionStackPane.getChildren().add(lootBox);
         potionStackPane.setAlignment(Pos.CENTER);
+
+        GuiHelper.setButtonHoverEffect(itemPanelView, label);
 
         potionStackPane.setOnMouseClicked(event -> {
             if(!potionStackPane.isDisabled()) {
@@ -335,7 +370,7 @@ public class LootView extends StackPane {
 
         StackPane stackPopup = new StackPane();
         Label label = new Label(text);
-        label.setStyle("-fx-font-size: 36; -fx-font-family: Kreon;");
+        label.setStyle(STYLE_SMALL);
         label.setTextFill(Paint.valueOf("White"));
         label.autosize();
         stackPopup.getChildren().addAll(imageView, label);

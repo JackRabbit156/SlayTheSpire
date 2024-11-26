@@ -2,8 +2,6 @@ package view.gui;
 
 import helper.GuiHelper;
 import javafx.geometry.Pos;
-import javafx.scene.Node;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -11,7 +9,7 @@ import javafx.scene.layout.*;
 import javafx.scene.paint.Paint;
 import models.game_settings.GameSettings;
 import models.player.player_structure.Player;
-import view.gui.layouts.layout_events.StatisticViewEvents;
+import models.player.player_structure.PlayerType;
 import view.gui.layouts.loot_layout.PlayerLayout;
 
 /**
@@ -21,10 +19,9 @@ import view.gui.layouts.loot_layout.PlayerLayout;
  *
  * @autor Vladislav Keil
  */
-public class StatisticView extends StackPane {
+public class GameOverView extends StackPane {
     private VBox centerVBox;
     private Player player;
-    private int act;
 
     private BorderPane statisticLayout;
     private BorderPane bottomLayout;
@@ -36,18 +33,12 @@ public class StatisticView extends StackPane {
      *
      * @param player Der Spieler, dessen Statistiken angezeigt werden.
      */
-    public StatisticView(Player player) {
+    public GameOverView(Player player) {
         this.statisticLayout = new BorderPane();
         this.bottomLayout = new BorderPane();
         this.backgroundLayout = new BorderPane();
         this.player = player;
-        this.act = this.player.getCurrentAct();
-        switch (this.act) {
-            case 1: this.player.setCurrentAct(2); break;
-            case 2:
-            case 4: this.player.setCurrentAct(4); break;
-        }
-        System.out.println(player.getCurrentAct() + " act" );
+
         display();
     }
     /**
@@ -55,6 +46,7 @@ public class StatisticView extends StackPane {
      */
     public void display() {
         setBackground(new Background(GuiHelper.background("/images/act1.png")));
+
 
         getChildren().add(this.backgroundLayout);
         getChildren().add(this.statisticLayout);
@@ -67,7 +59,7 @@ public class StatisticView extends StackPane {
 
     private void initBackgroundLayout() {
         this.backgroundLayout.setPickOnBounds(false);
-        PlayerLayout playerLayout = new PlayerLayout(player.getImagePath());
+        PlayerLayout playerLayout = new PlayerLayout(player.getAltImagePath());
         setBackground(new Background(GuiHelper.background("/images/act1.png")));
 
         this.backgroundLayout.setCenter(playerLayout);
@@ -89,7 +81,7 @@ public class StatisticView extends StackPane {
         ImageView imgView = new ImageView(img);
         HBox bottomHBox = new HBox();
 
-        Label label = new Label("Back");
+        Label label = new Label("Main Menu");
         label.setTextFill(Paint.valueOf("White"));
         label.setStyle("-fx-font-size: 38px; -fx-font-family: Kreon;");
         bottomHBox.getChildren().add(GuiHelper.addButtonStackPane(imgView, label, 14));
@@ -97,12 +89,12 @@ public class StatisticView extends StackPane {
         imgView.setOnMouseClicked(event -> {
             imgView.setDisable(true);
             label.setDisable(true);
-            GuiHelper.Scenes.startMapScene(player);
+            GuiHelper.Scenes.startMainMenuScene(player.getPrimaryStage());
         });
         label.setOnMouseClicked(event -> {
             imgView.setDisable(true);
             label.setDisable(true);
-            GuiHelper.Scenes.startMapScene(player);
+            GuiHelper.Scenes.startMainMenuScene(player.getPrimaryStage());
         });
 
         bottomHBox.setAlignment(Pos.TOP_CENTER);
@@ -130,21 +122,20 @@ public class StatisticView extends StackPane {
 
         // LeftTextSide
         Label centerLeft = new Label();
+        centerLeft.setStyle("-fx-font-size: 32;");
         centerLeft.setTextFill(Paint.valueOf("White"));
         centerLeft.setWrapText(true);
-        centerLeft.setStyle("-fx-font-size: 32px; -fx-font-family: Kreon;");
-
         centerLeft.setText("Act:\n" + "Damage dealt:\n" + "Damage received:\n" + "Gold received:\n" + "Energy spent:\n");
         centerLeft.setAlignment(Pos.CENTER_LEFT);
 
         // RightTextSide
         Label centerRight = new Label();
-        centerRight.setStyle("-fx-font-size: 32px; -fx-font-family: Kreon;");
+        centerRight.setStyle("-fx-font-size: 32;");
         centerRight.setTextFill(Paint.valueOf("White"));
         centerRight.setWrapText(true);
         centerRight.setAlignment(Pos.CENTER_RIGHT);
         centerRight.setText(
-                this.act + "\n" +
+                player.getCurrentAct() + "\n" +
                 GameSettings.getDistributedDamageStats() + "\n" +
                 GameSettings.getReceivedDamageStats() + "\n" +
                 GameSettings.getReceivedGoldStats() + "\n" +
@@ -168,20 +159,13 @@ public class StatisticView extends StackPane {
      * Initialisiert das untere Layout der Statistik-Ansicht.
      */
     private void initTop(){
-        Image img = new Image(getClass().getResource("/images/banner/abandon.png").toExternalForm());
-        ImageView imageView = new ImageView(img);
-        StackPane titlePane = new StackPane();
-
         VBox topVBox = new VBox();
         Label label = new Label();
-        label.setText("Statistic");
+        label.setText("Game Over");
         label.setTextFill(Paint.valueOf("White"));
-        label.setStyle("-fx-font-size: 38px;-fx-font-family: Kreon;");
+        label.setStyle("-fx-font-size: 56px;");
 
-        titlePane.getChildren().addAll(imageView,label);
-
-
-        topVBox.getChildren().add(titlePane);
+        topVBox.getChildren().add(label);
         topVBox.setAlignment(Pos.BOTTOM_CENTER);
         topVBox.setPrefHeight(100);
         statisticLayout.setTop(topVBox);
