@@ -28,6 +28,7 @@ public class MainMenuView {
     public MainMenuView(){
         initButtons();
     }
+
     public void initButtons(){
 
         no.setText("No");

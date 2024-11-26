@@ -70,7 +70,6 @@ public class MainMenuController {
         quit.setOnMouseClicked(event -> {
             quitUp.getContent().add(view.displayQuitMessage());
             quitUp.show(menuStage);
-
             view.getNo().setOnMouseClicked(event1 -> {
                 quitUp.hide();
                 quitUp.getContent().remove(view.displayQuitMessage());

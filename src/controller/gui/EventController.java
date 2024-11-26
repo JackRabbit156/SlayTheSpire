@@ -4,6 +4,7 @@ import javafx.scene.layout.BorderPane;
 import models.event.Event;
 import models.event.act_one.*;
 import models.event.generelevents.BonfireSpirits;
+import models.event.generelevents.Duplicator;
 import models.event.generelevents.GoldenShrine;
 import models.event.generelevents.NoteForYourself;
 import models.player.player_structure.Player;
@@ -31,8 +32,9 @@ public class EventController {
         Event wolrdOfGoo = new WorldOfGoo();
         Event bonfireSpirits = new BonfireSpirits();
         Event goldenShrine = new GoldenShrine();
+        Event duplicator = new Duplicator();
         //TODO: randomizer so anpassen dass die acts berücksichtigt werden
-        return randomEvent = goldenShrine;
+        return randomEvent = bonfireSpirits;
     }
 
 }
