@@ -24,7 +24,7 @@ public class LootViewTester extends Application {
     @Override
     public void start(Stage primaryStage) {
         TestPlayer player = new TestPlayer(primaryStage);
-        GameSettings.setDifficultyLevel(DifficultyLevel.EASY);
+        GameSettings.setDifficultyLevel(DifficultyLevel.HARD);
 
         GuiHelper.Scenes.startLootScene(player, FieldEnum.ENEMYFIELD);
     }

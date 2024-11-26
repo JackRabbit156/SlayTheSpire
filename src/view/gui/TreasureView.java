@@ -1,6 +1,7 @@
 package view.gui;
 
 import helper.GuiHelper;
+import javafx.geometry.Bounds;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
@@ -93,8 +94,6 @@ public class TreasureView extends StackPane {
 
         this.setBackground(new Background(GuiHelper.background("/images/act1.png")));
         initEntryLayout();
-//        initTreasureLayout();
-//        setBackground(new Background(GuiHelper.background("/images/backgrounds/TreasureViewBG.jpeg")));
     }
 
     private void initBackLayout() {
@@ -165,13 +164,19 @@ public class TreasureView extends StackPane {
         cardSelectionLayout.setPadding(new Insets(50, 50, 15, 50));
         this.cardSelectionButtonStackPane = getCardSelectionStackPane();
 
+        HBox centerCard = new HBox();
+        centerCard.setAlignment(Pos.CENTER);
+        centerCard.setTranslateX(-180);
+        centerCard.getChildren().add(cardSelectionLayout);
+
         // Popup
         this.cardSelectionPopup.setAutoHide(true);
-        this.cardSelectionPopup.getContent().add(cardSelectionLayout);
+        this.cardSelectionPopup.getContent().add(centerCard);
 
         this.cardSelectionButtonStackPane.setOnMouseClicked(event -> {
             if (!this.cardSelectionDisabled) {
-                this.cardSelectionPopup.show(cardSelectionButtonStackPane.getScene().getWindow(), 300, 300);
+                Bounds bounds = this.centerVBox.localToScreen(this.centerVBox.getBoundsInLocal());
+                this.cardSelectionPopup.show(this.centerVBox.getScene().getWindow(), bounds.getMinX(), bounds.getMinY());
             }
         });
     }

@@ -19,7 +19,7 @@ import java.util.List;
  */
 public class TestPlayer extends Player {
     public TestPlayer(Stage primaryStage) {
-        super("TesterPlayer", 1000, 1000, PlayerType.IRONCLAD, primaryStage);
+        super("TesterPlayer", 1000, 1000, PlayerType.SILENT, primaryStage);
         setImagePath("/images/player/IroncladPlayer.png");
         initRelic();
         initDeck();
