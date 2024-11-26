@@ -8,6 +8,8 @@ import javafx.stage.Stage;
 import models.game_settings.GameSettings;
 import models.game_settings.structure.DifficultyLevel;
 import models.player.IroncladPlayer;
+import models.potion.BloodPotion;
+import models.potion.EnergyPotion;
 
 import java.util.Objects;
 
@@ -23,7 +25,13 @@ public class ShopControllerTester extends Application {
         TestPlayer player = new TestPlayer(primaryStage);
 //        player.setGold(500);
         GameSettings.setDifficultyLevel(DifficultyLevel.HARD);
-
+        BloodPotion bloodPotion = new BloodPotion();
+        EnergyPotion energyPotion = new EnergyPotion();
+        EnergyPotion energyPotion1 = new EnergyPotion();
+//
+        player.getPotionCards().add(bloodPotion);
+        player.getPotionCards().add(energyPotion);
+        player.getPotionCards().add(energyPotion1);
         GuiHelper.Scenes.startShopScene(player);
     }
 }

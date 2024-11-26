@@ -376,7 +376,9 @@ public class TreasureView extends StackPane {
         this.popup = new Popup();
         this.popup.setAutoHide(true);
         this.popup.getContent().add(stackPopup);
-        this.popup.show(this.treasureLayout.getScene().getWindow(), 800, 500);
+
+        Bounds bounds = this.treasureLayout.localToScreen(this.treasureLayout.getBoundsInLocal());
+        this.popup.show(this.treasureLayout.getScene().getWindow(), bounds.getMinX(), bounds.getMinY());
     }
 
     /**

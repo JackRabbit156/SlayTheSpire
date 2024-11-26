@@ -9,6 +9,8 @@ import javafx.stage.Stage;
 import models.game_settings.GameSettings;
 import models.game_settings.structure.DifficultyLevel;
 import models.map_elements.field_types.FieldEnum;
+import models.potion.BloodPotion;
+import models.potion.EnergyPotion;
 import view.gui.LootView;
 
 import java.util.Objects;
@@ -24,8 +26,14 @@ public class LootViewTester extends Application {
     @Override
     public void start(Stage primaryStage) {
         TestPlayer player = new TestPlayer(primaryStage);
-        GameSettings.setDifficultyLevel(DifficultyLevel.HARD);
-
+        GameSettings.setDifficultyLevel(DifficultyLevel.EASY);
+        BloodPotion bloodPotion = new BloodPotion();
+        EnergyPotion energyPotion = new EnergyPotion();
+        EnergyPotion energyPotion1 = new EnergyPotion();
+//
+        player.getPotionCards().add(bloodPotion);
+        player.getPotionCards().add(energyPotion);
+        player.getPotionCards().add(energyPotion1);
         GuiHelper.Scenes.startLootScene(player, FieldEnum.ENEMYFIELD);
     }
 }
