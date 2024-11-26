@@ -1,15 +1,12 @@
 package models.map_elements.acts;
 
 
+import helper.MusicBoy;
 import models.enemy.Enemy;
-import models.enemy.act_four.Shapes;
-import models.enemy.act_four.boss.CorruptHeart;
-import models.enemy.act_four.elites.SpireShield;
-import models.enemy.act_four.elites.SpireSpear;
-import models.enemy.act_one.AcidSlime;
-import models.enemy.act_one.Cultist;
-import models.enemy.act_one.MadGremlin;
-import models.enemy.act_one.bosses.SlimeBoss;
+import models.enemy.act_four.SpikerEnemy;
+import models.enemy.act_four.boss.CorruptHeartBoss;
+import models.enemy.act_four.elites.SpireShieldElite;
+import models.enemy.act_four.elites.SpireSpearElite;
 import models.map_elements.Coordinates;
 import models.map_elements.Node;
 import models.map_elements.field_types.*;
@@ -29,6 +26,9 @@ import java.util.Random;
  * @author Warawa Alexander
  */
 public class ActFour extends Act{
+    private static final int MAP_WIDTH = 2;
+    private static final int MAP_HEIGHT= 10;
+
     Random randi = new Random();
 
     /**
@@ -36,33 +36,31 @@ public class ActFour extends Act{
      * Initialisiert den Akt und platziert den Spieler auf dem Startfeld, mit der Option einen Spieler auf einem bestimmten Floor zu spawnen.
      *
      * @param player der Spieler, der sich im Akt bewegen soll
-     * @param loadingFromFile ob der Spieler von einer Datei geladen wurde.
      */
-    public ActFour(Player player, boolean loadingFromFile){
-        super(4);
+    public ActFour(Player player){
+        super(4, MAP_WIDTH, MAP_HEIGHT);
+        MusicBoy.play("act4");
         initNodes();
 
-        Node playerNode = null;
-        if(loadingFromFile)
-            playerNode = getNoteByName(player.getCurrentField());
-        else
-            playerNode = getNoteByName(getFirstField());
+        Node playerNode = getNoteByName(player.getCurrentField());
 
-        if(playerNode == null){
-            System.out.println("ERROR");
-            return;
+        if(playerNode != null){
+            // wenn der Spieler auf dem Boss Feld ist, wird der Spieler wieder an den Anfang gesetzt
+            if(playerNode.getFieldName().equals(this.getLastField())){
+                playerNode.setPlayer(null);
+                int start = Integer.parseInt(this.getFirstField()) - 1;
+                player.setCurrentField(start+"");
+            } else {
+                playerNode.setPlayer(player);
+            }
         }
-
-        playerNode.setPlayer(player);
-        if(loadingFromFile)
-            playerNode.setFieldBeaten();
     }
 
     private void initNodes(){
-        Node rest51 = new Node("51", new RestField(), new Coordinates(0, 6));
-        Node shop52 = new Node("52", new ShopField(), new Coordinates(0, 4));
-        Node elite53 = new Node("53", new EliteField(createElitesEnemies()), new Coordinates(0, 2));
-        Node boss54 = new Node("54", new BossField(createBossEnemies()), new Coordinates(0, 0));
+        Node rest51 = new Node("51", new RestField(), new Coordinates(2, 10));
+        Node shop52 = new Node("52", new ShopField(), new Coordinates(2, 8));
+        Node elite53 = new Node("53", new EliteField(createElitesEnemies()), new Coordinates(2, 6));
+        Node boss54 = new Node("54", new BossField(createBossEnemies()), new Coordinates(2, 4));
 
         nodes.add(rest51);
         nodes.add(shop52);
@@ -78,10 +76,10 @@ public class ActFour extends Act{
         List<Enemy> enemies = new ArrayList<>();
 
         int randAmountEnemies = randi.nextInt(4);
-        enemies.add(new CorruptHeart());
+        enemies.add(new CorruptHeartBoss());
 
         for (int i = 0; i < randAmountEnemies; i++) {
-            enemies.add(new Shapes());
+            enemies.add(new SpikerEnemy());
         }
         return enemies;
     }
@@ -94,15 +92,15 @@ public class ActFour extends Act{
         switch (randElite) {
             case 0:
                 // 1 - SpireShield
-                enemies.add(new SpireShield());
+                enemies.add(new SpireShieldElite());
                 break;
             default:
                 // 2 - SpireSpear
-                enemies.add(new SpireSpear());
+                enemies.add(new SpireSpearElite());
                 break;
         }
         for (int i = 0; i < randAmountEnemies; i++) {
-            enemies.add(new Shapes());
+            enemies.add(new SpikerEnemy());
         }
 
         return enemies;
@@ -115,22 +113,6 @@ public class ActFour extends Act{
     @Override
     public void doFieldThing(){
         Node currentNode = getPlayerNode();
-        currentNode.doFieldThing();
-    }
-
-    @Override
-    public String[][] getRawMap(){
-        String[][] rawMap= {
-                {"  "},
-                {"|  "},
-                {"  "},
-                {"|  "},
-                {"  "},
-                {"|  "},
-                {"  "},
-
-        };
-
-        return rawMap;
+        currentNode.doFieldThing(currentNode.getPlayer());
     }
 }

@@ -1,23 +1,18 @@
 package models.map_elements.field_types;
 
-import controller.BattleViewController;
-import controller.RestViewController;
+import controller.gui.RestController;
+import helper.GuiHelper;
 import models.player.player_structure.Player;
 
 public class RestField extends Field{
+    private static final String imagePath = "/images/map_elements/field_types/RestField.png";
+
     public RestField() {
-        super("\uD83D\uDCA4"); //
+        super(imagePath); //
     }
 
     @Override
     public void doFieldThing(Player player) {
-        if(isFieldBeaten())
-            return;
-
-        RestViewController rest = new RestViewController(player);
-        rest.startRest();
-
-
-        setFieldBeaten();
+        GuiHelper.Scenes.startRestScene(player);
     }
 }

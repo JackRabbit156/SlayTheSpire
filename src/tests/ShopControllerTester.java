@@ -1,41 +1,37 @@
 package tests;
 
-import controller.ShopViewController;
-import models.player.Ironclad;
+import controller.gui.ShopController;
+import helper.GuiHelper;
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
+import models.game_settings.GameSettings;
+import models.game_settings.structure.DifficultyLevel;
+import models.player.IroncladPlayer;
+import models.potion.BloodPotion;
+import models.potion.EnergyPotion;
+
+import java.util.Objects;
 
 /**
  * @author Keil, Vladislav
  */
-public class ShopControllerTester {
-    public static void main(String[] args) {
-        Ironclad player = new Ironclad();
+public class ShopControllerTester extends Application {
+    public static void main(String[] args) { launch(args); }
 
-        ShopViewController shopViewController = new ShopViewController(player);
-        /* Test 1 X-Karten kaufen */
-        player.setGold(150);
-
-        // DEBUG
-        System.out.println("Deck before entry Shop");
-        System.out.println("Erwarte 10 Karten: " + player.getDeck().size());
-
-        shopViewController.entryShop();
-
-        // DEBUG
-        System.out.println("Deck after entry Shop");
-        System.out.println("Erwarte 10 + X Karten: " + player.getDeck().size());
-
-        /* Test 2 Keine Karte kaufbar */
-        player.setGold(0);
-        shopViewController.entryShop();
-        System.out.println("Erwarte, dass keine Karte gekauft werden kann");
-        System.out.println("Erwarte, dass die selben Karten wie bei Letzten aufruf existieren.");
-
-
-        /* Test 3 Z-Karten kaufen */
-        shopViewController = new ShopViewController(player);
-        player.setGold(50);
-        shopViewController.entryShop();
-        System.out.println("Erwarte, dass 5 neue Karten existieren");
-        System.out.println("Erwarte 10 + X + Z Karten: " + player.getDeck().size());
+    @Override
+    public void start(Stage primaryStage) {
+//        IroncladPlayer player = new IroncladPlayer();
+        TestPlayer player = new TestPlayer(primaryStage);
+//        player.setGold(500);
+        GameSettings.setDifficultyLevel(DifficultyLevel.HARD);
+        BloodPotion bloodPotion = new BloodPotion();
+        EnergyPotion energyPotion = new EnergyPotion();
+        EnergyPotion energyPotion1 = new EnergyPotion();
+//
+        player.getPotionCards().add(bloodPotion);
+        player.getPotionCards().add(energyPotion);
+        player.getPotionCards().add(energyPotion1);
+        GuiHelper.Scenes.startShopScene(player);
     }
 }

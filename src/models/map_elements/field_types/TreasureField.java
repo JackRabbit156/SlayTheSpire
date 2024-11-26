@@ -1,19 +1,19 @@
 package models.map_elements.field_types;
 
-import controller.TreasureViewController;
+import helper.GuiHelper;
 import models.player.player_structure.Player;
 
 /**
  * @author Keil, Vladislav
  */
 public class TreasureField extends Field {
-    TreasureViewController treasureViewController;
+    private static final String imagePath = "/images/map_elements/field_types/TreasureField.png";
     public TreasureField() {
-        super("T");
+        super(imagePath);
     }
 
     @Override
     public void doFieldThing(Player player) {
-        new TreasureViewController(player);
+        GuiHelper.Scenes.startTreasureScene(player);
     }
 }

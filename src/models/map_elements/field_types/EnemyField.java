@@ -1,10 +1,12 @@
 package models.map_elements.field_types;
 
-import controller.BattleViewController;
-import controller.LootViewController;
-import models.enemy.act_one.Cultist;
+import controller.gui.BattleController;
+import helper.GuiHelper;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
 import models.enemy.Enemy;
 import models.player.player_structure.Player;
+import view.gui.BattleView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,11 +18,11 @@ import java.util.List;
  * @author Warawa Alexander
  */
 public class EnemyField extends Field{
+    private static final String imagePath = "/images/map_elements/field_types/EnemyField.png";
 
     private List<Enemy> enemies = new ArrayList<>();
-    private LootViewController lootViewController;
     public EnemyField(){
-        super("👹");
+        super(imagePath);
     }
 
     /**
@@ -30,7 +32,7 @@ public class EnemyField extends Field{
      * @param enemies Eine Liste von Feinden, die diesem Feld hinzugefügt werden.
      */
     public EnemyField(List<Enemy> enemies){
-        super("👹");
+        super(imagePath);
         this.enemies = enemies;
     }
 
@@ -42,20 +44,7 @@ public class EnemyField extends Field{
      */
     @Override
     public void doFieldThing(Player player) {
-        if(isFieldBeaten())
-            return;
-
-        BattleViewController battle = new BattleViewController(player, enemies);
-        battle.startBattle();
-
-        if(!player.isAlive())
-            return;
-
-        setFieldBeaten();
-
-        lootViewController = new LootViewController(player, "EnemyField");
-        lootViewController.openLootView(player);
-
+        GuiHelper.Scenes.startBattleScene(player, enemies, FieldEnum.ENEMYFIELD);
     }
 
     /**

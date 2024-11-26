@@ -1,8 +1,13 @@
 package models.load_save_game_elements;
 
 import helper.ConsoleAssistent;
+import models.card.card_structure.Card;
+import models.card.ironclad_cards.IroncladStrikeCard;
+import models.card.silent_cards.SilentStrikeCard;
 import models.game_settings.GameSettings;
 import models.player.player_structure.Player;
+import models.player.player_structure.PlayerType;
+import models.potion.potion_structure.PotionCard;
 
 import java.time.LocalDateTime;
 
@@ -34,15 +39,14 @@ public class GameSaveManager {
      * @param player Der Spieler, dessen Spielstand gespeichert werden soll.
      */
     public void saveGame(Player player) {
-        if(!GameSettings.lastSession.equals(""))
+        if(!GameSettings.lastSession.isEmpty())
             deleteSelectedSaveFile(GameSettings.lastSession);
 
         Map<String, String> gameData = collectGameData(player);
-        String fileName = getTimestampedFileName();
+        //String fileName = getTimestampedFileName();
+        String fileName = "save_" + gameData.get("lastSession") + ".txt";
         saveDataToFile(gameData, new File(SAVE_FOLDER, fileName));
 
-        System.out.println("Successfully saved the game.");
-        ConsoleAssistent.sleep(1500);
     }
 
     /**
@@ -75,11 +79,9 @@ public class GameSaveManager {
         for(int i = 0; i< saveFiles.length; i++){
             if(saveFiles[i].getName().equals("save_"+session+".txt")){
                 saveFiles[i].delete();
-                //System.out.println("Save file " + session + " successfully deleted!.");
                 return;
             }
         }
-        //System.out.println("Error, could not delete file: " + session + ".");
     }
 
     /**
@@ -143,11 +145,11 @@ public class GameSaveManager {
 
         Map<String, String> gameData = new HashMap<>();
 
-        gameData.put("username", player.getUsername());
         gameData.put("character", player.getPlayerType().toString());
         gameData.put("field", player.getCurrentField());
         gameData.put("currentAct", String.valueOf(player.getCurrentAct()));
         gameData.put("currentHealth", String.valueOf(player.getCurrentHealth()));
+        gameData.put("maxHealth", String.valueOf(player.getMaxHealth()));
         gameData.put("gold", String.valueOf(player.getGold()));
 
         gameData.put("lastSession", currentTimeStamp);
@@ -160,8 +162,20 @@ public class GameSaveManager {
         gameData.put("difficulty", GameSettings.getDifficultyLevel().toString());
 
         for (int i = 0; i < player.getDeck().size(); i++) {
-            gameData.put("card" + i, player.getDeck().get(i).getName() + "Card");
+            Card card = player.getDeck().get(i);
+            gameData.put("card" + i, card.getClass().getSimpleName());
         }
+
+        for (int i = 0; i < player.getPotionCards().size(); i++) {
+            PotionCard potionCard = player.getPotionCards().get(i);
+            String potionName = potionCard.getName().replace(" ", "").toUpperCase();
+            gameData.put("potion" + i, potionName);
+        }
+
+        gameData.put("receivedGoldStats", GameSettings.getReceivedGoldStats()+"");
+        gameData.put("receivedDamageStats", GameSettings.getReceivedDamageStats()+"");
+        gameData.put("distributedDamageStats", GameSettings.getDistributedDamageStats()+"");
+        gameData.put("energySpentStats", GameSettings.getEnergySpentStats()+"");
 
         return gameData;
     }

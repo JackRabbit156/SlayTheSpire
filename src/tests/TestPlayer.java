@@ -1,24 +1,26 @@
 package tests;
 
 import helper.ConsoleAssistent;
-import models.GameContext;
-import models.cards.card_structure.*;
-import models.cards.general_cards.DefendCard;
-import models.cards.general_cards.StrikeCard;
-import models.cards.ironclad_cards.attack.common.BashCard;
+import helper.PathAssistent;
+import javafx.stage.Stage;
+import models.card.card_structure.*;
+import models.card.ironclad_cards.attack.common.BashCard;
+import models.battle.GameContext;
 import models.enemy.Enemy;
 import models.player.player_structure.Player;
 import models.player.player_structure.PlayerType;
-import models.relics.BurningBloodRelic;
-import models.relics.relic_structure.Relic;
+import models.relic.BurningBloodRelic;
+import models.relic.relic_structure.Relic;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
-
+/**
+ * @author Keil, Vladislav
+ */
 public class TestPlayer extends Player {
-    public TestPlayer() {
-        super("TesterPlayer", 1000, 1000, PlayerType.IRONCLAD, "⚒");
+    public TestPlayer(Stage primaryStage) {
+        super("TesterPlayer", 1000, 1000, PlayerType.SILENT, primaryStage);
+        setImagePath("/images/player/IroncladPlayer.png");
         initRelic();
         initDeck();
     }
@@ -48,14 +50,12 @@ public class TestPlayer extends Player {
     private class BossCard extends AttackCard {
         public BossCard() {
             super("Boss Card", "CheaterCard", 0, 40,CardRarity.RARE, CardGrave.DISCARD);
+            setImagePath("/images/card/BossCard.jpg");
         }
 
         @Override
         public void play(GameContext gameContext) {
-            System.out.print("Choose an enemy to target: ");
-            int targetIndex = ConsoleAssistent.scannerAutoAim(gameContext.getEnemies().size());
-
-            Enemy enemy = gameContext.getEnemies().get(targetIndex);
+            Enemy enemy = gameContext.getSelectedEnemy();
             enemy.takeDamage(dealDamage());
 
             Player player = gameContext.getPlayer();

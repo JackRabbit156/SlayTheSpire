@@ -1,48 +1,30 @@
 package models.map_elements.field_types;
 
-import controller.BattleViewController;
-import controller.LootViewController;
+import controller.gui.LootController;
+import helper.GuiHelper;
+import helper.MusicBoy;
 import models.enemy.Enemy;
-import models.enemy.act_one.AcidSlime;
-import models.enemy.act_one.bosses.SlimeBoss;
 import models.player.player_structure.Player;
-import view.StatisticsView;
+import view.gui.StatisticView;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 /**
  * @author Keil, Vladislav
  */
 public class BossField extends Field{
-    private LootViewController lootViewController;
+    private static final String imagePath = "/images/map_elements/field_types/BossField.png";
+
     private List<Enemy> enemies;
-    private StatisticsView statisticsView;
 
     public BossField(List<Enemy> enemies) {
-        super("\uD83D\uDCAA");
+        super(imagePath);
+        MusicBoy.play("boss");
         this.enemies = enemies;
     }
 
     @Override
     public void doFieldThing(Player player) {
-        if(isFieldBeaten())
-            return;
-
-        BattleViewController battle = new BattleViewController(player, enemies);
-        battle.startBattle();
-
-        if(!player.isAlive()) {
-            return;
-        }
-
-        setFieldBeaten();
-
-        statisticsView = new StatisticsView();
-        statisticsView.display(player);
-
-        lootViewController = new LootViewController(player, "BossField");
-        lootViewController.openLootView(player);
+        GuiHelper.Scenes.startBattleScene(player, enemies, FieldEnum.BOSSFIELD);
     }
 }

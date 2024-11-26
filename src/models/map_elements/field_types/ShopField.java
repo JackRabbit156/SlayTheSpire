@@ -1,17 +1,18 @@
 package models.map_elements.field_types;
 
-import controller.ShopViewController;
+import controller.gui.ShopController;
+import helper.GuiHelper;
 import models.player.player_structure.Player;
 
 public class ShopField extends Field{
-    private ShopViewController shop;
+    private static final String imagePath = "/images/map_elements/field_types/ShopField.png";
+
     public ShopField() {
-        super("\uD83D\uDC5C");
+        super(imagePath);
     }
 
     @Override
     public void doFieldThing(Player player) {
-        ShopViewController shop = new ShopViewController(player);
-        shop.entryShop();
+        GuiHelper.Scenes.startShopScene(player);
     }
 }

@@ -1,36 +1,27 @@
 package models.map_elements.field_types;
 
-import controller.BattleViewController;
-import controller.LootViewController;
+import controller.gui.LootController;
+import helper.GuiHelper;
+import helper.MusicBoy;
 import models.enemy.Enemy;
 import models.player.player_structure.Player;
 
 import java.util.List;
 
 public class EliteField extends Field {
-    private LootViewController lootViewController;
+    private static final String imagePath = "/images/map_elements/field_types/EliteField.png";
+
+    private LootController lootController;
     private List<Enemy> enemies;
 
     public EliteField(List<Enemy> enemies) {
-        super("\uD83D\uDCA2");
+        super(imagePath);
+        MusicBoy.play("elite");
         this.enemies = enemies;
     }
 
     @Override
     public void doFieldThing(Player player) {
-        if(isFieldBeaten())
-            return;
-
-        BattleViewController battle = new BattleViewController(player, enemies);
-        battle.startBattle();
-
-        if(!player.isAlive()) {
-            return;
-        }
-
-        setFieldBeaten();
-
-        lootViewController = new LootViewController(player, "EliteField");
-        lootViewController.openLootView(player);
+        GuiHelper.Scenes.startBattleScene(player, enemies, FieldEnum.ELITEFIELD);
     }
 }

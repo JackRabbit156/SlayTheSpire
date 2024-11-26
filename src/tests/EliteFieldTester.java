@@ -1,21 +1,21 @@
 package tests;
 
 import models.enemy.Enemy;
-import models.enemy.act_one.AcidSlime;
-import models.enemy.act_one.Cultist;
-import models.enemy.act_one.MadGremlin;
-import models.enemy.act_one.bosses.SlimeBoss;
-import models.enemy.act_one.elites.GremlinNob;
-import models.enemy.act_one.elites.Lagavulin;
-import models.map_elements.field_types.BossField;
+import models.enemy.act_one.AcidSlimeEnemy;
+import models.enemy.act_one.CultistEnemy;
+import models.enemy.act_one.MadGremlinEnemy;
+import models.enemy.act_one.boss.SlimeBoss;
+import models.enemy.act_one.elites.GremlinNobElite;
+import models.enemy.act_one.elites.LagavulinElite;
 import models.map_elements.field_types.EliteField;
 import models.player.player_structure.Player;
-import view.StatisticsView;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-
+/**
+ * @author Keil, Vladislav
+ */
 public class EliteFieldTester {
     Random randi = new Random();
 
@@ -24,7 +24,7 @@ public class EliteFieldTester {
 
         EliteField eliteField = new EliteField(tester.createElitesEnemies());
 
-        Player player = new TestPlayer();
+        Player player = new TestPlayer(null);
 
         // Es muss gekämpft werden, um die ausgabe zu erhalten.
         // FALL 1: ERWARTE : Hier kommt die StatisticsView mit Loot View
@@ -72,12 +72,12 @@ public class EliteFieldTester {
         switch (randElite) {
             case 0:
                 // 1 - Gremlin Nob
-                enemies.add(new GremlinNob());
+                enemies.add(new GremlinNobElite());
                 type = "Goblin";
                 break;
             default:
                 // 2 - Lagavulin
-                enemies.add(new Lagavulin());
+                enemies.add(new LagavulinElite());
                 type = "Lagavulin";
                 break;
         }
@@ -90,15 +90,15 @@ public class EliteFieldTester {
     private Enemy createEnemiesOfType(String type) {
         switch (type) {
             case "Hexa":
-                return new MadGremlin();
+                return new MadGremlinEnemy();
             case "Guardian":
-                return new Cultist();
+                return new CultistEnemy();
             case "Lagavulin":
-                return new Cultist();
+                return new CultistEnemy();
             case "Goblin":
-                return new MadGremlin();
+                return new MadGremlinEnemy();
             default: // "Slime"
-                return new AcidSlime();
+                return new AcidSlimeEnemy();
         }
     }
 }

@@ -2,11 +2,14 @@ package models.player.player_structure;
 
 import events.PlayerBlockEvent;
 import events.PlayerDamageEvent;
-import listener.PlayerEventListener;
-import models.cards.card_structure.Card;
+import javafx.stage.Stage;
+import controller.listener.*;
+import models.card.card_structure.Card;
 import models.game_settings.GameSettings;
-import models.relics.relic_structure.Relic;
+import models.potion.potion_structure.PotionCard;
+import models.relic.relic_structure.Relic;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -18,6 +21,7 @@ import java.util.List;
  * @author OF Daniel Willig
  */
 public abstract class Player {
+    private Stage primaryStage;
     // * Variables *
     private final String name;
     private String username;
@@ -33,6 +37,7 @@ public abstract class Player {
     private int block;
 
     private List<Card> deck;
+    private List<PotionCard> potionCards;
 
     private Relic relic;
 
@@ -40,11 +45,13 @@ public abstract class Player {
 
     private String currentField;
 
-    private String symbol;
 
     private PlayerType playerType;
 
-    private PlayerEventListener listener;
+    private PlayerEventListener playerEventListener;
+
+    private String imagePath;
+    private String altImagePath;
 
     /**
      * Konstruktor für die Player-Klasse.
@@ -53,9 +60,9 @@ public abstract class Player {
      * @param maxHealth Die maximale Gesundheit des Spielers.
      * @param maxEnergy Die maximale Energie des Spielers.
      * @param playerType Der Typ des Spielers.
-     * @param symbol Das Symbol, das den Spieler darstellt.
+     * @param primaryStage die aktuelle Stage
      */
-    public Player(String name, int maxHealth, int maxEnergy, PlayerType playerType, String symbol) {
+    public Player(String name, int maxHealth, int maxEnergy, PlayerType playerType, Stage primaryStage) {
         this.name = name;
         this.maxHealth = maxHealth;
         this.maxEnergy = maxEnergy;
@@ -63,10 +70,31 @@ public abstract class Player {
         this.currentEnergy = this.maxEnergy;
         this.gold = 0;
         this.currentAct = 1;
-        this.currentField = "1";
+        this.currentField = "0";
         this.playerType = playerType;
-        this.symbol = symbol;
-        this.listener = null;
+        this.primaryStage = primaryStage;
+        this.potionCards = new ArrayList<>();
+        playerEventListener = null;
+    }
+
+    public Stage getPrimaryStage() {
+        return primaryStage;
+    }
+
+    public List<PotionCard> getPotionCards() {
+        return potionCards;
+    }
+
+    public void setPotionCards(List<PotionCard> potionCards) {
+        this.potionCards = potionCards;
+    }
+
+    public void addPotionCard(PotionCard potionCards) {
+        this.potionCards.add(potionCards);
+    }
+
+    public void setPrimaryStage(Stage primaryStage) {
+        this.primaryStage = primaryStage;
     }
 
     // * Methods *
@@ -74,7 +102,6 @@ public abstract class Player {
 
     protected abstract void initRelic();
 
-    //TODO maybe in takeDamage() if(currentHealth <= 0) {alive = false};
     /**
      * Überprüft, ob der Spieler lebt.
      *
@@ -125,20 +152,19 @@ public abstract class Player {
      */
     public void decreaseCurrentHealth(int dmg, boolean damageFromCard) {
         GameSettings.increaseReceivedDamageStats(dmg);
-        int tmpDmg = dmg;
-        if (damageFromCard) {
-            notifyDamageReceived(dmg, true);
+        int tmpDmg;
+
+        notifyDamageReceived(dmg, damageFromCard);
+
+        if (getBlock() - dmg >= 0) {
+            setBlock(getBlock() - dmg);
+            tmpDmg = 0;
         }
         else {
-            if (getBlock() - dmg >= 0) {
-                setBlock(getBlock() - dmg);
-                tmpDmg = 0;
-            }
-            else {
-                tmpDmg = Math.abs(getBlock() - dmg);
-                setBlock(0);
-            }
+            tmpDmg = Math.abs(getBlock() - dmg);
+            setBlock(0);
         }
+
         currentHealth -= tmpDmg;
         if (currentHealth < 0) {
             currentHealth = 0;
@@ -202,7 +228,7 @@ public abstract class Player {
      */
     protected void notifyBlockReceived(int blockAmount) {
         PlayerBlockEvent event = new PlayerBlockEvent(this, blockAmount);
-        listener.onBlockReceived(event);
+        playerEventListener.onBlockReceived(event);
     }
 
     /**
@@ -213,7 +239,8 @@ public abstract class Player {
      */
     protected void notifyDamageReceived(int damageAmount, boolean damageFromCard) {
         PlayerDamageEvent event = new PlayerDamageEvent(this, damageAmount, damageFromCard);
-        listener.onDamageReceived(event);
+        playerEventListener.onDamageReceived(event);
+
     }
 
 
@@ -231,11 +258,19 @@ public abstract class Player {
         this.deck.add(addCard);
     }
 
+    public void removeCardFromDeck(Card addCard) {
+        this.deck.remove(addCard);
+    }
+
     public String getName() {
         return name;
     }
     public int getMaxHealth() {
         return maxHealth;
+    }
+
+    public void setMaxHealth(int maxHealth) {
+        this.maxHealth = maxHealth;
     }
 
     public int getCurrentHealth() {
@@ -277,10 +312,6 @@ public abstract class Player {
         this.relic = relic;
     }
 
-    public String getSymbol() {
-        return symbol;
-    }
-
     public void setCurrentAct(int currentAct){
         this.currentAct = currentAct;
     }
@@ -293,14 +324,13 @@ public abstract class Player {
         return playerType;
     }
 
-    public PlayerEventListener getListener() {
-        return listener;
+    public PlayerEventListener getPlayerEventListener() {
+        return playerEventListener;
     }
 
-    public void setListener(PlayerEventListener listener) {
-        this.listener = listener;
+    public void setPlayerEventListener(PlayerEventListener playerEventListener){
+            this.playerEventListener = playerEventListener;
     }
-
     public String getCurrentField() {
         return currentField;
     }
@@ -315,5 +345,21 @@ public abstract class Player {
 
     public void setCurrentField(String currentField) {
         this.currentField = currentField;
+    }
+
+    public String getImagePath() {
+        return imagePath;
+    }
+
+    public String getAltImagePath() {
+        return altImagePath;
+    }
+
+    public void setImagePath(String imagePath) {
+        this.imagePath = imagePath;
+    }
+
+    public void setAltImagePath(String altImagePath) {
+        this.altImagePath = altImagePath;
     }
 }

@@ -52,8 +52,8 @@ public class Node {
         this.player = player;
     }
 
-    public String getSymbol(){
-        return field.getSymbol();
+    public String getImagePath(){
+        return field.getImagePath();
     }
 
     public int getX(){
@@ -76,8 +76,8 @@ public class Node {
         return middleNode;
     }
 
-    public void setMiddleNode(Node moddleNode) {
-        this.middleNode = moddleNode;
+    public void setMiddleNode(Node middleNode) {
+        this.middleNode = middleNode;
     }
 
     public Node getRightNode() {
@@ -88,22 +88,15 @@ public class Node {
         this.rightNode = rightNode;
     }
 
-    public boolean isFieldBeaten() {
-        return field.isFieldBeaten();
-    }
-
-    public void setFieldBeaten() {
-        field.setFieldBeaten();
-    }
-
     public String getFieldName() {
         return name;
     }
     /**
      * Führt die Aktionen aus, die mit dem Feld verknüpft sind, an dem sich der Spieler
      * befindet.
+     * @param player current player
      */
-    public void doFieldThing(){
+    public void doFieldThing(Player player){
         field.doFieldThing(player);
     }
 }

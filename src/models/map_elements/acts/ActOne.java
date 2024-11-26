@@ -1,21 +1,18 @@
 package models.map_elements.acts;
 
+import helper.MusicBoy;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import models.enemy.Enemy;
-import models.enemy.act_four.Shapes;
-import models.enemy.act_four.elites.SpireShield;
-import models.enemy.act_four.elites.SpireSpear;
-import models.enemy.act_one.AcidSlime;
-import models.enemy.act_one.Cultist;
-import models.enemy.act_one.MadGremlin;
-import models.enemy.act_one.bosses.SlimeBoss;
-import models.enemy.act_one.elites.GremlinNob;
-import models.enemy.act_one.elites.Lagavulin;
-import models.events.Event;
-import models.events.actone.*;
-import models.events.generelevents.BonfireSpirits;
-import models.events.generelevents.Duplicator;
-import models.events.generelevents.GoldenShrine;
-import models.events.generelevents.NoteForYourself;
+import models.enemy.EnemyEnum;
+import models.enemy.act_one.AcidSlimeEnemy;
+import models.enemy.act_one.CultistEnemy;
+import models.enemy.act_one.MadGremlinEnemy;
+import models.enemy.act_one.boss.SlimeBoss;
+import models.enemy.act_one.boss.TheGuardianBoss;
+import models.enemy.act_one.elites.GremlinNobElite;
+import models.enemy.act_one.elites.LagavulinElite;
+import models.event.Event;
 import models.map_elements.Coordinates;
 import models.map_elements.Node;
 import models.map_elements.field_types.*;
@@ -35,6 +32,9 @@ import java.util.Random;
  * @author Warawa Alexander
  */
 public class ActOne extends Act {
+    private static final int MAP_WIDTH = 7;
+    private static final int MAP_HEIGHT= 16;
+
     private Player player;
     private Random randi = new Random();
 
@@ -43,33 +43,26 @@ public class ActOne extends Act {
      * Initialisiert den Akt und platziert den Spieler auf dem Startfeld.
      *
      * @param player der Spieler, der sich im Akt bewegen soll
-     * @param loadingFromFile ob der Spieler von einer Datei geladen wurde.
      */
-    public ActOne(Player player, boolean loadingFromFile){
-        super(1);
+    public ActOne(Player player){
+        super(1, MAP_WIDTH, MAP_HEIGHT);
+
+
+        MusicBoy.play("act1");
+
         this.player = player;
+
         initNodes();
 
-        Node playerNode = null;
-        if(loadingFromFile)
-            playerNode = getNoteByName(player.getCurrentField());
-        else
-            playerNode = getNoteByName(getFirstField());
-
-        if(playerNode == null){
-            System.out.println("ERROR");
-            return;
-        }
-
-        playerNode.setPlayer(player);
-        if(loadingFromFile)
-            playerNode.setFieldBeaten();
+        Node playerNode = getNoteByName(player.getCurrentField());
+        if(playerNode != null)
+            playerNode.setPlayer(player);
     }
 
     private void initNodes(){
         Node start1 = new Node("1", new EnemyField(generateEnemies()), new Coordinates(3, 16));
         Node fight2 = new Node("2", new EnemyField(generateEnemies()), new Coordinates(3, 14));
-        Node unknown3 = new Node("3", new UnknownField(new EventField(randomEvent()), new EnemyField(generateEnemies()), new EliteField(createElitesEnemies()), new ShopField()), new Coordinates(1, 12));
+        Node unknown3 = new Node("3", new UnknownField(new EventField(), new EnemyField(generateEnemies()), new EliteField(createElitesEnemies()), new ShopField()), new Coordinates(1, 12));
         Node fight4 = new Node("4", new EnemyField(generateEnemies()), new Coordinates(5, 12));
         Node fight5 = new Node("5", new EnemyField(generateEnemies()), new Coordinates(0, 10));
         Node elite6 = new Node("6", new EliteField(createElitesEnemies()), new Coordinates(2, 10));
@@ -77,10 +70,10 @@ public class ActOne extends Act {
         Node shop8 = new Node("8", new ShopField(), new Coordinates(2, 8));
         //Node unknown9 = new Node("9", new UnknownField(new EventField(randomEvent()), new EnemyField(generateEnemies()), new EliteField(createElitesEnemies()), new ShopField()), new Coordinates(5, 8));
         Node treasure9 = new Node("9", new TreasureField(), new Coordinates(5, 8));
-        Node event10 = new Node("10", new EventField(randomEvent()), new Coordinates(1, 6));
+        Node event10 = new Node("10", new EventField(), new Coordinates(1, 6));
         Node fight11 = new Node("11", new EnemyField(generateEnemies()), new Coordinates(4, 6));
         Node fight12 = new Node("12", new EnemyField(generateEnemies()), new Coordinates(6, 6));
-        Node unknown13 = new Node("13", new UnknownField(new EventField(randomEvent()), new EnemyField(generateEnemies()), new EliteField(createElitesEnemies()), new ShopField()), new Coordinates(4, 4));
+        Node unknown13 = new Node("13", new UnknownField(new EventField(), new EnemyField(generateEnemies()), new EliteField(createElitesEnemies()), new ShopField()), new Coordinates(4, 4));
         Node elite14 = new Node("14", new EliteField(createElitesEnemies()), new Coordinates(6, 4));
         Node rest15 = new Node("15", new RestField(), new Coordinates(4, 2));
         Node boss16 = new Node("16", new BossField(createBossEnemies()), new Coordinates(4, 0));
@@ -132,9 +125,9 @@ public class ActOne extends Act {
         for(int i = 0; i< numberOfEnemies; i++){
             int randomNumber = randi.nextInt(possibleEnemies.length);
             switch (randomNumber){
-                case 0: enemies.add(new AcidSlime()); break;
-                case 1: enemies.add(new Cultist()); break;
-                case 2: enemies.add(new MadGremlin()); break;
+                case 0: enemies.add(new AcidSlimeEnemy()); break;
+                case 1: enemies.add(new CultistEnemy()); break;
+                case 2: enemies.add(new MadGremlinEnemy()); break;
                 default:
                     System.out.println("Weird..."); break;
             }
@@ -142,29 +135,33 @@ public class ActOne extends Act {
         return enemies;
     }
 
+    /**
+     * @author Keil, Vladislav
+     * @return List of Enemies
+     */
     private List<Enemy> createBossEnemies() {
         List<Enemy> enemies = new ArrayList<>();
 
         int randBoss = randi.nextInt(3);
         int randAmountEnemies = randi.nextInt(4);
-        String type;
+        EnemyEnum type;
         switch (randBoss) {
             case 0:
                 // 1 - SlimeBoss
                 enemies.add(new SlimeBoss());
-                type = "Slime";
+                type = EnemyEnum.SLIME;
                 break;
             case 1:
                 // 2 - TheGuardian (Soll)
-                enemies.add(new SlimeBoss());
+                enemies.add(new TheGuardianBoss());
 //                type = "Guardian";
-                type = "Slime";
+                type = EnemyEnum.SLIME;
                 break;
             default:
                 // 3 - Hexaghost (Kann)
                 enemies.add(new SlimeBoss());
 //                type = "Hexa";
-                type = "Slime";
+                type = EnemyEnum.SLIME;
                 break;
             }
         for (int i = 0; i < randAmountEnemies; i++) {
@@ -174,21 +171,25 @@ public class ActOne extends Act {
     }
 
 
+    /**
+     * @author Keil, Vladislav
+     * @return List of Enemies
+     */
     public List<Enemy> createElitesEnemies() {
         List<Enemy> enemies = new ArrayList<>();
         int randElite = randi.nextInt(2);
         int randAmountEnemies = randi.nextInt(2);
-        String type;
+        EnemyEnum type;
         switch (randElite) {
             case 0:
                 // 1 - Gremlin Nob
-                enemies.add(new GremlinNob());
-                type = "Goblin";
+                enemies.add(new GremlinNobElite());
+                type = EnemyEnum.GOBLIN;
                 break;
             default:
                 // 2 - Lagavulin
-                enemies.add(new Lagavulin());
-                type = "Lagavulin";
+                enemies.add(new LagavulinElite());
+                type = EnemyEnum.LAGAVULIN;
                 break;
         }
         for (int i = 0; i < randAmountEnemies; i++) {
@@ -197,18 +198,23 @@ public class ActOne extends Act {
         return enemies;
     }
 
-    private Enemy createEnemiesOfType(String type) {
+
+    /**
+     * @author Keil, Vladislav
+     * @return An Enemy
+     */
+    private Enemy createEnemiesOfType(EnemyEnum type) {
         switch (type) {
-            case "Hexa":
-                return new MadGremlin();
-            case "Guardian":
-                return new Cultist();
-            case "Lagavulin":
-                return new Cultist();
-            case "Goblin":
-                return new MadGremlin();
-            default: // "Slime"
-                return new AcidSlime();
+            case HEXA:
+                return new MadGremlinEnemy();
+            case GUARDIAN:
+                return new CultistEnemy();
+            case LAGAVULIN:
+                return new CultistEnemy();
+            case GOBLIN:
+                return new MadGremlinEnemy();
+            default: // SLIME
+                return new AcidSlimeEnemy();
         }
     }
 
@@ -219,59 +225,34 @@ public class ActOne extends Act {
     @Override
     public void doFieldThing(){
         Node currentNode = getPlayerNode();
-        currentNode.doFieldThing();
+        currentNode.doFieldThing(currentNode.getPlayer());
     }
-
-    private Event randomEvent() {
-        Random randi = new Random();
-        ActOneEventEnum[] events = ActOneEventEnum.values();
-        ActOneEventEnum event = events[randi.nextInt(events.length)];
-        switch (event) {
-            case BigFish:
-                return new BigFish(this.player);
-            case BonfireSpirits:
-                return new BonfireSpirits(this.player);
-            case DeadAdventurer:
-                return new DeadAdventurer(this.player);
-            case Duplicator:
-                return new Duplicator(this.player);
-            case NoteForYourself:
-                return new NoteForYourself(this.player);
-            case ScrapOoze:
-                return new ScrapOoze(this.player);
-            case TheCleric:
-                return new TheCleric(this.player);
-            case TheSsssserpent:
-                return new TheSssssserpent(this.player);
-            case WorldofGoo:
-                return new WorldOfGoo(this.player);
-            default:
-                return new GoldenShrine(this.player);
-        }
-    }
-
-    @Override
-    public String[][] getRawMap(){
-        String[][] rawMap= {
-                {"  ", "  ", "  ", "  ", "", "  ", "  "},
-                {"  ", "  ", "  ", "  ", "| ", "  ", "  "},
-                {"  ", "┌ ", "──", "──", "", "  ", "  "},
-                {"  ", "| ", "  ", "  ", "| ", "──", "┐ "},
-                {"  ", "| ", "  ", "  ", "", "  ", ""},
-                {"  ", "| ", "  ", "  ", "| ", "  ", "| "},
-                {"┌ ", "", " ┐", "  ", "", "  ", ""},
-                {"| ", "  ", "| ", "  ", "└─", "┬─", "┘ "},
-                {"| ", "  ", "", "  ", "  ", "", "  "},
-                {"| ", "  ", "| ", "  ", "  ", "| ", "  "},
-                {"", "  ", "", "  ", "  ", "", "  "},
-                {"└─", "┬─", "┘ ", "  ", "  ", "| ", "  "},
-                {"  ", "", "  ", "  ", "  ", "", "  "},
-                {"  ", "└─", "──", "┬─", "──", "┘ ", " "},
-                {"  ", "  ", "  ", "", "  ", "  ", "  "},
-                {"  ", "  ", "  ", "| ", "  ", "  ", "  "},
-                {"  ", "  ", "  ", "", "  ", "  ", "  "}, // 16/3
-        };
-
-        return rawMap;
-    }
+//
+//    private Event randomEvent() {
+//        Random randi = new Random();
+//        ActOneEventEnum[] events = ActOneEventEnum.values();
+//        ActOneEventEnum event = events[randi.nextInt(events.length)];
+//        switch (event) {
+//            case BIG_FISH:
+//                return new BigFishEvent(this.player);
+//            case BONFIRE_SPIRITS:
+//                return new BonfireSpiritsEvent(this.player);
+//            case DEAD_ADVENTURER:
+//                return new DeadAdventurerEvent(this.player);
+//            case DUPLICATOR:
+//                return new DuplicatorEvent(this.player);
+//            case NOTE_FOR_YOURSELF:
+//                return new NoteForYourselfEvent(this.player);
+//            case SCRAP_OOZE:
+//                return new ScrapOozeEvent(this.player);
+//            case THE_CLERIC:
+//                return new TheClericEvent(this.player);
+//            case THE_SSSSSERPENT:
+//                return new TheSssssserpentEvent(this.player);
+//            case WORLDOF_GOO:
+//                return new WorldOfGooEvent(this.player);
+//            default:
+//                return new GoldenShrineEvent(this.player);
+//        return null;
+//    }
 }

@@ -1,11 +1,15 @@
 package models.enemy;
 
-import models.GameContext;
-import models.game_settings.GameSettings;
+import controller.listener.EnemyEventListener;
+import events.EnemyDamageEvent;
+import models.battle.GameContext;
+import models.enemy_card.InsultEnemyCard;
+import models.enemy_card.enemy_card_structure.EnemyCard;
 import models.game_settings.GameSettings;
 import models.game_settings.structure.DifficultyLevel;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -19,8 +23,18 @@ public abstract class Enemy {
     private String name;
     private int currentHealth;
     private int maxHealth;
+    private EnemyCard intent;
 
+    private String imagePath;
     private int block;
+
+    private List<EnemyCard> enemyDeck;
+    private int enemyCardToBePlayed;
+
+    private EnemyCard insult = new InsultEnemyCard();
+
+
+    private EnemyEventListener enemyEventListener;
 
     /**
      * Konstruktor für die Enemy-Klasse.
@@ -35,6 +49,16 @@ public abstract class Enemy {
 
         this.maxHealth = generateMaxHealth(lowestMaxHealthPossible, highestMaxHealthPossible);
         this.currentHealth = maxHealth;
+        enemyEventListener = null;
+    }
+
+
+    public void setImagePath(String imagePath){
+        this.imagePath = imagePath;
+    }
+
+    public String getImagePath(){
+        return imagePath;
     }
 
     /**
@@ -43,6 +67,19 @@ public abstract class Enemy {
      * @author OF Daniel Willig
      */
     public void action(GameContext gameContext) {
+        if (getIntent().equals(insult)) {
+            System.out.println(doNothing());
+        }
+        else {
+            attack(gameContext);
+        }
+    }
+
+    /**
+     * berechnet die Aktion bevor sie ausgeführt wird. Wie bei diesem Film indem die Polizei Bösewichte fangen bevor sie Straftaten begehen.
+     * @author OF Daniel Willig
+     */
+    public void calcIntent() {
         DifficultyLevel difficulty = GameSettings.getDifficultyLevel();
         int randomNumber = (new Random().nextInt(100) + 1);
         int attackPercentage = 100; //should be normal
@@ -53,20 +90,13 @@ public abstract class Enemy {
         else if (difficulty.equals(DifficultyLevel.EASY)) {
             attackPercentage = 75;
         }
-        else if (difficulty.equals(DifficultyLevel.HARD)) {
-            System.out.println("hard not yet implemented");
-            //TODO hard
-        }
-        else if (difficulty.equals(DifficultyLevel.IMPOSSIBLE)) {
-            System.out.println("impossible not yet implemented");
-            //TODO impossible
-        }
 
         if (attackPercentage >= randomNumber) {
-            attack(gameContext);
+            setEnemyCardToBePlayed(new Random().nextInt(getEnemyDeck().size()));
+            setIntent(getEnemyDeck().get(getEnemyCardToBePlayed()));
         }
         else {
-            System.out.println(doNothing());
+            setIntent(insult);
         }
     }
 
@@ -116,6 +146,16 @@ public abstract class Enemy {
         return lowestMaxHealthPossible + hp;
     }
 
+    protected void notifyDamageReceived(int damageAmount) {
+        EnemyDamageEvent event = new EnemyDamageEvent(this, damageAmount);
+        enemyEventListener.onDamageReceived(event);
+
+        if (!isAlive()) {
+            enemyEventListener.onEnemyDeath(this);
+        }
+    }
+
+
     public String getName() {
         return name;
     }
@@ -152,6 +192,8 @@ public abstract class Enemy {
         GameSettings.increaseDistributedDamageStats(damage);
         if (currentHealth < 0)
             currentHealth = 0;
+
+        notifyDamageReceived(damage);
     }
 
     public void setBlock(int block){
@@ -164,5 +206,33 @@ public abstract class Enemy {
 
     public void addBlock(int block){
         this.block += block;
+    }
+
+    public void setEnemyEventListener(EnemyEventListener enemyEventListener) {
+        this.enemyEventListener = enemyEventListener;
+    }
+
+    public EnemyCard getIntent() {
+        return intent;
+    }
+
+    public void setIntent(EnemyCard intent) {
+        this.intent = intent;
+    }
+
+    public List<EnemyCard> getEnemyDeck() {
+        return enemyDeck;
+    }
+
+    public void setEnemyDeck(List<EnemyCard> enemyDeck) {
+        this.enemyDeck = enemyDeck;
+    }
+
+    public int getEnemyCardToBePlayed() {
+        return enemyCardToBePlayed;
+    }
+
+    public void setEnemyCardToBePlayed(int enemyCardToBePlayed) {
+        this.enemyCardToBePlayed = enemyCardToBePlayed;
     }
 }

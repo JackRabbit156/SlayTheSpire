@@ -1,14 +1,21 @@
 package tests;
 
-import controller.RestViewController;
-import models.player.Ironclad;
+import controller.gui.RestController;
+import helper.GuiHelper;
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
+/**
+ * @author Keil, Vladislav
+ */
+public class RestSiteViewTester extends Application {
+    public static void main(String[] args) { launch(args); }
+    @Override
+    public void start(Stage primaryStage) {
+//        IroncladPlayer player = new IroncladPlayer();
+        TestPlayer player = new TestPlayer(primaryStage);
+//        player.setGold(500);
 
-public class RestSiteViewTester {
-    public static void main(String[] args) {
-        Ironclad player = new Ironclad();
-
-        RestViewController rest = new RestViewController(player);
-
-        rest.startRest();
+        GuiHelper.Scenes.startRestScene(player);
     }
 }
