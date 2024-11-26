@@ -259,6 +259,10 @@ public abstract class Player {
         this.deck.add(addCard);
     }
 
+    public void removeCardFromDeck(Card addCard) {
+        this.deck.remove(addCard);
+    }
+
     public String getName() {
         return name;
     }
