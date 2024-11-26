@@ -7,8 +7,11 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
+import models.game_settings.structure.DifficultyLevel;
+import models.game_settings.structure.GameMode;
 
 public class MainMenuView {
     private BorderPane selection = new BorderPane();
@@ -22,13 +25,58 @@ public class MainMenuView {
     private Button yes = new Button("Yes");
     private Button no = new Button("No");
 
+    private Button supereasyDifficulty = new Button(DifficultyLevel.SUPEREASY.name());
+    private Button easyDifficulty = new Button(DifficultyLevel.EASY.name());
+    private Button normalDifficulty = new Button(DifficultyLevel.NORMAL.name());
+    private Button normalMode = new Button(GameMode.NORMAL.name());
+    private Button hardcoreMode = new Button(GameMode.HARDCORE.name());
+    private Button continueButton = new Button("Continue");
+    private Button[] diffModeButtons = {supereasyDifficulty, easyDifficulty, normalDifficulty, normalMode, hardcoreMode};
+    private Button[] diffButtons = {supereasyDifficulty, easyDifficulty, normalDifficulty};
+    private Button[] modeButtons = {normalMode, hardcoreMode};
+
+    private final Font font = Font.font("Kreon", FontWeight.BOLD, 20);
+
+
     private VBox msg = new VBox();
+    private VBox diffModeMessage = new VBox();
     private HBox nrg = new HBox();
+
+
+    private VBox diffModeButtonsVBox = new VBox();
+    private HBox diffButtonsHBox = new HBox();
+    private HBox modeButtonsHBox = new HBox();
 
     public MainMenuView(){
         initButtons();
     }
     public void initButtons(){
+
+        for (Button diffModeButton : diffModeButtons) {
+            diffModeButton.setTextFill(Color.WHITE);
+            diffModeButton.setFont(font);
+            diffModeButton.setAlignment(Pos.CENTER);
+            diffModeButton.setBackground(new Background(GuiHelper.background("/images/buttons/endTurnButton.png")));
+            diffModeButton.setPrefSize(240, 240);
+        }
+
+
+        continueButton.setTextFill(Color.WHITE);
+        continueButton.setFont(font);
+        continueButton.setAlignment(Pos.CENTER);
+        continueButton.setBackground(new Background(GuiHelper.background("/images/buttons/endTurnButton.png")));
+        continueButton.setPrefSize(120, 120);
+
+        continueButton.setOnMouseEntered(event1 -> {
+            continueButton.setBackground(new Background(
+                    GuiHelper.background("/images/buttons/endTurnButtonGlow.png")));
+        });
+        continueButton.setOnMouseExited(event1 -> {
+            continueButton.setBackground(new Background(
+                    GuiHelper.background("/images/buttons/endTurnButton.png")));
+        });
+
+
 
         no.setText("No");
         no.setTextFill(Color.WHITE);
@@ -135,6 +183,29 @@ public class MainMenuView {
         return yes;
     }
 
+    public Button getSupereasyDifficulty() {
+        return supereasyDifficulty;
+    }
+
+    public Button getEasyDifficulty() {
+        return easyDifficulty;
+    }
+
+    public Button getNormalDifficulty() {
+        return normalDifficulty;
+    }
+
+    public Button getNormalMode() {
+        return normalMode;
+    }
+
+    public Button getHardcoreMode() {
+        return hardcoreMode;
+    }
+    public Button getContinueButton() {
+        return continueButton;
+    }
+
     public Button getNewGameButton(){
         return newGame;
     }
@@ -179,5 +250,52 @@ public class MainMenuView {
             nrg.setAlignment(Pos.BOTTOM_CENTER);
         }
         return msg;
+    }
+
+    public VBox displayDiffModeMessage(){
+        Text difficultyText = new Text("Difficulty");
+        Text modeText = new Text("Mode");
+        Text[] diffModeTexts = {difficultyText, modeText};
+
+        for (Text diffModeText : diffModeTexts) {
+            diffModeText.setFill(Color.WHITE);
+            diffModeText.setTextAlignment(TextAlignment.CENTER);
+            diffModeText.setFont(font);
+        }
+        modeText.setTranslateY(70);
+        difficultyText.setTranslateY(130);
+
+        diffModeMessage.setBackground(new Background(GuiHelper.background("/images/popup/popupBg.png")));
+        diffModeMessage.setPrefSize(1800, 1000);
+        diffModeMessage.setAlignment(Pos.CENTER);
+
+        diffModeMessage.getChildren().addAll(difficultyText, diffButtonsHBox, modeText, modeButtonsHBox);
+
+        diffButtonsHBox.getChildren().addAll(getSupereasyDifficulty(), getEasyDifficulty(), getNormalDifficulty());
+        diffButtonsHBox.setAlignment(Pos.CENTER);
+        diffButtonsHBox.setTranslateY(70);
+        continueButton.setTranslateX(225);
+        continueButton.setTranslateY(80);
+        modeButtonsHBox.getChildren().addAll(getNormalMode(), getHardcoreMode(), continueButton);
+        modeButtonsHBox.setTranslateX(-60);
+        modeButtonsHBox.setAlignment(Pos.CENTER);
+
+        return diffModeMessage;
+    }
+
+    public void setDifficultyButton(Button button) {
+        for (Button diffButton : diffButtons) {
+            diffButton.setBackground(new Background(GuiHelper.background("/images/buttons/endTurnButton.png")));
+        }
+
+        button.setBackground(new Background(GuiHelper.background("/images/buttons/endTurnButtonGlow.png")));
+    }
+
+    public void setModeButton(Button button) {
+        for (Button modeButton : modeButtons) {
+            modeButton.setBackground(new Background(GuiHelper.background("/images/buttons/endTurnButton.png")));
+        }
+
+        button.setBackground(new Background(GuiHelper.background("/images/buttons/endTurnButtonGlow.png")));
     }
 }
