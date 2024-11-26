@@ -61,9 +61,9 @@ public class KnowingSkull extends Event {
         button2.setOnMouseClicked(event -> {
             Card selectedCard;
             player.setCurrentHealth((player.getMaxHealth() / 10));
-            for (int i = 0; i < deck.size(); i++) {
-                if(deck.get(i).getCardRarity() == CardRarity.UNCOMMON) {
-                    selectedCard = deck.get(i);
+            for (Card card : deck) {
+                if (card.getCardRarity() == CardRarity.UNCOMMON) {
+                    selectedCard = card;
                     player.addCardToDeck(selectedCard);
                 }
             }
