@@ -33,7 +33,6 @@ public class TopSideLayout extends VBox {
     private void initTopSide() {
         barLayout = new BarLayout(battleView,player);
         topVBox = new VBox(barLayout);
-        //TODO bottomVBox für die Relics
 
         getChildren().addAll(topVBox);
 
@@ -42,6 +41,5 @@ public class TopSideLayout extends VBox {
 
     public void updateTop(){
         barLayout.refreshBar();
-        //TODO relicLayout.refreshRelics();
     }
 }

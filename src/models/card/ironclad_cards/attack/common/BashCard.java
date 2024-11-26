@@ -28,7 +28,7 @@ public class BashCard extends AttackCard {
 
         Player player = gameContext.getPlayer();
         player.decreaseCurrentEnergy(getCost());
-        //TODO Apply Debuff 2 Vulnerable
+        //TODO Bild anpassen
     }
 
     @Override
