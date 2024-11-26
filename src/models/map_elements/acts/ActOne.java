@@ -6,6 +6,7 @@ import models.enemy.act_one.AcidSlimeEnemy;
 import models.enemy.act_one.CultistEnemy;
 import models.enemy.act_one.MadGremlinEnemy;
 import models.enemy.act_one.boss.SlimeBoss;
+import models.enemy.act_one.boss.TheGuardianBoss;
 import models.enemy.act_one.elites.GremlinNobElite;
 import models.enemy.act_one.elites.LagavulinElite;
 import models.event.Event;
@@ -150,7 +151,7 @@ public class ActOne extends Act {
                 break;
             case 1:
                 // 2 - TheGuardian (Soll)
-                enemies.add(new SlimeBoss());
+                enemies.add(new TheGuardianBoss());
 //                type = "Guardian";
                 type = EnemyEnum.SLIME;
                 break;
