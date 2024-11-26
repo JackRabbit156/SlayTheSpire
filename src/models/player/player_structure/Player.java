@@ -269,6 +269,10 @@ public abstract class Player {
         return maxHealth;
     }
 
+    public void setMaxHealth(int maxHealth) {
+        this.maxHealth = maxHealth;
+    }
+
     public int getCurrentHealth() {
         return currentHealth;
     }
