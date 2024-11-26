@@ -91,7 +91,7 @@ public class DeckFactory {
         return assignPotion(potion);
     }
 
-    private PotionCard assignPotion(String potion) {
+    public static PotionCard assignPotion(String potion) {
         switch (potion) {
             case "BLOCKPOTION": return new BlockPotion();
             case "BLOODPOTION": return new BloodPotion();
