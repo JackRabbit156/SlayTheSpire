@@ -1,6 +1,7 @@
 package view.gui;
 
 import helper.GuiHelper;
+import javafx.geometry.Bounds;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
@@ -114,14 +115,15 @@ public class LootView extends StackPane {
      * Initialisiert das zentrale Layout der Loot-Ansicht.
      */
     private void initCenter(){
+        this.centerVBox = new VBox();
+
         Image img = new Image(getClass().getResource("/images/panel/rewardPanel.png").toExternalForm());
         ImageView imageView = new ImageView(img);
-        imageView.setTranslateX(650);
-        imageView.setTranslateY(100);
+        StackPane rewardStackPanel = new StackPane(imageView);
+        imageView.setTranslateY(-140);
 
 
         // Card Options
-        this.centerVBox = new VBox();
         this.centerVBox.setSpacing(10);
         this.centerVBox.setAlignment(Pos.TOP_CENTER);
         this.centerVBox.setMaxWidth(100);
@@ -139,8 +141,11 @@ public class LootView extends StackPane {
         // Card Selection Option
         setCardSelectionLayout();
 
-        this.lootLayout.getChildren().add(imageView);
-        this.lootLayout.setCenter(this.centerVBox);
+        this.centerVBox.getChildren().add(this.cardSelectionButtonStackPane);
+
+        rewardStackPanel.getChildren().add(centerVBox);
+
+        this.lootLayout.setCenter(rewardStackPanel);
     }
 
 
@@ -199,15 +204,20 @@ public class LootView extends StackPane {
         CardSelectionLayout cardSelectionLayout = new CardSelectionLayout(this.lootCards, this);
         cardSelectionLayout.setPadding(new Insets(50,50,15,50));
         this.cardSelectionButtonStackPane = getCardSelectionStackPane();
-        this.centerVBox.getChildren().add(this.cardSelectionButtonStackPane);
+
+        HBox centerCard = new HBox();
+        centerCard.setAlignment(Pos.CENTER);
+        centerCard.setTranslateX(-180);
+        centerCard.getChildren().add(cardSelectionLayout);
 
         // Popup
         this.cardSelectionPopup.setAutoHide(true);
-        this.cardSelectionPopup.getContent().add(cardSelectionLayout);
+        this.cardSelectionPopup.getContent().add(centerCard);
 
         this.cardSelectionButtonStackPane.setOnMouseClicked(event -> {
             if (!this.cardSelectionDisabled) {
-                this.cardSelectionPopup.show(cardSelectionButtonStackPane.getScene().getWindow(), 300, 300);
+                Bounds bounds = this.centerVBox.localToScreen(this.centerVBox.getBoundsInLocal());
+                this.cardSelectionPopup.show(this.centerVBox.getScene().getWindow(), bounds.getMinX(), bounds.getMinY());
             }
         });
     }
@@ -222,10 +232,9 @@ public class LootView extends StackPane {
         Image img = new Image(getClass().getResource("/images/card/cardSymbol.png").toExternalForm());
         ImageView imgView = new ImageView(img);
         ImageView itemPanelView = new ImageView(btnImage);
+
         imgView.setScaleY(0.6);
         imgView.setScaleX(0.6);
-
-
 
         // Label
         Label label = new Label("New Cards!");
@@ -378,7 +387,8 @@ public class LootView extends StackPane {
         this.popup = new Popup();
         this.popup.setAutoHide(true);
         this.popup.getContent().add(stackPopup);
-        this.popup.show(this.lootLayout.getScene().getWindow(), 800, 500);
+        Bounds bounds = this.lootLayout.localToScreen(this.lootLayout.getBoundsInLocal());
+        this.popup.show(this.lootLayout.getScene().getWindow(), bounds.getMinX(), bounds.getMinY());
     }
 
     /**

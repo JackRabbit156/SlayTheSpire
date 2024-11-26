@@ -1,6 +1,7 @@
 package view.gui;
 
 import helper.GuiHelper;
+import javafx.geometry.Bounds;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
@@ -200,7 +201,8 @@ public class ShopView extends StackPane {
         this.popup = new Popup();
         this.popup.setAutoHide(true);
         this.popup.getContent().add(stackPopup);
-        this.popup.show(this.centerVBox.getScene().getWindow(), 800, 500);
+        Bounds bounds = this.centerVBox.localToScreen(this.centerVBox.getBoundsInLocal());
+        this.popup.show(this.centerVBox.getScene().getWindow(), bounds.getMinX(), bounds.getMinY());
     }
 
     /**
