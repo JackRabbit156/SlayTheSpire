@@ -10,7 +10,11 @@ import models.player.player_structure.Player;
 import models.potion.potion_structure.PotionCard;
 
 import java.util.List;
-
+/**
+ * Der Spieler verliert Leben, kann aber Gold, oder Karten erhalten
+ *
+ * @author  Loeschner, Marijan
+ */
 public class KnowingSkull extends Event {
     private DeckFactory df;
     private Image image = new Image("/images/event/act_two/knowingSkull.jpg");

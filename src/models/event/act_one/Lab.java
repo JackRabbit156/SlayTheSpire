@@ -6,7 +6,11 @@ import models.card.DeckFactory;
 import models.event.Event;
 import models.player.player_structure.Player;
 import models.potion.potion_structure.PotionCard;
-
+/**
+ * Der Spieler kann Potions erhalten
+ *
+ * @author  Loeschner, Marijan
+ */
 public class Lab extends Event {
     DeckFactory df;
     private static Image image = new Image("/images/event/generalevents/LabEvent.jpg");

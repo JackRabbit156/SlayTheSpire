@@ -13,7 +13,11 @@ import models.event.Event;
 import models.player.player_structure.Player;
 
 import java.util.List;
-
+/**
+ * Der Spieler kann eine Karte hinzufügen, oder HP erhalten
+ *
+ * @author  Loeschner, Marijan
+ */
 public class TheLibrary extends Event {
     private TilePane box = new TilePane();
     private Popup cardPopup = new Popup();

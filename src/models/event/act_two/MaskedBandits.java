@@ -14,6 +14,11 @@ import view.gui.EventView;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Der Spieler verliert all sein Gold, oder startet einen encounter
+ *
+ * @author  Loeschner, Marijan
+ */
 public class MaskedBandits extends Event {
     private List<Enemy> enemyList = new ArrayList<>();
     private static Image image = new Image("/images/event/act_two/beggar.jpg");

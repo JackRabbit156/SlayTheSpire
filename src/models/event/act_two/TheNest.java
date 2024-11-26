@@ -5,7 +5,11 @@ import javafx.scene.image.Image;
 import models.card.DeckFactory;
 import models.event.Event;
 import models.player.player_structure.Player;
-
+/**
+ * Der Spieler kann Gold erhalten, oder verliert HP
+ *
+ * @author  Loeschner, Marijan
+ */
 public class TheNest extends Event {
     DeckFactory df;
     private static Image image = new Image("/images/event/act_two/theNest.jpg");
@@ -14,7 +18,7 @@ public class TheNest extends Event {
             "Naturally, you join the line and are quickly surrounded by Cultists!\n" +
             "They ignore you as they gleefully chant and wave their weapons around.\n" +
             "You eye a Donation Box...\n";
-    private Button button1 = new Button("\t[Smash and Grab] Optaion potions");
+    private Button button1 = new Button("\t[Smash and Grab] Obtain potions");
     private Button button2 = new Button("\t[Stay in Line]");
 
     public TheNest() {
