@@ -1,8 +1,11 @@
 package controller.gui;
 
+import controller.listener.DifficultyMenuListener;
 import controller.listener.GameMenuListener;
 import helper.GuiHelper;
 import javafx.stage.Stage;
+import models.game_settings.GameSettings;
+import models.game_settings.structure.GameMode;
 import models.load_save_game_elements.GameSaveManager;
 import models.map_elements.Node;
 import models.map_elements.acts.Act;
@@ -24,7 +27,7 @@ import view.gui.layouts.layout_events.MapViewEvents;
  *
  * @author Warawa Alexander
  */
-public class MapController implements MapViewEvents, GameMenuListener {
+public class MapController implements MapViewEvents, GameMenuListener, DifficultyMenuListener {
     private MapView mapView;
     private Player player;
 
@@ -42,9 +45,10 @@ public class MapController implements MapViewEvents, GameMenuListener {
                 System.out.println("Weird"); return;
         }
 
-        this.mapView = new MapView(player, act.getNodes(), act.getMapWidth(), act.getMapHeight(), this, this);
+        this.mapView = new MapView(player, act.getNodes(), act.getMapWidth(), act.getMapHeight(), this, this, this);
     }
 
+    /*  MAP VIEW EVENTS */
     @Override
     public void onValidFieldClick(Player player, Node node) {
         node.doFieldThing(player);
@@ -64,6 +68,7 @@ public class MapController implements MapViewEvents, GameMenuListener {
         primaryStage.setFullScreen(!primaryStage.isFullScreen());
     }
 
+    /*  GAME MENU */
     @Override
     public void onSaveClick() {
         GameSaveManager saveManager = new GameSaveManager();
@@ -88,12 +93,28 @@ public class MapController implements MapViewEvents, GameMenuListener {
 
     @Override
     public void onChangeDifficultyClick() {
-        // TODO: Difficulty
+        mapView.openDifficultyMenu();
     }
 
     @Override
     public void onExitClick() {
         System.exit(0);
+    }
+
+    /* DIFFICULTY MENU */
+    @Override
+    public void onNormalClick() {
+        GameSettings.setGameMode(GameMode.NORMAL);
+    }
+
+    @Override
+    public void onHardcoreClick() {
+        GameSettings.setGameMode(GameMode.HARDCORE);
+    }
+
+    @Override
+    public void onDifficultyBackClick() {
+        mapView.closeDifficultyMenu();
     }
 
     private String getCurrentFieldFromAct(){
