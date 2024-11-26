@@ -3,6 +3,8 @@ package app;
 import helper.GuiHelper;
 import javafx.application.Application;
 import javafx.stage.Stage;
+import models.player.IroncladPlayer;
+import models.player.player_structure.Player;
 
 public class Main extends Application {
     @Override

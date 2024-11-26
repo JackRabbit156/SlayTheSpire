@@ -38,7 +38,7 @@ public class BonfireSpirits extends Event {
     private String story = "\n\nYou happen to stumble upon a group of what looks like purple fire spirits dancing around a large bonfire.\n" +
             "The spirits toss small bones and fragments into the fire, which brilliantly erupts each time. \n" +
             "As you approach, the spirits all turn to you, expectantly...\n";
-    private Button button1 = new Button("\t[Take] ");
+    private Button button1 = new Button("\t[Take] Give Card in exchange for Health.");
 
     public BonfireSpirits() {
         super();

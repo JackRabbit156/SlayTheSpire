@@ -18,8 +18,8 @@ public class TheCleric extends Event {
     private String story = "\n\nA strange blue humanoid with a golden helm(?) approaches you with a huge smile.\n" +
                             "\"Hello friend! I am Cleric! Are you interested in my services?!\"\n" +
                             "\"the creature shouts, loudly.\"\n";
-    private Button heal = new Button("\t[Heal] Lose 35 Gold. Heal 25% of your Max HP. ");
-    private Button purify = new Button("\t[Purify] Lose 50 Gold. Remove a Card from your deck.");
+    private Button button1 = new Button("\t[Heal] Lose 35 Gold. Heal 25% of your Max HP. ");
+    private Button button2 = new Button("\t[Purify] Lose 50 Gold. A random Card from your deck.");
 
     public TheCleric() {
         super();
@@ -41,22 +41,24 @@ public class TheCleric extends Event {
 
     public Button getButton1(Player player) {
 
-        heal.setOnMouseClicked(event -> {
+        button1.setOnMouseClicked(event -> {
             player.increaseCurrentHealth(player.getMaxHealth() / 4);
             player.decreaseGold(35);
-            heal.setVisible(false);
-            purify.setVisible(false);
+            button1.setVisible(false);
+            button2.setVisible(false);
         });
-        return heal;
+        return button1;
     }
 
     @Override
     public Button getButton2(Player player) {
-        heal.setOnMouseClicked(event -> {
+        button2.setOnMouseClicked(event -> {
             df = new DeckFactory(player, 1);
             df.removeRandomCard(player);
             player.decreaseGold(50);
+            button1.setVisible(false);
+            button2.setVisible(false);
         });
-        return purify;
+        return button2;
     }
 }
