@@ -8,7 +8,6 @@ import models.player.player_structure.Player;
 
 /**
  * Der Spieler kann  im austausch gegen Gold 1. die MaxHP erhöhen, oder 2.Eine Karte aus dem Spielerdeck entfernen
- * @author Keil, Vladislav
  * @author  Loeschner, Marijan
  */
 public class TheCleric extends Event {

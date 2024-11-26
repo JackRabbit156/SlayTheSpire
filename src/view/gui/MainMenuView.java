@@ -13,6 +13,11 @@ import javafx.scene.text.TextAlignment;
 import models.game_settings.structure.DifficultyLevel;
 import models.game_settings.structure.GameMode;
 
+/**
+ * Darstellungskomponente für das hauptmenü
+ *
+ * @author Loeschner, Marijan
+ */
 public class MainMenuView {
     private BorderPane selection = new BorderPane();
     private String fontPath = "/font/kreon/static/Kreon-Bold.ttf";

@@ -15,6 +15,10 @@ import javafx.scene.text.TextAlignment;
 
 import java.util.Objects;
 
+/**
+ * Darstellungskomonente der Credits
+ * @author Loeschner, Marijan
+ */
 public class CreditView {
     private Button back = new Button();
     private VBox output = new VBox();
@@ -49,6 +53,10 @@ public class CreditView {
         return output;
     }
 
+    /**
+     * Methode die die Credits darstellt
+     * @return output VBox
+     */
     public VBox display(){
         output.setBackground(new Background(GuiHelper.background("/images/backgrounds/greenBg.jpg")));
         Text creditText = new Text("Re-Engineered by:\nDaniel Willig\nVladislav Keil\nAlexander Warawa\nMarijan Loeschner");

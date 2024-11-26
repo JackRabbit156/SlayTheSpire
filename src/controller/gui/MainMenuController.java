@@ -14,6 +14,10 @@ import view.gui.MainMenuView;
 
 import java.util.concurrent.atomic.AtomicBoolean;
 
+/**
+ * Controller für die Darstellung des Hauptmenüs
+ * @author Loeschner, Marijan
+ */
 public class MainMenuController {
     private MainMenuView view = new MainMenuView();
     private CreditView creditView = new CreditView();

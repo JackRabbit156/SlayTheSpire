@@ -10,7 +10,8 @@ import view.gui.EventView;
 
 import java.util.Scanner;
 /**
- * @author Keil, Vladislav
+ * Event bei dem man zwischen 3 Optionen auswählen kann
+ *
  * @author  Loeschner, Marijan
  */
 public class BigFish extends Event{
