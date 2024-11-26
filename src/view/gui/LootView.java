@@ -63,6 +63,7 @@ public class LootView extends StackPane {
      *
      * @param lootCards          Die Liste der verfügbaren Karten.
      * @param gold               Die Menge an Gold im Schatz.
+     * @param playerImagePath image of picture of player
      * @param potionCard         Die im Schatz enthaltene Trankkarte.
      * @param lootViewEvents     Die Ereignisse der Loot-Ansicht.
      */

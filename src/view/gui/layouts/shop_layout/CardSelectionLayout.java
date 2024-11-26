@@ -22,7 +22,7 @@ import java.util.List;
  * Die Klasse CardSelectionLayout verwaltet die grafische Darstellung der Kartenauswahl im Shop-Layout.
  * Sie zeigt die verfügbaren Karten im Shop an und ermöglicht es dem Spieler, eine Karte auszuwählen.
  *
- * @autor Vladislav Keil
+ * @author Vladislav Keil
  */
 public class CardSelectionLayout extends FlowPane {
     private List<Card> selectableCards;

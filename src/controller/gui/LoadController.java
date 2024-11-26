@@ -76,6 +76,7 @@ public class LoadController implements LoadEventListener {
         }
 
         player.setCurrentHealth(Integer.parseInt(gameData.get("currentHealth")));
+        player.setMaxHealth(Integer.parseInt(gameData.get("maxHealth")));
 
         player.setCurrentAct(Integer.parseInt(gameData.get("currentAct")));
 

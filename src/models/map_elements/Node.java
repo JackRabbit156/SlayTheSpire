@@ -94,6 +94,7 @@ public class Node {
     /**
      * Führt die Aktionen aus, die mit dem Feld verknüpft sind, an dem sich der Spieler
      * befindet.
+     * @param player current player
      */
     public void doFieldThing(Player player){
         field.doFieldThing(player);

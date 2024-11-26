@@ -24,7 +24,7 @@ import java.util.List;
  * Sie zeigt die Beuteoptionen einschließlich Karten, Gold und Tränken an und ermöglicht es
  * dem Spieler, mit diesen zu interagieren.
  *
- * @autor Vladislav Keil
+ * @author Vladislav Keil
  */
 public class TreasureView extends StackPane {
     private PotionCard potionCard;
@@ -53,6 +53,7 @@ public class TreasureView extends StackPane {
      *
      * @param cardList             Die Liste der verfügbaren Karten.
      * @param gold                 Die Menge an Gold im Schatz.
+     * @param playerImagePath image of the player
      * @param treasureViewEvents   Die Ereignisse der Schatz-Ansicht.
      */
     public TreasureView(List<Card> cardList, int gold, String playerImagePath, TreasureViewEvents treasureViewEvents) {
@@ -73,6 +74,7 @@ public class TreasureView extends StackPane {
      * @param cardList             Die Liste der verfügbaren Karten.
      * @param gold                 Die Menge an Gold im Schatz.
      * @param potionCard           Die im Schatz enthaltene Trankkarte.
+     * @param playerImagePath image of the player
      * @param treasureViewEvents   Die Ereignisse der Schatz-Ansicht.
      */
     public TreasureView(List<Card> cardList, int gold, PotionCard potionCard, String playerImagePath, TreasureViewEvents treasureViewEvents) {

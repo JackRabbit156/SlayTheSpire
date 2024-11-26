@@ -25,7 +25,7 @@ import java.util.List;
  * Die Klasse ShopView verwaltet die grafische Darstellung der Shop-Ansicht im Spiel.
  * Sie zeigt die kaufbaren Karten und Tränke an und ermöglicht es dem Spieler, mit diesen zu interagieren.
  *
- * @autor Vladislav Keil
+ * @author Vladislav Keil
  */
 public class ShopView extends StackPane {
     private List<Card> shopCards;

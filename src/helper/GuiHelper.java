@@ -96,6 +96,7 @@ public class GuiHelper {
          *
          * @param player die 'Player'-Instanz, die den Spieler im Spiel repräsentiert
          * @param enemies eine Liste von 'Enemy'-Instanzen, die die Gegner im Kampf darstellen
+         * @param enemyField aktueller Feldtyp
          */
         public static void startBattleScene(Player player, List<Enemy> enemies, FieldEnum enemyField) {
             BattleController battle = new BattleController(player, enemies, enemyField);

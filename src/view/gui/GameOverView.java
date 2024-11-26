@@ -17,7 +17,7 @@ import view.gui.layouts.loot_layout.PlayerLayout;
  * Sie zeigt verschiedene Statistiken des Spielers an und ermöglicht es dem Spieler,
  * zur Kartenansicht zurückzukehren.
  *
- * @autor Vladislav Keil
+ * @author Vladislav Keil
  */
 public class GameOverView extends StackPane {
     private VBox centerVBox;

@@ -149,6 +149,7 @@ public class GameSaveManager {
         gameData.put("field", player.getCurrentField());
         gameData.put("currentAct", String.valueOf(player.getCurrentAct()));
         gameData.put("currentHealth", String.valueOf(player.getCurrentHealth()));
+        gameData.put("maxHealth", String.valueOf(player.getMaxHealth()));
         gameData.put("gold", String.valueOf(player.getGold()));
 
         gameData.put("lastSession", currentTimeStamp);
