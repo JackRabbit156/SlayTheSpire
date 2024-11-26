@@ -19,5 +19,6 @@ public interface GameMenuListener {
     void onBackClick();
     void onLoadClick();
     void onMainMenuClick();
+    void onChangeDifficultyClick();
     void onExitClick();
 }

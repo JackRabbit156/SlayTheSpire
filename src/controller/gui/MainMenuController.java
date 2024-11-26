@@ -7,6 +7,8 @@ import javafx.scene.layout.Background;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Popup;
 import javafx.stage.Stage;
+import models.game_settings.GameSettings;
+import models.game_settings.structure.GameMode;
 import view.gui.CharacterView;
 import view.gui.CreditView;
 import view.gui.MainMenuView;
@@ -19,6 +21,12 @@ public class MainMenuController {
     private Stage menuStage;
     private Popup quitUp = new Popup();
 
+    public MainMenuController() {
+        // to remove relation to previous Save File
+        GameSettings.lastSession = "";
+        GameSettings.resetStats();
+        GameSettings.setGameMode(GameMode.NORMAL);
+    }
 
     public BorderPane startMenu(Stage stage){
         menuStage = stage;
@@ -44,7 +52,7 @@ public class MainMenuController {
     }
     public void deleteSaveGame(Button dsg){
         dsg.setOnMouseClicked(event -> {
-
+            GuiHelper.Scenes.startDeleteMenuScene(menuStage);
         });
     }
     public void credits(Button creditButton){
