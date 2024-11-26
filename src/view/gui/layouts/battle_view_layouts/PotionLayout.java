@@ -1,13 +1,16 @@
 package view.gui.layouts.battle_view_layouts;
 
 import javafx.scene.Node;
+import javafx.scene.control.Tooltip;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
-import models.card.card_structure.Card;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontSmoothingType;
+import javafx.scene.text.FontWeight;
 import models.potion.potion_structure.PotionCard;
 import view.gui.BattleView;
 
@@ -27,7 +30,14 @@ public class PotionLayout extends HBox {
     private final BattleView battleView;
 
     private final Image emptyPotionIcon = new Image(getClass().getResource("/images/view/gui/layouts/battle_view_layouts/potion_layout/EmptyPotion.png").toExternalForm());
+    private final Image bg = new Image(getClass().getResource("/images/view/gui/layouts/battle_view_layouts/potion_layout/bg.png").toExternalForm());
+
     private ImageView emptyPotionIconView = new ImageView(emptyPotionIcon);
+    private ImageView bgIconView = new ImageView(bg);
+
+    private final Font font = Font.font("Kreon", FontWeight.BOLD, 20);
+
+
 
     public PotionLayout(List<PotionCard> potions, BattleView battleView) {
         this.potions = potions;
@@ -66,6 +76,14 @@ public class PotionLayout extends HBox {
 
         setHoverEffect(imageViewPotion);
 
+        Tooltip potionTooltip = new Tooltip();
+        potionTooltip.setText(potion.getName() + "\n"  +potion.getDescription());
+        potionTooltip.setFont(font);
+
+
+        Tooltip.install(imageViewPotion, potionTooltip);
+
+
         imageViewPotion.addEventHandler(MouseEvent.MOUSE_CLICKED, e -> handlePotionClick(potion, potions.indexOf(potion)));
         return imageViewPotion;
     }
@@ -76,8 +94,14 @@ public class PotionLayout extends HBox {
         glow.setHeight(30);
         glow.setWidth(30);
 
+        Tooltip tooltip = new Tooltip();
+        tooltip.setText("test");
+
+
         imageView.addEventHandler(MouseEvent.MOUSE_ENTERED, e -> imageView.setEffect(glow));
         imageView.addEventHandler(MouseEvent.MOUSE_EXITED, e -> imageView.setEffect(null));
+
+
     }
 
     public void handlePotionClick(PotionCard potion, int index) {

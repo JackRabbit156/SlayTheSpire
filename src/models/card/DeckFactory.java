@@ -91,7 +91,7 @@ public class DeckFactory {
         return assignPotion(potion);
     }
 
-    private PotionCard assignPotion(String potion) {
+    public static PotionCard assignPotion(String potion) {
         switch (potion) {
             case "BLOCKPOTION": return new BlockPotion();
             case "BLOODPOTION": return new BloodPotion();
@@ -218,7 +218,6 @@ public class DeckFactory {
             case "HeadbuttCard": cardToTransform = new HeadbuttCard(); break;
             case "HeavyBladeCard": cardToTransform = new HeavyBladeCard(); break;
             case "IronWaveCard": cardToTransform = new IronWaveCard(); break;
-            case "PerfectedStrikeCard": cardToTransform = new PerfectedStrikeCard(); break;
             case "PommelStrikeCard": cardToTransform = new PommelStrikeCard(); break;
             case "SwordBoomerangCard": cardToTransform = new SwordBoomerangCard(); break;
             case "ThunderclapCard": cardToTransform = new ThunderclapCard(); break;
@@ -227,18 +226,14 @@ public class DeckFactory {
             // RareCard
             case "BludgeonCard": cardToTransform = new BludgeonCard(); break;
             case "FeedCard": cardToTransform = new FeedCard(); break;
-            case "FiendFireCard": cardToTransform = new FiendFireCard(); break;
             case "ImmolateCard": cardToTransform = new ImmolateCard(); break;
             case "ReaperCard": cardToTransform = new ReaperCard(); break;
             // UncommonCard
-            case "BloodForBloodCard": cardToTransform = new BloodForBloodCard(); break;
             case "CarnageCard": cardToTransform = new CarnageCard(); break;
             case "DropkickCard": cardToTransform = new DropkickCard(); break;
             case "HemokinesisCard": cardToTransform = new HemokinesisCard(); break;
             case "PummelCard": cardToTransform = new PummelCard(); break;
-            case "RampageCard": cardToTransform = new RampageCard(); break;
             case "RecklessChargeCard": cardToTransform = new RecklessChargeCard(); break;
-            case "SearingBlowCard": cardToTransform = new SearingBlowCard(); break;
             case "SeveralSoulCard": cardToTransform = new SeverSoulCard(); break;
             case "UpperCutCard": cardToTransform = new UppercutCard(); break;
             case "WhirlwindCard": cardToTransform = new WhirlwindCard(); break;
@@ -248,13 +243,10 @@ public class DeckFactory {
             case "BerserkCard": cardToTransform = new BerserkCard(); break;
             case "JuggernautCard": cardToTransform = new JuggernautCard(); break;
             // UncommonCard
-            case "InflameCard": cardToTransform = new InflameCard(); break;
             case "MetallicizeCard": cardToTransform = new MetallicizeCard(); break;
-            case "RuptureCard": cardToTransform = new RuptureCard(); break;
 
             // Skill
             // CommonCards
-            case "FlexCard": cardToTransform = new FlexCard(); break;
             case "ShrugItOffCard": cardToTransform = new ShrugItOffCard(); break;
             case "WarcryCard": cardToTransform = new WarcryCard(); break;
             // RareCard
@@ -262,8 +254,6 @@ public class DeckFactory {
             // UncommonCard
             case "EntrenchCard": cardToTransform = new EntrenchCard(); break;
             case "GhostlyArmorCard": cardToTransform = new GhostlyArmorCard(); break;
-            case "RageCard": cardToTransform = new RageCard(); break;
-            case "SpotWeaknessCard": cardToTransform = new SpotWeaknessCard(); break;
 
 
             // Silent

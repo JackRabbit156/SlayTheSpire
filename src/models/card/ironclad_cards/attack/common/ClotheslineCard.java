@@ -17,7 +17,7 @@ public class ClotheslineCard extends AttackCard {
      * Constructor ClotheslineCard
      */
     public ClotheslineCard() {
-        super("Clothesline", "Deal 12 damage. Apply 2 Icon Weak Weak.", 2, 12, CardRarity.COMMON, CardGrave.DISCARD);
+        super("Clothesline", "Deal 12 damage.", 2, 12, CardRarity.COMMON, CardGrave.DISCARD);
         setImagePath(new PathAssistent().toPath(this));
     }
 
@@ -28,8 +28,6 @@ public class ClotheslineCard extends AttackCard {
 
         Player player = gameContext.getPlayer();
         player.decreaseCurrentEnergy(getCost());
-
-        //TODO Apply Debuff 2 Weak
     }
 
     @Override

@@ -12,3 +12,55 @@
     -fx-padding: 10px;                       /* Innenabstand */
     -fx-background-radius: 5px;              /* Abrundung der Ecken */
 }
+
+/* BUTTONS */
+.back-button:hover:before {
+    -fx-background-color: derive(#333, -30%); /* Heller machen beim Hover */
+}
+
+.back-button:active:after {
+    -fx-opacity: 0; /* Schatten wird beim Drücken verschwinden */
+}
+
+.back-button {
+    -fx-font-size: 18px;
+    -fx-letter-spacing: 2px;
+    -fx-text-transform: uppercase;
+    -fx-padding: 0.7em 2em;
+    -fx-border-width: 3px;
+    -fx-border-color: #FF0072; /* Randfarbe */
+    -fx-background-radius: 2px; /* Abrundung */
+    -fx-background-color: transparent; /* Hintergrundfarbe */
+    -fx-text-fill: #FF0072; /* Textfarbe */
+    -fx-font-weight: bold;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.1), 2, 3, 0, 2); /* Box-Shadow */
+    -fx-cursor: hand; /* Handcursor */
+    -fx-transition: all 0.3s ease;
+    -fx-border-style: solid;
+    -fx-background-insets: 0;
+    -fx-padding: 0; /* Standard-Padding setzen */
+    -fx-min-width: 100px; /* Mindestens 100px Breite */
+}
+
+.back-button:before {
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.16), 0, 0, 0, 0); /* Schatten für den Effekt */
+    -fx-background-color: #FF0072; /* Hintergrundfarbe */
+    -fx-opacity: 0;
+    -fx-transition: 0.5s all ease;
+}
+
+.back-button:hover {
+    -fx-text-fill: white; /* Textfarbe bei Hover */
+    -fx-background-color: #FF0072; /* Hintergrundfarbe bei Hover */
+}
+
+.back-button:pressed {
+    -fx-scale-x: 0.9; /* Skalierungseffekt beim Drücken */
+    -fx-scale-y: 0.9;
+}
+
+/* Um den Hintergrund beim Hover zu animieren */
+.back-button:hyped {
+    -fx-background-color: #FF0072;
+    -fx-opacity: 1; /* Sichtbar beim Hover */
+}

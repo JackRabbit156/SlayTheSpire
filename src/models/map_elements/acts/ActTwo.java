@@ -63,7 +63,7 @@ public class ActTwo extends Act {
         Node fight23 = new Node("23", new EnemyField(generateEnemies()), new Coordinates(4, 10));
         Node shop24 = new Node("24", new ShopField(), new Coordinates(0, 8));
         Node elite25 = new Node("25", new EliteField(createElitesEnemies()), new Coordinates(2, 8));
-        Node unknown26 = new Node("26", new UnknownField(null, new EnemyField(generateEnemies()), new EliteField(createElitesEnemies()), new ShopField()), new Coordinates(0, 6));
+        Node unknown26 = new Node("26", new TreasureField(), new Coordinates(0, 6));
         Node fight27 = new Node("27", new EnemyField(generateEnemies()), new Coordinates(2, 6));
         Node unknown28 = new Node("28", new UnknownField(null, new EnemyField(generateEnemies()), new EliteField(createElitesEnemies()), new ShopField()), new Coordinates(4, 6));
         Node unknown29 = new Node("29", new UnknownField(null, new EnemyField(generateEnemies()), new EliteField(createElitesEnemies()), new ShopField()), new Coordinates(0, 4));

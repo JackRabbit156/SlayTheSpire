@@ -29,8 +29,6 @@ public class UppercutCard extends AttackCard {
 
         Player player = gameContext.getPlayer();
         player.decreaseCurrentEnergy(getCost());
-
-        //TODO Weak, Vulnerable
     }
 
     @Override

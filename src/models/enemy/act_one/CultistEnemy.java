@@ -35,6 +35,6 @@ public class CultistEnemy extends Enemy {
 
     @Override
     public void attack(GameContext gameContext) {
-        getEnemyDeck().get(getEnemyCardToBePlayed()).playEnemy(gameContext, this); //TODO get(0) muss von calcIntent gesetzt werden. Also die 0
+        getEnemyDeck().get(getEnemyCardToBePlayed()).playEnemy(gameContext, this);
     }
 }

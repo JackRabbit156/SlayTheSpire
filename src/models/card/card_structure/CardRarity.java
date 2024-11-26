@@ -23,7 +23,7 @@ public enum CardRarity {
     /**
      * die Startkarten
      */
-    BASIC, //TODO (https://slay-the-spire.fandom.com/wiki/Cards)
+    BASIC,
     /**
      * Spezielle Karte
      */

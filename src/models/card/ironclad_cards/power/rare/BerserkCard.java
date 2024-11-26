@@ -19,7 +19,7 @@ public class BerserkCard extends PowerCard {
      * Constructor Berserk card.
      */
     public BerserkCard() {
-        super("Berserk", "Gain 2 Vulnerable. At the start of your turn, gain 1 Energy.", 0, CardRarity.RARE, CardGrave.NONE, CardTrigger.PLAYER_BOT);
+        super("Berserk", "At the start of your turn, gain 1 Energy.", 0, CardRarity.RARE, CardGrave.NONE, CardTrigger.PLAYER_BOT);
         setImagePath(new PathAssistent().toPath(this));
     }
 
@@ -29,8 +29,6 @@ public class BerserkCard extends PowerCard {
         Player player = gameContext.getPlayer();
         BattleDeck battleDeck = gameContext.getBattleDeck();
         battleDeck.addPowerCards(new BerserkCard());
-
-        //TODO Debuff Vulnerable
 
         player.decreaseCurrentEnergy(getCost());
     }
