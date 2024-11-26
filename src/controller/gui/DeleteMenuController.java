@@ -1,8 +1,8 @@
 package controller.gui;
 
+import controller.listener.DeleteEventListener;
 import controller.listener.LoadEventListener;
 import helper.GuiHelper;
-import javafx.scene.Scene;
 import javafx.stage.Stage;
 import models.card.DeckFactory;
 import models.card.card_structure.Card;
@@ -13,50 +13,33 @@ import models.load_save_game_elements.SaveFilePreview;
 import models.player.IroncladPlayer;
 import models.player.SilentPlayer;
 import models.player.player_structure.Player;
-import models.potion.potion_structure.PotionCard;
-import view.gui.LoadView;
+import view.gui.DeleteMenuView;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 /**
- * Diese Klasse verwaltet den Ladevorgang von gespeicherten Spielen im Menü.
- * Sie bietet Funktionen zum Anzeigen von Speicherdateien und Laden von Spielen
- *  von Speicherdateien.
+ * Diese Klasse verwaltet die gespeicherten Spielen im Menü.
+ * Sie bietet Funktionen zum Anzeigen von Speicherdateien und löschen von Speicherdateien.
  *
  * @author Warawa Alexander
  */
-public class LoadController implements LoadEventListener {
+public class DeleteMenuController implements LoadEventListener, DeleteEventListener {
 
     private GameSaveManager gameSaveManager;
-    private LoadView loadView;
+    private DeleteMenuView deleteMenuView;
 
     private Stage primaryStage;
     private Player player;
 
-    public LoadController(Stage primaryStage){
+    public DeleteMenuController(Stage primaryStage){
         this.primaryStage = primaryStage;
 
         gameSaveManager = new GameSaveManager();
 
         List<SaveFilePreview> saveFilePreviewList = saveFilePreviewList();
-        this.loadView = new LoadView(this, saveFilePreviewList);
-
-        if(saveFilePreviewList.isEmpty()){
-            // TODO: View if there are no files
-            return;
-        }
-    }
-
-    public LoadController(Player player){
-        this.player = player;
-        this.primaryStage = player.getPrimaryStage();
-
-        gameSaveManager = new GameSaveManager();
-
-        List<SaveFilePreview> saveFilePreviewList = saveFilePreviewList();
-        this.loadView = new LoadView(this, saveFilePreviewList);
+        this.deleteMenuView = new DeleteMenuView(this, saveFilePreviewList);
 
         if(saveFilePreviewList.isEmpty()){
             // TODO: View if there are no files
@@ -73,7 +56,6 @@ public class LoadController implements LoadEventListener {
         Map<String, String> gameData = gameSaveManager.loadGame(id);
         Player player = null;
 
-        // Getting the Character
         String playerTypeAsString = gameData.get("character");
         switch (playerTypeAsString){
             case "IRONCLAD": player = new IroncladPlayer(primaryStage); break;
@@ -89,7 +71,6 @@ public class LoadController implements LoadEventListener {
         player.setCurrentField(gameData.get("field"));
         player.setGold( Integer.parseInt(gameData.get("gold")));
 
-        // reading Deck
         List<Card> deck = new ArrayList<>();
         for(int i = 0; gameData.get("card"+i) != null; i++){
             String cardName = gameData.get("card"+i);
@@ -100,19 +81,8 @@ public class LoadController implements LoadEventListener {
 
         player.setDeck(deck);
 
-        // reading Potions
-        List<PotionCard> potions = new ArrayList<>();
-        for(int i = 0; gameData.get("potion"+i) != null; i++){
-            String potionName = gameData.get("potion"+i);
-
-            PotionCard potion = DeckFactory.assignPotion(potionName);
-            potions.add(potion);
-        }
-
-        player.setPotionCards(potions);
 
 
-        // assigning the right difficulty
         String difficulty = gameData.get("difficulty");
 
         switch (difficulty){
@@ -125,19 +95,11 @@ public class LoadController implements LoadEventListener {
 
         GameSettings.lastSession = gameData.get("lastSession");
 
-        // Setting stats
-        int receivedGoldStats = Integer.parseInt(gameData.get("receivedGoldStats"));
-        int receivedDamageStats = Integer.parseInt(gameData.get("receivedDamageStats"));
-        int distributedDamageStats = Integer.parseInt(gameData.get("distributedDamageStats"));
-        int energySpentStats = Integer.parseInt(gameData.get("energySpentStats"));;
-
-        GameSettings.setStats(receivedGoldStats, receivedDamageStats, distributedDamageStats, energySpentStats);
-
-
+        //MapViewController map = new MapViewController(player, true);
         GuiHelper.Scenes.startMapScene(player);
 
-        // Setting played Time
         GameSettings.restartTimer();
+
         GameSettings.setTimerSeconds(Integer.parseInt(gameData.get("seconds")));
         GameSettings.setTimerMinutes(Integer.parseInt(gameData.get("minutes")));
         GameSettings.setTimerHours(Integer.parseInt(gameData.get("hours")));
@@ -152,8 +114,8 @@ public class LoadController implements LoadEventListener {
         return gameSaveManager.listSaveFiles();
     }
 
-    public LoadView getLoadView(){
-        return loadView;
+    public DeleteMenuView getDeleteMenuView(){
+        return deleteMenuView;
     }
 
     /**
@@ -187,6 +149,14 @@ public class LoadController implements LoadEventListener {
     @Override
     public void onSelectedItem(int id) {
         startLoadedGame(id);
+    }
+
+    @Override
+    public void onDeleteButtonClick(int id) {
+        GameSaveManager saveManager = new GameSaveManager();
+        saveManager.deleteSelectedSaveFile(id);
+
+        GuiHelper.Scenes.startMainMenuScene(primaryStage);
     }
 
     @Override

@@ -41,15 +41,24 @@ public class ActFour extends Act{
         initNodes();
 
         Node playerNode = getNoteByName(player.getCurrentField());
-        if(playerNode != null)
-            playerNode.setPlayer(player);
+
+        if(playerNode != null){
+            // wenn der Spieler auf dem Boss Feld ist, wird der Spieler wieder an den Anfang gesetzt
+            if(playerNode.getFieldName().equals(this.getLastField())){
+                playerNode.setPlayer(null);
+                int start = Integer.parseInt(this.getFirstField()) - 1;
+                player.setCurrentField(start+"");
+            } else {
+                playerNode.setPlayer(player);
+            }
+        }
     }
 
     private void initNodes(){
-        Node rest51 = new Node("51", new RestField(), new Coordinates(0, 6));
-        Node shop52 = new Node("52", new ShopField(), new Coordinates(0, 4));
-        Node elite53 = new Node("53", new EliteField(createElitesEnemies()), new Coordinates(0, 2));
-        Node boss54 = new Node("54", new BossField(createBossEnemies()), new Coordinates(0, 0));
+        Node rest51 = new Node("51", new RestField(), new Coordinates(2, 10));
+        Node shop52 = new Node("52", new ShopField(), new Coordinates(2, 8));
+        Node elite53 = new Node("53", new EliteField(createElitesEnemies()), new Coordinates(2, 6));
+        Node boss54 = new Node("54", new BossField(createBossEnemies()), new Coordinates(2, 4));
 
         nodes.add(rest51);
         nodes.add(shop52);
