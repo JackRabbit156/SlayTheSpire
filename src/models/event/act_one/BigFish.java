@@ -15,7 +15,7 @@ import java.util.Scanner;
  */
 public class BigFish extends Event{
     private static Image image = new Image("/images/event/act_one/BigFishEvent.png");
-    private String title;
+    private String title = "Big Fish";
     private String story = "\n\nAs you make your way down a long corridor you see a banana, a donut, and a box floating about. \n" +
             "No... upon closer inspection they are tied to strings coming from holes in the ceiling.\n " +
             "There is a quiet cackling from above as you approach the objects.\n";
