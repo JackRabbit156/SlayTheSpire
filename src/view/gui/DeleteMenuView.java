@@ -17,6 +17,22 @@ import models.load_save_game_elements.SaveFilePreview;
 
 import java.util.List;
 
+/**
+ * Die Klasse 'DeleteMenuView' repräsentiert eine grafische Benutzeroberfläche (GUI)
+ * für das Löschen von gespeicherten Spielständen. Sie zeigt eine Liste von Vorschauen gespeicherter
+ * Dateien an und ermöglicht dem Benutzer das Löschen eines ausgewählten Spielstands oder das Zurückkehren
+ * zum vorherigen Menü.
+ *
+ * <p>Die Klasse erbt von 'VBox' und enthält eine Liste von 'SaveFilePreview',
+ * die die gespeicherten Dateien darstellen. Mit dieser GUI kann der Benutzer die gespeicherten Dateien
+ * anzeigen und eine auswählen, um sie zu löschen.</p>
+ *
+ * <p>Die Klasse benötigt einen 'DeleteEventListener', um auf Ereignisse wie das Klicken
+ * auf die Schaltflächen "Zurück" und "Löschen" zu reagieren.</p>
+ *
+ *
+ * @author Warawa Alexander
+ */
 public class DeleteMenuView extends VBox {
 
     private List<SaveFilePreview> saveFilePreviewList;
@@ -28,6 +44,13 @@ public class DeleteMenuView extends VBox {
 
     private int selectedIndex = 0;
 
+    /**
+     * Konstruktor für die Klasse 'DeleteMenuView'.
+     *
+     * @param deleteEventListener Ein Listener für delete und back Ereignisse.
+     * @param saveFilePreviewList Eine Liste von 'SaveFilePreview' Objekten, die die
+     *                            gespeicherten Spielstände repräsentieren.
+     */
     public DeleteMenuView(DeleteEventListener deleteEventListener, List<SaveFilePreview> saveFilePreviewList) {
         setAlignment(Pos.TOP_CENTER);
 

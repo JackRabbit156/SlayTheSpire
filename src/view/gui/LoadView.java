@@ -16,6 +16,13 @@ import models.load_save_game_elements.SaveFilePreview;
 
 import java.util.List;
 
+/**
+ * Die Klasse 'LoadView' stellt eine GUI zum Laden gespeicherter Spielstände bereit.
+ * Sie zeigt eine Liste von 'SaveFilePreview' Objekten an und ermöglicht es dem Benutzer,
+ * durch Doppelklick einen Spielstand zu laden oder zum vorherigen Menü zurückzukehren.
+ *
+ * @author Warawa Alexander
+ */
 public class LoadView extends VBox {
 
     private List<SaveFilePreview> saveFilePreviewList;
@@ -25,8 +32,12 @@ public class LoadView extends VBox {
 
     private LoadEventListener loadEventListener;
 
-
-
+    /**
+     * Konstruktor für die 'LoadView'.
+     *
+     * @param loadEventListener Ein Listener für Load-Ereignisse.
+     * @param saveFilePreviewList Eine Liste von 'SaveFilePreview' Objekten.
+     */
     public LoadView(LoadEventListener loadEventListener, List<SaveFilePreview> saveFilePreviewList) {
         setAlignment(Pos.TOP_CENTER);
 
@@ -72,6 +83,7 @@ public class LoadView extends VBox {
     private void initListeners(){
         listView.setOnMouseClicked(event -> handleMouseClick(event));
     }
+
     private void handleMouseClick(MouseEvent event) {
         if (event.getClickCount() == 2) { // Überprüfen auf Doppelklick
             int index = listView.getSelectionModel().getSelectedIndex();
@@ -80,15 +92,4 @@ public class LoadView extends VBox {
             }
         }
     }
-
-    public void showLoadPreview(){
-
-        for(SaveFilePreview listItem : saveFilePreviewList){
-
-
-        }
-
-        listView.getItems().addAll(saveFilePreviewList);
-    }
-
 }
