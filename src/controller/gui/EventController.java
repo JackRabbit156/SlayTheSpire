@@ -36,7 +36,6 @@ public class EventController {
     }
 
     public Event randomEvent(Player player) {
-        Event randomEvent;
         Event bigFish = new BigFish();
         Event deadAdventurer = new DeadAdventurer();
         Event theCleric = new TheCleric();
@@ -58,14 +57,14 @@ public class EventController {
         Event cursedTome = new CursedTome();
 
         generalEvents.addAll(Arrays.asList(noteforyou, bonfireSpirits, goldenShrine, duplicator));
-        randomIndex = rand.nextInt(generalEvents.size());
         if(player.getCurrentAct() == 1){
             generalEvents.addAll(Arrays.asList(bigFish, deadAdventurer, lab, scrapOoze, theCleric, theSerpent, wheelOfChange, worldOfGoo));
         }
         else if(player.getCurrentAct() == 2) {
             generalEvents.addAll(Arrays.asList(cursedTome, knowingSkull, maskedBandits, theJoust, theLib, theMausoleum, theNest));
         }
-        return randomEvent = generalEvents.get(randomIndex);
+        randomIndex = rand.nextInt(generalEvents.size());
+        return generalEvents.get(randomIndex);
     }
 
 }
