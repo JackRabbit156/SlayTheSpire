@@ -33,8 +33,9 @@ public class EventController {
         Event bonfireSpirits = new BonfireSpirits();
         Event goldenShrine = new GoldenShrine();
         Event duplicator = new Duplicator();
+        Event wheelOfChange = new WheelOfChange();
         //TODO: randomizer so anpassen dass die acts berücksichtigt werden
-        return randomEvent = bonfireSpirits;
+        return randomEvent = wheelOfChange;
     }
 
 }
