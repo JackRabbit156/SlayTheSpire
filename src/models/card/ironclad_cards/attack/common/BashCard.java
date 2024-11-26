@@ -28,7 +28,6 @@ public class BashCard extends AttackCard {
 
         Player player = gameContext.getPlayer();
         player.decreaseCurrentEnergy(getCost());
-        //TODO Bild anpassen
     }
 
     @Override

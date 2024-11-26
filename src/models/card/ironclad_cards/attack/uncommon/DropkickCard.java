@@ -18,7 +18,7 @@ public class DropkickCard extends AttackCard {
      * Constructor Dropkick card.
      */
     public DropkickCard() {
-        super("Dropkick", "Deal 5 damage. If the enemy has Vulnerable, gain Energy and draw 1 card.", 1, 5, CardRarity.UNCOMMON, CardGrave.DISCARD);
+        super("Dropkick", "Deal 5 damage.", 1, 5, CardRarity.UNCOMMON, CardGrave.DISCARD);
         setImagePath(new PathAssistent().toPath(this));
     }
 
@@ -29,9 +29,6 @@ public class DropkickCard extends AttackCard {
 
         Player player = gameContext.getPlayer();
         player.decreaseCurrentEnergy(getCost());
-
-        //TODO if (enemy.hasEffect.Vulnerable) {player.increaseEnergy(1); player.drawCard(1);
-
     }
 
     @Override

@@ -17,7 +17,7 @@ public class HeavyBladeCard extends AttackCard {
      * Constructor HeavyBladeCard
      */
     public HeavyBladeCard() {
-        super("Heavy Blade", "Deal 14 damage. Strength affects this card 3 times.", 2, 14, CardRarity.COMMON, CardGrave.DISCARD);
+        super("Heavy Blade", "Deal 14 damage.", 2, 14, CardRarity.COMMON, CardGrave.DISCARD);
         setImagePath(new PathAssistent().toPath(this));
     }
 
@@ -28,8 +28,6 @@ public class HeavyBladeCard extends AttackCard {
 
         Player player = gameContext.getPlayer();
         player.decreaseCurrentEnergy(getCost());
-
-        //TODO Buff Strength affects this card 3 times
     }
 
     @Override
