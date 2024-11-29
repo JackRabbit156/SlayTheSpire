@@ -6,6 +6,7 @@ import events.EnemyDamageEvent;
 import events.PlayerBlockEvent;
 import events.PlayerDamageEvent;
 import helper.GuiHelper;
+import javafx.stage.Stage;
 import models.battle.BattleDeck;
 import models.battle.GameContext;
 
@@ -114,6 +115,13 @@ public class BattleController implements BattleViewEvents, PlayerEventListener, 
         }
     }
 
+    @Override
+    public void onFullscreenClick() {
+        Stage primaryStage = player.getPrimaryStage();
+
+        primaryStage.setFullScreen(!primaryStage.isFullScreen());
+    }
+
     private void startingLoot() {
         GuiHelper.Scenes.startLootScene(this.player, this.fieldType);
     }
@@ -209,8 +217,7 @@ public class BattleController implements BattleViewEvents, PlayerEventListener, 
         if (selectedCard.getCardGrave().equals(CardGrave.POTION)) {
             potions.remove(selectedCard);
         }
-
-        if (selectedCard.getCardGrave().equals(CardGrave.EXHAUST)) {
+        else if (selectedCard.getCardGrave().equals(CardGrave.EXHAUST)) {
             battleDeck.exhaustCardFromHand(selectedCard);
         }
         else if (selectedCard.getCardGrave().equals(CardGrave.DISCARD)) {
