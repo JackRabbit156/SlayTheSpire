@@ -3,20 +3,22 @@ package view.gui;
 import controller.listener.BattleDeckListener;
 import helper.GuiHelper;
 import javafx.beans.property.SimpleObjectProperty;
-import javafx.geometry.Pos;
-import javafx.scene.control.Label;
-import javafx.scene.layout.*;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BorderPane;
 import models.battle.BattleDeck;
 import models.card.card_structure.Card;
 import models.card.card_structure.CardType;
 import models.enemy.Enemy;
 import models.player.player_structure.Player;
 import models.potion.potion_structure.PotionCard;
-import view.gui.layouts.battle_view_layouts.*;
-import javafx.scene.control.Button;
+import view.gui.layouts.battle_view_layouts.BottomSideLayout;
+import view.gui.layouts.battle_view_layouts.LeftSideLayout;
+import view.gui.layouts.battle_view_layouts.RightSideLayout;
+import view.gui.layouts.battle_view_layouts.TopSideLayout;
 import view.gui.layouts.layout_events.BattleViewEvents;
 
 import java.util.List;
+
 /**
  * Diese Klasse repräsentiert die Ansicht für den Kampf im Spiel.
  * Sie ist verantwortlich für die Darstellung des Spielers, der Gegner,
@@ -28,40 +30,23 @@ import java.util.List;
  * @author OF Daniel Willig
  */
 public class BattleView extends BorderPane implements BattleDeckListener {
+
     public enum Mode {
         NORMAL, ATTACK, SKILL, POWER
     }
-    public SimpleObjectProperty<Mode> modeProperty() {
-        return mode;
-    }
-    public Mode getMode() {
-        return mode.get();
-    }
-    public void setMode(Mode mode) {
-        this.mode.set(mode);
-    }
 
-    private LeftSideLayout leftVBox;
-    private RightSideLayout rightVBox;
-
-    private BottomSideLayout bottomHBox;
-
-
-    private TopSideLayout topVBox;
-
-
-    private Label information;
-    private Button openGameMenuButton;
-
-    private Player player;
-    private List<Enemy> enemies;
-
-    private BattleDeck battleDeck;
-
-    private BattleViewEvents battleViewEvents;
-
-    // Ändert den aktuellen Modus des Views. Z.B. wenn auf Karte gedrückt, dann Attack-Modus.
-    private SimpleObjectProperty<Mode> mode = new SimpleObjectProperty<>(Mode.NORMAL);
+    private final BattleDeck battleDeck;
+    private final BattleViewEvents battleViewEvents;
+    private BottomSideLayout bottom;
+    private final List<Enemy> enemies;
+    private LeftSideLayout left;
+    /**
+     * Ändert den aktuellen Modus der View. Z.B. wenn auf Karte gedrückt, dann Attack-Modus.
+      */
+    private final SimpleObjectProperty<Mode> mode = new SimpleObjectProperty<>(Mode.NORMAL);
+    private final Player player;
+    private RightSideLayout right;
+    private TopSideLayout top;
 
     public BattleView(Player player, List<Enemy> enemies, BattleViewEvents battleViewEvents, BattleDeck battleDeck) {
         this.battleViewEvents = battleViewEvents;
@@ -74,109 +59,97 @@ public class BattleView extends BorderPane implements BattleDeckListener {
         initNodes();
     }
 
-    private void initNodes() {
-        initTop();
-        initLeft();
-        initRight();
-        initBottom();
-
-        leftVBox.setTranslateY(-50);
-        rightVBox.setTranslateY(-50);
-        bottomHBox.setTranslateY(-50);
-
-        updateInformation();
+    public void clickedOnCard(Card card, int index) {
+        if (card == null) {
+            mode.set(Mode.NORMAL);
+            enableBattleView();
+            return;
+        }
+        if (mode.get() != Mode.NORMAL) {
+            mode.set(Mode.NORMAL);
+            enableBattleView();
+        }
+        if (card.getCardType() == CardType.ATTACK) {
+            mode.set(Mode.ATTACK);
+            selectEnemyViewForCard();
+        }
+        else if (card.getCardType() == CardType.SKILL) {
+            mode.set(Mode.SKILL);
+            selectPlayerViewForCard();
+        }
+        else if (card.getCardType() == CardType.POWER) {
+            mode.set(Mode.POWER);
+            selectPlayerViewForCard();
+        }
+        battleViewEvents.onCardClick(card, index);
+        // TODO ist das für irgendetwas nötig?
+//        updateInformation();
     }
 
-    /**
-     * Top side for the Player Information
-     */
-    private void initTop() {
-        topVBox = new TopSideLayout(this, player);
-        this.setTop(topVBox);
-    }
-
-    /**
-     * Right side for the enemies
-     */
-    private void initRight(){
-        rightVBox = new RightSideLayout(this, enemies);
-
-        leftVBox.setAlignment(Pos.BOTTOM_LEFT);
-        this.setRight(rightVBox);
-    }
-
-    /**
-     * Left side for the player
-     */
-    private void initLeft(){
-        leftVBox = new LeftSideLayout(this, player);
-
-        this.setLeft(leftVBox);
-    }
-
-    /**
-     * Bottom side for the Hand cards
-     */
-    private void initBottom(){
-        bottomHBox = new BottomSideLayout(this, player, battleDeck.getHand());
-        setBottom(bottomHBox);
-    }
-
-    public void clickedOnEndTurn(){
+    public void clickedOnEndTurn() {
         battleViewEvents.onEndTurnClick();
         updateInformation();
     }
 
-    public void clickedOnCard(Card card, int index){
-        if(card.getCardType() == CardType.ATTACK){
-            mode.set(Mode.ATTACK);
-            selectEnemyView();
-        }
-        else if (card.getCardType() == CardType.SKILL) {
-            mode.set(Mode.SKILL);
-            selectPlayerView();
-        }
-        else if (card.getCardType() == CardType.POWER) {
-            mode.set(Mode.POWER);
-            selectPlayerView();
-        }
-
-        battleViewEvents.onCardClick(card, index);
-
+    public void clickedOnEnemy(Enemy enemy) {
+        mode.set(Mode.NORMAL);
+        enableBattleView();
+        battleViewEvents.onEnemyClick(enemy);
         updateInformation();
     }
 
-    public void clickedOnPotion(PotionCard potion, int index){
-        if(potion.getCardType() == CardType.ATTACK){
+    public void clickedOnFullscreen() {
+        battleViewEvents.onFullscreenClick();
+    }
+
+    public void clickedOnPlayer() {
+        mode.set(Mode.NORMAL);
+        enableBattleView();
+        battleViewEvents.onPlayerClick();
+        updateInformation();
+    }
+
+    public void clickedOnPotion(PotionCard potion, int index) {
+        if (potion == null) {
+            mode.set(Mode.NORMAL);
+            enableBattleView();
+            return;
+        }
+        if (mode.get() != Mode.NORMAL) {
+            mode.set(Mode.NORMAL);
+            enableBattleView();
+        }
+        if (potion.getCardType() == CardType.ATTACK) {
             mode.set(Mode.ATTACK);
-            selectEnemyView();
+            selectEnemyViewForPotion();
         }
         else if (potion.getCardType() == CardType.SKILL) {
             mode.set(Mode.SKILL);
-            selectPlayerView();
+            selectPlayerViewForPotion();
         }
-
         battleViewEvents.onCardClick(potion, index);
-
-        updateInformation();
+        // TODO notwendig?
+//        updateInformation();
     }
 
-    public void clickedOnEnemy(Enemy enemy){
-        mode.set(Mode.NORMAL);
-        enableBattleView();
-
-        battleViewEvents.onEnemyClick(enemy);
-
-        updateInformation();
+    public void enableBattleView() {
+        top.setDisablePotions(false);
+        left.setDisable(false);
+        right.setDisable(false);
+        bottom.setDisableEndTurn(false);
+        bottom.setDisable(false);
     }
 
-    public void clickedOnPlayer(){
-        mode.set(Mode.NORMAL);
-        enableBattleView();
+    public Mode getMode() {
+        return mode.get();
+    }
 
-        battleViewEvents.onPlayerClick();
+    public void setMode(Mode mode) {
+        this.mode.set(mode);
+    }
 
-        updateInformation();
+    public SimpleObjectProperty<Mode> modeProperty() {
+        return mode;
     }
 
     /**
@@ -187,38 +160,84 @@ public class BattleView extends BorderPane implements BattleDeckListener {
         updateBottom();
     }
 
-    public void updateInformation(){
-        rightVBox.refreshRightSide();
-        leftVBox.updatePlayer();
-        bottomHBox.updateBottom();
-        topVBox.updateTop();
-        leftVBox.updatePlayer();
+    public void selectEnemyViewForCard() {
+        top.setDisablePotions(true);
+        left.setDisable(true);
+        bottom.setDisableEndTurn(true);
     }
 
-    public void selectEnemyView(){
-        topVBox.setDisable(true);
-        leftVBox.setDisable(true);
-        bottomHBox.setDisable(true);
+    public void selectEnemyViewForPotion() {
+        left.setDisable(true);
+        bottom.setDisable(true);
     }
 
-    public void selectPlayerView(){
-        topVBox.setDisable(true);
-        rightVBox.setDisable(true);
-        bottomHBox.setDisable(true);
+    public void selectPlayerViewForCard() {
+        top.setDisablePotions(true);
+        right.setDisable(true);
+        bottom.setDisableEndTurn(true);
     }
 
-    public void enableBattleView(){
-        topVBox.setDisable(false);
-        leftVBox.setDisable(false);
-        rightVBox.setDisable(false);
-        bottomHBox.setDisable(false);
-    }
-
-    public void updatePlayer(){
-        leftVBox.updatePlayer();
+    public void selectPlayerViewForPotion() {
+        right.setDisable(true);
+        bottom.setDisable(true);
     }
 
     public void updateBottom() {
-        bottomHBox.updateBottom();
+        bottom.update();
     }
+
+    public void updateInformation() {
+        right.update();
+        // TODO doppelt nötig?
+//        leftVBox.updatePlayer();
+        bottom.update();
+        top.update();
+        left.update();
+    }
+
+    /**
+     * Bottom side for the Hand cards
+     */
+    private void initBottom() {
+        bottom = new BottomSideLayout(this, player, battleDeck.getHand());
+        setBottom(bottom);
+    }
+
+    /**
+     * Left side for the player
+     */
+    private void initLeft() {
+        left = new LeftSideLayout(this, player);
+        setLeft(left);
+    }
+
+    private void initNodes() {
+        initTop();
+        initLeft();
+        initRight();
+        initBottom();
+
+        left.setTranslateY(-50);
+        right.setTranslateY(-50);
+        bottom.setTranslateY(-50);
+
+        updateInformation();
+    }
+
+    /**
+     * Right side for the enemies
+     */
+    private void initRight() {
+        right = new RightSideLayout(this, enemies);
+        setRight(right);
+    }
+
+    /**
+     * Top side for the Player Information
+     */
+    private void initTop() {
+        top = new TopSideLayout(this, player);
+        setTop(top);
+    }
+
 }
