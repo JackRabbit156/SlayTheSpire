@@ -82,16 +82,7 @@ public abstract class Enemy {
     public void calcIntent() {
         DifficultyLevel difficulty = GameSettings.getDifficultyLevel();
         int randomNumber = (new Random().nextInt(100) + 1);
-        int attackPercentage = 100; //should be normal
-
-        if (difficulty.equals(DifficultyLevel.SUPEREASY)) {
-            attackPercentage = 50;
-        }
-        else if (difficulty.equals(DifficultyLevel.EASY)) {
-            attackPercentage = 75;
-        }
-
-        if (attackPercentage >= randomNumber) {
+        if (difficulty.getAttackPercentage() >= randomNumber) {
             setEnemyCardToBePlayed(new Random().nextInt(getEnemyDeck().size()));
             setIntent(getEnemyDeck().get(getEnemyCardToBePlayed()));
         }

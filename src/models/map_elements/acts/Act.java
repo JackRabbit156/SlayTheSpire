@@ -1,10 +1,11 @@
 package models.map_elements.acts;
 
-import models.game_settings.GameSettings;
 import models.map_elements.Node;
 import models.player.player_structure.Player;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
 
 
 /**
@@ -18,25 +19,54 @@ import java.util.*;
  * @author Warawa Alexander
  */
 public abstract class Act {
-    private int actLevel;
+
+    protected static final Random rnd = new Random();
 
     protected List<Node> nodes;
 
-    private int mapWidth;
-    private int mapHeight;
+    private final int actLevel;
+    private final int mapHeight;
+    private final int mapWidth;
 
-    public Act(int actLevel, int mapWidth, int mapHeight){
+    public Act(int actLevel, int mapWidth, int mapHeight) {
         this.mapHeight = mapHeight;
         this.mapWidth = mapWidth;
         this.actLevel = actLevel;
         nodes = new ArrayList<>();
     }
 
-    public int getMapWidth(){
-        return mapWidth;
+    /**
+     * Führt eine spezialisierte Aktion auf dem aktuellen Feld des Aktes aus.
+     * Die Aktion ist in den Felder-Klassen definiert.
+     */
+    public abstract void doFieldThing();
+
+    public int getActLevel() {
+        return actLevel;
     }
-    public int getMapHeight(){
+
+    public Node getCurrentField() {
+        return getPlayerNode();
+    }
+
+    public String getCurrentFieldName() {
+        return getPlayerNode().getFieldName();
+    }
+
+    public String getFirstField() {
+        return nodes.get(0).getFieldName();
+    }
+
+    public String getLastField() {
+        return nodes.get(nodes.size() - 1).getFieldName();
+    }
+
+    public int getMapHeight() {
         return mapHeight;
+    }
+
+    public int getMapWidth() {
+        return mapWidth;
     }
 
     /**
@@ -44,8 +74,22 @@ public abstract class Act {
      *
      * @return eine Liste von Nodes, die zu diesem Akt gehören
      */
-    public List<Node> getNodes(){
+    public List<Node> getNodes() {
         return this.nodes;
+    }
+
+    public void setBeatenNode(Player player, Node node) {
+        getPlayerNode().setPlayer(null);
+        node.setPlayer(player);
+    }
+
+    protected Node getNoteByName(String name) {
+        for (Node node : nodes) {
+            if (node.getFieldName().equals(name)) {
+                return node;
+            }
+        }
+        return null;
     }
 
     /**
@@ -54,52 +98,13 @@ public abstract class Act {
      *
      * @return der Node, auf dem der Spieler steht, oder `null`, falls keiner gefunden wurde
      */
-    protected Node getPlayerNode(){
-        for(int i = 0; i< nodes.size(); i++){
-            if(nodes.get(i).getPlayer() != null){
-                return nodes.get(i);
+    protected Node getPlayerNode() {
+        for (Node node : nodes) {
+            if (node.getPlayer() != null) {
+                return node;
             }
         }
         return null;
     }
-
-    public int getActLevel() {
-        return actLevel;
-    }
-
-    protected Node getNoteByName(String name){
-        for(int i = 0; i< nodes.size(); i++){
-            if(nodes.get(i).getFieldName().equals(name)){
-                return nodes.get(i);
-            }
-        }
-        return null;
-    }
-
-    public void setBeatenNode(Player player, Node node){
-        getPlayerNode().setPlayer(null);
-        node.setPlayer(player);
-    }
-
-    public String getFirstField(){
-        return nodes.get(0).getFieldName();
-    }
-
-    public String getLastField(){
-        return nodes.get(nodes.size()-1).getFieldName();
-    }
-
-    public String getCurrentFieldName(){
-        return getPlayerNode().getFieldName();
-    }
-
-    public Node getCurrentField(){
-        return getPlayerNode();
-    }
-    /**
-     * Führt eine spezialisierte Aktion auf dem aktuellen Feld des Aktes aus.
-     * Die Aktion ist in den Felder-Klassen definiert.
-     */
-    public abstract void doFieldThing();
 
 }

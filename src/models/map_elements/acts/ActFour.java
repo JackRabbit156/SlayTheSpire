@@ -9,12 +9,14 @@ import models.enemy.act_four.elites.SpireShieldElite;
 import models.enemy.act_four.elites.SpireSpearElite;
 import models.map_elements.Coordinates;
 import models.map_elements.Node;
-import models.map_elements.field_types.*;
+import models.map_elements.field_types.BossField;
+import models.map_elements.field_types.EliteField;
+import models.map_elements.field_types.RestField;
+import models.map_elements.field_types.ShopField;
 import models.player.player_structure.Player;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 /**
  * Die Klasse ActFour ist eine konkrete Implementierung des vierten Aktes im Spiel.
@@ -25,11 +27,10 @@ import java.util.Random;
  *
  * @author Warawa Alexander
  */
-public class ActFour extends Act{
-    private static final int MAP_WIDTH = 2;
-    private static final int MAP_HEIGHT= 10;
+public class ActFour extends Act {
 
-    Random randi = new Random();
+    private static final int MAP_HEIGHT = 10;
+    private static final int MAP_WIDTH = 2;
 
     /**
      * Konstruktor für die Klasse ActFour.
@@ -37,45 +38,40 @@ public class ActFour extends Act{
      *
      * @param player der Spieler, der sich im Akt bewegen soll
      */
-    public ActFour(Player player){
+    public ActFour(Player player) {
         super(4, MAP_WIDTH, MAP_HEIGHT);
         MusicBoy.play("act4");
         initNodes();
 
         Node playerNode = getNoteByName(player.getCurrentField());
 
-        if(playerNode != null){
+        if (playerNode != null) {
             // wenn der Spieler auf dem Boss Feld ist, wird der Spieler wieder an den Anfang gesetzt
-            if(playerNode.getFieldName().equals(this.getLastField())){
+            if (playerNode.getFieldName().equals(this.getLastField())) {
                 playerNode.setPlayer(null);
                 int start = Integer.parseInt(this.getFirstField()) - 1;
-                player.setCurrentField(start+"");
-            } else {
+                player.setCurrentField(start + "");
+            }
+            else {
                 playerNode.setPlayer(player);
             }
         }
     }
 
-    private void initNodes(){
-        Node rest51 = new Node("51", new RestField(), new Coordinates(2, 10));
-        Node shop52 = new Node("52", new ShopField(), new Coordinates(2, 8));
-        Node elite53 = new Node("53", new EliteField(createElitesEnemies()), new Coordinates(2, 6));
-        Node boss54 = new Node("54", new BossField(createBossEnemies()), new Coordinates(2, 4));
-
-        nodes.add(rest51);
-        nodes.add(shop52);
-        nodes.add(elite53);
-        nodes.add(boss54);
-
-        rest51.setMiddleNode(shop52);
-        shop52.setMiddleNode(elite53);
-        elite53.setMiddleNode(boss54);
+    /**
+     * Führt die spezifizierte Aktion auf dem aktuellen Feld des Spielers aus.
+     * Ruft die Methode `doFieldThing()` für das Feld auf, auf dem sich der Spieler befindet.
+     */
+    @Override
+    public void doFieldThing() {
+        Node currentNode = getPlayerNode();
+        currentNode.doFieldThing(currentNode.getPlayer());
     }
 
     private List<Enemy> createBossEnemies() {
         List<Enemy> enemies = new ArrayList<>();
 
-        int randAmountEnemies = randi.nextInt(4);
+        int randAmountEnemies = rnd.nextInt(4);
         enemies.add(new CorruptHeartBoss());
 
         for (int i = 0; i < randAmountEnemies; i++) {
@@ -86,8 +82,8 @@ public class ActFour extends Act{
 
     private List<Enemy> createElitesEnemies() {
         List<Enemy> enemies = new ArrayList<>();
-        int randElite = randi.nextInt(2);
-        int randAmountEnemies = randi.nextInt(2);
+        int randElite = rnd.nextInt(2);
+        int randAmountEnemies = rnd.nextInt(2);
 
         switch (randElite) {
             case 0:
@@ -106,13 +102,20 @@ public class ActFour extends Act{
         return enemies;
     }
 
-    /**
-     * Führt die spezifizierte Aktion auf dem aktuellen Feld des Spielers aus.
-     * Ruft die Methode `doFieldThing()` für das Feld auf, auf dem sich der Spieler befindet.
-     */
-    @Override
-    public void doFieldThing(){
-        Node currentNode = getPlayerNode();
-        currentNode.doFieldThing(currentNode.getPlayer());
+    private void initNodes() {
+        Node rest51 = new Node("51", new RestField(), new Coordinates(2, 10));
+        Node shop52 = new Node("52", new ShopField(), new Coordinates(2, 8));
+        Node elite53 = new Node("53", new EliteField(createElitesEnemies()), new Coordinates(2, 6));
+        Node boss54 = new Node("54", new BossField(createBossEnemies()), new Coordinates(2, 4));
+
+        nodes.add(rest51);
+        nodes.add(shop52);
+        nodes.add(elite53);
+        nodes.add(boss54);
+
+        rest51.setMiddleNode(shop52);
+        shop52.setMiddleNode(elite53);
+        elite53.setMiddleNode(boss54);
     }
+
 }

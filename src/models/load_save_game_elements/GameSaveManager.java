@@ -145,7 +145,7 @@ public class GameSaveManager {
 
         Map<String, String> gameData = new HashMap<>();
 
-        gameData.put("character", player.getPlayerType().toString());
+        gameData.put("character", player.getPlayerType().name());
         gameData.put("field", player.getCurrentField());
         gameData.put("currentAct", String.valueOf(player.getCurrentAct()));
         gameData.put("currentHealth", String.valueOf(player.getCurrentHealth()));
@@ -159,7 +159,7 @@ public class GameSaveManager {
         gameData.put("seconds", String.valueOf(seconds));
         gameData.put("minutes", String.valueOf(minutes));
         gameData.put("hours", String.valueOf(hours));
-        gameData.put("difficulty", GameSettings.getDifficultyLevel().toString());
+        gameData.put("difficulty", GameSettings.getDifficultyLevel().name());
 
         for (int i = 0; i < player.getDeck().size(); i++) {
             Card card = player.getDeck().get(i);

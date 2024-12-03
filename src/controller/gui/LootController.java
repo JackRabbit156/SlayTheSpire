@@ -5,7 +5,6 @@ import helper.ConsoleAssistent;
 import helper.GuiHelper;
 import models.card.DeckFactory;
 import models.card.card_structure.Card;
-import models.card.card_structure.CardType;
 import models.game_settings.GameSettings;
 import models.map_elements.field_types.FieldEnum;
 import models.player.player_structure.Player;
@@ -25,24 +24,24 @@ import java.util.Random;
  */
 public class LootController implements LootViewEvents {
 
-    private Random randi = new Random();
-    private Player player;
-    private List<Card> selectedCards;
-    private PotionCard potionCard;
-    private DeckFactory deckFactory;
-    private LootView lootView;
-    private FieldEnum fieldType;
+    private static final Random rnd = new Random();
 
-    private int gold = 0;
-    private int amount = 5;
-    private double potionsChance = 0.8;
+    private int amount;
+    private final DeckFactory deckFactory;
+    private final FieldEnum fieldType;
+    private int gold;
+    private final LootView lootView;
+    private final Player player;
+    private PotionCard potionCard;
+    private double potionsChance;
+    private final List<Card> selectedCards;
 
     /**
      * Konstruktor für die Klasse LootController.
      * Initialisiert die mögliche Anzahl an Karten und deren Eigenschaften basierend auf dem
      * Schwierigkeitsgrad und dem Typ des Feldes.
      *
-     * @param player Der Spieler, für den das Loot erstellt wird.
+     * @param player    Der Spieler, für den das Loot erstellt wird.
      * @param fieldType Der Typ des Feldes, das den Goldfaktor für den Loot beeinflusst.
      */
     public LootController(Player player, FieldEnum fieldType) {
@@ -63,35 +62,22 @@ public class LootController implements LootViewEvents {
     }
 
     /**
-     * Initialisiert die Chancen für Items und die Anzahl an möglichen Karten basierend auf dem Schwierigkeitsgrad.
+     * Gibt die Loot-Ansicht zurück.
+     *
+     * @return Die LootView-Instanz.
      */
-    private void initItemChanceAndAmount() {
-        switch (GameSettings.getDifficultyLevel()) {
-            case SUPEREASY:
-            case EASY:
-                this.gold = (int) (this.gold * 1.5);
-                break;
-            case NORMAL:
-                amount = 3;
-                potionsChance = 0.50;
-                break;
-            case IMPOSSIBLE:
-            case HARD:
-                potionsChance = 0.10;
-                amount = 1;
-                this.gold = (int) (this.gold * 0.5);
-                break;
-        }
+    public LootView getLootView() {
+        return this.lootView;
     }
 
-    /**
-     * Generiert eine Trankkarte basierend auf einer Zufallswahrscheinlichkeit.
-     */
-    private void generatePotionByChance() {
-        double rand = randi.nextDouble();
-        if (rand < this.potionsChance) {
-            this.potionCard = deckFactory.generatePotion();
+    @Override
+    public void onBackClicked() {
+        ConsoleAssistent.print(Color.YELLOW, "LootView Leaved!");
+        if (this.fieldType == FieldEnum.BOSSFIELD) {
+            GuiHelper.Scenes.startStatisticScene(player);
+            return;
         }
+        GuiHelper.Scenes.startMapScene(player);
     }
 
     @Override
@@ -109,55 +95,9 @@ public class LootController implements LootViewEvents {
         if (this.player.getPotionCards().size() < 3) {
             ConsoleAssistent.print(Color.YELLOW, "Got an Potion: " + potion.getName());
             this.player.addPotionCard(potion);
-        } else {
+        }
+        else {
             this.lootView.showDialog("You have reached the maximum of Potion.");
-        }
-    }
-
-    @Override
-    public void onBackClicked() {
-        ConsoleAssistent.print(Color.YELLOW, "LootView Leaved!");
-        if (this.fieldType == FieldEnum.BOSSFIELD) {
-            GuiHelper.Scenes.startStatisticScene(player);
-            return;
-        }
-        GuiHelper.Scenes.startMapScene(player);
-    }
-
-    /**
-     * Gibt die Loot-Ansicht zurück.
-     *
-     * @return Die LootView-Instanz.
-     */
-    public LootView getLootView() {
-        return this.lootView;
-    }
-
-    /**
-     * Initialisiert das Loot-Deck mit Karten.
-     *
-     * @return Die Liste der initialisierten Karten.
-     */
-    private List<Card> initialLootDeck() {
-        return this.deckFactory.init();
-    }
-
-    /**
-     * Initialisiert die Goldmenge basierend auf dem Feldtyp.
-     *
-     * @param fieldType Der Typ des Feldes, das den Goldfaktor bestimmt.
-     */
-    private void initGoldLoot(FieldEnum fieldType) {
-        switch (fieldType) {
-            case BOSSFIELD:
-                this.gold = randi.nextInt(105 + 1 - 95) + 95;
-                break;
-            case ELITEFIELD:
-                this.gold = randi.nextInt(35 + 1 - 25) + 25;
-                break;
-            case ENEMYFIELD:
-                this.gold = randi.nextInt(20 + 1 - 10) + 10;
-                break;
         }
     }
 
@@ -172,5 +112,55 @@ public class LootController implements LootViewEvents {
 
         this.player.addCardToDeck(card);
         this.player.increaseGold(this.gold);
+    }
+
+    /**
+     * Generiert eine Trankkarte basierend auf einer Zufallswahrscheinlichkeit.
+     */
+    private void generatePotionByChance() {
+        double rand = rnd.nextDouble();
+        if (rand < this.potionsChance) {
+            this.potionCard = deckFactory.generatePotion();
+        }
+    }
+
+    /**
+     * Initialisiert die Goldmenge basierend auf dem Feldtyp.
+     *
+     * @param fieldType Der Typ des Feldes, das den Goldfaktor bestimmt.
+     */
+    private void initGoldLoot(FieldEnum fieldType) {
+        switch (fieldType) {
+            case BOSSFIELD:
+                // 95 - 105
+                this.gold = rnd.nextInt(105 + 1 - 95) + 95;
+                break;
+            case ELITEFIELD:
+                // 25 - 35
+                this.gold = rnd.nextInt(35 + 1 - 25) + 25;
+                break;
+            case ENEMYFIELD:
+                // 10 - 20
+                this.gold = rnd.nextInt(20 + 1 - 10) + 10;
+                break;
+        }
+    }
+
+    /**
+     * Initialisiert die Chancen für Items und die Anzahl an möglichen Karten basierend auf dem Schwierigkeitsgrad.
+     */
+    private void initItemChanceAndAmount() {
+        gold = GameSettings.getDifficultyLevel().getGold(gold);
+        amount = GameSettings.getDifficultyLevel().getAmount();
+        potionsChance = GameSettings.getDifficultyLevel().getPotionChance();
+    }
+
+    /**
+     * Initialisiert das Loot-Deck mit Karten.
+     *
+     * @return Die Liste der initialisierten Karten.
+     */
+    private List<Card> initialLootDeck() {
+        return this.deckFactory.init();
     }
 }

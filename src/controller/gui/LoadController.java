@@ -2,7 +2,6 @@ package controller.gui;
 
 import controller.listener.LoadEventListener;
 import helper.GuiHelper;
-import javafx.scene.Scene;
 import javafx.stage.Stage;
 import models.card.DeckFactory;
 import models.card.card_structure.Card;
@@ -13,6 +12,7 @@ import models.load_save_game_elements.SaveFilePreview;
 import models.player.IroncladPlayer;
 import models.player.SilentPlayer;
 import models.player.player_structure.Player;
+import models.player.player_structure.PlayerType;
 import models.potion.potion_structure.PotionCard;
 import view.gui.LoadView;
 
@@ -68,9 +68,9 @@ public class LoadController implements LoadEventListener {
 
         // Getting the Character
         String playerTypeAsString = gameData.get("character");
-        switch (playerTypeAsString){
-            case "IRONCLAD": player = new IroncladPlayer(primaryStage); break;
-            case "SILENT": player = new SilentPlayer(primaryStage); break;
+        switch (PlayerType.valueOf(playerTypeAsString)){
+            case IRONCLAD: player = new IroncladPlayer(primaryStage); break;
+            case SILENT: player = new SilentPlayer(primaryStage); break;
             default:
                 System.out.println("Weird...");return;
         }
@@ -109,13 +109,7 @@ public class LoadController implements LoadEventListener {
         // assigning the right difficulty
         String difficulty = gameData.get("difficulty");
 
-        switch (difficulty){
-            case "SUPEREASY" : GameSettings.setDifficultyLevel(DifficultyLevel.SUPEREASY); break;
-            case "EASY" : GameSettings.setDifficultyLevel(DifficultyLevel.EASY); break;
-            case "NORMAL" : GameSettings.setDifficultyLevel(DifficultyLevel.NORMAL); break;
-            case "HARD" : GameSettings.setDifficultyLevel(DifficultyLevel.HARD); break;
-            case "IMPOSSIBLE" : GameSettings.setDifficultyLevel(DifficultyLevel.IMPOSSIBLE); break;
-        }
+        GameSettings.setDifficultyLevel(DifficultyLevel.valueOf(difficulty));
 
         GameSettings.lastSession = gameData.get("lastSession");
 

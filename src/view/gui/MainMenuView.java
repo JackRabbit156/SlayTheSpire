@@ -19,6 +19,7 @@ import models.game_settings.structure.GameMode;
  * @author Loeschner, Marijan
  */
 public class MainMenuView {
+
     private BorderPane selection = new BorderPane();
     private String fontPath = "/font/kreon/static/Kreon-Bold.ttf";
     private String highlightPath = "/images/buttons/menu_highlight.png";
@@ -30,7 +31,7 @@ public class MainMenuView {
     private Button yes = new Button("Yes");
     private Button no = new Button("No");
 
-    private Button supereasyDifficulty = new Button(DifficultyLevel.SUPEREASY.name());
+    private Button supereasyDifficulty = new Button(DifficultyLevel.SUPER_EASY.name());
     private Button easyDifficulty = new Button(DifficultyLevel.EASY.name());
     private Button normalDifficulty = new Button(DifficultyLevel.NORMAL.name());
     private Button normalMode = new Button(GameMode.NORMAL.name());
@@ -42,11 +43,9 @@ public class MainMenuView {
 
     private final Font font = Font.font("Kreon", FontWeight.BOLD, 20);
 
-
     private VBox msg = new VBox();
     private VBox diffModeMessage = new VBox();
     private HBox nrg = new HBox();
-
 
     private VBox diffModeButtonsVBox = new VBox();
     private HBox diffButtonsHBox = new HBox();
@@ -57,7 +56,6 @@ public class MainMenuView {
     }
 
     public void initButtons(){
-
         for (Button diffModeButton : diffModeButtons) {
             diffModeButton.setTextFill(Color.WHITE);
             diffModeButton.setFont(font);
@@ -65,7 +63,6 @@ public class MainMenuView {
             diffModeButton.setBackground(new Background(GuiHelper.background("/images/buttons/endTurnButton.png")));
             diffModeButton.setPrefSize(240, 240);
         }
-
 
         continueButton.setTextFill(Color.WHITE);
         continueButton.setFont(font);
@@ -81,8 +78,6 @@ public class MainMenuView {
             continueButton.setBackground(new Background(
                     GuiHelper.background("/images/buttons/endTurnButton.png")));
         });
-
-
 
         no.setText("No");
         no.setTextFill(Color.WHITE);
@@ -304,4 +299,5 @@ public class MainMenuView {
 
         button.setBackground(new Background(GuiHelper.background("/images/buttons/endTurnButtonGlow.png")));
     }
+
 }

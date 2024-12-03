@@ -2,11 +2,8 @@ package controller.gui;
 
 import helper.GuiHelper;
 import helper.MusicBoy;
-import javafx.geometry.Bounds;
 import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
 import javafx.stage.Popup;
 import javafx.stage.Stage;
 import models.game_settings.GameSettings;
@@ -19,14 +16,16 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
  * Controller für die Darstellung des Hauptmenüs
+ *
  * @author Loeschner, Marijan
  */
 public class MainMenuController {
-    private MainMenuView view = new MainMenuView();
-    private CreditView creditView = new CreditView();
+
+    private final CreditView creditView = new CreditView();
     private Stage menuStage;
-    private Popup quitUp = new Popup();
-    private Popup newGameUp = new Popup();
+    private final Popup newGameUp = new Popup();
+    private final Popup quitUp = new Popup();
+    private final MainMenuView view = new MainMenuView();
 
     public MainMenuController() {
         MusicBoy.play("mainMenu");
@@ -37,19 +36,31 @@ public class MainMenuController {
         GameSettings.setGameMode(GameMode.NORMAL);
     }
 
-    public BorderPane startMenu(Stage stage){
-        menuStage = stage;
-        view.display();
-    
-        quit(view.getQuitButton());
-        credits(view.getCreditsButton());
-        deleteSaveGame(view.getDelSaveGameButton());
-        loadGame(view.getLoadGameButton());
-        newGame(view.getNewGameButton());
-        return view.display();
+    public void credits(Button creditButton) {
+        creditButton.setOnMouseClicked(event -> {
+            quitUp.hide();
+            quitUp.getContent().remove(view.displayQuitMessage());
+            menuStage.getScene().setRoot(creditView.display());
+        });
+        creditView.getBackButton().setOnMouseClicked(event1 -> {
+            menuStage.getScene().setRoot(view.display());
+        });
+
     }
 
-    public void newGame(Button newGameButton){
+    public void deleteSaveGame(Button dsg) {
+        dsg.setOnMouseClicked(event -> {
+            GuiHelper.Scenes.startDeleteMenuScene(menuStage);
+        });
+    }
+
+    public void loadGame(Button loadButton) {
+        loadButton.setOnMouseClicked(event -> {
+            GuiHelper.Scenes.startLoadGameFromMenuScene(menuStage);
+        });
+    }
+
+    public void newGame(Button newGameButton) {
         AtomicBoolean diffFlag = new AtomicBoolean(false);
         AtomicBoolean modeFlag = new AtomicBoolean(false);
 
@@ -62,7 +73,7 @@ public class MainMenuController {
 
             view.getSupereasyDifficulty().setOnMouseClicked(e1 -> {
                 view.setDifficultyButton(view.getSupereasyDifficulty());
-                GameSettings.setDifficultyLevel(DifficultyLevel.SUPEREASY);
+                GameSettings.setDifficultyLevel(DifficultyLevel.SUPER_EASY);
                 diffFlag.set(true);
             });
 
@@ -92,7 +103,6 @@ public class MainMenuController {
         });
 
 
-
         view.getContinueButton().setOnMouseClicked(event1 -> {
             if (!diffFlag.get()) {
                 GameSettings.setDifficultyLevel(DifficultyLevel.NORMAL);
@@ -106,28 +116,7 @@ public class MainMenuController {
         });
     }
 
-    public void loadGame(Button loadButton){
-        loadButton.setOnMouseClicked(event ->  {
-            GuiHelper.Scenes.startLoadGameFromMenuScene(menuStage);
-        });
-    }
-    public void deleteSaveGame(Button dsg){
-        dsg.setOnMouseClicked(event -> {
-            GuiHelper.Scenes.startDeleteMenuScene(menuStage);
-        });
-    }
-    public void credits(Button creditButton){
-        creditButton.setOnMouseClicked(event -> {
-            quitUp.hide();
-            quitUp.getContent().remove(view.displayQuitMessage());
-            menuStage.getScene().setRoot(creditView.display());
-            });
-            creditView.getBackButton().setOnMouseClicked(event1 -> {
-                menuStage.getScene().setRoot(view.display());
-            });
-
-    }
-    public void quit(Button quit){
+    public void quit(Button quit) {
         quit.setOnMouseClicked(event -> {
             quitUp.getContent().clear();
             quitUp.getContent().add(view.displayQuitMessage());
@@ -141,6 +130,18 @@ public class MainMenuController {
                 System.exit(0);
             });
         });
+    }
+
+    public BorderPane startMenu(Stage stage) {
+        menuStage = stage;
+        view.display();
+
+        quit(view.getQuitButton());
+        credits(view.getCreditsButton());
+        deleteSaveGame(view.getDelSaveGameButton());
+        loadGame(view.getLoadGameButton());
+        newGame(view.getNewGameButton());
+        return view.display();
     }
 
 }
