@@ -22,16 +22,17 @@ import java.util.Random;
  * @author Vladislav Keil
  */
 public class TreasureController implements TreasureViewEvents {
-    private Random randi = new Random();
-    private Player player;
-    private List<Card> selectedCards;
-    private PotionCard potionCard;
-    private DeckFactory deckFactory;
-    private TreasureView treasureView;
 
-    private int gold = 0;
-    private int amount = 5;
-    private double potionsChance = 0.8;
+    private static final Random rnd = new Random();
+
+    private int amount;
+    private final DeckFactory deckFactory;
+    private int gold;
+    private final Player player;
+    private PotionCard potionCard;
+    private double potionsChance;
+    private final List<Card> selectedCards;
+    private final TreasureView treasureView;
 
     /**
      * Konstruktor für die Klasse TreasureController.
@@ -41,7 +42,8 @@ public class TreasureController implements TreasureViewEvents {
      */
     public TreasureController(Player player) {
         this.player = player;
-        this.gold = randi.nextInt(80 + 1 - 25) + 35;
+        // 35 - 90
+        this.gold = rnd.nextInt(90 + 1 - 35) + 35;
         initItemChanceAndAmount();
 
         this.deckFactory = new DeckFactory(player, amount);
@@ -54,35 +56,22 @@ public class TreasureController implements TreasureViewEvents {
     }
 
     /**
-     * Initialisiert die Chancen für Items und die Anzahl an möglichen Karten basierend auf dem Schwierigkeitsgrad.
+     * Gibt die Schatz-Ansicht zurück.
+     *
+     * @return Die TreasureView-Instanz.
      */
-    private void initItemChanceAndAmount() {
-        switch (GameSettings.getDifficultyLevel()) {
-            case SUPEREASY:
-            case EASY:
-                this.gold = (int) (this.gold * 1.5);
-                break;
-            case NORMAL:
-                this.amount = 3;
-                this.potionsChance = 0.50;
-                break;
-            case IMPOSSIBLE:
-            case HARD:
-                this.potionsChance = 0.10;
-                this.amount = 1;
-                this.gold = (int) (this.gold * 0.5);
-                break;
-        }
+    public TreasureView getTreasureView() {
+        return this.treasureView;
     }
 
     /**
-     * Generiert eine Trankkarte basierend auf einer Zufallswahrscheinlichkeit.
+     * Event-Handler für den Zurück-Klick im Schatz.
+     * Kehrt zur Kartenansicht zurück.
      */
-    private void generatePotionByChance() {
-        double rand = randi.nextDouble();
-        if (rand < this.potionsChance) {
-            this.potionCard = deckFactory.generatePotion();
-        }
+    @Override
+    public void onBackClicked() {
+        ConsoleAssistent.print(Color.YELLOW, "TreasureView Leaved!");
+        GuiHelper.Scenes.startMapScene(player);
     }
 
     /**
@@ -116,37 +105,10 @@ public class TreasureController implements TreasureViewEvents {
         if (this.player.getPotionCards().size() < 3) {
             ConsoleAssistent.print(Color.YELLOW, "Got a Potion: " + potion.getName());
             this.player.addPotionCard(potion);
-        } else {
+        }
+        else {
             this.treasureView.showDialog("You have reached the maximum of Potion.");
         }
-    }
-
-    /**
-     * Event-Handler für den Zurück-Klick im Schatz.
-     * Kehrt zur Kartenansicht zurück.
-     */
-    @Override
-    public void onBackClicked() {
-        ConsoleAssistent.print(Color.YELLOW, "TreasureView Leaved!");
-        GuiHelper.Scenes.startMapScene(player);
-    }
-
-    /**
-     * Gibt die Schatz-Ansicht zurück.
-     *
-     * @return Die TreasureView-Instanz.
-     */
-    public TreasureView getTreasureView() {
-        return this.treasureView;
-    }
-
-    /**
-     * Initialisiert das Schatz-Deck mit Karten.
-     *
-     * @return Die Liste der initialisierten Karten.
-     */
-    private List<Card> initTreasureDeck() {
-        return this.deckFactory.init();
     }
 
     /**
@@ -160,5 +122,33 @@ public class TreasureController implements TreasureViewEvents {
 
         this.player.addCardToDeck(card);
         this.player.increaseGold(this.gold);
+    }
+
+    /**
+     * Generiert eine Trankkarte basierend auf einer Zufallswahrscheinlichkeit.
+     */
+    private void generatePotionByChance() {
+        double rand = rnd.nextDouble();
+        if (rand < this.potionsChance) {
+            this.potionCard = deckFactory.generatePotion();
+        }
+    }
+
+    /**
+     * Initialisiert die Chancen für Items und die Anzahl an möglichen Karten basierend auf dem Schwierigkeitsgrad.
+     */
+    private void initItemChanceAndAmount() {
+        gold = GameSettings.getDifficultyLevel().getGold(gold);
+        amount = GameSettings.getDifficultyLevel().getAmount();
+        potionsChance = GameSettings.getDifficultyLevel().getPotionChance();
+    }
+
+    /**
+     * Initialisiert das Schatz-Deck mit Karten.
+     *
+     * @return Die Liste der initialisierten Karten.
+     */
+    private List<Card> initTreasureDeck() {
+        return this.deckFactory.init();
     }
 }

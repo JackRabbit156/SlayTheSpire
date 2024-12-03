@@ -11,6 +11,7 @@ import models.enemy.act_two.boss.BronzeAutomatonBoss;
 import models.enemy.act_two.boss.TheChampBoss;
 import models.enemy.act_two.elites.BookOfStabbingElite;
 import models.enemy.act_two.elites.GremlinLeaderElite;
+import models.game_settings.GameSettings;
 import models.map_elements.Coordinates;
 import models.map_elements.Node;
 import models.map_elements.field_types.*;
@@ -18,7 +19,6 @@ import models.player.player_structure.Player;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 /**
  * Die Klasse ActTwo ist eine konkrete Implementierung des zweiten Aktes im Spiel.
@@ -31,31 +31,128 @@ import java.util.Random;
  */
 public class ActTwo extends Act {
 
+    private static final int MAP_HEIGHT = 14;
     private static final int MAP_WIDTH = 4;
-    private static final int MAP_HEIGHT= 14;
-
-    private Random randi = new Random();
+    private static final Class<?>[] possibleEnemies = { ByrdEnemy.class, CultistEnemy.class, SphericGuardianEnemy.class };
 
     private Player player;
+
     /**
      * Konstruktor für die Klasse ActTwo.
      * Initialisiert den Akt und platziert den Spieler auf dem Startfeld, mit der Option einen Spieler auf einem bestimmten Floor zu spawnen.
      *
      * @param player der Spieler, der sich im Akt bewegen soll
-
      */
-    public ActTwo(Player player){
+    public ActTwo(Player player) {
         super(2, MAP_WIDTH, MAP_HEIGHT);
         MusicBoy.play("act2");
         this.player = player;
         initNodes();
 
         Node playerNode = getNoteByName(player.getCurrentField());
-        if(playerNode != null)
+        if (playerNode != null) {
             playerNode.setPlayer(player);
+        }
     }
 
-    private void initNodes(){
+    /**
+     * @return List of Enemies
+     * @author Keil, Vladislav
+     */
+    public List<Enemy> createElitesEnemies() {
+        List<Enemy> enemies = new ArrayList<>();
+        int randElite = rnd.nextInt(2);
+        int randAmountEnemies = rnd.nextInt(2);
+        EnemyEnum type;
+        switch (randElite) {
+            case 0:
+                enemies.add(new GremlinLeaderElite());
+                type = EnemyEnum.GOBLIN;
+                break;
+            default:
+                enemies.add(new BookOfStabbingElite());
+                type = EnemyEnum.STABBING;
+                break;
+        }
+        for (int i = 0; i < randAmountEnemies; i++) {
+            enemies.add(createEnemiesOfType(type));
+        }
+        return enemies;
+    }
+
+    @Override
+    public void doFieldThing() {
+        Node currentNode = getPlayerNode();
+        currentNode.doFieldThing(currentNode.getPlayer());
+    }
+
+    /**
+     * @return List of Enemies
+     * @author Keil, Vladislav
+     */
+    private List<Enemy> createBossEnemies() {
+        List<Enemy> enemies = new ArrayList<>();
+
+        int randBoss = rnd.nextInt(2);
+        int randAmountEnemies = rnd.nextInt(4);
+        EnemyEnum type;
+        switch (randBoss) {
+            case 0:
+                enemies.add(new BronzeAutomatonBoss());
+                type = EnemyEnum.GUARDIAN;
+                break;
+            default:
+                enemies.add(new TheChampBoss());
+                type = EnemyEnum.LAGAVULIN;
+                break;
+        }
+        for (int i = 0; i < randAmountEnemies; i++) {
+            enemies.add(createEnemiesOfType(type));
+        }
+        return enemies;
+    }
+
+    /**
+     * @return An Enemy
+     * @author Keil, Vladislav
+     */
+    private Enemy createEnemiesOfType(EnemyEnum type) {
+        switch (type) {
+            case STABBING:
+                return new ByrdEnemy();
+            case GUARDIAN:
+                return new SphericGuardianEnemy();
+            case LAGAVULIN:
+                return new CultistEnemy();
+            default: // GREMLIN
+                return new MadGremlinEnemy();
+        }
+    }
+
+    private List<Enemy> generateEnemies() {
+        int numberOfEnemies = GameSettings.getDifficultyLevel().getNumberOfEnemies();
+        List<Enemy> enemies = new ArrayList<>();
+        for (int i = 0; i < numberOfEnemies; i++) {
+            int randomNumber = rnd.nextInt(possibleEnemies.length);
+            switch (randomNumber) {
+                case 0:
+                    enemies.add(new ByrdEnemy());
+                    break;
+                case 1:
+                    enemies.add(new CultistEnemy());
+                    break;
+                case 2:
+                    enemies.add(new SphericGuardianEnemy());
+                    break;
+                default:
+                    System.out.println("Weird...");
+                    break;
+            }
+        }
+        return enemies;
+    }
+
+    private void initNodes() {
         Node start17 = new Node("17", new EnemyField(generateEnemies()), new Coordinates(2, 14));
         Node unknown18 = new Node("18", new UnknownField(new EventField(), new EnemyField(generateEnemies()), new EliteField(createElitesEnemies()), new ShopField()), new Coordinates(0, 12));
         Node fight19 = new Node("19", new EnemyField(generateEnemies()), new Coordinates(2, 12));
@@ -72,7 +169,7 @@ public class ActTwo extends Act {
         Node fight30 = new Node("30", new EnemyField(generateEnemies()), new Coordinates(2, 4));
         Node fight31 = new Node("31", new EnemyField(generateEnemies()), new Coordinates(4, 4));
         Node rest32 = new Node("32", new RestField(), new Coordinates(2, 2));
-        Node boss33 = new Node("33", new BossField(createBossEnemies()), new Coordinates(2,0));
+        Node boss33 = new Node("33", new BossField(createBossEnemies()), new Coordinates(2, 0));
 
         nodes.add(start17);
         nodes.add(unknown18);
@@ -128,103 +225,5 @@ public class ActTwo extends Act {
         fight31.setLeftNode(rest32);
 
         rest32.setMiddleNode(boss33);
-
-    }
-
-    private List<Enemy> generateEnemies(){
-        List<Enemy> enemies = new ArrayList<>();
-
-        String[] possibleEnemies = {"Byrd", "Cultist", "SphericGuardian"};
-
-        int numberOfEnemies = randi.nextInt(4) + 1;
-
-        for(int i = 0; i< numberOfEnemies; i++){
-            int randomNumber = randi.nextInt(possibleEnemies.length);
-            switch (randomNumber){
-                case 0: enemies.add(new ByrdEnemy()); break;
-                case 1: enemies.add(new CultistEnemy()); break;
-                case 2: enemies.add(new SphericGuardianEnemy()); break;
-                default:
-                    System.out.println("Weird..."); break;
-            }
-        }
-        return enemies;
-    }
-
-    /**
-     * @author Keil, Vladislav
-     * @return List of Enemies
-     */
-    private List<Enemy> createBossEnemies() {
-        List<Enemy> enemies = new ArrayList<>();
-
-        int randBoss = randi.nextInt(2);
-        int randAmountEnemies = randi.nextInt(4);
-        EnemyEnum type;
-        switch (randBoss) {
-            case 0:
-                enemies.add(new BronzeAutomatonBoss());
-                type = EnemyEnum.GUARDIAN;
-                break;
-            default:
-                enemies.add(new TheChampBoss());
-                type = EnemyEnum.LAGAVULIN;
-                break;
-        }
-        for (int i = 0; i < randAmountEnemies; i++) {
-            enemies.add(createEnemiesOfType(type));
-        }
-        return enemies;
-    }
-
-
-    /**
-     * @author Keil, Vladislav
-     * @return List of Enemies
-     */
-    public List<Enemy> createElitesEnemies() {
-        List<Enemy> enemies = new ArrayList<>();
-        int randElite = randi.nextInt(2);
-        int randAmountEnemies = randi.nextInt(2);
-        EnemyEnum type;
-        switch (randElite) {
-            case 0:
-                enemies.add(new GremlinLeaderElite());
-                type = EnemyEnum.GOBLIN;
-                break;
-            default:
-                enemies.add(new BookOfStabbingElite());
-                type = EnemyEnum.STABBING;
-                break;
-        }
-        for (int i = 0; i < randAmountEnemies; i++) {
-            enemies.add(createEnemiesOfType(type));
-        }
-        return enemies;
-    }
-
-
-    /**
-     * @author Keil, Vladislav
-     * @return An Enemy
-     */
-    private Enemy createEnemiesOfType(EnemyEnum type) {
-        switch (type) {
-            case STABBING:
-                return new ByrdEnemy();
-            case GUARDIAN:
-                return new SphericGuardianEnemy();
-            case LAGAVULIN:
-                return new CultistEnemy();
-            default: // GREMLIN
-                return new MadGremlinEnemy();
-        }
-    }
-
-
-    @Override
-    public void doFieldThing() {
-        Node currentNode = getPlayerNode();
-        currentNode.doFieldThing(currentNode.getPlayer());
     }
 }

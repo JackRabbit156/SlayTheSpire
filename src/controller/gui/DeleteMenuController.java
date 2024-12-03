@@ -81,13 +81,7 @@ public class DeleteMenuController implements LoadEventListener, DeleteEventListe
 
         String difficulty = gameData.get("difficulty");
 
-        switch (difficulty){
-            case "SUPEREASY" : GameSettings.setDifficultyLevel(DifficultyLevel.SUPEREASY); break;
-            case "EASY" : GameSettings.setDifficultyLevel(DifficultyLevel.EASY); break;
-            case "NORMAL" : GameSettings.setDifficultyLevel(DifficultyLevel.NORMAL); break;
-            case "HARD" : GameSettings.setDifficultyLevel(DifficultyLevel.HARD); break;
-            case "IMPOSSIBLE" : GameSettings.setDifficultyLevel(DifficultyLevel.IMPOSSIBLE); break;
-        }
+        GameSettings.setDifficultyLevel(DifficultyLevel.valueOf(difficulty));
 
         GameSettings.lastSession = gameData.get("lastSession");
 

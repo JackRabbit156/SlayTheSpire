@@ -26,14 +26,17 @@ public class LootViewTester extends Application {
     @Override
     public void start(Stage primaryStage) {
         TestPlayer player = new TestPlayer(primaryStage);
-        GameSettings.setDifficultyLevel(DifficultyLevel.EASY);
+
+        GameSettings.setDifficultyLevel(DifficultyLevel.NORMAL);
+
         BloodPotion bloodPotion = new BloodPotion();
         EnergyPotion energyPotion = new EnergyPotion();
         EnergyPotion energyPotion1 = new EnergyPotion();
-//
+
         player.getPotionCards().add(bloodPotion);
         player.getPotionCards().add(energyPotion);
         player.getPotionCards().add(energyPotion1);
         GuiHelper.Scenes.startLootScene(player, FieldEnum.ENEMYFIELD);
     }
+
 }

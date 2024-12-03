@@ -1,9 +1,7 @@
 package tests;
 
-import controller.gui.BattleController;
 import helper.GuiHelper;
 import javafx.application.Application;
-import javafx.scene.Scene;
 import javafx.stage.Stage;
 import models.enemy.Enemy;
 import models.enemy.EnemyEnum;
@@ -11,6 +9,7 @@ import models.enemy.act_one.AcidSlimeEnemy;
 import models.enemy.act_one.CultistEnemy;
 import models.enemy.act_one.MadGremlinEnemy;
 import models.enemy.act_one.boss.SlimeBoss;
+import models.enemy.act_one.boss.TheGuardianBoss;
 import models.enemy.act_one.elites.GremlinNobElite;
 import models.enemy.act_one.elites.LagavulinElite;
 import models.enemy.act_two.ByrdEnemy;
@@ -19,69 +18,137 @@ import models.enemy.act_two.boss.BronzeAutomatonBoss;
 import models.enemy.act_two.boss.TheChampBoss;
 import models.enemy.act_two.elites.BookOfStabbingElite;
 import models.enemy.act_two.elites.GremlinLeaderElite;
+import models.game_settings.GameSettings;
+import models.game_settings.structure.DifficultyLevel;
 import models.map_elements.field_types.FieldEnum;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+
 /**
  * @author Keil, Vladislav
  */
 public class BattleViewTester extends Application {
-    Random randi = new Random();
-    public static void main(String[] args) { launch(args); }
+
+    private static final Random rnd = new Random();
+
+    public static void main(String[] args) {
+        launch(args);
+    }
+
     @Override
     public void start(Stage primaryStage) {
         TestPlayer player = new TestPlayer(primaryStage);
 
-        GuiHelper.Scenes.startBattleScene(player, generateEnemiesActOne(), FieldEnum.ENEMYFIELD);
+        GameSettings.setDifficultyLevel(DifficultyLevel.NORMAL);
+
+        GuiHelper.Scenes.startBattleScene(player, actOneGenerateEnemies(), FieldEnum.ENEMYFIELD);
+//        GuiHelper.Scenes.startBattleScene(player, actOneGenerateElitesEnemies(), FieldEnum.ELITEFIELD);
+//        GuiHelper.Scenes.startBattleScene(player, actOneGenerateBossEnemies(), FieldEnum.BOSSFIELD);
+//
+//        GuiHelper.Scenes.startBattleScene(player, actTwoGenerateEnemies(), FieldEnum.ENEMYFIELD);
+//        GuiHelper.Scenes.startBattleScene(player, actTwoGenerateElitesEnemies(), FieldEnum.ELITEFIELD);
+//        GuiHelper.Scenes.startBattleScene(player, actTwoGenerateBossEnemies(), FieldEnum.BOSSFIELD);
     }
 
-    private List<Enemy> generateEnemiesActOne(){
+    private List<Enemy> actOneGenerateBossEnemies() {
         List<Enemy> enemies = new ArrayList<>();
 
-        String[] possibleEnemies = {"AcidSlime", "Cultist", "MadGremlin"};
+        int randBoss = rnd.nextInt(3);
+        int randAmountEnemies = rnd.nextInt(4);
+        EnemyEnum type;
+        switch (randBoss) {
+            case 0:
+                // 1 - SlimeBoss
+                enemies.add(new SlimeBoss());
+                type = EnemyEnum.SLIME;
+                break;
+            case 1:
+                // 2 - TheGuardian (Soll)
+                enemies.add(new TheGuardianBoss());
+                type = EnemyEnum.GUARDIAN;
+                break;
+            default:
+                // 3 - Hexaghost (Kann)
+                enemies.add(new SlimeBoss());
+                type = EnemyEnum.HEXA;
+                break;
+        }
+        for (int i = 0; i < randAmountEnemies; i++) {
+            enemies.add(actOneGenerateEnemiesOfType(type));
+        }
+        return enemies;
+    }
 
-        int numberOfEnemies = randi.nextInt(4) + 1;
+    private List<Enemy> actOneGenerateElitesEnemies() {
+        List<Enemy> enemies = new ArrayList<>();
+        int randElite = rnd.nextInt(2);
+        int randAmountEnemies = rnd.nextInt(2);
+        EnemyEnum type;
+        switch (randElite) {
+            case 0:
+                // 1 - Gremlin Nob
+                enemies.add(new GremlinNobElite());
+                type = EnemyEnum.GOBLIN;
+                break;
+            default:
+                // 2 - Lagavulin
+                enemies.add(new LagavulinElite());
+                type = EnemyEnum.LAGAVULIN;
+                break;
+        }
+        for (int i = 0; i < randAmountEnemies; i++) {
+            enemies.add(actOneGenerateEnemiesOfType(type));
+        }
+        return enemies;
+    }
 
-        for(int i = 0; i< numberOfEnemies; i++){
-            int randomNumber = randi.nextInt(possibleEnemies.length);
-            switch (randomNumber){
-                case 0: enemies.add(new AcidSlimeEnemy()); break;
-                case 1: enemies.add(new CultistEnemy()); break;
-                case 2: enemies.add(new MadGremlinEnemy()); break;
+    private List<Enemy> actOneGenerateEnemies() {
+        Class<?>[] possibleEnemies = {AcidSlimeEnemy.class, CultistEnemy.class, MadGremlinEnemy.class};
+
+        int numberOfEnemies = GameSettings.getDifficultyLevel().getNumberOfEnemies();
+        List<Enemy> enemies = new ArrayList<>();
+        for (int i = 0; i < numberOfEnemies; i++) {
+            int randomNumber = rnd.nextInt(possibleEnemies.length);
+            switch (randomNumber) {
+                case 0:
+                    enemies.add(new AcidSlimeEnemy());
+                    break;
+                case 1:
+                    enemies.add(new CultistEnemy());
+                    break;
+                case 2:
+                    enemies.add(new MadGremlinEnemy());
+                    break;
                 default:
-                    System.out.println("Weird..."); break;
+                    System.out.println("Weird...");
+                    break;
             }
         }
         return enemies;
     }
 
-    private List<Enemy> generateEnemiesActTwo(){
-        List<Enemy> enemies = new ArrayList<>();
-
-        String[] possibleEnemies = {"Byrd", "Cultist", "SphericGuardian"};
-
-        int numberOfEnemies = randi.nextInt(4) + 1;
-
-        for(int i = 0; i< numberOfEnemies; i++){
-            int randomNumber = randi.nextInt(possibleEnemies.length);
-            switch (randomNumber){
-                case 0: enemies.add(new ByrdEnemy()); break;
-                case 1: enemies.add(new CultistEnemy()); break;
-                case 2: enemies.add(new SphericGuardianEnemy()); break;
-                default:
-                    System.out.println("Weird..."); break;
-            }
+    private Enemy actOneGenerateEnemiesOfType(EnemyEnum type) {
+        switch (type) {
+            case HEXA:
+                return new MadGremlinEnemy();
+            case GUARDIAN:
+                return new CultistEnemy(); // TODO: None
+            case LAGAVULIN:
+                return new CultistEnemy();
+            case GOBLIN:
+                return new MadGremlinEnemy();
+            default: // SLIME
+                return new AcidSlimeEnemy();
         }
-        return enemies;
     }
 
-    private List<Enemy> createBossEnemiesActTwo() {
+    private List<Enemy> actTwoGenerateBossEnemies() {
         List<Enemy> enemies = new ArrayList<>();
 
-        int randBoss = randi.nextInt(2);
-        int randAmountEnemies = randi.nextInt(4);
+        int randBoss = rnd.nextInt(2);
+        int randAmountEnemies = rnd.nextInt(4);
         EnemyEnum type;
         switch (randBoss) {
             case 0:
@@ -94,15 +161,15 @@ public class BattleViewTester extends Application {
                 break;
         }
         for (int i = 0; i < randAmountEnemies; i++) {
-            enemies.add(createEnemiesOfTypeActTwo(type));
+            enemies.add(actTwoGenerateEnemiesOfType(type));
         }
         return enemies;
     }
 
-    public List<Enemy> createElitesEnemiesActTwo() {
+    private List<Enemy> actTwoGenerateElitesEnemies() {
         List<Enemy> enemies = new ArrayList<>();
-        int randElite = randi.nextInt(2);
-        int randAmountEnemies = randi.nextInt(2);
+        int randElite = rnd.nextInt(2);
+        int randAmountEnemies = rnd.nextInt(2);
         EnemyEnum type;
         switch (randElite) {
             case 0:
@@ -115,12 +182,37 @@ public class BattleViewTester extends Application {
                 break;
         }
         for (int i = 0; i < randAmountEnemies; i++) {
-            enemies.add(createEnemiesOfTypeActTwo(type));
+            enemies.add(actTwoGenerateEnemiesOfType(type));
         }
         return enemies;
     }
 
-    private Enemy createEnemiesOfTypeActTwo(EnemyEnum type) {
+    private List<Enemy> actTwoGenerateEnemies() {
+        Class<?>[] possibleEnemies = {ByrdEnemy.class, CultistEnemy.class, SphericGuardianEnemy.class};
+
+        int numberOfEnemies = GameSettings.getDifficultyLevel().getNumberOfEnemies();
+        List<Enemy> enemies = new ArrayList<>();
+        for (int i = 0; i < numberOfEnemies; i++) {
+            int randomNumber = rnd.nextInt(possibleEnemies.length);
+            switch (randomNumber) {
+                case 0:
+                    enemies.add(new ByrdEnemy());
+                    break;
+                case 1:
+                    enemies.add(new CultistEnemy());
+                    break;
+                case 2:
+                    enemies.add(new SphericGuardianEnemy());
+                    break;
+                default:
+                    System.out.println("Weird...");
+                    break;
+            }
+        }
+        return enemies;
+    }
+
+    private Enemy actTwoGenerateEnemiesOfType(EnemyEnum type) {
         switch (type) {
             case STABBING:
                 return new ByrdEnemy();
@@ -133,72 +225,4 @@ public class BattleViewTester extends Application {
         }
     }
 
-    private List<Enemy> createBossEnemiesActOne() {
-        List<Enemy> enemies = new ArrayList<>();
-
-        int randBoss = randi.nextInt(3);
-        int randAmountEnemies = randi.nextInt(4);
-        String type;
-        switch (randBoss) {
-            case 0:
-                // 1 - SlimBoss
-                enemies.add(new SlimeBoss());
-                type = "Slime";
-                break;
-            case 1:
-                // 2 - TheGuardian (Soll)
-                enemies.add(new SlimeBoss());
-//                type = "Guardian";
-                type = "Slime";
-                break;
-            default:
-                // 3 - Hexaghost (Kann)
-                enemies.add(new SlimeBoss());
-//                type = "Hexa";
-                type = "Slime";
-                break;
-        }
-        for (int i = 0; i < randAmountEnemies; i++) {
-            enemies.add(createEnemiesOfTypeActOne(type));
-        }
-        return enemies;
-    }
-
-    private List<Enemy> createElitesEnemiesActOne() {
-        List<Enemy> enemies = new ArrayList<>();
-        int randElite = randi.nextInt(2);
-        int randAmountEnemies = randi.nextInt(2);
-        String type;
-        switch (randElite) {
-            case 0:
-                // 1 - Gremlin Nob
-                enemies.add(new GremlinNobElite());
-                type = "Goblin";
-                break;
-            default:
-                // 2 - Lagavulin
-                enemies.add(new LagavulinElite());
-                type = "Lagavulin";
-                break;
-        }
-        for (int i = 0; i < randAmountEnemies; i++) {
-            enemies.add(createEnemiesOfTypeActOne(type));
-        }
-        return enemies;
-    }
-
-    private Enemy createEnemiesOfTypeActOne(String type) {
-        switch (type) {
-            case "Hexa":
-                return new MadGremlinEnemy();
-            case "Guardian":
-                return new CultistEnemy();
-            case "Lagavulin":
-                return new CultistEnemy();
-            case "Goblin":
-                return new MadGremlinEnemy();
-            default: // "Slime"
-                return new AcidSlimeEnemy();
-        }
-    }
 }
