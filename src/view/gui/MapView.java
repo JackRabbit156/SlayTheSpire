@@ -3,7 +3,6 @@ package view.gui;
 import controller.listener.DifficultyMenuListener;
 import controller.listener.GameMenuListener;
 import helper.GuiHelper;
-import javafx.scene.control.Label;
 import javafx.scene.layout.*;
 import models.map_elements.Node;
 import models.player.player_structure.Player;
@@ -23,34 +22,26 @@ import java.util.List;
  * @author Warawa Alexander
  */
 public class MapView extends StackPane {
-    private MapViewEvents mapViewEvents;
-    private GameMenuListener gameMenuListener;
-    private DifficultyMenuListener difficultyMenuListener;
 
-    private BorderPane mainMap;
+    private final DifficultyMenuLayer difficultyMenu;
+    private final DifficultyMenuListener difficultyMenuListener;
+    private final GameMenuLayer gameMenu;
+    private final GameMenuListener gameMenuListener;
+    private final BorderPane mainMap;
     private MapLayout mapCenter;
-    private LegendLayout legendRight;
-
-    private GameMenuLayer gameMenu;
-    private DifficultyMenuLayer difficultyMenu;
-
-
-    private Player player;
+    private final MapViewEvents mapViewEvents;
     private List<Node> nodes;
-
-    public BorderPane getMainMap(){
-        return mainMap;
-    }
+    private final Player player;
 
     /**
      * Konstruktor für 'MapView'.
      *
-     * @param player Der Spieler, der auf der Karte dargestellt wird.
-     * @param nodes  Eine Liste von Knotenpunkten auf der Karte.
-     * @param mapWidth Die Breite der Karte.
-     * @param mapHeight Die Höhe der Karte.
-     * @param mapViewEvents Ereignislistener für die Karteninteraktion.
-     * @param gameMenuListener Listener für das Spielmenü.
+     * @param player                 Der Spieler, der auf der Karte dargestellt wird.
+     * @param nodes                  Eine Liste von Knotenpunkten auf der Karte.
+     * @param mapWidth               Die Breite der Karte.
+     * @param mapHeight              Die Höhe der Karte.
+     * @param mapViewEvents          Ereignislistener für die Karteninteraktion.
+     * @param gameMenuListener       Listener für das Spielmenü.
      * @param difficultyMenuListener Listener für das Schwierigkeitsmenü.
      */
     public MapView(Player player, List<Node> nodes, int mapWidth, int mapHeight, MapViewEvents mapViewEvents, GameMenuListener gameMenuListener, DifficultyMenuListener difficultyMenuListener) {
@@ -80,46 +71,76 @@ public class MapView extends StackPane {
         getChildren().addAll(mainMap, gameMenu, difficultyMenu);
     }
 
-    public void clickedOnValidField(Node node){
-        mapViewEvents.onValidFieldClick(player, node);
-    }
-
-    public void clickedOnSettings(){
-        mapViewEvents.onSettingsClick();
-    }
-
-    public void clickedOnFullscreen(){
-        mapViewEvents.onFullscreenClick();
-    }
-
-    public void clickedOnSaveButton(){
-        gameMenuListener.onSaveClick();
-    }
-
-    public void clickedOnLoadButton(){
-        gameMenuListener.onLoadClick();
-    }
-
-    public void clickedOnMainMenuButton(){
-        gameMenuListener.onMainMenuClick();
-    }
-
-    public void clickedOnChangeDifficultyButton(){
-        gameMenuListener.onChangeDifficultyClick();
-    }
-
-    public void clickedOnBackButton(){
+    public void clickedOnBackButton() {
         gameMenuListener.onBackClick();
     }
 
-    public void clickedOnExitButton(){
+    public void clickedOnChangeDifficultyButton() {
+        gameMenuListener.onChangeDifficultyClick();
+    }
+
+    public void clickedOnDifficultyBackButton() {
+        difficultyMenuListener.onDifficultyBackClick();
+    }
+
+    public void clickedOnDifficultyHardcoreButton() {
+        difficultyMenuListener.onHardcoreClick();
+    }
+
+    public void clickedOnDifficultyNormalButton() {
+        difficultyMenuListener.onNormalClick();
+    }
+
+    public void clickedOnExitButton() {
         gameMenuListener.onExitClick();
     }
 
-    private void initTopSide() {
-        HBox topHBox = new TopBarLayout(player, this);
+    public void clickedOnFullscreen() {
+        mapViewEvents.onFullscreenClick();
+    }
 
-        mainMap.setTop(topHBox);
+    public void clickedOnLoadButton() {
+        gameMenuListener.onLoadClick();
+    }
+
+    public void clickedOnMainMenuButton() {
+        gameMenuListener.onMainMenuClick();
+    }
+
+    public void clickedOnSaveButton() {
+        gameMenuListener.onSaveClick();
+    }
+
+    public void clickedOnSettings() {
+        mapViewEvents.onSettingsClick();
+    }
+
+    public void clickedOnValidField(Node node) {
+        mapViewEvents.onValidFieldClick(player, node);
+    }
+
+    public void closeDifficultyMenu() {
+        difficultyMenu.setVisible(false);
+        gameMenu.setVisible(true);
+    }
+
+    public void closeGameMenu() {
+        mainMap.setVisible(true);
+        gameMenu.setVisible(false);
+    }
+
+    public BorderPane getMainMap() {
+        return mainMap;
+    }
+
+    public void openDifficultyMenu() {
+        difficultyMenu.setVisible(true);
+        gameMenu.setVisible(false);
+    }
+
+    public void openGameMenu() {
+        mainMap.setVisible(false);
+        gameMenu.setVisible(true);
     }
 
     private void initLeftSide() {
@@ -129,39 +150,13 @@ public class MapView extends StackPane {
     }
 
     private void initRightSide() {
-        legendRight = new LegendLayout();
+        LegendLayout legendRight = new LegendLayout();
         mainMap.setRight(legendRight);
     }
 
-    public void openGameMenu() {
-        mainMap.setVisible(false);
-        gameMenu.setVisible(true);
-    }
+    private void initTopSide() {
+        HBox topHBox = new TopBarLayout(player, this);
 
-    public void closeGameMenu() {
-        mainMap.setVisible(true);
-        gameMenu.setVisible(false);
-    }
-
-    public void openDifficultyMenu(){
-        difficultyMenu.setVisible(true);
-        gameMenu.setVisible(false);
-    }
-
-    public void closeDifficultyMenu(){
-        difficultyMenu.setVisible(false);
-        gameMenu.setVisible(true);
-    }
-
-    public void clickedOnDifficultyBackButton(){
-        difficultyMenuListener.onDifficultyBackClick();
-    }
-
-    public void clickedOnDifficultyNormalButton(){
-        difficultyMenuListener.onNormalClick();
-    }
-
-    public void clickedOnDifficultyHardcoreButton(){
-        difficultyMenuListener.onHardcoreClick();
+        mainMap.setTop(topHBox);
     }
 }
