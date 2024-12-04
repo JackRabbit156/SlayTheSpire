@@ -54,8 +54,10 @@ public class TestPlayer extends Player {
     public TestPlayer(Stage primaryStage) {
         super("Tester", 1000, 1000, PlayerType.IRONCLAD, primaryStage);
         setImagePath("/images/player/IroncladPlayer.png");
+        setAltImagePath("/images/player/IroncladPlayerAlt1.png");
 //        super("TesterPlayer", 1000, 1000, PlayerType.SILENT, primaryStage);
 //        setImagePath("/images/player/SilentPlayer.png");
+//        setAltImagePath("/images/player/SilentPlayerAlt1.png");
         initRelic();
         initDeck();
     }
