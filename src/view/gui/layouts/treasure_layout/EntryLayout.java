@@ -2,6 +2,7 @@ package view.gui.layouts.treasure_layout;
 
 import helper.Color;
 import helper.ConsoleAssistent;
+import helper.GuiHelper;
 import javafx.geometry.Pos;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -17,7 +18,7 @@ import view.gui.TreasureView;
 public class EntryLayout extends HBox {
     private String playerImagePath;
     private TreasureView parentView;
-    private VBox vTreasure;
+    private VBox treasure;
     private Image treasureImg;
     private ImageView treasureImgView;
 
@@ -62,11 +63,11 @@ public class EntryLayout extends HBox {
      * Fügt das Schatzbild dem Layout hinzu und setzt den Klick-Handler.
      */
     private void initRight() {
-        this.vTreasure = new VBox();
-        HBox.setHgrow(this.vTreasure, Priority.ALWAYS);
-        this.vTreasure.setAlignment(Pos.CENTER);
-        this.vTreasure.setTranslateY(50);
-        this.vTreasure.setTranslateX(-150);
+        this.treasure = new VBox();
+        HBox.setHgrow(this.treasure, Priority.ALWAYS);
+        this.treasure.setAlignment(Pos.CENTER);
+        this.treasure.setTranslateY(50);
+        this.treasure.setTranslateX(-150);
 
         this.treasureImgView.setOnMouseClicked(event -> {
             ConsoleAssistent.println(Color.YELLOW, "Clicked on Treasure");
@@ -74,8 +75,8 @@ public class EntryLayout extends HBox {
             onTreasureClick();
             this.treasureImgView.setDisable(true);
         });
-        this.vTreasure.getChildren().add(this.treasureImgView);
-        getChildren().add(this.vTreasure);
+        this.treasure.getChildren().add(this.treasureImgView);
+        getChildren().add(this.treasure);
     }
 
     /**
@@ -102,6 +103,7 @@ public class EntryLayout extends HBox {
             this.treasureImg = new Image(getClass().getResource("/images/treasure/treasureOpen.png").toExternalForm());
         }
         this.treasureImgView = new ImageView(this.treasureImg);
+        GuiHelper.setHoverEffect(treasureImgView);
     }
 
     /**

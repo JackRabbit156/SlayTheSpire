@@ -63,6 +63,7 @@ public class BattleViewTester extends Application {
         player.getPotionCards().add(new CheaterPotion());
         player.getPotionCards().add(new CheaterPotion());
         player.getPotionCards().add(new CheaterPotion());
+
         GameSettings.setDifficultyLevel(DifficultyLevel.NORMAL);
 
         GuiHelper.Scenes.startBattleScene(player, actOneGenerateEnemies(), FieldEnum.ENEMYFIELD);

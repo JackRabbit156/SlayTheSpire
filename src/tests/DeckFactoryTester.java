@@ -10,6 +10,7 @@ import java.util.List;
  * @author Keil, Vladislav
  */
 public class DeckFactoryTester {
+
     public static void main(String[] args) {
         IroncladPlayer player = new IroncladPlayer(null);
         for (int i = 0; i < 100; i++) {
@@ -17,4 +18,5 @@ public class DeckFactoryTester {
             List<Card> cards = deckFactory.init();
         }
     }
+
 }

@@ -18,8 +18,10 @@ public class TreasureControllerTester extends Application {
     @Override
     public void start(Stage primaryStage) {
         TestPlayer player = new TestPlayer(primaryStage);
+
         GameSettings.setDifficultyLevel(DifficultyLevel.EASY);
-        player.setPrimaryStage(primaryStage);
+
         GuiHelper.Scenes.startTreasureScene(player);
     }
+
 }

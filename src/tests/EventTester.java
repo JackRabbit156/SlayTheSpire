@@ -21,4 +21,5 @@ public class EventTester extends Application {
 
         GuiHelper.Scenes.startEventScene(player);
     }
+
 }

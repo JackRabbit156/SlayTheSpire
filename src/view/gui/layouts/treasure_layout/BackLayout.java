@@ -54,6 +54,8 @@ public class BackLayout extends HBox {
         imgView.setOnMouseClicked(event -> this.onBackClick());
         label.setOnMouseClicked(event -> this.onBackClick());
 
+        GuiHelper.setHoverEffect(imgView);
+
         setAlignment(Pos.CENTER);
 //        setTranslateY(150);
     }

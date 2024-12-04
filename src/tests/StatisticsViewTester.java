@@ -17,7 +17,9 @@ public class StatisticsViewTester extends Application {
     @Override
     public void start(Stage primaryStage) {
         TestPlayer player = new TestPlayer(primaryStage);
+
         player.setCurrentAct(2);
+
         GameSettings.setStats(12_345, 999_999, 10_000_000, 1_234_567);
 
         GuiHelper.Scenes.startStatisticScene(player);

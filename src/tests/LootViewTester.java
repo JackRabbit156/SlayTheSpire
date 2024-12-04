@@ -1,19 +1,14 @@
 package tests;
 
-import controller.gui.LootController;
-import controller.gui.ShopController;
 import helper.GuiHelper;
 import javafx.application.Application;
-import javafx.scene.Scene;
 import javafx.stage.Stage;
 import models.game_settings.GameSettings;
 import models.game_settings.structure.DifficultyLevel;
 import models.map_elements.field_types.FieldEnum;
 import models.potion.BloodPotion;
 import models.potion.EnergyPotion;
-import view.gui.LootView;
 
-import java.util.Objects;
 /**
  * @author Keil, Vladislav
  */
@@ -29,13 +24,10 @@ public class LootViewTester extends Application {
 
         GameSettings.setDifficultyLevel(DifficultyLevel.NORMAL);
 
-        BloodPotion bloodPotion = new BloodPotion();
-        EnergyPotion energyPotion = new EnergyPotion();
-        EnergyPotion energyPotion1 = new EnergyPotion();
+        player.getPotionCards().add(new BloodPotion());
+        player.getPotionCards().add(new EnergyPotion());
+//        player.getPotionCards().add(new EnergyPotion());
 
-        player.getPotionCards().add(bloodPotion);
-        player.getPotionCards().add(energyPotion);
-        player.getPotionCards().add(energyPotion1);
         GuiHelper.Scenes.startLootScene(player, FieldEnum.ENEMYFIELD);
     }
 

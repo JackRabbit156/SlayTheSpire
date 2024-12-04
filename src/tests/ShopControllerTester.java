@@ -21,17 +21,16 @@ public class ShopControllerTester extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-//        IroncladPlayer player = new IroncladPlayer();
         TestPlayer player = new TestPlayer(primaryStage);
-        player.setGold(500);
-        GameSettings.setDifficultyLevel(DifficultyLevel.HARD);
-        BloodPotion bloodPotion = new BloodPotion();
-        EnergyPotion energyPotion = new EnergyPotion();
-        EnergyPotion energyPotion1 = new EnergyPotion();
 
-        player.getPotionCards().add(bloodPotion);
-        player.getPotionCards().add(energyPotion);
-//        player.getPotionCards().add(energyPotion1);
+        player.setGold(500);
+
+        GameSettings.setDifficultyLevel(DifficultyLevel.NORMAL);
+
+        player.getPotionCards().add(new BloodPotion());
+        player.getPotionCards().add(new EnergyPotion());
+//        player.getPotionCards().add(new EnergyPotion());
+
         GuiHelper.Scenes.startShopScene(player);
     }
 }
