@@ -28,10 +28,10 @@ import java.util.List;
  */
 public class TestPlayer extends Player {
 
-    private static class BossCard extends AttackCard {
+    private static class CheaterCard extends AttackCard {
 
-        public BossCard() {
-            super("Boss Card", "CheaterCard", 0, 40, CardRarity.RARE, CardGrave.DISCARD);
+        public CheaterCard() {
+            super("Cheater Card", "Deals 40 damage. For free.", 0, 40, CardRarity.SPECIAL, CardGrave.DISCARD);
             setImagePath("/images/card/BossCard.jpg");
         }
 
@@ -55,9 +55,11 @@ public class TestPlayer extends Player {
         super("Tester", 1000, 1000, PlayerType.IRONCLAD, primaryStage);
         setImagePath("/images/player/IroncladPlayer.png");
         setAltImagePath("/images/player/IroncladPlayerAlt1.png");
+
 //        super("TesterPlayer", 1000, 1000, PlayerType.SILENT, primaryStage);
 //        setImagePath("/images/player/SilentPlayer.png");
 //        setAltImagePath("/images/player/SilentPlayerAlt1.png");
+
         initRelic();
         initDeck();
     }
@@ -90,11 +92,11 @@ public class TestPlayer extends Player {
         List<Card> deck = new ArrayList<>();
 
         for (int i = 0; i < 5; i++) {
-            deck.add(new BossCard());
+            deck.add(new CheaterCard());
         }
 
         for (int i = 0; i < 4; i++) {
-            deck.add(new BossCard());
+            deck.add(new CheaterCard());
         }
 
         deck.add(new BashCard());
