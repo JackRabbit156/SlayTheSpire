@@ -4,6 +4,7 @@ import helper.Color;
 import helper.ConsoleAssistent;
 import helper.GuiHelper;
 import helper.MusicBoy;
+import javafx.stage.Stage;
 import models.card.DeckFactory;
 import models.card.card_structure.Card;
 import models.player.player_structure.Player;
@@ -21,12 +22,12 @@ import java.util.List;
  * @author Keil, Vladislav
  */
 public class ShopController implements ShopViewEvents {
-    private Player player;
-    private List<Card> purchasableCards;
-    private DeckFactory deckFactory;
-    private ShopView shopView;
-    private PotionCard purchasablePotion;
+
+    private final Player player;
+    private final List<Card> purchasableCards;
+    private final PotionCard purchasablePotion;
     private List<Relic> purchasableRelics;
+    private ShopView shopView;
 
     /**
      * Konstruktor für die Klasse ShopController.
@@ -38,27 +39,31 @@ public class ShopController implements ShopViewEvents {
         MusicBoy.play("shop");
         this.player = player;
 
-        this.deckFactory = new DeckFactory(player, 5);
+        DeckFactory deckFactory = new DeckFactory(player, 5);
         // Bei jeder Initialisierung wird der Shop befüllt.
         // Wird beim Spielstart ausgeführt und bei jedem Act.
-        this.purchasableCards = this.deckFactory.init();
-        this.purchasablePotion = this.deckFactory.generatePotion();
+        this.purchasableCards = deckFactory.init();
+        this.purchasablePotion = deckFactory.generatePotion();
         entryShop();
     }
 
     /**
-     * Initialisiert den Shop und die ShopViewEvents.
+     * Gibt die Shop-Ansicht zurück.
+     *
+     * @return Die ShopView-Instanz.
      */
-    private void entryShop() {
-        this.shopView = new ShopView(player.getImagePath(), purchasableCards, this, purchasablePotion);
-        this.shopView.initShopViewEvents(this);
+    public ShopView getShopView() {
+        return this.shopView;
     }
 
     /**
-     * Aktualisiert die Liste der kaufbaren Karten im Shop.
+     * Event-Handler für den Zurück-Klick im Shop.
+     * Kehrt zur Kartenansicht zurück.
      */
-    private void refreshSelectableCards() {
-        this.shopView.setShopCards(purchasableCards);
+    @Override
+    public void onBackClicked() {
+        ConsoleAssistent.print(Color.YELLOW, "Shop Leaved!");
+        GuiHelper.Scenes.startMapScene(player);
     }
 
     /**
@@ -78,10 +83,18 @@ public class ShopController implements ShopViewEvents {
             this.purchasableCards.remove(card);
             refreshSelectableCards();
             ConsoleAssistent.print(Color.YELLOW, "Refresh Cards!");
-        } else {
-            this.shopView.showDialog("Not enough Gold!");
+        }
+        else {
+            this.shopView.showDialog("You have not enough Gold!");
             ConsoleAssistent.print(Color.YELLOW, "Not enough Gold!");
         }
+    }
+
+    @Override
+    public void onFullscreenClick() {
+        Stage primaryStage = player.getPrimaryStage();
+
+        primaryStage.setFullScreen(!primaryStage.isFullScreen());
     }
 
     /**
@@ -100,13 +113,42 @@ public class ShopController implements ShopViewEvents {
                 this.player.addPotionCard(potion);
                 refreshSelectablePotion();
                 ConsoleAssistent.print(Color.YELLOW, "Refresh Cards!");
-            } else {
-                this.shopView.showDialog("You have reached the maximum of Potion.");
             }
-        } else {
-            this.shopView.showDialog("Not enough Gold!");
+            else {
+                this.shopView.showDialog("You have reached the maximum amount of Potions.");
+                ConsoleAssistent.print(Color.YELLOW, "Maximum amount of Potions.");
+            }
+        }
+        else {
+            this.shopView.showDialog("You have not enough Gold!");
             ConsoleAssistent.print(Color.YELLOW, "Not enough Gold!");
         }
+    }
+
+    /**
+     * Event-Handler für Klicks auf Relikte im Shop.
+     *
+     * @param relic Das geklickte Relikt.
+     * @param index Der Index des geklickten Relikts.
+     */
+    @Override
+    public void onRelicClick(Relic relic, int index) {
+        // Logik zum Kaufen von Relikten kann hier hinzugefügt werden.
+    }
+
+    /**
+     * Initialisiert den Shop und die ShopViewEvents.
+     */
+    private void entryShop() {
+        this.shopView = new ShopView(player, purchasableCards, this, purchasablePotion);
+        this.shopView.initShopViewEvents(this);
+    }
+
+    /**
+     * Aktualisiert die Liste der kaufbaren Karten im Shop.
+     */
+    private void refreshSelectableCards() {
+        this.shopView.setShopCards(purchasableCards);
     }
 
     /**
@@ -116,33 +158,4 @@ public class ShopController implements ShopViewEvents {
         this.shopView.setPurchaseablePotion();
     }
 
-    /**
-     * Event-Handler für Klicks auf Relikte im Shop.
-     *
-     * @param relic  Das geklickte Relikt.
-     * @param index Der Index des geklickten Relikts.
-     */
-    @Override
-    public void onRelicClick(Relic relic, int index) {
-        // Logik zum Kaufen von Relikten kann hier hinzugefügt werden.
-    }
-
-    /**
-     * Event-Handler für den Zurück-Klick im Shop.
-     * Kehrt zur Kartenansicht zurück.
-     */
-    @Override
-    public void onBackClicked() {
-        ConsoleAssistent.print(Color.YELLOW, "Shop Leaved!");
-        GuiHelper.Scenes.startMapScene(player);
-    }
-
-    /**
-     * Gibt die Shop-Ansicht zurück.
-     *
-     * @return Die ShopView-Instanz.
-     */
-    public ShopView getShopView() {
-        return this.shopView;
-    }
 }

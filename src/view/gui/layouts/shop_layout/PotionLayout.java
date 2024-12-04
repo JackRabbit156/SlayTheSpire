@@ -1,7 +1,5 @@
-package view.gui.layouts.battle_view_layouts;
+package view.gui.layouts.shop_layout;
 
-import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.SimpleObjectProperty;
 import javafx.geometry.Bounds;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
@@ -11,7 +9,6 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -19,7 +16,6 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Popup;
 import models.potion.potion_structure.PotionCard;
-import view.gui.BattleView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,30 +33,21 @@ public class PotionLayout extends HBox {
     private static final Font largeFont = Font.font("Kreon", FontWeight.BOLD, 30);
     private static final Font smallFont = Font.font("Kreon", FontWeight.BOLD, 20);
 
-    private final BattleView battleView;
     private final Image bg = new Image(getClass().getResource("/images/view/gui/layouts/battle_view_layouts/potion_layout/bg.png").toExternalForm());
     private final Image emptyPotionIcon = new Image(getClass().getResource("/images/view/gui/layouts/battle_view_layouts/potion_layout/EmptyPotion.png").toExternalForm());
     private final List<PotionCard> potions;
-    private final ObjectProperty<PotionCard> selected = new SimpleObjectProperty<>();
 
-    public PotionLayout(List<PotionCard> potions, BattleView battleView) {
+    public PotionLayout(List<PotionCard> potions) {
         this.potions = potions;
-        this.battleView = battleView;
 
         showPotions();
         setTranslateY(-35);
         setTranslateX(130);
     }
 
-    public void handlePotionClick(PotionCard potion, int index) {
-        selected.set(potion);
-        battleView.clickedOnPotion(potion, index);
-    }
-
     public void refreshPotions() {
         this.getChildren().clear();
         showPotions();
-        selected.set(null);
     }
 
     private Node images(PotionCard potion) {
@@ -83,23 +70,9 @@ public class PotionLayout extends HBox {
         glow.setColor(Color.YELLOW);
         glow.setHeight(30);
         glow.setWidth(30);
-        imageView.addEventHandler(MouseEvent.MOUSE_CLICKED, e -> {
-            showPopup(potion, imageView);
-            handlePotionClick(potion, potions.indexOf(potion));
-        });
+        imageView.addEventHandler(MouseEvent.MOUSE_CLICKED, e -> showPopup(potion, imageView));
         imageView.addEventHandler(MouseEvent.MOUSE_ENTERED, e -> imageView.setEffect(glow));
-        imageView.addEventHandler(MouseEvent.MOUSE_EXITED, e -> {
-            if (selected.get() != potion) {
-                imageView.setEffect(null);
-            }
-        });
-        selected.addListener((observable, oldValue, newValue) -> {
-            if (oldValue == potion && newValue != potion) {
-                imageView.setEffect(null);
-            }
-        });
-
-
+        imageView.addEventHandler(MouseEvent.MOUSE_EXITED, e -> imageView.setEffect(null));
     }
 
     private void showPopup(PotionCard potion, ImageView imageView) {
@@ -127,10 +100,6 @@ public class PotionLayout extends HBox {
         popup.getContent().add(root);
         Bounds bounds = imageView.localToScreen(imageView.getBoundsInLocal());
         popup.show(imageView, bounds.getMinX() + bounds.getWidth() / 2 - popup.getWidth() / 2, bounds.getMaxY());
-        popup.setOnHiding(event -> {
-            battleView.updateInformation();
-            battleView.clickedOnPotion(null, -1);
-        });
     }
 
     private void showPotions() {
