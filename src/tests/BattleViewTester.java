@@ -3,6 +3,9 @@ package tests;
 import helper.GuiHelper;
 import javafx.application.Application;
 import javafx.stage.Stage;
+import models.battle.GameContext;
+import models.card.card_structure.CardRarity;
+import models.card.card_structure.CardType;
 import models.enemy.Enemy;
 import models.enemy.EnemyEnum;
 import models.enemy.act_one.AcidSlimeEnemy;
@@ -21,6 +24,7 @@ import models.enemy.act_two.elite.GremlinLeaderElite;
 import models.game_settings.GameSettings;
 import models.game_settings.structure.DifficultyLevel;
 import models.map_elements.field_types.FieldEnum;
+import models.potion.potion_structure.PotionCard;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,6 +34,21 @@ import java.util.Random;
  * @author Keil, Vladislav
  */
 public class BattleViewTester extends Application {
+
+    private static class CheaterPotion extends PotionCard {
+
+        public CheaterPotion() {
+            super("Cheater Potion", "Deals 200 damage.", CardRarity.SPECIAL, CardType.POTION);
+            setImagePath("/images/icon.png");
+        }
+
+        @Override
+        public void play(GameContext gameContext) {
+            Enemy enemy = gameContext.getSelectedEnemy();
+            enemy.takeDamage(200);
+        }
+
+    }
 
     private static final Random rnd = new Random();
 
@@ -41,6 +60,9 @@ public class BattleViewTester extends Application {
     public void start(Stage primaryStage) {
         TestPlayer player = new TestPlayer(primaryStage);
 
+        player.getPotionCards().add(new CheaterPotion());
+        player.getPotionCards().add(new CheaterPotion());
+        player.getPotionCards().add(new CheaterPotion());
         GameSettings.setDifficultyLevel(DifficultyLevel.NORMAL);
 
         GuiHelper.Scenes.startBattleScene(player, actOneGenerateEnemies(), FieldEnum.ENEMYFIELD);
