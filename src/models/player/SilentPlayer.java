@@ -18,38 +18,33 @@ import java.util.List;
 
 /**
  * Der Silent player.
- *
+ * <p>
  * Diese Klasse repräsentiert den Silent-Spieler, eine von mehreren möglichen Spielerklassen im Spiel. Silent hat spezifische Attribute, eine Startreliktie und ein Deck von Karten, die für seine Spielweise geeignet sind.
  * Author:
  *
  * @author OF Daniel Willig
  */
 public class SilentPlayer extends Player {
-    // * Constructor *
+
     public SilentPlayer(Stage primaryStage) {
         super("Silent", 70, 3, PlayerType.SILENT, primaryStage);
         setImagePath(new PathAssistent().toPath(this));
-        setAltImagePath(new PathAssistent().toAltPath(this,1));
+        setAltImagePath(new PathAssistent().toAltPath(this, 1));
         setGold(99);
         initRelic();
         initDeck();
     }
 
-    // * Methods *
-    @Override
-    protected void initRelic() {
-        Relic startRelic = new RingOfTheSnake();
-        setRelic(startRelic);
-    }
-
     @Override
     protected void initDeck() {
         List<Card> deck = new ArrayList<>();
-        for (int i = 0; i < 5; i++)
+        for (int i = 0; i < 5; i++) {
             deck.add(new SilentStrikeCard());
+        }
 
-        for (int i = 0; i < 5; i++)
+        for (int i = 0; i < 5; i++) {
             deck.add(new SilentDefendCard());
+        }
 
         deck.add(new SurvivorCard());
 
@@ -57,4 +52,11 @@ public class SilentPlayer extends Player {
 
         setDeck(deck);
     }
+
+    @Override
+    protected void initRelic() {
+        Relic startRelic = new RingOfTheSnake();
+        setRelic(startRelic);
+    }
+
 }
