@@ -29,14 +29,15 @@ import java.util.List;
  * @author Warawa Alexander, Willig Daniel
  */
 public class BattleController implements BattleViewEvents, PlayerEventListener, EnemyEventListener {
+
     private final BattleView battleView;
-    private FieldEnum fieldType;
+    private final FieldEnum fieldType;
 
     private final Player player;
     private final List<Enemy> enemies;
 
     private final BattleDeck battleDeck;
-    private List<PotionCard> potions;
+    private final List<PotionCard> potions;
     private final GameContext gameContext;
 
     private Card selectedCard;
