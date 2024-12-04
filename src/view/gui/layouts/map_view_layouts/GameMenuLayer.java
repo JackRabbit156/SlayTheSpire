@@ -98,9 +98,9 @@ public class GameMenuLayer extends BorderPane {
         Button loadGameButton = new Button("Load Game");
         saveGameButton = new Button("Save Game");
         changeDifficultyButton = new Button("Change Difficulty");
-        Button mainMenuButton = new Button("Main Menu");
+        Button mainMenuButton = new Button("End this Game");
         Button backButton = new Button("Back");
-        Button exitButton = new Button("Exit");
+        Button exitButton = new Button("Quit");
 
         assignButtonDesign(loadGameButton);
         assignButtonDesign(saveGameButton);
