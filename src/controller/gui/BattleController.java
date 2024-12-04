@@ -16,6 +16,8 @@ import models.map_elements.field_types.FieldEnum;
 import models.player.player_structure.Player;
 
 import models.potion.potion_structure.PotionCard;
+import models.relic.relic_structure.Relic;
+import models.relic.relic_structure.RelicTrigger;
 import view.gui.BattleView;
 import view.gui.layouts.layout_events.BattleViewEvents;
 
@@ -51,21 +53,26 @@ public class BattleController implements BattleViewEvents, PlayerEventListener, 
             enemy.calcIntent();
         }
 
-        this.battleDeck = new BattleDeck(player.getDeck());
-        this.potions = player.getPotionCards();
+        battleDeck = new BattleDeck(player.getDeck());
+        potions = player.getPotionCards();
 
-        this.gameContext = new GameContext(player, enemies, battleDeck);
+        gameContext = new GameContext(player, enemies, battleDeck);
         resetEnergyAndBlock();
         calcIntentForAllEnemies(enemies);
 
 
-        this.battleView = new BattleView(player, enemies, this, battleDeck);
+        battleView = new BattleView(player, enemies, this, battleDeck);
         player.setPlayerEventListener(this);
 
+        startOfCombat();
+    }
 
+    private void startOfCombat() {
         battleDeck.fillHand(battleDeck.getStartHandSize());
 
-//        playerBOT();
+        triggerRelics(RelicTrigger.START_OF_COMBAT);
+
+        triggerPowerCards(CardTrigger.PLAYER_BOT);
     }
 
     private void playerBOT() {
@@ -95,7 +102,7 @@ public class BattleController implements BattleViewEvents, PlayerEventListener, 
      */
     @Override
     public void onCardClick(Card card, int index) {
-        playerTurn(card, index);
+        selectedCard = card;
     }
 
     /**
@@ -112,7 +119,7 @@ public class BattleController implements BattleViewEvents, PlayerEventListener, 
         selectedCard = null;
 
         if(enemies.isEmpty()) {
-            startingLoot();
+            endOfCombat();
         }
     }
 
@@ -123,7 +130,9 @@ public class BattleController implements BattleViewEvents, PlayerEventListener, 
         primaryStage.setFullScreen(!primaryStage.isFullScreen());
     }
 
-    private void startingLoot() {
+    private void endOfCombat() {
+        triggerRelics(RelicTrigger.END_OF_COMBAT);
+
         GuiHelper.Scenes.startLootScene(this.player, this.fieldType);
     }
 
@@ -152,20 +161,17 @@ public class BattleController implements BattleViewEvents, PlayerEventListener, 
         }
     }
 
-    /**
-     * If a target is required we save the selected card for 'onEnemyClick'
-     * If no target is required then we play the card
-     * @param card selected card
-     * @param index index of selected card
-     */
-    private void playerTurn(Card card, int index) {
-        selectedCard = card;
-    }
-
     private void playerEOT() {
         removeHandAfterEndOfTurn();
 
         triggerPowerCards(CardTrigger.PLAYER_EOT);
+    }
+
+    private void triggerRelics(RelicTrigger trigger) {
+        Relic relic = player.getRelic();
+        if (relic.getRelicTrigger().equals(trigger)) {
+            relic.getsUsed(gameContext);
+        }
     }
 
     private void triggerPowerCards(CardTrigger trigger) {
@@ -294,7 +300,7 @@ public class BattleController implements BattleViewEvents, PlayerEventListener, 
                 return;
             }
         }
-        startingLoot();
+        endOfCombat();
     }
 
     public FieldEnum getFieldType() {

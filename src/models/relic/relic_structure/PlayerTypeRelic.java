@@ -23,8 +23,8 @@ public abstract class PlayerTypeRelic extends Relic {
      * @param rarity      Die Seltenheit
      * @param playerType  der SpielerTyp
      */
-    protected PlayerTypeRelic(String name, String description, RelicType rarity, PlayerType playerType) {
-        super(name, description, rarity);
+    protected PlayerTypeRelic(String name, String description, RelicType rarity, PlayerType playerType, RelicTrigger relicTrigger) {
+        super(name, description, rarity, relicTrigger);
         this.playerType = playerType;
     }
 

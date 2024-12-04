@@ -10,20 +10,19 @@ import models.battle.GameContext;
 public abstract class Relic {
 
     /**
+     * Die Deskription.
+     */
+    private final String description;
+    private String imagePath;
+    /**
      * Der Name.
      */
     private final String name;
     /**
-     * Die Deskription.
-     */
-    private final String description;
-
-    /**
      * Die Seltenheit.
      */
     private final RelicType rarity;
-
-    private String imagePath;
+    private final RelicTrigger relicTrigger;
 
 
     /**
@@ -33,19 +32,29 @@ public abstract class Relic {
      * @param description die Deskription
      * @param rarity      Die Seltenheit
      */
-    protected Relic(String name, String description, RelicType rarity) {
+    protected Relic(String name, String description, RelicType rarity, RelicTrigger relicTrigger) {
         this.name = name;
         this.description = description;
         this.rarity = rarity;
+        this.relicTrigger = relicTrigger;
     }
 
     /**
-     * was soll passieren, wenn das Relics "sich aktiviert"
+     * getter description.
      *
-     * @param gameContext the game context
+     * @return the description
      */
-    public abstract void getsUsed(GameContext gameContext);
+    public String getDescription() {
+        return description;
+    }
 
+    public String getImagePath() {
+        return imagePath;
+    }
+
+    public void setImagePath(String imagePath) {
+        this.imagePath = imagePath;
+    }
 
     /**
      * getter name.
@@ -65,21 +74,15 @@ public abstract class Relic {
         return rarity;
     }
 
+    public RelicTrigger getRelicTrigger() {
+        return relicTrigger;
+    }
+
     /**
-     * getter description.
+     * was soll passieren, wenn das Relics "sich aktiviert"
      *
-     * @return the description
+     * @param gameContext the game context
      */
-    public String getDescription() {
-        return description;
-    }
-
-    public String getImagePath() {
-        return imagePath;
-    }
-
-    public void setImagePath(String imagePath) {
-        this.imagePath = imagePath;
-    }
+    public abstract void getsUsed(GameContext gameContext);
 
 }
