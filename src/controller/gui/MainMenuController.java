@@ -71,8 +71,8 @@ public class MainMenuController {
         newGameButton.setOnMouseClicked(event -> {
             newGameUp.show(menuStage);
 
-            view.getSupereasyDifficulty().setOnMouseClicked(e1 -> {
-                view.setDifficultyButton(view.getSupereasyDifficulty());
+            view.getSuperEasyDifficulty().setOnMouseClicked(e1 -> {
+                view.setDifficultyButton(view.getSuperEasyDifficulty());
                 GameSettings.setDifficultyLevel(DifficultyLevel.SUPER_EASY);
                 diffFlag.set(true);
             });

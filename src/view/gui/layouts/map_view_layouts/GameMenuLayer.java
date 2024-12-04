@@ -8,18 +8,14 @@ import javafx.scene.control.Label;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
-import javafx.stage.Stage;
 import models.game_settings.GameSettings;
 import models.game_settings.structure.GameMode;
-import models.load_save_game_elements.GameSaveManager;
 import models.player.player_structure.Player;
 import view.gui.MapView;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
+
 /**
  * Die Klasse 'GameMenuLayer' stellt das Menü für das Spiel in der Benutzeroberfläche dar.
  * Sie erweitert die 'BorderPane'-Klasse und enthält verschiedene Schaltflächen für
@@ -33,24 +29,21 @@ import javafx.beans.value.ObservableValue;
  * @author Warawa Alexander
  */
 public class GameMenuLayer extends BorderPane {
-    private MapView mapView;
+
+    private Button changeDifficultyButton;
+    private final MapView mapView;
     private Player player;
-
-    private Label header;
-
-    Button saveGameButton;
-    Button changeDifficultyButton;
+    private Button saveGameButton;
 
     /**
      * Konstruktor für die Klasse 'GameMenuLayer'.
      *
-     * @param player Der Spieler, der das Menü nutzt
+     * @param player  Der Spieler, der das Menü nutzt
      * @param mapView Die MapView, die zur Anzeige der Karte verwendet wird
      */
     public GameMenuLayer(Player player, MapView mapView) {
         this.player = player;
         this.mapView = mapView;
-
 
         setBackground(new Background(GuiHelper.background("/images/backgrounds/loadViewBackground.png")));
 
@@ -64,7 +57,7 @@ public class GameMenuLayer extends BorderPane {
 
         VBox topBar = new VBox();
         topBar.setAlignment(Pos.TOP_CENTER);
-        header = new Label("Game Menu");
+        Label header = new Label("Game Menu");
         header.setEffect(dropShadow);
         header.setFont(kreonFont);
         header.setTextFill(Color.GOLD);
@@ -72,23 +65,33 @@ public class GameMenuLayer extends BorderPane {
 
         setTop(topBar);
 
-
-        this.visibleProperty().addListener(new ChangeListener<Boolean>() {
-            @Override
-            public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
-                if (newValue) {
-                    if(GameSettings.getGameMode().equals(GameMode.HARDCORE)){
-                        saveGameButton.setDisable(true);
-                        changeDifficultyButton.setDisable(true);
-                    } else {
-                        saveGameButton.setDisable(false);
-                        changeDifficultyButton.setDisable(false);
-                    }
+        this.visibleProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue) {
+                if (GameSettings.getGameMode().equals(GameMode.HARDCORE)) {
+                    saveGameButton.setDisable(true);
+                    changeDifficultyButton.setDisable(true);
+                }
+                else {
+                    saveGameButton.setDisable(false);
+                    changeDifficultyButton.setDisable(false);
                 }
             }
         });
 
         initMenuButtons();
+    }
+
+    private void assignButtonDesign(Button button) {
+        String highlightPath = "/images/buttons/menu_highlight.png";
+        String fontPath = "/resources/font/kreon/static/Kreon-Bold.ttf";
+
+        button.setTextFill(Color.WHITE);
+        button.setFont(Font.font(fontPath, 30));
+        button.setAlignment(Pos.CENTER);
+        button.setBackground(Background.EMPTY);
+        button.setMinSize(180, 50);
+        button.setOnMouseEntered(event -> button.setBackground(new Background(GuiHelper.background(highlightPath))));
+        button.setOnMouseExited(event -> button.setBackground(Background.EMPTY));
     }
 
     private void initMenuButtons() {
@@ -121,20 +124,4 @@ public class GameMenuLayer extends BorderPane {
         setCenter(menuItems);
     }
 
-    private void assignButtonDesign(Button button){
-        String highlightPath = "/images/buttons/menu_highlight.png";
-        String fontPath = "/resources/font/kreon/static/Kreon-Bold.ttf";
-
-        button.setTextFill(Color.WHITE);
-        button.setFont(Font.font(fontPath, 30));
-        button.setAlignment(Pos.BASELINE_LEFT);
-        button.setBackground(Background.EMPTY);
-        button.setMinSize(180, 50);
-        button.setOnMouseEntered(event -> {
-            button.setBackground(new Background(GuiHelper.background(highlightPath)));
-        });
-        button.setOnMouseExited(event -> {
-            button.setBackground(Background.EMPTY);
-        });
-    }
 }

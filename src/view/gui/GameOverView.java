@@ -6,10 +6,11 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
+import javafx.scene.text.TextAlignment;
 import models.game_settings.GameSettings;
 import models.player.player_structure.Player;
-import models.player.player_structure.PlayerType;
 import view.gui.layouts.loot_layout.PlayerLayout;
 
 /**
@@ -20,12 +21,11 @@ import view.gui.layouts.loot_layout.PlayerLayout;
  * @author Vladislav Keil
  */
 public class GameOverView extends StackPane {
-    private VBox centerVBox;
-    private Player player;
 
-    private BorderPane statisticLayout;
-    private BorderPane bottomLayout;
-    private BorderPane backgroundLayout;
+    private final BorderPane backgroundLayout;
+    private final BorderPane bottomLayout;
+    private final Player player;
+    private final BorderPane statisticLayout;
 
     /**
      * Konstruktor für die Klasse StatisticView.
@@ -41,12 +41,12 @@ public class GameOverView extends StackPane {
 
         display();
     }
+
     /**
      * Initialisiert die View.
      */
     public void display() {
         setBackground(new Background(GuiHelper.background("/images/act1.png")));
-
 
         getChildren().add(this.backgroundLayout);
         getChildren().add(this.statisticLayout);
@@ -66,14 +66,6 @@ public class GameOverView extends StackPane {
     }
 
     /**
-     * Initialisiert das untere Layout der Statistik-Ansicht.
-     */
-    private void initBottomLayout() {
-        statisticLayout.setPickOnBounds(false);
-        initBottom();
-    }
-
-    /**
      * Initialisiert das Layout der Statistik-Ansicht.
      */
     private void initBottom() {
@@ -82,7 +74,7 @@ public class GameOverView extends StackPane {
         HBox bottomHBox = new HBox();
 
         Label label = new Label("Main Menu");
-        label.setTextFill(Paint.valueOf("White"));
+        label.setTextFill(Color.WHITE);
         label.setStyle("-fx-font-size: 38px; -fx-font-family: Kreon;");
         bottomHBox.getChildren().add(GuiHelper.addButtonStackPane(imgView, label, 14));
 
@@ -102,20 +94,18 @@ public class GameOverView extends StackPane {
     }
 
     /**
-     * Initialisiert das zentrale Layout der Statistik-Ansicht.
+     * Initialisiert das untere Layout der Statistik-Ansicht.
      */
-    private void initStatisticLayout() {
-        bottomLayout.setPickOnBounds(false);
-        initTop();
-        initCenter();
+    private void initBottomLayout() {
+        statisticLayout.setPickOnBounds(false);
+        initBottom();
     }
 
     /**
      * Initialisiert das obere Layout der Statistik-Ansicht.
      */
-    private void initCenter(){
-        centerVBox = new VBox();
-        centerVBox.setSpacing(-150);
+    private void initCenter() {
+        VBox center = new VBox();
         Image btnImage = new Image(getClass().getResource("/images/panel/rewardPanel.png").toExternalForm());
         ImageView rewardPanelImgView = new ImageView(btnImage);
         StackPane rewardStackPanel = new StackPane(rewardPanelImgView);
@@ -123,17 +113,21 @@ public class GameOverView extends StackPane {
         // LeftTextSide
         Label centerLeft = new Label();
         centerLeft.setStyle("-fx-font-size: 32;");
-        centerLeft.setTextFill(Paint.valueOf("White"));
+        centerLeft.setTextFill(Color.WHITE);
         centerLeft.setWrapText(true);
-        centerLeft.setText("Act:\n" + "Damage dealt:\n" + "Damage received:\n" + "Gold received:\n" + "Energy spent:\n");
-        centerLeft.setAlignment(Pos.CENTER_LEFT);
+        centerLeft.setText(
+                "Act:\n" +
+                "Damage dealt:\n" +
+                "Damage received:\n" +
+                "Gold received:\n" +
+                "Energy spent:\n");
 
         // RightTextSide
         Label centerRight = new Label();
         centerRight.setStyle("-fx-font-size: 32;");
-        centerRight.setTextFill(Paint.valueOf("White"));
+        centerRight.setTextFill(Color.WHITE);
         centerRight.setWrapText(true);
-        centerRight.setAlignment(Pos.CENTER_RIGHT);
+        centerRight.setTextAlignment(TextAlignment.RIGHT);
         centerRight.setText(
                 player.getCurrentAct() + "\n" +
                 GameSettings.getDistributedDamageStats() + "\n" +
@@ -149,20 +143,29 @@ public class GameOverView extends StackPane {
         textBox.getChildren().addAll(centerLeft, centerRight);
         rewardStackPanel.getChildren().add(textBox);
         rewardStackPanel.setAlignment(Pos.CENTER);
-        centerVBox.getChildren().add(rewardStackPanel);
+        center.getChildren().add(rewardStackPanel);
         centerLeft.setAlignment(Pos.CENTER);
 
-        statisticLayout.setCenter(centerVBox);
+        statisticLayout.setCenter(center);
+    }
+
+    /**
+     * Initialisiert das zentrale Layout der Statistik-Ansicht.
+     */
+    private void initStatisticLayout() {
+        bottomLayout.setPickOnBounds(false);
+        initTop();
+        initCenter();
     }
 
     /**
      * Initialisiert das untere Layout der Statistik-Ansicht.
      */
-    private void initTop(){
+    private void initTop() {
         VBox topVBox = new VBox();
         Label label = new Label();
         label.setText("Game Over");
-        label.setTextFill(Paint.valueOf("White"));
+        label.setTextFill(Color.WHITE);
         label.setStyle("-fx-font-size: 56px;");
 
         topVBox.getChildren().add(label);
@@ -170,4 +173,5 @@ public class GameOverView extends StackPane {
         topVBox.setPrefHeight(100);
         statisticLayout.setTop(topVBox);
     }
+
 }

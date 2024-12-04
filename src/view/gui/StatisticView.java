@@ -2,16 +2,15 @@ package view.gui;
 
 import helper.GuiHelper;
 import javafx.geometry.Pos;
-import javafx.scene.Node;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
+import javafx.scene.text.TextAlignment;
 import models.game_settings.GameSettings;
 import models.player.player_structure.Player;
-import view.gui.layouts.layout_events.StatisticViewEvents;
 import view.gui.layouts.loot_layout.PlayerLayout;
 
 /**
@@ -22,13 +21,12 @@ import view.gui.layouts.loot_layout.PlayerLayout;
  * @author Vladislav Keil
  */
 public class StatisticView extends StackPane {
-    private VBox centerVBox;
-    private Player player;
-    private int act;
 
-    private BorderPane statisticLayout;
-    private BorderPane bottomLayout;
-    private BorderPane backgroundLayout;
+    private int act;
+    private final BorderPane backgroundLayout;
+    private final BorderPane bottomLayout;
+    private final Player player;
+    private final BorderPane statisticLayout;
 
     /**
      * Konstruktor für die Klasse StatisticView.
@@ -43,13 +41,18 @@ public class StatisticView extends StackPane {
         this.player = player;
         this.act = this.player.getCurrentAct();
         switch (this.act) {
-            case 1: this.player.setCurrentAct(2); break;
+            case 1:
+                this.player.setCurrentAct(2);
+                break;
             case 2:
-            case 4: this.player.setCurrentAct(4); break;
+            case 4:
+                this.player.setCurrentAct(4);
+                break;
         }
-        System.out.println(player.getCurrentAct() + " act" );
+        System.out.println(player.getCurrentAct() + " act");
         display();
     }
+
     /**
      * Initialisiert die View.
      */
@@ -74,14 +77,6 @@ public class StatisticView extends StackPane {
     }
 
     /**
-     * Initialisiert das untere Layout der Statistik-Ansicht.
-     */
-    private void initBottomLayout() {
-        statisticLayout.setPickOnBounds(false);
-        initBottom();
-    }
-
-    /**
      * Initialisiert das Layout der Statistik-Ansicht.
      */
     private void initBottom() {
@@ -90,7 +85,7 @@ public class StatisticView extends StackPane {
         HBox bottomHBox = new HBox();
 
         Label label = new Label("Back");
-        label.setTextFill(Paint.valueOf("White"));
+        label.setTextFill(Color.WHITE);
         label.setStyle("-fx-font-size: 38px; -fx-font-family: Kreon;");
         bottomHBox.getChildren().add(GuiHelper.addButtonStackPane(imgView, label, 14));
 
@@ -110,45 +105,47 @@ public class StatisticView extends StackPane {
     }
 
     /**
-     * Initialisiert das zentrale Layout der Statistik-Ansicht.
+     * Initialisiert das untere Layout der Statistik-Ansicht.
      */
-    private void initStatisticLayout() {
-        bottomLayout.setPickOnBounds(false);
-        initTop();
-        initCenter();
+    private void initBottomLayout() {
+        statisticLayout.setPickOnBounds(false);
+        initBottom();
     }
 
     /**
      * Initialisiert das obere Layout der Statistik-Ansicht.
      */
-    private void initCenter(){
-        centerVBox = new VBox();
-        centerVBox.setSpacing(-150);
+    private void initCenter() {
+        VBox center = new VBox();
         Image btnImage = new Image(getClass().getResource("/images/panel/rewardPanel.png").toExternalForm());
         ImageView rewardPanelImgView = new ImageView(btnImage);
         StackPane rewardStackPanel = new StackPane(rewardPanelImgView);
 
         // LeftTextSide
         Label centerLeft = new Label();
-        centerLeft.setTextFill(Paint.valueOf("White"));
+        centerLeft.setTextFill(Color.WHITE);
         centerLeft.setWrapText(true);
         centerLeft.setStyle("-fx-font-size: 32px; -fx-font-family: Kreon;");
 
-        centerLeft.setText("Act:\n" + "Damage dealt:\n" + "Damage received:\n" + "Gold received:\n" + "Energy spent:\n");
-        centerLeft.setAlignment(Pos.CENTER_LEFT);
+        centerLeft.setText(
+                "Act:\n" +
+                "Damage dealt:\n" +
+                "Damage received:\n" +
+                "Gold received:\n" +
+                "Energy spent:");
 
         // RightTextSide
         Label centerRight = new Label();
         centerRight.setStyle("-fx-font-size: 32px; -fx-font-family: Kreon;");
-        centerRight.setTextFill(Paint.valueOf("White"));
+        centerRight.setTextFill(Color.WHITE);
         centerRight.setWrapText(true);
-        centerRight.setAlignment(Pos.CENTER_RIGHT);
+        centerRight.setTextAlignment(TextAlignment.RIGHT);
         centerRight.setText(
                 this.act + "\n" +
                 GameSettings.getDistributedDamageStats() + "\n" +
                 GameSettings.getReceivedDamageStats() + "\n" +
                 GameSettings.getReceivedGoldStats() + "\n" +
-                GameSettings.getEnergySpentStats() + "\n"
+                GameSettings.getEnergySpentStats()
         );
 
         // Textbox
@@ -158,32 +155,40 @@ public class StatisticView extends StackPane {
         textBox.getChildren().addAll(centerLeft, centerRight);
         rewardStackPanel.getChildren().add(textBox);
         rewardStackPanel.setAlignment(Pos.CENTER);
-        centerVBox.getChildren().add(rewardStackPanel);
+        center.getChildren().add(rewardStackPanel);
         centerLeft.setAlignment(Pos.CENTER);
 
-        statisticLayout.setCenter(centerVBox);
+        statisticLayout.setCenter(center);
+    }
+
+    /**
+     * Initialisiert das zentrale Layout der Statistik-Ansicht.
+     */
+    private void initStatisticLayout() {
+        bottomLayout.setPickOnBounds(false);
+        initTop();
+        initCenter();
     }
 
     /**
      * Initialisiert das untere Layout der Statistik-Ansicht.
      */
-    private void initTop(){
+    private void initTop() {
         Image img = new Image(getClass().getResource("/images/banner/abandon.png").toExternalForm());
         ImageView imageView = new ImageView(img);
-        StackPane titlePane = new StackPane();
 
-        VBox topVBox = new VBox();
-        Label label = new Label();
-        label.setText("Statistic");
-        label.setTextFill(Paint.valueOf("White"));
+        Label label = new Label("Statistics");
+        label.setTextFill(Color.WHITE);
         label.setStyle("-fx-font-size: 38px;-fx-font-family: Kreon;");
 
-        titlePane.getChildren().addAll(imageView,label);
+        StackPane titlePane = new StackPane();
+        titlePane.getChildren().addAll(imageView, label);
 
-
-        topVBox.getChildren().add(titlePane);
-        topVBox.setAlignment(Pos.BOTTOM_CENTER);
-        topVBox.setPrefHeight(100);
-        statisticLayout.setTop(topVBox);
+        VBox top = new VBox();
+        top.getChildren().add(titlePane);
+        top.setAlignment(Pos.BOTTOM_CENTER);
+        top.setPrefHeight(100);
+        statisticLayout.setTop(top);
     }
+
 }
