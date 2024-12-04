@@ -8,7 +8,7 @@ import models.battle.GameContext;
  * @author OF Daniel Willig
  */
 public abstract class Relic {
-// * Variables *
+
     /**
      * Der Name.
      */
@@ -33,7 +33,6 @@ public abstract class Relic {
      * @param description die Deskription
      * @param rarity      Die Seltenheit
      */
-// * Constructor *
     protected Relic(String name, String description, RelicType rarity) {
         this.name = name;
         this.description = description;
@@ -45,11 +44,9 @@ public abstract class Relic {
      *
      * @param gameContext the game context
      */
-// * Methods *
     public abstract void getsUsed(GameContext gameContext);
 
 
-// * Getter & Setter *
     /**
      * getter name.
      *
@@ -85,5 +82,4 @@ public abstract class Relic {
         this.imagePath = imagePath;
     }
 
-    // * toString *
 }

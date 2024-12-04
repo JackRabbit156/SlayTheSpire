@@ -1,12 +1,8 @@
 package models.load_save_game_elements;
 
-import helper.ConsoleAssistent;
 import models.card.card_structure.Card;
-import models.card.ironclad_cards.IroncladStrikeCard;
-import models.card.silent_cards.SilentStrikeCard;
 import models.game_settings.GameSettings;
 import models.player.player_structure.Player;
-import models.player.player_structure.PlayerType;
 import models.potion.potion_structure.PotionCard;
 
 import java.time.LocalDateTime;

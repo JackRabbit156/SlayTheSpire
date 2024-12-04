@@ -3,15 +3,13 @@ package models.enemy.act_one.boss;
 import models.battle.GameContext;
 import helper.PathAssistent;
 import models.enemy.Enemy;
-import models.enemy_card.act_one.boss.the_guardian_boss_cards.ChargingUpEnemyCard;
-import models.enemy_card.act_one.boss.the_guardian_boss_cards.FierceBashEnemyCard;
-import models.enemy_card.act_one.boss.the_guardian_boss_cards.WhirlwindEnemyCard;
-import models.enemy_card.act_one.cultist_enemy_cards.DarkStrikeEnemyCard;
+import models.enemy_card.act_one.boss.the_guardian.ChargingUpEnemyCard;
+import models.enemy_card.act_one.boss.the_guardian.FierceBashEnemyCard;
+import models.enemy_card.act_one.boss.the_guardian.WhirlwindEnemyCard;
 import models.enemy_card.enemy_card_structure.EnemyCard;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 /**
  * @author Keil, Vladislav

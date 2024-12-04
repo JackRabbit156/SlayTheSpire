@@ -1,10 +1,8 @@
 package tests;
 
-import helper.ConsoleAssistent;
-import helper.PathAssistent;
 import javafx.stage.Stage;
 import models.card.card_structure.*;
-import models.card.ironclad_cards.attack.common.BashCard;
+import models.card.ironclad.attack.common.BashCard;
 import models.battle.GameContext;
 import models.enemy.Enemy;
 import models.player.player_structure.Player;

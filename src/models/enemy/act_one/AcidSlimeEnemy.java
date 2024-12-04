@@ -3,8 +3,7 @@ package models.enemy.act_one;
 import models.battle.GameContext;
 import helper.PathAssistent;
 import models.enemy.Enemy;
-import models.enemy_card.act_one.acid_slime_enemy_cards.CorrosiveSpitEnemyCard;
-import models.enemy_card.act_one.cultist_enemy_cards.DarkStrikeEnemyCard;
+import models.enemy_card.act_one.acid_slime.CorrosiveSpitEnemyCard;
 import models.enemy_card.enemy_card_structure.EnemyCard;
 
 import java.util.ArrayList;
