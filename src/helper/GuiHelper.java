@@ -2,6 +2,7 @@ package helper;
 
 import controller.gui.*;
 import javafx.animation.FadeTransition;
+import javafx.application.Platform;
 import javafx.scene.ImageCursor;
 import javafx.scene.Node;
 import javafx.scene.Parent;
@@ -197,6 +198,10 @@ public class GuiHelper {
          * @param title        der Titel der Szene, der im Stage angezeigt wird
          */
         public static void startScene(Stage primaryStage, Scene scene, String title) {
+            primaryStage.getIcons().add(new Image(Scenes.class.getResource("/images/icon.png").toExternalForm()));
+            primaryStage.setOnCloseRequest(event -> System.exit(0)); // TODO irgendwas hält den Prozess offen beim Schließen mit X
+//                primaryStage.setX(1920 + 1920); // TODO remove
+            primaryStage.setFullScreen(true);
             primaryStage.setScene(scene);
             primaryStage.setTitle(title);
             primaryStage.show();
@@ -253,15 +258,9 @@ public class GuiHelper {
 
             // Direkt die neue Szene setzen, falls die aktuelle Szene oder deren Root-Node ungültig ist
             if (currentScene == null || currentScene.getRoot() == null) {
-                System.out.println("NO Fade");
                 Scene scene = new Scene(parent, 1920, 1080);
                 setCursor(scene);
-                primaryStage.getIcons().add(new Image(Scenes.class.getResource("/images/icon.png").toExternalForm()));
-                primaryStage.setScene(scene);
-//                primaryStage.setX(1920 + 1920); // TODO remove
-                primaryStage.setFullScreen(true);
-                primaryStage.setTitle(DEFAULT_TITLE);
-                primaryStage.show(); // Zeigt die neue Szene sofort an
+                Scenes.startScene(primaryStage, scene, DEFAULT_TITLE);
                 return;
             }
 
