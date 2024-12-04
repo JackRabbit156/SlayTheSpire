@@ -75,7 +75,7 @@ public class DifficultyMenuLayer extends BorderPane {
 
         button.setTextFill(Color.WHITE);
         button.setFont(Font.font(fontPath, 30));
-        button.setAlignment(Pos.BASELINE_LEFT);
+        button.setAlignment(Pos.CENTER);
         button.setBackground(Background.EMPTY);
         button.setMinSize(180, 50);
         button.setOnMouseEntered(event -> {
