@@ -8,22 +8,21 @@ import models.battle.GameContext;
  * @author OF Daniel Willig
  */
 public abstract class Relic {
-// * Variables *
+
+    /**
+     * Die Deskription.
+     */
+    private final String description;
+    private String imagePath;
     /**
      * Der Name.
      */
     private final String name;
     /**
-     * Die Deskription.
-     */
-    private final String description;
-
-    /**
      * Die Seltenheit.
      */
     private final RelicType rarity;
-
-    private String imagePath;
+    private final RelicTrigger relicTrigger;
 
 
     /**
@@ -33,39 +32,11 @@ public abstract class Relic {
      * @param description die Deskription
      * @param rarity      Die Seltenheit
      */
-// * Constructor *
-    protected Relic(String name, String description, RelicType rarity) {
+    protected Relic(String name, String description, RelicType rarity, RelicTrigger relicTrigger) {
         this.name = name;
         this.description = description;
         this.rarity = rarity;
-    }
-
-    /**
-     * was soll passieren, wenn das Relics "sich aktiviert"
-     *
-     * @param gameContext the game context
-     */
-// * Methods *
-    public abstract void getsUsed(GameContext gameContext);
-
-
-// * Getter & Setter *
-    /**
-     * getter name.
-     *
-     * @return the name
-     */
-    public String getName() {
-        return name;
-    }
-
-    /**
-     * getter rarity.
-     *
-     * @return the rarity
-     */
-    public RelicType getRarity() {
-        return rarity;
+        this.relicTrigger = relicTrigger;
     }
 
     /**
@@ -85,5 +56,33 @@ public abstract class Relic {
         this.imagePath = imagePath;
     }
 
-    // * toString *
+    /**
+     * getter name.
+     *
+     * @return the name
+     */
+    public String getName() {
+        return name;
+    }
+
+    /**
+     * getter rarity.
+     *
+     * @return the rarity
+     */
+    public RelicType getRarity() {
+        return rarity;
+    }
+
+    public RelicTrigger getRelicTrigger() {
+        return relicTrigger;
+    }
+
+    /**
+     * was soll passieren, wenn das Relics "sich aktiviert"
+     *
+     * @param gameContext the game context
+     */
+    public abstract void getsUsed(GameContext gameContext);
+
 }

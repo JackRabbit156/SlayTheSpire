@@ -2,9 +2,8 @@ package models.enemy.act_one;
 
 import helper.PathAssistent;
 import models.battle.GameContext;
-import models.card.card_structure.Card;
 import models.enemy.Enemy;
-import models.enemy_card.act_one.cultist_enemy_cards.DarkStrikeEnemyCard;
+import models.enemy_card.act_one.cultist.DarkStrikeEnemyCard;
 import models.enemy_card.enemy_card_structure.EnemyCard;
 
 import java.util.ArrayList;

@@ -6,6 +6,7 @@ package models.relic.relic_structure;
  * @author OF Daniel Willig
  */
 public enum RelicType {
+
     /**
      * Starter relic type.
      */
@@ -38,4 +39,5 @@ public enum RelicType {
      * Special relic type.
      */
     SPECIAL
+
 }

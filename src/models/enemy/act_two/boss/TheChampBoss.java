@@ -3,17 +3,14 @@ package models.enemy.act_two.boss;
 import helper.PathAssistent;
 import models.battle.GameContext;
 import models.enemy.Enemy;
-import models.enemy_card.act_one.cultist_enemy_cards.DarkStrikeEnemyCard;
-import models.enemy_card.act_two.boss.the_champ_boss_cards.DefensiveStanceEnemyCard;
-import models.enemy_card.act_two.boss.the_champ_boss_cards.ExecuteEnemyCard;
-import models.enemy_card.act_two.boss.the_champ_boss_cards.FaceSlapEnemyCard;
-import models.enemy_card.act_two.boss.the_champ_boss_cards.HeavySlashEnemyCard;
+import models.enemy_card.act_two.boss.the_champ.DefensiveStanceEnemyCard;
+import models.enemy_card.act_two.boss.the_champ.ExecuteEnemyCard;
+import models.enemy_card.act_two.boss.the_champ.FaceSlapEnemyCard;
+import models.enemy_card.act_two.boss.the_champ.HeavySlashEnemyCard;
 import models.enemy_card.enemy_card_structure.EnemyCard;
-import models.player.player_structure.Player;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 /**
  * @author Keil, Vladislav

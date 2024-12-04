@@ -6,13 +6,11 @@ import models.player.player_structure.Player;
 import view.gui.BattleView;
 
 public class LeftSideLayout extends VBox {
-    private Player player;
-    private BattleView battleView;
 
+    private final Player player;
     private final PlayerLayout playerLayout;
 
     public LeftSideLayout(BattleView battleView, Player player) {
-        this.battleView = battleView;
         this.player = player;
 
         setAlignment(Pos.BOTTOM_RIGHT);
@@ -20,7 +18,7 @@ public class LeftSideLayout extends VBox {
         getChildren().add(playerLayout);
     }
 
-    public void updatePlayer(){
+    public void update() {
         if (!player.isAlive()) {
             getChildren().remove(playerLayout);
         }

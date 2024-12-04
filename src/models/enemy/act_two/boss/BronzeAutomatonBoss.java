@@ -3,16 +3,13 @@ package models.enemy.act_two.boss;
 import helper.PathAssistent;
 import models.battle.GameContext;
 import models.enemy.Enemy;
-import models.enemy_card.act_one.cultist_enemy_cards.DarkStrikeEnemyCard;
-import models.enemy_card.act_two.boss.bronze_automaton_boss_cards.BoostEnemyCard;
-import models.enemy_card.act_two.boss.bronze_automaton_boss_cards.FlailEnemyCard;
-import models.enemy_card.act_two.boss.bronze_automaton_boss_cards.HyperBeamEnemyCard;
+import models.enemy_card.act_two.boss.bronze_automaton.BoostEnemyCard;
+import models.enemy_card.act_two.boss.bronze_automaton.FlailEnemyCard;
+import models.enemy_card.act_two.boss.bronze_automaton.HyperBeamEnemyCard;
 import models.enemy_card.enemy_card_structure.EnemyCard;
-import models.player.player_structure.Player;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 /**
  * @author Keil, Vladislav

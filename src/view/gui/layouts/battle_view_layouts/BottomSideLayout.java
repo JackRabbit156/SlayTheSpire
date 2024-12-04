@@ -2,9 +2,6 @@ package view.gui.layouts.battle_view_layouts;
 
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import models.card.card_structure.Card;
@@ -29,17 +26,13 @@ import java.util.List;
  * @author Warawa Alexander, Willig Daniel
  */
 public class BottomSideLayout extends HBox {
-    private BattleView battleView;
-    private List<Card> hand;
-    private Player player;
 
+    private final BattleView battleView;
     private CardLayout cardLayout;
     private EnergyLayout energyLayout;
-
-    private HBox leftHBox;
-    private HBox rightHBox;
-
-    private Button endTurnButton;
+    private final List<Card> hand;
+    private final Player player;
+    private HBox right;
 
     public BottomSideLayout(BattleView battleView, Player player, List<Card> hand) {
         this.player = player;
@@ -49,29 +42,34 @@ public class BottomSideLayout extends HBox {
         initBottomSide();
     }
 
-    public void updateBottom() {
+    public void setDisableEndTurn(boolean value) {
+        right.setDisable(value);
+    }
+
+    public void update() {
         energyLayout.setEnergyText(player.getCurrentEnergy(), player.getMaxEnergy());
         cardLayout.refreshHand();
     }
 
     private void initBottomSide() {
-        endTurnButton = new Button("End Turn");
+        Button endTurnButton = new Button("End Turn");
         endTurnButton.getStyleClass().add("endround-button");
         endTurnButton.setOnAction(event -> battleView.clickedOnEndTurn());
 
         energyLayout = new EnergyLayout();
-        leftHBox = new HBox(energyLayout);
-        leftHBox.setAlignment(Pos.CENTER);
+        HBox left = new HBox(energyLayout);
+        left.setAlignment(Pos.CENTER);
 
         cardLayout = new CardLayout(hand, battleView);
-        rightHBox = new HBox(endTurnButton);
-        rightHBox.setAlignment(Pos.CENTER);
+        right = new HBox(endTurnButton);
+        right.setAlignment(Pos.CENTER);
 
-        getChildren().addAll(leftHBox, cardLayout ,rightHBox);
+        getChildren().addAll(left, cardLayout, right);
         setAlignment(Pos.CENTER);
 
-        HBox.setHgrow(leftHBox, Priority.ALWAYS);
+        HBox.setHgrow(left, Priority.ALWAYS);
         HBox.setHgrow(cardLayout, Priority.ALWAYS);
-        HBox.setHgrow(rightHBox, Priority.ALWAYS);
+        HBox.setHgrow(right, Priority.ALWAYS);
     }
+
 }

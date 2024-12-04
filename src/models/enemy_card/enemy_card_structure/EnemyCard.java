@@ -15,9 +15,10 @@ import java.util.Random;
  * @author OF Daniel Willig
  */
 public abstract class EnemyCard {
-    private String name;
-    private String description;
-    private String iconText;
+
+    private final String name;
+    private final String description;
+    private final String iconText;
     private String imagePath;
 
     /**
@@ -61,4 +62,5 @@ public abstract class EnemyCard {
     public String getIconText() {
         return iconText;
     }
+
 }

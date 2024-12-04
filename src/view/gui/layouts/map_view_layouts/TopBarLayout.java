@@ -3,18 +3,18 @@ package view.gui.layouts.map_view_layouts;
 import helper.GuiHelper;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
-import javafx.scene.text.FontWeight;
 import models.player.player_structure.Player;
 import view.gui.MapView;
+import view.gui.components.FullScreenButton;
+import view.gui.components.SettingsButton;
 
 /**
  * Die Klasse 'TopBarLayout' stellt die oberste Leiste der Map dar .
@@ -32,13 +32,16 @@ import view.gui.MapView;
  * @author Warawa Alexander
  */
 public class TopBarLayout extends HBox {
-    private MapView mapView;  // Die MapView, die für die Benutzeroberfläche verantwortlich ist
-    private Player player;
+
+    private static final Font font = Font.loadFont(TopBarLayout.class.getResourceAsStream("/font/kreon/static/Kreon-Bold.ttf"), 24);
+
+    private final MapView mapView;
+    private final Player player;
 
     /**
      * Konstruktor für die Klasse 'TopBarLayout'.
      *
-     * @param player Der Spieler, dessen Informationen angezeigt werden
+     * @param player  Der Spieler, dessen Informationen angezeigt werden
      * @param mapView Die MapView, die zur Anzeige der Karte verwendet wird
      */
     public TopBarLayout(Player player, MapView mapView) {
@@ -48,84 +51,78 @@ public class TopBarLayout extends HBox {
         initTopBar();
     }
 
-    private void initTopBar() {
-        Font kreonFont = Font.loadFont(getClass().getResourceAsStream("/font/kreon/static/Kreon-Bold.ttf"), 24);
-        setPadding(new Insets(10,0,0,50));
-
-        HBox leftSide = new HBox();
-        leftSide.setAlignment(Pos.CENTER_LEFT);
+    private HBox initCenter() {
         HBox centerSide = new HBox();
         centerSide.setAlignment(Pos.CENTER);
-        HBox rightSide = new HBox();
-        rightSide.setAlignment(Pos.CENTER_RIGHT);
-
-        HBox.setHgrow(leftSide, Priority.ALWAYS);
         HBox.setHgrow(centerSide, Priority.ALWAYS);
-        HBox.setHgrow(rightSide, Priority.ALWAYS);
-        setBackground(new Background(GuiHelper.background("/images/map/bar.png")));
-        setPrefHeight(50);
 
+        ImageView deckImage = GuiHelper.image("/images/map/deck.png", 55, 55);
+        Label deckSizeLabel = new Label("" + player.getDeck().size());
+        deckSizeLabel.setTranslateZ(-100);
+        deckSizeLabel.setFont(font);
+        deckSizeLabel.setTextFill(Color.WHITE);
+        //deckSizeLabel.setPadding(new Insets(0, 30, 0, 0));
+        centerSide.getChildren().addAll(deckImage, deckSizeLabel);
+        return centerSide;
+    }
 
-        /* LEFT SIDE */
+    private HBox initLeftSide() {
+        HBox leftSide = new HBox();
+        leftSide.setAlignment(Pos.CENTER_LEFT);
+        HBox.setHgrow(leftSide, Priority.ALWAYS);
+
         Label playerNameLabel = new Label(player.getName());
-        playerNameLabel.setFont(kreonFont);
+        playerNameLabel.setFont(font);
         playerNameLabel.setTextFill(Color.WHITE);
         playerNameLabel.setPadding(new Insets(0, 30, 0, 0));
 
-        ImageView floor = image("/images/map/floor.png", 55, 55);
-        Label playerFloorLabel = new Label("" +player.getCurrentField());
-        playerFloorLabel.setFont(kreonFont);
+        ImageView floor = GuiHelper.image("/images/map/floor.png", 55, 55);
+        Label playerFloorLabel = new Label("" + player.getCurrentField());
+        playerFloorLabel.setFont(font);
         playerFloorLabel.setTextFill(Color.DARKGRAY);
         playerFloorLabel.setPadding(new Insets(0, 30, 0, 0));
 
-        ImageView gold = image("/images/map/panelGoldBag.png", 55, 55);
-        Label playerMoneyLabel = new Label(""+player.getGold());
-        playerMoneyLabel.setFont(kreonFont);
+        ImageView gold = GuiHelper.image("/images/map/panelGoldBag.png", 55, 55);
+        Label playerMoneyLabel = new Label("" + player.getGold());
+        playerMoneyLabel.setFont(font);
         playerMoneyLabel.setTextFill(Color.GOLD);
         playerMoneyLabel.setPadding(new Insets(0, 30, 0, 0));
 
-        ImageView heart = image("/images/map/panelHeart.png", 55, 55);
-        Label playerHealthLabel = new Label("" + player.getCurrentHealth() +"/" + player.getMaxHealth());
-        playerHealthLabel.setFont(kreonFont);
+        ImageView heart = GuiHelper.image("/images/map/panelHeart.png", 55, 55);
+        Label playerHealthLabel = new Label("" + player.getCurrentHealth() + "/" + player.getMaxHealth());
+        playerHealthLabel.setFont(font);
         playerHealthLabel.setTextFill(Color.RED);
         playerHealthLabel.setPadding(new Insets(0, 30, 0, 0));
-
-        /* CENTER SIDE */
-        ImageView deckImage = image("/images/map/deck.png", 55, 55);
-        Label deckSizeLabel = new Label(""+player.getDeck().size());
-        deckSizeLabel.setTranslateZ(-100);
-        deckSizeLabel.setFont(kreonFont);
-        deckSizeLabel.setTextFill(Color.WHITE);
-        //deckSizeLabel.setPadding(new Insets(0, 30, 0, 0));
-
-        /* RIGHT SIDE */
-        ImageView settings = image("/images/map/settings.png", 55, 55);
-
-        ImageView fullscreen = image("/images/map/fullscreen.png", 40, 40);
-        fullscreen.setTranslateX(-20);
-
-        settings.addEventHandler(MouseEvent.MOUSE_CLICKED, e -> {
-            mapView.clickedOnSettings();
-        });
-
-        fullscreen.addEventHandler(MouseEvent.MOUSE_CLICKED, e -> {
-            mapView.clickedOnFullscreen();
-        });
-
         leftSide.getChildren().addAll(playerNameLabel, heart, playerHealthLabel, gold, playerMoneyLabel, floor, playerFloorLabel);
-        centerSide.getChildren().addAll(deckImage, deckSizeLabel);
+        return leftSide;
+    }
+
+    private HBox initRightSide() {
+        HBox rightSide = new HBox();
+        rightSide.setTranslateX(-20);
+        rightSide.setAlignment(Pos.CENTER_RIGHT);
+        HBox.setHgrow(rightSide, Priority.ALWAYS);
+
+        Button settings = new SettingsButton();
+        settings.setOnAction(e -> mapView.clickedOnSettings());
+
+        Button fullscreen = new FullScreenButton();
+        fullscreen.setOnAction(e -> mapView.clickedOnFullscreen());
+
         rightSide.getChildren().addAll(fullscreen, settings);
+        return rightSide;
+    }
+
+    private void initTopBar() {
+        setPadding(new Insets(10, 0, 0, 50));
+        setBackground(new Background(GuiHelper.background("/images/map/bar.png")));
+        setPrefHeight(50);
+
+        HBox leftSide = initLeftSide();
+        HBox centerSide = initCenter();
+        HBox rightSide = initRightSide();
 
         getChildren().addAll(leftSide, centerSide, rightSide);
-        //getChildren().addAll(playerNameLabel, heart, playerHealthLabel, gold, playerMoneyLabel, floor, playerFloorLabel, settings);
     }
 
-    private ImageView image(String imagePath, int width, int height) {
-        Image figureImage = new Image(getClass().getResource(imagePath).toExternalForm());
-        ImageView imageViewFigure = new ImageView(figureImage);
-        imageViewFigure.setFitWidth(width);
-        imageViewFigure.setFitHeight(height);
-        imageViewFigure.setPreserveRatio(true);
-        return imageViewFigure;
-    }
 }

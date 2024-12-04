@@ -5,8 +5,8 @@ import models.enemy.act_one.AcidSlimeEnemy;
 import models.enemy.act_one.CultistEnemy;
 import models.enemy.act_one.MadGremlinEnemy;
 import models.enemy.act_one.boss.SlimeBoss;
-import models.enemy.act_one.elites.GremlinNobElite;
-import models.enemy.act_one.elites.LagavulinElite;
+import models.enemy.act_one.elite.GremlinNobElite;
+import models.enemy.act_one.elite.LagavulinElite;
 import models.map_elements.field_types.EliteField;
 import models.player.player_structure.Player;
 

@@ -8,10 +8,10 @@ import models.player.player_structure.PlayerType;
  * @author OF Daniel Willig
  */
 public abstract class PlayerTypeRelic extends Relic {
+
     /**
      * Der Player type.
      */
-// * Variables *
     private PlayerType playerType;
 
 
@@ -23,9 +23,8 @@ public abstract class PlayerTypeRelic extends Relic {
      * @param rarity      Die Seltenheit
      * @param playerType  der SpielerTyp
      */
-// * Constructor *
-    protected PlayerTypeRelic(String name, String description, RelicType rarity, PlayerType playerType) {
-        super(name, description, rarity);
+    protected PlayerTypeRelic(String name, String description, RelicType rarity, PlayerType playerType, RelicTrigger relicTrigger) {
+        super(name, description, rarity, relicTrigger);
         this.playerType = playerType;
     }
 
@@ -35,7 +34,6 @@ public abstract class PlayerTypeRelic extends Relic {
      *
      * @return the player type
      */
-// * Getter & Setter *
     public PlayerType getPlayerType() {
         return playerType;
     }
@@ -48,4 +46,5 @@ public abstract class PlayerTypeRelic extends Relic {
     public void setPlayerType(PlayerType playerType) {
         this.playerType = playerType;
     }
+
 }

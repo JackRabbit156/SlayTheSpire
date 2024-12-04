@@ -26,6 +26,6 @@ public class SwiftPotion extends PotionCard {
     @Override
     public void play(GameContext gameContext) {
         BattleDeck battleDeck = gameContext.getBattleDeck();
-        battleDeck.drawCard(1);
+        battleDeck.drawCard(3);
     }
 }

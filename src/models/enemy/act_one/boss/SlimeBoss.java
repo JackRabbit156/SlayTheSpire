@@ -3,8 +3,7 @@ package models.enemy.act_one.boss;
 import helper.PathAssistent;
 import models.battle.GameContext;
 import models.enemy.Enemy;
-import models.enemy_card.act_one.boss.slime_boss_cards.SlamEnemyCard;
-import models.enemy_card.act_one.cultist_enemy_cards.DarkStrikeEnemyCard;
+import models.enemy_card.act_one.boss.slime_boss.SlamEnemyCard;
 import models.enemy_card.enemy_card_structure.EnemyCard;
 
 import java.util.ArrayList;
