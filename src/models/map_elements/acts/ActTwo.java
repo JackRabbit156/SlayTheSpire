@@ -94,7 +94,7 @@ public class ActTwo extends Act {
         List<Enemy> enemies = new ArrayList<>();
 
         int randBoss = rnd.nextInt(2);
-        int randAmountEnemies = rnd.nextInt(4);
+        int randAmountEnemies = GameSettings.getDifficultyLevel().getNumberOfEnemies();
         EnemyEnum type;
         switch (randBoss) {
             case 0:

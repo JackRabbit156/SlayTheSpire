@@ -4,9 +4,9 @@ import java.util.Random;
 
 public enum DifficultyLevel {
 
-    SUPER_EASY(25, 0, 0, 0, 1.5, 7, 1.0),
+    SUPER_EASY(25, 0, 0, 0, 1.5, 6, 1.0),
     EASY(50, 0, 25, 50, 1.5, 5, 0.8),
-    NORMAL(75, 20, 50, 75, 1.0, 3, 0.5),
+    NORMAL(75, 25, 50, 75, 1.0, 3, 0.5),
     HARD(90, 50, 75, 100, 0.5, 1, 0.1),
     IMPOSSIBLE(100, 100, 100, 100, 0.1, 1, 0.0);
 
@@ -59,7 +59,7 @@ public enum DifficultyLevel {
     }
 
     public int getNumberOfEnemies() {
-        int randomNumberOfEnemies = (rnd.nextInt(100) + 1);
+        int randomNumberOfEnemies = rnd.nextInt(100) + 1;
         int numberOfEnemies = 1;
         if (get4Enemies() >= randomNumberOfEnemies) {
             numberOfEnemies = 4;

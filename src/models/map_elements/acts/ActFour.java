@@ -7,6 +7,7 @@ import models.enemy.act_four.SpikerEnemy;
 import models.enemy.act_four.boss.CorruptHeartBoss;
 import models.enemy.act_four.elite.SpireShieldElite;
 import models.enemy.act_four.elite.SpireSpearElite;
+import models.game_settings.GameSettings;
 import models.map_elements.Coordinates;
 import models.map_elements.Node;
 import models.map_elements.field_types.BossField;
@@ -71,7 +72,7 @@ public class ActFour extends Act {
     private List<Enemy> createBossEnemies() {
         List<Enemy> enemies = new ArrayList<>();
 
-        int randAmountEnemies = rnd.nextInt(4);
+        int randAmountEnemies = GameSettings.getDifficultyLevel().getNumberOfEnemies();
         enemies.add(new CorruptHeartBoss());
 
         for (int i = 0; i < randAmountEnemies; i++) {

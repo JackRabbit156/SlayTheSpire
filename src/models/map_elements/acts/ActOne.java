@@ -11,6 +11,7 @@ import models.enemy.act_one.boss.TheGuardianBoss;
 import models.enemy.act_one.elite.GremlinNobElite;
 import models.enemy.act_one.elite.LagavulinElite;
 import models.game_settings.GameSettings;
+import models.game_settings.structure.DifficultyLevel;
 import models.map_elements.Coordinates;
 import models.map_elements.Node;
 import models.map_elements.field_types.*;
@@ -102,7 +103,7 @@ public class ActOne extends Act {
         List<Enemy> enemies = new ArrayList<>();
 
         int randBoss = rnd.nextInt(3);
-        int randAmountEnemies = rnd.nextInt(4);
+        int randAmountEnemies = GameSettings.getDifficultyLevel().getNumberOfEnemies() - 1;
         EnemyEnum type;
         switch (randBoss) {
             case 0:
