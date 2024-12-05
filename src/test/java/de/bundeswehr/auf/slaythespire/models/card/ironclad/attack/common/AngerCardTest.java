@@ -1,12 +1,12 @@
 package de.bundeswehr.auf.slaythespire.models.card.ironclad.attack.common;
 
-import de.bundeswehr.auf.slaythespire.controller.gui.BattleController;
+import de.bundeswehr.auf.slaythespire.controller.BattleController;
 import de.bundeswehr.auf.slaythespire.models.battle.BattleDeck;
 import de.bundeswehr.auf.slaythespire.models.battle.GameContext;
 import de.bundeswehr.auf.slaythespire.models.card.card_structure.Card;
 import de.bundeswehr.auf.slaythespire.models.enemy.Enemy;
 import de.bundeswehr.auf.slaythespire.models.enemy.act_one.boss.SlimeBoss;
-import de.bundeswehr.auf.slaythespire.models.map_elements.field_types.FieldEnum;
+import de.bundeswehr.auf.slaythespire.models.map.field.FieldEnum;
 import de.bundeswehr.auf.slaythespire.models.player.IroncladPlayer;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;

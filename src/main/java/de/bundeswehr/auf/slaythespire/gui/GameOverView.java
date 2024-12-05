@@ -8,9 +8,9 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.TextAlignment;
-import de.bundeswehr.auf.slaythespire.models.game_settings.GameSettings;
+import de.bundeswehr.auf.slaythespire.models.settings.GameSettings;
 import de.bundeswehr.auf.slaythespire.models.player.player_structure.Player;
-import de.bundeswehr.auf.slaythespire.gui.layouts.loot_layout.PlayerLayout;
+import de.bundeswehr.auf.slaythespire.gui.layouts.loot.PlayerLayout;
 
 /**
  * Die Klasse StatisticView verwaltet die grafische Darstellung der Statistik-Ansicht im Spiel.

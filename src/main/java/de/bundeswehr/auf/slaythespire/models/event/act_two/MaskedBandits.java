@@ -6,7 +6,7 @@ import javafx.scene.image.Image;
 import de.bundeswehr.auf.slaythespire.models.enemy.Enemy;
 import de.bundeswehr.auf.slaythespire.models.enemy.act_two.ByrdEnemy;
 import de.bundeswehr.auf.slaythespire.models.event.Event;
-import de.bundeswehr.auf.slaythespire.models.map_elements.field_types.FieldEnum;
+import de.bundeswehr.auf.slaythespire.models.map.field.FieldEnum;
 import de.bundeswehr.auf.slaythespire.models.player.player_structure.Player;
 
 import java.util.ArrayList;

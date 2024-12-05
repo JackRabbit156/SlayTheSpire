@@ -1,6 +1,6 @@
 package de.bundeswehr.auf.slaythespire.helper;
 
-import de.bundeswehr.auf.slaythespire.controller.gui.*;
+import de.bundeswehr.auf.slaythespire.controller.*;
 import javafx.animation.FadeTransition;
 import javafx.scene.ImageCursor;
 import javafx.scene.Node;
@@ -16,7 +16,7 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import de.bundeswehr.auf.slaythespire.models.enemy.Enemy;
-import de.bundeswehr.auf.slaythespire.models.map_elements.field_types.FieldEnum;
+import de.bundeswehr.auf.slaythespire.models.map.field.FieldEnum;
 import de.bundeswehr.auf.slaythespire.models.player.player_structure.Player;
 import de.bundeswehr.auf.slaythespire.gui.GameOverView;
 import de.bundeswehr.auf.slaythespire.gui.StatisticView;

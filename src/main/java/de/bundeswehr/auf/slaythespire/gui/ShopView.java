@@ -15,8 +15,8 @@ import javafx.stage.Popup;
 import de.bundeswehr.auf.slaythespire.models.card.card_structure.Card;
 import de.bundeswehr.auf.slaythespire.models.player.player_structure.Player;
 import de.bundeswehr.auf.slaythespire.models.potion.potion_structure.PotionCard;
-import de.bundeswehr.auf.slaythespire.gui.layouts.shop_layout.*;
-import de.bundeswehr.auf.slaythespire.gui.layouts.layout_events.ShopViewEvents;
+import de.bundeswehr.auf.slaythespire.gui.layouts.shop.*;
+import de.bundeswehr.auf.slaythespire.gui.events.ShopViewEvents;
 
 import java.util.List;
 

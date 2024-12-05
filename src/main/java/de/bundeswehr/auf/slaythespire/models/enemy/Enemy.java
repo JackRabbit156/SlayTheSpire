@@ -5,8 +5,8 @@ import de.bundeswehr.auf.slaythespire.events.EnemyDamageEvent;
 import de.bundeswehr.auf.slaythespire.models.battle.GameContext;
 import de.bundeswehr.auf.slaythespire.models.enemy_card.InsultEnemyCard;
 import de.bundeswehr.auf.slaythespire.models.enemy_card.enemy_card_structure.EnemyCard;
-import de.bundeswehr.auf.slaythespire.models.game_settings.GameSettings;
-import de.bundeswehr.auf.slaythespire.models.game_settings.structure.DifficultyLevel;
+import de.bundeswehr.auf.slaythespire.models.settings.GameSettings;
+import de.bundeswehr.auf.slaythespire.models.settings.structure.DifficultyLevel;
 
 import java.util.ArrayList;
 import java.util.List;

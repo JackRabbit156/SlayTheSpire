@@ -11,11 +11,11 @@ import de.bundeswehr.auf.slaythespire.models.card.card_structure.CardType;
 import de.bundeswehr.auf.slaythespire.models.enemy.Enemy;
 import de.bundeswehr.auf.slaythespire.models.player.player_structure.Player;
 import de.bundeswehr.auf.slaythespire.models.potion.potion_structure.PotionCard;
-import de.bundeswehr.auf.slaythespire.gui.layouts.battle_view_layouts.BottomSideLayout;
-import de.bundeswehr.auf.slaythespire.gui.layouts.battle_view_layouts.LeftSideLayout;
-import de.bundeswehr.auf.slaythespire.gui.layouts.battle_view_layouts.RightSideLayout;
-import de.bundeswehr.auf.slaythespire.gui.layouts.battle_view_layouts.TopSideLayout;
-import de.bundeswehr.auf.slaythespire.gui.layouts.layout_events.BattleViewEvents;
+import de.bundeswehr.auf.slaythespire.gui.layouts.battle.BottomSideLayout;
+import de.bundeswehr.auf.slaythespire.gui.layouts.battle.LeftSideLayout;
+import de.bundeswehr.auf.slaythespire.gui.layouts.battle.RightSideLayout;
+import de.bundeswehr.auf.slaythespire.gui.layouts.battle.TopSideLayout;
+import de.bundeswehr.auf.slaythespire.gui.events.BattleViewEvents;
 
 import java.util.List;
 

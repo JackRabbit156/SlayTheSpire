@@ -7,7 +7,7 @@ import de.bundeswehr.auf.slaythespire.models.enemy.act_one.MadGremlinEnemy;
 import de.bundeswehr.auf.slaythespire.models.enemy.act_one.boss.SlimeBoss;
 import de.bundeswehr.auf.slaythespire.models.enemy.act_one.elite.GremlinNobElite;
 import de.bundeswehr.auf.slaythespire.models.enemy.act_one.elite.LagavulinElite;
-import de.bundeswehr.auf.slaythespire.models.map_elements.field_types.EliteField;
+import de.bundeswehr.auf.slaythespire.models.map.field.EliteField;
 import de.bundeswehr.auf.slaythespire.models.player.player_structure.Player;
 
 import java.util.ArrayList;

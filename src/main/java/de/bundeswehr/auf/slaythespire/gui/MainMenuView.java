@@ -13,8 +13,8 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
-import de.bundeswehr.auf.slaythespire.models.game_settings.structure.DifficultyLevel;
-import de.bundeswehr.auf.slaythespire.models.game_settings.structure.GameMode;
+import de.bundeswehr.auf.slaythespire.models.settings.structure.DifficultyLevel;
+import de.bundeswehr.auf.slaythespire.models.settings.structure.GameMode;
 
 /**
  * Darstellungskomponente für das hauptmenü

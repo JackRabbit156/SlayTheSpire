@@ -12,10 +12,10 @@ import javafx.scene.paint.Color;
 import javafx.stage.Popup;
 import de.bundeswehr.auf.slaythespire.models.card.card_structure.Card;
 import de.bundeswehr.auf.slaythespire.models.potion.potion_structure.PotionCard;
-import de.bundeswehr.auf.slaythespire.gui.layouts.layout_events.TreasureViewEvents;
-import de.bundeswehr.auf.slaythespire.gui.layouts.treasure_layout.BackLayout;
-import de.bundeswehr.auf.slaythespire.gui.layouts.treasure_layout.CardSelectionLayout;
-import de.bundeswehr.auf.slaythespire.gui.layouts.treasure_layout.EntryLayout;
+import de.bundeswehr.auf.slaythespire.gui.events.TreasureViewEvents;
+import de.bundeswehr.auf.slaythespire.gui.layouts.treasure.BackLayout;
+import de.bundeswehr.auf.slaythespire.gui.layouts.treasure.CardSelectionLayout;
+import de.bundeswehr.auf.slaythespire.gui.layouts.treasure.EntryLayout;
 
 import java.util.List;
 

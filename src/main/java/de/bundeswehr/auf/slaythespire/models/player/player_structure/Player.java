@@ -5,7 +5,7 @@ import de.bundeswehr.auf.slaythespire.events.PlayerBlockEvent;
 import de.bundeswehr.auf.slaythespire.events.PlayerDamageEvent;
 import javafx.stage.Stage;
 import de.bundeswehr.auf.slaythespire.models.card.card_structure.Card;
-import de.bundeswehr.auf.slaythespire.models.game_settings.GameSettings;
+import de.bundeswehr.auf.slaythespire.models.settings.GameSettings;
 import de.bundeswehr.auf.slaythespire.models.potion.potion_structure.PotionCard;
 import de.bundeswehr.auf.slaythespire.models.relic.relic_structure.Relic;
 

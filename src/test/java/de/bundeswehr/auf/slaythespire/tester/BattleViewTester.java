@@ -21,9 +21,9 @@ import de.bundeswehr.auf.slaythespire.models.enemy.act_two.boss.BronzeAutomatonB
 import de.bundeswehr.auf.slaythespire.models.enemy.act_two.boss.TheChampBoss;
 import de.bundeswehr.auf.slaythespire.models.enemy.act_two.elite.BookOfStabbingElite;
 import de.bundeswehr.auf.slaythespire.models.enemy.act_two.elite.GremlinLeaderElite;
-import de.bundeswehr.auf.slaythespire.models.game_settings.GameSettings;
-import de.bundeswehr.auf.slaythespire.models.game_settings.structure.DifficultyLevel;
-import de.bundeswehr.auf.slaythespire.models.map_elements.field_types.FieldEnum;
+import de.bundeswehr.auf.slaythespire.models.settings.GameSettings;
+import de.bundeswehr.auf.slaythespire.models.settings.structure.DifficultyLevel;
+import de.bundeswehr.auf.slaythespire.models.map.field.FieldEnum;
 import de.bundeswehr.auf.slaythespire.models.potion.potion_structure.PotionCard;
 
 import java.util.ArrayList;
