@@ -1,14 +1,14 @@
 package de.bundeswehr.auf.slaythespire.tester;
 
-import de.bundeswehr.auf.slaythespire.models.enemy.Enemy;
-import de.bundeswehr.auf.slaythespire.models.enemy.act_one.AcidSlimeEnemy;
-import de.bundeswehr.auf.slaythespire.models.enemy.act_one.CultistEnemy;
-import de.bundeswehr.auf.slaythespire.models.enemy.act_one.MadGremlinEnemy;
-import de.bundeswehr.auf.slaythespire.models.enemy.act_one.boss.SlimeBoss;
-import de.bundeswehr.auf.slaythespire.models.enemy.act_one.elite.GremlinNobElite;
-import de.bundeswehr.auf.slaythespire.models.enemy.act_one.elite.LagavulinElite;
-import de.bundeswehr.auf.slaythespire.models.map.field.EliteField;
-import de.bundeswehr.auf.slaythespire.models.player.player_structure.Player;
+import de.bundeswehr.auf.slaythespire.model.enemy.Enemy;
+import de.bundeswehr.auf.slaythespire.model.enemy.act_one.AcidSlimeEnemy;
+import de.bundeswehr.auf.slaythespire.model.enemy.act_one.CultistEnemy;
+import de.bundeswehr.auf.slaythespire.model.enemy.act_one.MadGremlinEnemy;
+import de.bundeswehr.auf.slaythespire.model.enemy.act_one.boss.SlimeBoss;
+import de.bundeswehr.auf.slaythespire.model.enemy.act_one.elite.GremlinNobElite;
+import de.bundeswehr.auf.slaythespire.model.enemy.act_one.elite.LagavulinElite;
+import de.bundeswehr.auf.slaythespire.model.map.field.EliteField;
+import de.bundeswehr.auf.slaythespire.model.player.structure.Player;
 
 import java.util.ArrayList;
 import java.util.List;

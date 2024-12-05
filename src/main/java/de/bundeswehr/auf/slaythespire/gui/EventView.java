@@ -13,8 +13,8 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
-import de.bundeswehr.auf.slaythespire.models.event.Event;
-import de.bundeswehr.auf.slaythespire.models.player.player_structure.Player;
+import de.bundeswehr.auf.slaythespire.model.event.Event;
+import de.bundeswehr.auf.slaythespire.model.player.structure.Player;
 
 /**
  * View für die Darstellung der Events, dynamisch aufgebaut. Es können Events über den Controller eingefügt werden,

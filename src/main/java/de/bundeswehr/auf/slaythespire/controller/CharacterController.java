@@ -3,10 +3,10 @@ package de.bundeswehr.auf.slaythespire.controller;
 import de.bundeswehr.auf.slaythespire.helper.GuiHelper;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
-import de.bundeswehr.auf.slaythespire.models.settings.GameSettings;
-import de.bundeswehr.auf.slaythespire.models.player.IroncladPlayer;
-import de.bundeswehr.auf.slaythespire.models.player.SilentPlayer;
-import de.bundeswehr.auf.slaythespire.models.player.player_structure.Player;
+import de.bundeswehr.auf.slaythespire.model.settings.GameSettings;
+import de.bundeswehr.auf.slaythespire.model.player.IroncladPlayer;
+import de.bundeswehr.auf.slaythespire.model.player.SilentPlayer;
+import de.bundeswehr.auf.slaythespire.model.player.structure.Player;
 import de.bundeswehr.auf.slaythespire.gui.CharacterView;
 
 /**

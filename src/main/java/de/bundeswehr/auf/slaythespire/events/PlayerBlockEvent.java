@@ -1,6 +1,6 @@
 package de.bundeswehr.auf.slaythespire.events;
 
-import de.bundeswehr.auf.slaythespire.models.player.player_structure.Player;
+import de.bundeswehr.auf.slaythespire.model.player.structure.Player;
 
 /**
  * Das Player Block Event

@@ -2,7 +2,7 @@ package de.bundeswehr.auf.slaythespire.gui.layouts.battle;
 
 import javafx.geometry.Pos;
 import javafx.scene.layout.VBox;
-import de.bundeswehr.auf.slaythespire.models.player.player_structure.Player;
+import de.bundeswehr.auf.slaythespire.model.player.structure.Player;
 import de.bundeswehr.auf.slaythespire.gui.BattleView;
 
 public class LeftSideLayout extends VBox {

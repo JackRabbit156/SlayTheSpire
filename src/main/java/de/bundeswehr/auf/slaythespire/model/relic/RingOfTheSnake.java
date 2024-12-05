@@ -1,0 +1,32 @@
+package de.bundeswehr.auf.slaythespire.model.relic;
+
+import de.bundeswehr.auf.slaythespire.helper.PathAssistent;
+import de.bundeswehr.auf.slaythespire.model.battle.BattleDeck;
+import de.bundeswehr.auf.slaythespire.model.battle.GameContext;
+import de.bundeswehr.auf.slaythespire.model.player.structure.PlayerType;
+import de.bundeswehr.auf.slaythespire.model.relic.structure.PlayerTypeRelic;
+import de.bundeswehr.auf.slaythespire.model.relic.structure.RelicTrigger;
+import de.bundeswehr.auf.slaythespire.model.relic.structure.RelicType;
+
+/**
+ * The type Ring of the snake.
+ *
+ * @author OF Daniel Willig
+ */
+public class RingOfTheSnake extends PlayerTypeRelic {
+
+    /**
+     * Constructor Ring of the snake.
+     */
+    public RingOfTheSnake() {
+        super("Ring of the Snake", "At the start of each combat, draw 2 additional cards.", RelicType.STARTER, PlayerType.SILENT, RelicTrigger.START_OF_COMBAT);
+        setImagePath(new PathAssistent().toPath(this));
+    }
+
+    @Override
+    public void getsUsed(GameContext gameContext) {
+        BattleDeck battleDeck = gameContext.getBattleDeck();
+        battleDeck.drawCard(2);
+    }
+
+}

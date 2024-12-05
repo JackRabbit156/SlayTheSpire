@@ -3,8 +3,8 @@ package de.bundeswehr.auf.slaythespire.tester;
 import de.bundeswehr.auf.slaythespire.helper.GuiHelper;
 import javafx.application.Application;
 import javafx.stage.Stage;
-import de.bundeswehr.auf.slaythespire.models.settings.GameSettings;
-import de.bundeswehr.auf.slaythespire.models.settings.structure.DifficultyLevel;
+import de.bundeswehr.auf.slaythespire.model.settings.GameSettings;
+import de.bundeswehr.auf.slaythespire.model.settings.structure.DifficultyLevel;
 
 /**
  * @author Keil, Vladislav

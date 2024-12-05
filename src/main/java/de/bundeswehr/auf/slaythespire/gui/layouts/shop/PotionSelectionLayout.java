@@ -13,7 +13,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
-import de.bundeswehr.auf.slaythespire.models.potion.potion_structure.PotionCard;
+import de.bundeswehr.auf.slaythespire.model.potion.structure.PotionCard;
 import de.bundeswehr.auf.slaythespire.gui.ShopView;
 
 /**
@@ -25,7 +25,7 @@ public class PotionSelectionLayout extends FlowPane {
     private static final Font smallFont = Font.font("Kreon", FontWeight.BOLD, 20);
 
 
-    private final Image bg = new Image(getClass().getResource("/images/view/gui/layouts/battle_view_layouts/potion_layout/bg.png").toExternalForm());
+    private final Image bg = new Image(getClass().getResource("/images/view/gui/layouts/battle/potion/bg.png").toExternalForm());
     private final PotionCard potion;
     private final ShopView shopView;
 

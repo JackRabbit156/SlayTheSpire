@@ -15,7 +15,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Popup;
-import de.bundeswehr.auf.slaythespire.models.potion.potion_structure.PotionCard;
+import de.bundeswehr.auf.slaythespire.model.potion.structure.PotionCard;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,8 +33,8 @@ public class PotionLayout extends HBox {
     private static final Font largeFont = Font.font("Kreon", FontWeight.BOLD, 30);
     private static final Font smallFont = Font.font("Kreon", FontWeight.BOLD, 20);
 
-    private final Image bg = new Image(getClass().getResource("/images/view/gui/layouts/battle_view_layouts/potion_layout/bg.png").toExternalForm());
-    private final Image emptyPotionIcon = new Image(getClass().getResource("/images/view/gui/layouts/battle_view_layouts/potion_layout/EmptyPotion.png").toExternalForm());
+    private final Image bg = new Image(getClass().getResource("/images/view/gui/layouts/battle/potion/bg.png").toExternalForm());
+    private final Image emptyPotionIcon = new Image(getClass().getResource("/images/view/gui/layouts/battle/potion/EmptyPotion.png").toExternalForm());
     private final List<PotionCard> potions;
 
     public PotionLayout(List<PotionCard> potions) {

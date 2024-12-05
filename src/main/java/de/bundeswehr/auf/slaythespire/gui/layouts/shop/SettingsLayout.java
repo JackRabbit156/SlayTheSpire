@@ -43,13 +43,13 @@ public class SettingsLayout extends HBox {
     }
 
     private void initMapIcon() {
-        String path = "/images/view/gui/layouts/battle_view_layouts/settings_layout/map.png";
+        String path = "/images/view/gui/layouts/battle/settings/map.png";
         Image map = new Image(getClass().getResource(path).toExternalForm());
         mapIconView = new ImageView(map);
     }
 
     private void initSettingsIcon() {
-        String path = "/images/view/gui/layouts/battle_view_layouts/settings_layout/cog.png";
+        String path = "/images/view/gui/layouts/battle/settings/cog.png";
         Image cog = new Image(getClass().getResource(path).toExternalForm());
         cogIconView = new ImageView(cog);
     }

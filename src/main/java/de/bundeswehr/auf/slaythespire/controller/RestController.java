@@ -3,7 +3,7 @@ package de.bundeswehr.auf.slaythespire.controller;
 import de.bundeswehr.auf.slaythespire.helper.Color;
 import de.bundeswehr.auf.slaythespire.helper.ConsoleAssistent;
 import de.bundeswehr.auf.slaythespire.helper.GuiHelper;
-import de.bundeswehr.auf.slaythespire.models.player.player_structure.Player;
+import de.bundeswehr.auf.slaythespire.model.player.structure.Player;
 import de.bundeswehr.auf.slaythespire.gui.RestView;
 import de.bundeswehr.auf.slaythespire.gui.events.RestViewEvents;
 

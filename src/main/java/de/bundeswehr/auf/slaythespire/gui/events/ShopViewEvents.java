@@ -1,8 +1,8 @@
 package de.bundeswehr.auf.slaythespire.gui.events;
 
-import de.bundeswehr.auf.slaythespire.models.card.card_structure.Card;
-import de.bundeswehr.auf.slaythespire.models.potion.potion_structure.PotionCard;
-import de.bundeswehr.auf.slaythespire.models.relic.relic_structure.Relic;
+import de.bundeswehr.auf.slaythespire.model.card.structure.Card;
+import de.bundeswehr.auf.slaythespire.model.potion.structure.PotionCard;
+import de.bundeswehr.auf.slaythespire.model.relic.structure.Relic;
 /**
  * @author Keil, Vladislav
  */

@@ -1,0 +1,30 @@
+package de.bundeswehr.auf.slaythespire.model.potion;
+
+import de.bundeswehr.auf.slaythespire.helper.PathAssistent;
+import de.bundeswehr.auf.slaythespire.model.card.structure.CardRarity;
+import de.bundeswehr.auf.slaythespire.model.battle.GameContext;
+import de.bundeswehr.auf.slaythespire.model.card.structure.CardType;
+import de.bundeswehr.auf.slaythespire.model.player.structure.Player;
+import de.bundeswehr.auf.slaythespire.model.potion.structure.PotionCard;
+
+/**
+ * Die Blood potion.
+ *
+ * @author OF Daniel Willig
+ */
+public class BloodPotion extends PotionCard {
+
+    /**
+     * Constructor Blood potion.
+     */
+    public BloodPotion() {
+        super("Blood Potion", "Heal for 20% of your Max HP.",  CardRarity.COMMON, CardType.SKILL);
+        setImagePath(new PathAssistent().toPath(this));
+    }
+
+    @Override
+    public void play(GameContext gameContext) {
+        Player player = gameContext.getPlayer();
+        player.increaseCurrentHealth((int) (player.getMaxHealth() * 0.2));
+    }
+}

@@ -2,14 +2,14 @@ package de.bundeswehr.auf.slaythespire.controller;
 
 import de.bundeswehr.auf.slaythespire.helper.GuiHelper;
 import javafx.scene.layout.BorderPane;
-import de.bundeswehr.auf.slaythespire.models.event.Event;
-import de.bundeswehr.auf.slaythespire.models.event.act_one.*;
-import de.bundeswehr.auf.slaythespire.models.event.act_two.*;
-import de.bundeswehr.auf.slaythespire.models.event.generelevents.BonfireSpirits;
-import de.bundeswehr.auf.slaythespire.models.event.generelevents.Duplicator;
-import de.bundeswehr.auf.slaythespire.models.event.generelevents.GoldenShrine;
-import de.bundeswehr.auf.slaythespire.models.event.generelevents.NoteForYourself;
-import de.bundeswehr.auf.slaythespire.models.player.player_structure.Player;
+import de.bundeswehr.auf.slaythespire.model.event.Event;
+import de.bundeswehr.auf.slaythespire.model.event.act_one.*;
+import de.bundeswehr.auf.slaythespire.model.event.act_two.*;
+import de.bundeswehr.auf.slaythespire.model.event.general.BonfireSpirits;
+import de.bundeswehr.auf.slaythespire.model.event.general.Duplicator;
+import de.bundeswehr.auf.slaythespire.model.event.general.GoldenShrine;
+import de.bundeswehr.auf.slaythespire.model.event.general.NoteForYourself;
+import de.bundeswehr.auf.slaythespire.model.player.structure.Player;
 import de.bundeswehr.auf.slaythespire.gui.EventView;
 
 import java.util.ArrayList;

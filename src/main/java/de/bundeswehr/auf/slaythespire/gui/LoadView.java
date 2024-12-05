@@ -12,7 +12,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import de.bundeswehr.auf.slaythespire.models.load_save.SaveFilePreview;
+import de.bundeswehr.auf.slaythespire.model.load_save.SaveFilePreview;
 
 import java.util.List;
 

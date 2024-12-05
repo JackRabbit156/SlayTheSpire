@@ -1,7 +1,7 @@
 package de.bundeswehr.auf.slaythespire.gui.layouts.battle;
 
 import javafx.scene.layout.HBox;
-import de.bundeswehr.auf.slaythespire.models.enemy.Enemy;
+import de.bundeswehr.auf.slaythespire.model.enemy.Enemy;
 import de.bundeswehr.auf.slaythespire.gui.BattleView;
 
 import java.util.ArrayList;

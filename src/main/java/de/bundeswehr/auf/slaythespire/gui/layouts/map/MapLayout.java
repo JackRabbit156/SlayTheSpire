@@ -8,7 +8,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
-import de.bundeswehr.auf.slaythespire.models.map.Node;
+import de.bundeswehr.auf.slaythespire.model.map.Node;
 import de.bundeswehr.auf.slaythespire.gui.MapView;
 import de.bundeswehr.auf.slaythespire.gui.layouts.battle.MovingAnimation;
 

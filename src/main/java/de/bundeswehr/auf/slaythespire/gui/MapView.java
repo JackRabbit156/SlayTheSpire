@@ -4,8 +4,8 @@ import de.bundeswehr.auf.slaythespire.controller.listener.DifficultyMenuListener
 import de.bundeswehr.auf.slaythespire.controller.listener.GameMenuListener;
 import de.bundeswehr.auf.slaythespire.helper.GuiHelper;
 import javafx.scene.layout.*;
-import de.bundeswehr.auf.slaythespire.models.map.Node;
-import de.bundeswehr.auf.slaythespire.models.player.player_structure.Player;
+import de.bundeswehr.auf.slaythespire.model.map.Node;
+import de.bundeswehr.auf.slaythespire.model.player.structure.Player;
 import de.bundeswehr.auf.slaythespire.gui.events.MapViewEvents;
 import de.bundeswehr.auf.slaythespire.gui.layouts.map.*;
 

@@ -11,9 +11,9 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
-import de.bundeswehr.auf.slaythespire.models.settings.GameSettings;
-import de.bundeswehr.auf.slaythespire.models.settings.structure.GameMode;
-import de.bundeswehr.auf.slaythespire.models.player.player_structure.Player;
+import de.bundeswehr.auf.slaythespire.model.settings.GameSettings;
+import de.bundeswehr.auf.slaythespire.model.settings.structure.GameMode;
+import de.bundeswehr.auf.slaythespire.model.player.structure.Player;
 import de.bundeswehr.auf.slaythespire.gui.MapView;
 
 /**

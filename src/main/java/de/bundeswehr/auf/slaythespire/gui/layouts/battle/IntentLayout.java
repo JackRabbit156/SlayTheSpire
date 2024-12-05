@@ -9,7 +9,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontSmoothingType;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
-import de.bundeswehr.auf.slaythespire.models.enemy.Enemy;
+import de.bundeswehr.auf.slaythespire.model.enemy.Enemy;
 
 
 /**

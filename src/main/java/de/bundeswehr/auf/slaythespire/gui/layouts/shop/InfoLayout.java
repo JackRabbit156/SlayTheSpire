@@ -101,7 +101,7 @@ public class InfoLayout extends HBox {
     }
 
     private void initHeartIcon() {
-        String path = "/images/view/gui/layouts/battle_view_layouts/info_layout/heart.png";
+        String path = "/images/view/gui/layouts/battle/info/heart.png";
         Image heart = new Image(getClass().getResource(path).toExternalForm());
         heartIconView = new ImageView(heart);
 
@@ -120,7 +120,7 @@ public class InfoLayout extends HBox {
     }
 
     private void initMoneybagIcon() {
-        String path = "/images/view/gui/layouts/battle_view_layouts/info_layout/moneybag.png";
+        String path = "/images/view/gui/layouts/battle/info/moneybag.png";
         Image moneybag = new Image(getClass().getResource(path).toExternalForm());
         moneybagIconView = new ImageView(moneybag);
 

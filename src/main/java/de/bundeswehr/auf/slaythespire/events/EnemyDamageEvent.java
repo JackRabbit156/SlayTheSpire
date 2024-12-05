@@ -1,6 +1,6 @@
 package de.bundeswehr.auf.slaythespire.events;
 
-import de.bundeswehr.auf.slaythespire.models.enemy.Enemy;
+import de.bundeswehr.auf.slaythespire.model.enemy.Enemy;
 
 /**
  * Das EnemyDamageEvent dient dazu notified zu werden, wenn ein Gegner schaden bekommt.

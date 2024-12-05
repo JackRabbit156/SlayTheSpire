@@ -19,7 +19,7 @@ public class PathAssistent {
     public String toPath(Object object) {
         String path = "/" + object.getClass().getPackage().getName() + "." + object.getClass().getSimpleName();
         path = path.replace(".", "/");
-        path = path.replaceFirst("de/bundeswehr/auf/slaythespire/models", "images");
+        path = path.replaceFirst("de/bundeswehr/auf/slaythespire/model", "images");
         path += ".png";
 
         return path;
@@ -27,7 +27,7 @@ public class PathAssistent {
     public String toAltPath(Object object, int number) {
         String path = "/" + object.getClass().getPackage().getName() + "." + object.getClass().getSimpleName();
         path = path.replace(".", "/");
-        path = path.replaceFirst("de/bundeswehr/auf/slaythespire/models", "images");
+        path = path.replaceFirst("de/bundeswehr/auf/slaythespire/model", "images");
         path += "Alt" + number + ".png";
 
         return path;

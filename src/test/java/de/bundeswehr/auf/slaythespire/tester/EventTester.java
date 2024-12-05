@@ -3,7 +3,7 @@ package de.bundeswehr.auf.slaythespire.tester;
 import de.bundeswehr.auf.slaythespire.helper.GuiHelper;
 import javafx.application.Application;
 import javafx.stage.Stage;
-import de.bundeswehr.auf.slaythespire.models.player.IroncladPlayer;
+import de.bundeswehr.auf.slaythespire.model.player.IroncladPlayer;
 
 public class EventTester extends Application {
 

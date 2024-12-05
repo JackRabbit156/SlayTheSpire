@@ -15,9 +15,9 @@ import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.util.Duration;
-import de.bundeswehr.auf.slaythespire.models.enemy.Enemy;
-import de.bundeswehr.auf.slaythespire.models.map.field.FieldEnum;
-import de.bundeswehr.auf.slaythespire.models.player.player_structure.Player;
+import de.bundeswehr.auf.slaythespire.model.enemy.Enemy;
+import de.bundeswehr.auf.slaythespire.model.map.field.FieldEnum;
+import de.bundeswehr.auf.slaythespire.model.player.structure.Player;
 import de.bundeswehr.auf.slaythespire.gui.GameOverView;
 import de.bundeswehr.auf.slaythespire.gui.StatisticView;
 

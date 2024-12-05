@@ -6,9 +6,9 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Popup;
 import javafx.stage.Stage;
-import de.bundeswehr.auf.slaythespire.models.settings.GameSettings;
-import de.bundeswehr.auf.slaythespire.models.settings.structure.DifficultyLevel;
-import de.bundeswehr.auf.slaythespire.models.settings.structure.GameMode;
+import de.bundeswehr.auf.slaythespire.model.settings.GameSettings;
+import de.bundeswehr.auf.slaythespire.model.settings.structure.DifficultyLevel;
+import de.bundeswehr.auf.slaythespire.model.settings.structure.GameMode;
 import de.bundeswehr.auf.slaythespire.gui.CreditView;
 import de.bundeswehr.auf.slaythespire.gui.MainMenuView;
 

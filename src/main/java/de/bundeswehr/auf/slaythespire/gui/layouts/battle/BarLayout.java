@@ -6,7 +6,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.StackPane;
-import de.bundeswehr.auf.slaythespire.models.player.player_structure.Player;
+import de.bundeswehr.auf.slaythespire.model.player.structure.Player;
 import de.bundeswehr.auf.slaythespire.gui.BattleView;
 
 /**
@@ -44,7 +44,7 @@ public class BarLayout extends StackPane {
 
         icons.getChildren().addAll(infoLayout, potionLayout, settingsLayout);
 
-        Image topbarIcon = new Image(getClass().getResource("/images/view/gui/layouts/battle_view_layouts/topbar_layout/Topbar.png").toExternalForm());
+        Image topbarIcon = new Image(getClass().getResource("/images/view/gui/layouts/battle/topbar/Topbar.png").toExternalForm());
         ImageView topbarIconView = new ImageView(topbarIcon);
         getChildren().addAll(topbarIconView, icons);
     }

@@ -3,11 +3,11 @@ package de.bundeswehr.auf.slaythespire.controller;
 import de.bundeswehr.auf.slaythespire.helper.Color;
 import de.bundeswehr.auf.slaythespire.helper.ConsoleAssistent;
 import de.bundeswehr.auf.slaythespire.helper.GuiHelper;
-import de.bundeswehr.auf.slaythespire.models.card.DeckFactory;
-import de.bundeswehr.auf.slaythespire.models.card.card_structure.Card;
-import de.bundeswehr.auf.slaythespire.models.settings.GameSettings;
-import de.bundeswehr.auf.slaythespire.models.player.player_structure.Player;
-import de.bundeswehr.auf.slaythespire.models.potion.potion_structure.PotionCard;
+import de.bundeswehr.auf.slaythespire.model.card.DeckFactory;
+import de.bundeswehr.auf.slaythespire.model.card.structure.Card;
+import de.bundeswehr.auf.slaythespire.model.settings.GameSettings;
+import de.bundeswehr.auf.slaythespire.model.player.structure.Player;
+import de.bundeswehr.auf.slaythespire.model.potion.structure.PotionCard;
 import de.bundeswehr.auf.slaythespire.gui.TreasureView;
 import de.bundeswehr.auf.slaythespire.gui.events.TreasureViewEvents;
 

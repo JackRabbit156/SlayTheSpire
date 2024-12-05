@@ -12,9 +12,9 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Popup;
-import de.bundeswehr.auf.slaythespire.models.card.card_structure.Card;
-import de.bundeswehr.auf.slaythespire.models.player.player_structure.Player;
-import de.bundeswehr.auf.slaythespire.models.potion.potion_structure.PotionCard;
+import de.bundeswehr.auf.slaythespire.model.card.structure.Card;
+import de.bundeswehr.auf.slaythespire.model.player.structure.Player;
+import de.bundeswehr.auf.slaythespire.model.potion.structure.PotionCard;
 import de.bundeswehr.auf.slaythespire.gui.layouts.shop.*;
 import de.bundeswehr.auf.slaythespire.gui.events.ShopViewEvents;
 

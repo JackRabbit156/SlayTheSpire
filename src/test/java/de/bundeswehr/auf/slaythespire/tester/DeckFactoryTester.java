@@ -1,8 +1,8 @@
 package de.bundeswehr.auf.slaythespire.tester;
 
-import de.bundeswehr.auf.slaythespire.models.card.DeckFactory;
-import de.bundeswehr.auf.slaythespire.models.card.card_structure.Card;
-import de.bundeswehr.auf.slaythespire.models.player.IroncladPlayer;
+import de.bundeswehr.auf.slaythespire.model.card.DeckFactory;
+import de.bundeswehr.auf.slaythespire.model.card.structure.Card;
+import de.bundeswehr.auf.slaythespire.model.player.IroncladPlayer;
 
 import java.util.List;
 /**

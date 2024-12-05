@@ -7,17 +7,17 @@ import de.bundeswehr.auf.slaythespire.events.PlayerBlockEvent;
 import de.bundeswehr.auf.slaythespire.events.PlayerDamageEvent;
 import de.bundeswehr.auf.slaythespire.helper.GuiHelper;
 import javafx.stage.Stage;
-import de.bundeswehr.auf.slaythespire.models.battle.BattleDeck;
-import de.bundeswehr.auf.slaythespire.models.battle.GameContext;
+import de.bundeswehr.auf.slaythespire.model.battle.BattleDeck;
+import de.bundeswehr.auf.slaythespire.model.battle.GameContext;
 
-import de.bundeswehr.auf.slaythespire.models.card.card_structure.*;
-import de.bundeswehr.auf.slaythespire.models.enemy.Enemy;
-import de.bundeswehr.auf.slaythespire.models.map.field.FieldEnum;
-import de.bundeswehr.auf.slaythespire.models.player.player_structure.Player;
+import de.bundeswehr.auf.slaythespire.model.card.structure.*;
+import de.bundeswehr.auf.slaythespire.model.enemy.Enemy;
+import de.bundeswehr.auf.slaythespire.model.map.field.FieldEnum;
+import de.bundeswehr.auf.slaythespire.model.player.structure.Player;
 
-import de.bundeswehr.auf.slaythespire.models.potion.potion_structure.PotionCard;
-import de.bundeswehr.auf.slaythespire.models.relic.relic_structure.Relic;
-import de.bundeswehr.auf.slaythespire.models.relic.relic_structure.RelicTrigger;
+import de.bundeswehr.auf.slaythespire.model.potion.structure.PotionCard;
+import de.bundeswehr.auf.slaythespire.model.relic.structure.Relic;
+import de.bundeswehr.auf.slaythespire.model.relic.structure.RelicTrigger;
 import de.bundeswehr.auf.slaythespire.gui.BattleView;
 import de.bundeswehr.auf.slaythespire.gui.events.BattleViewEvents;
 
