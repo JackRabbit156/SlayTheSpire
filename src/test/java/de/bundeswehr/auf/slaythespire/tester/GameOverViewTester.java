@@ -1,4 +1,4 @@
-package de.bundeswehr.auf.slaythespire.models.tests;
+package de.bundeswehr.auf.slaythespire.tester;
 
 import de.bundeswehr.auf.slaythespire.helper.GuiHelper;
 import javafx.application.Application;
@@ -8,7 +8,7 @@ import de.bundeswehr.auf.slaythespire.models.game_settings.GameSettings;
 /**
  * @author Keil, Vladislav
  */
-public class StatisticsViewTester extends Application {
+public class GameOverViewTester extends Application {
 
     public static void main(String[] args) {
         launch(args);
@@ -22,7 +22,7 @@ public class StatisticsViewTester extends Application {
 
         GameSettings.setStats(12_345, 999_999, 10_000_000, 1_234_567);
 
-        GuiHelper.Scenes.startStatisticScene(player);
+        GuiHelper.Scenes.startGameOverScene(player);
     }
 
 }

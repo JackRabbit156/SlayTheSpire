@@ -1,15 +1,14 @@
-package de.bundeswehr.auf.slaythespire.models.tests;
+package de.bundeswehr.auf.slaythespire.tester;
 
 import de.bundeswehr.auf.slaythespire.helper.GuiHelper;
 import javafx.application.Application;
 import javafx.stage.Stage;
 import de.bundeswehr.auf.slaythespire.models.game_settings.GameSettings;
-import de.bundeswehr.auf.slaythespire.models.game_settings.structure.DifficultyLevel;
 
 /**
  * @author Keil, Vladislav
  */
-public class TreasureControllerTester extends Application {
+public class StatisticsViewTester extends Application {
 
     public static void main(String[] args) {
         launch(args);
@@ -19,9 +18,11 @@ public class TreasureControllerTester extends Application {
     public void start(Stage primaryStage) {
         TestPlayer player = new TestPlayer(primaryStage);
 
-        GameSettings.setDifficultyLevel(DifficultyLevel.EASY);
+        player.setCurrentAct(2);
 
-        GuiHelper.Scenes.startTreasureScene(player);
+        GameSettings.setStats(12_345, 999_999, 10_000_000, 1_234_567);
+
+        GuiHelper.Scenes.startStatisticScene(player);
     }
 
 }

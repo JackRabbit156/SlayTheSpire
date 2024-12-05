@@ -1,4 +1,4 @@
-package de.bundeswehr.auf.slaythespire.models.tests;
+package de.bundeswehr.auf.slaythespire.tester;
 
 import javafx.stage.Stage;
 import de.bundeswehr.auf.slaythespire.models.battle.GameContext;

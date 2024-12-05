@@ -1,4 +1,4 @@
-package de.bundeswehr.auf.slaythespire.models.tests;
+package de.bundeswehr.auf.slaythespire.tester;
 
 import de.bundeswehr.auf.slaythespire.models.battle.BattleDeck;
 import de.bundeswehr.auf.slaythespire.models.player.player_structure.Player;

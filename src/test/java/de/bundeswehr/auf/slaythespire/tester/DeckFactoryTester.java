@@ -1,4 +1,4 @@
-package de.bundeswehr.auf.slaythespire.models.tests;
+package de.bundeswehr.auf.slaythespire.tester;
 
 import de.bundeswehr.auf.slaythespire.models.card.DeckFactory;
 import de.bundeswehr.auf.slaythespire.models.card.card_structure.Card;
