@@ -3,7 +3,7 @@ package de.bundeswehr.auf.slaythespire.controller;
 import de.bundeswehr.auf.slaythespire.gui.ShopView;
 import de.bundeswehr.auf.slaythespire.gui.events.ShopViewEvents;
 import de.bundeswehr.auf.slaythespire.helper.Color;
-import de.bundeswehr.auf.slaythespire.helper.ConsoleAssistant;
+import de.bundeswehr.auf.slaythespire.helper.LoggingAssistant;
 import de.bundeswehr.auf.slaythespire.helper.GuiHelper;
 import de.bundeswehr.auf.slaythespire.helper.MusicBoy;
 import de.bundeswehr.auf.slaythespire.model.card.DeckFactory;
@@ -62,7 +62,7 @@ public class ShopController implements Controller, ShopViewEvents {
      */
     @Override
     public void onBackClicked() {
-        ConsoleAssistant.log("Shop closed");
+        LoggingAssistant.log("Shop closed");
         GuiHelper.Scenes.startMapScene(player);
     }
 
@@ -82,10 +82,10 @@ public class ShopController implements Controller, ShopViewEvents {
             player.addCardToDeck(card);
             purchasableCards.remove(card);
             refreshSelectableCards();
-            ConsoleAssistant.log("Refresh Cards");
+            LoggingAssistant.log("Refresh Cards");
         }
         else {
-            ConsoleAssistant.log(Color.YELLOW, "Not enough Gold");
+            LoggingAssistant.log(Color.YELLOW, "Not enough Gold");
             shopView.showDialog("You have not enough Gold!");
         }
     }
@@ -112,15 +112,15 @@ public class ShopController implements Controller, ShopViewEvents {
                 player.decreaseGold(cardPrice);
                 player.addPotionCard(potion);
                 refreshSelectablePotion();
-                ConsoleAssistant.log("Refresh Cards");
+                LoggingAssistant.log("Refresh Cards");
             }
             else {
-                ConsoleAssistant.log(Color.YELLOW, "Maximum amount of potions");
+                LoggingAssistant.log(Color.YELLOW, "Maximum amount of potions");
                 shopView.showDialog("You have reached the maximum amount of Potions.");
             }
         }
         else {
-            ConsoleAssistant.log(Color.YELLOW, "Not enough Gold");
+            LoggingAssistant.log(Color.YELLOW, "Not enough Gold");
             shopView.showDialog("You have not enough Gold!");
         }
     }

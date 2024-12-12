@@ -1,6 +1,6 @@
 package de.bundeswehr.auf.slaythespire.gui;
 
-import de.bundeswehr.auf.slaythespire.helper.ConsoleAssistant;
+import de.bundeswehr.auf.slaythespire.helper.LoggingAssistant;
 import de.bundeswehr.auf.slaythespire.helper.GuiHelper;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
@@ -49,7 +49,7 @@ public class StatisticsView extends StackPane {
                 this.player.setCurrentAct(4);
                 break;
         }
-        ConsoleAssistant.log(player.getCurrentAct() + " act");
+        LoggingAssistant.log(player.getCurrentAct() + " act");
         display();
     }
 

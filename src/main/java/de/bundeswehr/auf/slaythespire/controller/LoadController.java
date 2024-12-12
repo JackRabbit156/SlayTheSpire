@@ -3,7 +3,7 @@ package de.bundeswehr.auf.slaythespire.controller;
 import de.bundeswehr.auf.slaythespire.controller.listener.LoadEventListener;
 import de.bundeswehr.auf.slaythespire.gui.LoadView;
 import de.bundeswehr.auf.slaythespire.helper.Color;
-import de.bundeswehr.auf.slaythespire.helper.ConsoleAssistant;
+import de.bundeswehr.auf.slaythespire.helper.LoggingAssistant;
 import de.bundeswehr.auf.slaythespire.helper.GuiHelper;
 import de.bundeswehr.auf.slaythespire.model.card.DeckFactory;
 import de.bundeswehr.auf.slaythespire.model.card.structure.Card;
@@ -134,7 +134,7 @@ public class LoadController implements Controller, LoadEventListener {
                 player = new SilentPlayer(primaryStage);
                 break;
             default:
-                ConsoleAssistant.log(Color.RED, "Unknown player type: " + playerTypeAsString);
+                LoggingAssistant.log(Color.RED, "Unknown player type: " + playerTypeAsString);
                 return;
         }
 

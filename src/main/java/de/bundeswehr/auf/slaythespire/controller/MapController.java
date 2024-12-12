@@ -5,7 +5,7 @@ import de.bundeswehr.auf.slaythespire.controller.listener.GameMenuListener;
 import de.bundeswehr.auf.slaythespire.gui.MapView;
 import de.bundeswehr.auf.slaythespire.gui.events.MapViewEvents;
 import de.bundeswehr.auf.slaythespire.helper.Color;
-import de.bundeswehr.auf.slaythespire.helper.ConsoleAssistant;
+import de.bundeswehr.auf.slaythespire.helper.LoggingAssistant;
 import de.bundeswehr.auf.slaythespire.helper.GuiHelper;
 import de.bundeswehr.auf.slaythespire.helper.MusicBoy;
 import de.bundeswehr.auf.slaythespire.model.load_save.GameSaveManager;
@@ -51,7 +51,7 @@ public class MapController implements Controller, MapViewEvents, GameMenuListene
                 break;
             case 3:
             default:
-                ConsoleAssistant.log(Color.RED, "Unknown act: " + player.getCurrentAct());
+                LoggingAssistant.log(Color.RED, "Unknown act: " + player.getCurrentAct());
                 return;
         }
         this.mapView = new MapView(player, act.getNodes(), act.getMapWidth(), act.getMapHeight(), this, this, this);

@@ -2,8 +2,7 @@ package de.bundeswehr.auf.slaythespire.controller;
 
 import de.bundeswehr.auf.slaythespire.gui.RestView;
 import de.bundeswehr.auf.slaythespire.gui.events.RestViewEvents;
-import de.bundeswehr.auf.slaythespire.helper.Color;
-import de.bundeswehr.auf.slaythespire.helper.ConsoleAssistant;
+import de.bundeswehr.auf.slaythespire.helper.LoggingAssistant;
 import de.bundeswehr.auf.slaythespire.helper.GuiHelper;
 import de.bundeswehr.auf.slaythespire.model.player.structure.Player;
 
@@ -45,7 +44,7 @@ public class RestController implements Controller, RestViewEvents {
      */
     @Override
     public void onBackClicked() {
-        ConsoleAssistant.log("RestViewController closed");
+        LoggingAssistant.log("RestViewController closed");
         GuiHelper.Scenes.startMapScene(player);
     }
 
@@ -58,7 +57,7 @@ public class RestController implements Controller, RestViewEvents {
         if (!this.healed) {
             int increasedHp = (int) (player.getMaxHealth() * 0.30);
             player.increaseCurrentHealth(increasedHp);
-            ConsoleAssistant.log("Healed by " + increasedHp);
+            LoggingAssistant.log("Healed by " + increasedHp);
             this.healed = true;
         }
         onBackClicked();

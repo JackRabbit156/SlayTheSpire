@@ -1,7 +1,7 @@
 package de.bundeswehr.auf.slaythespire.controller;
 
 import de.bundeswehr.auf.slaythespire.helper.Color;
-import de.bundeswehr.auf.slaythespire.helper.ConsoleAssistant;
+import de.bundeswehr.auf.slaythespire.helper.LoggingAssistant;
 import de.bundeswehr.auf.slaythespire.helper.GuiHelper;
 import de.bundeswehr.auf.slaythespire.model.card.DeckFactory;
 import de.bundeswehr.auf.slaythespire.model.card.structure.Card;
@@ -11,7 +11,6 @@ import de.bundeswehr.auf.slaythespire.model.player.structure.Player;
 import de.bundeswehr.auf.slaythespire.model.potion.structure.PotionCard;
 import de.bundeswehr.auf.slaythespire.gui.LootView;
 import de.bundeswehr.auf.slaythespire.gui.events.LootViewEvents;
-import jdk.nashorn.internal.runtime.regexp.joni.ast.ConsAltNode;
 
 import java.util.List;
 import java.util.Random;
@@ -72,7 +71,7 @@ public class LootController implements Controller, LootViewEvents {
 
     @Override
     public void onBackClicked() {
-        ConsoleAssistant.log("LootView closed");
+        LoggingAssistant.log("LootView closed");
         if (fieldType == FieldEnum.BOSSFIELD) {
             GuiHelper.Scenes.startStatisticScene(player);
             return;
@@ -93,11 +92,11 @@ public class LootController implements Controller, LootViewEvents {
     @Override
     public void onPotionClick(PotionCard potion) {
         if (player.getPotionCards().size() < 3) {
-            ConsoleAssistant.log("Got a potion: " + potion.getName());
+            LoggingAssistant.log("Got a potion: " + potion.getName());
             player.addPotionCard(potion);
         }
         else {
-            ConsoleAssistant.log(Color.YELLOW, "Maximum number of potions reached");
+            LoggingAssistant.log(Color.YELLOW, "Maximum number of potions reached");
             lootView.showDialog("You have reached the maximum number of Potion.");
         }
     }
@@ -108,9 +107,9 @@ public class LootController implements Controller, LootViewEvents {
      * @param card Die hinzuzufügende Karte.
      */
     private void addCardToDeck(Card card) {
-        ConsoleAssistant.log("Got a card: " + card.getName());
+        LoggingAssistant.log("Got a card: " + card.getName());
         player.addCardToDeck(card);
-        ConsoleAssistant.log("Got gold: " + gold);
+        LoggingAssistant.log("Got gold: " + gold);
         player.increaseGold(gold);
     }
 

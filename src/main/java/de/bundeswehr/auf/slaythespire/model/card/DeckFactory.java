@@ -1,7 +1,7 @@
 package de.bundeswehr.auf.slaythespire.model.card;
 
 import de.bundeswehr.auf.slaythespire.helper.Color;
-import de.bundeswehr.auf.slaythespire.helper.ConsoleAssistant;
+import de.bundeswehr.auf.slaythespire.helper.LoggingAssistant;
 import de.bundeswehr.auf.slaythespire.model.card.structure.Card;
 import de.bundeswehr.auf.slaythespire.model.card.structure.CardType;
 import de.bundeswehr.auf.slaythespire.model.card.ironclad.IroncladCardEnum;
@@ -208,7 +208,7 @@ public class DeckFactory {
 
 
             default: {
-                ConsoleAssistant.log(Color.RED, "ERROR IN DECKFACTORY: " + cardName);
+                LoggingAssistant.log(Color.RED, "ERROR IN DECKFACTORY: " + cardName);
                 break;
             }
         }
@@ -296,7 +296,7 @@ public class DeckFactory {
             case WATCHER:
             case DEFECT:
             default:
-                ConsoleAssistant.log(Color.RED, "DeckFactory.class: Karten Initialisierung hat nicht korrekt funktioniert.");
+                LoggingAssistant.log(Color.RED, "DeckFactory.class: Karten Initialisierung hat nicht korrekt funktioniert.");
                 break;
         }
         return null;
@@ -312,7 +312,7 @@ public class DeckFactory {
         int randomNumber = rnd.nextInt(deck.size());
         Card selectedCard = deck.get(randomNumber);
 
-        ConsoleAssistant.log(Color.RED, "DeckFactory.class: Entfernung der Karte: " + selectedCard.getName());
+        LoggingAssistant.log(Color.RED, "DeckFactory.class: Entfernung der Karte: " + selectedCard.getName());
 
         player.removeCardFromDeck(selectedCard);
     }

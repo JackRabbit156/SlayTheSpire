@@ -1,8 +1,7 @@
 package de.bundeswehr.auf.slaythespire.gui.layouts.treasure;
 
 import de.bundeswehr.auf.slaythespire.gui.TreasureView;
-import de.bundeswehr.auf.slaythespire.helper.Color;
-import de.bundeswehr.auf.slaythespire.helper.ConsoleAssistant;
+import de.bundeswehr.auf.slaythespire.helper.LoggingAssistant;
 import de.bundeswehr.auf.slaythespire.helper.GuiHelper;
 import javafx.geometry.Pos;
 import javafx.scene.image.Image;
@@ -81,7 +80,7 @@ public class EntryLayout extends HBox {
         treasure.setTranslateX(-150);
 
         this.treasureImgView.setOnMouseClicked(event -> {
-            ConsoleAssistant.log("Clicked on Treasure");
+            LoggingAssistant.log("Clicked on Treasure");
             setTreasureImageView(true);
             onTreasureClick();
             this.treasureImgView.setDisable(true);
@@ -111,7 +110,7 @@ public class EntryLayout extends HBox {
             treasureImg = new Image(getClass().getResource("/images/treasure/treasure.png").toExternalForm());
         }
         else {
-            ConsoleAssistant.log("Treasure Open");
+            LoggingAssistant.log("Treasure Open");
             treasureImg = new Image(getClass().getResource("/images/treasure/treasureOpen.png").toExternalForm());
         }
         this.treasureImgView = new ImageView(treasureImg);

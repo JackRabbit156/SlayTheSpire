@@ -8,7 +8,7 @@ import de.bundeswehr.auf.slaythespire.events.PlayerDamageEvent;
 import de.bundeswehr.auf.slaythespire.gui.BattleView;
 import de.bundeswehr.auf.slaythespire.gui.events.BattleViewEvents;
 import de.bundeswehr.auf.slaythespire.helper.Color;
-import de.bundeswehr.auf.slaythespire.helper.ConsoleAssistant;
+import de.bundeswehr.auf.slaythespire.helper.LoggingAssistant;
 import de.bundeswehr.auf.slaythespire.helper.GuiHelper;
 import de.bundeswehr.auf.slaythespire.model.battle.BattleDeck;
 import de.bundeswehr.auf.slaythespire.model.battle.GameContext;
@@ -71,7 +71,7 @@ public class BattleController implements Controller, BattleViewEvents, PlayerEve
     }
 
     public BattleView getBattleView() {
-        return this.battleView;
+        return battleView;
     }
 
     @Override
@@ -191,13 +191,14 @@ public class BattleController implements Controller, BattleViewEvents, PlayerEve
     }
 
     private void endOfCombat() {
+        LoggingAssistant.log("End of combat");
         triggerRelics(RelicTrigger.END_OF_COMBAT);
 
         GuiHelper.Scenes.startLootScene(this.player, this.fieldType);
     }
 
     private void enemyTurn() {
-        ConsoleAssistant.log("Enemies' Turn:");
+        LoggingAssistant.log("Enemies' turn");
         removeBlockOfEnemiesAfterEndOfTurn();
 
         for (Enemy enemy : enemies) {
@@ -210,16 +211,16 @@ public class BattleController implements Controller, BattleViewEvents, PlayerEve
 
     private boolean isCardPlayable() {
         if (selectedCard.getCost() > player.getCurrentEnergy()) {
-            ConsoleAssistant.log(Color.YELLOW, "Not enough Energy");
+            LoggingAssistant.log(Color.YELLOW, "Not enough Energy");
             battleView.showDialog("Not enough Energy!");
             return false;
         }
-        // TODO hardgecodedeter Sonderfall!
+        // TODO hardgecodeter Sonderfall!
         if (selectedCard instanceof ClashCard) {
             List<Card> hand = gameContext.getBattleDeck().getHand();
             for (Card card : hand) {
                 if (!card.getCardType().equals(CardType.ATTACK)) {
-                    ConsoleAssistant.log(Color.YELLOW, "ClashCard not playable");
+                    LoggingAssistant.log(Color.YELLOW, "ClashCard not playable");
                     battleView.showDialog("Can only be played, if every card in your hand is an Attack.");
                     return false;
                 }
@@ -232,7 +233,6 @@ public class BattleController implements Controller, BattleViewEvents, PlayerEve
         if (!isCardPlayable()) {
             return;
         }
-
         // Play the card (and add the enemy)
         if (enemy == null) {
             gameContext.setRandomEnemy();
@@ -240,7 +240,6 @@ public class BattleController implements Controller, BattleViewEvents, PlayerEve
         else {
             gameContext.setSelectedEnemy(enemy);
         }
-
         selectedCard.play(gameContext);
 
         cardDeath();
@@ -250,14 +249,13 @@ public class BattleController implements Controller, BattleViewEvents, PlayerEve
         if (!isCardPlayable()) {
             return;
         }
-
         // Play the card
         selectedCard.play(gameContext);
-
         cardDeath();
     }
 
     private void playerBOT() {
+        LoggingAssistant.log("Players' turn");
         calcIntentForAllEnemies(enemies);
         resetEnergyAndBlock();
         battleDeck.fillHand(battleDeck.getStartHandSize());
@@ -286,6 +284,7 @@ public class BattleController implements Controller, BattleViewEvents, PlayerEve
     }
 
     private void startOfCombat() {
+        LoggingAssistant.log("Start of combat");
         battleDeck.fillHand(battleDeck.getStartHandSize());
 
         triggerRelics(RelicTrigger.START_OF_COMBAT);

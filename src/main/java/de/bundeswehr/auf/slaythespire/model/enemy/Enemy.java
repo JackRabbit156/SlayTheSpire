@@ -3,7 +3,7 @@ package de.bundeswehr.auf.slaythespire.model.enemy;
 import de.bundeswehr.auf.slaythespire.controller.listener.EnemyEventListener;
 import de.bundeswehr.auf.slaythespire.events.EnemyDamageEvent;
 import de.bundeswehr.auf.slaythespire.helper.Color;
-import de.bundeswehr.auf.slaythespire.helper.ConsoleAssistant;
+import de.bundeswehr.auf.slaythespire.helper.LoggingAssistant;
 import de.bundeswehr.auf.slaythespire.model.battle.GameContext;
 import de.bundeswehr.auf.slaythespire.model.enemy_card.InsultEnemyCard;
 import de.bundeswehr.auf.slaythespire.model.enemy_card.structure.EnemyCard;
@@ -64,10 +64,10 @@ public abstract class Enemy {
      */
     public void action(GameContext gameContext) {
         if (getIntent().equals(insult)) {
-            ConsoleAssistant.log(doNothing(), Color.ITALIC, Color.CYAN);
+            LoggingAssistant.log(doNothing(), Color.ITALIC, Color.CYAN);
         }
         else {
-            ConsoleAssistant.log("attacking", Color.ITALIC, Color.BLUE);
+            LoggingAssistant.log("attacking", Color.ITALIC, Color.BLUE);
             attack(gameContext);
         }
     }

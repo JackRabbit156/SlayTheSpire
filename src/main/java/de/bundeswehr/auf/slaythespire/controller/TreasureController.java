@@ -3,7 +3,7 @@ package de.bundeswehr.auf.slaythespire.controller;
 import de.bundeswehr.auf.slaythespire.gui.TreasureView;
 import de.bundeswehr.auf.slaythespire.gui.events.TreasureViewEvents;
 import de.bundeswehr.auf.slaythespire.helper.Color;
-import de.bundeswehr.auf.slaythespire.helper.ConsoleAssistant;
+import de.bundeswehr.auf.slaythespire.helper.LoggingAssistant;
 import de.bundeswehr.auf.slaythespire.helper.GuiHelper;
 import de.bundeswehr.auf.slaythespire.model.card.DeckFactory;
 import de.bundeswehr.auf.slaythespire.model.card.structure.Card;
@@ -70,7 +70,7 @@ public class TreasureController implements Controller, TreasureViewEvents {
      */
     @Override
     public void onBackClicked() {
-        ConsoleAssistant.log("TreasureView closed");
+        LoggingAssistant.log("TreasureView closed");
         GuiHelper.Scenes.startMapScene(player);
     }
 
@@ -103,11 +103,11 @@ public class TreasureController implements Controller, TreasureViewEvents {
     @Override
     public void onPotionClick(PotionCard potion) {
         if (player.getPotionCards().size() < 3) {
-            ConsoleAssistant.log("Got a potion: " + potion.getName());
+            LoggingAssistant.log("Got a potion: " + potion.getName());
             player.addPotionCard(potion);
         }
         else {
-            ConsoleAssistant.log(Color.YELLOW, "Maximum number of potions reached");
+            LoggingAssistant.log(Color.YELLOW, "Maximum number of potions reached");
             treasureView.showDialog("You have reached the maximum number of Potion.");
         }
     }
@@ -118,9 +118,9 @@ public class TreasureController implements Controller, TreasureViewEvents {
      * @param card Die hinzuzufügende Karte.
      */
     private void addCardToDeck(Card card) {
-        ConsoleAssistant.log("Got a card: " + card.getName());
+        LoggingAssistant.log("Got a card: " + card.getName());
         player.addCardToDeck(card);
-        ConsoleAssistant.log("Got gold: " + gold);
+        LoggingAssistant.log("Got gold: " + gold);
         player.increaseGold(gold);
     }
 
