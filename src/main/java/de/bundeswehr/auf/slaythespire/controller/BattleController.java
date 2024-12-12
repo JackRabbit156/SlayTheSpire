@@ -142,8 +142,6 @@ public class BattleController implements Controller, BattleViewEvents, PlayerEve
 
     @Override
     public void onEnemyDeath(Enemy enemy) {
-        LoggingAssistant.log("Enemy dead " + enemy);
-        LoggingAssistant.log("Remaining enemies " + enemies);
         for (Enemy singleEnemy : enemies) {
             if (singleEnemy.isAlive()) {
                 return;
@@ -207,12 +205,10 @@ public class BattleController implements Controller, BattleViewEvents, PlayerEve
     private void enemyTurn() {
         LoggingAssistant.log("Enemies' turn");
         removeBlockOfEnemiesAfterEndOfTurn();
-
         for (Enemy enemy : enemies) {
             if (enemy.isAlive()) {
                 enemy.action(gameContext);
             }
-
         }
     }
 
