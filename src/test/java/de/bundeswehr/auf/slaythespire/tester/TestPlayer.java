@@ -1,5 +1,6 @@
 package de.bundeswehr.auf.slaythespire.tester;
 
+import de.bundeswehr.auf.slaythespire.model.card.ironclad.attack.common.ClashCard;
 import javafx.stage.Stage;
 import de.bundeswehr.auf.slaythespire.model.battle.GameContext;
 import de.bundeswehr.auf.slaythespire.model.card.structure.AttackCard;
@@ -69,6 +70,21 @@ public class TestPlayer extends Player {
 //        starterDeckIronclad();
 //        starterDeckSilent();
         cheaterDeck();
+//        customDeck();
+    }
+
+    private void customDeck() {
+        List<Card> deck = new ArrayList<>();
+        for (int i = 0; i < 0; i++) {
+            deck.add(new IroncladStrikeCard());
+        }
+        for (int i = 0; i < 3; i++) {
+            deck.add(new IroncladDefendCard());
+        }
+        for (int i = 0; i < 3; i++) {
+            deck.add(new ClashCard());
+        }
+        setDeck(deck);
     }
 
     // * Methods *

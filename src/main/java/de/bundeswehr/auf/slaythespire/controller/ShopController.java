@@ -42,8 +42,8 @@ public class ShopController implements Controller, ShopViewEvents {
         DeckFactory deckFactory = new DeckFactory(player, 5);
         // Bei jeder Initialisierung wird der Shop befüllt.
         // Wird beim Spielstart ausgeführt und bei jedem Act.
-        this.purchasableCards = deckFactory.init();
-        this.purchasablePotion = deckFactory.generatePotion();
+        purchasableCards = deckFactory.init();
+        purchasablePotion = deckFactory.generatePotion();
         entryShop();
     }
 
@@ -53,7 +53,7 @@ public class ShopController implements Controller, ShopViewEvents {
      * @return Die ShopView-Instanz.
      */
     public ShopView getShopView() {
-        return this.shopView;
+        return shopView;
     }
 
     /**
@@ -77,16 +77,16 @@ public class ShopController implements Controller, ShopViewEvents {
     public void onCardClick(Card card, int index) {
         int cardPrice = card.getPrice();
 
-        if (this.player.getGold() >= cardPrice) {
-            this.player.decreaseGold(cardPrice);
-            this.player.addCardToDeck(card);
-            this.purchasableCards.remove(card);
+        if (player.getGold() >= cardPrice) {
+            player.decreaseGold(cardPrice);
+            player.addCardToDeck(card);
+            purchasableCards.remove(card);
             refreshSelectableCards();
             ConsoleAssistant.log("Refresh Cards");
         }
         else {
             ConsoleAssistant.log(Color.YELLOW, "Not enough Gold");
-            this.shopView.showDialog("You have not enough Gold!");
+            shopView.showDialog("You have not enough Gold!");
         }
     }
 
@@ -107,21 +107,21 @@ public class ShopController implements Controller, ShopViewEvents {
     public void onPotionClick(PotionCard potion) {
         int cardPrice = potion.getPrice();
 
-        if (this.player.getGold() >= cardPrice) {
-            if (this.player.getPotionCards().size() < 3) {
-                this.player.decreaseGold(cardPrice);
-                this.player.addPotionCard(potion);
+        if (player.getGold() >= cardPrice) {
+            if (player.getPotionCards().size() < 3) {
+                player.decreaseGold(cardPrice);
+                player.addPotionCard(potion);
                 refreshSelectablePotion();
                 ConsoleAssistant.log("Refresh Cards");
             }
             else {
                 ConsoleAssistant.log(Color.YELLOW, "Maximum amount of potions");
-                this.shopView.showDialog("You have reached the maximum amount of Potions.");
+                shopView.showDialog("You have reached the maximum amount of Potions.");
             }
         }
         else {
             ConsoleAssistant.log(Color.YELLOW, "Not enough Gold");
-            this.shopView.showDialog("You have not enough Gold!");
+            shopView.showDialog("You have not enough Gold!");
         }
     }
 
@@ -140,22 +140,22 @@ public class ShopController implements Controller, ShopViewEvents {
      * Initialisiert den Shop und die ShopViewEvents.
      */
     private void entryShop() {
-        this.shopView = new ShopView(player, purchasableCards, this, purchasablePotion);
-        this.shopView.initShopViewEvents(this);
+        shopView = new ShopView(player, purchasableCards, this, purchasablePotion);
+        shopView.initShopViewEvents(this);
     }
 
     /**
      * Aktualisiert die Liste der kaufbaren Karten im Shop.
      */
     private void refreshSelectableCards() {
-        this.shopView.setShopCards(purchasableCards);
+        shopView.setShopCards(purchasableCards);
     }
 
     /**
      * Aktualisiert die kaufbaren Tränke im Shop.
      */
     private void refreshSelectablePotion() {
-        this.shopView.setPurchaseablePotion();
+        shopView.setPurchaseablePotion();
     }
 
 }
