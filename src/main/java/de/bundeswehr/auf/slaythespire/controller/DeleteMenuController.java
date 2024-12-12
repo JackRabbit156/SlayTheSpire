@@ -3,6 +3,8 @@ package de.bundeswehr.auf.slaythespire.controller;
 import de.bundeswehr.auf.slaythespire.controller.listener.DeleteEventListener;
 import de.bundeswehr.auf.slaythespire.controller.listener.LoadEventListener;
 import de.bundeswehr.auf.slaythespire.gui.DeleteMenuView;
+import de.bundeswehr.auf.slaythespire.helper.Color;
+import de.bundeswehr.auf.slaythespire.helper.ConsoleAssistant;
 import de.bundeswehr.auf.slaythespire.helper.GuiHelper;
 import de.bundeswehr.auf.slaythespire.model.card.DeckFactory;
 import de.bundeswehr.auf.slaythespire.model.card.structure.Card;
@@ -11,6 +13,7 @@ import de.bundeswehr.auf.slaythespire.model.load_save.SaveFilePreview;
 import de.bundeswehr.auf.slaythespire.model.player.IroncladPlayer;
 import de.bundeswehr.auf.slaythespire.model.player.SilentPlayer;
 import de.bundeswehr.auf.slaythespire.model.player.structure.Player;
+import de.bundeswehr.auf.slaythespire.model.player.structure.PlayerType;
 import de.bundeswehr.auf.slaythespire.model.settings.GameSettings;
 import de.bundeswehr.auf.slaythespire.model.settings.structure.DifficultyLevel;
 import javafx.stage.Stage;
@@ -117,15 +120,15 @@ public class DeleteMenuController implements Controller, LoadEventListener, Dele
         Player player = null;
 
         String playerTypeAsString = gameData.get("character");
-        switch (playerTypeAsString) {
-            case "IRONCLAD":
+        switch (PlayerType.valueOf(playerTypeAsString)) {
+            case IRONCLAD:
                 player = new IroncladPlayer(primaryStage);
                 break;
-            case "SILENT":
+            case SILENT:
                 player = new SilentPlayer(primaryStage);
                 break;
             default:
-                System.out.println("Weird...");
+                ConsoleAssistant.log(Color.RED, "Unknown player type: " + playerTypeAsString);
                 return;
         }
 

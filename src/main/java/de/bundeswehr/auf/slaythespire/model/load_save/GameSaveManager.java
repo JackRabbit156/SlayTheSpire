@@ -1,5 +1,7 @@
 package de.bundeswehr.auf.slaythespire.model.load_save;
 
+import de.bundeswehr.auf.slaythespire.helper.Color;
+import de.bundeswehr.auf.slaythespire.helper.ConsoleAssistant;
 import de.bundeswehr.auf.slaythespire.model.card.structure.Card;
 import de.bundeswehr.auf.slaythespire.model.settings.GameSettings;
 import de.bundeswehr.auf.slaythespire.model.player.structure.Player;
@@ -91,7 +93,7 @@ public class GameSaveManager {
 
         // Überprüfen, ob die Datei existiert und die ID gültig ist
         if (saveFiles == null || id < 0 || id >= saveFiles.length) {
-            System.out.println("ID does not exist..");
+            ConsoleAssistant.log(Color.RED, "ID does not exist..");
             return;
         }
 
@@ -100,9 +102,9 @@ public class GameSaveManager {
 
         // Datei löschen und Ergebnis ausgeben
         if (fileToDelete.delete()) {
-            System.out.println("Save file " + fileToDelete.getName() + " successfully deleted!.");
+            ConsoleAssistant.log("Save file " + fileToDelete.getName() + " successfully deleted!.");
         } else {
-            System.out.println("Error, could not delete file: " + fileToDelete.getName() + ".");
+            ConsoleAssistant.log(Color.RED, "Error, could not delete file: " + fileToDelete.getName() + ".");
         }
     }
 
@@ -115,7 +117,7 @@ public class GameSaveManager {
     public Map<String, String> loadGame(int id) {
         File[] saveFiles = getSaveFiles();
         if (saveFiles == null || id >= saveFiles.length) {
-            System.out.println("Could not find the File.");
+            ConsoleAssistant.log(Color.RED, "Could not find the File.");
             return null;
         }
         return loadDataFromFile(saveFiles[id]);
@@ -184,7 +186,7 @@ public class GameSaveManager {
             }
             writer.flush();
         } catch (IOException e) {
-            System.out.println("Fehler beim Speichern des Spiels: " + e.getMessage());
+            ConsoleAssistant.log(Color.RED, "Fehler beim Speichern des Spiels: " + e.getMessage());
         }
     }
 
@@ -199,7 +201,7 @@ public class GameSaveManager {
                     data.put(parts[0], parts[1]);
             }
         } catch (IOException e) {
-            System.out.println("Error while loading the game: " + e.getMessage());
+            ConsoleAssistant.log(Color.RED, "Error while loading the game: " + e.getMessage());
         }
 
         return data;

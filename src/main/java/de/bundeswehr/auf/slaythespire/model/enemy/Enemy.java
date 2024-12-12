@@ -67,7 +67,7 @@ public abstract class Enemy {
             ConsoleAssistant.log(doNothing(), Color.ITALIC, Color.CYAN);
         }
         else {
-            ConsoleAssistant.log("attacking", Color.ITALIC, Color.RED);
+            ConsoleAssistant.log("attacking", Color.ITALIC, Color.BLUE);
             attack(gameContext);
         }
     }

@@ -7,6 +7,7 @@ import de.bundeswehr.auf.slaythespire.events.PlayerBlockEvent;
 import de.bundeswehr.auf.slaythespire.events.PlayerDamageEvent;
 import de.bundeswehr.auf.slaythespire.gui.BattleView;
 import de.bundeswehr.auf.slaythespire.gui.events.BattleViewEvents;
+import de.bundeswehr.auf.slaythespire.helper.Color;
 import de.bundeswehr.auf.slaythespire.helper.ConsoleAssistant;
 import de.bundeswehr.auf.slaythespire.helper.GuiHelper;
 import de.bundeswehr.auf.slaythespire.model.battle.BattleDeck;
@@ -208,15 +209,17 @@ public class BattleController implements Controller, BattleViewEvents, PlayerEve
 
     private boolean isCardPlayable() {
         if (selectedCard.getCost() > player.getCurrentEnergy()) {
-            System.out.println("\nNot enough Energy!");
+            // TODO Anzeige in GUI
+            ConsoleAssistant.log(Color.YELLOW, "Not enough Energy!");
             return false;
         }
-
+        // TODO hardgecodedeter Sonderfall!
         if (selectedCard.getName().equals("Clash")) {
             List<Card> hand = gameContext.getBattleDeck().getHand();
             for (Card card : hand) {
                 if (!card.getCardType().equals(CardType.ATTACK)) {
-                    System.out.println("\nOnly playable if only Attack-Cards in Hand");
+                    // TODO Anzeige in GUI
+                    ConsoleAssistant.log(Color.YELLOW, "Only playable, if only Attack-Cards in Hand");
                     return false;
                 }
             }

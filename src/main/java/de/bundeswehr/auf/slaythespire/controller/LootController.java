@@ -11,6 +11,7 @@ import de.bundeswehr.auf.slaythespire.model.player.structure.Player;
 import de.bundeswehr.auf.slaythespire.model.potion.structure.PotionCard;
 import de.bundeswehr.auf.slaythespire.gui.LootView;
 import de.bundeswehr.auf.slaythespire.gui.events.LootViewEvents;
+import jdk.nashorn.internal.runtime.regexp.joni.ast.ConsAltNode;
 
 import java.util.List;
 import java.util.Random;
@@ -51,14 +52,13 @@ public class LootController implements Controller, LootViewEvents {
         initGoldLoot(fieldType);
         initItemChanceAndAmount();
 
-        this.deckFactory = new DeckFactory(player, amount);
+        deckFactory = new DeckFactory(player, amount);
         generatePotionByChance();
 
-        this.selectedCards = initialLootDeck();
+        selectedCards = initialLootDeck();
 
-        this.lootView = new LootView(this.selectedCards, this.gold, player.getImagePath(), this.potionCard, this);
-
-        this.lootView.initTreasureViewEvents(this);
+        lootView = new LootView(selectedCards, gold, player.getImagePath(), potionCard, this);
+        lootView.initTreasureViewEvents(this);
     }
 
     /**
@@ -67,13 +67,13 @@ public class LootController implements Controller, LootViewEvents {
      * @return Die LootView-Instanz.
      */
     public LootView getLootView() {
-        return this.lootView;
+        return lootView;
     }
 
     @Override
     public void onBackClicked() {
-        ConsoleAssistant.log(Color.YELLOW, "LootView Leaved!");
-        if (this.fieldType == FieldEnum.BOSSFIELD) {
+        ConsoleAssistant.log("LootView closed");
+        if (fieldType == FieldEnum.BOSSFIELD) {
             GuiHelper.Scenes.startStatisticScene(player);
             return;
         }
@@ -82,22 +82,23 @@ public class LootController implements Controller, LootViewEvents {
 
     @Override
     public void onCardClick(Card card, int index) {
-        addCardToDeck(this.selectedCards.get(index));
+        addCardToDeck(selectedCards.get(index));
     }
 
     @Override
     public void onGoldClick(int gold) {
-        this.player.increaseGold(gold);
+        player.increaseGold(gold);
     }
 
     @Override
     public void onPotionClick(PotionCard potion) {
-        if (this.player.getPotionCards().size() < 3) {
-            ConsoleAssistant.log(Color.YELLOW, "Got an Potion: " + potion.getName());
-            this.player.addPotionCard(potion);
+        if (player.getPotionCards().size() < 3) {
+            ConsoleAssistant.log("Got a potion: " + potion.getName());
+            player.addPotionCard(potion);
         }
         else {
-            this.lootView.showDialog("You have reached the maximum of Potion.");
+            ConsoleAssistant.log(Color.YELLOW, "Maximum number of potions reached");
+            lootView.showDialog("You have reached the maximum number of Potion.");
         }
     }
 
@@ -107,20 +108,18 @@ public class LootController implements Controller, LootViewEvents {
      * @param card Die hinzuzufügende Karte.
      */
     private void addCardToDeck(Card card) {
-        ConsoleAssistant.log(Color.YELLOW, "Got an Card: " + card.getName());
-        ConsoleAssistant.log(Color.YELLOW, "Got Gold: " + this.gold);
-
-        this.player.addCardToDeck(card);
-        this.player.increaseGold(this.gold);
+        ConsoleAssistant.log("Got a card: " + card.getName());
+        player.addCardToDeck(card);
+        ConsoleAssistant.log("Got gold: " + gold);
+        player.increaseGold(gold);
     }
 
     /**
      * Generiert eine Trankkarte basierend auf einer Zufallswahrscheinlichkeit.
      */
     private void generatePotionByChance() {
-        double rand = rnd.nextDouble();
-        if (rand < this.potionsChance) {
-            this.potionCard = deckFactory.generatePotion();
+        if (rnd.nextDouble() < potionsChance) {
+            potionCard = deckFactory.generatePotion();
         }
     }
 
@@ -133,15 +132,15 @@ public class LootController implements Controller, LootViewEvents {
         switch (fieldType) {
             case BOSSFIELD:
                 // 95 - 105
-                this.gold = rnd.nextInt(105 + 1 - 95) + 95;
+                gold = rnd.nextInt(105 + 1 - 95) + 95;
                 break;
             case ELITEFIELD:
                 // 25 - 35
-                this.gold = rnd.nextInt(35 + 1 - 25) + 25;
+                gold = rnd.nextInt(35 + 1 - 25) + 25;
                 break;
             case ENEMYFIELD:
                 // 10 - 20
-                this.gold = rnd.nextInt(20 + 1 - 10) + 10;
+                gold = rnd.nextInt(20 + 1 - 10) + 10;
                 break;
         }
     }
@@ -161,6 +160,6 @@ public class LootController implements Controller, LootViewEvents {
      * @return Die Liste der initialisierten Karten.
      */
     private List<Card> initialLootDeck() {
-        return this.deckFactory.init();
+        return deckFactory.init();
     }
 }

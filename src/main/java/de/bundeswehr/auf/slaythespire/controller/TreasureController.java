@@ -1,15 +1,15 @@
 package de.bundeswehr.auf.slaythespire.controller;
 
+import de.bundeswehr.auf.slaythespire.gui.TreasureView;
+import de.bundeswehr.auf.slaythespire.gui.events.TreasureViewEvents;
 import de.bundeswehr.auf.slaythespire.helper.Color;
 import de.bundeswehr.auf.slaythespire.helper.ConsoleAssistant;
 import de.bundeswehr.auf.slaythespire.helper.GuiHelper;
 import de.bundeswehr.auf.slaythespire.model.card.DeckFactory;
 import de.bundeswehr.auf.slaythespire.model.card.structure.Card;
-import de.bundeswehr.auf.slaythespire.model.settings.GameSettings;
 import de.bundeswehr.auf.slaythespire.model.player.structure.Player;
 import de.bundeswehr.auf.slaythespire.model.potion.structure.PotionCard;
-import de.bundeswehr.auf.slaythespire.gui.TreasureView;
-import de.bundeswehr.auf.slaythespire.gui.events.TreasureViewEvents;
+import de.bundeswehr.auf.slaythespire.model.settings.GameSettings;
 
 import java.util.List;
 import java.util.Random;
@@ -43,16 +43,16 @@ public class TreasureController implements Controller, TreasureViewEvents {
     public TreasureController(Player player) {
         this.player = player;
         // 35 - 90
-        this.gold = rnd.nextInt(90 + 1 - 35) + 35;
+        gold = rnd.nextInt(90 + 1 - 35) + 35;
         initItemChanceAndAmount();
 
-        this.deckFactory = new DeckFactory(player, amount);
+        deckFactory = new DeckFactory(player, amount);
         generatePotionByChance();
 
-        this.selectedCards = initTreasureDeck();
+        selectedCards = initTreasureDeck();
 
-        this.treasureView = new TreasureView(this.selectedCards, this.gold, this.potionCard, player.getImagePath(), this);
-        this.treasureView.initTreasureViewEvents(this);
+        treasureView = new TreasureView(selectedCards, gold, potionCard, player.getImagePath(), this);
+        treasureView.initTreasureViewEvents(this);
     }
 
     /**
@@ -61,7 +61,7 @@ public class TreasureController implements Controller, TreasureViewEvents {
      * @return Die TreasureView-Instanz.
      */
     public TreasureView getTreasureView() {
-        return this.treasureView;
+        return treasureView;
     }
 
     /**
@@ -70,7 +70,7 @@ public class TreasureController implements Controller, TreasureViewEvents {
      */
     @Override
     public void onBackClicked() {
-        ConsoleAssistant.log(Color.YELLOW, "TreasureView Leaved!");
+        ConsoleAssistant.log("TreasureView closed");
         GuiHelper.Scenes.startMapScene(player);
     }
 
@@ -82,7 +82,7 @@ public class TreasureController implements Controller, TreasureViewEvents {
      */
     @Override
     public void onCardClick(Card card, int index) {
-        addCardToDeck(this.selectedCards.get(index));
+        addCardToDeck(selectedCards.get(index));
     }
 
     /**
@@ -92,7 +92,7 @@ public class TreasureController implements Controller, TreasureViewEvents {
      */
     @Override
     public void onGoldClick(int gold) {
-        this.player.increaseGold(gold);
+        player.increaseGold(gold);
     }
 
     /**
@@ -102,12 +102,13 @@ public class TreasureController implements Controller, TreasureViewEvents {
      */
     @Override
     public void onPotionClick(PotionCard potion) {
-        if (this.player.getPotionCards().size() < 3) {
-            ConsoleAssistant.log(Color.YELLOW, "Got a Potion: " + potion.getName());
-            this.player.addPotionCard(potion);
+        if (player.getPotionCards().size() < 3) {
+            ConsoleAssistant.log("Got a potion: " + potion.getName());
+            player.addPotionCard(potion);
         }
         else {
-            this.treasureView.showDialog("You have reached the maximum of Potion.");
+            ConsoleAssistant.log(Color.YELLOW, "Maximum number of potions reached");
+            treasureView.showDialog("You have reached the maximum number of Potion.");
         }
     }
 
@@ -117,20 +118,18 @@ public class TreasureController implements Controller, TreasureViewEvents {
      * @param card Die hinzuzufügende Karte.
      */
     private void addCardToDeck(Card card) {
-        ConsoleAssistant.log(Color.YELLOW, "Got a Card: " + card.getName());
-        ConsoleAssistant.log(Color.YELLOW, "Got Gold: " + this.gold);
-
-        this.player.addCardToDeck(card);
-        this.player.increaseGold(this.gold);
+        ConsoleAssistant.log("Got a card: " + card.getName());
+        player.addCardToDeck(card);
+        ConsoleAssistant.log("Got gold: " + gold);
+        player.increaseGold(gold);
     }
 
     /**
      * Generiert eine Trankkarte basierend auf einer Zufallswahrscheinlichkeit.
      */
     private void generatePotionByChance() {
-        double rand = rnd.nextDouble();
-        if (rand < this.potionsChance) {
-            this.potionCard = deckFactory.generatePotion();
+        if (rnd.nextDouble() < potionsChance) {
+            potionCard = deckFactory.generatePotion();
         }
     }
 
@@ -149,6 +148,7 @@ public class TreasureController implements Controller, TreasureViewEvents {
      * @return Die Liste der initialisierten Karten.
      */
     private List<Card> initTreasureDeck() {
-        return this.deckFactory.init();
+        return deckFactory.init();
     }
+
 }

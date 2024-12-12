@@ -62,7 +62,7 @@ public class ShopController implements Controller, ShopViewEvents {
      */
     @Override
     public void onBackClicked() {
-        ConsoleAssistant.log(Color.YELLOW, "Left shop!");
+        ConsoleAssistant.log("Shop closed");
         GuiHelper.Scenes.startMapScene(player);
     }
 
@@ -82,11 +82,11 @@ public class ShopController implements Controller, ShopViewEvents {
             this.player.addCardToDeck(card);
             this.purchasableCards.remove(card);
             refreshSelectableCards();
-            ConsoleAssistant.log(Color.YELLOW, "Refresh Cards!");
+            ConsoleAssistant.log("Refresh Cards");
         }
         else {
+            ConsoleAssistant.log(Color.YELLOW, "Not enough Gold");
             this.shopView.showDialog("You have not enough Gold!");
-            ConsoleAssistant.log(Color.YELLOW, "Not enough Gold!");
         }
     }
 
@@ -112,16 +112,16 @@ public class ShopController implements Controller, ShopViewEvents {
                 this.player.decreaseGold(cardPrice);
                 this.player.addPotionCard(potion);
                 refreshSelectablePotion();
-                ConsoleAssistant.log(Color.YELLOW, "Refresh Cards!");
+                ConsoleAssistant.log("Refresh Cards");
             }
             else {
+                ConsoleAssistant.log(Color.YELLOW, "Maximum amount of potions");
                 this.shopView.showDialog("You have reached the maximum amount of Potions.");
-                ConsoleAssistant.log(Color.YELLOW, "Maximum amount of Potions.");
             }
         }
         else {
+            ConsoleAssistant.log(Color.YELLOW, "Not enough Gold");
             this.shopView.showDialog("You have not enough Gold!");
-            ConsoleAssistant.log(Color.YELLOW, "Not enough Gold!");
         }
     }
 

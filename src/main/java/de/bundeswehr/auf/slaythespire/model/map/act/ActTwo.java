@@ -1,5 +1,7 @@
 package de.bundeswehr.auf.slaythespire.model.map.act;
 
+import de.bundeswehr.auf.slaythespire.helper.Color;
+import de.bundeswehr.auf.slaythespire.helper.ConsoleAssistant;
 import de.bundeswehr.auf.slaythespire.helper.MusicBoy;
 import de.bundeswehr.auf.slaythespire.model.enemy.Enemy;
 import de.bundeswehr.auf.slaythespire.model.enemy.EnemyEnum;
@@ -145,7 +147,7 @@ public class ActTwo extends Act {
                     enemies.add(new SphericGuardianEnemy());
                     break;
                 default:
-                    System.out.println("Weird...");
+                    ConsoleAssistant.log(Color.RED, "Enemy type not configured: " + randomNumber);
                     break;
             }
         }

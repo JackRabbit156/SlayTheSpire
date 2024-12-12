@@ -1,13 +1,15 @@
 package de.bundeswehr.auf.slaythespire.gui.layouts.treasure;
 
+import de.bundeswehr.auf.slaythespire.gui.TreasureView;
 import de.bundeswehr.auf.slaythespire.helper.Color;
 import de.bundeswehr.auf.slaythespire.helper.ConsoleAssistant;
 import de.bundeswehr.auf.slaythespire.helper.GuiHelper;
 import javafx.geometry.Pos;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.*;
-import de.bundeswehr.auf.slaythespire.gui.TreasureView;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.VBox;
 
 /**
  * Die Klasse EntryLayout verwaltet die grafische Darstellung des Einstiegslayouts im Schatz-Layout.
@@ -16,10 +18,9 @@ import de.bundeswehr.auf.slaythespire.gui.TreasureView;
  * @author Vladislav Keil
  */
 public class EntryLayout extends HBox {
-    private String playerImagePath;
-    private TreasureView parentView;
-    private VBox treasure;
-    private Image treasureImg;
+
+    private final TreasureView parentView;
+    private final String playerImagePath;
     private ImageView treasureImgView;
 
     /**
@@ -45,6 +46,16 @@ public class EntryLayout extends HBox {
     }
 
     /**
+     * Erstellt und gibt ein ImageView für das Spielerbild zurück.
+     *
+     * @return Das ImageView für das Spielerbild.
+     */
+    private ImageView getPlayerImageView() {
+        Image image = new Image(getClass().getResource(this.playerImagePath).toExternalForm());
+        return new ImageView(image);
+    }
+
+    /**
      * Initialisiert den linken Bereich des Layouts.
      * Fügt das Spielerbild dem Layout hinzu.
      */
@@ -63,47 +74,20 @@ public class EntryLayout extends HBox {
      * Fügt das Schatzbild dem Layout hinzu und setzt den Klick-Handler.
      */
     private void initRight() {
-        this.treasure = new VBox();
-        HBox.setHgrow(this.treasure, Priority.ALWAYS);
-        this.treasure.setAlignment(Pos.CENTER);
-        this.treasure.setTranslateY(50);
-        this.treasure.setTranslateX(-150);
+        VBox treasure = new VBox();
+        HBox.setHgrow(treasure, Priority.ALWAYS);
+        treasure.setAlignment(Pos.CENTER);
+        treasure.setTranslateY(50);
+        treasure.setTranslateX(-150);
 
         this.treasureImgView.setOnMouseClicked(event -> {
-            ConsoleAssistant.log(Color.YELLOW, "Clicked on Treasure");
+            ConsoleAssistant.log("Clicked on Treasure");
             setTreasureImageView(true);
             onTreasureClick();
             this.treasureImgView.setDisable(true);
         });
-        this.treasure.getChildren().add(this.treasureImgView);
-        getChildren().add(this.treasure);
-    }
-
-    /**
-     * Erstellt und gibt ein ImageView für das Spielerbild zurück.
-     *
-     * @return Das ImageView für das Spielerbild.
-     */
-    private ImageView getPlayerImageView() {
-        Image image = new Image(getClass().getResource(this.playerImagePath).toExternalForm());
-        ImageView imageView = new ImageView(image);
-        return imageView;
-    }
-
-    /**
-     * Setzt das Schatzbild basierend auf dem geöffneten oder geschlossenen Zustand.
-     *
-     * @param open True, wenn das Schatzbild geöffnet sein soll, andernfalls False.
-     */
-    private void setTreasureImageView(boolean open) {
-        if (!open) {
-            this.treasureImg = new Image(getClass().getResource("/images/treasure/treasure.png").toExternalForm());
-        } else {
-            ConsoleAssistant.log(Color.YELLOW, "Treasure Open");
-            this.treasureImg = new Image(getClass().getResource("/images/treasure/treasureOpen.png").toExternalForm());
-        }
-        this.treasureImgView = new ImageView(this.treasureImg);
-        GuiHelper.setHoverEffect(treasureImgView);
+        treasure.getChildren().add(this.treasureImgView);
+        getChildren().add(treasure);
     }
 
     /**
@@ -115,4 +99,23 @@ public class EntryLayout extends HBox {
         init();
         this.parentView.onTreasureClick();
     }
+
+    /**
+     * Setzt das Schatzbild basierend auf dem geöffneten oder geschlossenen Zustand.
+     *
+     * @param open True, wenn das Schatzbild geöffnet sein soll, andernfalls False.
+     */
+    private void setTreasureImageView(boolean open) {
+        Image treasureImg;
+        if (!open) {
+            treasureImg = new Image(getClass().getResource("/images/treasure/treasure.png").toExternalForm());
+        }
+        else {
+            ConsoleAssistant.log("Treasure Open");
+            treasureImg = new Image(getClass().getResource("/images/treasure/treasureOpen.png").toExternalForm());
+        }
+        this.treasureImgView = new ImageView(treasureImg);
+        GuiHelper.setHoverEffect(treasureImgView);
+    }
+
 }

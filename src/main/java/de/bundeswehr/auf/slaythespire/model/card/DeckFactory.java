@@ -208,8 +208,7 @@ public class DeckFactory {
 
 
             default: {
-                System.out.println(cardName);
-                System.out.println("ERROR IN DECKFACTORY");
+                ConsoleAssistant.log(Color.RED, "ERROR IN DECKFACTORY: " + cardName);
                 break;
             }
         }
