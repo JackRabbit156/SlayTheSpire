@@ -1,7 +1,7 @@
 package de.bundeswehr.auf.slaythespire.gui.layouts.shop;
 
 import de.bundeswehr.auf.slaythespire.helper.Color;
-import de.bundeswehr.auf.slaythespire.helper.ConsoleAssistent;
+import de.bundeswehr.auf.slaythespire.helper.ConsoleAssistant;
 import de.bundeswehr.auf.slaythespire.helper.GuiHelper;
 import javafx.geometry.Pos;
 import javafx.scene.image.Image;
@@ -49,7 +49,7 @@ public class EntryLayout extends HBox {
         merchant.setTranslateX(-100);
 
         this.merchantImgView.setOnMouseClicked(event -> {
-            ConsoleAssistent.println(Color.YELLOW, "Clicked on Merchant");
+            ConsoleAssistant.println(Color.YELLOW, "Clicked on Merchant");
             onMerchantClick();
             this.merchantImgView.setDisable(true);
         });

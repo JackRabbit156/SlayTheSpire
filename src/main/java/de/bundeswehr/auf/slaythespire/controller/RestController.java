@@ -1,7 +1,7 @@
 package de.bundeswehr.auf.slaythespire.controller;
 
 import de.bundeswehr.auf.slaythespire.helper.Color;
-import de.bundeswehr.auf.slaythespire.helper.ConsoleAssistent;
+import de.bundeswehr.auf.slaythespire.helper.ConsoleAssistant;
 import de.bundeswehr.auf.slaythespire.helper.GuiHelper;
 import de.bundeswehr.auf.slaythespire.model.player.structure.Player;
 import de.bundeswehr.auf.slaythespire.gui.RestView;
@@ -47,7 +47,7 @@ public class RestController implements RestViewEvents {
         if (!this.healed) {
             int increasedHp = (int) (player.getMaxHealth() * 0.30);
             player.increaseCurrentHealth(increasedHp);
-            ConsoleAssistent.println(Color.YELLOW, "Healed!!");
+            ConsoleAssistant.println(Color.YELLOW, "Healed!!");
             this.healed = true;
         }
         onBackClicked();
@@ -59,7 +59,7 @@ public class RestController implements RestViewEvents {
      */
     @Override
     public void onBackClicked() {
-        ConsoleAssistent.println(Color.YELLOW, "Back wurde im RestViewController angeklickt");
+        ConsoleAssistant.println(Color.YELLOW, "Back wurde im RestViewController angeklickt");
         GuiHelper.Scenes.startMapScene(player);
     }
 

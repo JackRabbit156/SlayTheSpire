@@ -1,7 +1,7 @@
 package de.bundeswehr.auf.slaythespire.controller;
 
 import de.bundeswehr.auf.slaythespire.helper.Color;
-import de.bundeswehr.auf.slaythespire.helper.ConsoleAssistent;
+import de.bundeswehr.auf.slaythespire.helper.ConsoleAssistant;
 import de.bundeswehr.auf.slaythespire.helper.GuiHelper;
 import de.bundeswehr.auf.slaythespire.model.card.DeckFactory;
 import de.bundeswehr.auf.slaythespire.model.card.structure.Card;
@@ -72,7 +72,7 @@ public class LootController implements LootViewEvents {
 
     @Override
     public void onBackClicked() {
-        ConsoleAssistent.print(Color.YELLOW, "LootView Leaved!");
+        ConsoleAssistant.print(Color.YELLOW, "LootView Leaved!");
         if (this.fieldType == FieldEnum.BOSSFIELD) {
             GuiHelper.Scenes.startStatisticScene(player);
             return;
@@ -93,7 +93,7 @@ public class LootController implements LootViewEvents {
     @Override
     public void onPotionClick(PotionCard potion) {
         if (this.player.getPotionCards().size() < 3) {
-            ConsoleAssistent.print(Color.YELLOW, "Got an Potion: " + potion.getName());
+            ConsoleAssistant.print(Color.YELLOW, "Got an Potion: " + potion.getName());
             this.player.addPotionCard(potion);
         }
         else {
@@ -107,8 +107,8 @@ public class LootController implements LootViewEvents {
      * @param card Die hinzuzufügende Karte.
      */
     private void addCardToDeck(Card card) {
-        ConsoleAssistent.print(Color.YELLOW, "Got an Card: " + card.getName());
-        ConsoleAssistent.print(Color.YELLOW, "Got Gold: " + this.gold);
+        ConsoleAssistant.print(Color.YELLOW, "Got an Card: " + card.getName());
+        ConsoleAssistant.print(Color.YELLOW, "Got Gold: " + this.gold);
 
         this.player.addCardToDeck(card);
         this.player.increaseGold(this.gold);

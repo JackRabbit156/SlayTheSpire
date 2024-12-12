@@ -1,7 +1,7 @@
 package de.bundeswehr.auf.slaythespire.controller;
 
 import de.bundeswehr.auf.slaythespire.helper.Color;
-import de.bundeswehr.auf.slaythespire.helper.ConsoleAssistent;
+import de.bundeswehr.auf.slaythespire.helper.ConsoleAssistant;
 import de.bundeswehr.auf.slaythespire.helper.GuiHelper;
 import de.bundeswehr.auf.slaythespire.model.card.DeckFactory;
 import de.bundeswehr.auf.slaythespire.model.card.structure.Card;
@@ -70,7 +70,7 @@ public class TreasureController implements TreasureViewEvents {
      */
     @Override
     public void onBackClicked() {
-        ConsoleAssistent.print(Color.YELLOW, "TreasureView Leaved!");
+        ConsoleAssistant.print(Color.YELLOW, "TreasureView Leaved!");
         GuiHelper.Scenes.startMapScene(player);
     }
 
@@ -103,7 +103,7 @@ public class TreasureController implements TreasureViewEvents {
     @Override
     public void onPotionClick(PotionCard potion) {
         if (this.player.getPotionCards().size() < 3) {
-            ConsoleAssistent.print(Color.YELLOW, "Got a Potion: " + potion.getName());
+            ConsoleAssistant.print(Color.YELLOW, "Got a Potion: " + potion.getName());
             this.player.addPotionCard(potion);
         }
         else {
@@ -117,8 +117,8 @@ public class TreasureController implements TreasureViewEvents {
      * @param card Die hinzuzufügende Karte.
      */
     private void addCardToDeck(Card card) {
-        ConsoleAssistent.print(Color.YELLOW, "Got a Card: " + card.getName());
-        ConsoleAssistent.print(Color.YELLOW, "Got Gold: " + this.gold);
+        ConsoleAssistant.print(Color.YELLOW, "Got a Card: " + card.getName());
+        ConsoleAssistant.print(Color.YELLOW, "Got Gold: " + this.gold);
 
         this.player.addCardToDeck(card);
         this.player.increaseGold(this.gold);

@@ -1,7 +1,7 @@
 package de.bundeswehr.auf.slaythespire.controller;
 
 import de.bundeswehr.auf.slaythespire.helper.Color;
-import de.bundeswehr.auf.slaythespire.helper.ConsoleAssistent;
+import de.bundeswehr.auf.slaythespire.helper.ConsoleAssistant;
 import de.bundeswehr.auf.slaythespire.helper.GuiHelper;
 import de.bundeswehr.auf.slaythespire.helper.MusicBoy;
 import javafx.stage.Stage;
@@ -62,7 +62,7 @@ public class ShopController implements ShopViewEvents {
      */
     @Override
     public void onBackClicked() {
-        ConsoleAssistent.print(Color.YELLOW, "Left shop!");
+        ConsoleAssistant.print(Color.YELLOW, "Left shop!");
         GuiHelper.Scenes.startMapScene(player);
     }
 
@@ -82,11 +82,11 @@ public class ShopController implements ShopViewEvents {
             this.player.addCardToDeck(card);
             this.purchasableCards.remove(card);
             refreshSelectableCards();
-            ConsoleAssistent.print(Color.YELLOW, "Refresh Cards!");
+            ConsoleAssistant.print(Color.YELLOW, "Refresh Cards!");
         }
         else {
             this.shopView.showDialog("You have not enough Gold!");
-            ConsoleAssistent.print(Color.YELLOW, "Not enough Gold!");
+            ConsoleAssistant.print(Color.YELLOW, "Not enough Gold!");
         }
     }
 
@@ -112,16 +112,16 @@ public class ShopController implements ShopViewEvents {
                 this.player.decreaseGold(cardPrice);
                 this.player.addPotionCard(potion);
                 refreshSelectablePotion();
-                ConsoleAssistent.print(Color.YELLOW, "Refresh Cards!");
+                ConsoleAssistant.print(Color.YELLOW, "Refresh Cards!");
             }
             else {
                 this.shopView.showDialog("You have reached the maximum amount of Potions.");
-                ConsoleAssistent.print(Color.YELLOW, "Maximum amount of Potions.");
+                ConsoleAssistant.print(Color.YELLOW, "Maximum amount of Potions.");
             }
         }
         else {
             this.shopView.showDialog("You have not enough Gold!");
-            ConsoleAssistent.print(Color.YELLOW, "Not enough Gold!");
+            ConsoleAssistant.print(Color.YELLOW, "Not enough Gold!");
         }
     }
 

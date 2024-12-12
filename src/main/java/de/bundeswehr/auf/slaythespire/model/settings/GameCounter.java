@@ -1,7 +1,5 @@
 package de.bundeswehr.auf.slaythespire.model.settings;
 
-import de.bundeswehr.auf.slaythespire.helper.ConsoleAssistent;
-
 /**
  * Diese Klasse repräsentiert einen Spielzähler, der die Spielzeit in
  * Stunden, Minuten und Sekunden verfolgt. Sie implementiert die Runnable-Schnittstelle,
@@ -11,54 +9,47 @@ import de.bundeswehr.auf.slaythespire.helper.ConsoleAssistent;
  */
 public class GameCounter extends Thread {
 
-    private int seconds = 0;
-    private int minutes = 0;
     private int hours = 0;
-
+    private int minutes = 0;
     private boolean running = false;
-
-    public boolean isTimerRunning() {
-        return running;
-    }
-
-    public void stopTimer() {
-        running = false;
-    }
-
-    public int getSeconds() {
-        return seconds;
-    }
-
-    public int getMinutes() {
-        return minutes;
-    }
+    private int seconds = 0;
 
     public int getHours() {
         return hours;
-    }
-
-    @Override
-    public String toString() {
-        return "Played for: " + hours + "h " + minutes + "m " + seconds+"s";
-    }
-
-    public void setSeconds(int seconds) {
-        this.seconds = seconds;
-    }
-
-    public void setMinutes(int minutes) {
-        this.minutes = minutes;
     }
 
     public void setHours(int hours) {
         this.hours = hours;
     }
 
+    public int getMinutes() {
+        return minutes;
+    }
+
+    public void setMinutes(int minutes) {
+        this.minutes = minutes;
+    }
+
+    public int getSeconds() {
+        return seconds;
+    }
+
+    public void setSeconds(int seconds) {
+        this.seconds = seconds;
+    }
+
+    public boolean isTimerRunning() {
+        return running;
+    }
+
     @Override
     public void run() {
         running = true;
         while (running) {
-            ConsoleAssistent.sleep(1000);
+            try {
+                Thread.sleep(1000L);
+            } catch (InterruptedException e) {
+            }
             seconds++;
 
             if (seconds == 60) {
@@ -72,4 +63,14 @@ public class GameCounter extends Thread {
             }
         }
     }
+
+    public void stopTimer() {
+        running = false;
+    }
+
+    @Override
+    public String toString() {
+        return "Played for: " + hours + "h " + minutes + "m " + seconds + "s";
+    }
+
 }
