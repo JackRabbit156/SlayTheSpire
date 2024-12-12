@@ -1,5 +1,7 @@
 package de.bundeswehr.auf.slaythespire.gui;
 
+import de.bundeswehr.auf.slaythespire.gui.events.CardEvent;
+import de.bundeswehr.auf.slaythespire.gui.layouts.CardSelectionLayout;
 import de.bundeswehr.auf.slaythespire.helper.GuiHelper;
 import javafx.geometry.Bounds;
 import javafx.geometry.Insets;
@@ -13,7 +15,6 @@ import javafx.stage.Popup;
 import de.bundeswehr.auf.slaythespire.model.card.structure.Card;
 import de.bundeswehr.auf.slaythespire.model.potion.structure.PotionCard;
 import de.bundeswehr.auf.slaythespire.gui.events.LootViewEvents;
-import de.bundeswehr.auf.slaythespire.gui.layouts.loot.CardSelectionLayout;
 import de.bundeswehr.auf.slaythespire.gui.layouts.loot.PlayerLayout;
 
 import java.util.List;
@@ -21,7 +22,7 @@ import java.util.List;
 /**
  * @author Keil, Vladislav
  */
-public class LootView extends StackPane {
+public class LootView extends StackPane implements CardEvent {
 
     private static final String STYLE = "-fx-font-size: 38; -fx-font-family: Kreon;";
     private static final String STYLE_SMALL = "-fx-font-size: 28; -fx-font-family: Kreon;";
@@ -77,6 +78,7 @@ public class LootView extends StackPane {
     /**
      * Deaktiviert die Kartenauswahl im Loot.
      */
+    @Override
     public void disableCardSelection() {
         this.cardSelectionDisabled = true;
         this.cardSelectionButtonStackPane.setOpacity(0.6);
@@ -108,10 +110,10 @@ public class LootView extends StackPane {
      * Event-Handler für Klicks auf Karten im Loot.
      *
      * @param card  Die angeklickte Karte.
-     * @param index Der Index der angeklickten Karte.
      */
-    public void onCardClick(Card card, int index) {
-        lootViewEvents.onCardClick(card, index);
+    @Override
+    public void onCardClick(Card card) {
+        lootViewEvents.onCardClick(card);
     }
 
     /**
@@ -377,24 +379,22 @@ public class LootView extends StackPane {
      * Setzt das Layout für die Kartenauswahl.
      */
     private void setCardSelectionLayout() {
-        // Card Selection Layout
-        CardSelectionLayout cardSelectionLayout = new CardSelectionLayout(this.lootCards, this);
+        CardSelectionLayout cardSelectionLayout = new CardSelectionLayout(lootCards, this);
         cardSelectionLayout.setPadding(new Insets(50, 50, 15, 50));
-        this.cardSelectionButtonStackPane = getCardSelectionStackPane();
+        cardSelectionButtonStackPane = getCardSelectionStackPane();
 
         HBox centerCard = new HBox();
         centerCard.setAlignment(Pos.CENTER);
         centerCard.setTranslateX(-180);
         centerCard.getChildren().add(cardSelectionLayout);
 
-        // Popup
-        this.cardSelectionPopup.setAutoHide(true);
-        this.cardSelectionPopup.getContent().add(centerCard);
+        cardSelectionPopup.setAutoHide(true);
+        cardSelectionPopup.getContent().add(centerCard);
 
-        this.cardSelectionButtonStackPane.setOnMouseClicked(event -> {
-            if (!this.cardSelectionDisabled) {
-                Bounds bounds = this.center.localToScreen(this.center.getBoundsInLocal());
-                this.cardSelectionPopup.show(this.center.getScene().getWindow(), bounds.getMinX(), bounds.getMinY());
+        cardSelectionButtonStackPane.setOnMouseClicked(event -> {
+            if (!cardSelectionDisabled) {
+                Bounds bounds = center.localToScreen(center.getBoundsInLocal());
+                cardSelectionPopup.show(center.getScene().getWindow(), bounds.getMinX() - centerCard.getBoundsInLocal().getWidth() / 2, bounds.getMinY());
             }
         });
     }

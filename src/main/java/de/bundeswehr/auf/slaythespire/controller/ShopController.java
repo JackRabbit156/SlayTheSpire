@@ -71,10 +71,9 @@ public class ShopController implements Controller, ShopViewEvents {
      * Verringert das Gold des Spielers und fügt die Karte dem Deck des Spielers hinzu.
      *
      * @param card  Die geklickte Karte.
-     * @param index Der Index der geklickten Karte.
      */
     @Override
-    public void onCardClick(Card card, int index) {
+    public void onCardClick(Card card) {
         int cardPrice = card.getPrice();
 
         if (player.getGold() >= cardPrice) {

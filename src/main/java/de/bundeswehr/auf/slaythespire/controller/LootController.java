@@ -80,8 +80,8 @@ public class LootController implements Controller, LootViewEvents {
     }
 
     @Override
-    public void onCardClick(Card card, int index) {
-        addCardToDeck(selectedCards.get(index));
+    public void onCardClick(Card card) {
+        addCardToDeck(card);
     }
 
     @Override

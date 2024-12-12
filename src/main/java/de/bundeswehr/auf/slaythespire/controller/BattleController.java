@@ -1,5 +1,6 @@
 package de.bundeswehr.auf.slaythespire.controller;
 
+import de.bundeswehr.auf.slaythespire.controller.listener.CardDeathListener;
 import de.bundeswehr.auf.slaythespire.controller.listener.EnemyEventListener;
 import de.bundeswehr.auf.slaythespire.controller.listener.PlayerEventListener;
 import de.bundeswehr.auf.slaythespire.events.EnemyDamageEvent;
@@ -12,7 +13,7 @@ import de.bundeswehr.auf.slaythespire.helper.LoggingAssistant;
 import de.bundeswehr.auf.slaythespire.helper.GuiHelper;
 import de.bundeswehr.auf.slaythespire.model.battle.BattleDeck;
 import de.bundeswehr.auf.slaythespire.model.battle.GameContext;
-import de.bundeswehr.auf.slaythespire.model.card.ironclad.attack.common.ClashCard;
+import de.bundeswehr.auf.slaythespire.model.battle.Playable;
 import de.bundeswehr.auf.slaythespire.model.card.structure.*;
 import de.bundeswehr.auf.slaythespire.model.enemy.Enemy;
 import de.bundeswehr.auf.slaythespire.model.map.field.FieldEnum;
@@ -31,7 +32,7 @@ import java.util.List;
  *
  * @author Warawa Alexander, Willig Daniel
  */
-public class BattleController implements Controller, BattleViewEvents, PlayerEventListener, EnemyEventListener {
+public class BattleController implements Controller, BattleViewEvents, PlayerEventListener, EnemyEventListener, CardDeathListener {
 
     private final BattleDeck battleDeck;
     private final BattleView battleView;
@@ -57,7 +58,6 @@ public class BattleController implements Controller, BattleViewEvents, PlayerEve
         gameContext = new GameContext(player, enemies, battleDeck);
         resetEnergyAndBlock();
         calcIntentForAllEnemies(enemies);
-
 
         battleView = new BattleView(player, enemies, this, battleDeck);
         player.setPlayerEventListener(this);
@@ -91,6 +91,11 @@ public class BattleController implements Controller, BattleViewEvents, PlayerEve
     }
 
     @Override
+    public void onCardDeath(Card card) {
+        cardDeath(card);
+    }
+
+    @Override
     public void onDamageDealt() {
 
     }
@@ -114,7 +119,6 @@ public class BattleController implements Controller, BattleViewEvents, PlayerEve
     public void onEndTurnClick() {
         playerEOT();
         enemyTurn();
-
         playerBOT();
     }
 
@@ -138,6 +142,8 @@ public class BattleController implements Controller, BattleViewEvents, PlayerEve
 
     @Override
     public void onEnemyDeath(Enemy enemy) {
+        LoggingAssistant.log("Enemy dead " + enemy);
+        LoggingAssistant.log("Remaining enemies " + enemies);
         for (Enemy singleEnemy : enemies) {
             if (singleEnemy.isAlive()) {
                 return;
@@ -175,19 +181,20 @@ public class BattleController implements Controller, BattleViewEvents, PlayerEve
         }
     }
 
-    private void cardDeath() {
-        if (selectedCard.getCardGrave().equals(CardGrave.POTION)) {
-            potions.remove(selectedCard);
+    private void cardDeath(Card card) {
+        if (card.getCardGrave().equals(CardGrave.POTION)) {
+            potions.remove(card);
         }
-        else if (selectedCard.getCardGrave().equals(CardGrave.EXHAUST)) {
-            battleDeck.exhaustCardFromHand(selectedCard);
+        else if (card.getCardGrave().equals(CardGrave.EXHAUST)) {
+            battleDeck.exhaustCardFromHand(card);
         }
-        else if (selectedCard.getCardGrave().equals(CardGrave.DISCARD)) {
-            battleDeck.discardCardFromHand(selectedCard);
+        else if (card.getCardGrave().equals(CardGrave.DISCARD)) {
+            battleDeck.discardCardFromHand(card);
         }
         else {
-            battleDeck.removeCardFromHand(selectedCard);
+            battleDeck.removeCardFromHand(card);
         }
+        battleView.updateBottom();
     }
 
     private void endOfCombat() {
@@ -215,43 +222,36 @@ public class BattleController implements Controller, BattleViewEvents, PlayerEve
             battleView.showDialog("Not enough Energy!");
             return false;
         }
-        // TODO hardgecodeter Sonderfall!
-        if (selectedCard instanceof ClashCard) {
-            List<Card> hand = gameContext.getBattleDeck().getHand();
-            for (Card card : hand) {
-                if (!card.getCardType().equals(CardType.ATTACK)) {
-                    LoggingAssistant.log(Color.YELLOW, "ClashCard not playable");
-                    battleView.showDialog("Can only be played, if every card in your hand is an Attack.");
-                    return false;
-                }
-            }
+        Playable cardPlayable = selectedCard.isPlayable(gameContext);
+        if (!cardPlayable.isPlayable()) {
+            LoggingAssistant.log(Color.YELLOW, cardPlayable.getLogMessage());
+            battleView.showDialog(cardPlayable.getErrorMessage());
         }
-        return true;
+        return cardPlayable.isPlayable();
     }
 
     private void playCard(Enemy enemy) {
         if (!isCardPlayable()) {
             return;
         }
-        // Play the card (and add the enemy)
         if (enemy == null) {
             gameContext.setRandomEnemy();
         }
         else {
             gameContext.setSelectedEnemy(enemy);
         }
+        selectedCard.register(this);
         selectedCard.play(gameContext);
-
-        cardDeath();
+        selectedCard.played();
     }
 
     private void playCard() {
         if (!isCardPlayable()) {
             return;
         }
-        // Play the card
+        selectedCard.register(this);
         selectedCard.play(gameContext);
-        cardDeath();
+        selectedCard.played();
     }
 
     private void playerBOT() {

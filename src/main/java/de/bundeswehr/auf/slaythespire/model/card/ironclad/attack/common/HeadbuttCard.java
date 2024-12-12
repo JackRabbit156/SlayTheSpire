@@ -1,8 +1,10 @@
 package de.bundeswehr.auf.slaythespire.model.card.ironclad.attack.common;
 
+import de.bundeswehr.auf.slaythespire.gui.events.CardEvent;
 import de.bundeswehr.auf.slaythespire.helper.PathAssistent;
 import de.bundeswehr.auf.slaythespire.model.battle.BattleDeck;
 import de.bundeswehr.auf.slaythespire.model.battle.GameContext;
+import de.bundeswehr.auf.slaythespire.model.battle.Playable;
 import de.bundeswehr.auf.slaythespire.model.card.structure.AttackCard;
 import de.bundeswehr.auf.slaythespire.model.card.structure.Card;
 import de.bundeswehr.auf.slaythespire.model.card.structure.CardGrave;
@@ -10,15 +12,14 @@ import de.bundeswehr.auf.slaythespire.model.card.structure.CardRarity;
 import de.bundeswehr.auf.slaythespire.model.enemy.Enemy;
 import de.bundeswehr.auf.slaythespire.model.player.structure.Player;
 
-import java.util.List;
-import java.util.Scanner;
-
 /**
  * Headbutt Karte.
  *
  * @author OF Daniel Willig
  */
-public class HeadbuttCard extends AttackCard {
+public class HeadbuttCard extends AttackCard implements CardEvent {
+
+    private GameContext gameContext;
 
     /**
      * Constructor HeadbuttCard.
@@ -34,20 +35,34 @@ public class HeadbuttCard extends AttackCard {
     }
 
     @Override
-    public void play(GameContext gameContext) {
+    public Playable isPlayable(GameContext gameContext) {
+        if (gameContext.getBattleDeck().getDiscardPile().isEmpty()) {
+            return new Playable("Headbutt not playable, no cards in discard pile", "There must be at least one card in the discard pile.");
+        }
+        return super.isPlayable(gameContext);
+    }
+
+    @Override
+    public void onCardClick(Card card) {
         Enemy enemy = gameContext.getSelectedEnemy();
-        enemy.takeDamage(dealDamage());
-
         BattleDeck battleDeck = gameContext.getBattleDeck();
-        List<Card> deck = battleDeck.getDeck();
-        List<Card> discardPile = battleDeck.getDiscardPile();
-
-        System.out.print("Choose a card to put from your discard pile onto the top of your draw pile: ");
-        int targetCard = new Scanner(System.in).nextInt() - 1;
-        deck.add(discardPile.get(targetCard));
-
         Player player = gameContext.getPlayer();
+        battleDeck.removeCardFromDiscardPile(card);
+        battleDeck.addToDeck(card);
+        enemy.takeDamage(dealDamage());
         player.decreaseCurrentEnergy(getCost());
+        super.played();
+    }
+
+    @Override
+    public void play(GameContext gameContext) {
+        this.gameContext = gameContext;
+        gameContext.getBattleDeck().chooseCardFromDiscardPile(this);
+    }
+
+    @Override
+    public void played() {
+        // do nothing, wait for user interaction
     }
 
 }

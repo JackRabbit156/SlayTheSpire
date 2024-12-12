@@ -62,4 +62,5 @@ public class GameContext {
     public BattleDeck getBattleDeck() {
         return battleDeck;
     }
+
 }

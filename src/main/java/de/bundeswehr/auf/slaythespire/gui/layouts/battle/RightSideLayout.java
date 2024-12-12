@@ -25,32 +25,33 @@ import java.util.List;
 public class RightSideLayout extends HBox {
 
     private final List<Enemy> enemies;
-    private final List<EnemyLayout> enemyLayout = new ArrayList<>();
+    private final List<EnemyLayout> enemyLayouts = new ArrayList<>();
 
     public RightSideLayout(BattleView battleView, List<Enemy> enemies) {
 //        setSpacing(-50);
         this.enemies = enemies;
         for (Enemy enemy : enemies) {
-            enemyLayout.add(new EnemyLayout(enemy, battleView));
+            enemyLayouts.add(new EnemyLayout(enemy, battleView));
         }
-        getChildren().addAll(enemyLayout);
+        getChildren().addAll(enemyLayouts);
     }
 
     public void update() {
-        for (int i = enemyLayout.size() - 1; i >= 0; i--) {
-            enemyLayout.get(i).updateEnemy();
+        for (int i = enemyLayouts.size() - 1; i >= 0; i--) {
+            enemyLayouts.get(i).updateEnemy();
+            // remove enemy layout
             if (!enemies.get(i).isAlive()) {
-                EnemyLayout dead = enemyLayout.remove(i);
+                EnemyLayout dead = enemyLayouts.remove(i);
                 dead.handleEnemyDeath();
                 getChildren().remove(i);
             }
         }
-        // TODO doppelt?
-//        enemies.removeIf(enemy -> !enemy.isAlive());
+        // remove enemy
+        enemies.removeIf(enemy -> !enemy.isAlive());
     }
 
     public void discard() {
-        for (EnemyLayout enemy : enemyLayout) {
+        for (EnemyLayout enemy : enemyLayouts) {
             enemy.handleEnemyDeath();
         }
     }

@@ -1,6 +1,9 @@
 package de.bundeswehr.auf.slaythespire.tester;
 
 import de.bundeswehr.auf.slaythespire.model.card.ironclad.attack.common.ClashCard;
+import de.bundeswehr.auf.slaythespire.model.card.ironclad.attack.common.HeadbuttCard;
+import de.bundeswehr.auf.slaythespire.model.card.ironclad.skill.common.WarcryCard;
+import de.bundeswehr.auf.slaythespire.model.settings.GameSettings;
 import javafx.stage.Stage;
 import de.bundeswehr.auf.slaythespire.model.battle.GameContext;
 import de.bundeswehr.auf.slaythespire.model.card.structure.AttackCard;
@@ -63,23 +66,27 @@ public class TestPlayer extends Player {
 
         initRelic();
         initDeck();
+        GameSettings.startTimer();
     }
 
     @Override
     protected void initDeck() {
 //        starterDeckIronclad();
 //        starterDeckSilent();
-        cheaterDeck();
-//        customDeck();
+//        cheaterDeck();
+        customDeck();
     }
 
     private void customDeck() {
         List<Card> deck = new ArrayList<>();
-        for (int i = 0; i < 0; i++) {
+        for (int i = 0; i < 5; i++) {
             deck.add(new IroncladStrikeCard());
         }
         for (int i = 0; i < 3; i++) {
-            deck.add(new IroncladDefendCard());
+            deck.add(new HeadbuttCard());
+        }
+        for (int i = 0; i < 3; i++) {
+            deck.add(new WarcryCard());
         }
         for (int i = 0; i < 3; i++) {
             deck.add(new ClashCard());

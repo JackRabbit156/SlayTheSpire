@@ -1,23 +1,25 @@
 package de.bundeswehr.auf.slaythespire.model.card.structure;
 
+import de.bundeswehr.auf.slaythespire.controller.listener.CardDeathListener;
 import de.bundeswehr.auf.slaythespire.model.battle.GameContext;
+import de.bundeswehr.auf.slaythespire.model.battle.Playable;
 
 import java.util.Random;
 
 public abstract class Card {
-    private Random rand = new Random();
 
-    private String name;
-    private String description;
-    private int price;
-    private int cost = 0;
-    private CardRarity cardRarity;
-    private CardGrave cardGrave;
-    private CardType cardType;
+    private static final Playable defaultPlayable = new Playable();
+    private static final Random rnd = new Random();
 
+    private CardDeathListener cardDeathListener;
+    private final CardGrave cardGrave;
+    private final CardRarity cardRarity;
+    private final CardType cardType;
+    private final int cost;
+    private final String description;
     private String imagePath;
-
-    private boolean targetRequired = false;
+    private final String name;
+    private final int price;
 
     public Card(String name, String description, int cost, CardRarity cardRarity, CardGrave cardGrave, CardType cardType) {
         this.name = name;
@@ -29,6 +31,49 @@ public abstract class Card {
         this.cardType = cardType;
     }
 
+    /**
+     * @return price
+     * @author Keil, Vladislav
+     */
+    public int genPrice() {
+        // Existieren nur 3 Typen
+        // https://slay-the-spire.fandom.com/wiki/Merchant
+        switch (this.cardRarity) {
+            case COMMON: {
+                return rnd.nextInt(55 + 1 - 45) + 45;
+            }
+            case UNCOMMON: {
+                return rnd.nextInt(82 + 1 - 68) + 68;
+            }
+            case RARE: {
+                return rnd.nextInt(165 + 1 - 135) + 135;
+            }
+            default: {
+                return rnd.nextInt(9);
+            }
+        }
+    }
+
+    public CardGrave getCardGrave() {
+        return cardGrave;
+    }
+
+    public CardRarity getCardRarity() {
+        return cardRarity;
+    }
+
+    public CardType getCardType() {
+        return cardType;
+    }
+
+    public int getCost() {
+        return cost;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
     public String getImagePath() {
         return imagePath;
     }
@@ -37,56 +82,44 @@ public abstract class Card {
         this.imagePath = imagePath;
     }
 
-    public abstract void play(GameContext gameContext);
-
-    public int getCost(){
-        return cost;
-    }
-
     public String getName() {
         return name;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public CardRarity getCardRarity() {
-        return cardRarity;
-    }
-
-    public CardGrave getCardGrave() {
-        return cardGrave;
     }
 
     public int getPrice() {
         return price;
     }
 
-    public CardType getCardType() {
-        return cardType;
+    /**
+     * Every card is playable by default. Override to implement different behaviour.
+     *
+     * @param gameContext current {@link GameContext} to determine, if a card of this type is playable
+     * @return if playable the default object will be returned, an object with error and log message, if not
+     */
+    public Playable isPlayable(GameContext gameContext) {
+        return defaultPlayable;
     }
 
     /**
-     * @author Keil, Vladislav
-     * @return price
+     * @param gameContext current {@link GameContext} to trigger the actions of this cards
      */
-    public int genPrice() {
-        // Existieren nur 3 Typen
-        // https://slay-the-spire.fandom.com/wiki/Merchant
-        switch (this.cardRarity) {
-            case COMMON: {
-                return rand.nextInt(55 + 1 - 45) + 45;
-            }
-            case UNCOMMON: {
-                return rand.nextInt(82 + 1 - 68) + 68;
-            }
-            case RARE: {
-                return rand.nextInt(165 + 1 - 135) + 135;
-            }
-            default: {
-                return rand.nextInt(9);
-            }
-        }
+    public abstract void play(GameContext gameContext);
+
+    public void played() {
+        cardDeathListener.onCardDeath(this);
     }
+
+    public void register(CardDeathListener listener) {
+        this.cardDeathListener = listener;
+    }
+
+    @Override
+    public String toString() {
+        return name;
+    }
+
+    protected CardDeathListener getCardDeathListener() {
+        return cardDeathListener;
+    }
+
 }

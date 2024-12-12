@@ -185,8 +185,20 @@ public abstract class Enemy {
         if (currentHealth < 0) {
             currentHealth = 0;
         }
-
         notifyDamageReceived(damage);
+    }
+
+    @Override
+    public String toString() {
+        return "Enemy{" +
+                ", name='" + name + '\'' +
+                ", health=" + currentHealth + "/" + maxHealth +
+                ", block=" + block +
+                ", enemyCardToBePlayed=" + enemyCardToBePlayed +
+                ", enemyDeck=" + enemyDeck +
+                ", insult=" + insult +
+                ", intent=" + intent +
+                '}';
     }
 
     /**
@@ -202,7 +214,6 @@ public abstract class Enemy {
     protected void notifyDamageReceived(int damageAmount) {
         EnemyDamageEvent event = new EnemyDamageEvent(this, damageAmount);
         enemyEventListener.onDamageReceived(event);
-
         if (!isAlive()) {
             enemyEventListener.onEnemyDeath(this);
         }

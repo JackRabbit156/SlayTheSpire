@@ -1,6 +1,7 @@
 package de.bundeswehr.auf.slaythespire.model.battle;
 
 import de.bundeswehr.auf.slaythespire.controller.listener.BattleDeckListener;
+import de.bundeswehr.auf.slaythespire.gui.events.CardEvent;
 import de.bundeswehr.auf.slaythespire.model.card.structure.Card;
 import de.bundeswehr.auf.slaythespire.model.card.structure.PowerCard;
 
@@ -44,8 +45,29 @@ public class BattleDeck {
         createShuffledDeck();
     }
 
+    public void addToDeck(Card card) {
+        deck.add(card);
+        battleDeckListener.onCardFill();
+    }
+
     public void addPowerCards(PowerCard powerCard) {
         currentPowerCards.add(powerCard);
+    }
+
+    public void chooseCardFromDiscardPile(CardEvent event) {
+        List<Card> cards = new ArrayList<>(discardPile);
+        cards.sort((o1, o2) -> rnd.nextInt(3) - 1);
+        battleDeckListener.chooseCard(cards, event);
+    }
+
+    public void chooseCardFromHand(CardEvent event) {
+        List<Card> cards = new ArrayList<>();
+        for (Card card : hand) {
+            if (card != event) {
+                cards.add(card);
+            }
+        }
+        battleDeckListener.chooseCard(cards, event);
     }
 
     public void createShuffledDeck() {
@@ -102,7 +124,7 @@ public class BattleDeck {
             if (deck.isEmpty()) {
                 break;
             }
-            hand.add(deck.remove(deck.size() - 1)); //zieht von oben
+            hand.add(deck.remove(deck.size() - 1)); // zieht von oben
         }
         battleDeckListener.onCardFill();
     }
@@ -138,6 +160,15 @@ public class BattleDeck {
 
     public void removeCardFromDeck(Card card) {
         deck.remove(card);
+    }
+
+    /**
+     * Entfernt eine Karte aus dem DiscardPile.
+     *
+     * @param card Die zu entfernende Karte.
+     */
+    public void removeCardFromDiscardPile(Card card) {
+        discardPile.remove(card);
     }
 
     /**

@@ -1,5 +1,6 @@
-package de.bundeswehr.auf.slaythespire.gui.layouts.treasure;
+package de.bundeswehr.auf.slaythespire.gui.layouts;
 
+import de.bundeswehr.auf.slaythespire.gui.events.CardEvent;
 import de.bundeswehr.auf.slaythespire.helper.GuiHelper;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
@@ -9,9 +10,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import de.bundeswehr.auf.slaythespire.model.card.structure.Card;
-import de.bundeswehr.auf.slaythespire.gui.TreasureView;
 
-import java.util.ArrayList;
 import java.util.List;
 /**
  * Die Klasse CardSelectionLayout verwaltet die grafische Darstellung der Kartenauswahl im Schatz-Layout.
@@ -20,42 +19,32 @@ import java.util.List;
  * @author Vladislav Keil
  */
 public class CardSelectionLayout extends HBox {
-    private TreasureView treasureView;
-    private List<Card> selectableCards;
+
+    private final CardEvent[] eventListeners;
 
     /**
      * Konstruktor für die Klasse CardSelectionLayout.
      * Initialisiert die Kartenauswahl mit einer Liste von Karten und der Schatz-Ansicht.
      *
-     * @param cardList      Die Liste der auswählbaren Karten.
-     * @param treasureView  Die Schatz-Ansicht, in der die Kartenauswahl angezeigt wird.
+     * @param cards      Die Liste der auswählbaren Karten.
+     * @param eventListeners  Die Ansichten, die von der Kartenauswahl beeinflusst werden.
      */
-    public CardSelectionLayout(List<Card> cardList, TreasureView treasureView) {
-        this.selectableCards = cardList;
-        this.treasureView = treasureView;
-
-        // Center of the bottom
+    public CardSelectionLayout(List<Card> cards, CardEvent... eventListeners) {
+        this.eventListeners = eventListeners;
         setAlignment(Pos.CENTER);
-
-        showCards();
+        showCards(cards);
     }
 
     /**
      * Zeigt die Karten in der Ansicht an.
      */
-    private void showCards(){
-        List<Node> nodes = new ArrayList<>();
-        Card card;
-        for(int i = 0; i < selectableCards.size(); i++){
+    private void showCards(List<Card> cards){
+        for (Card selectableCard : cards) {
             VBox box = new VBox();
-
-            card = selectableCards.get(i);
-            box.getChildren().addAll(images(card));
+            box.getChildren().addAll(images(selectableCard));
             box.setAlignment(Pos.CENTER);
-            nodes.add(box);
+            getChildren().add(box);
         }
-
-        getChildren().addAll(nodes);
     }
 
 
@@ -69,14 +58,12 @@ public class CardSelectionLayout extends HBox {
         Image imageCard = new Image(getClass().getResource(card.getImagePath()).toExternalForm());
         ImageView imageViewCard = new ImageView(imageCard);
 
-        imageViewCard.setFitWidth(350); // Breite in Pixel
-        imageViewCard.setFitHeight(350); // Höhe in Pixel
+        imageViewCard.setFitHeight(350);
         imageViewCard.setPreserveRatio(true);
         GuiHelper.setHoverEffect(imageViewCard);
 
-        // Klick-Event hinzufügen
         imageViewCard.addEventHandler(MouseEvent.MOUSE_CLICKED, e -> {
-            handleCardClick(card, this.selectableCards.indexOf(card));
+            handleCardClick(card);
             disableCardSelectionButton();
         });
         return imageViewCard;
@@ -86,8 +73,10 @@ public class CardSelectionLayout extends HBox {
      * Deaktiviert den Kartenauswahl-Button.
      */
     private void disableCardSelectionButton() {
-        treasureView.disableCardSelection();
-        this.setVisible(false);
+        for (CardEvent eventListener : eventListeners) {
+            eventListener.disableCardSelection();
+        }
+        setVisible(false);
     }
 
     /**
@@ -95,9 +84,11 @@ public class CardSelectionLayout extends HBox {
      * Ruft das entsprechende Ereignis der Schatz-Ansicht auf.
      *
      * @param card  Die angeklickte Karte.
-     * @param index Der Index der angeklickten Karte.
      */
-    public void handleCardClick(Card card, int index) {
-        this.treasureView.onCardClick(card, index);
+    public void handleCardClick(Card card) {
+        for (CardEvent eventListener : eventListeners) {
+            eventListener.onCardClick(card);
+        }
     }
+
 }

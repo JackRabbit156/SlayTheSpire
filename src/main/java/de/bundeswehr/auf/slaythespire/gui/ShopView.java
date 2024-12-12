@@ -1,5 +1,7 @@
 package de.bundeswehr.auf.slaythespire.gui;
 
+import de.bundeswehr.auf.slaythespire.gui.events.CardEvent;
+import de.bundeswehr.auf.slaythespire.gui.layouts.shop.CardSelectionLayout;
 import de.bundeswehr.auf.slaythespire.helper.GuiHelper;
 import javafx.geometry.Bounds;
 import javafx.geometry.Insets;
@@ -26,7 +28,7 @@ import java.util.List;
  *
  * @author Vladislav Keil
  */
-public class ShopView extends StackPane {
+public class ShopView extends StackPane implements CardEvent {
 
     private final BorderPane outerLayout = new BorderPane();
     private VBox center;
@@ -87,10 +89,10 @@ public class ShopView extends StackPane {
      * Ruft das entsprechende Ereignis auf.
      *
      * @param card  Die angeklickte Karte.
-     * @param index Der Index der angeklickten Karte.
      */
-    public void onCardClick(Card card, int index) {
-        shopViewEvents.onCardClick(card, index);
+    @Override
+    public void onCardClick(Card card) {
+        shopViewEvents.onCardClick(card);
         refreshInfo();
     }
 

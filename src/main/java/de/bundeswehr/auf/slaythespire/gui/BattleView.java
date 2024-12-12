@@ -1,28 +1,28 @@
 package de.bundeswehr.auf.slaythespire.gui;
 
 import de.bundeswehr.auf.slaythespire.controller.listener.BattleDeckListener;
+import de.bundeswehr.auf.slaythespire.gui.events.BattleViewEvents;
+import de.bundeswehr.auf.slaythespire.gui.events.CardEvent;
+import de.bundeswehr.auf.slaythespire.gui.layouts.CardSelectionLayout;
+import de.bundeswehr.auf.slaythespire.gui.layouts.battle.BottomSideLayout;
+import de.bundeswehr.auf.slaythespire.gui.layouts.battle.LeftSideLayout;
+import de.bundeswehr.auf.slaythespire.gui.layouts.battle.RightSideLayout;
+import de.bundeswehr.auf.slaythespire.gui.layouts.battle.TopSideLayout;
 import de.bundeswehr.auf.slaythespire.helper.GuiHelper;
-import javafx.beans.property.SimpleObjectProperty;
-import javafx.geometry.Bounds;
-import javafx.geometry.Pos;
-import javafx.scene.control.Label;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BorderPane;
 import de.bundeswehr.auf.slaythespire.model.battle.BattleDeck;
 import de.bundeswehr.auf.slaythespire.model.card.structure.Card;
 import de.bundeswehr.auf.slaythespire.model.card.structure.CardType;
 import de.bundeswehr.auf.slaythespire.model.enemy.Enemy;
 import de.bundeswehr.auf.slaythespire.model.player.structure.Player;
 import de.bundeswehr.auf.slaythespire.model.potion.structure.PotionCard;
-import de.bundeswehr.auf.slaythespire.gui.layouts.battle.BottomSideLayout;
-import de.bundeswehr.auf.slaythespire.gui.layouts.battle.LeftSideLayout;
-import de.bundeswehr.auf.slaythespire.gui.layouts.battle.RightSideLayout;
-import de.bundeswehr.auf.slaythespire.gui.layouts.battle.TopSideLayout;
-import de.bundeswehr.auf.slaythespire.gui.events.BattleViewEvents;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
+import javafx.beans.property.SimpleObjectProperty;
+import javafx.geometry.Bounds;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
+import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Popup;
@@ -39,7 +39,7 @@ import java.util.List;
  * @author F Alexander Warawa
  * @author OF Daniel Willig
  */
-public class BattleView extends BorderPane implements View, BattleDeckListener {
+public class BattleView extends BorderPane implements View, BattleDeckListener, CardEvent {
 
     public enum Mode {
         NORMAL, ATTACK, SKILL, POWER
@@ -53,7 +53,7 @@ public class BattleView extends BorderPane implements View, BattleDeckListener {
     private LeftSideLayout left;
     /**
      * Ändert den aktuellen Modus der View. Z.B. wenn auf Karte gedrückt, dann Attack-Modus.
-      */
+     */
     private final SimpleObjectProperty<Mode> mode = new SimpleObjectProperty<>(Mode.NORMAL);
     private final Player player;
     private RightSideLayout right;
@@ -69,6 +69,26 @@ public class BattleView extends BorderPane implements View, BattleDeckListener {
         setBackground(new Background(GuiHelper.background("/images/act1.png")));
         setCenter(center);
         initNodes();
+    }
+
+    @Override
+    public void chooseCard(List<Card> cards, CardEvent eventListener) {
+        disableBattleView();
+        CardSelectionLayout cardSelectionLayout = new CardSelectionLayout(cards, eventListener, this);
+        cardSelectionLayout.setPadding(new Insets(50, 50, 15, 50));
+
+        HBox centerCard = new HBox();
+        centerCard.setAlignment(Pos.CENTER);
+        centerCard.setTranslateX(-180);
+        centerCard.getChildren().add(cardSelectionLayout);
+
+        Popup popup = new Popup();
+        popup.setAutoHide(true);
+        popup.getContent().add(centerCard);
+        popup.setOnHiding(event -> enableBattleView());
+
+        Bounds bounds = center.localToScreen(center.getBoundsInLocal());
+        popup.show(center.getScene().getWindow(), bounds.getMinX() - centerCard.getBoundsInLocal().getWidth() / 2, bounds.getMinY());
     }
 
     public void clickedOnCard(Card card, int index) {
@@ -144,6 +164,20 @@ public class BattleView extends BorderPane implements View, BattleDeckListener {
 //        updateInformation();
     }
 
+    public void disableBattleView() {
+        top.setDisablePotions(true);
+        left.setDisable(true);
+        right.setDisable(true);
+        bottom.setDisableEndTurn(true);
+        bottom.setDisable(true);
+    }
+
+    @Override
+    public void discard() {
+        left.discard();
+        right.discard();
+    }
+
     public void enableBattleView() {
         top.setDisablePotions(false);
         left.setDisable(false);
@@ -165,9 +199,8 @@ public class BattleView extends BorderPane implements View, BattleDeckListener {
     }
 
     @Override
-    public void discard() {
-        left.discard();
-        right.discard();
+    public void onCardClick(Card card) {
+        enableBattleView();
     }
 
     /**
@@ -176,6 +209,28 @@ public class BattleView extends BorderPane implements View, BattleDeckListener {
     @Override
     public void onCardFill() {
         updateBottom();
+    }
+
+    public void selectEnemyViewForCard() {
+        top.setDisablePotions(true);
+        left.setDisable(true);
+        bottom.setDisableEndTurn(true);
+    }
+
+    public void selectEnemyViewForPotion() {
+        left.setDisable(true);
+        bottom.setDisable(true);
+    }
+
+    public void selectPlayerViewForCard() {
+        top.setDisablePotions(true);
+        right.setDisable(true);
+        bottom.setDisableEndTurn(true);
+    }
+
+    public void selectPlayerViewForPotion() {
+        right.setDisable(true);
+        bottom.setDisable(true);
     }
 
     /**
@@ -205,28 +260,6 @@ public class BattleView extends BorderPane implements View, BattleDeckListener {
         popup.getContent().add(stackPopup);
         Bounds bounds = center.localToScreen(center.getBoundsInLocal());
         popup.show(center.getScene().getWindow(), bounds.getMinX(), bounds.getMinY());
-    }
-
-    public void selectEnemyViewForCard() {
-        top.setDisablePotions(true);
-        left.setDisable(true);
-        bottom.setDisableEndTurn(true);
-    }
-
-    public void selectEnemyViewForPotion() {
-        left.setDisable(true);
-        bottom.setDisable(true);
-    }
-
-    public void selectPlayerViewForCard() {
-        top.setDisablePotions(true);
-        right.setDisable(true);
-        bottom.setDisableEndTurn(true);
-    }
-
-    public void selectPlayerViewForPotion() {
-        right.setDisable(true);
-        bottom.setDisable(true);
     }
 
     public void updateBottom() {

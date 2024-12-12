@@ -4,7 +4,7 @@ import java.util.Random;
 
 public enum DifficultyLevel {
 
-    SUPER_EASY(25, 0, 0, 0, 1.5, 6, 1.0),
+    SUPER_EASY(25, 0, 0, 0, 1.5, 7, 1.0),
     EASY(50, 0, 25, 50, 1.5, 5, 0.8),
     NORMAL(75, 25, 50, 75, 1.0, 3, 0.5),
     HARD(90, 50, 75, 100, 0.5, 1, 0.1),

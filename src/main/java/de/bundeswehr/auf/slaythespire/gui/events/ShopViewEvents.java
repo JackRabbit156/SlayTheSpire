@@ -8,7 +8,7 @@ import de.bundeswehr.auf.slaythespire.model.relic.structure.Relic;
  */
 public interface ShopViewEvents {
 
-    void onCardClick(Card card, int index);
+    void onCardClick(Card card);
 
     void onFullscreenClick();
 

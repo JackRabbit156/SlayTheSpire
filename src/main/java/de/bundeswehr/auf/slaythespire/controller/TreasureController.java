@@ -78,11 +78,10 @@ public class TreasureController implements Controller, TreasureViewEvents {
      * Event-Handler für Klicks auf eine Karte im Schatz.
      *
      * @param card  Die angeklickte Karte.
-     * @param index Der Index der angeklickten Karte.
      */
     @Override
-    public void onCardClick(Card card, int index) {
-        addCardToDeck(selectedCards.get(index));
+    public void onCardClick(Card card) {
+        addCardToDeck(card);
     }
 
     /**

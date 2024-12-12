@@ -1,6 +1,7 @@
 package de.bundeswehr.auf.slaythespire.model.potion;
 
 import de.bundeswehr.auf.slaythespire.helper.PathAssistent;
+import de.bundeswehr.auf.slaythespire.model.battle.Playable;
 import de.bundeswehr.auf.slaythespire.model.card.structure.Card;
 import de.bundeswehr.auf.slaythespire.model.card.structure.CardRarity;
 import de.bundeswehr.auf.slaythespire.model.battle.GameContext;
@@ -29,8 +30,14 @@ public class DistilledChaosPotion extends PotionCard {
         List<Card> deck = gameContext.getBattleDeck().getDeck();
 
         for (int i = 1; i <= 3; i++) {
-            deck.get(deck.size() - i).play(gameContext);
-            gameContext.getPlayer().increaseCurrentEnergy(deck.get(deck.size() - i).getCost());
+            Card card = deck.get(deck.size() - i);
+            Playable playable = card.isPlayable(gameContext);
+            if (playable.isPlayable()) {
+                // TODO if choosing is necessary
+                card.play(gameContext);
+                // TODO increase?
+                gameContext.getPlayer().increaseCurrentEnergy(card.getCost());
+            }
         }
 
     }

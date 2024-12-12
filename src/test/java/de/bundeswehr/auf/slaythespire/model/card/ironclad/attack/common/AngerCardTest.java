@@ -14,11 +14,11 @@ import org.junit.jupiter.api.Test;
 import java.util.*;
 
 class AngerCardTest {
+
     AngerCard angerCard = new AngerCard();
 
     GameContext gameContext;
     BattleController battleController;
-
 
     private void initGame() {
         IroncladPlayer ironcladPlayer = new IroncladPlayer(null);
@@ -32,22 +32,17 @@ class AngerCardTest {
         battleController = new BattleController(ironcladPlayer,enemies, FieldEnum.BOSSFIELD); //TODO error an der stelle
     }
 
-
-
     @Test
     void playEnemyTakesCorrectAmountOfDamage() {
         initGame();
         Enemy enemy = gameContext.getEnemies().get(0);
         gameContext.setSelectedEnemy(enemy);
 
-
-
         int oldHealth = gameContext.getEnemies().get(0).getHealth();
 
         angerCard.play(gameContext);
 
         int newHealth = gameContext.getEnemies().get(0).getHealth();
-
 
         int expected = 6;
         int actual = oldHealth - newHealth;
@@ -62,4 +57,5 @@ class AngerCardTest {
 
         Assertions.assertEquals(expected, actual);
     }
+
 }
