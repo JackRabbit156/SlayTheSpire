@@ -11,6 +11,7 @@ import de.bundeswehr.auf.slaythespire.model.settings.structure.DifficultyLevel;
 import de.bundeswehr.auf.slaythespire.model.settings.structure.GameMode;
 import de.bundeswehr.auf.slaythespire.gui.CreditView;
 import de.bundeswehr.auf.slaythespire.gui.MainMenuView;
+import javafx.stage.WindowEvent;
 
 import java.util.concurrent.atomic.AtomicBoolean;
 
@@ -127,7 +128,7 @@ public class MainMenuController implements Controller {
                 quitUp.getContent().remove(view.displayQuitMessage());
             });
             view.getYes().setOnMouseClicked(event2 -> {
-                System.exit(0);
+                GuiHelper.Scenes.close(menuStage);
             });
         });
     }

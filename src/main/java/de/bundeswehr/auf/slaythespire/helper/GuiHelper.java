@@ -2,10 +2,10 @@ package de.bundeswehr.auf.slaythespire.helper;
 
 import de.bundeswehr.auf.slaythespire.controller.*;
 import de.bundeswehr.auf.slaythespire.gui.GameOverView;
-import de.bundeswehr.auf.slaythespire.gui.StatisticsView;
 import de.bundeswehr.auf.slaythespire.model.enemy.Enemy;
 import de.bundeswehr.auf.slaythespire.model.map.field.FieldEnum;
 import de.bundeswehr.auf.slaythespire.model.player.structure.Player;
+import de.bundeswehr.auf.slaythespire.model.settings.GameSettings;
 import javafx.animation.FadeTransition;
 import javafx.scene.ImageCursor;
 import javafx.scene.Node;
@@ -19,6 +19,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 import javafx.util.Duration;
 
 import java.util.List;
@@ -42,6 +43,11 @@ public class GuiHelper {
     public static class Scenes {
 
         private static Controller lastController;
+
+        public static void close(Stage stage) {
+            stage.fireEvent(new WindowEvent(stage, WindowEvent.WINDOW_CLOSE_REQUEST));
+            stage.close();
+        }
 
         /**
          * Startet die Kampf-Szene (Battle Scene), in der der Spieler gegen eine Liste von Gegnern kämpfen kann.
@@ -190,8 +196,11 @@ public class GuiHelper {
         public static void startScene(Stage primaryStage, Scene scene, String title) {
             setCursor(scene);
             primaryStage.getIcons().add(new Image(Scenes.class.getResource("/images/icon.png").toExternalForm()));
-            primaryStage.setOnCloseRequest(event -> System.exit(0)); // TODO irgendwas hält den Prozess offen beim Schließen mit X
-            primaryStage.setX(1920); // TODO remove
+            primaryStage.setOnCloseRequest(event -> {
+                GameSettings.stopTimer();
+                Scenes.discardLast();
+            });
+//            primaryStage.setX(1920); // TODO remove
             primaryStage.setFullScreen(true);
             primaryStage.setScene(scene);
             primaryStage.setTitle(title);
@@ -237,6 +246,12 @@ public class GuiHelper {
             fadeTransition(primaryStage, treasureController.getTreasureView(), cssPath);
         }
 
+        private static void discardLast() {
+            if (lastController != null) {
+                lastController.discard();
+            }
+        }
+
         /**
          * Führt eine Fade-Transition für die Szene durch.
          *
@@ -273,9 +288,7 @@ public class GuiHelper {
         }
 
         private static void registerController(Controller controller) {
-            if (lastController != null) {
-                lastController.discard();
-            }
+            discardLast();
             lastController = controller;
         }
 
