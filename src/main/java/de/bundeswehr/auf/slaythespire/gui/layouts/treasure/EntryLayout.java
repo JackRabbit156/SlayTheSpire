@@ -70,7 +70,7 @@ public class EntryLayout extends HBox {
         this.treasure.setTranslateX(-150);
 
         this.treasureImgView.setOnMouseClicked(event -> {
-            ConsoleAssistant.println(Color.YELLOW, "Clicked on Treasure");
+            ConsoleAssistant.log(Color.YELLOW, "Clicked on Treasure");
             setTreasureImageView(true);
             onTreasureClick();
             this.treasureImgView.setDisable(true);
@@ -99,7 +99,7 @@ public class EntryLayout extends HBox {
         if (!open) {
             this.treasureImg = new Image(getClass().getResource("/images/treasure/treasure.png").toExternalForm());
         } else {
-            ConsoleAssistant.println(Color.YELLOW, "Treasure Open");
+            ConsoleAssistant.log(Color.YELLOW, "Treasure Open");
             this.treasureImg = new Image(getClass().getResource("/images/treasure/treasureOpen.png").toExternalForm());
         }
         this.treasureImgView = new ImageView(this.treasureImg);

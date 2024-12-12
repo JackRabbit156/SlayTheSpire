@@ -64,10 +64,10 @@ public abstract class Enemy {
      */
     public void action(GameContext gameContext) {
         if (getIntent().equals(insult)) {
-            ConsoleAssistant.println(doNothing(), Color.ITALIC, Color.CYAN);
+            ConsoleAssistant.log(doNothing(), Color.ITALIC, Color.CYAN);
         }
         else {
-            ConsoleAssistant.println("attacking", Color.ITALIC, Color.RED);
+            ConsoleAssistant.log("attacking", Color.ITALIC, Color.RED);
             attack(gameContext);
         }
     }

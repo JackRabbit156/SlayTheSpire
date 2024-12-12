@@ -297,7 +297,7 @@ public class DeckFactory {
             case WATCHER:
             case DEFECT:
             default:
-                ConsoleAssistant.print(Color.RED, "DeckFactory.class: Karten Initialisierung hat nicht korrekt funktioniert.");
+                ConsoleAssistant.log(Color.RED, "DeckFactory.class: Karten Initialisierung hat nicht korrekt funktioniert.");
                 break;
         }
         return null;
@@ -313,7 +313,7 @@ public class DeckFactory {
         int randomNumber = rnd.nextInt(deck.size());
         Card selectedCard = deck.get(randomNumber);
 
-        ConsoleAssistant.print(Color.RED, "DeckFactory.class: Entfernung der Karte: " + selectedCard.getName());
+        ConsoleAssistant.log(Color.RED, "DeckFactory.class: Entfernung der Karte: " + selectedCard.getName());
 
         player.removeCardFromDeck(selectedCard);
     }

@@ -191,7 +191,7 @@ public class GuiHelper {
             setCursor(scene);
             primaryStage.getIcons().add(new Image(Scenes.class.getResource("/images/icon.png").toExternalForm()));
             primaryStage.setOnCloseRequest(event -> System.exit(0)); // TODO irgendwas hält den Prozess offen beim Schließen mit X
-            primaryStage.setX(1920); // TODO remove
+//            primaryStage.setX(1920); // TODO remove
             primaryStage.setFullScreen(true);
             primaryStage.setScene(scene);
             primaryStage.setTitle(title);

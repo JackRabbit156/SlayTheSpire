@@ -45,7 +45,7 @@ public class RestController implements Controller, RestViewEvents {
      */
     @Override
     public void onBackClicked() {
-        ConsoleAssistant.println(Color.YELLOW, "Back wurde im RestViewController angeklickt");
+        ConsoleAssistant.log(Color.YELLOW, "Back wurde im RestViewController angeklickt");
         GuiHelper.Scenes.startMapScene(player);
     }
 
@@ -58,7 +58,7 @@ public class RestController implements Controller, RestViewEvents {
         if (!this.healed) {
             int increasedHp = (int) (player.getMaxHealth() * 0.30);
             player.increaseCurrentHealth(increasedHp);
-            ConsoleAssistant.println(Color.YELLOW, "Healed!!");
+            ConsoleAssistant.log(Color.YELLOW, "Healed!!");
             this.healed = true;
         }
         onBackClicked();

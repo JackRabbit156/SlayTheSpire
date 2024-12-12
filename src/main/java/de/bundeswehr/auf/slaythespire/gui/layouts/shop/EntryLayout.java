@@ -49,7 +49,7 @@ public class EntryLayout extends HBox {
         merchant.setTranslateX(-100);
 
         this.merchantImgView.setOnMouseClicked(event -> {
-            ConsoleAssistant.println(Color.YELLOW, "Clicked on Merchant");
+            ConsoleAssistant.log(Color.YELLOW, "Clicked on Merchant");
             onMerchantClick();
             this.merchantImgView.setDisable(true);
         });

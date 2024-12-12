@@ -70,7 +70,7 @@ public class TreasureController implements Controller, TreasureViewEvents {
      */
     @Override
     public void onBackClicked() {
-        ConsoleAssistant.print(Color.YELLOW, "TreasureView Leaved!");
+        ConsoleAssistant.log(Color.YELLOW, "TreasureView Leaved!");
         GuiHelper.Scenes.startMapScene(player);
     }
 
@@ -103,7 +103,7 @@ public class TreasureController implements Controller, TreasureViewEvents {
     @Override
     public void onPotionClick(PotionCard potion) {
         if (this.player.getPotionCards().size() < 3) {
-            ConsoleAssistant.print(Color.YELLOW, "Got a Potion: " + potion.getName());
+            ConsoleAssistant.log(Color.YELLOW, "Got a Potion: " + potion.getName());
             this.player.addPotionCard(potion);
         }
         else {
@@ -117,8 +117,8 @@ public class TreasureController implements Controller, TreasureViewEvents {
      * @param card Die hinzuzufügende Karte.
      */
     private void addCardToDeck(Card card) {
-        ConsoleAssistant.print(Color.YELLOW, "Got a Card: " + card.getName());
-        ConsoleAssistant.print(Color.YELLOW, "Got Gold: " + this.gold);
+        ConsoleAssistant.log(Color.YELLOW, "Got a Card: " + card.getName());
+        ConsoleAssistant.log(Color.YELLOW, "Got Gold: " + this.gold);
 
         this.player.addCardToDeck(card);
         this.player.increaseGold(this.gold);

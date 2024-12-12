@@ -195,7 +195,7 @@ public class BattleController implements Controller, BattleViewEvents, PlayerEve
     }
 
     private void enemyTurn() {
-        ConsoleAssistant.println("Enemies' Turn:");
+        ConsoleAssistant.log("Enemies' Turn:");
         removeBlockOfEnemiesAfterEndOfTurn();
 
         for (Enemy enemy : enemies) {

@@ -72,7 +72,7 @@ public class LootController implements Controller, LootViewEvents {
 
     @Override
     public void onBackClicked() {
-        ConsoleAssistant.print(Color.YELLOW, "LootView Leaved!");
+        ConsoleAssistant.log(Color.YELLOW, "LootView Leaved!");
         if (this.fieldType == FieldEnum.BOSSFIELD) {
             GuiHelper.Scenes.startStatisticScene(player);
             return;
@@ -93,7 +93,7 @@ public class LootController implements Controller, LootViewEvents {
     @Override
     public void onPotionClick(PotionCard potion) {
         if (this.player.getPotionCards().size() < 3) {
-            ConsoleAssistant.print(Color.YELLOW, "Got an Potion: " + potion.getName());
+            ConsoleAssistant.log(Color.YELLOW, "Got an Potion: " + potion.getName());
             this.player.addPotionCard(potion);
         }
         else {
@@ -107,8 +107,8 @@ public class LootController implements Controller, LootViewEvents {
      * @param card Die hinzuzufügende Karte.
      */
     private void addCardToDeck(Card card) {
-        ConsoleAssistant.print(Color.YELLOW, "Got an Card: " + card.getName());
-        ConsoleAssistant.print(Color.YELLOW, "Got Gold: " + this.gold);
+        ConsoleAssistant.log(Color.YELLOW, "Got an Card: " + card.getName());
+        ConsoleAssistant.log(Color.YELLOW, "Got Gold: " + this.gold);
 
         this.player.addCardToDeck(card);
         this.player.increaseGold(this.gold);
