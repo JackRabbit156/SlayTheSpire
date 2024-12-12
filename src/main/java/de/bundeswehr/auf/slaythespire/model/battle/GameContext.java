@@ -4,6 +4,7 @@ import de.bundeswehr.auf.slaythespire.model.enemy.Enemy;
 import de.bundeswehr.auf.slaythespire.model.player.structure.Player;
 
 import java.util.List;
+import java.util.Random;
 
 /**
  * Diese Klasse repräsentiert den Kontext eines Spiels,
@@ -14,12 +15,14 @@ import java.util.List;
  * @author Warawa Alexander, Willig Daniel
  */
 public class GameContext {
+
+    private static final Random rnd = new Random();
+
     private final Player player;
     private final List<Enemy> enemies;
     private final BattleDeck battleDeck;
-
     private Enemy selectedEnemy;
-    private Enemy randomEnemy;
+
     /**
      * Konstruktor für die GameContext-Klasse.
      *
@@ -33,13 +36,12 @@ public class GameContext {
         this.battleDeck = battleDeck;
     }
 
-
     public void setSelectedEnemy(Enemy selectedEnemy){
         this.selectedEnemy = selectedEnemy;
     }
 
     public void setRandomEnemy(){
-        this.selectedEnemy = enemies.get(0); //es ist zwar nicht random, das sieht der Spieler ja aber nicht, also lass einfach nicht drüber sprechen Frank.
+        this.selectedEnemy = enemies.get(rnd.nextInt(enemies.size()));
     }
 
     public Enemy getSelectedEnemy() {
