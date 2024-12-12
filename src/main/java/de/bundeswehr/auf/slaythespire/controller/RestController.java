@@ -1,11 +1,11 @@
 package de.bundeswehr.auf.slaythespire.controller;
 
+import de.bundeswehr.auf.slaythespire.gui.RestView;
+import de.bundeswehr.auf.slaythespire.gui.events.RestViewEvents;
 import de.bundeswehr.auf.slaythespire.helper.Color;
 import de.bundeswehr.auf.slaythespire.helper.ConsoleAssistant;
 import de.bundeswehr.auf.slaythespire.helper.GuiHelper;
 import de.bundeswehr.auf.slaythespire.model.player.structure.Player;
-import de.bundeswehr.auf.slaythespire.gui.RestView;
-import de.bundeswehr.auf.slaythespire.gui.events.RestViewEvents;
 
 /**
  * Die Klasse RestController steuert den Rastvorgang im Spiel und verwaltet die Anzeige der Rast-Ansicht.
@@ -13,10 +13,11 @@ import de.bundeswehr.auf.slaythespire.gui.events.RestViewEvents;
  *
  * @author Vladislav Keil
  */
-public class RestController implements RestViewEvents {
-    private Player player;
-    private RestView restView;
+public class RestController implements Controller, RestViewEvents {
+
     private boolean healed = false;
+    private final Player player;
+    private RestView restView;
 
     /**
      * Konstruktor für die Klasse RestController.
@@ -30,12 +31,22 @@ public class RestController implements RestViewEvents {
     }
 
     /**
-     * Startet die Rast und initialisiert die Rast-Ansicht.
+     * Gibt die Rest-Ansicht zurück.
+     *
+     * @return Die RestView-Instanz.
      */
-    private void startRest() {
-        this.healed = false;
-        this.restView = new RestView(this);
-        this.restView.initRestViewEvents(this);
+    public RestView getRestView() {
+        return restView;
+    }
+
+    /**
+     * Event-Handler für den Zurück-Klick.
+     * Kehrt zur Kartenansicht zurück.
+     */
+    @Override
+    public void onBackClicked() {
+        ConsoleAssistant.println(Color.YELLOW, "Back wurde im RestViewController angeklickt");
+        GuiHelper.Scenes.startMapScene(player);
     }
 
     /**
@@ -54,21 +65,11 @@ public class RestController implements RestViewEvents {
     }
 
     /**
-     * Event-Handler für den Zurück-Klick.
-     * Kehrt zur Kartenansicht zurück.
+     * Startet die Rast und initialisiert die Rast-Ansicht.
      */
-    @Override
-    public void onBackClicked() {
-        ConsoleAssistant.println(Color.YELLOW, "Back wurde im RestViewController angeklickt");
-        GuiHelper.Scenes.startMapScene(player);
-    }
-
-    /**
-     * Gibt die Rest-Ansicht zurück.
-     *
-     * @return Die RestView-Instanz.
-     */
-    public RestView getRestView() {
-        return restView;
+    private void startRest() {
+        this.healed = false;
+        this.restView = new RestView(this);
+        this.restView.initRestViewEvents(this);
     }
 }

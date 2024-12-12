@@ -21,7 +21,7 @@ import java.util.List;
  *
  * @author Warawa Alexander
  */
-public class MapView extends StackPane {
+public class MapView extends StackPane implements View {
 
     private final DifficultyMenuLayer difficultyMenu;
     private final DifficultyMenuListener difficultyMenuListener;
@@ -127,6 +127,11 @@ public class MapView extends StackPane {
     public void closeGameMenu() {
         mainMap.setVisible(true);
         gameMenu.setVisible(false);
+    }
+
+    @Override
+    public void discard() {
+        mapCenter.discard();
     }
 
     public BorderPane getMainMap() {

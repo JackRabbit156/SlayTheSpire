@@ -1,52 +1,53 @@
 package de.bundeswehr.auf.slaythespire.controller;
 
+import de.bundeswehr.auf.slaythespire.gui.CharacterView;
 import de.bundeswehr.auf.slaythespire.helper.GuiHelper;
-import javafx.scene.layout.BorderPane;
-import javafx.stage.Stage;
-import de.bundeswehr.auf.slaythespire.model.settings.GameSettings;
 import de.bundeswehr.auf.slaythespire.model.player.IroncladPlayer;
 import de.bundeswehr.auf.slaythespire.model.player.SilentPlayer;
 import de.bundeswehr.auf.slaythespire.model.player.structure.Player;
-import de.bundeswehr.auf.slaythespire.gui.CharacterView;
+import de.bundeswehr.auf.slaythespire.model.settings.GameSettings;
+import javafx.scene.layout.BorderPane;
+import javafx.stage.Stage;
 
 /**
  * Controller für die Darstellung der Charaktererstellung
+ *
  * @author Loeschner, Marijan
  */
-public class CharacterController {
-    private CharacterView cv = new CharacterView();
-    private Player player;
+public class CharacterController implements Controller {
 
     private Stage charStage;
+    private final CharacterView characterView = new CharacterView();
+    private Player player;
 
-    public BorderPane startSelection(Stage stage){
+    public BorderPane startSelection(Stage stage) {
         charStage = stage;
-        cv.display();
+        characterView.display();
 
-        cv.getBacks().setOnMouseClicked(event -> {
+        characterView.getBacks().setOnMouseClicked(event -> {
             GuiHelper.Scenes.startMainMenuScene(charStage);
         });
-        cv.getEmbark().setOnMouseClicked(event -> {
-            if(cv.getIc().isSelected()) {
+        characterView.getEmbark().setOnMouseClicked(event -> {
+            if (characterView.getIc().isSelected()) {
                 player = new IroncladPlayer(charStage);
                 GuiHelper.Scenes.startMapScene(player);
                 GameSettings.startTimer();
             }
-            else if(cv.getSl().isSelected()){
+            else if (characterView.getSl().isSelected()) {
                 player = new SilentPlayer(charStage);
                 GuiHelper.Scenes.startMapScene(player);
                 GameSettings.startTimer();
             }
         });
 
-        cv.getIc().setOnMouseClicked(event -> {
-            cv.getSl().setBackground(cv.getSlButtonBG());
-            cv.selectIC();
+        characterView.getIc().setOnMouseClicked(event -> {
+            characterView.getSl().setBackground(characterView.getSlButtonBG());
+            characterView.selectIC();
         });
-        cv.getSl().setOnMouseClicked(event -> {
-            cv.getIc().setBackground(cv.getIcButtonBG());
-            cv.selectSL();
+        characterView.getSl().setOnMouseClicked(event -> {
+            characterView.getIc().setBackground(characterView.getIcButtonBG());
+            characterView.selectSL();
         });
-        return cv.display();
+        return characterView.display();
     }
 }

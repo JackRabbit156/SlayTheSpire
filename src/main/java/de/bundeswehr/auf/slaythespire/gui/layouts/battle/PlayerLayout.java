@@ -21,18 +21,18 @@ import de.bundeswehr.auf.slaythespire.gui.BattleView;
  * @author OF Daniel Willig
  */
 public class PlayerLayout extends VBox {
-    private Player player;
-    private HealthBarLayout healthBarLayout;
-    private DefendLayout defendLayout;
-    private MovingAnimation animation;
-    private BattleView battleView;
+
+    private final Player player;
+    private final HealthBarLayout healthBarLayout;
+    private final DefendLayout defendLayout;
+    private final MovingAnimation animation;
+    private final BattleView battleView;
     private boolean skillMode = false;
     private boolean powerMode = false;
     private boolean deadFlag = false;
 
     private String imagePath;
 
-    //private ProgressBar healthBar;
     public PlayerLayout(Player player, BattleView battleView){
         this.player = player;
         this.battleView = battleView;
@@ -56,6 +56,10 @@ public class PlayerLayout extends VBox {
 
         animation = new MovingAnimation(this);
         animation.start();
+    }
+
+    public void handlePlayerDeath() {
+        animation.stop();
     }
 
     public void updatePlayer(){

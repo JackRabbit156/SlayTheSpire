@@ -5,21 +5,20 @@ import de.bundeswehr.auf.slaythespire.controller.listener.PlayerEventListener;
 import de.bundeswehr.auf.slaythespire.events.EnemyDamageEvent;
 import de.bundeswehr.auf.slaythespire.events.PlayerBlockEvent;
 import de.bundeswehr.auf.slaythespire.events.PlayerDamageEvent;
+import de.bundeswehr.auf.slaythespire.gui.BattleView;
+import de.bundeswehr.auf.slaythespire.gui.events.BattleViewEvents;
+import de.bundeswehr.auf.slaythespire.helper.ConsoleAssistant;
 import de.bundeswehr.auf.slaythespire.helper.GuiHelper;
-import javafx.stage.Stage;
 import de.bundeswehr.auf.slaythespire.model.battle.BattleDeck;
 import de.bundeswehr.auf.slaythespire.model.battle.GameContext;
-
 import de.bundeswehr.auf.slaythespire.model.card.structure.*;
 import de.bundeswehr.auf.slaythespire.model.enemy.Enemy;
 import de.bundeswehr.auf.slaythespire.model.map.field.FieldEnum;
 import de.bundeswehr.auf.slaythespire.model.player.structure.Player;
-
 import de.bundeswehr.auf.slaythespire.model.potion.structure.PotionCard;
 import de.bundeswehr.auf.slaythespire.model.relic.structure.Relic;
 import de.bundeswehr.auf.slaythespire.model.relic.structure.RelicTrigger;
-import de.bundeswehr.auf.slaythespire.gui.BattleView;
-import de.bundeswehr.auf.slaythespire.gui.events.BattleViewEvents;
+import javafx.stage.Stage;
 
 import java.util.List;
 
@@ -30,18 +29,15 @@ import java.util.List;
  *
  * @author Warawa Alexander, Willig Daniel
  */
-public class BattleController implements BattleViewEvents, PlayerEventListener, EnemyEventListener {
-
-    private final BattleView battleView;
-    private final FieldEnum fieldType;
-
-    private final Player player;
-    private final List<Enemy> enemies;
+public class BattleController implements Controller, BattleViewEvents, PlayerEventListener, EnemyEventListener {
 
     private final BattleDeck battleDeck;
-    private final List<PotionCard> potions;
+    private final BattleView battleView;
+    private final List<Enemy> enemies;
+    private final FieldEnum fieldType;
     private final GameContext gameContext;
-
+    private final Player player;
+    private final List<PotionCard> potions;
     private Card selectedCard;
 
     public BattleController(Player player, List<Enemy> enemies, FieldEnum fieldType) {
@@ -67,37 +63,24 @@ public class BattleController implements BattleViewEvents, PlayerEventListener, 
         startOfCombat();
     }
 
-    private void startOfCombat() {
-        battleDeck.fillHand(battleDeck.getStartHandSize());
-
-        triggerRelics(RelicTrigger.START_OF_COMBAT);
-
-        triggerPowerCards(CardTrigger.PLAYER_BOT);
+    @Override
+    public void discard() {
+        battleView.discard();
     }
 
-    private void playerBOT() {
-        calcIntentForAllEnemies(enemies);
-        resetEnergyAndBlock();
-        battleDeck.fillHand(battleDeck.getStartHandSize());
-
-        triggerPowerCards(CardTrigger.PLAYER_BOT);
+    public BattleView getBattleView() {
+        return this.battleView;
     }
 
-    private void calcIntentForAllEnemies(List<Enemy> enemies) {
-        for (Enemy enemy : enemies) {
-            enemy.calcIntent();
-        }
-    }
-
-    public void resetEnergyAndBlock() {
-        player.resetEnergy();
-        player.resetBlock();
+    @Override
+    public void onBlockReceived(PlayerBlockEvent event) {
+        triggerPowerCards(CardTrigger.GAIN_BLOCK);
     }
 
     /**
      * This function calls 'playerTurn(...)' and checks if the card needs a target
      *
-     * @param card selected card
+     * @param card  selected card
      * @param index index of selected card
      */
     @Override
@@ -105,45 +88,24 @@ public class BattleController implements BattleViewEvents, PlayerEventListener, 
         selectedCard = card;
     }
 
-    /**
-     *
-     * @param enemy that enemy you clicked on after your selection of a card
-     */
     @Override
-    public void onEnemyClick(Enemy enemy) {
-        if(selectedCard == null)
-            return;
+    public void onDamageDealt() {
 
-        playCard(enemy);
+    }
 
-        selectedCard = null;
-
-        if(enemies.isEmpty()) {
-            endOfCombat();
+    @Override
+    public void onDamageReceived(PlayerDamageEvent event) {
+        if (event.isCard()) {
+            triggerPowerCards(CardTrigger.LOSE_HP_CARD);
+        }
+        else {
+            triggerPowerCards(CardTrigger.LOSE_HP_ENEMY);
         }
     }
 
     @Override
-    public void onFullscreenClick() {
-        Stage primaryStage = player.getPrimaryStage();
+    public void onDamageReceived(EnemyDamageEvent event) {
 
-        primaryStage.setFullScreen(!primaryStage.isFullScreen());
-    }
-
-    private void endOfCombat() {
-        triggerRelics(RelicTrigger.END_OF_COMBAT);
-
-        GuiHelper.Scenes.startLootScene(this.player, this.fieldType);
-    }
-
-    @Override
-    public void onPlayerClick() {
-        if(selectedCard == null)
-            return;
-
-        playCard();
-
-        selectedCard = null;
     }
 
     @Override
@@ -154,70 +116,61 @@ public class BattleController implements BattleViewEvents, PlayerEventListener, 
         playerBOT();
     }
 
-    private void removeHandAfterEndOfTurn() {
-        int size = battleDeck.getHand().size();
-        for(int i = 0; i < size; i++) {
-            battleDeck.discardCardFromHand(battleDeck.getHand().get(0));
+    /**
+     * @param enemy that enemy you clicked on after your selection of a card
+     */
+    @Override
+    public void onEnemyClick(Enemy enemy) {
+        if (selectedCard == null) {
+            return;
+        }
+
+        playCard(enemy);
+
+        selectedCard = null;
+
+        if (enemies.isEmpty()) {
+            endOfCombat();
         }
     }
 
-    private void playerEOT() {
-        removeHandAfterEndOfTurn();
-
-        triggerPowerCards(CardTrigger.PLAYER_EOT);
-    }
-
-    private void triggerRelics(RelicTrigger trigger) {
-        Relic relic = player.getRelic();
-        if (relic.getRelicTrigger().equals(trigger)) {
-            relic.getsUsed(gameContext);
-        }
-    }
-
-    private void triggerPowerCards(CardTrigger trigger) {
-        List<PowerCard> powerCards = battleDeck.getCurrentPowerCards();
-        for (PowerCard powerCard : powerCards) {
-            if (powerCard.getCardTrigger().equals(trigger)) {
-                powerCard.ability(gameContext);
+    @Override
+    public void onEnemyDeath(Enemy enemy) {
+        for (Enemy singleEnemy : enemies) {
+            if (singleEnemy.isAlive()) {
+                return;
             }
         }
+        endOfCombat();
     }
 
-    private void enemyTurn() {
-        System.out.println("\nEnemies' Turn:");
-        removeBlockOfEnemiesAfterEndOfTurn();
+    @Override
+    public void onFullscreenClick() {
+        Stage primaryStage = player.getPrimaryStage();
 
+        primaryStage.setFullScreen(!primaryStage.isFullScreen());
+    }
+
+    @Override
+    public void onPlayerClick() {
+        if (selectedCard == null) {
+            return;
+        }
+
+        playCard();
+
+        selectedCard = null;
+    }
+
+    public void resetEnergyAndBlock() {
+        player.resetEnergy();
+        player.resetBlock();
+    }
+
+    private void calcIntentForAllEnemies(List<Enemy> enemies) {
         for (Enemy enemy : enemies) {
-            if (enemy.isAlive()) {
-                enemy.action(gameContext);
-            }
-
+            enemy.calcIntent();
         }
-    }
-
-    // Block hält nur 1. Runde an.
-    private void removeBlockOfEnemiesAfterEndOfTurn() {
-        for (Enemy enemy : enemies) {
-            enemy.setBlock(0);
-        }
-    }
-
-    private boolean isCardPlayable() {
-        if(selectedCard.getCost() > player.getCurrentEnergy()){
-            System.out.println("\nNot enough Energy!");
-            return false;
-        }
-
-        if (selectedCard.getName().equals("Clash")) {
-            List<Card> hand = gameContext.getBattleDeck().getHand();
-            for (Card card : hand) {
-                if (!card.getCardType().equals(CardType.ATTACK)) {
-                    System.out.println("\nOnly playable if only Attack-Cards in Hand");
-                    return false;
-                }
-            }
-        }
-        return true;
     }
 
     private void cardDeath() {
@@ -233,6 +186,42 @@ public class BattleController implements BattleViewEvents, PlayerEventListener, 
         else {
             battleDeck.removeCardFromHand(selectedCard);
         }
+    }
+
+    private void endOfCombat() {
+        triggerRelics(RelicTrigger.END_OF_COMBAT);
+
+        GuiHelper.Scenes.startLootScene(this.player, this.fieldType);
+    }
+
+    private void enemyTurn() {
+        ConsoleAssistant.println("Enemies' Turn:");
+        removeBlockOfEnemiesAfterEndOfTurn();
+
+        for (Enemy enemy : enemies) {
+            if (enemy.isAlive()) {
+                enemy.action(gameContext);
+            }
+
+        }
+    }
+
+    private boolean isCardPlayable() {
+        if (selectedCard.getCost() > player.getCurrentEnergy()) {
+            System.out.println("\nNot enough Energy!");
+            return false;
+        }
+
+        if (selectedCard.getName().equals("Clash")) {
+            List<Card> hand = gameContext.getBattleDeck().getHand();
+            for (Card card : hand) {
+                if (!card.getCardType().equals(CardType.ATTACK)) {
+                    System.out.println("\nOnly playable if only Attack-Cards in Hand");
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 
     private void playCard(Enemy enemy) {
@@ -264,46 +253,56 @@ public class BattleController implements BattleViewEvents, PlayerEventListener, 
         cardDeath();
     }
 
-    public BattleView getBattleView(){
-        return this.battleView;
+    private void playerBOT() {
+        calcIntentForAllEnemies(enemies);
+        resetEnergyAndBlock();
+        battleDeck.fillHand(battleDeck.getStartHandSize());
+
+        triggerPowerCards(CardTrigger.PLAYER_BOT);
     }
 
-    @Override
-    public void onBlockReceived(PlayerBlockEvent event) {
-        triggerPowerCards(CardTrigger.GAIN_BLOCK);
+    private void playerEOT() {
+        removeHandAfterEndOfTurn();
+
+        triggerPowerCards(CardTrigger.PLAYER_EOT);
     }
 
-    @Override
-    public void onDamageReceived(PlayerDamageEvent event) {
-        if (event.isCard()) {
-            triggerPowerCards(CardTrigger.LOSE_HP_CARD);
+    // Block hält nur 1. Runde an.
+    private void removeBlockOfEnemiesAfterEndOfTurn() {
+        for (Enemy enemy : enemies) {
+            enemy.setBlock(0);
         }
-        else {
-            triggerPowerCards(CardTrigger.LOSE_HP_ENEMY);
+    }
+
+    private void removeHandAfterEndOfTurn() {
+        int size = battleDeck.getHand().size();
+        for (int i = 0; i < size; i++) {
+            battleDeck.discardCardFromHand(battleDeck.getHand().get(0));
         }
     }
 
-    @Override
-    public void onDamageDealt() {
+    private void startOfCombat() {
+        battleDeck.fillHand(battleDeck.getStartHandSize());
 
+        triggerRelics(RelicTrigger.START_OF_COMBAT);
+
+        triggerPowerCards(CardTrigger.PLAYER_BOT);
     }
 
-    @Override
-    public void onDamageReceived(EnemyDamageEvent event) {
-
-    }
-
-    @Override
-    public void onEnemyDeath(Enemy enemy) {
-        for (Enemy singleEnemy : enemies) {
-            if (singleEnemy.isAlive()) {
-                return;
+    private void triggerPowerCards(CardTrigger trigger) {
+        List<PowerCard> powerCards = battleDeck.getCurrentPowerCards();
+        for (PowerCard powerCard : powerCards) {
+            if (powerCard.getCardTrigger().equals(trigger)) {
+                powerCard.ability(gameContext);
             }
         }
-        endOfCombat();
     }
 
-    public FieldEnum getFieldType() {
-        return fieldType;
+    private void triggerRelics(RelicTrigger trigger) {
+        Relic relic = player.getRelic();
+        if (relic.getRelicTrigger().equals(trigger)) {
+            relic.getsUsed(gameContext);
+        }
     }
+
 }

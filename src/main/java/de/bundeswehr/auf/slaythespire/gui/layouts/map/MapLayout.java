@@ -1,5 +1,9 @@
 package de.bundeswehr.auf.slaythespire.gui.layouts.map;
 
+import de.bundeswehr.auf.slaythespire.gui.MapView;
+import de.bundeswehr.auf.slaythespire.gui.View;
+import de.bundeswehr.auf.slaythespire.gui.layouts.battle.MovingAnimation;
+import de.bundeswehr.auf.slaythespire.model.map.Node;
 import javafx.geometry.Insets;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
@@ -8,9 +12,6 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
-import de.bundeswehr.auf.slaythespire.model.map.Node;
-import de.bundeswehr.auf.slaythespire.gui.MapView;
-import de.bundeswehr.auf.slaythespire.gui.layouts.battle.MovingAnimation;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,23 +28,25 @@ import java.util.List;
  *
  * @author Warawa Alexander
  */
-public class MapLayout extends GridPane {
-    private Pane lineLayer;
-    private MapView mapView;
-    private int mapWidth;
-    private int mapHeight;
-    private int playerField;
+public class MapLayout extends GridPane implements View {
 
-    private static final int TILE_SIZE = 58;
     private static final int CENTER_OFFSET = 39;
+    private static final int TILE_SIZE = 58;
+
+    private MovingAnimation animation;
+    private final Pane lineLayer;
+    private final int mapHeight;
+    private final MapView mapView;
+    private final int mapWidth;
+    private final int playerField;
 
     /**
      * Konstruktor für die Klasse 'MapLayout'.
      *
-     * @param mapView Die MapView, die zur Anzeige der Karte verwendet wird
-     * @param nodes Eine Liste von Knoten, die auf der Karte angezeigt werden
-     * @param mapWidth Die Breite der Karte in Kacheln
-     * @param mapHeight Die Höhe der Karte in Kacheln
+     * @param mapView     Die MapView, die zur Anzeige der Karte verwendet wird
+     * @param nodes       Eine Liste von Knoten, die auf der Karte angezeigt werden
+     * @param mapWidth    Die Breite der Karte in Kacheln
+     * @param mapHeight   Die Höhe der Karte in Kacheln
      * @param playerField Das Feld des Spielers
      */
 
@@ -70,22 +73,10 @@ public class MapLayout extends GridPane {
         mapView.getMainMap().setCenter(stackPane);
     }
 
-    /**
-     * Zeichnet die Linien zwischen den Knoten auf der Karte.
-     *
-     * @param nodes Die Liste der Knoten, zwischen denen die Linien gezeichnet werden
-     */
-    private void drawLines(List<Node> nodes) {
-        for (Node currentNode : nodes) {
-            if (currentNode.getRightNode() != null) {
-                connectNodes(currentNode, currentNode.getRightNode());
-            }
-            if (currentNode.getLeftNode() != null) {
-                connectNodes(currentNode, currentNode.getLeftNode());
-            }
-            if (currentNode.getMiddleNode() != null) {
-                connectNodes(currentNode, currentNode.getMiddleNode());
-            }
+    @Override
+    public void discard() {
+        if (animation != null) {
+            animation.stop();
         }
     }
 
@@ -93,7 +84,7 @@ public class MapLayout extends GridPane {
      * Erstellt eine Linie zwischen zwei Knoten und fügt sie der Linien-Ebene hinzu.
      *
      * @param fromNode Der Ausgangsknoten
-     * @param toNode Der Zielknoten
+     * @param toNode   Der Zielknoten
      */
     private void connectNodes(Node fromNode, Node toNode) {
         // Berechne die Start- und Endposition im Grid für die Linien
@@ -115,55 +106,48 @@ public class MapLayout extends GridPane {
     }
 
     /**
-     * Fügt die Knoten zur Karte hinzu und behandelt deren Status.
+     * Zeichnet die Linien zwischen den Knoten auf der Karte.
      *
-     * @param nodes Die Liste von Knoten, die auf der Karte angezeigt werden sollen
+     * @param nodes Die Liste der Knoten, zwischen denen die Linien gezeichnet werden
      */
-    private void setNodesOnMap(List<Node> nodes) {
-        List<Node> availablePosFromPlayer = new ArrayList<>();
-
-        ImageView image = null;
-        for(int i = 0; i< nodes.size(); i++){
-            image = image(nodes.get(i).getImagePath());
-
-            if(nodes.get(i).getPlayer() != null){
-                // saving the next possible nodes of the player
-                if (nodes.get(i).getRightNode() != null) {
-                    availablePosFromPlayer.add(nodes.get(i).getRightNode());
-                }
-                if (nodes.get(i).getLeftNode() != null) {
-                    availablePosFromPlayer.add(nodes.get(i).getLeftNode());
-                }
-                if (nodes.get(i).getMiddleNode() != null) {
-                    availablePosFromPlayer.add(nodes.get(i).getMiddleNode());
-                }
-
-                ImageView playerImage =image("/images/map/player/ironclad.png");
-                MovingAnimation movingAnimation = new MovingAnimation(playerImage);
-                movingAnimation.start();
-                this.add(playerImage, nodes.get(i).getX(), nodes.get(i).getY());
-                continue;
-            } else if( Integer.parseInt(nodes.get(0).getFieldName()) > playerField &&  availablePosFromPlayer.size() < 1 ) {
-                availablePosFromPlayer.add(nodes.get(0));
+    private void drawLines(List<Node> nodes) {
+        for (Node currentNode : nodes) {
+            if (currentNode.getRightNode() != null) {
+                connectNodes(currentNode, currentNode.getRightNode());
             }
-
-            for(int j = 0; j< availablePosFromPlayer.size(); j++){
-                if(availablePosFromPlayer.get(j).getX() == nodes.get(i).getX() && availablePosFromPlayer.get(j).getY() == nodes.get(i).getY()) {
-                    setColorEffekt(image);
-
-                    int finalI = i;
-                    image.addEventHandler(MouseEvent.MOUSE_CLICKED, e -> {
-                        handleFieldClick(nodes.get(finalI)); //  das Klick-Event
-                    });
-                }
+            if (currentNode.getLeftNode() != null) {
+                connectNodes(currentNode, currentNode.getLeftNode());
             }
-
-            this.add(image, nodes.get(i).getX(), nodes.get(i).getY());
+            if (currentNode.getMiddleNode() != null) {
+                connectNodes(currentNode, currentNode.getMiddleNode());
+            }
         }
     }
 
-    private void handleFieldClick(Node node){
+    private void handleFieldClick(Node node) {
         mapView.clickedOnValidField(node);
+    }
+
+    private ImageView image(String imagePath) {
+        Image figureImage = new Image(getClass().getResource(imagePath).toExternalForm());
+        ImageView imageViewFigure = new ImageView(figureImage);
+        imageViewFigure.setFitWidth(TILE_SIZE);
+        imageViewFigure.setFitHeight(TILE_SIZE);
+        imageViewFigure.setPreserveRatio(true);
+        return imageViewFigure;
+    }
+
+    private void initMapGridPane() {
+        setPadding(new Insets(10));
+
+        for (int i = 0; i < mapWidth; i++) {
+            ColumnConstraints colConst = new ColumnConstraints(TILE_SIZE);
+            getColumnConstraints().add(colConst);
+        }
+        for (int i = 0; i < mapHeight; i++) {
+            RowConstraints rowConst = new RowConstraints(TILE_SIZE);
+            getRowConstraints().add(rowConst);
+        }
     }
 
     private void setColorEffekt(ImageView imageView) {
@@ -195,25 +179,48 @@ public class MapLayout extends GridPane {
         });
     }
 
-    private void initMapGridPane() {
-        setPadding(new Insets(10));
+    /**
+     * Fügt die Knoten zur Karte hinzu und behandelt deren Status.
+     *
+     * @param nodes Die Liste von Knoten, die auf der Karte angezeigt werden sollen
+     */
+    private void setNodesOnMap(List<Node> nodes) {
+        List<Node> availablePosFromPlayer = new ArrayList<>();
 
-        for (int i = 0; i < mapWidth; i++) {
-            ColumnConstraints colConst = new ColumnConstraints(TILE_SIZE);
-            getColumnConstraints().add(colConst);
-        }
-        for (int i = 0; i < mapHeight; i++) {
-            RowConstraints rowConst = new RowConstraints(TILE_SIZE);
-            getRowConstraints().add(rowConst);
-        }
-    }
+        ImageView image;
+        for (int i = 0; i < nodes.size(); i++) {
+            image = image(nodes.get(i).getImagePath());
 
-    private ImageView image(String imagePath) {
-        Image figureImage = new Image(getClass().getResource(imagePath).toExternalForm());
-        ImageView imageViewFigure = new ImageView(figureImage);
-        imageViewFigure.setFitWidth(TILE_SIZE);
-        imageViewFigure.setFitHeight(TILE_SIZE);
-        imageViewFigure.setPreserveRatio(true);
-        return imageViewFigure;
+            if (nodes.get(i).getPlayer() != null) {
+                // saving the next possible nodes of the player
+                if (nodes.get(i).getRightNode() != null) {
+                    availablePosFromPlayer.add(nodes.get(i).getRightNode());
+                }
+                if (nodes.get(i).getLeftNode() != null) {
+                    availablePosFromPlayer.add(nodes.get(i).getLeftNode());
+                }
+                if (nodes.get(i).getMiddleNode() != null) {
+                    availablePosFromPlayer.add(nodes.get(i).getMiddleNode());
+                }
+
+                ImageView playerImage = image("/images/map/player/ironclad.png");
+                // TODO make it discardable before use
+                animation = new MovingAnimation(playerImage);
+                animation.start();
+                add(playerImage, nodes.get(i).getX(), nodes.get(i).getY());
+                continue;
+            }
+            else if (Integer.parseInt(nodes.get(0).getFieldName()) > playerField && availablePosFromPlayer.size() < 1) {
+                availablePosFromPlayer.add(nodes.get(0));
+            }
+            for (Node node : availablePosFromPlayer) {
+                if (node.getX() == nodes.get(i).getX() && node.getY() == nodes.get(i).getY()) {
+                    setColorEffekt(image);
+                    int finalI = i;
+                    image.addEventHandler(MouseEvent.MOUSE_CLICKED, e -> handleFieldClick(nodes.get(finalI)));
+                }
+            }
+            add(image, nodes.get(i).getX(), nodes.get(i).getY());
+        }
     }
 }

@@ -1,17 +1,17 @@
 package de.bundeswehr.auf.slaythespire.controller;
 
+import de.bundeswehr.auf.slaythespire.gui.ShopView;
+import de.bundeswehr.auf.slaythespire.gui.events.ShopViewEvents;
 import de.bundeswehr.auf.slaythespire.helper.Color;
 import de.bundeswehr.auf.slaythespire.helper.ConsoleAssistant;
 import de.bundeswehr.auf.slaythespire.helper.GuiHelper;
 import de.bundeswehr.auf.slaythespire.helper.MusicBoy;
-import javafx.stage.Stage;
 import de.bundeswehr.auf.slaythespire.model.card.DeckFactory;
 import de.bundeswehr.auf.slaythespire.model.card.structure.Card;
 import de.bundeswehr.auf.slaythespire.model.player.structure.Player;
 import de.bundeswehr.auf.slaythespire.model.potion.structure.PotionCard;
 import de.bundeswehr.auf.slaythespire.model.relic.structure.Relic;
-import de.bundeswehr.auf.slaythespire.gui.ShopView;
-import de.bundeswehr.auf.slaythespire.gui.events.ShopViewEvents;
+import javafx.stage.Stage;
 
 import java.util.List;
 
@@ -21,7 +21,7 @@ import java.util.List;
  *
  * @author Keil, Vladislav
  */
-public class ShopController implements ShopViewEvents {
+public class ShopController implements Controller, ShopViewEvents {
 
     private final Player player;
     private final List<Card> purchasableCards;

@@ -18,6 +18,10 @@ public class LeftSideLayout extends VBox {
         getChildren().add(playerLayout);
     }
 
+    public void discard() {
+        playerLayout.handlePlayerDeath();
+    }
+
     public void update() {
         if (!player.isAlive()) {
             getChildren().remove(playerLayout);

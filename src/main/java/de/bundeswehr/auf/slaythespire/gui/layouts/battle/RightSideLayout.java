@@ -40,11 +40,19 @@ public class RightSideLayout extends HBox {
         for (int i = enemyLayout.size() - 1; i >= 0; i--) {
             enemyLayout.get(i).updateEnemy();
             if (!enemies.get(i).isAlive()) {
+                EnemyLayout dead = enemyLayout.remove(i);
+                dead.handleEnemyDeath();
                 getChildren().remove(i);
-                enemyLayout.remove(i);
             }
         }
-        enemies.removeIf(enemy -> !enemy.isAlive());
+        // TODO doppelt?
+//        enemies.removeIf(enemy -> !enemy.isAlive());
+    }
+
+    public void discard() {
+        for (EnemyLayout enemy : enemyLayout) {
+            enemy.handleEnemyDeath();
+        }
     }
 
 }

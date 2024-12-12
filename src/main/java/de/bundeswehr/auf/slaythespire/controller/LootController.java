@@ -22,7 +22,7 @@ import java.util.Random;
  *
  * @author Keil, Vladislav
  */
-public class LootController implements LootViewEvents {
+public class LootController implements Controller, LootViewEvents {
 
     private static final Random rnd = new Random();
 

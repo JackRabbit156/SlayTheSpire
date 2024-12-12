@@ -19,7 +19,7 @@ import de.bundeswehr.auf.slaythespire.gui.layouts.loot.PlayerLayout;
  *
  * @author Vladislav Keil
  */
-public class StatisticView extends StackPane {
+public class StatisticsView extends StackPane {
 
     private int act;
     private final BorderPane backgroundLayout;
@@ -33,7 +33,7 @@ public class StatisticView extends StackPane {
      *
      * @param player Der Spieler, dessen Statistiken angezeigt werden.
      */
-    public StatisticView(Player player) {
+    public StatisticsView(Player player) {
         this.statisticLayout = new BorderPane();
         this.bottomLayout = new BorderPane();
         this.backgroundLayout = new BorderPane();

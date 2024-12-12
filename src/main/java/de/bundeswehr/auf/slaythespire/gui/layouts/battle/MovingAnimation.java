@@ -7,8 +7,10 @@ import javafx.scene.Node;
 import javafx.util.Duration;
 
 public class MovingAnimation {
+
     private static final Duration ANIMATION_DURATION = Duration.millis(1100); // Animation für Hin- und Herbewegung
-    private Timeline timeline;
+
+    private final Timeline timeline;
 
     public MovingAnimation(Node nodeToAnimate) {
         timeline = new Timeline(
@@ -36,4 +38,5 @@ public class MovingAnimation {
     public void stop() {
         timeline.stop();
     }
+
 }

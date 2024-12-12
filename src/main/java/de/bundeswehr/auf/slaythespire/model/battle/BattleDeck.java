@@ -49,7 +49,7 @@ public class BattleDeck {
     }
 
     public void createShuffledDeck() {
-        int randNum = this.rnd.nextInt(10);
+        int randNum = rnd.nextInt(10);
         for (int i = 0; i <= randNum; i++) {
             Collections.shuffle(this.deck);
         }

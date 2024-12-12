@@ -1,6 +1,11 @@
 package de.bundeswehr.auf.slaythespire.helper;
 
 import de.bundeswehr.auf.slaythespire.controller.*;
+import de.bundeswehr.auf.slaythespire.gui.GameOverView;
+import de.bundeswehr.auf.slaythespire.gui.StatisticsView;
+import de.bundeswehr.auf.slaythespire.model.enemy.Enemy;
+import de.bundeswehr.auf.slaythespire.model.map.field.FieldEnum;
+import de.bundeswehr.auf.slaythespire.model.player.structure.Player;
 import javafx.animation.FadeTransition;
 import javafx.scene.ImageCursor;
 import javafx.scene.Node;
@@ -15,11 +20,6 @@ import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.util.Duration;
-import de.bundeswehr.auf.slaythespire.model.enemy.Enemy;
-import de.bundeswehr.auf.slaythespire.model.map.field.FieldEnum;
-import de.bundeswehr.auf.slaythespire.model.player.structure.Player;
-import de.bundeswehr.auf.slaythespire.gui.GameOverView;
-import de.bundeswehr.auf.slaythespire.gui.StatisticView;
 
 import java.util.List;
 import java.util.Objects;
@@ -41,6 +41,8 @@ public class GuiHelper {
      */
     public static class Scenes {
 
+        private static Controller lastController;
+
         /**
          * Startet die Kampf-Szene (Battle Scene), in der der Spieler gegen eine Liste von Gegnern kämpfen kann.
          *
@@ -49,11 +51,11 @@ public class GuiHelper {
          * @param enemyField aktueller Feldtyp
          */
         public static void startBattleScene(Player player, List<Enemy> enemies, FieldEnum enemyField) {
-            BattleController battle = new BattleController(player, enemies, enemyField);
+            BattleController battleController = new BattleController(player, enemies, enemyField);
+            registerController(battleController);
             Stage primaryStage = player.getPrimaryStage();
-
             String cssPath = "/css/battleStyle.css";
-            fadeTransition(primaryStage, battle.getBattleView(), cssPath);
+            fadeTransition(primaryStage, battleController.getBattleView(), cssPath);
         }
 
         /**
@@ -62,9 +64,10 @@ public class GuiHelper {
          * @param primaryStage die Stage die Übergeben wird
          */
         public static void startCharSelection(Stage primaryStage) {
-            CharacterController cc = new CharacterController();
+            CharacterController characterController = new CharacterController();
+            registerController(characterController);
             String cssPath = "";
-            fadeTransition(primaryStage, cc.startSelection(primaryStage), cssPath);
+            fadeTransition(primaryStage, characterController.startSelection(primaryStage), cssPath);
         }
 
         /**
@@ -74,7 +77,7 @@ public class GuiHelper {
          */
         public static void startDeleteMenuScene(Stage primaryStage) {
             DeleteMenuController deleteController = new DeleteMenuController(primaryStage);
-
+            registerController(deleteController);
             String cssPath = "/css/loadViewStyle.css";
             fadeTransition(primaryStage, deleteController.getDeleteMenuView(), cssPath);
         }
@@ -85,16 +88,16 @@ public class GuiHelper {
          * @param player die Stage die Übergeben wird
          */
         public static void startEventScene(Player player) {
-            EventController cc = new EventController();
+            EventController eventController = new EventController();
+            registerController(eventController);
             Stage primaryStage = player.getPrimaryStage();
             String cssPath = "/css/eventStyle.css";
-            fadeTransition(primaryStage, cc.getEventView(player), cssPath);
+            fadeTransition(primaryStage, eventController.getEventView(player), cssPath);
         }
 
         public static void startGameOverScene(Player player) {
             GameOverView view = new GameOverView(player);
             Stage primaryStage = player.getPrimaryStage();
-
             String cssPath = "/css/battleStyle.css";
             fadeTransition(primaryStage, view, cssPath);
         }
@@ -106,8 +109,8 @@ public class GuiHelper {
          */
         public static void startLoadGameFromMapScene(Player player) {
             LoadController loadController = new LoadController(player);
+            registerController(loadController);
             Stage primaryStage = player.getPrimaryStage();
-
             String cssPath = "/css/loadViewStyle.css";
             fadeTransition(primaryStage, loadController.getLoadView(), cssPath);
         }
@@ -119,7 +122,7 @@ public class GuiHelper {
          */
         public static void startLoadGameFromMenuScene(Stage primaryStage) {
             LoadController loadController = new LoadController(primaryStage);
-
+            registerController(loadController);
             String cssPath = "/css/loadViewStyle.css";
             fadeTransition(primaryStage, loadController.getLoadView(), cssPath);
         }
@@ -131,11 +134,11 @@ public class GuiHelper {
          * @param fieldType Welchen fieldType man vorher besucht hat.
          */
         public static void startLootScene(Player player, FieldEnum fieldType) {
-            LootController loot = new LootController(player, fieldType);
+            LootController lootController = new LootController(player, fieldType);
+            registerController(lootController);
             Stage primaryStage = player.getPrimaryStage();
-
             String cssPath = "/css/battleStyle.css";
-            fadeTransition(primaryStage, loot.getLootView(), cssPath);
+            fadeTransition(primaryStage, lootController.getLootView(), cssPath);
         }
 
         /**
@@ -144,9 +147,10 @@ public class GuiHelper {
          * @param primaryStage die Stage die Übergeben wird
          */
         public static void startMainMenuScene(Stage primaryStage) {
-            MainMenuController mmc = new MainMenuController();
+            MainMenuController mainMenuController = new MainMenuController();
+            registerController(mainMenuController);
             String cssPath = "";
-            fadeTransition(primaryStage, mmc.startMenu(primaryStage), cssPath);
+            fadeTransition(primaryStage, mainMenuController.startMenu(primaryStage), cssPath);
         }
 
         /**
@@ -157,9 +161,8 @@ public class GuiHelper {
          */
         public static void startMapScene(Player player) {
             MapController mapController = new MapController(player);
+            registerController(mapController);
             Stage primaryStage = player.getPrimaryStage();
-
-
             String cssPath = "/css/mapStyle.css";
             fadeTransition(primaryStage, mapController.getMapView(), cssPath);
         }
@@ -170,23 +173,11 @@ public class GuiHelper {
          * @param player die 'Player'-Instanz, die den Spieler im Spiel repräsentiert
          */
         public static void startRestScene(Player player) {
-            RestController rest = new RestController(player);
+            RestController restController = new RestController(player);
+            registerController(restController);
             Stage primaryStage = player.getPrimaryStage();
-
             String cssPath = "/css/battleStyle.css";
-            fadeTransition(primaryStage, rest.getRestView(), cssPath);
-        }
-
-        /**
-         * Startet eine generische Szene mit einem angegebenen Parent-Node und einem Titel.
-         *
-         * @param primaryStage das primäre 'Stage'-Objekt der Anwendung
-         * @param parentToShow der Root-Node 'Parent' der Szene, die angezeigt werden soll
-         * @param title        der Titel der Szene, der im Stage angezeigt wird
-         */
-        public static void startScene(Stage primaryStage, Parent parentToShow, String title) {
-            String cssPath = "/css/loadViewStyle.css";
-            fadeTransition(primaryStage, parentToShow, cssPath);
+            fadeTransition(primaryStage, restController.getRestView(), cssPath);
         }
 
         /**
@@ -197,9 +188,10 @@ public class GuiHelper {
          * @param title        der Titel der Szene, der im Stage angezeigt wird
          */
         public static void startScene(Stage primaryStage, Scene scene, String title) {
+            setCursor(scene);
             primaryStage.getIcons().add(new Image(Scenes.class.getResource("/images/icon.png").toExternalForm()));
             primaryStage.setOnCloseRequest(event -> System.exit(0)); // TODO irgendwas hält den Prozess offen beim Schließen mit X
-//                primaryStage.setX(1920 + 1920); // TODO remove
+            primaryStage.setX(1920); // TODO remove
             primaryStage.setFullScreen(true);
             primaryStage.setScene(scene);
             primaryStage.setTitle(title);
@@ -212,11 +204,11 @@ public class GuiHelper {
          * @param player die 'Player'-Instanz, die den Spieler im Spiel repräsentiert
          */
         public static void startShopScene(Player player) {
-            ShopController shop = new ShopController(player);
+            ShopController shopController = new ShopController(player);
+            registerController(shopController);
             Stage primaryStage = player.getPrimaryStage();
-
             String cssPath = "/css/battleStyle.css";
-            fadeTransition(primaryStage, shop.getShopView(), cssPath);
+            fadeTransition(primaryStage, shopController.getShopView(), cssPath);
         }
 
         /**
@@ -225,11 +217,11 @@ public class GuiHelper {
          * @param player die 'Player'-Instanz, die den Spieler im Spiel repräsentiert
          */
         public static void startStatisticScene(Player player) {
-            StatisticView view = new StatisticView(player);
+            StatisticsController statisticsController = new StatisticsController(player);
+            registerController(statisticsController);
             Stage primaryStage = player.getPrimaryStage();
-
             String cssPath = "/css/battleStyle.css";
-            fadeTransition(primaryStage, view, cssPath);
+            fadeTransition(primaryStage, statisticsController.getView(), cssPath);
         }
 
         /**
@@ -239,8 +231,8 @@ public class GuiHelper {
          */
         public static void startTreasureScene(Player player) {
             TreasureController treasureController = new TreasureController(player);
+            registerController(treasureController);
             Stage primaryStage = player.getPrimaryStage();
-
             String cssPath = "/css/battleStyle.css";
             fadeTransition(primaryStage, treasureController.getTreasureView(), cssPath);
         }
@@ -258,8 +250,7 @@ public class GuiHelper {
             // Direkt die neue Szene setzen, falls die aktuelle Szene oder deren Root-Node ungültig ist
             if (currentScene == null || currentScene.getRoot() == null) {
                 Scene scene = new Scene(parent, 1920, 1080);
-                setCursor(scene);
-                Scenes.startScene(primaryStage, scene, DEFAULT_TITLE);
+                startScene(primaryStage, scene, DEFAULT_TITLE);
                 return;
             }
 
@@ -268,13 +259,10 @@ public class GuiHelper {
             fadeOut.setFromValue(1.0);
             fadeOut.setToValue(0.0);
             fadeOut.setOnFinished(event -> {
-
                 primaryStage.getScene().setRoot(parent);
-
                 if (!cssPath.equals("")) {
                     primaryStage.getScene().getStylesheets().addAll(cssPath);
                 }
-
                 parent.setOpacity(0.0); // Stellen Sie sicher, dass die neue Szene unsichtbar ist, bevor sie einblendet
                 FadeTransition fadeIn = new FadeTransition(Duration.seconds(0.5), parent);
                 fadeIn.setFromValue(0.0);
@@ -282,6 +270,13 @@ public class GuiHelper {
                 fadeIn.play();
             });
             fadeOut.play();
+        }
+
+        private static void registerController(Controller controller) {
+            if (lastController != null) {
+                lastController.discard();
+            }
+            lastController = controller;
         }
 
         private static void setCursor(Scene scene) {

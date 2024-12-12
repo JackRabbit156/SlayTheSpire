@@ -2,11 +2,10 @@ package de.bundeswehr.auf.slaythespire.controller;
 
 import de.bundeswehr.auf.slaythespire.controller.listener.DifficultyMenuListener;
 import de.bundeswehr.auf.slaythespire.controller.listener.GameMenuListener;
+import de.bundeswehr.auf.slaythespire.gui.MapView;
+import de.bundeswehr.auf.slaythespire.gui.events.MapViewEvents;
 import de.bundeswehr.auf.slaythespire.helper.GuiHelper;
 import de.bundeswehr.auf.slaythespire.helper.MusicBoy;
-import javafx.stage.Stage;
-import de.bundeswehr.auf.slaythespire.model.settings.GameSettings;
-import de.bundeswehr.auf.slaythespire.model.settings.structure.GameMode;
 import de.bundeswehr.auf.slaythespire.model.load_save.GameSaveManager;
 import de.bundeswehr.auf.slaythespire.model.map.Node;
 import de.bundeswehr.auf.slaythespire.model.map.act.Act;
@@ -14,53 +13,78 @@ import de.bundeswehr.auf.slaythespire.model.map.act.ActFour;
 import de.bundeswehr.auf.slaythespire.model.map.act.ActOne;
 import de.bundeswehr.auf.slaythespire.model.map.act.ActTwo;
 import de.bundeswehr.auf.slaythespire.model.player.structure.Player;
-import de.bundeswehr.auf.slaythespire.gui.MapView;
-import de.bundeswehr.auf.slaythespire.gui.events.MapViewEvents;
+import de.bundeswehr.auf.slaythespire.model.settings.GameSettings;
+import de.bundeswehr.auf.slaythespire.model.settings.structure.GameMode;
+import javafx.stage.Stage;
 
 /**
- *  Die Klasse MapController ist für die Steuerung der Spielkarte und die Interaktion
+ * Die Klasse MapController ist für die Steuerung der Spielkarte und die Interaktion
  * zwischen dem Spieler und den einzelnen Akten verantwortlich. Sie initiiert die Karte
  * und führt die Spielerbewegung durch.
- *
+ * <p>
  * Die Klasse entscheidet basierend auf dem aktuellen Akt des Spielers, welche Akt-Klasse
  * ('ActOne', 'ActTwo' oder 'ActFour') verwendet wird und ruft die passenden Methoden zum
  * Anzeigen und Aktualisieren der Karte auf.
  *
  * @author Warawa Alexander
  */
-public class MapController implements MapViewEvents, GameMenuListener, DifficultyMenuListener {
-    private MapView mapView;
-    private Player player;
+public class MapController implements Controller, MapViewEvents, GameMenuListener, DifficultyMenuListener {
 
     private Act act;
+    private MapView mapView;
+    private final Player player;
 
-    public MapController (Player player) {
+    public MapController(Player player) {
         this.player = player;
         MusicBoy.play("map");
 
-        switch (player.getCurrentAct()){
-            case 1: act = new ActOne(player); break;
-            case 2: act = new ActTwo(player); break;
-            case 3:  break;
-            case 4: act = new ActFour(player); break;
+        switch (player.getCurrentAct()) {
+            case 1:
+                act = new ActOne(player);
+                break;
+            case 2:
+                act = new ActTwo(player);
+                break;
+            case 3:
+                break;
+            case 4:
+                act = new ActFour(player);
+                break;
             default:
-                System.out.println("Weird"); return;
+                System.out.println("Weird");
+                return;
         }
 
         this.mapView = new MapView(player, act.getNodes(), act.getMapWidth(), act.getMapHeight(), this, this, this);
     }
 
-    /*  MAP VIEW EVENTS */
     @Override
-    public void onValidFieldClick(Player player, Node node) {
-        node.doFieldThing(player);
+    public void discard() {
+        mapView.discard();
+    }
 
-        player.setCurrentField(node.getFieldName());
+    public MapView getMapView() {
+        return mapView;
     }
 
     @Override
-    public void onSettingsClick() {
-        mapView.openGameMenu();
+    public void onBackClick() {
+        mapView.closeGameMenu();
+    }
+
+    @Override
+    public void onChangeDifficultyClick() {
+        mapView.openDifficultyMenu();
+    }
+
+    @Override
+    public void onDifficultyBackClick() {
+        mapView.closeDifficultyMenu();
+    }
+
+    @Override
+    public void onExitClick() {
+        System.exit(0);
     }
 
     @Override
@@ -70,17 +94,9 @@ public class MapController implements MapViewEvents, GameMenuListener, Difficult
         primaryStage.setFullScreen(!primaryStage.isFullScreen());
     }
 
-    /*  GAME MENU */
     @Override
-    public void onSaveClick() {
-        GameSaveManager saveManager = new GameSaveManager();
-        saveManager.saveGame(player);
-        mapView.closeGameMenu();
-    }
-
-    @Override
-    public void onBackClick() {
-        mapView.closeGameMenu();
+    public void onHardcoreClick() {
+        GameSettings.setGameMode(GameMode.HARDCORE);
     }
 
     @Override
@@ -94,38 +110,31 @@ public class MapController implements MapViewEvents, GameMenuListener, Difficult
     }
 
     @Override
-    public void onChangeDifficultyClick() {
-        mapView.openDifficultyMenu();
-    }
-
-    @Override
-    public void onExitClick() {
-        System.exit(0);
-    }
-
-    /* DIFFICULTY MENU */
-    @Override
     public void onNormalClick() {
         GameSettings.setGameMode(GameMode.NORMAL);
     }
 
     @Override
-    public void onHardcoreClick() {
-        GameSettings.setGameMode(GameMode.HARDCORE);
+    public void onSaveClick() {
+        GameSaveManager saveManager = new GameSaveManager();
+        saveManager.saveGame(player);
+        mapView.closeGameMenu();
     }
 
     @Override
-    public void onDifficultyBackClick() {
-        mapView.closeDifficultyMenu();
+    public void onSettingsClick() {
+        mapView.openGameMenu();
     }
 
-    private String getCurrentFieldFromAct(){
+    @Override
+    public void onValidFieldClick(Player player, Node node) {
+        node.doFieldThing(player);
+
+        player.setCurrentField(node.getFieldName());
+    }
+
+    private String getCurrentFieldFromAct() {
         return act.getCurrentFieldName();
     }
-
-    public MapView getMapView(){
-        return mapView;
-    }
-
 
 }

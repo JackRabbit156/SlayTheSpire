@@ -29,7 +29,7 @@ import java.util.List;
  * @author F Alexander Warawa
  * @author OF Daniel Willig
  */
-public class BattleView extends BorderPane implements BattleDeckListener {
+public class BattleView extends BorderPane implements View, BattleDeckListener {
 
     public enum Mode {
         NORMAL, ATTACK, SKILL, POWER
@@ -150,6 +150,12 @@ public class BattleView extends BorderPane implements BattleDeckListener {
 
     public SimpleObjectProperty<Mode> modeProperty() {
         return mode;
+    }
+
+    @Override
+    public void discard() {
+        left.discard();
+        right.discard();
     }
 
     /**

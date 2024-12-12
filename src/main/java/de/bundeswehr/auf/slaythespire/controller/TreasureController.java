@@ -21,7 +21,7 @@ import java.util.Random;
  *
  * @author Vladislav Keil
  */
-public class TreasureController implements TreasureViewEvents {
+public class TreasureController implements Controller, TreasureViewEvents {
 
     private static final Random rnd = new Random();
 

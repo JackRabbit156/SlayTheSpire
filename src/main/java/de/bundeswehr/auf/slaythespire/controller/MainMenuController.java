@@ -19,7 +19,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
  *
  * @author Loeschner, Marijan
  */
-public class MainMenuController {
+public class MainMenuController implements Controller {
 
     private final CreditView creditView = new CreditView();
     private Stage menuStage;

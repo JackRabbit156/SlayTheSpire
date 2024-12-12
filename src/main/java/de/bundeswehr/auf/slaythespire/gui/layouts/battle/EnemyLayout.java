@@ -1,5 +1,7 @@
 package de.bundeswehr.auf.slaythespire.gui.layouts.battle;
 
+import de.bundeswehr.auf.slaythespire.gui.BattleView;
+import de.bundeswehr.auf.slaythespire.model.enemy.Enemy;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.effect.DropShadow;
@@ -9,8 +11,6 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
-import de.bundeswehr.auf.slaythespire.model.enemy.Enemy;
-import de.bundeswehr.auf.slaythespire.gui.BattleView;
 
 /**
  * Die Klasse 'EnemyLayout' repräsentiert das Layout für einen
@@ -28,13 +28,13 @@ import de.bundeswehr.auf.slaythespire.gui.BattleView;
  * @author Warawa Alexander, Willig Daniel
  */
 public class EnemyLayout extends VBox {
+    private MovingAnimation animation;
+    private boolean attackMode = false;
+    private BattleView battleView;
+    private DefendLayout defendLayout;
     private Enemy enemy;
     private HealthBarLayout healthBarLayout;
-    private DefendLayout defendLayout;
     private IntentLayout intentLayout;
-    private MovingAnimation animation;
-    private BattleView battleView;
-    private boolean attackMode = false;
 
 
     /**
@@ -46,10 +46,10 @@ public class EnemyLayout extends VBox {
      * der Verteidigungswert und die Absicht des Feindes angezeigt.
      * </p>
      *
-     * @param enemy     Der Feind, der angezeigt werden soll
+     * @param enemy      Der Feind, der angezeigt werden soll
      * @param battleView Die aktuelle Instanz der Schlachtansicht
      */
-    public EnemyLayout(Enemy enemy, BattleView battleView){
+    public EnemyLayout(Enemy enemy, BattleView battleView) {
         this.enemy = enemy;
         this.battleView = battleView;
         healthBarLayout = new HealthBarLayout();
@@ -64,17 +64,21 @@ public class EnemyLayout extends VBox {
         defendHealthBar.setTranslateX(-25);
         defendHealthBar.setSpacing(-105);
 
-        this.getChildren().addAll(intentLayout, image(), defendHealthBar);
+        getChildren().addAll(intentLayout, image(), defendHealthBar);
 
         // Die HP Bar muss nachjustiert werden
         setMargin(healthBarLayout, new Insets(0, 100, 0, 0));
 
-        this.alignmentProperty().set(Pos.BOTTOM_LEFT);
+        alignmentProperty().set(Pos.BOTTOM_LEFT);
 
         updateEnemy();
 
         animation = new MovingAnimation(this);
         animation.start();
+    }
+
+    public void handleEnemyDeath() {
+        animation.stop();
     }
 
     /**
@@ -88,10 +92,19 @@ public class EnemyLayout extends VBox {
         intentLayout.setIntentIcon(enemy.getIntent().getImagePath());
     }
 
+    /**
+     * Verarbeitet das Klicken auf den Feind.
+     */
+    private void handleEnemyClick() {
+        // Verarbeite hier den Klick auf die Karte, z.B. öffne Details oder führe eine Aktion aus
+        battleView.clickedOnEnemy(enemy);
+    }
+
     private ImageView image() {
         Image figureImage = new Image(getClass().getResource(enemy.getImagePath()).toExternalForm());
         ImageView imageViewFigure = new ImageView(figureImage);
 
+        // TODO better size for bosses and elites
         imageViewFigure.setFitWidth(Math.sqrt(imageViewFigure.getImage().getWidth()) * 10); // Breite in Pixel
         imageViewFigure.setFitHeight(Math.sqrt(imageViewFigure.getImage().getHeight()) * 10); // Höhe in Pixel
         imageViewFigure.setPreserveRatio(true);
@@ -100,9 +113,7 @@ public class EnemyLayout extends VBox {
 
         setHoverEffect(imageViewFigure);
 
-        imageViewFigure.addEventHandler(MouseEvent.MOUSE_CLICKED, e -> {
-            handleEnemyClick(enemy); // Hier eine Methode aufrufen, die das Klick-Event verarbeitet
-        });
+        imageViewFigure.addEventHandler(MouseEvent.MOUSE_CLICKED, e -> handleEnemyClick());
 
         battleView.modeProperty().addListener((obs, oldMode, newMode) -> {
             if (newMode == BattleView.Mode.ATTACK) {
@@ -116,7 +127,8 @@ public class EnemyLayout extends VBox {
                 imageViewFigure.setEffect(glowNotSelectedEnemy);
                 imageViewFigure.setScaleX(1.0); // Reset the width to original
                 imageViewFigure.setScaleY(1.0); // Reset the height to original
-            } else {
+            }
+            else {
                 attackMode = false;
                 imageViewFigure.setEffect(null);
             }
@@ -125,7 +137,7 @@ public class EnemyLayout extends VBox {
         return imageViewFigure;
     }
 
-    private void setHoverEffect (ImageView imageView) {
+    private void setHoverEffect(ImageView imageView) {
         DropShadow glowNotSelectedEnemy = new DropShadow();
         glowNotSelectedEnemy.setColor(Color.CYAN);
         glowNotSelectedEnemy.setHeight(30);
@@ -153,13 +165,4 @@ public class EnemyLayout extends VBox {
         });
     }
 
-    /**
-     * Verarbeitet das Klicken auf den Feind.
-     *
-     * @param enemy Der angeklickte Feind
-     */
-    public void handleEnemyClick(Enemy enemy) {
-        // Verarbeite hier den Klick auf die Karte, z.B. öffne Details oder führe eine Aktion aus
-        battleView.clickedOnEnemy(enemy);
-    }
 }
