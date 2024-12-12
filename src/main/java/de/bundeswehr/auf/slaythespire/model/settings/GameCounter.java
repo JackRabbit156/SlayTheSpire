@@ -1,5 +1,7 @@
 package de.bundeswehr.auf.slaythespire.model.settings;
 
+import java.util.concurrent.*;
+
 /**
  * Diese Klasse repräsentiert einen Spielzähler, der die Spielzeit in
  * Stunden, Minuten und Sekunden verfolgt. Sie implementiert die Runnable-Schnittstelle,
@@ -7,11 +9,11 @@ package de.bundeswehr.auf.slaythespire.model.settings;
  *
  * @author Warawa Alexander
  */
-public class GameCounter extends Thread {
+public class GameCounter implements Runnable {
 
+    private Future<?> future;
     private int hours = 0;
     private int minutes = 0;
-    private boolean running = false;
     private int seconds = 0;
 
     public int getHours() {
@@ -38,34 +40,28 @@ public class GameCounter extends Thread {
         this.seconds = seconds;
     }
 
-    public boolean isTimerRunning() {
-        return running;
-    }
-
     @Override
     public void run() {
-        running = true;
-        while (running) {
-            try {
-                Thread.sleep(1000L);
-            } catch (InterruptedException e) {
-            }
-            seconds++;
-
-            if (seconds == 60) {
-                seconds = 0;
-                minutes++;
-            }
-
-            if (minutes == 60) {
-                minutes = 0;
-                hours++;
-            }
+        seconds++;
+        if (seconds == 60) {
+            seconds = 0;
+            minutes++;
+        }
+        if (minutes == 60) {
+            minutes = 0;
+            hours++;
         }
     }
 
+    public void startTimer() {
+        seconds = 0;
+        minutes = 0;
+        hours = 0;
+        future = GameSettings.executorService.scheduleAtFixedRate(this, 1L, 1L, TimeUnit.SECONDS);
+    }
+
     public void stopTimer() {
-        running = false;
+        future.cancel(true);
     }
 
     @Override

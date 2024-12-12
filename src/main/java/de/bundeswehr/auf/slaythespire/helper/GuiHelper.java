@@ -197,7 +197,7 @@ public class GuiHelper {
             setCursor(scene);
             primaryStage.getIcons().add(new Image(Scenes.class.getResource("/images/icon.png").toExternalForm()));
             primaryStage.setOnCloseRequest(event -> {
-                GameSettings.stopTimer();
+                GameSettings.stop();
                 Scenes.discardLast();
             });
 //            primaryStage.setX(1920); // TODO remove
