@@ -3,6 +3,11 @@ package de.bundeswehr.auf.slaythespire.gui;
 import de.bundeswehr.auf.slaythespire.controller.listener.BattleDeckListener;
 import de.bundeswehr.auf.slaythespire.helper.GuiHelper;
 import javafx.beans.property.SimpleObjectProperty;
+import javafx.geometry.Bounds;
+import javafx.geometry.Pos;
+import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BorderPane;
 import de.bundeswehr.auf.slaythespire.model.battle.BattleDeck;
@@ -16,6 +21,11 @@ import de.bundeswehr.auf.slaythespire.gui.layouts.battle.LeftSideLayout;
 import de.bundeswehr.auf.slaythespire.gui.layouts.battle.RightSideLayout;
 import de.bundeswehr.auf.slaythespire.gui.layouts.battle.TopSideLayout;
 import de.bundeswehr.auf.slaythespire.gui.events.BattleViewEvents;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
+import javafx.scene.paint.Color;
+import javafx.scene.text.TextAlignment;
+import javafx.stage.Popup;
 
 import java.util.List;
 
@@ -38,6 +48,7 @@ public class BattleView extends BorderPane implements View, BattleDeckListener {
     private final BattleDeck battleDeck;
     private final BattleViewEvents battleViewEvents;
     private BottomSideLayout bottom;
+    private final Pane center = new Pane();
     private final List<Enemy> enemies;
     private LeftSideLayout left;
     /**
@@ -56,6 +67,7 @@ public class BattleView extends BorderPane implements View, BattleDeckListener {
         this.battleDeck.setBattleDeckListener(this);
 
         setBackground(new Background(GuiHelper.background("/images/act1.png")));
+        setCenter(center);
         initNodes();
     }
 
@@ -164,6 +176,35 @@ public class BattleView extends BorderPane implements View, BattleDeckListener {
     @Override
     public void onCardFill() {
         updateBottom();
+    }
+
+    /**
+     * Zeigt ein Popup-Fenster mit einer Nachricht an.
+     *
+     * @param text Der Text im Popup-Fenster.
+     */
+    public void showDialog(String text) {
+        Image popupImage = new Image(getClass().getResource("/images/popup/popupBg.png").toExternalForm());
+        ImageView imageView = new ImageView(popupImage);
+        imageView.setScaleX(0.5);
+        imageView.setScaleY(0.5);
+
+        StackPane stackPopup = new StackPane();
+        Label label = new Label(text);
+        label.setAlignment(Pos.CENTER);
+        label.setTextAlignment(TextAlignment.CENTER);
+        label.setWrapText(true);
+        label.setMaxWidth(400);
+        label.setStyle("-fx-font-size: 36;" +
+                "-fx-font-family: Kreon;");
+        label.setTextFill(Color.WHITE);
+        stackPopup.getChildren().addAll(imageView, label);
+
+        Popup popup = new Popup();
+        popup.setAutoHide(true);
+        popup.getContent().add(stackPopup);
+        Bounds bounds = center.localToScreen(center.getBoundsInLocal());
+        popup.show(center.getScene().getWindow(), bounds.getMinX(), bounds.getMinY());
     }
 
     public void selectEnemyViewForCard() {
