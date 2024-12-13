@@ -73,8 +73,8 @@ public class TestPlayer extends Player {
     protected void initDeck() {
 //        starterDeckIronclad();
 //        starterDeckSilent();
-//        cheaterDeck();
-        customDeck();
+        cheaterDeck();
+//        customDeck();
     }
 
     private void customDeck() {

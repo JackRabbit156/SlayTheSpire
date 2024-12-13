@@ -4,6 +4,8 @@ import de.bundeswehr.auf.slaythespire.helper.Color;
 import de.bundeswehr.auf.slaythespire.helper.LoggingAssistant;
 import de.bundeswehr.auf.slaythespire.helper.GuiHelper;
 import de.bundeswehr.auf.slaythespire.model.potion.DistilledChaosPotion;
+import de.bundeswehr.auf.slaythespire.model.potion.EnergyPotion;
+import de.bundeswehr.auf.slaythespire.model.potion.ExplosivePotion;
 import javafx.application.Application;
 import javafx.stage.Stage;
 import de.bundeswehr.auf.slaythespire.model.battle.GameContext;
@@ -41,7 +43,7 @@ public class BattleViewTester extends Application {
     private static class CheaterPotion extends PotionCard {
 
         public CheaterPotion() {
-            super("Cheater Potion", "Deals 200 damage.", CardRarity.SPECIAL, CardType.POTION);
+            super("Cheater Potion", "Deals 200 damage.", CardRarity.SPECIAL, CardType.ATTACK);
             setImagePath("/images/icon.png");
         }
 
