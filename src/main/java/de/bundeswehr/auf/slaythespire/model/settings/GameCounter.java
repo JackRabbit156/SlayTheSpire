@@ -61,7 +61,9 @@ public class GameCounter implements Runnable {
     }
 
     public void stopTimer() {
-        future.cancel(true);
+        if (future != null) {
+            future.cancel(true);
+        }
     }
 
     @Override
