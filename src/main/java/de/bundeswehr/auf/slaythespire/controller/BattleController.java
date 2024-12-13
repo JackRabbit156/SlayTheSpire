@@ -214,13 +214,13 @@ public class BattleController implements Controller, BattleViewEvents, PlayerEve
 
     private boolean isCardPlayable() {
         if (selectedCard.getCost() > player.getCurrentEnergy()) {
-            LoggingAssistant.log(Color.YELLOW, "Not enough Energy");
+            LoggingAssistant.log("Not enough Energy", Color.YELLOW);
             battleView.showDialog("Not enough Energy!");
             return false;
         }
         Playable cardPlayable = selectedCard.isPlayable(gameContext);
         if (!cardPlayable.isPlayable()) {
-            LoggingAssistant.log(Color.YELLOW, cardPlayable.getLogMessage());
+            LoggingAssistant.log(cardPlayable.getLogMessage(), Color.YELLOW);
             battleView.showDialog(cardPlayable.getErrorMessage());
         }
         return cardPlayable.isPlayable();

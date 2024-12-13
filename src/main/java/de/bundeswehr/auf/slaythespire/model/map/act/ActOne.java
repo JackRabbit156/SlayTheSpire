@@ -164,7 +164,7 @@ public class ActOne extends Act {
                     enemies.add(new MadGremlinEnemy());
                     break;
                 default:
-                    LoggingAssistant.log(Color.RED, "Enemy type not configured: " + randomNumber);
+                    LoggingAssistant.log("Enemy type not configured: " + randomNumber, Color.RED);
                     break;
             }
         }

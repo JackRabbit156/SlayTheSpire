@@ -3,6 +3,7 @@ package de.bundeswehr.auf.slaythespire.tester;
 import de.bundeswehr.auf.slaythespire.helper.Color;
 import de.bundeswehr.auf.slaythespire.helper.LoggingAssistant;
 import de.bundeswehr.auf.slaythespire.helper.GuiHelper;
+import de.bundeswehr.auf.slaythespire.model.potion.DistilledChaosPotion;
 import javafx.application.Application;
 import javafx.stage.Stage;
 import de.bundeswehr.auf.slaythespire.model.battle.GameContext;
@@ -147,7 +148,7 @@ public class BattleViewTester extends Application {
                     enemies.add(new MadGremlinEnemy());
                     break;
                 default:
-                    LoggingAssistant.log(Color.RED, "Enemy type not configured: " + randomNumber);
+                    LoggingAssistant.log("Enemy type not configured: " + randomNumber, Color.RED);
                     break;
             }
         }
@@ -230,7 +231,7 @@ public class BattleViewTester extends Application {
                     enemies.add(new SphericGuardianEnemy());
                     break;
                 default:
-                    LoggingAssistant.log(Color.RED, "Enemy type not configured: " + randomNumber);
+                    LoggingAssistant.log("Enemy type not configured: " + randomNumber, Color.RED);
                     break;
             }
         }

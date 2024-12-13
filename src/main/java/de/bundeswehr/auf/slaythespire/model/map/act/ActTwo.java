@@ -147,7 +147,7 @@ public class ActTwo extends Act {
                     enemies.add(new SphericGuardianEnemy());
                     break;
                 default:
-                    LoggingAssistant.log(Color.RED, "Enemy type not configured: " + randomNumber);
+                    LoggingAssistant.log("Enemy type not configured: " + randomNumber, Color.RED);
                     break;
             }
         }

@@ -52,7 +52,7 @@ public class MapController implements Controller, MapViewEvents, GameMenuListene
                 break;
             case 3:
             default:
-                LoggingAssistant.log(Color.RED, "Unknown act: " + player.getCurrentAct());
+                LoggingAssistant.log("Unknown act: " + player.getCurrentAct(), Color.RED);
                 return;
         }
         this.mapView = new MapView(player, act.getNodes(), act.getMapWidth(), act.getMapHeight(), this, this, this);

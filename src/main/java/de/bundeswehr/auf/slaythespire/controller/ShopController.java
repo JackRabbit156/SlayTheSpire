@@ -84,7 +84,7 @@ public class ShopController implements Controller, ShopViewEvents {
             LoggingAssistant.log("Refresh Cards");
         }
         else {
-            LoggingAssistant.log(Color.YELLOW, "Not enough Gold");
+            LoggingAssistant.log("Not enough Gold", Color.YELLOW);
             shopView.showDialog("You have not enough Gold!");
         }
     }
@@ -114,12 +114,12 @@ public class ShopController implements Controller, ShopViewEvents {
                 LoggingAssistant.log("Refresh Cards");
             }
             else {
-                LoggingAssistant.log(Color.YELLOW, "Maximum amount of potions");
+                LoggingAssistant.log("Maximum amount of potions", Color.YELLOW);
                 shopView.showDialog("You have reached the maximum amount of Potions.");
             }
         }
         else {
-            LoggingAssistant.log(Color.YELLOW, "Not enough Gold");
+            LoggingAssistant.log("Not enough Gold", Color.YELLOW);
             shopView.showDialog("You have not enough Gold!");
         }
     }

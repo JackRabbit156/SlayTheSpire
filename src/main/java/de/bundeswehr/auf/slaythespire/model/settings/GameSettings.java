@@ -13,6 +13,7 @@ import java.util.concurrent.ScheduledExecutorService;
  */
 public class GameSettings {
 
+    public static final boolean DEBUG_MODE = true;
     public static final ScheduledExecutorService executorService = Executors.newScheduledThreadPool(1);
 
     public static String lastSession = "";

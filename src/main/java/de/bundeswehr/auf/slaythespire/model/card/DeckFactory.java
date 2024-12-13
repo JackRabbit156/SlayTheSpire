@@ -208,7 +208,7 @@ public class DeckFactory {
 
 
             default: {
-                LoggingAssistant.log(Color.RED, "ERROR IN DECKFACTORY: " + cardName);
+                LoggingAssistant.log("ERROR IN DECKFACTORY: " + cardName, Color.RED);
                 break;
             }
         }
@@ -296,7 +296,7 @@ public class DeckFactory {
             case WATCHER:
             case DEFECT:
             default:
-                LoggingAssistant.log(Color.RED, "DeckFactory.class: Karten Initialisierung hat nicht korrekt funktioniert.");
+                LoggingAssistant.log("DeckFactory.class: Karten Initialisierung hat nicht korrekt funktioniert.", Color.RED);
                 break;
         }
         return null;
@@ -312,7 +312,7 @@ public class DeckFactory {
         int randomNumber = rnd.nextInt(deck.size());
         Card selectedCard = deck.get(randomNumber);
 
-        LoggingAssistant.log(Color.RED, "DeckFactory.class: Entfernung der Karte: " + selectedCard.getName());
+        LoggingAssistant.log("DeckFactory.class: Entfernung der Karte: " + selectedCard.getName(), Color.RED);
 
         player.removeCardFromDeck(selectedCard);
     }

@@ -67,7 +67,6 @@ public class CardLayout extends HBox {
      */
     public void handleCardClick(Card card, int index) {
         selected.set(card);
-        // Verarbeite hier den Klick auf die Karte, z.B. öffne Details oder führe eine Aktion aus
         battleView.clickedOnCard(card, index);
     }
 

@@ -96,7 +96,7 @@ public class LootController implements Controller, LootViewEvents {
             player.addPotionCard(potion);
         }
         else {
-            LoggingAssistant.log(Color.YELLOW, "Maximum number of potions reached");
+            LoggingAssistant.log("Maximum number of potions reached", Color.YELLOW);
             lootView.showDialog("You have reached the maximum number of Potion.");
         }
     }

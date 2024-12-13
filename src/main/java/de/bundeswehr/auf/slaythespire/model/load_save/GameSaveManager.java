@@ -93,7 +93,7 @@ public class GameSaveManager {
 
         // Überprüfen, ob die Datei existiert und die ID gültig ist
         if (saveFiles == null || id < 0 || id >= saveFiles.length) {
-            LoggingAssistant.log(Color.RED, "ID does not exist..");
+            LoggingAssistant.log("ID does not exist.", Color.RED);
             return;
         }
 
@@ -104,7 +104,7 @@ public class GameSaveManager {
         if (fileToDelete.delete()) {
             LoggingAssistant.log("Save file " + fileToDelete.getName() + " successfully deleted!.");
         } else {
-            LoggingAssistant.log(Color.RED, "Error, could not delete file: " + fileToDelete.getName() + ".");
+            LoggingAssistant.log("Error, could not delete file: " + fileToDelete.getName() + ".", Color.RED);
         }
     }
 
@@ -117,7 +117,7 @@ public class GameSaveManager {
     public Map<String, String> loadGame(int id) {
         File[] saveFiles = getSaveFiles();
         if (saveFiles == null || id >= saveFiles.length) {
-            LoggingAssistant.log(Color.RED, "Could not find the File.");
+            LoggingAssistant.log("Could not find the File.", Color.RED);
             return null;
         }
         return loadDataFromFile(saveFiles[id]);
@@ -186,7 +186,7 @@ public class GameSaveManager {
             }
             writer.flush();
         } catch (IOException e) {
-            LoggingAssistant.log(Color.RED, "Fehler beim Speichern des Spiels: " + e.getMessage());
+            LoggingAssistant.log("Fehler beim Speichern des Spiels: " + e.getMessage(), Color.RED);
         }
     }
 
@@ -201,7 +201,7 @@ public class GameSaveManager {
                     data.put(parts[0], parts[1]);
             }
         } catch (IOException e) {
-            LoggingAssistant.log(Color.RED, "Error while loading the game: " + e.getMessage());
+            LoggingAssistant.log("Error while loading the game: " + e.getMessage(), Color.RED);
         }
 
         return data;

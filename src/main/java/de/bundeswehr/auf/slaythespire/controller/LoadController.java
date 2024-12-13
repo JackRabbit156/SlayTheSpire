@@ -134,7 +134,7 @@ public class LoadController implements Controller, LoadEventListener {
                 player = new SilentPlayer(primaryStage);
                 break;
             default:
-                LoggingAssistant.log(Color.RED, "Unknown player type: " + playerTypeAsString);
+                LoggingAssistant.log("Unknown player type: " + playerTypeAsString, Color.RED);
                 return;
         }
 

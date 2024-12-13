@@ -1,5 +1,7 @@
 package de.bundeswehr.auf.slaythespire.helper;
 
+import de.bundeswehr.auf.slaythespire.model.settings.GameSettings;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -11,13 +13,23 @@ public class LoggingAssistant {
     private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss,SSS");
 
     /**
-     * Dient zum farblichen System.out.print
-     *
-     * @param color Color Code {@link Color} Farben von
-     * @param text  Text wird automatisch Resetet
+     * Dient zur Ausgabe in {@link Color#WHITE}, falls {@value GameSettings#DEBUG_MODE}.
+     * @param text Text wird automatisch resetet
      */
-    public static void log(Color color, String text) {
-        System.out.printf("%s [%s] %s%s%s%n", getTimeStamp(), getClassName(), color, text, Color.RESET);
+    public static void debug(String text) {
+        if (GameSettings.DEBUG_MODE) {
+            log(text, Color.WHITE);
+        }
+    }
+
+    /**
+     * Dient zu farblichen String Ausgabe.
+     *
+     * @param o      Es wird automatisch die toString-Methode des Objekts genutzt
+     * @param colors Color Code {@link Color} Farben von
+     */
+    public static void log(Object o, Color... colors) {
+        log(o.toString(), colors);
     }
 
     /**
@@ -35,7 +47,15 @@ public class LoggingAssistant {
     }
 
     private static String getClassName() {
-        String className = Thread.currentThread().getStackTrace()[3].getClassName();
+        StackTraceElement[] stackTrace = Thread.currentThread().getStackTrace();
+        StackTraceElement element = stackTrace[3];
+        for (int i = 1; i < stackTrace.length; i++) {
+            if (!LoggingAssistant.class.getName().equals(stackTrace[i].getClassName())) {
+                element = stackTrace[i];
+                break;
+            }
+        }
+        String className = element.getClassName();
         return className.substring(className.lastIndexOf(".") + 1);
     }
 

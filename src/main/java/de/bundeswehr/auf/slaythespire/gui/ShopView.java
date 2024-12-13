@@ -1,6 +1,6 @@
 package de.bundeswehr.auf.slaythespire.gui;
 
-import de.bundeswehr.auf.slaythespire.gui.events.CardEvent;
+import de.bundeswehr.auf.slaythespire.gui.events.CardEventListener;
 import de.bundeswehr.auf.slaythespire.gui.layouts.shop.CardSelectionLayout;
 import de.bundeswehr.auf.slaythespire.helper.GuiHelper;
 import javafx.geometry.Bounds;
@@ -28,7 +28,7 @@ import java.util.List;
  *
  * @author Vladislav Keil
  */
-public class ShopView extends StackPane implements CardEvent {
+public class ShopView extends StackPane implements CardEventListener {
 
     private final BorderPane outerLayout = new BorderPane();
     private VBox center;

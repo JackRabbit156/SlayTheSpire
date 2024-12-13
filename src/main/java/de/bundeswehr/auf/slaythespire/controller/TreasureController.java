@@ -106,7 +106,7 @@ public class TreasureController implements Controller, TreasureViewEvents {
             player.addPotionCard(potion);
         }
         else {
-            LoggingAssistant.log(Color.YELLOW, "Maximum number of potions reached");
+            LoggingAssistant.log("Maximum number of potions reached", Color.YELLOW);
             treasureView.showDialog("You have reached the maximum number of Potion.");
         }
     }
