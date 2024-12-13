@@ -1,6 +1,8 @@
 package de.bundeswehr.auf.slaythespire.model.card.structure;
 
 import de.bundeswehr.auf.slaythespire.controller.listener.CardDeathListener;
+import de.bundeswehr.auf.slaythespire.helper.Color;
+import de.bundeswehr.auf.slaythespire.helper.LoggingAssistant;
 import de.bundeswehr.auf.slaythespire.model.battle.GameContext;
 import de.bundeswehr.auf.slaythespire.model.battle.Playable;
 
@@ -27,31 +29,12 @@ public abstract class Card {
         this.cost = cost;
         this.cardRarity = cardRarity;
         this.cardGrave = cardGrave;
-        this.price = genPrice();
+        this.price = generatePrice();
         this.cardType = cardType;
     }
 
-    /**
-     * @return price
-     * @author Keil, Vladislav
-     */
-    public int genPrice() {
-        // Existieren nur 3 Typen
-        // https://slay-the-spire.fandom.com/wiki/Merchant
-        switch (this.cardRarity) {
-            case COMMON: {
-                return rnd.nextInt(55 + 1 - 45) + 45;
-            }
-            case UNCOMMON: {
-                return rnd.nextInt(82 + 1 - 68) + 68;
-            }
-            case RARE: {
-                return rnd.nextInt(165 + 1 - 135) + 135;
-            }
-            default: {
-                return rnd.nextInt(9);
-            }
-        }
+    public void cancel() {
+        cardDeathListener.onCardCanceled(this);
     }
 
     public CardGrave getCardGrave() {
@@ -106,6 +89,7 @@ public abstract class Card {
     public abstract void play(GameContext gameContext);
 
     public void played() {
+        LoggingAssistant.log(name + " played", Color.PURPLE);
         cardDeathListener.onCardDeath(this);
     }
 
@@ -118,8 +102,27 @@ public abstract class Card {
         return name;
     }
 
-    protected CardDeathListener getCardDeathListener() {
-        return cardDeathListener;
+    /**
+     * @return price
+     * @author Keil, Vladislav
+     */
+    private int generatePrice() {
+        // Existieren nur 3 Typen
+        // https://slay-the-spire.fandom.com/wiki/Merchant
+        switch (this.cardRarity) {
+            case COMMON: {
+                return rnd.nextInt(55 + 1 - 45) + 45;
+            }
+            case UNCOMMON: {
+                return rnd.nextInt(82 + 1 - 68) + 68;
+            }
+            case RARE: {
+                return rnd.nextInt(165 + 1 - 135) + 135;
+            }
+            default: {
+                return rnd.nextInt(9);
+            }
+        }
     }
 
 }

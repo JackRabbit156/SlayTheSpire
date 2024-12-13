@@ -1,6 +1,7 @@
 package de.bundeswehr.auf.slaythespire.model.card.ironclad.attack.common;
 
-import de.bundeswehr.auf.slaythespire.gui.events.CardEvent;
+import de.bundeswehr.auf.slaythespire.gui.events.CardEventListener;
+import de.bundeswehr.auf.slaythespire.helper.LoggingAssistant;
 import de.bundeswehr.auf.slaythespire.helper.PathAssistent;
 import de.bundeswehr.auf.slaythespire.model.battle.BattleDeck;
 import de.bundeswehr.auf.slaythespire.model.battle.GameContext;
@@ -17,7 +18,7 @@ import de.bundeswehr.auf.slaythespire.model.player.structure.Player;
  *
  * @author OF Daniel Willig
  */
-public class HeadbuttCard extends AttackCard implements CardEvent {
+public class HeadbuttCard extends AttackCard implements CardEventListener {
 
     private GameContext gameContext;
 
@@ -44,6 +45,7 @@ public class HeadbuttCard extends AttackCard implements CardEvent {
 
     @Override
     public void onCardClick(Card card) {
+        LoggingAssistant.debug("Headbutt effects");
         Enemy enemy = gameContext.getSelectedEnemy();
         BattleDeck battleDeck = gameContext.getBattleDeck();
         Player player = gameContext.getPlayer();

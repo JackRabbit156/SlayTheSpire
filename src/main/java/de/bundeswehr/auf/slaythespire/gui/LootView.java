@@ -1,8 +1,12 @@
 package de.bundeswehr.auf.slaythespire.gui;
 
-import de.bundeswehr.auf.slaythespire.gui.events.CardEvent;
+import de.bundeswehr.auf.slaythespire.gui.events.CardEventListener;
+import de.bundeswehr.auf.slaythespire.gui.events.LootViewEvents;
 import de.bundeswehr.auf.slaythespire.gui.layouts.CardSelectionLayout;
+import de.bundeswehr.auf.slaythespire.gui.layouts.loot.PlayerLayout;
 import de.bundeswehr.auf.slaythespire.helper.GuiHelper;
+import de.bundeswehr.auf.slaythespire.model.card.structure.Card;
+import de.bundeswehr.auf.slaythespire.model.potion.structure.PotionCard;
 import javafx.geometry.Bounds;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -12,21 +16,17 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.stage.Popup;
-import de.bundeswehr.auf.slaythespire.model.card.structure.Card;
-import de.bundeswehr.auf.slaythespire.model.potion.structure.PotionCard;
-import de.bundeswehr.auf.slaythespire.gui.events.LootViewEvents;
-import de.bundeswehr.auf.slaythespire.gui.layouts.loot.PlayerLayout;
 
 import java.util.List;
 
 /**
  * @author Keil, Vladislav
  */
-public class LootView extends StackPane implements CardEvent {
+public class LootView extends StackPane implements CardEventListener {
 
     private static final String STYLE = "-fx-font-size: 38; -fx-font-family: Kreon;";
     private static final String STYLE_SMALL = "-fx-font-size: 28; -fx-font-family: Kreon;";
-    
+
     private final BorderPane backgroundLayout;
     private final BorderPane bottomLayout;
     private StackPane cardSelectionButtonStackPane;
@@ -76,16 +76,6 @@ public class LootView extends StackPane implements CardEvent {
     }
 
     /**
-     * Deaktiviert die Kartenauswahl im Loot.
-     */
-    @Override
-    public void disableCardSelection() {
-        this.cardSelectionDisabled = true;
-        this.cardSelectionButtonStackPane.setOpacity(0.6);
-        this.cardSelectionButtonStackPane.setDisable(true);
-    }
-
-    /**
      * Initialisiert die View.
      */
     public void display() {
@@ -109,11 +99,12 @@ public class LootView extends StackPane implements CardEvent {
     /**
      * Event-Handler für Klicks auf Karten im Loot.
      *
-     * @param card  Die angeklickte Karte.
+     * @param card Die angeklickte Karte.
      */
     @Override
     public void onCardClick(Card card) {
         lootViewEvents.onCardClick(card);
+        disableCardSelection();
     }
 
     /**
@@ -139,6 +130,15 @@ public class LootView extends StackPane implements CardEvent {
         popup.getContent().add(stackPopup);
         Bounds bounds = this.lootLayout.localToScreen(this.lootLayout.getBoundsInLocal());
         popup.show(this.lootLayout.getScene().getWindow(), bounds.getMinX(), bounds.getMinY());
+    }
+
+    /**
+     * Deaktiviert die Kartenauswahl im Loot.
+     */
+    private void disableCardSelection() {
+        this.cardSelectionDisabled = true;
+        this.cardSelectionButtonStackPane.setOpacity(0.6);
+        this.cardSelectionButtonStackPane.setDisable(true);
     }
 
     /**

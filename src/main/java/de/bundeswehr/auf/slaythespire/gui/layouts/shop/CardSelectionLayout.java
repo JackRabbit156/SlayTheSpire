@@ -1,6 +1,6 @@
 package de.bundeswehr.auf.slaythespire.gui.layouts.shop;
 
-import de.bundeswehr.auf.slaythespire.gui.events.CardEvent;
+import de.bundeswehr.auf.slaythespire.gui.events.CardEventListener;
 import de.bundeswehr.auf.slaythespire.helper.GuiHelper;
 import de.bundeswehr.auf.slaythespire.model.card.structure.Card;
 import javafx.geometry.Pos;
@@ -25,7 +25,7 @@ import java.util.List;
  */
 public class CardSelectionLayout extends FlowPane {
 
-    private final CardEvent eventListener;
+    private final CardEventListener eventListener;
 
     /**
      * Konstruktor für die Klasse CardSelectionLayout.
@@ -34,7 +34,7 @@ public class CardSelectionLayout extends FlowPane {
      * @param cardList Die Liste der auswählbaren Karten.
      * @param eventListener Die Shop-Ansicht, in der die Kartenauswahl angezeigt wird.
      */
-    public CardSelectionLayout(List<Card> cardList, CardEvent eventListener) {
+    public CardSelectionLayout(List<Card> cardList, CardEventListener eventListener) {
         this.eventListener = eventListener;
         setAlignment(Pos.CENTER);
         showCards(cardList);

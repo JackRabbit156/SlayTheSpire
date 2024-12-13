@@ -1,6 +1,7 @@
 package de.bundeswehr.auf.slaythespire.model.card.ironclad.skill.common;
 
-import de.bundeswehr.auf.slaythespire.gui.events.CardEvent;
+import de.bundeswehr.auf.slaythespire.gui.events.CardEventListener;
+import de.bundeswehr.auf.slaythespire.helper.LoggingAssistant;
 import de.bundeswehr.auf.slaythespire.helper.PathAssistent;
 import de.bundeswehr.auf.slaythespire.model.battle.BattleDeck;
 import de.bundeswehr.auf.slaythespire.model.battle.GameContext;
@@ -15,7 +16,7 @@ import de.bundeswehr.auf.slaythespire.model.card.structure.SkillCard;
  *
  * @author OF Daniel Willig
  */
-public class WarcryCard extends SkillCard implements CardEvent {
+public class WarcryCard extends SkillCard implements CardEventListener {
 
     private GameContext gameContext;
 
@@ -37,6 +38,7 @@ public class WarcryCard extends SkillCard implements CardEvent {
 
     @Override
     public void onCardClick(Card card) {
+        LoggingAssistant.debug("Warcry effects");
         BattleDeck battleDeck = gameContext.getBattleDeck();
         battleDeck.drawCard(1);
         battleDeck.removeCardFromHand(card);

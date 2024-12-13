@@ -1,7 +1,10 @@
 package de.bundeswehr.auf.slaythespire.gui.layouts;
 
-import de.bundeswehr.auf.slaythespire.gui.events.CardEvent;
+import de.bundeswehr.auf.slaythespire.gui.events.CardEventListener;
 import de.bundeswehr.auf.slaythespire.helper.GuiHelper;
+import de.bundeswehr.auf.slaythespire.model.card.structure.Card;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.image.Image;
@@ -9,9 +12,9 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import de.bundeswehr.auf.slaythespire.model.card.structure.Card;
 
 import java.util.List;
+
 /**
  * Die Klasse CardSelectionLayout verwaltet die grafische Darstellung der Kartenauswahl im Schatz-Layout.
  * Sie zeigt die verfügbaren Karten an und ermöglicht es dem Spieler, eine Karte auszuwählen.
@@ -20,33 +23,42 @@ import java.util.List;
  */
 public class CardSelectionLayout extends HBox {
 
-    private final CardEvent[] eventListeners;
+    private BooleanProperty cardClicked = new SimpleBooleanProperty();
+    private final CardEventListener[] eventListeners;
 
     /**
      * Konstruktor für die Klasse CardSelectionLayout.
      * Initialisiert die Kartenauswahl mit einer Liste von Karten und der Schatz-Ansicht.
      *
-     * @param cards      Die Liste der auswählbaren Karten.
-     * @param eventListeners  Die Ansichten, die von der Kartenauswahl beeinflusst werden.
+     * @param cards          Die Liste der auswählbaren Karten.
+     * @param eventListeners Die Ansichten, die von der Kartenauswahl beeinflusst werden.
      */
-    public CardSelectionLayout(List<Card> cards, CardEvent... eventListeners) {
+    public CardSelectionLayout(List<Card> cards, CardEventListener... eventListeners) {
         this.eventListeners = eventListeners;
         setAlignment(Pos.CENTER);
         showCards(cards);
     }
 
+    public BooleanProperty cardClickedProperty() {
+        return cardClicked;
+    }
+
     /**
-     * Zeigt die Karten in der Ansicht an.
+     * Event-Handler für Klicks auf eine Karte.
+     * Ruft das entsprechende Ereignis der zugehörigen Ansicht auf.
+     *
+     * @param card Die angeklickte Karte.
      */
-    private void showCards(List<Card> cards){
-        for (Card selectableCard : cards) {
-            VBox box = new VBox();
-            box.getChildren().addAll(images(selectableCard));
-            box.setAlignment(Pos.CENTER);
-            getChildren().add(box);
+    public void handleCardClick(Card card) {
+        cardClicked.set(true);
+        for (CardEventListener eventListener : eventListeners) {
+            eventListener.onCardClick(card);
         }
     }
 
+    public boolean isCardClicked() {
+        return cardClicked.get();
+    }
 
     /**
      * Erzeugt die grafische Darstellung einer Karte.
@@ -62,32 +74,19 @@ public class CardSelectionLayout extends HBox {
         imageViewCard.setPreserveRatio(true);
         GuiHelper.setHoverEffect(imageViewCard);
 
-        imageViewCard.addEventHandler(MouseEvent.MOUSE_CLICKED, e -> {
-            handleCardClick(card);
-            disableCardSelectionButton();
-        });
+        imageViewCard.addEventHandler(MouseEvent.MOUSE_CLICKED, e -> handleCardClick(card));
         return imageViewCard;
     }
 
     /**
-     * Deaktiviert den Kartenauswahl-Button.
+     * Zeigt die Karten in der Ansicht an.
      */
-    private void disableCardSelectionButton() {
-        for (CardEvent eventListener : eventListeners) {
-            eventListener.disableCardSelection();
-        }
-        setVisible(false);
-    }
-
-    /**
-     * Event-Handler für Klicks auf eine Karte.
-     * Ruft das entsprechende Ereignis der Schatz-Ansicht auf.
-     *
-     * @param card  Die angeklickte Karte.
-     */
-    public void handleCardClick(Card card) {
-        for (CardEvent eventListener : eventListeners) {
-            eventListener.onCardClick(card);
+    private void showCards(List<Card> cards) {
+        for (Card selectableCard : cards) {
+            VBox box = new VBox();
+            box.getChildren().addAll(images(selectableCard));
+            box.setAlignment(Pos.CENTER);
+            getChildren().add(box);
         }
     }
 

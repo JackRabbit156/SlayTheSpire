@@ -4,6 +4,10 @@ import de.bundeswehr.auf.slaythespire.model.card.structure.Card;
 
 public interface CardDeathListener {
 
+    default void onCardCanceled(Card card) {
+        // do nothing
+    }
+    
     void onCardDeath(Card card);
 
 }

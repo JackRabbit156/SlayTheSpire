@@ -1,9 +1,13 @@
 package de.bundeswehr.auf.slaythespire.model.battle;
 
 import de.bundeswehr.auf.slaythespire.controller.listener.BattleDeckListener;
-import de.bundeswehr.auf.slaythespire.gui.events.CardEvent;
+import de.bundeswehr.auf.slaythespire.controller.listener.CardDeathListener;
+import de.bundeswehr.auf.slaythespire.gui.events.CardEventListener;
+import de.bundeswehr.auf.slaythespire.helper.Color;
+import de.bundeswehr.auf.slaythespire.helper.LoggingAssistant;
 import de.bundeswehr.auf.slaythespire.model.card.structure.Card;
 import de.bundeswehr.auf.slaythespire.model.card.structure.PowerCard;
+import de.bundeswehr.auf.slaythespire.model.settings.GameSettings;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -18,7 +22,7 @@ import java.util.Random;
  *
  * @author Warawa Alexander, Willig Daniel
  */
-public class BattleDeck {
+public class BattleDeck implements CardEventListener{
 
     private static final Random rnd = new Random();
 
@@ -54,20 +58,20 @@ public class BattleDeck {
         currentPowerCards.add(powerCard);
     }
 
-    public void chooseCardFromDiscardPile(CardEvent event) {
+    public void chooseCardFromDiscardPile(CardEventListener cardEventListener) {
         List<Card> cards = new ArrayList<>(discardPile);
         cards.sort((o1, o2) -> rnd.nextInt(3) - 1);
-        battleDeckListener.chooseCard(cards, event);
+        battleDeckListener.chooseCard(cards, cardEventListener);
     }
 
-    public void chooseCardFromHand(CardEvent event) {
+    public void chooseCardFromHand(CardEventListener cardEventListener) {
         List<Card> cards = new ArrayList<>();
         for (Card card : hand) {
-            if (card != event) {
+            if (card != cardEventListener) {
                 cards.add(card);
             }
         }
-        battleDeckListener.chooseCard(cards, event);
+        battleDeckListener.chooseCard(cards, cardEventListener);
     }
 
     public void createShuffledDeck() {
@@ -75,6 +79,16 @@ public class BattleDeck {
         for (int i = 0; i <= randNum; i++) {
             Collections.shuffle(this.deck);
         }
+    }
+
+    /**
+     * Entsorgt eine Karte aus dem Abhebestapel und fügt sie dem Ablagestapel hinzu.
+     *
+     * @param card Die zu entsorgende Karte.
+     */
+    public void discardCardFromDeck(Card card) {
+        discardPile.add(card);
+        deck.remove(card);
     }
 
     /**
@@ -90,19 +104,24 @@ public class BattleDeck {
     /**
      * Zieht eine bestimmte Anzahl von Karten und fügt sie der Hand hinzu.
      *
-     * @param count Die Anzahl der zu ziehenden Karten.
+     * @param amount Die Anzahl der zu ziehenden Karten.
      */
-    public void drawCard(int count) {
-        fillHand(hand.size() + count);
+    public void drawCard(int amount) {
+        fillHand(hand.size() + amount);
     }
 
+    /**
+     * Exiliert eine Karte aus dem Abhebestapel und fügt die sem Exhaust-Stapel hinzu.
+     *
+     * @param card Die zu exilierende Karte
+     */
     public void exhaustCardFromDeck(Card card) {
         exhaustPile.add(card);
         deck.remove(card);
     }
 
     /**
-     * Exhaustet eine Karte von der Hand und fügt sie dem Exhaust-Stapel hinzu.
+     * Exiliert eine Karte von der Hand und fügt sie dem Exhaust-Stapel hinzu.
      *
      * @param card Die zu exilierende Karte.
      */
@@ -158,12 +177,33 @@ public class BattleDeck {
         return startHandSize;
     }
 
+    public List<Card> getTopFromDeck(int amount) {
+        List<Card> cards = new ArrayList<>();
+        if (deck.size() < amount) {
+            resetDeckFromDiscardPile();
+        }
+        int lowerBound = Math.max(0, deck.size() - amount);
+        for (int i = deck.size() - 1; i >= lowerBound; i--) {
+            cards.add(deck.get(i));
+        }
+        return cards;
+    }
+
+    @Override
+    public void onCardClick(Card card) {
+        battleDeckListener.onCardClick(card);
+    }
+
+    /**
+     * Entfernt eine Karte aus dem Abhebestapel
+     * @param card Die zu entfernende Karte
+     */
     public void removeCardFromDeck(Card card) {
         deck.remove(card);
     }
 
     /**
-     * Entfernt eine Karte aus dem DiscardPile.
+     * Entfernt eine Karte aus dem Ablegestapel.
      *
      * @param card Die zu entfernende Karte.
      */
@@ -180,7 +220,10 @@ public class BattleDeck {
         hand.remove(card);
     }
 
-    public void resetDeckFromDiscardPile() {
+    /**
+     * Fülle den Abhebestapel durch die abgelegten Karten.
+     */
+    private void resetDeckFromDiscardPile() {
         if (deck.isEmpty() && !discardPile.isEmpty()) {
             deck.addAll(discardPile);
             discardPile.clear();
@@ -191,5 +234,13 @@ public class BattleDeck {
         this.battleDeckListener = battleDeckListener;
     }
 
-
+    @Override
+    public String toString() {
+        return "BattleDeck\n" +
+                "deck=" + deck + "\n" +
+                "hand=" + hand + "\n" +
+                "discardPile=" + discardPile + "\n" +
+                "exhaustPile=" + exhaustPile + "\n" +
+                "powerCards=" + currentPowerCards;
+    }
 }

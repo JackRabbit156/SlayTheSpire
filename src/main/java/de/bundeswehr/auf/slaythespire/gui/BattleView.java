@@ -2,7 +2,7 @@ package de.bundeswehr.auf.slaythespire.gui;
 
 import de.bundeswehr.auf.slaythespire.controller.listener.BattleDeckListener;
 import de.bundeswehr.auf.slaythespire.gui.events.BattleViewEvents;
-import de.bundeswehr.auf.slaythespire.gui.events.CardEvent;
+import de.bundeswehr.auf.slaythespire.gui.events.CardEventListener;
 import de.bundeswehr.auf.slaythespire.gui.layouts.CardSelectionLayout;
 import de.bundeswehr.auf.slaythespire.gui.layouts.battle.BottomSideLayout;
 import de.bundeswehr.auf.slaythespire.gui.layouts.battle.LeftSideLayout;
@@ -39,7 +39,7 @@ import java.util.List;
  * @author F Alexander Warawa
  * @author OF Daniel Willig
  */
-public class BattleView extends BorderPane implements View, BattleDeckListener, CardEvent {
+public class BattleView extends BorderPane implements View, BattleDeckListener {
 
     public enum Mode {
         NORMAL, ATTACK, SKILL, POWER
@@ -72,9 +72,9 @@ public class BattleView extends BorderPane implements View, BattleDeckListener, 
     }
 
     @Override
-    public void chooseCard(List<Card> cards, CardEvent eventListener) {
+    public void chooseCard(List<Card> cards, CardEventListener cardEventListener) {
         disableBattleView();
-        CardSelectionLayout cardSelectionLayout = new CardSelectionLayout(cards, eventListener, this);
+        CardSelectionLayout cardSelectionLayout = new CardSelectionLayout(cards, cardEventListener, this);
         cardSelectionLayout.setPadding(new Insets(50, 50, 15, 50));
 
         HBox centerCard = new HBox();
@@ -85,7 +85,17 @@ public class BattleView extends BorderPane implements View, BattleDeckListener, 
         Popup popup = new Popup();
         popup.setAutoHide(true);
         popup.getContent().add(centerCard);
-        popup.setOnHiding(event -> enableBattleView());
+        cardSelectionLayout.cardClickedProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue) {
+                popup.hide();
+            }
+        });
+        popup.setOnHiding(event -> {
+            if (!cardSelectionLayout.isCardClicked() && cardEventListener instanceof Card) {
+                ((Card) cardEventListener).cancel();
+            }
+            enableBattleView();
+        });
 
         Bounds bounds = center.localToScreen(center.getBoundsInLocal());
         popup.show(center.getScene().getWindow(), bounds.getMinX() - centerCard.getBoundsInLocal().getWidth() / 2, bounds.getMinY());
@@ -200,6 +210,7 @@ public class BattleView extends BorderPane implements View, BattleDeckListener, 
 
     @Override
     public void onCardClick(Card card) {
+        updateInformation();
         enableBattleView();
     }
 
@@ -268,8 +279,6 @@ public class BattleView extends BorderPane implements View, BattleDeckListener, 
 
     public void updateInformation() {
         right.update();
-        // TODO doppelt nötig?
-//        leftVBox.updatePlayer();
         bottom.update();
         top.update();
         left.update();

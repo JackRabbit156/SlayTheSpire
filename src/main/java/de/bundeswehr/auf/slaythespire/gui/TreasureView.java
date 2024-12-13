@@ -1,8 +1,13 @@
 package de.bundeswehr.auf.slaythespire.gui;
 
-import de.bundeswehr.auf.slaythespire.gui.events.CardEvent;
+import de.bundeswehr.auf.slaythespire.gui.events.CardEventListener;
+import de.bundeswehr.auf.slaythespire.gui.events.TreasureViewEvents;
 import de.bundeswehr.auf.slaythespire.gui.layouts.CardSelectionLayout;
+import de.bundeswehr.auf.slaythespire.gui.layouts.treasure.BackLayout;
+import de.bundeswehr.auf.slaythespire.gui.layouts.treasure.EntryLayout;
 import de.bundeswehr.auf.slaythespire.helper.GuiHelper;
+import de.bundeswehr.auf.slaythespire.model.card.structure.Card;
+import de.bundeswehr.auf.slaythespire.model.potion.structure.PotionCard;
 import javafx.geometry.Bounds;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -12,11 +17,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.stage.Popup;
-import de.bundeswehr.auf.slaythespire.model.card.structure.Card;
-import de.bundeswehr.auf.slaythespire.model.potion.structure.PotionCard;
-import de.bundeswehr.auf.slaythespire.gui.events.TreasureViewEvents;
-import de.bundeswehr.auf.slaythespire.gui.layouts.treasure.BackLayout;
-import de.bundeswehr.auf.slaythespire.gui.layouts.treasure.EntryLayout;
 
 import java.util.List;
 
@@ -27,7 +27,7 @@ import java.util.List;
  *
  * @author Vladislav Keil
  */
-public class TreasureView extends StackPane implements CardEvent {
+public class TreasureView extends StackPane implements CardEventListener {
 
     private static final double PANEL_SCALE = 0.7;
     private static final String STYLE = "-fx-font-size: 38; -fx-font-family: Kreon;";
@@ -83,16 +83,6 @@ public class TreasureView extends StackPane implements CardEvent {
     }
 
     /**
-     * Deaktiviert die Kartenauswahl im Schatz.
-     */
-    @Override
-    public void disableCardSelection() {
-        this.cardSelectionDisabled = true;
-        this.cardSelectionButtonStackPane.setOpacity(0.6);
-        this.cardSelectionButtonStackPane.setDisable(true);
-    }
-
-    /**
      * Initialisiert die View und zeigt die Schatz-Ansicht an.
      */
     public void display() {
@@ -122,11 +112,12 @@ public class TreasureView extends StackPane implements CardEvent {
     /**
      * Event-Handler für Klicks auf Karten im Schatz.
      *
-     * @param card  Die angeklickte Karte.
+     * @param card Die angeklickte Karte.
      */
     @Override
     public void onCardClick(Card card) {
         treasureViewEvents.onCardClick(card);
+        disableCardSelection();
     }
 
     /**
@@ -161,6 +152,15 @@ public class TreasureView extends StackPane implements CardEvent {
 
         Bounds bounds = this.treasureLayout.localToScreen(this.treasureLayout.getBoundsInLocal());
         popup.show(this.treasureLayout.getScene().getWindow(), bounds.getMinX(), bounds.getMinY());
+    }
+
+    /**
+     * Deaktiviert die Kartenauswahl im Schatz.
+     */
+    private void disableCardSelection() {
+        this.cardSelectionDisabled = true;
+        this.cardSelectionButtonStackPane.setOpacity(0.6);
+        this.cardSelectionButtonStackPane.setDisable(true);
     }
 
     /**
