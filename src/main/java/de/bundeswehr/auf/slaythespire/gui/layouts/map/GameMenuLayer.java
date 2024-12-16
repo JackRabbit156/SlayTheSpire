@@ -8,6 +8,7 @@ import javafx.scene.control.Label;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
@@ -65,7 +66,7 @@ public class GameMenuLayer extends BorderPane {
 
         setTop(topBar);
 
-        this.visibleProperty().addListener((observable, oldValue, newValue) -> {
+        visibleProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue) {
                 if (GameSettings.getGameMode().equals(GameMode.HARDCORE)) {
                     saveGameButton.setDisable(true);
@@ -116,8 +117,10 @@ public class GameMenuLayer extends BorderPane {
         backButton.setOnAction(event -> mapView.clickedOnBackButton());
         exitButton.setOnAction(event -> mapView.clickedOnExitButton());
 
+        Pane spacer = new Pane();
+        spacer.setPrefHeight(80);
         VBox menuItems = new VBox();
-        menuItems.getChildren().addAll(loadGameButton, saveGameButton, changeDifficultyButton, mainMenuButton, backButton, exitButton);
+        menuItems.getChildren().addAll(loadGameButton, saveGameButton, changeDifficultyButton, backButton, spacer, mainMenuButton, exitButton);
 
         menuItems.setAlignment(Pos.TOP_CENTER);
         menuItems.setPadding(new Insets(150, 0, 0, 0));

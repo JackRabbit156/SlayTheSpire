@@ -18,7 +18,6 @@ import de.bundeswehr.auf.slaythespire.model.player.structure.Player;
 import de.bundeswehr.auf.slaythespire.model.settings.GameSettings;
 import de.bundeswehr.auf.slaythespire.model.settings.structure.GameMode;
 import javafx.stage.Stage;
-import javafx.stage.WindowEvent;
 
 /**
  * Die Klasse MapController ist für die Steuerung der Spielkarte und die Interaktion
@@ -84,7 +83,7 @@ public class MapController implements Controller, MapViewEvents, GameMenuListene
 
     @Override
     public void onExitClick() {
-        GuiHelper.Scenes.close((Stage) mapView.getScene().getWindow());
+        GuiHelper.Scenes.requestClose((Stage) mapView.getScene().getWindow());
     }
 
     @Override

@@ -7,10 +7,13 @@ import de.bundeswehr.auf.slaythespire.model.map.field.FieldEnum;
 import de.bundeswehr.auf.slaythespire.model.player.structure.Player;
 import de.bundeswehr.auf.slaythespire.model.settings.GameSettings;
 import javafx.animation.FadeTransition;
+import javafx.application.Platform;
+import javafx.geometry.Pos;
 import javafx.scene.ImageCursor;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
@@ -18,6 +21,10 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.Text;
+import javafx.scene.text.TextAlignment;
+import javafx.stage.Popup;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import javafx.util.Duration;
@@ -44,9 +51,14 @@ public class GuiHelper {
 
         private static Controller lastController;
 
-        public static void close(Stage stage) {
+        public static void close() {
+            GameSettings.stop();
+            discardLast();
+            Platform.exit();
+        }
+
+        public static void requestClose(Stage stage) {
             stage.fireEvent(new WindowEvent(stage, WindowEvent.WINDOW_CLOSE_REQUEST));
-            stage.close();
         }
 
         /**
@@ -196,9 +208,10 @@ public class GuiHelper {
         public static void startScene(Stage primaryStage, Scene scene, String title) {
             setCursor(scene);
             primaryStage.getIcons().add(new Image(Scenes.class.getResource("/images/icon.png").toExternalForm()));
+            Popup quitPopup = createPopup();
             primaryStage.setOnCloseRequest(event -> {
-                GameSettings.stop();
-                Scenes.discardLast();
+                event.consume();
+                quitPopup.show(primaryStage);
             });
 //            primaryStage.setX(1920); // TODO remove
             primaryStage.setFullScreen(true);
@@ -246,6 +259,37 @@ public class GuiHelper {
             fadeTransition(primaryStage, treasureController.getTreasureView(), cssPath);
         }
 
+        private static Popup createPopup() {
+            Popup quitPopup = new Popup();
+            quitPopup.setAutoHide(true);
+
+            Text text = new Text("Are you sure that you\n" +
+                    "want to Quit the Game?");
+            text.setFill(Color.WHITE);
+            text.setTextAlignment(TextAlignment.CENTER);
+            text.setFont(Font.loadFont(GuiHelper.class.getResourceAsStream("/font/kreon/static/Kreon-Bold.ttf"), 30));
+
+            Button no = new Button("No");
+            initialize(no);
+            no.setOnMouseClicked(e -> quitPopup.hide());
+            Button yes = new Button("Yes");
+            initialize(yes);
+            yes.setOnMouseClicked(e -> Scenes.close());
+
+            HBox nrg = new HBox();
+            nrg.getChildren().addAll(yes, no);
+            nrg.setAlignment(Pos.BOTTOM_CENTER);
+
+            VBox msg = new VBox();
+            msg.setBackground(new Background(GuiHelper.background("/images/popup/popupBg.png")));
+            msg.setPrefSize(900, 500);
+            msg.setAlignment(Pos.CENTER);
+            msg.getChildren().addAll(text, nrg);
+
+            quitPopup.getContent().add(msg);
+            return quitPopup;
+        }
+
         private static void discardLast() {
             if (lastController != null) {
                 lastController.discard();
@@ -285,6 +329,16 @@ public class GuiHelper {
                 fadeIn.play();
             });
             fadeOut.play();
+        }
+
+        private static void initialize(Button button) {
+            button.setTextFill(Color.WHITE);
+            button.setFont(Font.loadFont(GuiHelper.class.getResourceAsStream("/font/kreon/static/Kreon-Bold.ttf"), 24));
+            button.setAlignment(Pos.CENTER);
+            button.setBackground(new Background(GuiHelper.background("/images/buttons/endTurnButton.png")));
+            button.setPrefSize(120, 120);
+            button.setOnMouseEntered(event -> button.setBackground(new Background(GuiHelper.background("/images/buttons/endTurnButtonGlow.png"))));
+            button.setOnMouseExited(event -> button.setBackground(new Background(GuiHelper.background("/images/buttons/endTurnButton.png"))));
         }
 
         private static void registerController(Controller controller) {
