@@ -60,7 +60,7 @@ public class MapView extends StackPane implements View {
         mainMap = new BorderPane();
 
         setStyle("-fx-background-color: #9a9990;");
-        mainMap.setBackground(new Background(GuiHelper.background("/images/map/mapMid.png")));
+        mainMap.setBackground(new Background(GuiHelper.backgroundInHD("/images/map/mapMid.png")));
 
         mapCenter = new MapLayout(this, nodes, mapWidth, mapHeight, Integer.parseInt(player.getCurrentField()));
 

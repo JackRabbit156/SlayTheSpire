@@ -253,7 +253,7 @@ public class LootView extends StackPane implements CardEventListener {
     private void initBackgroundLayout() {
         this.backgroundLayout.setPickOnBounds(false);
         PlayerLayout playerLayout = new PlayerLayout(this.playerImagePath);
-        setBackground(new Background(GuiHelper.background("/images/act1.png")));
+        setBackground(new Background(GuiHelper.backgroundInHD("/images/act1.png")));
 
         this.backgroundLayout.setCenter(playerLayout);
     }

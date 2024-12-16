@@ -57,7 +57,7 @@ public class StatisticsView extends StackPane {
      * Initialisiert die View.
      */
     public void display() {
-        setBackground(new Background(GuiHelper.background("/images/act1.png")));
+        setBackground(new Background(GuiHelper.backgroundInHD("/images/act1.png")));
 
         getChildren().add(this.backgroundLayout);
         getChildren().add(this.statisticLayout);
@@ -71,7 +71,7 @@ public class StatisticsView extends StackPane {
     private void initBackgroundLayout() {
         this.backgroundLayout.setPickOnBounds(false);
         PlayerLayout playerLayout = new PlayerLayout(player.getImagePath());
-        setBackground(new Background(GuiHelper.background("/images/act1.png")));
+        setBackground(new Background(GuiHelper.backgroundInHD("/images/act1.png")));
 
         this.backgroundLayout.setCenter(playerLayout);
     }

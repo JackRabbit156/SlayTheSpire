@@ -92,7 +92,7 @@ public class TreasureView extends StackPane implements CardEventListener {
         this.backLayout.setPickOnBounds(false);
         this.treasureLayout.setPickOnBounds(false);
 
-        this.setBackground(new Background(GuiHelper.background("/images/act1.png")));
+        this.setBackground(new Background(GuiHelper.backgroundInHD("/images/act1.png")));
         initEntryLayout();
     }
 

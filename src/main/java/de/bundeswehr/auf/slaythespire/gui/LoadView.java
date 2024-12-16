@@ -62,7 +62,7 @@ public class LoadView extends VBox {
     }
 
     private void initMain(){
-        setBackground(new Background(GuiHelper.background("/images/backgrounds/loadViewBackground.png")));
+        setBackground(new Background(GuiHelper.backgroundInHD("/images/backgrounds/loadViewBackground.png")));
 
         setSpacing(10);
         setPadding(new Insets(30));

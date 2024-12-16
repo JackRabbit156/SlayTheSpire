@@ -44,9 +44,9 @@ public class DifficultyMenuLayer extends BorderPane {
         this.player = player;
         this.mapView = mapView;
 
-        setBackground(new Background(GuiHelper.background("/images/backgrounds/loadViewBackground.png")));
+        setBackground(new Background(GuiHelper.backgroundInHD("/images/backgrounds/loadViewBackground.png")));
 
-        Font kreonFont = Font.loadFont(getClass().getResourceAsStream("/font/kreon/static/Kreon-Bold.ttf"), 44);
+        Font kreonFont = Font.loadFont(getClass().getResourceAsStream(GuiHelper.DEFAULT_FONT_BOLD), 44);
         DropShadow dropShadow = new DropShadow();
         dropShadow.setOffsetX(9.0);
         dropShadow.setOffsetY(9.0);
@@ -70,15 +70,14 @@ public class DifficultyMenuLayer extends BorderPane {
 
     private void assignButtonDesign(Button button){
         String highlightPath = "/images/buttons/menu_highlight.png";
-        String fontPath = "/resources/font/kreon/static/Kreon-Bold.ttf";
 
         button.setTextFill(Color.WHITE);
-        button.setFont(Font.font(fontPath, 30));
+        button.setFont(Font.font(GuiHelper.DEFAULT_FONT_BOLD, 30));
         button.setAlignment(Pos.CENTER);
         button.setBackground(Background.EMPTY);
         button.setMinSize(180, 50);
         button.setOnMouseEntered(event -> {
-            button.setBackground(new Background(GuiHelper.background(highlightPath)));
+            button.setBackground(new Background(GuiHelper.backgroundInHD(highlightPath)));
         });
         button.setOnMouseExited(event -> {
             button.setBackground(Background.EMPTY);

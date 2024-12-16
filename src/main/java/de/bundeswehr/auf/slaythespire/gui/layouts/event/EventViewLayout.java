@@ -21,7 +21,7 @@ public class EventViewLayout {
     Button leave = new Button("[Leave]");
 
     public EventViewLayout(Image image, String titleString, String flavorString, String buttonText){
-        layoutPane.setBackground(new Background(GuiHelper.background("")));
+        layoutPane.setBackground(new Background(GuiHelper.backgroundInHD("")));
         this.img.setImage(image);
         this.title.setText(titleString);
         this.flavorText.setText(flavorString);

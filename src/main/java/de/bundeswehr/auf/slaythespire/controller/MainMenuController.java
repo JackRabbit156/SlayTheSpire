@@ -55,36 +55,36 @@ public class MainMenuController implements Controller {
 
         Popup newGamePopup = new Popup();
         newGamePopup.setAutoHide(true);
-        newGamePopup.getContent().add(view.displayDiffModeMessage());
+        newGamePopup.getContent().add(view.createPopupContent());
 
         newGameButton.setOnMouseClicked(event -> newGamePopup.show(menuStage));
 
         view.getSuperEasyDifficulty().setOnMouseClicked(event -> {
-            view.setDifficultyButton(view.getSuperEasyDifficulty());
+            view.setDifficultyButtons(view.getSuperEasyDifficulty());
             GameSettings.setDifficultyLevel(DifficultyLevel.SUPER_EASY);
             difficultySet.set(true);
         });
 
         view.getEasyDifficulty().setOnMouseClicked(event -> {
-            view.setDifficultyButton(view.getEasyDifficulty());
+            view.setDifficultyButtons(view.getEasyDifficulty());
             GameSettings.setDifficultyLevel(DifficultyLevel.EASY);
             difficultySet.set(true);
         });
 
         view.getNormalDifficulty().setOnMouseClicked(event -> {
-            view.setDifficultyButton(view.getNormalDifficulty());
+            view.setDifficultyButtons(view.getNormalDifficulty());
             GameSettings.setDifficultyLevel(DifficultyLevel.NORMAL);
             difficultySet.set(true);
         });
 
         view.getNormalMode().setOnMouseClicked(event -> {
-            view.setModeButton(view.getNormalMode());
+            view.setModeButtons(view.getNormalMode());
             GameSettings.setGameMode(GameMode.NORMAL);
             modeSet.set(true);
         });
 
         view.getHardcoreMode().setOnMouseClicked(event -> {
-            view.setModeButton(view.getHardcoreMode());
+            view.setModeButtons(view.getHardcoreMode());
             GameSettings.setGameMode(GameMode.HARDCORE);
             modeSet.set(true);
         });
@@ -102,8 +102,6 @@ public class MainMenuController implements Controller {
 
     public BorderPane startMenu(Stage stage) {
         menuStage = stage;
-        view.display();
-
         quit(view.getQuitButton());
         credits(view.getCreditsButton());
         deleteSaveGame(view.getDelSaveGameButton());

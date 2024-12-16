@@ -8,7 +8,9 @@ import de.bundeswehr.auf.slaythespire.model.player.structure.Player;
 import de.bundeswehr.auf.slaythespire.model.settings.GameSettings;
 import javafx.animation.FadeTransition;
 import javafx.application.Platform;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.geometry.Side;
 import javafx.scene.ImageCursor;
 import javafx.scene.Node;
 import javafx.scene.Parent;
@@ -213,7 +215,7 @@ public class GuiHelper {
                 event.consume();
                 quitPopup.show(primaryStage);
             });
-//            primaryStage.setX(1920); // TODO remove
+            primaryStage.setX(1920); // TODO remove
             primaryStage.setFullScreen(true);
             primaryStage.setScene(scene);
             primaryStage.setTitle(title);
@@ -267,7 +269,7 @@ public class GuiHelper {
                     "want to Quit the Game?");
             text.setFill(Color.WHITE);
             text.setTextAlignment(TextAlignment.CENTER);
-            text.setFont(Font.loadFont(GuiHelper.class.getResourceAsStream("/font/kreon/static/Kreon-Bold.ttf"), 30));
+            text.setFont(Font.loadFont(GuiHelper.class.getResourceAsStream(DEFAULT_FONT_BOLD), 30));
 
             Button no = new Button("No");
             initialize(no);
@@ -276,17 +278,18 @@ public class GuiHelper {
             initialize(yes);
             yes.setOnMouseClicked(e -> Scenes.close());
 
-            HBox nrg = new HBox();
-            nrg.getChildren().addAll(yes, no);
-            nrg.setAlignment(Pos.BOTTOM_CENTER);
+            HBox buttons = new HBox();
+            buttons.getChildren().addAll(yes, no);
+            buttons.setAlignment(Pos.BOTTOM_CENTER);
 
-            VBox msg = new VBox();
-            msg.setBackground(new Background(GuiHelper.background("/images/popup/popupBg.png")));
-            msg.setPrefSize(900, 500);
-            msg.setAlignment(Pos.CENTER);
-            msg.getChildren().addAll(text, nrg);
+            VBox content = new VBox();
+            content.setBackground(new Background(GuiHelper.backgroundInHD("/images/popup/popupBg.png")));
+            content.setPadding(new Insets(25,0,0,0));
+            content.setPrefSize(900, 500);
+            content.setAlignment(Pos.CENTER);
+            content.getChildren().addAll(text, buttons);
 
-            quitPopup.getContent().add(msg);
+            quitPopup.getContent().add(content);
             return quitPopup;
         }
 
@@ -333,12 +336,12 @@ public class GuiHelper {
 
         private static void initialize(Button button) {
             button.setTextFill(Color.WHITE);
-            button.setFont(Font.loadFont(GuiHelper.class.getResourceAsStream("/font/kreon/static/Kreon-Bold.ttf"), 24));
+            button.setFont(Font.loadFont(GuiHelper.class.getResourceAsStream(DEFAULT_FONT_BOLD), 24));
             button.setAlignment(Pos.CENTER);
-            button.setBackground(new Background(GuiHelper.background("/images/buttons/endTurnButton.png")));
+            button.setBackground(new Background(GuiHelper.backgroundInHD("/images/buttons/endTurnButton.png")));
             button.setPrefSize(120, 120);
-            button.setOnMouseEntered(event -> button.setBackground(new Background(GuiHelper.background("/images/buttons/endTurnButtonGlow.png"))));
-            button.setOnMouseExited(event -> button.setBackground(new Background(GuiHelper.background("/images/buttons/endTurnButton.png"))));
+            button.setOnMouseEntered(event -> button.setBackground(new Background(GuiHelper.backgroundInHD("/images/buttons/endTurnButtonGlow.png"))));
+            button.setOnMouseExited(event -> button.setBackground(new Background(GuiHelper.backgroundInHD("/images/buttons/endTurnButton.png"))));
         }
 
         private static void registerController(Controller controller) {
@@ -353,6 +356,8 @@ public class GuiHelper {
         }
 
     }
+
+    public static final String DEFAULT_FONT_BOLD = "/font/kreon/static/Kreon-Bold.ttf";
 
     private static final String DEFAULT_TITLE = "Slay the Spire - JavaFX";
 
@@ -402,16 +407,50 @@ public class GuiHelper {
      * @return ein 'BackgroundImage', das mit den angegebenen Eigenschaften konfiguriert ist
      * @throws NullPointerException wenn der angegebene Pfad nicht existiert oder ungültig ist
      */
-    public static BackgroundImage background(String backgroundPath) {
+    public static BackgroundImage backgroundInHD(String backgroundPath) {
         Image backgroundImage = new Image(Objects.requireNonNull(GuiHelper.class.getResource(backgroundPath)).toExternalForm());
-        // Erstelle das Hintergrundbild mit den gewünschten Eigenschaften
         return new BackgroundImage(
                 backgroundImage,
                 BackgroundRepeat.NO_REPEAT, // Option: NO_REPEAT, REPEAT, REPEAT_X, REPEAT_Y
                 BackgroundRepeat.NO_REPEAT,
                 BackgroundPosition.DEFAULT,
-                new BackgroundSize(1920, 1080, false, false, false, true)
-        );
+                new BackgroundSize(1920, 1080, false, false, false, true));
+    }
+
+    /**
+     * Erstellt ein 'BackgroundImage' mit dem angegebenen Pfad zu einem Bild.
+     *
+     * @param backgroundPath der relative Pfad zur Bilddatei
+     * @return ein 'BackgroundImage', das mit den angegebenen Eigenschaften konfiguriert ist
+     * @throws NullPointerException wenn der angegebene Pfad nicht existiert oder ungültig ist
+     */
+    public static BackgroundImage backgroundEndTurn(String backgroundPath) {
+        Image backgroundImage = new Image(backgroundPath);
+        return new BackgroundImage(
+                backgroundImage,
+                BackgroundRepeat.NO_REPEAT, // Option: NO_REPEAT, REPEAT, REPEAT_X, REPEAT_Y
+                BackgroundRepeat.NO_REPEAT,
+                new BackgroundPosition(Side.LEFT, 0, false,
+                        Side.TOP, -80, false),
+                BackgroundSize.DEFAULT);
+    }
+
+    /**
+     * Erstellt ein 'BackgroundImage' mit dem angegebenen Pfad zu einem Bild.
+     *
+     * @param backgroundPath der relative Pfad zur Bilddatei
+     * @return ein 'BackgroundImage', das mit den angegebenen Eigenschaften konfiguriert ist
+     * @throws NullPointerException wenn der angegebene Pfad nicht existiert oder ungültig ist
+     */
+    public static BackgroundImage background(String backgroundPath) {
+        Image backgroundImage = new Image(backgroundPath);
+        return new BackgroundImage(
+                backgroundImage,
+                BackgroundRepeat.NO_REPEAT, // Option: NO_REPEAT, REPEAT, REPEAT_X, REPEAT_Y
+                BackgroundRepeat.NO_REPEAT,
+                new BackgroundPosition(Side.LEFT, 0, false,
+                        Side.TOP, 0, false),
+                BackgroundSize.DEFAULT);
     }
 
     /**

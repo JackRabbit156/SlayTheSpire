@@ -29,18 +29,18 @@ public class CreditView {
     public void initButton(){
         back.setText("Back");
         back.setTextFill(Color.WHITE);
-        back.setFont(Font.font("/resources/font/kreon/static/Kreon-Bold.ttf", 24));
+        back.setFont(Font.font(GuiHelper.DEFAULT_FONT_BOLD, 24));
         back.setTextAlignment(TextAlignment.CENTER);
-        back.setBackground(new Background(GuiHelper.background("/images/buttons/endTurnButton.png")));
+        back.setBackground(new Background(GuiHelper.backgroundInHD("/images/buttons/endTurnButton.png")));
         back.setMinSize(200, 200);
 
         back.setOnMouseEntered(event -> {
             back.setBackground(new Background(
-                    GuiHelper.background("/images/buttons/endTurnButtonGlow.png")));
+                    GuiHelper.backgroundInHD("/images/buttons/endTurnButtonGlow.png")));
         });
         back.setOnMouseExited(event -> {
             back.setBackground(new Background(
-                    GuiHelper.background("/images/buttons/endTurnButton.png")));
+                    GuiHelper.backgroundInHD("/images/buttons/endTurnButton.png")));
         });
     }
 
@@ -57,9 +57,9 @@ public class CreditView {
      * @return output VBox
      */
     public VBox display(){
-        output.setBackground(new Background(GuiHelper.background("/images/backgrounds/greenBg.jpg")));
+        output.setBackground(new Background(GuiHelper.backgroundInHD("/images/backgrounds/greenBg.jpg")));
         Text creditText = new Text("Re-Engineered by:\nDaniel Willig\nVladislav Keil\nAlexander Warawa\nMarijan Loeschner");
-        creditText.setFont(Font.loadFont(getClass().getResourceAsStream("/font/kreon/static/Kreon-Bold.ttf"), 24));
+        creditText.setFont(Font.loadFont(getClass().getResourceAsStream(GuiHelper.DEFAULT_FONT_BOLD), 24));
         creditText.setFill(Color.WHITE);
         creditText.setTextAlignment(TextAlignment.CENTER);
         ImageView creditImage = new ImageView(new Image(Objects.requireNonNull(

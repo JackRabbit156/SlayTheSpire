@@ -33,7 +33,7 @@ import de.bundeswehr.auf.slaythespire.gui.components.SettingsButton;
  */
 public class TopBarLayout extends HBox {
 
-    private static final Font font = Font.loadFont(TopBarLayout.class.getResourceAsStream("/font/kreon/static/Kreon-Bold.ttf"), 24);
+    private static final Font font = Font.loadFont(TopBarLayout.class.getResourceAsStream(GuiHelper.DEFAULT_FONT_BOLD), 24);
 
     private final MapView mapView;
     private final Player player;
@@ -115,7 +115,7 @@ public class TopBarLayout extends HBox {
 
     private void initTopBar() {
         setPadding(new Insets(10, 0, 0, 50));
-        setBackground(new Background(GuiHelper.background("/images/map/bar.png")));
+        setBackground(new Background(GuiHelper.backgroundInHD("/images/map/bar.png")));
         setPrefHeight(50);
 
         HBox leftSide = initLeftSide();

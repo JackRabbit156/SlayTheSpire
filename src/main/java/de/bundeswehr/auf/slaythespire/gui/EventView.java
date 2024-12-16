@@ -25,23 +25,23 @@ import de.bundeswehr.auf.slaythespire.model.player.structure.Player;
 public class EventView {
 
     BorderPane layoutPane = new BorderPane();
-    Background paneBG = new Background(GuiHelper.background("/images/backgrounds/greenBg.jpg"));
+    Background paneBG = new Background(GuiHelper.backgroundInHD("/images/backgrounds/greenBg.jpg"));
     HBox displayBox = new HBox();
-    Background eventBG = new Background(GuiHelper.background("/images/event/event_layout/panel.png"));
+    Background eventBG = new Background(GuiHelper.backgroundInHD("/images/event/event_layout/panel.png"));
     VBox leftBox = new VBox();
     VBox rightBox = new VBox();
     ImageView img = new ImageView();
     Label label = new Label();
     DropShadow dr = new DropShadow(8, Color.BLACK);
-    Font labelFont = Font.loadFont(getClass().getResourceAsStream("/font/kreon/static/Kreon-Bold.ttf"), 44);
+    Font labelFont = Font.loadFont(getClass().getResourceAsStream(GuiHelper.DEFAULT_FONT_BOLD), 44);
     Text story = new Text();
-    Font textFont = Font.loadFont(getClass().getResourceAsStream("/font/kreon/static/Kreon-Bold.ttf"), 30);
+    Font textFont = Font.loadFont(getClass().getResourceAsStream(GuiHelper.DEFAULT_FONT_BOLD), 30);
     Button option1;
     Button option2;
     Button option3;
     Button leave = new Button("\t[Leave]");
-    Background buttonBG = new Background(GuiHelper.background("/images/event/event_layout/disabledButton.png"));
-    Background buttonHighlight = new Background(GuiHelper.background("/images/event/event_layout/enabledButton.png"));
+    Background buttonBG = new Background(GuiHelper.backgroundInHD("/images/event/event_layout/disabledButton.png"));
+    Background buttonHighlight = new Background(GuiHelper.backgroundInHD("/images/event/event_layout/enabledButton.png"));
     Event event;
     Player player;
 

@@ -54,7 +54,7 @@ public class RestView extends StackPane {
         getChildren().add(this.restLayout);
         getChildren().add(this.bottomLayout);
 
-        setBackground(new Background(GuiHelper.background("/images/backgrounds/RestViewBG.jpeg")));
+        setBackground(new Background(GuiHelper.backgroundInHD("/images/backgrounds/RestViewBG.jpeg")));
         initRestLayout();
         initBottomLayout();
     }

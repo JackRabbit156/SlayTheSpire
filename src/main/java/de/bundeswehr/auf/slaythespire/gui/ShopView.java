@@ -59,7 +59,7 @@ public class ShopView extends StackPane implements CardEventListener {
     public void display() {
         getChildren().addAll(entryLayout, shopLayout, outerLayout);
 
-        setBackground(new Background(GuiHelper.background("/images/act1.png")));
+        setBackground(new Background(GuiHelper.backgroundInHD("/images/act1.png")));
 
         entryLayout.setPickOnBounds(false);
         shopLayout.setPickOnBounds(false);
@@ -207,7 +207,7 @@ public class ShopView extends StackPane implements CardEventListener {
      * Initialisiert das Layout der Shop-Ansicht.
      */
     private void initShopLayout() {
-        shopLayout.setBackground(new Background(GuiHelper.background("/images/backgrounds/shop_panel_bg.png")));
+        shopLayout.setBackground(new Background(GuiHelper.backgroundInHD("/images/backgrounds/shop_panel_bg.png")));
         initTop();
         initCenter();
     }
