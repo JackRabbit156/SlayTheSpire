@@ -10,7 +10,7 @@ public interface ShopViewEvents {
 
     void onCardClick(Card card);
 
-    void onFullscreenClick();
+    void onFullScreenClick();
 
     void onPotionClick(PotionCard potion);
     void onRelicClick(Relic relic, int index);

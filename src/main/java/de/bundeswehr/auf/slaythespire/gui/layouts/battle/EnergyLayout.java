@@ -54,7 +54,7 @@ public class EnergyLayout extends StackPane {
     }
 
     private void initEnergyImage() {
-        String path = "/images/view/gui/layouts/battle/energy/Energy.png";
+        String path = "/images/view/gui/layouts/battle/Energy.png";
         Image energyIcon = new Image(getClass().getResource(path).toExternalForm());
         energyImageView = new ImageView(energyIcon);
 

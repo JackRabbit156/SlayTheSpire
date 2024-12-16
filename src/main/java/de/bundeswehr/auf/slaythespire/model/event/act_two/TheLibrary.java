@@ -19,57 +19,39 @@ import java.util.List;
  * @author  Loeschner, Marijan
  */
 public class TheLibrary extends Event {
-    private TilePane box = new TilePane();
-    private Popup cardPopup = new Popup();
-    private DeckFactory df;
-    private Image image = new Image("/images/event/act_two/library.jpg");
-    private String title = "The Library";
-    private String story = "\n\nYou come across an ornate building which appears abandoned.\n" +
-            "A plaque that has been torn free from a wall is on the floor. It reads, \"THE LIBRARY\".\n" +
-            "Inside, you find countless rows of scrolls, manuscripts, and books.\n" +
-            "You pick one and cozy yourself into a chair for some quiet time.\n";
-    private Button button1 = new Button("\t[Read] Choose one of 20 Cards.");
-    private Button button2 = new Button("\t[Sleep] Heal 1/3 of your max HP.");
 
-    public TheLibrary() {
-        super();
+    private final Button button1 = new Button("\t[Read] Choose one of 20 Cards.");
+    private final Button button2 = new Button("\t[Sleep] Heal 1/3 of your max HP.");
+
+    public TheLibrary(Player player) {
+        super(player, "The Library", new Image("/images/event/act_two/library.jpg"),
+            "\n\nYou come across an ornate building which appears abandoned.\n" +
+                    "A plaque that has been torn free from a wall is on the floor. It reads, \"THE LIBRARY\".\n" +
+                    "Inside, you find countless rows of scrolls, manuscripts, and books.\n" +
+                    "You pick one and cozy yourself into a chair for some quiet time.\n");
     }
 
     @Override
-    public String getTitle() {
-        return title;
-    }
-
-    public String getStory() {
-        return story;
-    }
-
-    public Image getImage() {
-        return image;
-    }
-
-    public Button getButton1(Player player) {
-
-        button1.setOnMouseClicked(event -> {
-            df = new DeckFactory(player, 20);
-            List<Card> deck;
-            deck = df.init();
+    public Button getButton1() {
+        button1.setOnAction(event -> {
+            DeckFactory df = new DeckFactory(getPlayer(), 20);
             button1.setVisible(false);
             button2.setVisible(false);
+            TilePane box = new TilePane();
             box.setBackground(Background.EMPTY);
             box.setMaxSize(1920, 1080);
             box.setAlignment(Pos.BOTTOM_CENTER);
-            for(Card card : deck) {
+            Popup cardPopup = new Popup();
+            for(Card card : df.init()) {
                 Image imageCard = new Image(getClass().getResource(card.getImagePath()).toExternalForm());
                 ImageView imageView = new ImageView(imageCard);
                 imageView.setFitHeight(250);
                 imageView.setFitWidth(200);
                 imageView.setOnMouseClicked(e -> {
-                    player.addCardToDeck(card);
+                    getPlayer().addCardToDeck(card);
                     cardPopup.hide();
                 });
                 box.getChildren().addAll(imageView);
-
             }
             cardPopup.getContent().addAll(box);
             cardPopup.setAutoFix(true);
@@ -78,14 +60,15 @@ public class TheLibrary extends Event {
         return button1;
     }
 
-    public Button getButton2(Player player) {
-
-        button2.setOnMouseClicked(event -> {
-            player.increaseCurrentHealth(player.getMaxHealth() / 3);
+    @Override
+    public Button getButton2() {
+        button2.setOnAction(event -> {
+            getPlayer().increaseCurrentHealth(getPlayer().getMaxHealth() / 3);
             button2.setVisible(false);
             button1.setVisible(false);
 
         });
         return button2;
     }
+
 }

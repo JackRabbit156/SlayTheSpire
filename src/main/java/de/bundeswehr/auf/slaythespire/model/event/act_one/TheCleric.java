@@ -1,5 +1,7 @@
 package de.bundeswehr.auf.slaythespire.model.event.act_one;
 
+import de.bundeswehr.auf.slaythespire.helper.Color;
+import de.bundeswehr.auf.slaythespire.helper.LoggingAssistant;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import de.bundeswehr.auf.slaythespire.model.card.DeckFactory;
@@ -11,38 +13,29 @@ import de.bundeswehr.auf.slaythespire.model.player.structure.Player;
  * @author  Loeschner, Marijan
  */
 public class TheCleric extends Event {
-    DeckFactory df;
-    private static Image image = new Image("/images/event/act_one/TheClericEvent.png");
-    private String title = "The Clercic";
-    private String story = "\n\nA strange blue humanoid with a golden helm(?) approaches you with a huge smile.\n" +
-                            "\"Hello friend! I am Cleric! Are you interested in my services?!\"\n" +
-                            "\"the creature shouts, loudly.\"\n";
-    private Button button1 = new Button("\t[Heal] Lose 35 Gold. Heal 25% of your Max HP. ");
-    private Button button2 = new Button("\t[Purify] Lose 50 Gold. A random Card from your deck.");
 
-    public TheCleric() {
-        super();
+    private final Button button1 = new Button("\t[Heal] Lose 35 Gold. Heal 25% of your Max HP. ");
+    private final Button button2 = new Button("\t[Purify] Lose 50 Gold. A random Card from your deck.");
+
+    public TheCleric(Player player) {
+        super(player, "The Clercic", new Image("/images/event/act_one/TheClericEvent.png"),
+            "\n\nA strange blue humanoid with a golden helm(?) approaches you with a huge smile.\n" +
+                    "\"Hello friend! I am Cleric! Are you interested in my services?!\"\n" +
+                    "\"the creature shouts, loudly.\"\n"
+        );
     }
-
 
     @Override
-    public String getTitle() {
-        return title;
-    }
-
-    public String getStory() {
-        return story;
-    }
-
-    public Image getImage() {
-        return image;
-    }
-
-    public Button getButton1(Player player) {
-
-        button1.setOnMouseClicked(event -> {
-            player.increaseCurrentHealth(player.getMaxHealth() / 4);
-            player.decreaseGold(35);
+    public Button getButton1() {
+        button1.setOnAction(event -> {
+            if (getPlayer().getGold() >= 35) {
+                getPlayer().increaseCurrentHealth(getPlayer().getMaxHealth() / 4);
+                getPlayer().decreaseGold(35);
+            }
+            else {
+                LoggingAssistant.log("Not enough gold to heal", Color.YELLOW);
+                getEventView().showDialog("You don't have enough gold.");
+            }
             button1.setVisible(false);
             button2.setVisible(false);
         });
@@ -50,14 +43,21 @@ public class TheCleric extends Event {
     }
 
     @Override
-    public Button getButton2(Player player) {
-        button2.setOnMouseClicked(event -> {
-            df = new DeckFactory(player, 1);
-            df.removeRandomCard(player);
-            player.decreaseGold(50);
+    public Button getButton2() {
+        button2.setOnAction(event -> {
+            if (getPlayer().getGold() >= 50) {
+                DeckFactory df = new DeckFactory(getPlayer(), 1);
+                df.removeRandomCard(getPlayer());
+                getPlayer().decreaseGold(50);
+            }
+            else {
+                LoggingAssistant.log("Not enough gold to remove card", Color.YELLOW);
+                getEventView().showDialog("You don't have enough gold.");
+            }
             button1.setVisible(false);
             button2.setVisible(false);
         });
         return button2;
     }
+
 }

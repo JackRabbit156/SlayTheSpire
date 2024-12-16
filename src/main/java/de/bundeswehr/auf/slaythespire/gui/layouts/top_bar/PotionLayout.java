@@ -1,7 +1,10 @@
-package de.bundeswehr.auf.slaythespire.gui.layouts.shop;
+package de.bundeswehr.auf.slaythespire.gui.layouts.top_bar;
 
+import de.bundeswehr.auf.slaythespire.gui.layouts.MiddleBar;
+import de.bundeswehr.auf.slaythespire.model.potion.structure.PotionCard;
 import javafx.geometry.Bounds;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.effect.DropShadow;
@@ -9,13 +12,13 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Popup;
-import de.bundeswehr.auf.slaythespire.model.potion.structure.PotionCard;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,24 +31,26 @@ import java.util.List;
  *
  * @author OF Daniel Willig
  */
-public class PotionLayout extends HBox {
+public class PotionLayout extends MiddleBar {
 
     private static final Font largeFont = Font.font("Kreon", FontWeight.BOLD, 30);
     private static final Font smallFont = Font.font("Kreon", FontWeight.BOLD, 20);
 
-    private final Image bg = new Image(getClass().getResource("/images/view/gui/layouts/battle/potion/bg.png").toExternalForm());
-    private final Image emptyPotionIcon = new Image(getClass().getResource("/images/view/gui/layouts/battle/potion/EmptyPotion.png").toExternalForm());
+    private final Image bg = new Image(getClass().getResource("/images/view/gui/layouts/potion/bg.png").toExternalForm());
+    private final Image emptyPotionIcon = new Image(getClass().getResource("/images/view/gui/layouts/potion/EmptyPotion.png").toExternalForm());
     private final List<PotionCard> potions;
 
     public PotionLayout(List<PotionCard> potions) {
         this.potions = potions;
 
+        HBox.setHgrow(this, Priority.ALWAYS);
+        setAlignment(Pos.CENTER_LEFT);
+
         showPotions();
-        setTranslateY(-35);
-        setTranslateX(130);
     }
 
-    public void refreshPotions() {
+    @Override
+    public void refresh() {
         this.getChildren().clear();
         showPotions();
     }

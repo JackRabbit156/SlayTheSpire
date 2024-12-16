@@ -1,8 +1,14 @@
 package de.bundeswehr.auf.slaythespire.gui;
 
 import de.bundeswehr.auf.slaythespire.gui.events.CardEventListener;
-import de.bundeswehr.auf.slaythespire.gui.layouts.shop.CardSelectionLayout;
+import de.bundeswehr.auf.slaythespire.gui.events.ShopViewEvents;
+import de.bundeswehr.auf.slaythespire.gui.layouts.shop.*;
+import de.bundeswehr.auf.slaythespire.gui.layouts.top_bar.PotionLayout;
+import de.bundeswehr.auf.slaythespire.gui.layouts.top_bar.TopBarLayout;
 import de.bundeswehr.auf.slaythespire.helper.GuiHelper;
+import de.bundeswehr.auf.slaythespire.model.card.structure.Card;
+import de.bundeswehr.auf.slaythespire.model.player.structure.Player;
+import de.bundeswehr.auf.slaythespire.model.potion.structure.PotionCard;
 import javafx.geometry.Bounds;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -14,11 +20,6 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Popup;
-import de.bundeswehr.auf.slaythespire.model.card.structure.Card;
-import de.bundeswehr.auf.slaythespire.model.player.structure.Player;
-import de.bundeswehr.auf.slaythespire.model.potion.structure.PotionCard;
-import de.bundeswehr.auf.slaythespire.gui.layouts.shop.*;
-import de.bundeswehr.auf.slaythespire.gui.events.ShopViewEvents;
 
 import java.util.List;
 
@@ -28,18 +29,18 @@ import java.util.List;
  *
  * @author Vladislav Keil
  */
-public class ShopView extends StackPane implements CardEventListener {
+public class ShopView extends StackPane implements CardEventListener, WithTopBar {
 
-    private final BorderPane outerLayout = new BorderPane();
     private VBox center;
     private final BorderPane entryLayout = new BorderPane();
-    private TopSideLayout topSideLayout;
     private final Insets insets = new Insets(15, 15, 15, 15);
+    private final BorderPane outerLayout = new BorderPane();
     private final Player player;
     private PotionCard potionCard;
     private List<Card> shopCards;
     private final BorderPane shopLayout = new BorderPane();
     private ShopViewEvents shopViewEvents;
+    private TopBarLayout topBarLayout;
 
     public ShopView(Player player, List<Card> shopCards, ShopViewEvents shopViewEvents, PotionCard... potionCard) {
         this.player = player;
@@ -47,10 +48,6 @@ public class ShopView extends StackPane implements CardEventListener {
         this.shopViewEvents = shopViewEvents;
         this.potionCard = potionCard[0] != null ? potionCard[0] : null;
         display();
-    }
-
-    public void clickedOnFullscreen() {
-        shopViewEvents.onFullscreenClick();
     }
 
     /**
@@ -88,12 +85,17 @@ public class ShopView extends StackPane implements CardEventListener {
      * Aktion bei Klicken auf eine Karte.
      * Ruft das entsprechende Ereignis auf.
      *
-     * @param card  Die angeklickte Karte.
+     * @param card Die angeklickte Karte.
      */
     @Override
     public void onCardClick(Card card) {
         shopViewEvents.onCardClick(card);
         refreshInfo();
+    }
+
+    @Override
+    public void onFullScreen() {
+        shopViewEvents.onFullScreenClick();
     }
 
     public void onMerchantClick() {
@@ -112,7 +114,7 @@ public class ShopView extends StackPane implements CardEventListener {
     }
 
     public void refreshInfo() {
-        topSideLayout.update();
+        topBarLayout.update();
     }
 
     /**
@@ -162,17 +164,6 @@ public class ShopView extends StackPane implements CardEventListener {
         popup.show(center.getScene().getWindow(), bounds.getMinX(), bounds.getMinY());
     }
 
-    private void initOuterLayout() {
-        topSideLayout = new TopSideLayout(this, player);
-        outerLayout.setTop(topSideLayout);
-
-        BackLayout back = new BackLayout(this);
-        HBox buttonZone = new HBox(back);
-        buttonZone.setAlignment(Pos.TOP_LEFT);
-        buttonZone.setPadding(new Insets(50, 50, 50, 50));
-        outerLayout.setBottom(buttonZone);
-    }
-
     /**
      * Initialisiert das zentrale Layout der Shop-Ansicht.
      */
@@ -201,6 +192,17 @@ public class ShopView extends StackPane implements CardEventListener {
         EntryLayout entry = new EntryLayout(this, player.getImagePath());
         this.entryLayout.setCenter(entry);
 
+    }
+
+    private void initOuterLayout() {
+        topBarLayout = new TopBarLayout(this, player, new PotionLayout(player.getPotionCards()));
+        outerLayout.setTop(topBarLayout);
+
+        BackLayout back = new BackLayout(this);
+        HBox buttonZone = new HBox(back);
+        buttonZone.setAlignment(Pos.TOP_LEFT);
+        buttonZone.setPadding(new Insets(50, 50, 50, 50));
+        outerLayout.setBottom(buttonZone);
     }
 
     /**

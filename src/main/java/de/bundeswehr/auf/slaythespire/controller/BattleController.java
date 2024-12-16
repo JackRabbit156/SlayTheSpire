@@ -151,7 +151,7 @@ public class BattleController implements Controller, BattleViewEvents, PlayerEve
     }
 
     @Override
-    public void onFullscreenClick() {
+    public void onFullScreenClick() {
         Stage primaryStage = player.getPrimaryStage();
 
         primaryStage.setFullScreen(!primaryStage.isFullScreen());

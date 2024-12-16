@@ -10,6 +10,7 @@ import de.bundeswehr.auf.slaythespire.model.card.structure.Card;
 import de.bundeswehr.auf.slaythespire.model.player.structure.Player;
 import de.bundeswehr.auf.slaythespire.model.potion.structure.PotionCard;
 import de.bundeswehr.auf.slaythespire.model.settings.GameSettings;
+import javafx.stage.Stage;
 
 import java.util.List;
 import java.util.Random;
@@ -26,12 +27,11 @@ public class TreasureController implements Controller, TreasureViewEvents {
     private static final Random rnd = new Random();
 
     private int amount;
-    private final DeckFactory deckFactory;
+    private DeckFactory deckFactory;
     private int gold;
     private final Player player;
     private PotionCard potionCard;
     private double potionsChance;
-    private final List<Card> selectedCards;
     private final TreasureView treasureView;
 
     /**
@@ -42,17 +42,11 @@ public class TreasureController implements Controller, TreasureViewEvents {
      */
     public TreasureController(Player player) {
         this.player = player;
-        // 35 - 90
-        gold = rnd.nextInt(90 + 1 - 35) + 35;
         initItemChanceAndAmount();
-
-        deckFactory = new DeckFactory(player, amount);
+        List<Card> selectedCards = initTreasureDeck(player);
         generatePotionByChance();
 
-        selectedCards = initTreasureDeck();
-
-        treasureView = new TreasureView(selectedCards, gold, potionCard, player.getImagePath(), this);
-        treasureView.initTreasureViewEvents(this);
+        treasureView = new TreasureView(selectedCards, gold, potionCard, player, this);
     }
 
     /**
@@ -82,6 +76,14 @@ public class TreasureController implements Controller, TreasureViewEvents {
     @Override
     public void onCardClick(Card card) {
         addCardToDeck(card);
+        treasureView.updateTop();
+    }
+
+    @Override
+    public void onFullScreenClicked() {
+        Stage primaryStage = player.getPrimaryStage();
+
+        primaryStage.setFullScreen(!primaryStage.isFullScreen());
     }
 
     /**
@@ -91,7 +93,9 @@ public class TreasureController implements Controller, TreasureViewEvents {
      */
     @Override
     public void onGoldClick(int gold) {
+        LoggingAssistant.log("Got gold: " + gold, Color.GREEN);
         player.increaseGold(gold);
+        treasureView.updateTop();
     }
 
     /**
@@ -102,12 +106,13 @@ public class TreasureController implements Controller, TreasureViewEvents {
     @Override
     public void onPotionClick(PotionCard potion) {
         if (player.getPotionCards().size() < 3) {
-            LoggingAssistant.log("Got a potion: " + potion.getName());
+            LoggingAssistant.log("Got a potion: " + potion.getName(), Color.GREEN);
             player.addPotionCard(potion);
+            treasureView.updateTop();
         }
         else {
-            LoggingAssistant.log("Maximum number of potions reached", Color.YELLOW);
-            treasureView.showDialog("You have reached the maximum number of Potion.");
+            LoggingAssistant.log("Maximum amount of potions", Color.YELLOW);
+            treasureView.showDialog("You have reached the maximum amount of Potions.");
         }
     }
 
@@ -117,10 +122,8 @@ public class TreasureController implements Controller, TreasureViewEvents {
      * @param card Die hinzuzufügende Karte.
      */
     private void addCardToDeck(Card card) {
-        LoggingAssistant.log("Got a card: " + card.getName());
+        LoggingAssistant.log("Got a card: " + card.getName(), Color.GREEN);
         player.addCardToDeck(card);
-        LoggingAssistant.log("Got gold: " + gold);
-        player.increaseGold(gold);
     }
 
     /**
@@ -136,7 +139,8 @@ public class TreasureController implements Controller, TreasureViewEvents {
      * Initialisiert die Chancen für Items und die Anzahl an möglichen Karten basierend auf dem Schwierigkeitsgrad.
      */
     private void initItemChanceAndAmount() {
-        gold = GameSettings.getDifficultyLevel().getGold(gold);
+        // Ausgangswert: 35 - 90
+        gold = GameSettings.getDifficultyLevel().getGold(rnd.nextInt(90 + 1 - 35) + 35);
         amount = GameSettings.getDifficultyLevel().getAmount();
         potionsChance = GameSettings.getDifficultyLevel().getPotionChance();
     }
@@ -145,8 +149,10 @@ public class TreasureController implements Controller, TreasureViewEvents {
      * Initialisiert das Schatz-Deck mit Karten.
      *
      * @return Die Liste der initialisierten Karten.
+     * @param player Der Spieler
      */
-    private List<Card> initTreasureDeck() {
+    private List<Card> initTreasureDeck(Player player) {
+        deckFactory = new DeckFactory(player, amount);
         return deckFactory.init();
     }
 

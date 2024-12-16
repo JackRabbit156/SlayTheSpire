@@ -6,16 +6,8 @@ import de.bundeswehr.auf.slaythespire.model.potion.structure.PotionCard;
 /**
  * @author Keil, Vladislav
  */
-public interface TreasureViewEvents {
+public interface EventViewEvents {
 
-    void onBackClicked();
-
-    void onCardClick(Card card);
-
-    void onFullScreenClicked();
-
-    void onGoldClick(int gold);
-
-    void onPotionClick(PotionCard potion);
+    void clickedOnFullScreen();
 
 }

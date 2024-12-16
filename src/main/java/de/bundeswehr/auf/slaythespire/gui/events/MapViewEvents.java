@@ -19,8 +19,9 @@ import de.bundeswehr.auf.slaythespire.model.player.structure.Player;
  * @author Warawa Alexander
  */
 public interface MapViewEvents {
+
+    void onFullScreenClick();
     void onValidFieldClick(Player player, Node node);
     void onSettingsClick();
-    void onFullscreenClick();
 
 }

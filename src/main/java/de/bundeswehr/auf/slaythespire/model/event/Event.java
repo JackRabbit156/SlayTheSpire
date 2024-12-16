@@ -1,68 +1,67 @@
 package de.bundeswehr.auf.slaythespire.model.event;
 
+import de.bundeswehr.auf.slaythespire.gui.EventView;
+import de.bundeswehr.auf.slaythespire.model.player.structure.Player;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
-import de.bundeswehr.auf.slaythespire.model.player.structure.Player;
+import javafx.scene.text.Text;
 
-/** Abstrakte Klasse für die Erstellung eines Events
+import java.util.Random;
+
+/**
+ * Abstrakte Klasse für die Erstellung eines Events
+ *
  * @author Loeschner, Marijan
  */
 public abstract class Event {
-    private String title;
-    private String story;
-    private Image image;
-    private Button button1;
-    private Button button2;
-    private Button button3;
 
-    public Event(){
+    protected static final Random rnd = new Random();
+
+    private EventView eventView;
+    private final Image image;
+    private final Player player;
+    private final Text story;
+    private final String title;
+
+    public Event(Player player, String title, Image image, String story) {
+        this.player = player;
+        this.title = title;
+        this.image = image;
+        this.story = new Text(story);
+    }
+
+    public abstract Button getButton1();
+
+    public Button getButton2() {
+        return null;
+    }
+
+    public Button getButton3() {
+        return null;
     }
 
     public Image getImage() {
         return image;
     }
 
-    public void setImage(Image image) {
-        this.image = image;
+    public Player getPlayer() {
+        return player;
     }
 
-    public String getStory() {
+    public Text getStory() {
         return story;
-    }
-
-    public void setStory(String story) {
-        this.story = story;
     }
 
     public String getTitle() {
         return title;
     }
 
-    public String setTitle(String title) {
-        return this.title = title;
+    public EventView getEventView() {
+        return eventView;
     }
 
-    public Button getButton1(Player player) {
-        return button1;
+    public void setEventView(EventView eventView) {
+        this.eventView = eventView;
     }
 
-    public void setButton1(Button button1) {
-        this.button1 = button1;
-    }
-
-    public Button getButton2(Player player) {
-        return button2;
-    }
-
-    public void setButton2(Button button2) {
-        this.button2 = button2;
-    }
-
-    public Button getButton3(Player player) {
-        return button3;
-    }
-
-    public void setButton3(Button button3) {
-        this.button3 = button3;
-    }
 }

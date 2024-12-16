@@ -2,12 +2,19 @@ package de.bundeswehr.auf.slaythespire.gui;
 
 import de.bundeswehr.auf.slaythespire.controller.listener.DifficultyMenuListener;
 import de.bundeswehr.auf.slaythespire.controller.listener.GameMenuListener;
+import de.bundeswehr.auf.slaythespire.gui.events.MapViewEvents;
+import de.bundeswehr.auf.slaythespire.gui.layouts.map.DifficultyMenuLayer;
+import de.bundeswehr.auf.slaythespire.gui.layouts.map.GameMenuLayer;
+import de.bundeswehr.auf.slaythespire.gui.layouts.map.LegendLayout;
+import de.bundeswehr.auf.slaythespire.gui.layouts.map.MapLayout;
+import de.bundeswehr.auf.slaythespire.gui.layouts.top_bar.TopBarLayout;
 import de.bundeswehr.auf.slaythespire.helper.GuiHelper;
-import javafx.scene.layout.*;
 import de.bundeswehr.auf.slaythespire.model.map.Node;
 import de.bundeswehr.auf.slaythespire.model.player.structure.Player;
-import de.bundeswehr.auf.slaythespire.gui.events.MapViewEvents;
-import de.bundeswehr.auf.slaythespire.gui.layouts.map.*;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.Region;
+import javafx.scene.layout.StackPane;
 
 import java.util.List;
 
@@ -21,16 +28,15 @@ import java.util.List;
  *
  * @author Warawa Alexander
  */
-public class MapView extends StackPane implements View {
+public class MapView extends StackPane implements View, WithTopBar {
 
     private final DifficultyMenuLayer difficultyMenu;
     private final DifficultyMenuListener difficultyMenuListener;
     private final GameMenuLayer gameMenu;
     private final GameMenuListener gameMenuListener;
     private final BorderPane mainMap;
-    private MapLayout mapCenter;
+    private final MapLayout mapCenter;
     private final MapViewEvents mapViewEvents;
-    private List<Node> nodes;
     private final Player player;
 
     /**
@@ -45,7 +51,6 @@ public class MapView extends StackPane implements View {
      * @param difficultyMenuListener Listener für das Schwierigkeitsmenü.
      */
     public MapView(Player player, List<Node> nodes, int mapWidth, int mapHeight, MapViewEvents mapViewEvents, GameMenuListener gameMenuListener, DifficultyMenuListener difficultyMenuListener) {
-        this.nodes = nodes;
         this.mapViewEvents = mapViewEvents;
         this.gameMenuListener = gameMenuListener;
         this.difficultyMenuListener = difficultyMenuListener;
@@ -63,6 +68,8 @@ public class MapView extends StackPane implements View {
         mainMap.setBackground(new Background(GuiHelper.backgroundInHD("/images/map/mapMid.png")));
 
         mapCenter = new MapLayout(this, nodes, mapWidth, mapHeight, Integer.parseInt(player.getCurrentField()));
+        mapCenter.setTranslateY(-30);
+        mainMap.setCenter(mapCenter);
 
         initTopSide();
         initLeftSide();
@@ -95,10 +102,6 @@ public class MapView extends StackPane implements View {
         gameMenuListener.onExitClick();
     }
 
-    public void clickedOnFullscreen() {
-        mapViewEvents.onFullscreenClick();
-    }
-
     public void clickedOnLoadButton() {
         gameMenuListener.onLoadClick();
     }
@@ -109,10 +112,6 @@ public class MapView extends StackPane implements View {
 
     public void clickedOnSaveButton() {
         gameMenuListener.onSaveClick();
-    }
-
-    public void clickedOnSettings() {
-        mapViewEvents.onSettingsClick();
     }
 
     public void clickedOnValidField(Node node) {
@@ -138,6 +137,21 @@ public class MapView extends StackPane implements View {
         return mainMap;
     }
 
+    @Override
+    public void onFullScreen() {
+        mapViewEvents.onFullScreenClick();
+    }
+
+    @Override
+    public void onSettings() {
+        mapViewEvents.onSettingsClick();
+    }
+
+    @Override
+    public boolean showSettings() {
+        return true;
+    }
+
     public void openDifficultyMenu() {
         difficultyMenu.setVisible(true);
         gameMenu.setVisible(false);
@@ -150,18 +164,22 @@ public class MapView extends StackPane implements View {
 
     private void initLeftSide() {
         Region placeHolder = new Region();
-        placeHolder.setMinWidth(800); // Festlegen der konstanten Höhe
+        placeHolder.setTranslateY(-50);
+        placeHolder.setMinWidth(800);
         mainMap.setLeft(placeHolder);
     }
 
     private void initRightSide() {
-        LegendLayout legendRight = new LegendLayout();
-        mainMap.setRight(legendRight);
+        LegendLayout legend = new LegendLayout();
+        legend.setTranslateY(-50);
+        mainMap.setRight(legend);
     }
 
     private void initTopSide() {
-        HBox topHBox = new TopBarLayout(player, this);
-
-        mainMap.setTop(topHBox);
+        TopBarLayout top = new TopBarLayout(this, player);
+        top.update();
+        top.setTranslateY(25);
+        mainMap.setTop(top);
     }
+
 }

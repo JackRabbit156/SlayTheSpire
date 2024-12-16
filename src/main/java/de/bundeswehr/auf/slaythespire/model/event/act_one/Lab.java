@@ -12,38 +12,25 @@ import de.bundeswehr.auf.slaythespire.model.potion.structure.PotionCard;
  * @author  Loeschner, Marijan
  */
 public class Lab extends Event {
-    DeckFactory df;
-    private static Image image = new Image("/images/event/general/LabEvent.jpg");
-    private String title = "Lab";
-    private String story = "\n\nYou find yourself in a room filled with racks of \n" +
-            "test tubes, beakers, flasks, forceps, pinch clamps, stirring rods, tongs, \n" +
-            "goggles, funnels, pipets, cylinders, condensers, and even a rare spiral tube of glass.\n" +
-            "Why do you know the name of all these tools? It doesn't matter, you take a look around.\n";
-    private Button button1 = new Button("\t[Search] Optaion potions");
 
-    public Lab() {
-        super();
+    public Lab(Player player) {
+        super(player, "Lab", new Image("/images/event/general/LabEvent.jpg"),
+                "\n\nYou find yourself in a room filled with racks of \n" +
+                        "test tubes, beakers, flasks, forceps, pinch clamps, stirring rods, tongs, \n" +
+                        "goggles, funnels, pipettes, cylinders, condensers, and even a rare spiral tube of glass.\n" +
+                        "Why do you know the name of all these tools? It doesn't matter, you take a look around.\n"
+        );
     }
-
 
     @Override
-    public String getTitle() {
-        return title;
-    }
-
-    public String getStory() {
-        return story;
-    }
-
-    public Image getImage() {
-        return image;
-    }
-
-    public Button getButton1(Player player) {
-        df = new DeckFactory(player, 3);
-        PotionCard potion = df.generatePotion();
-        button1.setOnMouseClicked(event -> {
-            player.addPotionCard(potion);
+    public Button getButton1() {
+        DeckFactory factory = new DeckFactory(getPlayer(), 0);
+        PotionCard potion = factory.generatePotion();
+        Button button1 = new Button("\t[Search] Obtain Potions"); // get a potion
+        button1.setOnAction(event -> {
+            if (getPlayer().getPotionCards().size() < 3) {
+                getPlayer().addPotionCard(potion);
+            }
             button1.setVisible(false);
         });
         return button1;

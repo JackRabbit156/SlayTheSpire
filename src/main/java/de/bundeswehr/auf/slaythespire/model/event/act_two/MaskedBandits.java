@@ -18,54 +18,37 @@ import java.util.List;
  * @author  Loeschner, Marijan
  */
 public class MaskedBandits extends Event {
-    private List<Enemy> enemyList = new ArrayList<>();
-    private static Image image = new Image("/images/event/act_two/beggar.jpg");
-    private String title = "Lab";
-    private String story = "\n\nYou encounter a group of bandits wearing large red masks.\n" +
-            "Romeo: \"Hello, pay up to pass... a reasonable fee of ALL your gold will do! Heh heh!\"\n";
-    private Button button1 = new Button("\t[Search] Optaion potions");
+
+    private Button button1 = new Button("\t[Search] "); // loose all your gold
     private Button button2 = new Button("\t[Fight] Enter a combat against 3 Enemies");
 
     //TODO: Leave Button entfernen
-    public MaskedBandits() {
-        super();
+    public MaskedBandits(Player player) {
+        super(player, "Masked Bandit", new Image("/images/event/act_two/beggar.jpg"),
+            "\n\nYou encounter a group of bandits wearing large red masks.\n" +
+                    "Romeo: \"Hello, pay up to pass... a reasonable fee of ALL your gold will do! Heh heh!\"\n");
     }
-
 
     @Override
-    public String getTitle() {
-        return title;
-    }
-
-    public String getStory() {
-        return story;
-    }
-
-    public Image getImage() {
-        return image;
-    }
-
-    public Button getButton1(Player player) {
-
-        button1.setOnMouseClicked(event -> {
-            player.decreaseGold(player.getGold());
+    public Button getButton1() {
+        button1.setOnAction(event -> {
+            getPlayer().decreaseGold(getPlayer().getGold());
             button1.setVisible(false);
             button2.setVisible(false);
-            GuiHelper.Scenes.startMapScene(player);
         });
         return button1;
     }
-    public Button getButton2(Player player) {
 
-        button2.setOnMouseClicked(event -> {
-            Enemy enemy1 = new ByrdEnemy();
-            Enemy enemy2 = new ByrdEnemy();
-            Enemy enemy3 = new ByrdEnemy();
-            enemyList.add(enemy1);
-            enemyList.add(enemy2);
-            enemyList.add(enemy3);
-            GuiHelper.Scenes.startBattleScene(player, enemyList, FieldEnum.ENEMYFIELD);
+    @Override
+    public Button getButton2() {
+        button2.setOnAction(event -> {
+            List<Enemy> enemyList = new ArrayList<>();
+            enemyList.add(new ByrdEnemy());
+            enemyList.add(new ByrdEnemy());
+            enemyList.add(new ByrdEnemy());
             button2.setVisible(false);
+            button1.setVisible(false);
+            GuiHelper.Scenes.startBattleScene(getPlayer(), enemyList, FieldEnum.ENEMYFIELD);
         });
         return button2;
     }

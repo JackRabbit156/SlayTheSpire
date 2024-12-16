@@ -7,7 +7,7 @@ public interface BattleViewEvents {
 
     void onCardClick(Card card, int index);
     void onEnemyClick(Enemy enemy);
-    void onFullscreenClick();
+    void onFullScreenClick();
     void onPlayerClick();
     void onEndTurnClick();
 

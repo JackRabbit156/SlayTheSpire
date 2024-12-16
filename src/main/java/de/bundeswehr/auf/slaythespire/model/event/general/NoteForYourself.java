@@ -1,11 +1,12 @@
 package de.bundeswehr.auf.slaythespire.model.event.general;
 
-import javafx.scene.control.Button;
-import javafx.scene.image.Image;
-import de.bundeswehr.auf.slaythespire.model.card.DeckFactory;
+import de.bundeswehr.auf.slaythespire.model.card.structure.Card;
 import de.bundeswehr.auf.slaythespire.model.event.Event;
 import de.bundeswehr.auf.slaythespire.model.player.structure.Player;
+import javafx.scene.control.Button;
+import javafx.scene.image.Image;
 
+import java.util.List;
 import java.util.Random;
 
 /**
@@ -14,39 +15,25 @@ import java.util.Random;
  * @author Loeschner, Marijan
  */
 public class NoteForYourself extends Event {
-    private DeckFactory df;
-    private Image image = new Image("/images/event/general/NoteForYourselfEvent.png");
-    private String title = "A Note for Yourself";
-    private String story = "\n\nYou spot a loose brick within a pillar that catches your eye.\n" +
-            "You find a folded note and a card inside. It reads \"The Heart awaits.\" \n" +
-            "This is your handwriting.\n";
-    private Button agree = new Button("\t[Take] ");
-    private Random rand = new Random();
 
-    public NoteForYourself() {
-        super();
+    public NoteForYourself(Player player) {
+        super(player, "A Note for Yourself", new Image("/images/event/general/NoteForYourselfEvent.png"),
+                "\n\nYou spot a loose brick within a pillar that catches your eye.\n" +
+                        "You find a folded note and a card inside. It reads \"The Heart awaits.\" \n" +
+                        "This is your handwriting.\n");
     }
 
     @Override
-    public String getTitle() {
-        return title;
-    }
-
-    public String getStory() {
-        return story;
-    }
-
-    public Image getImage() {
-        return image;
-    }
-
-    public Button getButton1(Player player) {
-        agree.setOnMouseClicked(event -> {
+    public Button getButton1() {
+        Button take = new Button("\t[Take] "); // duplicates a random card of your deck
+        take.setOnAction(event -> {
+            List<Card> deck = getPlayer().getDeck();
             // random Integer um die Karte an der stelle der Deck-Liste auszuwählen und hinzuzufügen
-            int cardInt = rand.nextInt(player.getDeck().size());
-            player.addCardToDeck(player.getDeck().get(cardInt));
-            agree.setVisible(false);
+            int cardInt = rnd.nextInt(deck.size());
+            getPlayer().addCardToDeck(deck.get(cardInt));
+            take.setVisible(false);
         });
-        return agree;
+        return take;
     }
+
 }

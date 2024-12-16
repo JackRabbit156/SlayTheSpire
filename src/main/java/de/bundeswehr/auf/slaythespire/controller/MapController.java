@@ -87,7 +87,7 @@ public class MapController implements Controller, MapViewEvents, GameMenuListene
     }
 
     @Override
-    public void onFullscreenClick() {
+    public void onFullScreenClick() {
         Stage primaryStage = player.getPrimaryStage();
 
         primaryStage.setFullScreen(!primaryStage.isFullScreen());

@@ -25,7 +25,7 @@ public class PotionSelectionLayout extends FlowPane {
     private static final Font smallFont = Font.font("Kreon", FontWeight.BOLD, 20);
 
 
-    private final Image bg = new Image(getClass().getResource("/images/view/gui/layouts/battle/potion/bg.png").toExternalForm());
+    private final Image bg = new Image(getClass().getResource("/images/view/gui/layouts/potion/bg.png").toExternalForm());
     private final PotionCard potion;
     private final ShopView shopView;
 

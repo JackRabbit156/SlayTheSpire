@@ -13,43 +13,26 @@ import java.util.Random;
  * @author  Loeschner, Marijan
  */
 public class DeadAdventurer extends Event {
-    private static Image image = new Image("/images/event/act_one/DeadAdventurerEvent.png");
-    private String title = "Dead Adventurer";
-    private String story = "\n\nYou come across a dead adventurer on the floor.\n" +
-            "His pants have been stolen! Also, it looks as though he's been gouged and trampled by a horned beast. \n" +
-            "Though his possessions are still intact, you're in no mind to find out what happened here...\n";
-    private Button search = new Button("\t[Search] Find Loot. ");
-    private Random rand = new Random();
 
-    public DeadAdventurer() {
-        super();
+    public DeadAdventurer(Player player) {
+        super(player, "Dead Adventurer", new Image("/images/event/act_one/DeadAdventurerEvent.png"),
+                "\n\nYou come across a dead adventurer on the floor.\n" +
+                        "His pants have been stolen! Also, it looks as though he's been gouged and trampled by a horned beast. \n" +
+                        "Though his possessions are still intact, you're in no mind to find out what happened here...\n"
+        );
     }
 
     @Override
-    public String getTitle() {
-        return title;
-    }
-
-    public String getStory() {
-        return story;
-    }
-
-    public Image getImage() {
-        return image;
-    }
-
-    public Button getButton1(Player player){
-
-        search.setOnMouseClicked(event -> {
-            boolean chance = rand.nextInt(100) <= 50;
+    public Button getButton1(){
+        Button search = new Button("\t[Search] Find Loot. "); // 50% chance to find 30 gold
+        search.setOnAction(event -> {
+            boolean chance = rnd.nextInt(100) <= 50;
             if (chance) {
-                player.increaseGold(30);
-                search.setVisible(false);
+                getPlayer().increaseGold(30);
             }
-            else {
-                search.setVisible(false);
-            }
+            search.setVisible(false);
         });
         return search;
     }
+
 }

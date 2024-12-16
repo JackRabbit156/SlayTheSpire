@@ -1,6 +1,7 @@
 package de.bundeswehr.auf.slaythespire.controller;
 
 import de.bundeswehr.auf.slaythespire.gui.EventView;
+import de.bundeswehr.auf.slaythespire.gui.events.EventViewEvents;
 import de.bundeswehr.auf.slaythespire.helper.GuiHelper;
 import de.bundeswehr.auf.slaythespire.model.event.Event;
 import de.bundeswehr.auf.slaythespire.model.event.act_one.*;
@@ -11,6 +12,7 @@ import de.bundeswehr.auf.slaythespire.model.event.general.GoldenShrine;
 import de.bundeswehr.auf.slaythespire.model.event.general.NoteForYourself;
 import de.bundeswehr.auf.slaythespire.model.player.structure.Player;
 import javafx.scene.layout.BorderPane;
+import javafx.stage.Stage;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -22,48 +24,54 @@ import java.util.Random;
  *
  * @author Loeschner, Marijan
  */
-public class EventController implements Controller {
+public class EventController implements Controller, EventViewEvents {
 
     private static final Random rnd = new Random();
 
-    private final List<Event> generalEvents = new ArrayList<>();
+    private final Player player;
+    private final EventView eventView;
 
-    public BorderPane getEventView(Player player) {
-        EventView ev = new EventView(randomEvent(player), player);
-        ev.getLeave().setOnMouseClicked(event -> GuiHelper.Scenes.startMapScene(player));
-        return ev.display();
+    public EventController(Player player) {
+        this.player = player;
+        eventView = new EventView(randomEvent(player), player, this);
+        eventView.getLeave().setOnMouseClicked(event -> GuiHelper.Scenes.startMapScene(player));
     }
 
-    public Event randomEvent(Player player) {
-        Event bigFish = new BigFish();
-        Event deadAdventurer = new DeadAdventurer();
-        Event theCleric = new TheCleric();
-        Event theSerpent = new TheSssssserpent();
-        Event noteforyou = new NoteForYourself();
-        Event scrapOoze = new ScrapOoze();
-        Event worldOfGoo = new WorldOfGoo();
-        Event bonfireSpirits = new BonfireSpirits();
-        Event goldenShrine = new GoldenShrine();
-        Event duplicator = new Duplicator();
-        Event wheelOfChange = new WheelOfChange();
-        Event theNest = new TheNest();
-        Event theMausoleum = new TheMausoleum();
-        Event theJoust = new TheJoust();
-        Event lab = new Lab();
-        Event maskedBandits = new MaskedBandits();
-        Event theLib = new TheLibrary();
-        Event knowingSkull = new KnowingSkull();
-        Event cursedTome = new CursedTome();
+    @Override
+    public void clickedOnFullScreen() {
+        Stage primaryStage = player.getPrimaryStage();
 
-        generalEvents.addAll(Arrays.asList(noteforyou, bonfireSpirits, goldenShrine, duplicator));
+        primaryStage.setFullScreen(!primaryStage.isFullScreen());
+    }
+
+    public BorderPane getEventView() {
+        return eventView.display();
+    }
+
+    private Event randomEvent(Player player) {
+        // general events
+        List<Event> events = new ArrayList<>(Arrays.asList(
+                new NoteForYourself(player), new BonfireSpirits(player),
+                new GoldenShrine(player), new Duplicator(player)));
+        // act 1
         if (player.getCurrentAct() == 1) {
-            generalEvents.addAll(Arrays.asList(bigFish, deadAdventurer, lab, scrapOoze, theCleric, theSerpent, wheelOfChange, worldOfGoo));
+            events.addAll(Arrays.asList(
+                    new BigFish(player), new DeadAdventurer(player),
+                    new Lab(player),  new ScrapOoze(player),
+                    new TheCleric(player), new TheSssssserpent(player),
+                    new WheelOfChange(player), new WorldOfGoo(player)));
         }
+        // act 2
         else if (player.getCurrentAct() == 2) {
-            generalEvents.addAll(Arrays.asList(cursedTome, knowingSkull, maskedBandits, theJoust, theLib, theMausoleum, theNest));
+            events.addAll(Arrays.asList(
+                    new CursedTome(player), new KnowingSkull(player),
+                    new MaskedBandits(player), new TheJoust(player),
+                    new TheLibrary(player), new TheMausoleum(player),
+                    new TheNest(player)));
         }
-        int randomIndex = rnd.nextInt(generalEvents.size());
-        return generalEvents.get(randomIndex);
+        // TODO act 3
+        int randomIndex = rnd.nextInt(events.size());
+        return events.get(randomIndex);
     }
 
 }

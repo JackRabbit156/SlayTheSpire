@@ -1,20 +1,26 @@
 package de.bundeswehr.auf.slaythespire.gui;
 
+import de.bundeswehr.auf.slaythespire.gui.events.EventViewEvents;
+import de.bundeswehr.auf.slaythespire.gui.layouts.top_bar.TopBarLayout;
 import de.bundeswehr.auf.slaythespire.helper.GuiHelper;
+import de.bundeswehr.auf.slaythespire.model.event.Event;
+import de.bundeswehr.auf.slaythespire.model.player.structure.Player;
+import javafx.geometry.Bounds;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.geometry.VPos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.effect.DropShadow;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
-import de.bundeswehr.auf.slaythespire.model.event.Event;
-import de.bundeswehr.auf.slaythespire.model.player.structure.Player;
+import javafx.stage.Popup;
 
 /**
  * View für die Darstellung der Events, dynamisch aufgebaut. Es können Events über den Controller eingefügt werden,
@@ -22,176 +28,97 @@ import de.bundeswehr.auf.slaythespire.model.player.structure.Player;
  *
  * @author Loeschner, Marijan
  */
-public class EventView {
+public class EventView implements WithTopBar {
 
-    BorderPane layoutPane = new BorderPane();
-    Background paneBG = new Background(GuiHelper.backgroundInHD("/images/backgrounds/greenBg.jpg"));
-    HBox displayBox = new HBox();
-    Background eventBG = new Background(GuiHelper.backgroundInHD("/images/event/event_layout/panel.png"));
-    VBox leftBox = new VBox();
-    VBox rightBox = new VBox();
-    ImageView img = new ImageView();
-    Label label = new Label();
-    DropShadow dr = new DropShadow(8, Color.BLACK);
-    Font labelFont = Font.loadFont(getClass().getResourceAsStream(GuiHelper.DEFAULT_FONT_BOLD), 44);
-    Text story = new Text();
-    Font textFont = Font.loadFont(getClass().getResourceAsStream(GuiHelper.DEFAULT_FONT_BOLD), 30);
-    Button option1;
-    Button option2;
-    Button option3;
-    Button leave = new Button("\t[Leave]");
-    Background buttonBG = new Background(GuiHelper.backgroundInHD("/images/event/event_layout/disabledButton.png"));
-    Background buttonHighlight = new Background(GuiHelper.backgroundInHD("/images/event/event_layout/enabledButton.png"));
-    Event event;
-    Player player;
+    private static final Background buttonBG = new Background(GuiHelper.backgroundInHD("/images/event/event_layout/disabledButton.png"));
+    private static final Background buttonHighlight = new Background(GuiHelper.backgroundInHD("/images/event/event_layout/enabledButton.png"));
+    private static final Font labelFont = Font.loadFont(EventView.class.getResourceAsStream(GuiHelper.DEFAULT_FONT_BOLD), 44);
+    private static final DropShadow shadow = new DropShadow(8, Color.BLACK);
+    private static final Font textFont = Font.loadFont(EventView.class.getResourceAsStream(GuiHelper.DEFAULT_FONT_BOLD), 30);
 
+    private final EventViewEvents eventViewEvents;
+    private final Label label = new Label();
+    private final BorderPane layoutPane = new BorderPane();
+    private final Button leave = new Button("\t[Leave]");
+    private final Button option1;
+    private final Button option2;
+    private final Button option3;
+    private final VBox right = new VBox();
+    private final Text story;
+    private final TopBarLayout top;
 
-    public EventView(Event event, Player player){
-        leftBox.getChildren().clear();
-        rightBox.getChildren().clear();
-        displayBox.getChildren().clear();
-        layoutPane.getChildren().clear();
+    public EventView(Event event, Player player, EventViewEvents eventViewEvents) {
+        this.eventViewEvents = eventViewEvents;
 
-        this.event = event;
-        this.player = player;
-        this.label.setText(event.getTitle());
-        this.story.setText(event.getStory());
-        this.option1 = event.getButton1(player);
-        this.option2 = event.getButton2(player);
-        this.option3 = event.getButton3(player);
+        event.setEventView(this);
+        label.setText(event.getTitle());
+        story = event.getStory();
+        option1 = event.getButton1();
+        option2 = event.getButton2();
+        option3 = event.getButton3();
 
-        layoutPane.setBackground(paneBG);
-        displayBox.setBackground(eventBG);
-        displayBox.setScaleX(0.8);
-        displayBox.setScaleY(0.8);
+        layoutPane.setBackground(new Background(GuiHelper.backgroundInHD("/images/backgrounds/greenBg.jpg")));
 
-        img.setImage(event.getImage());
+        ImageView image = new ImageView();
+        image.setImage(event.getImage());
+        image.setScaleX(0.8);
+        image.setScaleY(0.8);
+        image.setEffect(shadow);
 
-        img.setScaleX(0.8);
-        img.setScaleY(0.8);
-        img.setEffect(dr);
-        leftBox.setAlignment(Pos.CENTER_LEFT);
-        leftBox.getChildren().addAll(label, img);
-        rightBox.setAlignment(Pos.CENTER_RIGHT);
-        displayBox.getChildren().addAll(leftBox, rightBox);
-        layoutPane.setCenter(displayBox);
+        VBox left = new VBox();
+        left.setAlignment(Pos.CENTER_LEFT);
+        left.getChildren().addAll(label, image);
+        right.setAlignment(Pos.CENTER_RIGHT);
 
+        HBox center = new HBox();
+        center.setBackground(new Background(GuiHelper.backgroundInHD("/images/event/event_layout/panel.png")));
+        center.setScaleX(0.8);
+        center.setScaleY(0.8);
+        center.getChildren().addAll(left, right);
+        center.setTranslateY(50);
+        layoutPane.setCenter(center);
+
+        top = new TopBarLayout(this, player);
+        initUpdater(top);
+        layoutPane.setTop(top);
+        // TODO Wenn der Player stirbt
     }
 
-    private void initStyle(){
-        label.setPadding(new Insets(0, 0, 330, 220));
-        label.setFont(labelFont);
-        label.setTextFill(Color.GOLDENROD);
-        label.setEffect(dr);
+    public void updateTop() {
+        top.update();
+    }
 
-
-        story.setFont(textFont);
-        story.setFill(Color.WHITE);
-        story.setTextOrigin(VPos.BOTTOM);
-        story.setTextAlignment(TextAlignment.CENTER);
-        story.setLineSpacing(50);
-
+    private void initUpdater(TopBarLayout top) {
+        top.update();
         if (option1 != null) {
-            option1.setPrefSize(1200, 100);
-            option1.setScaleX(0.8);
-            option1.setScaleY(0.8);
-            option1.setFont(textFont);
-            option1.setAlignment(Pos.BASELINE_LEFT);
-            option1.setTextFill(Color.WHITE);
-            option1.setBackground(buttonBG);
-            option1.setOnMouseEntered(event1 -> {
-                option1.setBackground(buttonHighlight);
-            });
-            option1.setOnMouseExited(event1 -> {
-                option1.setBackground(buttonBG);
-            });
-            option1.setOnMousePressed(event1 -> {
-                option1.setBackground(buttonBG);
-                option1.setScaleX(option1.getScaleX() * 0.99);
-                option1.setScaleY(option1.getScaleY() * 0.9);
-            });
-            option1.setOnMouseReleased(event1 -> {
-                option1.setBackground(buttonHighlight);
-                option1.setScaleX(option1.getScaleX() * 1.01);
-                option1.setScaleY(option1.getScaleY() * 1.1);
-            });
+            option1.addEventHandler(MouseEvent.MOUSE_CLICKED, e -> top.update());
         }
-
         if (option2 != null) {
-            option2.setPrefSize(1200, 100);
-            option2.setScaleX(0.8);
-            option2.setScaleY(0.8);
-            option2.setFont(textFont);
-            option2.setAlignment(Pos.BASELINE_LEFT);
-            option2.setTextFill(Color.WHITE);
-            option2.setBackground(buttonBG);
-            option2.setOnMouseEntered(event1 -> {
-                option2.setBackground(buttonHighlight);
-            });
-            option2.setOnMouseExited(event1 -> {
-                option2.setBackground(buttonBG);
-            });
-            option2.setOnMousePressed(event1 -> {
-                option2.setBackground(buttonBG);
-                option2.setScaleX(option2.getScaleX() * 0.99);
-                option2.setScaleY(option2.getScaleY() * 0.9);
-            });
-            option2.setOnMouseReleased(event1 -> {
-                option2.setBackground(buttonHighlight);
-                option2.setScaleX(option2.getScaleX() * 1.01);
-                option2.setScaleY(option2.getScaleY() * 1.1);
-            });
+            option2.addEventHandler(MouseEvent.MOUSE_CLICKED, e -> top.update());
         }
-
         if (option3 != null) {
-            option3.setPrefSize(1200, 100);
-            option3.setScaleX(0.8);
-            option3.setScaleY(0.8);
-            option3.setFont(textFont);
-            option3.setAlignment(Pos.BASELINE_LEFT);
-            option3.setTextFill(Color.WHITE);
-            option3.setBackground(buttonBG);
-            option3.setOnMouseEntered(event1 -> {
-                option3.setBackground(buttonHighlight);
-            });
-            option3.setOnMouseExited(event1 -> {
-                option3.setBackground(buttonBG);
-            });
-            option3.setOnMousePressed(event1 -> {
-                option3.setBackground(buttonBG);
-                option3.setScaleX(option3.getScaleX() * 0.99);
-                option3.setScaleY(option3.getScaleY() * 0.9);
-            });
-            option3.setOnMouseReleased(event1 -> {
-                option3.setBackground(buttonHighlight);
-                option3.setScaleX(option3.getScaleX() * 1.01);
-                option3.setScaleY(option3.getScaleY() * 1.1);
-            });
+            option3.addEventHandler(MouseEvent.MOUSE_CLICKED, e -> top.update());
         }
+    }
 
-        leave.setPrefSize(1200, 100);
-        leave.setScaleX(0.8);
-        leave.setScaleY(0.8);
-        leave.setFont(textFont);
-        leave.setAlignment(Pos.BASELINE_LEFT);
-        leave.setTextFill(Color.WHITE);
-        leave.setBackground(buttonBG);
-        leave.setOnMouseEntered(event1 -> {
-            leave.setBackground(buttonHighlight);
-        });
-        leave.setOnMousePressed(event1 -> {
-            leave.setBackground(buttonBG);
-            leave.setScaleX(leave.getScaleX() * 0.99);
-            leave.setScaleY(leave.getScaleY() * 0.9);
-        });
-        leave.setOnMouseReleased(event1 -> {
-            leave.setBackground(buttonHighlight);
-            leave.setScaleX(leave.getScaleX() * 1.01);
-            leave.setScaleY(leave.getScaleY() * 1.1);
-        });
-        leave.setOnMouseExited(event1 -> {
-            leave.setBackground(buttonBG);
-        });
+    public BorderPane display() {
+        initStyle();
+        right.getChildren().add(story);
+        if (option1 != null) {
+            right.getChildren().add(option1);
+        }
+        if (option2 != null) {
+            right.getChildren().add(option2);
+        }
+        if (option3 != null) {
+            right.getChildren().add(option3);
+        }
+        right.getChildren().add(leave);
+        return layoutPane;
+    }
+
+    public Button getLeave() {
+        return leave;
     }
 
     public Button getOption1() {
@@ -206,30 +133,84 @@ public class EventView {
         return option3;
     }
 
-    public Button getLeave() {
-        return leave;
+    @Override
+    public void onFullScreen() {
+        eventViewEvents.clickedOnFullScreen();
     }
 
-    public BorderPane display() {
-        initStyle();
-        //TODO: Story müssen so angepasst werden, dass sie sich nach Buttonclick ändern.
+    public void showDialog(String text) {
+        Image popupImage = new Image(getClass().getResource("/images/popup/popupBg.png").toExternalForm());
+        ImageView imageView = new ImageView(popupImage);
+        imageView.setScaleX(0.5);
+        imageView.setScaleY(0.5);
 
-        rightBox.getChildren().add(story);
+        StackPane stackPopup = new StackPane();
+        Label label = new Label(text);
+        label.setAlignment(Pos.CENTER);
+        label.setTextAlignment(TextAlignment.CENTER);
+        label.setWrapText(true);
+        label.setMaxWidth(400);
+        label.setStyle("-fx-font-size: 36;" +
+                "-fx-font-family: Kreon;");
+        label.setTextFill(Color.WHITE);
+        stackPopup.getChildren().addAll(imageView, label);
+
+        Popup popup = new Popup();
+        popup.setAutoHide(true);
+        popup.getContent().add(stackPopup);
+        Bounds bounds = layoutPane.localToScreen(layoutPane.getBoundsInLocal());
+        popup.show(layoutPane.getScene().getWindow(), bounds.getMinX(), bounds.getMinY());
+    }
+
+    private void initStyle() {
+        label.setPadding(new Insets(0, 0, 220, 220));
+        label.setFont(labelFont);
+        label.setTextFill(Color.GOLDENROD);
+        label.setEffect(shadow);
+
+        story.setFont(textFont);
+        story.setFill(Color.WHITE);
+        story.setTextOrigin(VPos.BOTTOM);
+        story.setTextAlignment(TextAlignment.CENTER);
+        story.setLineSpacing(50);
+
         if (option1 != null) {
-            rightBox.getChildren().add(option1);
-            event.getButton1(player);
+            initialize(option1);
         }
         if (option2 != null) {
-            rightBox.getChildren().add(option2);
-            event.getButton2(player);
+            initialize(option2);
         }
         if (option3 != null) {
-            rightBox.getChildren().add(option3);
-            event.getButton3(player);
+            initialize(option3);
         }
-        rightBox.getChildren().add(leave);
 
-        return layoutPane;
+        initialize(leave);
+    }
+
+    private void highlightOnClick(Button button) {
+        button.setOnMousePressed(event -> {
+            button.setBackground(buttonBG);
+            button.setScaleX(button.getScaleX() * 0.99);
+            button.setScaleY(button.getScaleY() * 0.9);
+        });
+        button.setOnMouseReleased(event -> {
+            button.setBackground(buttonHighlight);
+            button.setScaleX(button.getScaleX() * 1.01);
+            button.setScaleY(button.getScaleY() * 1.1);
+        });
+    }
+
+    private void initialize(Button button) {
+        button.setPrefSize(1200, 100);
+        button.setScaleX(0.8);
+        button.setScaleY(0.8);
+        button.setFont(textFont);
+        button.setAlignment(Pos.BASELINE_LEFT);
+        button.setTextFill(Color.WHITE);
+        button.setBackground(buttonBG);
+        button.setOnMouseEntered(event -> button.setBackground(buttonHighlight));
+        button.setOnMouseExited(event -> button.setBackground(buttonBG));
+        highlightOnClick(button);
     }
 
 }

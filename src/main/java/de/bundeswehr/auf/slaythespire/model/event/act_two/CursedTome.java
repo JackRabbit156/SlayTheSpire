@@ -15,53 +15,39 @@ import java.util.List;
  * @author  Loeschner, Marijan
  */
 public class CursedTome extends Event {
-    private DeckFactory df;
-    private Image image = new Image("/images/event/act_two/cursedTome.jpg");
-    private String title = "Cursed Tome";
-    private String story = "\n\nIn an abandoned temple, you find a giant book, open, riddled with cryptic writings.\n" +
-            "As you try to interpret the elaborate script, it begins shift and morph into writing you are familiar with.\n";
-    private Button button1 = new Button("\t[Read] ");
-    private Button button2 = new Button("\t[Continue] Lose HP");
-    public CursedTome(){
-        super();
+
+    private final Button button1 = new Button("\t[Read] "); // loose 1 HP
+    private final Button button2 = new Button("\t[Continue] Lose HP"); // loose 2 HP, loose 3 HP and get a random rare card
+
+    public CursedTome(Player player){
+        super(player, "Cursed Tome", new Image("/images/event/act_two/cursedTome.jpg"),
+            "\n\nIn an abandoned temple, you find a giant book, open, riddled with cryptic writings.\n" +
+                    "As you try to interpret the elaborate script, it begins shift and morph into writing you are familiar with.\n");
     }
 
     @Override
-    public String getTitle() {
-        return title;
-    }
-
-    public String getStory() {
-        return story;
-    }
-
-    public Image getImage() {
-        return image;
-    }
-
-    public Button getButton1(Player player) {
-
-        button1.setOnMouseClicked(event -> {
-            player.setCurrentHealth((player.getCurrentHealth()- 1));
+    public Button getButton1() {
+        button1.setOnAction(event -> {
+            getPlayer().setCurrentHealth((getPlayer().getCurrentHealth()- 1));
             button1.setVisible(false);
             button2.setVisible(true);
         });
         return button1;
     }
-    public Button getButton2(Player player) {
+
+    @Override
+    public Button getButton2() {
         button2.setVisible(false);
-        df = new DeckFactory(player, 1);
-        List<Card> deck;
-        deck = df.init();
-        button2.setOnMouseClicked(event1 -> {
-            player.setCurrentHealth((player.getCurrentHealth()- 2));
-            button2.setOnMouseClicked(event2 -> {
+        DeckFactory df = new DeckFactory(getPlayer(), 1);
+        button2.setOnAction(event -> {
+            getPlayer().setCurrentHealth((getPlayer().getCurrentHealth()- 2));
+            button2.setOnAction(e -> {
                 Card selectedCard;
-                player.setCurrentHealth((player.getCurrentHealth()- 3));
-                for (Card card : deck) {
+                getPlayer().setCurrentHealth((getPlayer().getCurrentHealth()- 3));
+                for (Card card : df.init()) {
                     if (card.getCardRarity() == CardRarity.RARE) {
                         selectedCard = card;
-                        player.addCardToDeck(selectedCard);
+                        getPlayer().addCardToDeck(selectedCard);
                     }
                 }
                 button2.setVisible(false);
@@ -69,4 +55,5 @@ public class CursedTome extends Event {
         });
         return button2;
     }
+
 }

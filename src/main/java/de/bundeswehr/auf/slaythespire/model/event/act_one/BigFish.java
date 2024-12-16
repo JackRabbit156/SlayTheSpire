@@ -1,45 +1,32 @@
 package de.bundeswehr.auf.slaythespire.model.event.act_one;
 
-import javafx.scene.control.Button;
-import javafx.scene.image.Image;
 import de.bundeswehr.auf.slaythespire.model.event.Event;
 import de.bundeswehr.auf.slaythespire.model.player.structure.Player;
+import javafx.scene.control.Button;
+import javafx.scene.image.Image;
 
 /**
  * Event bei dem man zwischen 3 Optionen auswählen kann
  *
- * @author  Loeschner, Marijan
+ * @author Loeschner, Marijan
  */
-public class BigFish extends Event{
-    private static Image image = new Image("/images/event/act_one/BigFishEvent.png");
-    private String title = "Big Fish";
-    private String story = "\n\nAs you make your way down a long corridor you see a banana, a donut, and a box floating about. \n" +
-            "No... upon closer inspection they are tied to strings coming from holes in the ceiling.\n " +
-            "There is a quiet cackling from above as you approach the objects.\n";
-    private Button banana = new Button("\t[Banana] Heal 1/3 of your max HP.");
-    private Button donut = new Button("\t[Donut] Max HP +5.");
-    private Button box = new Button("\t[Box] We don't have a relic, stop looking!");
+public class BigFish extends Event {
 
-    public BigFish() {
-        super();
+    private final Button banana = new Button("\t[Banana] Heal 1/3 of your max HP.");
+    private final Button box = new Button("\t[Box] We don't have a relic, stop looking!"); // nothing
+    private final Button donut = new Button("\t[Donut] Max HP +5.");
+
+    public BigFish(Player player) {
+        super(player, "Big Fish", new Image("/images/event/act_one/BigFishEvent.png"),
+                "\n\nAs you make your way down a long corridor you see a banana, a donut, and a box floating about. \n" +
+                "No... upon closer inspection they are tied to strings coming from holes in the ceiling.\n " +
+                "There is a quiet cackling from above as you approach the objects.\n");
     }
 
     @Override
-    public String getTitle() {
-        return title;
-    }
-
-    public String getStory() {
-        return story;
-    }
-
-    public Image getImage() {
-        return image;
-    }
-
-    public Button getButton1(Player player){
-        banana.setOnMouseClicked(event -> {
-            player.increaseCurrentHealth(player.getMaxHealth() / 3);
+    public Button getButton1() {
+        banana.setOnAction(event -> {
+            getPlayer().increaseCurrentHealth(getPlayer().getMaxHealth() / 3);
             donut.setVisible(false);
             banana.setVisible(false);
             box.setVisible(false);
@@ -47,9 +34,10 @@ public class BigFish extends Event{
         return banana;
     }
 
-    public Button getButton2(Player player){
-        donut.setOnMouseClicked(event -> {
-            player.increaseMaxHealth(5);
+    @Override
+    public Button getButton2() {
+        donut.setOnAction(event -> {
+            getPlayer().increaseMaxHealth(5);
             donut.setVisible(false);
             banana.setVisible(false);
             box.setVisible(false);
@@ -58,16 +46,17 @@ public class BigFish extends Event{
     }
 
     @Override
-    public Button getButton3(Player player) {
-        box.setOnMouseClicked(event -> {
-            //Hier würde ich meine Relics aufbewahren. WENN ICH WELCHE HÄTTE!
-            story = "You grab the box. \n" +
+    public Button getButton3() {
+        box.setOnAction(event -> {
+            // TODO Hier würde ich meine Relics aufbewahren. WENN ICH WELCHE HÄTTE!
+            getStory().setText("You grab the box. \n" +
                     "Inside you find Nothing!\n" +
-                    "However, you really craved the donut...";
+                    "However, you really craved the donut...");
             donut.setVisible(false);
             banana.setVisible(false);
             box.setVisible(false);
         });
         return box;
     }
+
 }

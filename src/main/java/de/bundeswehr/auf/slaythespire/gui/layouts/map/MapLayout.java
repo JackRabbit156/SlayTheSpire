@@ -28,13 +28,14 @@ import java.util.List;
  *
  * @author Warawa Alexander
  */
-public class MapLayout extends GridPane implements View {
+public class MapLayout extends StackPane implements View {
 
     private static final int CENTER_OFFSET = 39;
     private static final int TILE_SIZE = 58;
 
     private MovingAnimation animation;
     private final Pane lineLayer;
+    private final GridPane gridLayer;
     private final int mapHeight;
     private final MapView mapView;
     private final int mapWidth;
@@ -56,21 +57,14 @@ public class MapLayout extends GridPane implements View {
         this.mapView = mapView;
         this.playerField = playerField;
         lineLayer = new Pane();
-
+        gridLayer = new GridPane();
         // Raster der GridPane setzen
         initMapGridPane();
-
         // Setze die Knoten und Linien
         setNodesOnMap(nodes);
         drawLines(nodes);
 
-        // StackPane, um GridPane und Linien-Ebene übereinander zu legen
-        StackPane stackPane = new StackPane();
-
-
-        // Füge GridPane und Linie-Ebene zum StackPane hinzu
-        stackPane.getChildren().addAll(lineLayer, this);
-        mapView.getMainMap().setCenter(stackPane);
+        getChildren().addAll(lineLayer, gridLayer);
     }
 
     @Override
@@ -112,14 +106,14 @@ public class MapLayout extends GridPane implements View {
      */
     private void drawLines(List<Node> nodes) {
         for (Node currentNode : nodes) {
-            if (currentNode.getRightNode() != null) {
-                connectNodes(currentNode, currentNode.getRightNode());
-            }
             if (currentNode.getLeftNode() != null) {
                 connectNodes(currentNode, currentNode.getLeftNode());
             }
             if (currentNode.getMiddleNode() != null) {
                 connectNodes(currentNode, currentNode.getMiddleNode());
+            }
+            if (currentNode.getRightNode() != null) {
+                connectNodes(currentNode, currentNode.getRightNode());
             }
         }
     }
@@ -138,15 +132,14 @@ public class MapLayout extends GridPane implements View {
     }
 
     private void initMapGridPane() {
-        setPadding(new Insets(10));
-
+        gridLayer.setPadding(new Insets(10));
         for (int i = 0; i < mapWidth; i++) {
             ColumnConstraints colConst = new ColumnConstraints(TILE_SIZE);
-            getColumnConstraints().add(colConst);
+            gridLayer.getColumnConstraints().add(colConst);
         }
         for (int i = 0; i < mapHeight; i++) {
             RowConstraints rowConst = new RowConstraints(TILE_SIZE);
-            getRowConstraints().add(rowConst);
+            gridLayer.getRowConstraints().add(rowConst);
         }
     }
 
@@ -204,10 +197,9 @@ public class MapLayout extends GridPane implements View {
                 }
 
                 ImageView playerImage = image("/images/map/player/ironclad.png");
-                // TODO make it discardable before use
                 animation = new MovingAnimation(playerImage);
                 animation.start();
-                add(playerImage, nodes.get(i).getX(), nodes.get(i).getY());
+                gridLayer.add(playerImage, nodes.get(i).getX(), nodes.get(i).getY());
                 continue;
             }
             else if (Integer.parseInt(nodes.get(0).getFieldName()) > playerField && availablePosFromPlayer.size() < 1) {
@@ -220,7 +212,8 @@ public class MapLayout extends GridPane implements View {
                     image.addEventHandler(MouseEvent.MOUSE_CLICKED, e -> handleFieldClick(nodes.get(finalI)));
                 }
             }
-            add(image, nodes.get(i).getX(), nodes.get(i).getY());
+            gridLayer.add(image, nodes.get(i).getX(), nodes.get(i).getY());
         }
     }
+
 }

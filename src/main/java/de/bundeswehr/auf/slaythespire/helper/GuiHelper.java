@@ -108,11 +108,11 @@ public class GuiHelper {
          * @param player die Stage die Übergeben wird
          */
         public static void startEventScene(Player player) {
-            EventController eventController = new EventController();
+            EventController eventController = new EventController(player);
             registerController(eventController);
             Stage primaryStage = player.getPrimaryStage();
             String cssPath = "/css/eventStyle.css";
-            fadeTransition(primaryStage, eventController.getEventView(player), cssPath);
+            fadeTransition(primaryStage, eventController.getEventView(), cssPath);
         }
 
         public static void startGameOverScene(Player player) {

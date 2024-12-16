@@ -6,8 +6,9 @@ import de.bundeswehr.auf.slaythespire.gui.events.CardEventListener;
 import de.bundeswehr.auf.slaythespire.gui.layouts.CardSelectionLayout;
 import de.bundeswehr.auf.slaythespire.gui.layouts.battle.BottomSideLayout;
 import de.bundeswehr.auf.slaythespire.gui.layouts.battle.LeftSideLayout;
+import de.bundeswehr.auf.slaythespire.gui.layouts.battle.PotionLayout;
 import de.bundeswehr.auf.slaythespire.gui.layouts.battle.RightSideLayout;
-import de.bundeswehr.auf.slaythespire.gui.layouts.battle.TopSideLayout;
+import de.bundeswehr.auf.slaythespire.gui.layouts.top_bar.TopBarLayout;
 import de.bundeswehr.auf.slaythespire.helper.GuiHelper;
 import de.bundeswehr.auf.slaythespire.model.battle.BattleDeck;
 import de.bundeswehr.auf.slaythespire.model.card.structure.Card;
@@ -39,7 +40,7 @@ import java.util.List;
  * @author F Alexander Warawa
  * @author OF Daniel Willig
  */
-public class BattleView extends BorderPane implements View, BattleDeckListener {
+public class BattleView extends BorderPane implements View, WithTopBar, BattleDeckListener {
 
     public enum Mode {
         NORMAL, ATTACK, SKILL, POWER
@@ -57,7 +58,7 @@ public class BattleView extends BorderPane implements View, BattleDeckListener {
     private final SimpleObjectProperty<Mode> mode = new SimpleObjectProperty<>(Mode.NORMAL);
     private final Player player;
     private RightSideLayout right;
-    private TopSideLayout top;
+    private TopBarLayout top;
 
     public BattleView(Player player, List<Enemy> enemies, BattleViewEvents battleViewEvents, BattleDeck battleDeck) {
         this.battleViewEvents = battleViewEvents;
@@ -140,10 +141,6 @@ public class BattleView extends BorderPane implements View, BattleDeckListener {
         updateInformation();
     }
 
-    public void clickedOnFullscreen() {
-        battleViewEvents.onFullscreenClick();
-    }
-
     public void clickedOnPlayer() {
         mode.set(Mode.NORMAL);
         enableBattleView();
@@ -175,7 +172,7 @@ public class BattleView extends BorderPane implements View, BattleDeckListener {
     }
 
     public void disableBattleView() {
-        top.setDisablePotions(true);
+        top.setDisableMiddleBar(true);
         left.setDisable(true);
         right.setDisable(true);
         bottom.setDisableEndTurn(true);
@@ -189,7 +186,7 @@ public class BattleView extends BorderPane implements View, BattleDeckListener {
     }
 
     public void enableBattleView() {
-        top.setDisablePotions(false);
+        top.setDisableMiddleBar(false);
         left.setDisable(false);
         right.setDisable(false);
         bottom.setDisableEndTurn(false);
@@ -222,8 +219,13 @@ public class BattleView extends BorderPane implements View, BattleDeckListener {
         updateBottom();
     }
 
+    @Override
+    public void onFullScreen() {
+        battleViewEvents.onFullScreenClick();
+    }
+
     public void selectEnemyViewForCard() {
-        top.setDisablePotions(true);
+        top.setDisableMiddleBar(true);
         left.setDisable(true);
         bottom.setDisableEndTurn(true);
     }
@@ -234,7 +236,7 @@ public class BattleView extends BorderPane implements View, BattleDeckListener {
     }
 
     public void selectPlayerViewForCard() {
-        top.setDisablePotions(true);
+        top.setDisableMiddleBar(true);
         right.setDisable(true);
         bottom.setDisableEndTurn(true);
     }
@@ -325,7 +327,7 @@ public class BattleView extends BorderPane implements View, BattleDeckListener {
      * Top side for the Player Information
      */
     private void initTop() {
-        top = new TopSideLayout(this, player);
+        top = new TopBarLayout(this, player, new PotionLayout(player.getPotionCards(), this));
         setTop(top);
     }
 

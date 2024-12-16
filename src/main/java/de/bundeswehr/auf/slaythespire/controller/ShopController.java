@@ -90,7 +90,7 @@ public class ShopController implements Controller, ShopViewEvents {
     }
 
     @Override
-    public void onFullscreenClick() {
+    public void onFullScreenClick() {
         Stage primaryStage = player.getPrimaryStage();
 
         primaryStage.setFullScreen(!primaryStage.isFullScreen());
