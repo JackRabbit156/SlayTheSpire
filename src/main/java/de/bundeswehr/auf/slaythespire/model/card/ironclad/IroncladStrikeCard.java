@@ -9,9 +9,9 @@ import de.bundeswehr.auf.slaythespire.model.enemy.Enemy;
 import de.bundeswehr.auf.slaythespire.model.player.structure.Player;
 
 public class IroncladStrikeCard extends AttackCard {
+
     public IroncladStrikeCard() {
         super("Strike", "Deal 6 damage.", 1, 6, CardRarity.COMMON, CardGrave.DISCARD);
-
         setImagePath(new PathAssistent().toPath(this));
     }
 
@@ -28,4 +28,5 @@ public class IroncladStrikeCard extends AttackCard {
     public int dealDamage() {
         return getDamage();
     }
+
 }

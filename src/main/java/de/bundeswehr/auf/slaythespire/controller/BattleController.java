@@ -56,8 +56,6 @@ public class BattleController implements Controller, BattleViewEvents, PlayerEve
         potions = player.getPotionCards();
 
         gameContext = new GameContext(player, enemies, battleDeck);
-        resetEnergyAndBlock();
-        calcIntentForAllEnemies(enemies);
 
         battleView = new BattleView(player, enemies, this, battleDeck);
         player.setPlayerEventListener(this);
@@ -130,14 +128,8 @@ public class BattleController implements Controller, BattleViewEvents, PlayerEve
         if (selectedCard == null) {
             return;
         }
-
         playCard(enemy);
-
         selectedCard = null;
-
-        if (enemies.isEmpty()) {
-            endOfCombat();
-        }
     }
 
     @Override
@@ -173,7 +165,7 @@ public class BattleController implements Controller, BattleViewEvents, PlayerEve
         player.resetBlock();
     }
 
-    private void calcIntentForAllEnemies(List<Enemy> enemies) {
+    private void calcIntentForAllEnemies() {
         for (Enemy enemy : enemies) {
             enemy.calcIntent();
         }
@@ -253,7 +245,7 @@ public class BattleController implements Controller, BattleViewEvents, PlayerEve
 
     private void playerBOT() {
         LoggingAssistant.log("Players' turn");
-        calcIntentForAllEnemies(enemies);
+        calcIntentForAllEnemies();
         resetEnergyAndBlock();
         battleDeck.fillHand(battleDeck.getStartHandSize());
 
@@ -282,10 +274,11 @@ public class BattleController implements Controller, BattleViewEvents, PlayerEve
 
     private void startOfCombat() {
         LoggingAssistant.log("Start of combat");
+        calcIntentForAllEnemies();
+        resetEnergyAndBlock();
         battleDeck.fillHand(battleDeck.getStartHandSize());
 
         triggerRelics(RelicTrigger.START_OF_COMBAT);
-
         triggerPowerCards(CardTrigger.PLAYER_BOT);
     }
 
