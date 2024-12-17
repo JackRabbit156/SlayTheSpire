@@ -13,12 +13,12 @@ import de.bundeswehr.auf.slaythespire.model.relic.structure.RelicType;
  *
  * @author OF Daniel Willig
  */
-public class RingOfTheSnake extends PlayerTypeRelic {
+public class RingOfTheSnakeRelic extends PlayerTypeRelic {
 
     /**
      * Constructor Ring of the snake.
      */
-    public RingOfTheSnake() {
+    public RingOfTheSnakeRelic() {
         super("Ring of the Snake", "At the start of each combat, draw 2 additional cards.", RelicType.STARTER, PlayerType.SILENT, RelicTrigger.START_OF_COMBAT);
         setImagePath(new PathAssistent().toPath(this));
     }

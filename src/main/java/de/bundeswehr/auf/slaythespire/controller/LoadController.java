@@ -14,6 +14,7 @@ import de.bundeswehr.auf.slaythespire.model.player.SilentPlayer;
 import de.bundeswehr.auf.slaythespire.model.player.structure.Player;
 import de.bundeswehr.auf.slaythespire.model.player.structure.PlayerType;
 import de.bundeswehr.auf.slaythespire.model.potion.structure.PotionCard;
+import de.bundeswehr.auf.slaythespire.model.relic.structure.Relic;
 import de.bundeswehr.auf.slaythespire.model.settings.GameSettings;
 import de.bundeswehr.auf.slaythespire.model.settings.structure.DifficultyLevel;
 import javafx.stage.Stage;
@@ -43,7 +44,6 @@ public class LoadController implements Controller, LoadEventListener {
 
         List<SaveFilePreview> saveFilePreviewList = saveFilePreviewList();
         this.loadView = new LoadView(this, saveFilePreviewList);
-
     }
 
     public LoadController(Player player) {
@@ -54,8 +54,6 @@ public class LoadController implements Controller, LoadEventListener {
 
         List<SaveFilePreview> saveFilePreviewList = saveFilePreviewList();
         this.loadView = new LoadView(this, saveFilePreviewList);
-
-
     }
 
     public LoadView getLoadView() {
@@ -70,7 +68,6 @@ public class LoadController implements Controller, LoadEventListener {
         else {
             GuiHelper.Scenes.startMapScene(player);
         }
-
     }
 
     @Override
@@ -88,42 +85,36 @@ public class LoadController implements Controller, LoadEventListener {
     }
 
     /**
-     * Speichert das aktuelle Spiel des angegebenen Spielers.
-     *
-     * @param player Der Spieler, dessen Spiel gespeichert werden soll.
-     */
-    public void saveGame(Player player) {
-        deleteSaveFileWithName(GameSettings.lastSession);
-        gameSaveManager.saveGame(player);
-    }
-
-    /**
-     * Löscht die Speicherdatei mit der angegebenen ID.
-     *
-     * @param id Die ID der zu löschenden Speicherdatei.
-     */
-    private void deleteSaveFileWithId(int id) {
-        gameSaveManager.deleteSelectedSaveFile(id);
-    }
-
-    /**
-     * Löscht die Speicherdatei mit dem angegebenen Namen.
-     *
-     * @param nameOfFile Der Name der zu löschenden Speicherdatei.
-     */
-    private void deleteSaveFileWithName(String nameOfFile) {
-        gameSaveManager.deleteSelectedSaveFile(nameOfFile);
-    }
-
-    /**
      * Startet das Spiel mit den Daten aus der angegebenen Speicherdatei.
      *
      * @param id Die ID der Speicherdatei, die geladen werden soll.
      */
     private void startLoadedGame(int id) {
         Map<String, String> gameData = gameSaveManager.loadGame(id);
-        Player player = null;
+        Player player = readPlayer(gameData);
+        if (player == null) {
+            return;
+        }
+        readDeck(gameData, player);
+        readPotions(gameData, player);
+        readRelic(gameData, player);
+        readGameSettings(gameData);
+        readStatistics(gameData);
 
+        GuiHelper.Scenes.startMapScene(player);
+
+        GameSettings.restartTimer();
+        readTimePlayed(gameData);
+    }
+
+    private void readTimePlayed(Map<String, String> gameData) {
+        GameSettings.setTimerSeconds(Integer.parseInt(gameData.get("seconds")));
+        GameSettings.setTimerMinutes(Integer.parseInt(gameData.get("minutes")));
+        GameSettings.setTimerHours(Integer.parseInt(gameData.get("hours")));
+    }
+
+    private Player readPlayer(Map<String, String> gameData) {
+        Player player;
         // Getting the Character
         String playerTypeAsString = gameData.get("character");
         switch (PlayerType.valueOf(playerTypeAsString)) {
@@ -135,7 +126,7 @@ public class LoadController implements Controller, LoadEventListener {
                 break;
             default:
                 LoggingAssistant.log("Unknown player type: " + playerTypeAsString, Color.RED);
-                return;
+                return null;
         }
 
         player.setCurrentHealth(Integer.parseInt(gameData.get("currentHealth")));
@@ -145,53 +136,50 @@ public class LoadController implements Controller, LoadEventListener {
 
         player.setCurrentField(gameData.get("field"));
         player.setGold(Integer.parseInt(gameData.get("gold")));
+        return player;
+    }
 
-        // reading Deck
-        List<Card> deck = new ArrayList<>();
-        for (int i = 0; gameData.get("card" + i) != null; i++) {
-            String cardName = gameData.get("card" + i);
+    private void readStatistics(Map<String, String> gameData) {
+        int receivedGoldStats = Integer.parseInt(gameData.get("receivedGoldStats"));
+        int receivedDamageStats = Integer.parseInt(gameData.get("receivedDamageStats"));
+        int distributedDamageStats = Integer.parseInt(gameData.get("distributedDamageStats"));
+        int energySpentStats = Integer.parseInt(gameData.get("energySpentStats"));
 
-            Card card = DeckFactory.assignCard(cardName);
-            deck.add(card);
-        }
+        GameSettings.setStats(receivedGoldStats, receivedDamageStats, distributedDamageStats, energySpentStats);
+    }
 
-        player.setDeck(deck);
-
-        // reading Potions
-        List<PotionCard> potions = new ArrayList<>();
-        for (int i = 0; gameData.get("potion" + i) != null; i++) {
-            String potionName = gameData.get("potion" + i);
-
-            PotionCard potion = DeckFactory.assignPotion(potionName);
-            potions.add(potion);
-        }
-
-        player.setPotionCards(potions);
-
-
-        // assigning the right difficulty
+    private void readGameSettings(Map<String, String> gameData) {
         String difficulty = gameData.get("difficulty");
 
         GameSettings.setDifficultyLevel(DifficultyLevel.valueOf(difficulty));
 
         GameSettings.lastSession = gameData.get("lastSession");
-
-        // Setting stats
-        int receivedGoldStats = Integer.parseInt(gameData.get("receivedGoldStats"));
-        int receivedDamageStats = Integer.parseInt(gameData.get("receivedDamageStats"));
-        int distributedDamageStats = Integer.parseInt(gameData.get("distributedDamageStats"));
-        int energySpentStats = Integer.parseInt(gameData.get("energySpentStats"));
-        ;
-
-        GameSettings.setStats(receivedGoldStats, receivedDamageStats, distributedDamageStats, energySpentStats);
-
-
-        GuiHelper.Scenes.startMapScene(player);
-
-        // Setting played Time
-        GameSettings.restartTimer();
-        GameSettings.setTimerSeconds(Integer.parseInt(gameData.get("seconds")));
-        GameSettings.setTimerMinutes(Integer.parseInt(gameData.get("minutes")));
-        GameSettings.setTimerHours(Integer.parseInt(gameData.get("hours")));
     }
+
+    private void readPotions(Map<String, String> gameData, Player player) {
+        List<PotionCard> potions = new ArrayList<>();
+        for (int i = 0; gameData.get("potion" + i) != null; i++) {
+            String potionName = gameData.get("potion" + i);
+            PotionCard potion = DeckFactory.potionFor(potionName);
+            potions.add(potion);
+        }
+        player.setPotionCards(potions);
+    }
+
+    private void readRelic(Map<String, String> gameData, Player player) {
+        String relicName = gameData.get("relic");
+        Relic relic = DeckFactory.relicFor(relicName);
+        player.setRelic(relic);
+    }
+
+    private void readDeck(Map<String, String> gameData, Player player) {
+        List<Card> deck = new ArrayList<>();
+        for (int i = 0; gameData.get("card" + i) != null; i++) {
+            String cardName = gameData.get("card" + i);
+            Card card = DeckFactory.cardFor(cardName);
+            deck.add(card);
+        }
+        player.setDeck(deck);
+    }
+
 }

@@ -15,10 +15,17 @@ package de.bundeswehr.auf.slaythespire.controller.listener;
  * @author Warawa Alexander
  */
 public interface GameMenuListener {
-    void onSaveClick();
+
     void onBackClick();
-    void onLoadClick();
-    void onMainMenuClick();
+
     void onChangeDifficultyClick();
+
     void onExitClick();
+
+    void onLoadClick();
+
+    void onMainMenuClick();
+
+    void onSaveClick();
+
 }

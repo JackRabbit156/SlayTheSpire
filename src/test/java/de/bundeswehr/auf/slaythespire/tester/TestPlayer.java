@@ -21,7 +21,7 @@ import de.bundeswehr.auf.slaythespire.model.enemy.Enemy;
 import de.bundeswehr.auf.slaythespire.model.player.structure.Player;
 import de.bundeswehr.auf.slaythespire.model.player.structure.PlayerType;
 import de.bundeswehr.auf.slaythespire.model.relic.BurningBloodRelic;
-import de.bundeswehr.auf.slaythespire.model.relic.RingOfTheSnake;
+import de.bundeswehr.auf.slaythespire.model.relic.RingOfTheSnakeRelic;
 import de.bundeswehr.auf.slaythespire.model.relic.structure.Relic;
 
 import java.util.ArrayList;
@@ -107,7 +107,7 @@ public class TestPlayer extends Player {
     }
 
     private void starterRelicSilent() {
-        Relic startRelic = new RingOfTheSnake();
+        Relic startRelic = new RingOfTheSnakeRelic();
         setRelic(startRelic);
     }
 

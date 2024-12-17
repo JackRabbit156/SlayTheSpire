@@ -25,12 +25,8 @@ import java.util.List;
  */
 public class LoadView extends VBox {
 
-    private List<SaveFilePreview> saveFilePreviewList;
-
-    private ListView<SaveFilePreview> listView = new ListView<>();
-    private Label header;
-
-    private LoadEventListener loadEventListener;
+    private final ListView<SaveFilePreview> listView = new ListView<>();
+    private final LoadEventListener loadEventListener;
 
     /**
      * Konstruktor für die 'LoadView'.
@@ -43,14 +39,12 @@ public class LoadView extends VBox {
 
         initMain();
 
-        header = new Label("Save States");
+        Label header = new Label("Save States");
         header.getStyleClass().add("header-label");
 
         HBox bottomBox = bottomSelection();
 
-
         this.loadEventListener = loadEventListener;
-        this.saveFilePreviewList = saveFilePreviewList;
 
         for(SaveFilePreview preview : saveFilePreviewList){
             listView.getItems().add(preview);
@@ -81,15 +75,16 @@ public class LoadView extends VBox {
 
 
     private void initListeners(){
-        listView.setOnMouseClicked(event -> handleMouseClick(event));
+        listView.setOnMouseClicked(this::handleMouseClick);
     }
 
     private void handleMouseClick(MouseEvent event) {
-        if (event.getClickCount() == 2) { // Überprüfen auf Doppelklick
+        if (event.getClickCount() == 2) {
             int index = listView.getSelectionModel().getSelectedIndex();
-            if (index >= 0) { // Überprüfen, ob ein gültiger Index ausgewählt ist
-                loadEventListener.onSelectedItem(index); // Doppelklick-Logik
+            if (index >= 0) {
+                loadEventListener.onSelectedItem(index);
             }
         }
     }
+
 }

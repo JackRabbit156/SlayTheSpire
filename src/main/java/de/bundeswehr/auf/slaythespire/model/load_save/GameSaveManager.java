@@ -3,6 +3,7 @@ package de.bundeswehr.auf.slaythespire.model.load_save;
 import de.bundeswehr.auf.slaythespire.helper.Color;
 import de.bundeswehr.auf.slaythespire.helper.LoggingAssistant;
 import de.bundeswehr.auf.slaythespire.model.card.structure.Card;
+import de.bundeswehr.auf.slaythespire.model.relic.structure.Relic;
 import de.bundeswehr.auf.slaythespire.model.settings.GameSettings;
 import de.bundeswehr.auf.slaythespire.model.player.structure.Player;
 import de.bundeswehr.auf.slaythespire.model.potion.structure.PotionCard;
@@ -25,6 +26,7 @@ import java.io.*;
  * @author Warawa Alexander
  */
 public class GameSaveManager {
+
     private static final String SAVE_FOLDER = "saves";
 
     public GameSaveManager() {
@@ -37,14 +39,14 @@ public class GameSaveManager {
      * @param player Der Spieler, dessen Spielstand gespeichert werden soll.
      */
     public void saveGame(Player player) {
-        if(!GameSettings.lastSession.isEmpty())
+        if(!GameSettings.lastSession.isEmpty()) {
             deleteSelectedSaveFile(GameSettings.lastSession);
+        }
 
         Map<String, String> gameData = collectGameData(player);
         //String fileName = getTimestampedFileName();
         String fileName = "save_" + gameData.get("lastSession") + ".txt";
         saveDataToFile(gameData, new File(SAVE_FOLDER, fileName));
-
     }
 
     /**
@@ -74,9 +76,9 @@ public class GameSaveManager {
         File folder = new File(SAVE_FOLDER);
         File[] saveFiles = folder.listFiles((dir, name) -> name.startsWith("save_") && name.endsWith(".txt"));
 
-        for(int i = 0; i< saveFiles.length; i++){
-            if(saveFiles[i].getName().equals("save_"+session+".txt")){
-                saveFiles[i].delete();
+        for (File saveFile : saveFiles) {
+            if (saveFile.getName().equals("save_" + session + ".txt")) {
+                saveFile.delete();
                 return;
             }
         }
@@ -125,7 +127,9 @@ public class GameSaveManager {
 
     private void createSaveFolder() {
         File folder = new File(SAVE_FOLDER);
-        if (!folder.exists()) folder.mkdir();
+        if (!folder.exists()) {
+            folder.mkdir();
+        }
     }
 
     /**
@@ -135,47 +139,69 @@ public class GameSaveManager {
      * @return Eine Map mit den gesammelten Spieldaten.
      */
     private Map<String, String> collectGameData(Player player) {
-        int seconds = GameSettings.getTimerSeconds();
-        int minutes = GameSettings.getTimerMinutes();
-        int hours = GameSettings.getTimerHours();
-
-        String currentTimeStamp = getCurrentTimestamp();
-
         Map<String, String> gameData = new HashMap<>();
+        writePlayer(player, gameData);
+        writeDeck(player, gameData);
+        writePotions(player, gameData);
+        writeRelic(player, gameData);
+        writeGameSettings(gameData);
+        writeStatistics(gameData);
+        writeTimePlayed(gameData);
+        return gameData;
+    }
 
+    private void writePlayer(Player player, Map<String, String> gameData) {
         gameData.put("character", player.getPlayerType().name());
         gameData.put("field", player.getCurrentField());
         gameData.put("currentAct", String.valueOf(player.getCurrentAct()));
         gameData.put("currentHealth", String.valueOf(player.getCurrentHealth()));
         gameData.put("maxHealth", String.valueOf(player.getMaxHealth()));
         gameData.put("gold", String.valueOf(player.getGold()));
+    }
 
-        gameData.put("lastSession", currentTimeStamp);
-        GameSettings.lastSession = currentTimeStamp;
-
-        gameData.put("timePlayed", hours+"h "+minutes+"m "+seconds+"s");
+    private void writeTimePlayed(Map<String, String> gameData) {
+        int seconds = GameSettings.getTimerSeconds();
+        int minutes = GameSettings.getTimerMinutes();
+        int hours = GameSettings.getTimerHours();
+        gameData.put("timePlayed", hours +"h "+ minutes +"m "+ seconds +"s");
         gameData.put("seconds", String.valueOf(seconds));
         gameData.put("minutes", String.valueOf(minutes));
         gameData.put("hours", String.valueOf(hours));
-        gameData.put("difficulty", GameSettings.getDifficultyLevel().name());
+    }
 
+    private void writeGameSettings(Map<String, String> gameData) {
+        String currentTimeStamp = getCurrentTimestamp();
+        gameData.put("lastSession", currentTimeStamp);
+        GameSettings.lastSession = currentTimeStamp;
+        gameData.put("difficulty", GameSettings.getDifficultyLevel().name());
+    }
+
+    private void writeDeck(Player player, Map<String, String> gameData) {
         for (int i = 0; i < player.getDeck().size(); i++) {
             Card card = player.getDeck().get(i);
             gameData.put("card" + i, card.getClass().getSimpleName());
         }
+    }
 
+    private void writeRelic(Player player, Map<String, String> gameData) {
+        Relic relic = player.getRelic();
+        String relicName = relic.getClass().getSimpleName();
+        gameData.put("relic", relicName);
+    }
+
+    private void writePotions(Player player, Map<String, String> gameData) {
         for (int i = 0; i < player.getPotionCards().size(); i++) {
             PotionCard potionCard = player.getPotionCards().get(i);
-            String potionName = potionCard.getName().replace(" ", "").toUpperCase();
+            String potionName = potionCard.getClass().getSimpleName();
             gameData.put("potion" + i, potionName);
         }
+    }
 
+    private void writeStatistics(Map<String, String> gameData) {
         gameData.put("receivedGoldStats", GameSettings.getReceivedGoldStats()+"");
         gameData.put("receivedDamageStats", GameSettings.getReceivedDamageStats()+"");
         gameData.put("distributedDamageStats", GameSettings.getDistributedDamageStats()+"");
         gameData.put("energySpentStats", GameSettings.getEnergySpentStats()+"");
-
-        return gameData;
     }
 
     private void saveDataToFile(Map<String, String> data, File file) {
@@ -192,7 +218,6 @@ public class GameSaveManager {
 
     private Map<String, String> loadDataFromFile(File file) {
         Map<String, String> data = new HashMap<>();
-
         try (BufferedReader reader = new BufferedReader(new FileReader(file))){
             String line;
             while ((line = reader.readLine()) != null) {
@@ -203,7 +228,6 @@ public class GameSaveManager {
         } catch (IOException e) {
             LoggingAssistant.log("Error while loading the game: " + e.getMessage(), Color.RED);
         }
-
         return data;
     }
 

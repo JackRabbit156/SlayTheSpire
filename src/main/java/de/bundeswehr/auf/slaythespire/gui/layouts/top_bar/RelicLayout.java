@@ -1,6 +1,7 @@
 package de.bundeswehr.auf.slaythespire.gui.layouts.top_bar;
 
-import de.bundeswehr.auf.slaythespire.model.potion.structure.PotionCard;
+import de.bundeswehr.auf.slaythespire.model.player.structure.Player;
+import de.bundeswehr.auf.slaythespire.model.relic.structure.Relic;
 import javafx.geometry.Bounds;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -19,9 +20,6 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Popup;
 
-import java.util.ArrayList;
-import java.util.List;
-
 
 /**
  * Das Potion layout.
@@ -30,64 +28,55 @@ import java.util.List;
  *
  * @author OF Daniel Willig
  */
-public class PotionLayout extends MiddleBar {
+public class RelicLayout extends HBox {
 
     private static final Font largeFont = Font.font("Kreon", FontWeight.BOLD, 30);
     private static final Font smallFont = Font.font("Kreon", FontWeight.BOLD, 20);
 
     private final Image bg = new Image(getClass().getResource("/images/view/gui/layouts/potion/bg.png").toExternalForm());
-    private final Image emptyPotionIcon = new Image(getClass().getResource("/images/view/gui/layouts/potion/EmptyPotion.png").toExternalForm());
-    private final List<PotionCard> potions;
+    private final Player player;
 
-    public PotionLayout(List<PotionCard> potions) {
-        this.potions = potions;
+    public RelicLayout(Player player) {
+        this.player = player;
 
         setAlignment(Pos.CENTER_LEFT);
 
-        showPotions();
+        showRelic();
     }
 
-    @Override
     public void refresh() {
         getChildren().clear();
-        showPotions();
+        showRelic();
     }
 
-    private Node images(PotionCard potion) {
-        Image imagePotion = new Image(getClass().getResource(potion.getImagePath()).toExternalForm());
-        ImageView imageViewPotion = new ImageView(imagePotion);
-        imageViewPotion.setPreserveRatio(true);
-        setEventHandler(imageViewPotion, potion);
-        return imageViewPotion;
+    private Node images(Relic relic) {
+        Image image = new Image(relic.getImagePath(), 64, 64, true, true);
+        ImageView imageView = new ImageView(image);
+        imageView.setPreserveRatio(true);
+        setEventHandler(imageView, relic);
+        return imageView;
     }
 
-    private ImageView initEmptyPotionIcon() {
-        ImageView emptyPotionIconView = new ImageView(emptyPotionIcon);
-        emptyPotionIconView.setFitHeight(40);
-        emptyPotionIconView.setFitWidth(40);
-        return emptyPotionIconView;
-    }
-
-    private void setEventHandler(ImageView imageView, PotionCard potion) {
+    private void setEventHandler(ImageView imageView, Relic relic) {
         DropShadow glow = new DropShadow();
         glow.setColor(Color.YELLOW);
         glow.setHeight(30);
         glow.setWidth(30);
-        imageView.addEventHandler(MouseEvent.MOUSE_CLICKED, e -> showPopup(potion, imageView));
+        imageView.addEventHandler(MouseEvent.MOUSE_CLICKED, e -> showPopup(relic, imageView));
         imageView.addEventHandler(MouseEvent.MOUSE_ENTERED, e -> imageView.setEffect(glow));
         imageView.addEventHandler(MouseEvent.MOUSE_EXITED, e -> imageView.setEffect(null));
     }
 
-    private void showPopup(PotionCard potion, ImageView imageView) {
+    private void showPopup(Relic relic, ImageView imageView) {
         Popup popup = new Popup();
         popup.setAutoHide(true);
 
-        Label name = new Label(potion.getName());
+        Label name = new Label(relic.getName());
         name.setTextFill(Color.WHITE);
         name.setFont(largeFont);
         name.setMaxWidth(270);
 
-        Label description = new Label(potion.getDescription());
+        Label description = new Label(relic.getDescription());
         description.setTextFill(Color.WHITE);
         description.setFont(smallFont);
         description.setWrapText(true);
@@ -105,16 +94,8 @@ public class PotionLayout extends MiddleBar {
         popup.show(imageView, bounds.getMinX() + bounds.getWidth() / 2 - popup.getWidth() / 2, bounds.getMaxY());
     }
 
-    private void showPotions() {
-        List<Node> nodes = new ArrayList<>();
-        int i = 0;
-        for (; i < potions.size(); i++) {
-            nodes.add(images(potions.get(i)));
-        }
-        for (; i < 3; i++) {
-            nodes.add(initEmptyPotionIcon());
-        }
-        getChildren().addAll(nodes);
+    private void showRelic() {
+        getChildren().add(images(player.getRelic()));
     }
 
 }

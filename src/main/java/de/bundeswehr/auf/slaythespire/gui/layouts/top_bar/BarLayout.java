@@ -18,6 +18,7 @@ public class BarLayout extends StackPane {
     private final InfoLayout infoLayout;
     private final Player player;
     private final MiddleBar middleBar;
+    private final RelicLayout relic;
     private final SettingsLayout settingsLayout;
 
     /**
@@ -36,10 +37,17 @@ public class BarLayout extends StackPane {
         icons.getChildren().add(infoLayout);
 
         this.middleBar = middleBar;
-        if (middleBar != null) {
-            middleBar.setPadding(new Insets(0, 0, 0, 130));
-            icons.getChildren().add(middleBar);
-        }
+        middleBar.setPadding(new Insets(0, 0, 0, 130));
+        icons.getChildren().add(middleBar);
+
+        relic = new RelicLayout(player);
+        relic.setPadding(new Insets(0, 0, 0, 50));
+        icons.getChildren().add(relic);
+
+        Pane spacer = new Pane();
+        HBox.setHgrow(spacer, Priority.ALWAYS);
+        icons.getChildren().add(spacer);
+
 
         settingsLayout = new SettingsLayout(view);
         icons.getChildren().add(settingsLayout);
@@ -54,9 +62,8 @@ public class BarLayout extends StackPane {
      */
     public void refresh() {
         infoLayout.update(player);
-        if (middleBar != null) {
-            middleBar.refresh();
-        }
+        middleBar.refresh();
+        relic.refresh();
         settingsLayout.setLibraryText(player);
     }
 

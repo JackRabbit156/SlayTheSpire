@@ -49,7 +49,6 @@ public class PotionLayout extends MiddleBar {
         this.potions = potions;
         this.battleView = battleView;
 
-        HBox.setHgrow(this, Priority.ALWAYS);
         setAlignment(Pos.CENTER_LEFT);
 
         showPotions();

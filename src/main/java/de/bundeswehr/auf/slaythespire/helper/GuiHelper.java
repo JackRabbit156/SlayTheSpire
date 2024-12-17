@@ -96,7 +96,7 @@ public class GuiHelper {
          * @param primaryStage das primäre 'Stage'-Objekt der Anwendung
          */
         public static void startDeleteMenuScene(Stage primaryStage) {
-            DeleteMenuController deleteController = new DeleteMenuController(primaryStage);
+            DeleteController deleteController = new DeleteController(primaryStage);
             registerController(deleteController);
             String cssPath = "/css/loadViewStyle.css";
             fadeTransition(primaryStage, deleteController.getDeleteMenuView(), cssPath);
