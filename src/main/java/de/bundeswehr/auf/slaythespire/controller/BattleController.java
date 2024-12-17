@@ -180,17 +180,18 @@ public class BattleController implements Controller, BattleViewEvents, PlayerEve
     }
 
     private void cardDeath(Card card) {
-        if (card.getCardGrave().equals(CardGrave.POTION)) {
-            potions.remove(card);
-        }
-        else if (card.getCardGrave().equals(CardGrave.EXHAUST)) {
-            battleDeck.exhaustCardFromHand(card);
-        }
-        else if (card.getCardGrave().equals(CardGrave.DISCARD)) {
-            battleDeck.discardCardFromHand(card);
-        }
-        else {
-            battleDeck.removeCardFromHand(card);
+        switch (card.getCardGrave()) {
+            case POTION:
+                potions.remove(card);
+                break;
+            case EXHAUST:
+                battleDeck.exhaustCardFromHand(card);
+                break;
+            case DISCARD:
+                battleDeck.discardCardFromHand(card);
+                break;
+            default:
+                battleDeck.removeCardFromHand(card);
         }
         battleView.updateBottom();
     }
