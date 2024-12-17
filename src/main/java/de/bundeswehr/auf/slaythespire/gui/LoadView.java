@@ -80,10 +80,12 @@ public class LoadView extends VBox {
 
     private void handleMouseClick(MouseEvent event) {
         if (event.getClickCount() == 2) {
+            setDisable(true);
             int index = listView.getSelectionModel().getSelectedIndex();
             if (index >= 0) {
                 loadEventListener.onSelectedItem(index);
             }
+            setDisable(false);
         }
     }
 

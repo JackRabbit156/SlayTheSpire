@@ -2,16 +2,14 @@ package de.bundeswehr.auf.slaythespire.model.card;
 
 import de.bundeswehr.auf.slaythespire.helper.Color;
 import de.bundeswehr.auf.slaythespire.helper.LoggingAssistant;
-import de.bundeswehr.auf.slaythespire.model.card.ironclad.IroncladCards;
-import de.bundeswehr.auf.slaythespire.model.card.silent.SilentCards;
+import de.bundeswehr.auf.slaythespire.model.Model;
 import de.bundeswehr.auf.slaythespire.model.card.structure.Card;
 import de.bundeswehr.auf.slaythespire.model.card.structure.CardType;
 import de.bundeswehr.auf.slaythespire.model.player.structure.Player;
-import de.bundeswehr.auf.slaythespire.model.potion.Potions;
 import de.bundeswehr.auf.slaythespire.model.potion.structure.PotionCard;
-import de.bundeswehr.auf.slaythespire.model.relic.Relics;
 import de.bundeswehr.auf.slaythespire.model.relic.structure.Relic;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -43,10 +41,10 @@ public class DeckFactory {
     public static Card cardFor(String cardName) {
         Card card = null;
         try {
-            card = ofIroncladCards(cardName).create();
+            card = Model.ofCards("ironclad", cardName);
         } catch (IllegalArgumentException e) {
             try {
-                card = ofSilentCards(cardName).create();
+                card = Model.ofCards("silent", cardName);
             } catch (IllegalArgumentException e2) {
                 LoggingAssistant.log("Error in DeckFactory creating Card: " + cardName, Color.RED);
             }
@@ -57,7 +55,7 @@ public class DeckFactory {
     public static PotionCard potionFor(String potionName) {
         PotionCard potion = null;
         try {
-            potion = ofPotions(potionName).create();
+            potion = Model.ofPotions(potionName);
         } catch (IllegalArgumentException e) {
             LoggingAssistant.log("Error in DeckFactory creating Potion: " + potionName, Color.RED);
         }
@@ -67,47 +65,11 @@ public class DeckFactory {
     public static Relic relicFor(String relicName) {
         Relic relic = null;
         try {
-            relic = ofRelics(relicName).create();
+            relic = Model.ofRelics(relicName);
         } catch (IllegalArgumentException e) {
             LoggingAssistant.log("Error in DeckFactory creating Relic: " + relicName, Color.RED);
         }
         return relic;
-    }
-
-    private static IroncladCards ofIroncladCards(String potionName) {
-        for (IroncladCards value : IroncladCards.values()) {
-            if (value.toString().equals(potionName)) {
-                return value;
-            }
-        }
-        throw new IllegalArgumentException("Ironclad ard unknown: " + potionName);
-    }
-
-    private static Potions ofPotions(String potionName) {
-        for (Potions value : Potions.values()) {
-            if (value.toString().equals(potionName)) {
-                return value;
-            }
-        }
-        throw new IllegalArgumentException("Potion unknown: " + potionName);
-    }
-
-    private static Relics ofRelics(String potionName) {
-        for (Relics value : Relics.values()) {
-            if (value.toString().equals(potionName)) {
-                return value;
-            }
-        }
-        throw new IllegalArgumentException("Relic unknown: " + potionName);
-    }
-
-    private static SilentCards ofSilentCards(String potionName) {
-        for (SilentCards value : SilentCards.values()) {
-            if (value.toString().equals(potionName)) {
-                return value;
-            }
-        }
-        throw new IllegalArgumentException("Slient Card unknown: " + potionName);
     }
 
     /**
@@ -147,9 +109,14 @@ public class DeckFactory {
      * Falls ein Fehler auftritt, kann die Methode in einem fehlerhaften Zustand enden.
      */
     public PotionCard generatePotion() {
-        List<Potions> availablePotions = Arrays.asList(Potions.values());
+        List<Class<? extends PotionCard>> availablePotions = Model.potions();
         int randomNumber = rnd.nextInt(availablePotions.size());
-        return availablePotions.get(randomNumber).create();
+        try {
+            return availablePotions.get(randomNumber).getDeclaredConstructor().newInstance();
+        } catch (InstantiationException | IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
+            LoggingAssistant.log(e, Color.RED);
+            return null;
+        }
     }
 
     /**
@@ -191,19 +158,27 @@ public class DeckFactory {
     }
 
     private List<Card> initIroncladCards() {
-        List<IroncladCards> availableCards = Arrays.asList(IroncladCards.values());
+        List<Class<? extends Card>> availableCards = Model.cards("ironclad");
         for (int i = 0; i < this.amount; i++) {
             int randomNumber = rnd.nextInt(availableCards.size());
-            genDeck.add(availableCards.get(randomNumber).create());
+            try {
+                genDeck.add(availableCards.get(randomNumber).getDeclaredConstructor().newInstance());
+            } catch (InstantiationException | IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
+                LoggingAssistant.log(e, Color.RED);
+            }
         }
         return genDeck;
     }
 
     private List<Card> initSilentCards() {
-        List<SilentCards> availableCards = Arrays.asList(SilentCards.values());
+        List<Class<? extends Card>> availableCards = Model.cards("silent");
         for (int i = 0; i < this.amount; i++) {
             int randomNumber = rnd.nextInt(availableCards.size());
-            genDeck.add(availableCards.get(randomNumber).create());
+            try {
+                genDeck.add(availableCards.get(randomNumber).getDeclaredConstructor().newInstance());
+            } catch (InstantiationException | IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
+                LoggingAssistant.log(e, Color.RED);
+            }
         }
         return genDeck;
     }
