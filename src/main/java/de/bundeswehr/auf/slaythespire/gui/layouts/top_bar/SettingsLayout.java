@@ -76,7 +76,6 @@ public class SettingsLayout extends HBox {
         }
 
         setAlignment(Pos.CENTER_RIGHT);
-        setTranslateY(-30);
     }
 
     public void setLibraryText(Player player) {

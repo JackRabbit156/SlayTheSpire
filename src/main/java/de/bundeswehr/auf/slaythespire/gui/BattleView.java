@@ -307,11 +307,6 @@ public class BattleView extends BorderPane implements View, WithTopBar, BattleDe
         initLeft();
         initRight();
         initBottom();
-
-        left.setTranslateY(-50);
-        right.setTranslateY(-50);
-        bottom.setTranslateY(-50);
-
         updateInformation();
     }
 

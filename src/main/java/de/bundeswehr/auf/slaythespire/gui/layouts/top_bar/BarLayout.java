@@ -5,9 +5,9 @@ import de.bundeswehr.auf.slaythespire.gui.layouts.MiddleBar;
 import javafx.geometry.Insets;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.StackPane;
+import javafx.scene.layout.*;
 import de.bundeswehr.auf.slaythespire.model.player.structure.Player;
+import javafx.scene.paint.Color;
 
 /**
  * Die Bar layout.
@@ -32,7 +32,7 @@ public class BarLayout extends StackPane {
         this.player = player;
 
         HBox icons = new HBox();
-        icons.setPadding(new Insets(0, 30, 0, 30));
+        icons.setPadding(new Insets(0, 30, 20, 30));
 
         infoLayout = new InfoLayout();
         icons.getChildren().add(infoLayout);
@@ -40,7 +40,6 @@ public class BarLayout extends StackPane {
         this.middleBar = middleBar;
         if (middleBar != null) {
             middleBar.setPadding(new Insets(0, 0, 0, 130));
-            middleBar.setTranslateY(-30);
             icons.getChildren().add(middleBar);
         }
 
@@ -48,7 +47,8 @@ public class BarLayout extends StackPane {
         icons.getChildren().add(settingsLayout);
 
         Image background = new Image("/images/view/gui/layouts/topbar/Topbar.png");
-        getChildren().addAll(new ImageView(background), icons);
+        ImageView imageView = new ImageView(background);
+        getChildren().addAll(imageView, icons);
     }
 
     /**

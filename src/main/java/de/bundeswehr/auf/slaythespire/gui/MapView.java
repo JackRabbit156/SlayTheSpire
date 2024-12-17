@@ -11,10 +11,7 @@ import de.bundeswehr.auf.slaythespire.gui.layouts.top_bar.TopBarLayout;
 import de.bundeswehr.auf.slaythespire.helper.GuiHelper;
 import de.bundeswehr.auf.slaythespire.model.map.Node;
 import de.bundeswehr.auf.slaythespire.model.player.structure.Player;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.Region;
-import javafx.scene.layout.StackPane;
+import javafx.scene.layout.*;
 
 import java.util.List;
 
@@ -63,12 +60,8 @@ public class MapView extends StackPane implements View, WithTopBar {
         difficultyMenu.setVisible(false);
 
         mainMap = new BorderPane();
-
-        setStyle("-fx-background-color: #9a9990;");
         mainMap.setBackground(new Background(GuiHelper.backgroundInHD("/images/map/mapMid.png")));
-
         mapCenter = new MapLayout(this, nodes, mapWidth, mapHeight, Integer.parseInt(player.getCurrentField()));
-        mapCenter.setTranslateY(-30);
         mainMap.setCenter(mapCenter);
 
         initTopSide();
@@ -76,6 +69,7 @@ public class MapView extends StackPane implements View, WithTopBar {
         initRightSide();
 
         getChildren().addAll(mainMap, gameMenu, difficultyMenu);
+        setStyle("-fx-background-color: #9a9990;");
     }
 
     public void clickedOnBackButton() {
@@ -133,10 +127,6 @@ public class MapView extends StackPane implements View, WithTopBar {
         mapCenter.discard();
     }
 
-    public BorderPane getMainMap() {
-        return mainMap;
-    }
-
     @Override
     public void onFullScreen() {
         mapViewEvents.onFullScreenClick();
@@ -164,21 +154,18 @@ public class MapView extends StackPane implements View, WithTopBar {
 
     private void initLeftSide() {
         Region placeHolder = new Region();
-        placeHolder.setTranslateY(-50);
         placeHolder.setMinWidth(800);
         mainMap.setLeft(placeHolder);
     }
 
     private void initRightSide() {
         LegendLayout legend = new LegendLayout();
-        legend.setTranslateY(-50);
         mainMap.setRight(legend);
     }
 
     private void initTopSide() {
         TopBarLayout top = new TopBarLayout(this, player);
         top.update();
-        top.setTranslateY(25);
         mainMap.setTop(top);
     }
 

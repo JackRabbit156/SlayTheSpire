@@ -69,7 +69,6 @@ public class InfoLayout extends HBox {
         getChildren().addAll(player, health, money, level);
 
         setAlignment(Pos.CENTER_LEFT);
-        setTranslateY(-30);
     }
 
     public void update(Player player) {
