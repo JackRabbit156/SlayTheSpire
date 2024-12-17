@@ -51,7 +51,7 @@ public class PotionLayout extends MiddleBar {
 
     @Override
     public void refresh() {
-        this.getChildren().clear();
+        getChildren().clear();
         showPotions();
     }
 
