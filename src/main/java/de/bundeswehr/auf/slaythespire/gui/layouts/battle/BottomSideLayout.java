@@ -63,6 +63,7 @@ public class BottomSideLayout extends HBox {
         endTurnButton.setMinSize(256, 100);
         endTurnButton.setOnMouseEntered(event -> endTurnButton.setBackground(new Background(GuiHelper.backgroundEndTurn("/images/buttons/endTurnButtonGlow.png"))));
         endTurnButton.setOnMouseExited(event -> endTurnButton.setBackground(new Background(GuiHelper.backgroundEndTurn("/images/buttons/endTurnButton.png"))));
+        endTurnButton.setOnMouseReleased(event -> endTurnButton.setBackground(new Background(GuiHelper.backgroundEndTurn("/images/buttons/endTurnButton.png"))));
         endTurnButton.setOnAction(event -> battleView.clickedOnEndTurn());
 
         energyLayout = new EnergyLayout();
@@ -78,9 +79,7 @@ public class BottomSideLayout extends HBox {
         getChildren().addAll(left, cardLayout, right);
         setAlignment(Pos.CENTER);
 
-//        HBox.setHgrow(left, Priority.ALWAYS);
         HBox.setHgrow(cardLayout, Priority.ALWAYS);
-//        HBox.setHgrow(right, Priority.ALWAYS);
     }
 
 }
