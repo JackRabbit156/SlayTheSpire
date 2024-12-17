@@ -1,13 +1,11 @@
 package de.bundeswehr.auf.slaythespire.gui.layouts.top_bar;
 
 import de.bundeswehr.auf.slaythespire.gui.WithTopBar;
-import de.bundeswehr.auf.slaythespire.gui.layouts.MiddleBar;
 import javafx.geometry.Insets;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import de.bundeswehr.auf.slaythespire.model.player.structure.Player;
-import javafx.scene.paint.Color;
 
 /**
  * Die Bar layout.

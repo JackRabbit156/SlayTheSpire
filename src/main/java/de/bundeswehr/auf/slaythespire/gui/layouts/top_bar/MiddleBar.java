@@ -1,4 +1,4 @@
-package de.bundeswehr.auf.slaythespire.gui.layouts;
+package de.bundeswehr.auf.slaythespire.gui.layouts.top_bar;
 
 import javafx.scene.layout.HBox;
 

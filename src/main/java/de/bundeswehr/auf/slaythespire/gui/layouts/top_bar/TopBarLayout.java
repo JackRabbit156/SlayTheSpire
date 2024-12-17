@@ -1,7 +1,6 @@
 package de.bundeswehr.auf.slaythespire.gui.layouts.top_bar;
 
 import de.bundeswehr.auf.slaythespire.gui.WithTopBar;
-import de.bundeswehr.auf.slaythespire.gui.layouts.MiddleBar;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import de.bundeswehr.auf.slaythespire.model.player.structure.Player;

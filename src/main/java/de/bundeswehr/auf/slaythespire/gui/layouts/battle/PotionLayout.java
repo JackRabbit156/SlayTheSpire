@@ -1,7 +1,7 @@
 package de.bundeswehr.auf.slaythespire.gui.layouts.battle;
 
 import de.bundeswehr.auf.slaythespire.gui.BattleView;
-import de.bundeswehr.auf.slaythespire.gui.layouts.MiddleBar;
+import de.bundeswehr.auf.slaythespire.gui.layouts.top_bar.MiddleBar;
 import de.bundeswehr.auf.slaythespire.model.potion.structure.PotionCard;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;

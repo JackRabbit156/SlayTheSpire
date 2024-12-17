@@ -1,6 +1,5 @@
 package de.bundeswehr.auf.slaythespire.gui.layouts.top_bar;
 
-import de.bundeswehr.auf.slaythespire.gui.layouts.MiddleBar;
 import de.bundeswehr.auf.slaythespire.model.potion.structure.PotionCard;
 import javafx.geometry.Bounds;
 import javafx.geometry.Insets;
