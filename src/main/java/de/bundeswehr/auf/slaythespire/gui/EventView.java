@@ -91,13 +91,13 @@ public class EventView implements WithTopBar {
     private void initUpdater(TopBarLayout top) {
         top.update();
         if (option1 != null) {
-            option1.addEventHandler(MouseEvent.MOUSE_CLICKED, e -> top.update());
+            option1.addEventHandler(MouseEvent.MOUSE_RELEASED, e -> top.update());
         }
         if (option2 != null) {
-            option2.addEventHandler(MouseEvent.MOUSE_CLICKED, e -> top.update());
+            option2.addEventHandler(MouseEvent.MOUSE_RELEASED, e -> top.update());
         }
         if (option3 != null) {
-            option3.addEventHandler(MouseEvent.MOUSE_CLICKED, e -> top.update());
+            option3.addEventHandler(MouseEvent.MOUSE_RELEASED, e -> top.update());
         }
     }
 
