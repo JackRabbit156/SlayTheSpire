@@ -54,7 +54,7 @@ public class MapController implements Controller, MapViewEvents, GameMenuListene
                 LoggingAssistant.log("Unknown act: " + player.getCurrentAct(), Color.RED);
                 return;
         }
-        this.mapView = new MapView(player, act.getNodes(), act.getMapWidth(), act.getMapHeight(), this, this, this);
+        mapView = new MapView(player, act.getNodes(), act.getMapWidth(), act.getMapHeight(), this, this, this);
     }
 
     @Override
@@ -130,10 +130,6 @@ public class MapController implements Controller, MapViewEvents, GameMenuListene
         node.doFieldThing(player);
 
         player.setCurrentField(node.getFieldName());
-    }
-
-    private String getCurrentFieldFromAct() {
-        return act.getCurrentFieldName();
     }
 
 }

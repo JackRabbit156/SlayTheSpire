@@ -57,7 +57,7 @@ public class PotionLayout extends MiddleBar {
 
     @Override
     public void refresh() {
-        this.getChildren().clear();
+        getChildren().clear();
         showPotions();
         selected.set(null);
     }
@@ -102,8 +102,6 @@ public class PotionLayout extends MiddleBar {
                 imageView.setEffect(null);
             }
         });
-
-
     }
 
     private void showPopup(PotionCard potion, ImageView imageView) {
