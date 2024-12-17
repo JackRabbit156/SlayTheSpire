@@ -8,7 +8,7 @@ import de.bundeswehr.auf.slaythespire.model.settings.GameSettings;
 /**
  * @author Keil, Vladislav
  */
-public class StatisticsViewTester extends Application {
+public class StatisticsTester extends Application {
 
     public static void main(String[] args) {
         launch(args);

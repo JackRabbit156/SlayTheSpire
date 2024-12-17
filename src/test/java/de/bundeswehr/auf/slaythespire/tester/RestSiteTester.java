@@ -1,7 +1,6 @@
 package de.bundeswehr.auf.slaythespire.tester;
 
 import de.bundeswehr.auf.slaythespire.helper.GuiHelper;
-import de.bundeswehr.auf.slaythespire.model.potion.ExplosivePotion;
 import javafx.application.Application;
 import javafx.stage.Stage;
 import de.bundeswehr.auf.slaythespire.model.settings.GameSettings;
@@ -10,7 +9,7 @@ import de.bundeswehr.auf.slaythespire.model.settings.structure.DifficultyLevel;
 /**
  * @author Keil, Vladislav
  */
-public class TreasureControllerTester extends Application {
+public class RestSiteTester extends Application {
 
     public static void main(String[] args) {
         launch(args);
@@ -20,13 +19,11 @@ public class TreasureControllerTester extends Application {
     public void start(Stage primaryStage) {
         TestPlayer player = new TestPlayer(primaryStage);
 
-        GameSettings.setDifficultyLevel(DifficultyLevel.EASY);
+        GameSettings.setDifficultyLevel(DifficultyLevel.NORMAL);
 
-        player.addPotionCard(new ExplosivePotion());
-        player.addPotionCard(new ExplosivePotion());
-        player.addPotionCard(new ExplosivePotion());
+        player.setCurrentHealth(666);
 
-        GuiHelper.Scenes.startTreasureScene(player);
+        GuiHelper.Scenes.startRestScene(player);
     }
 
 }

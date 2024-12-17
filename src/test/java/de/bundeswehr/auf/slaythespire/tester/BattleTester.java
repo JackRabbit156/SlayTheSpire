@@ -38,7 +38,7 @@ import java.util.Random;
 /**
  * @author Keil, Vladislav
  */
-public class BattleViewTester extends Application {
+public class BattleTester extends Application {
 
     private static class CheaterPotion extends PotionCard {
 

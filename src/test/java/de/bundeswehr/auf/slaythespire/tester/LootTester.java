@@ -5,20 +5,22 @@ import javafx.application.Application;
 import javafx.stage.Stage;
 import de.bundeswehr.auf.slaythespire.model.settings.GameSettings;
 import de.bundeswehr.auf.slaythespire.model.settings.structure.DifficultyLevel;
+import de.bundeswehr.auf.slaythespire.model.map.field.FieldEnum;
 import de.bundeswehr.auf.slaythespire.model.potion.BloodPotion;
 import de.bundeswehr.auf.slaythespire.model.potion.EnergyPotion;
 
 /**
  * @author Keil, Vladislav
  */
-public class ShopControllerTester extends Application {
-    public static void main(String[] args) { launch(args); }
+public class LootTester extends Application {
+
+    public static void main(String[] args) {
+        launch(args);
+    }
 
     @Override
     public void start(Stage primaryStage) {
         TestPlayer player = new TestPlayer(primaryStage);
-
-        player.setGold(500);
 
         GameSettings.setDifficultyLevel(DifficultyLevel.NORMAL);
 
@@ -26,6 +28,7 @@ public class ShopControllerTester extends Application {
         player.getPotionCards().add(new EnergyPotion());
 //        player.getPotionCards().add(new EnergyPotion());
 
-        GuiHelper.Scenes.startShopScene(player);
+        GuiHelper.Scenes.startLootScene(player, FieldEnum.ENEMYFIELD);
     }
+
 }

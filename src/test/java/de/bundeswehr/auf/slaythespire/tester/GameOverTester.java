@@ -8,7 +8,7 @@ import de.bundeswehr.auf.slaythespire.model.settings.GameSettings;
 /**
  * @author Keil, Vladislav
  */
-public class GameOverViewTester extends Application {
+public class GameOverTester extends Application {
 
     public static void main(String[] args) {
         launch(args);
