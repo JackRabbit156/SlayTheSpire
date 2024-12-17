@@ -2,9 +2,10 @@ package de.bundeswehr.auf.slaythespire.controller;
 
 import de.bundeswehr.auf.slaythespire.gui.RestView;
 import de.bundeswehr.auf.slaythespire.gui.events.RestViewEvents;
-import de.bundeswehr.auf.slaythespire.helper.LoggingAssistant;
 import de.bundeswehr.auf.slaythespire.helper.GuiHelper;
+import de.bundeswehr.auf.slaythespire.helper.LoggingAssistant;
 import de.bundeswehr.auf.slaythespire.model.player.structure.Player;
+import javafx.stage.Stage;
 
 /**
  * Die Klasse RestController steuert den Rastvorgang im Spiel und verwaltet die Anzeige der Rast-Ansicht.
@@ -26,7 +27,14 @@ public class RestController implements Controller, RestViewEvents {
      */
     public RestController(Player player) {
         this.player = player;
-        this.startRest();
+        startRest();
+    }
+
+    @Override
+    public void onFullScreenClicked() {
+        Stage primaryStage = player.getPrimaryStage();
+
+        primaryStage.setFullScreen(!primaryStage.isFullScreen());
     }
 
     /**
@@ -54,11 +62,11 @@ public class RestController implements Controller, RestViewEvents {
      */
     @Override
     public void onHealClicked() {
-        if (!this.healed) {
+        if (!healed) {
             int increasedHp = (int) (player.getMaxHealth() * 0.30);
             player.increaseCurrentHealth(increasedHp);
             LoggingAssistant.log("Healed by " + increasedHp);
-            this.healed = true;
+            healed = true;
         }
         onBackClicked();
     }
@@ -67,8 +75,8 @@ public class RestController implements Controller, RestViewEvents {
      * Startet die Rast und initialisiert die Rast-Ansicht.
      */
     private void startRest() {
-        this.healed = false;
-        this.restView = new RestView(this);
-        this.restView.initRestViewEvents(this);
+        healed = false;
+        restView = new RestView(player, this);
     }
+
 }

@@ -11,6 +11,7 @@ import de.bundeswehr.auf.slaythespire.model.player.structure.Player;
 import de.bundeswehr.auf.slaythespire.model.potion.structure.PotionCard;
 import de.bundeswehr.auf.slaythespire.gui.LootView;
 import de.bundeswehr.auf.slaythespire.gui.events.LootViewEvents;
+import javafx.stage.Stage;
 
 import java.util.List;
 import java.util.Random;
@@ -34,7 +35,6 @@ public class LootController implements Controller, LootViewEvents {
     private final Player player;
     private PotionCard potionCard;
     private double potionsChance;
-    private final List<Card> selectedCards;
 
     /**
      * Konstruktor für die Klasse LootController.
@@ -54,10 +54,9 @@ public class LootController implements Controller, LootViewEvents {
         deckFactory = new DeckFactory(player, amount);
         generatePotionByChance();
 
-        selectedCards = initialLootDeck();
+        List<Card> selectedCards = initialLootDeck();
 
-        lootView = new LootView(selectedCards, gold, player.getImagePath(), potionCard, this);
-        lootView.initTreasureViewEvents(this);
+        lootView = new LootView(selectedCards, gold, potionCard, player, this);
     }
 
     /**
@@ -82,11 +81,21 @@ public class LootController implements Controller, LootViewEvents {
     @Override
     public void onCardClick(Card card) {
         addCardToDeck(card);
+        lootView.updateTop();
+    }
+
+    @Override
+    public void onFullScreenClick() {
+        Stage primaryStage = player.getPrimaryStage();
+
+        primaryStage.setFullScreen(!primaryStage.isFullScreen());
     }
 
     @Override
     public void onGoldClick(int gold) {
+        LoggingAssistant.log("Got gold: " + gold);
         player.increaseGold(gold);
+        lootView.updateTop();
     }
 
     @Override
@@ -94,6 +103,7 @@ public class LootController implements Controller, LootViewEvents {
         if (player.getPotionCards().size() < 3) {
             LoggingAssistant.log("Got a potion: " + potion.getName());
             player.addPotionCard(potion);
+            lootView.updateTop();
         }
         else {
             LoggingAssistant.log("Maximum number of potions reached", Color.YELLOW);
@@ -109,8 +119,6 @@ public class LootController implements Controller, LootViewEvents {
     private void addCardToDeck(Card card) {
         LoggingAssistant.log("Got a card: " + card.getName());
         player.addCardToDeck(card);
-        LoggingAssistant.log("Got gold: " + gold);
-        player.increaseGold(gold);
     }
 
     /**
@@ -161,4 +169,5 @@ public class LootController implements Controller, LootViewEvents {
     private List<Card> initialLootDeck() {
         return deckFactory.init();
     }
+
 }

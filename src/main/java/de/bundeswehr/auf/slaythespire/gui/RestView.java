@@ -1,6 +1,9 @@
 package de.bundeswehr.auf.slaythespire.gui;
 
+import de.bundeswehr.auf.slaythespire.gui.events.RestViewEvents;
+import de.bundeswehr.auf.slaythespire.gui.layouts.top_bar.TopBarLayout;
 import de.bundeswehr.auf.slaythespire.helper.GuiHelper;
+import de.bundeswehr.auf.slaythespire.model.player.structure.Player;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
@@ -8,7 +11,6 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Paint;
-import de.bundeswehr.auf.slaythespire.gui.events.RestViewEvents;
 
 
 /**
@@ -18,70 +20,87 @@ import de.bundeswehr.auf.slaythespire.gui.events.RestViewEvents;
  *
  * @author Vladislav Keil
  */
-public class RestView extends StackPane {
-    private RestViewEvents restViewEvents;
+public class RestView extends StackPane implements WithTopBar {
 
-    private VBox centerVBox;
-
-    private BorderPane restLayout;
-    private BorderPane bottomLayout;
+    private final BorderPane backLayout;
+    private final Player player;
+    private final BorderPane restLayout;
+    private final RestViewEvents restViewEvents;
+    private TopBarLayout top;
 
     /**
      * Konstruktor für die Klasse RestView.
      * Initialisiert die Ansicht und setzt die Ereignisse der Rast-Ansicht.
      *
+     * @param player         Der Spieler
      * @param restViewEvents Die Ereignisse der Rast-Ansicht.
      */
-    public RestView(RestViewEvents restViewEvents) {
-        this.restLayout = new BorderPane();
-        this.bottomLayout = new BorderPane();
+    public RestView(Player player, RestViewEvents restViewEvents) {
+        this.player = player;
         this.restViewEvents = restViewEvents;
+        restLayout = new BorderPane();
+        backLayout = new BorderPane();
         display();
-    }
-    /**
-     * Initialisiert die Ereignisse der Rast-Ansicht.
-     *
-     * @param restViewEvents Die Ereignisse der Rast-Ansicht.
-     */
-    public void initRestViewEvents(RestViewEvents restViewEvents){
-        this.restViewEvents = restViewEvents;
     }
 
     /**
      * Initialisiert die View.
      */
     public void display() {
-        getChildren().add(this.restLayout);
-        getChildren().add(this.bottomLayout);
+        getChildren().add(restLayout);
+        getChildren().add(backLayout);
 
         setBackground(new Background(GuiHelper.backgroundInHD("/images/backgrounds/RestViewBG.jpeg")));
         initRestLayout();
-        initBottomLayout();
+        initBackLayout();
+    }
+
+    @Override
+    public void onFullScreen() {
+        restViewEvents.onFullScreenClicked();
+    }
+
+    @Override
+    public void onMap() {
+        restViewEvents.onBackClicked();
+    }
+
+    @Override
+    public boolean showMap() {
+        return true;
     }
 
     /**
-     * Initialisiert das untere Layout.
+     * Initialisiert das untere Layout der Rast-Ansicht.
      */
-    private void initBottomLayout() {
-        this.restLayout.setPickOnBounds(false);
-        initBottom();
+    private void initBackLayout() {
+        top = new TopBarLayout(this, player);
+        top.update();
+        backLayout.setTop(top);
 
-    }
+        ImageView imgView = new ImageView(new Image("/images/buttons/buttonL-small.png"));
 
-    /**
-     * Initialisiert das Layout der Rast-Ansicht.
-     */
-    private void initRestLayout() {
-        this.bottomLayout.setPickOnBounds(false);
-        initTop();
-        initCenter();
+        Label label = new Label("Back");
+        label.setTextFill(Paint.valueOf("White"));
+        label.setStyle("-fx-font-size: 38px; -fx-font-family: Kreon;");
+
+        imgView.setOnMouseClicked(event -> restViewEvents.onBackClicked());
+        label.setOnMouseClicked(event -> restViewEvents.onBackClicked());
+
+        HBox bottom = new HBox();
+        bottom.getChildren().add(GuiHelper.addButtonStackPane(imgView, label, 12, 8));
+        bottom.setAlignment(Pos.TOP_LEFT);
+        bottom.setPadding(new Insets(50, 50, 50, 50));
+
+        backLayout.setPickOnBounds(false);
+        backLayout.setBottom(bottom);
     }
 
     /**
      * Initialisiert das zentrale Layout der Rast-Ansicht.
      */
-    private void initCenter(){
-        this.centerVBox = new VBox();
+    private void initCenter() {
+        VBox center = new VBox();
         Image img = new Image(getClass().getResource("/images/buttons/blankButton.png").toExternalForm());
         ImageView imgView = new ImageView(img);
 
@@ -90,60 +109,50 @@ public class RestView extends StackPane {
         label.setTextFill(Paint.valueOf("White"));
         label.setStyle("-fx-font-size: 24; -fx-font-family: Kreon;");
 
-        this.centerVBox.getChildren().add(GuiHelper.addButtonStackPane(imgView, label, 10, 6));
-        this.centerVBox.setTranslateY(125);
-        this.centerVBox.setTranslateX(125);
+        center.getChildren().add(GuiHelper.addButtonStackPane(imgView, label, 10, 6));
+        center.setTranslateY(125);
+        center.setTranslateX(125);
         label.setOnMouseClicked(event -> {
-            this.restViewEvents.onHealClicked();
+            restViewEvents.onHealClicked();
+            top.update();
             label.setDisable(true);
             imgView.setDisable(true);
         });
         imgView.setOnMouseClicked(event -> {
-            this.restViewEvents.onHealClicked();
+            restViewEvents.onHealClicked();
+            top.update();
             label.setDisable(true);
             imgView.setDisable(true);
         });
-        this.centerVBox.setSpacing(50);
-        this.centerVBox.setPadding(new Insets(50,50,50,50));
-        this.centerVBox.setAlignment(Pos.TOP_CENTER);
-        this.restLayout.setCenter(this.centerVBox);
+        center.setSpacing(50);
+        center.setPadding(new Insets(50, 50, 50, 50));
+        center.setAlignment(Pos.TOP_CENTER);
+        restLayout.setCenter(center);
+    }
+
+    /**
+     * Initialisiert das Layout der Rast-Ansicht.
+     */
+    private void initRestLayout() {
+        restLayout.setPickOnBounds(false);
+        initTop();
+        initCenter();
     }
 
     /**
      * Initialisiert das obere Layout der Rast-Ansicht.
      */
-    private void initTop(){
-        VBox topVBox = new VBox();
+    private void initTop() {
+        VBox top = new VBox();
         Label label = new Label();
-        label.setText("Restsite..");
+        label.setText("Rest Site...");
         label.setTextFill(Paint.valueOf("White"));
         label.setStyle("-fx-font-size: 56; -fx-font-family: Kreon;");
 
-        topVBox.getChildren().add(label);
-        topVBox.setAlignment(Pos.BOTTOM_CENTER);
-        topVBox.setPrefHeight(200);
+        top.getChildren().add(label);
+        top.setAlignment(Pos.BOTTOM_CENTER);
+        top.setPrefHeight(200);
 
-        this.restLayout.setTop(topVBox);
-    }
-
-    /**
-     * Initialisiert das untere Layout der Rast-Ansicht.
-     */
-    private void initBottom(){
-        Image img = new Image(getClass().getResource("/images/buttons/buttonL-small.png").toExternalForm());
-        ImageView imgView = new ImageView(img);
-        HBox bottomHBox = new HBox();
-
-        Label label = new Label("Back");
-        label.setTextFill(Paint.valueOf("White"));
-        label.setStyle("-fx-font-size: 38px; -fx-font-family: Kreon;");
-        bottomHBox.getChildren().add(GuiHelper.addButtonStackPane(imgView, label, 12, 8));
-
-        imgView.setOnMouseClicked(event -> this.restViewEvents.onBackClicked());
-        label.setOnMouseClicked(event -> this.restViewEvents.onBackClicked());
-
-        bottomHBox.setAlignment(Pos.TOP_LEFT);
-        bottomHBox.setPadding(new Insets(50, 50, 50, 50));
-        this.bottomLayout.setBottom(bottomHBox);
+        restLayout.setTop(top);
     }
 }

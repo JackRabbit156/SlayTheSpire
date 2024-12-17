@@ -4,8 +4,10 @@ import de.bundeswehr.auf.slaythespire.gui.events.CardEventListener;
 import de.bundeswehr.auf.slaythespire.gui.events.LootViewEvents;
 import de.bundeswehr.auf.slaythespire.gui.layouts.CardSelectionLayout;
 import de.bundeswehr.auf.slaythespire.gui.layouts.loot.PlayerLayout;
+import de.bundeswehr.auf.slaythespire.gui.layouts.top_bar.TopBarLayout;
 import de.bundeswehr.auf.slaythespire.helper.GuiHelper;
 import de.bundeswehr.auf.slaythespire.model.card.structure.Card;
+import de.bundeswehr.auf.slaythespire.model.player.structure.Player;
 import de.bundeswehr.auf.slaythespire.model.potion.structure.PotionCard;
 import javafx.geometry.Bounds;
 import javafx.geometry.Insets;
@@ -22,56 +24,45 @@ import java.util.List;
 /**
  * @author Keil, Vladislav
  */
-public class LootView extends StackPane implements CardEventListener {
+public class LootView extends StackPane implements WithTopBar, CardEventListener {
 
     private static final String STYLE = "-fx-font-size: 38; -fx-font-family: Kreon;";
     private static final String STYLE_SMALL = "-fx-font-size: 28; -fx-font-family: Kreon;";
-
+    private final BorderPane backLayout;
     private final BorderPane backgroundLayout;
-    private final BorderPane bottomLayout;
     private StackPane cardSelectionButtonStackPane;
     private boolean cardSelectionDisabled;
-    private Popup cardSelectionPopup;
+    private final Popup cardSelectionPopup;
     private VBox center;
     private final int gold;
     private final List<Card> lootCards;
     private final BorderPane lootLayout;
-    private LootViewEvents lootViewEvents;
-    private String playerImagePath;
-    private PotionCard potionCard;
-
-    /**
-     * Konstruktor für die Klasse LootView.
-     * Initialisiert die Ansicht ohne eine Trankkarte.
-     *
-     * @param lootCards      Die Liste der verfügbaren Karten.
-     * @param gold           Die Menge an Gold im Schatz.
-     * @param lootViewEvents Die Ereignisse der Loot-Ansicht.
-     */
-    public LootView(List<Card> lootCards, int gold, LootViewEvents lootViewEvents) {
-        this.lootLayout = new BorderPane();
-        this.bottomLayout = new BorderPane();
-        this.backgroundLayout = new BorderPane();
-        this.lootCards = lootCards;
-        this.gold = gold;
-        this.lootViewEvents = lootViewEvents;
-    }
+    private final LootViewEvents lootViewEvents;
+    private final Player player;
+    private final PotionCard potionCard;
+    private TopBarLayout top;
 
     /**
      * Konstruktor für die Klasse LootView.
      * Initialisiert die Ansicht mit einer Trankkarte.
      *
-     * @param lootCards       Die Liste der verfügbaren Karten.
-     * @param gold            Die Menge an Gold im Schatz.
-     * @param playerImagePath image of picture of player
-     * @param potionCard      Die im Schatz enthaltene Trankkarte.
-     * @param lootViewEvents  Die Ereignisse der Loot-Ansicht.
+     * @param lootCards      Die Liste der verfügbaren Karten.
+     * @param gold           Die Menge an Gold im Schatz.
+     * @param player         Der Spieler
+     * @param potionCard     Die im Schatz enthaltene Trankkarte.
+     * @param lootViewEvents Die Ereignisse der Loot-Ansicht.
      */
-    public LootView(List<Card> lootCards, int gold, String playerImagePath, PotionCard potionCard, LootViewEvents lootViewEvents) {
-        this(lootCards, gold, lootViewEvents);
-        this.playerImagePath = playerImagePath;
+    public LootView(List<Card> lootCards, int gold, PotionCard potionCard, Player player, LootViewEvents lootViewEvents) {
+        this.lootCards = lootCards;
+        this.gold = gold;
         this.potionCard = potionCard;
-        this.cardSelectionPopup = new Popup();
+        this.player = player;
+        this.lootViewEvents = lootViewEvents;
+
+        lootLayout = new BorderPane();
+        backLayout = new BorderPane();
+        backgroundLayout = new BorderPane();
+        cardSelectionPopup = new Popup();
         display();
     }
 
@@ -79,21 +70,12 @@ public class LootView extends StackPane implements CardEventListener {
      * Initialisiert die View.
      */
     public void display() {
-        getChildren().add(this.backgroundLayout);
-        getChildren().add(this.lootLayout);
-        getChildren().add(this.bottomLayout);
+        getChildren().add(backgroundLayout);
+        getChildren().add(lootLayout);
+        getChildren().add(backLayout);
         initBackgroundLayout();
         initLootLayout();
         initBottomLayout();
-    }
-
-    /**
-     * Übergabe des LootViewEvents.
-     *
-     * @param lootViewEvents Die Ereignisse der Loot-Ansicht.
-     */
-    public void initTreasureViewEvents(LootViewEvents lootViewEvents) {
-        this.lootViewEvents = lootViewEvents;
     }
 
     /**
@@ -105,6 +87,16 @@ public class LootView extends StackPane implements CardEventListener {
     public void onCardClick(Card card) {
         lootViewEvents.onCardClick(card);
         disableCardSelection();
+    }
+
+    @Override
+    public void onFullScreen() {
+        lootViewEvents.onFullScreenClick();
+    }
+
+    @Override
+    public void onMap() {
+        lootViewEvents.onBackClicked();
     }
 
     /**
@@ -128,17 +120,27 @@ public class LootView extends StackPane implements CardEventListener {
         Popup popup = new Popup();
         popup.setAutoHide(true);
         popup.getContent().add(stackPopup);
-        Bounds bounds = this.lootLayout.localToScreen(this.lootLayout.getBoundsInLocal());
-        popup.show(this.lootLayout.getScene().getWindow(), bounds.getMinX(), bounds.getMinY());
+        Bounds bounds = lootLayout.localToScreen(lootLayout.getBoundsInLocal());
+        popup.show(lootLayout.getScene().getWindow(), bounds.getMinX(), bounds.getMinY());
+    }
+
+    @Override
+    public boolean showMap() {
+        return true;
+    }
+
+    public void updateTop() {
+        top.update();
     }
 
     /**
      * Deaktiviert die Kartenauswahl im Loot.
      */
     private void disableCardSelection() {
-        this.cardSelectionDisabled = true;
-        this.cardSelectionButtonStackPane.setOpacity(0.6);
-        this.cardSelectionButtonStackPane.setDisable(true);
+        cardSelectionPopup.hide();
+        cardSelectionDisabled = true;
+        cardSelectionButtonStackPane.setOpacity(0.6);
+        cardSelectionButtonStackPane.setDisable(true);
     }
 
     /**
@@ -154,18 +156,14 @@ public class LootView extends StackPane implements CardEventListener {
 
         imgView.setScaleY(0.6);
         imgView.setScaleX(0.6);
-
         // Label
         Label label = new Label("New Cards!");
         label.setStyle(STYLE_SMALL);
         label.setTextFill(Color.WHITE);
-
-
         // Loot
         HBox lootBox = new HBox();
         lootBox.setAlignment(Pos.CENTER);
         lootBox.getChildren().addAll(imgView, label);
-
         // Panel
         StackPane cardSelectionStackPane = new StackPane(itemPanelView);
         cardSelectionStackPane.getChildren().add(lootBox);
@@ -185,7 +183,6 @@ public class LootView extends StackPane implements CardEventListener {
         Image img = new Image(getClass().getResource("/images/gold.png").toExternalForm());
         ImageView imgView = new ImageView(img);
         ImageView itemPanelView = new ImageView(btnImage);
-
         // Label
         Label label = new Label(String.valueOf(gold));
         label.setText(String.valueOf(gold));
@@ -195,7 +192,6 @@ public class LootView extends StackPane implements CardEventListener {
         HBox lootBox = new HBox();
         lootBox.setAlignment(Pos.CENTER);
         lootBox.getChildren().addAll(imgView, label);
-
         // Panel
         StackPane goldStackPane = new StackPane(itemPanelView);
         goldStackPane.getChildren().add(lootBox);
@@ -208,7 +204,6 @@ public class LootView extends StackPane implements CardEventListener {
             goldStackPane.setOpacity(0.6);
             goldStackPane.setDisable(true);
         });
-
         return goldStackPane;
     }
 
@@ -222,18 +217,15 @@ public class LootView extends StackPane implements CardEventListener {
         ImageView itemPanelView = new ImageView(btnImage);
         Image img = new Image(getClass().getResource(potionCard.getImagePath()).toExternalForm());
         ImageView imgView = new ImageView(img);
-
         // Label
         Label label = new Label();
         label.setText(potionCard.getName());
         label.setStyle(STYLE_SMALL);
         label.setTextFill(Color.WHITE);
-
         // Loot
         HBox lootBox = new HBox();
         lootBox.setAlignment(Pos.CENTER);
         lootBox.getChildren().addAll(imgView, label);
-
         // Panel
         StackPane potionStackPane = new StackPane(itemPanelView);
         potionStackPane.getChildren().add(lootBox);
@@ -246,22 +238,17 @@ public class LootView extends StackPane implements CardEventListener {
             potionStackPane.setOpacity(0.6);
             potionStackPane.setDisable(true);
         });
-
         return potionStackPane;
-    }
-
-    private void initBackgroundLayout() {
-        this.backgroundLayout.setPickOnBounds(false);
-        PlayerLayout playerLayout = new PlayerLayout(this.playerImagePath);
-        setBackground(new Background(GuiHelper.backgroundInHD("/images/act1.png")));
-
-        this.backgroundLayout.setCenter(playerLayout);
     }
 
     /**
      * Initialisiert das untere Layout der Loot-Ansicht.
      */
-    private void initBottom() {
+    private void initBackLayout() {
+        top = new TopBarLayout(this, player);
+        top.update();
+        backLayout.setTop(top);
+
         Image btnImage = new Image(getClass().getResource("/images/buttons/buttonL-small.png").toExternalForm());
         ImageView imgView = new ImageView(btnImage);
         HBox bottomHBox = new HBox();
@@ -274,64 +261,66 @@ public class LootView extends StackPane implements CardEventListener {
 
         GuiHelper.setHoverEffect(imgView);
 
-        imgView.setOnMouseClicked(event -> this.lootViewEvents.onBackClicked());
-        label.setOnMouseClicked(event -> this.lootViewEvents.onBackClicked());
+        imgView.setOnMouseClicked(event -> lootViewEvents.onBackClicked());
+        label.setOnMouseClicked(event -> lootViewEvents.onBackClicked());
 
         bottomHBox.setAlignment(Pos.TOP_LEFT);
         bottomHBox.setPadding(new Insets(50, 50, 50, 50));
-        this.bottomLayout.setBottom(bottomHBox);
+        backLayout.setBottom(bottomHBox);
+    }
+
+    private void initBackgroundLayout() {
+        backgroundLayout.setPickOnBounds(false);
+
+        PlayerLayout playerLayout = new PlayerLayout(player.getImagePath());
+        setBackground(new Background(GuiHelper.backgroundInHD("/images/act1.png")));
+        backgroundLayout.setCenter(playerLayout);
     }
 
     /**
      * Initialisiert das untere Layout der Loot-Ansicht.
      */
     private void initBottomLayout() {
-        this.bottomLayout.setPickOnBounds(false);
-        initBottom();
+        backLayout.setPickOnBounds(false);
+        initBackLayout();
     }
 
     /**
      * Initialisiert das zentrale Layout der Loot-Ansicht.
      */
     private void initCenter() {
-        this.center = new VBox();
+        center = new VBox();
 
         Image img = new Image(getClass().getResource("/images/panel/rewardPanel.png").toExternalForm());
         ImageView imageView = new ImageView(img);
         StackPane rewardStackPanel = new StackPane(imageView);
         imageView.setTranslateY(-140);
-
-
         // Card Options
-        this.center.setSpacing(10);
-        this.center.setAlignment(Pos.TOP_CENTER);
-        this.center.setMaxWidth(100);
-
+        center.setSpacing(10);
+        center.setAlignment(Pos.TOP_CENTER);
+        center.setMaxWidth(100);
         // Gold Option
         StackPane goldStackPane = getGoldStackPane();
-        this.center.getChildren().add(goldStackPane);
-
+        center.getChildren().add(goldStackPane);
         // Potion Option
-        if (this.potionCard != null) {
+        if (potionCard != null) {
             StackPane getPotionStackPane = getPotionStackPane();
-            this.center.getChildren().add(getPotionStackPane);
+            center.getChildren().add(getPotionStackPane);
         }
-
         // Card Selection Option
         setCardSelectionLayout();
-
-        this.center.getChildren().add(this.cardSelectionButtonStackPane);
+        center.getChildren().add(cardSelectionButtonStackPane);
 
         rewardStackPanel.getChildren().add(center);
 
-        this.lootLayout.setCenter(rewardStackPanel);
+        lootLayout.setCenter(rewardStackPanel);
     }
 
     /**
      * Initialisiert das Layout der Loot-Ansicht.
      */
     private void initLootLayout() {
-        this.lootLayout.setPickOnBounds(false);
+        lootLayout.setPickOnBounds(false);
         initCenter();
         initTop();
     }
@@ -354,25 +343,24 @@ public class LootView extends StackPane implements CardEventListener {
 
         titlePane.getChildren().addAll(imageView, label);
 
-
         topVBox.getChildren().add(titlePane);
         topVBox.setAlignment(Pos.BOTTOM_CENTER);
         topVBox.setPrefHeight(200);
-        this.lootLayout.setTop(topVBox);
+        lootLayout.setTop(topVBox);
     }
 
     /**
      * Event-Handler für Klicks auf das Gold im Loot.
      */
     private void onGoldClick() {
-        lootViewEvents.onGoldClick(this.gold);
+        lootViewEvents.onGoldClick(gold);
     }
 
     /**
      * Event-Handler für Klicks auf einen Trank im Loot.
      */
     private void onPotionClick() {
-        lootViewEvents.onPotionClick(this.potionCard);
+        lootViewEvents.onPotionClick(potionCard);
     }
 
     /**
@@ -398,4 +386,5 @@ public class LootView extends StackPane implements CardEventListener {
             }
         });
     }
+
 }

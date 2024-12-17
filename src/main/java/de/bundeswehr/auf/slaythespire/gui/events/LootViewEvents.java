@@ -8,8 +8,13 @@ import de.bundeswehr.auf.slaythespire.model.potion.structure.PotionCard;
 public interface LootViewEvents {
 
     void onCardClick(Card card);
+
+    void onFullScreenClick();
+
     void onGoldClick(int gold);
+
     void onPotionClick(PotionCard potion);
+
     void onBackClicked();
 
 }
