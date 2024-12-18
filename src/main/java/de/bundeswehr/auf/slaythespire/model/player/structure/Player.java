@@ -351,8 +351,10 @@ public abstract class Player {
      * @param blockAmount Der Betrag des Blocks, der empfangen wurde.
      */
     protected void notifyBlockReceived(int blockAmount) {
-        PlayerBlockEvent event = new PlayerBlockEvent(this, blockAmount);
-        playerEventListener.onBlockReceived(event);
+        if (playerEventListener != null) {
+            PlayerBlockEvent event = new PlayerBlockEvent(this, blockAmount);
+            playerEventListener.onBlockReceived(event);
+        }
     }
 
     /**
@@ -362,8 +364,10 @@ public abstract class Player {
      * @param damageFromCard Gibt an, ob der Schaden von einer Karte stammt.
      */
     protected void notifyDamageReceived(int damageAmount, boolean damageFromCard) {
-        PlayerDamageEvent event = new PlayerDamageEvent(this, damageAmount, damageFromCard);
-        playerEventListener.onDamageReceived(event);
+        if (playerEventListener != null) {
+            PlayerDamageEvent event = new PlayerDamageEvent(this, damageAmount, damageFromCard);
+            playerEventListener.onDamageReceived(event);
+        }
     }
 
     /**
@@ -372,8 +376,10 @@ public abstract class Player {
      * @param energyAmount Der Betrag der Energie, die empfangen wurde.
      */
     protected void notifyEnergyReceived(int energyAmount) {
-        PlayerEnergyEvent event = new PlayerEnergyEvent(this, energyAmount);
-        playerEventListener.onEnergyReceived(event);
+        if (playerEventListener != null) {
+            PlayerEnergyEvent event = new PlayerEnergyEvent(this, energyAmount);
+            playerEventListener.onEnergyReceived(event);
+        }
     }
 
     /**
@@ -382,8 +388,10 @@ public abstract class Player {
      * @param hpAmount Der Betrag der Lebenskraft, die empfangen wurde.
      */
     protected void notifyHealthReceived(int hpAmount) {
-        PlayerHealthEvent event = new PlayerHealthEvent(this, hpAmount);
-        playerEventListener.onHealthReceived(event);
+        if (playerEventListener != null) {
+            PlayerHealthEvent event = new PlayerHealthEvent(this, hpAmount);
+            playerEventListener.onHealthReceived(event);
+        }
     }
 
 }
