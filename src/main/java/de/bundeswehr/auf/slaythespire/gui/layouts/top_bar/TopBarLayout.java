@@ -1,5 +1,6 @@
 package de.bundeswehr.auf.slaythespire.gui.layouts.top_bar;
 
+import de.bundeswehr.auf.slaythespire.gui.View;
 import de.bundeswehr.auf.slaythespire.gui.WithTopBar;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
@@ -11,7 +12,7 @@ import de.bundeswehr.auf.slaythespire.model.player.structure.Player;
  *
  * @author OF Daniel Willig
  */
-public class TopBarLayout extends VBox {
+public class TopBarLayout extends VBox implements View {
 
     private final BarLayout barLayout;
 
@@ -23,6 +24,11 @@ public class TopBarLayout extends VBox {
         barLayout = new BarLayout(view, player, middleBar);
         getChildren().add(barLayout);
         VBox.setVgrow(barLayout, Priority.ALWAYS);
+    }
+
+    @Override
+    public void discard() {
+        barLayout.discard();
     }
 
     public void setDisableMiddleBar(boolean value) {

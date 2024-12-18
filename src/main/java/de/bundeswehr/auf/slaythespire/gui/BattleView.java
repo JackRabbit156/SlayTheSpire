@@ -183,6 +183,7 @@ public class BattleView extends BorderPane implements View, WithTopBar, BattleDe
     public void discard() {
         left.discard();
         right.discard();
+        top.discard();
     }
 
     public void enableBattleView() {

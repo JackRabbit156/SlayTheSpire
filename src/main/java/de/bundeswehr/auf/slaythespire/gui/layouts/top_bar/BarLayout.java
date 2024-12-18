@@ -1,5 +1,6 @@
 package de.bundeswehr.auf.slaythespire.gui.layouts.top_bar;
 
+import de.bundeswehr.auf.slaythespire.gui.View;
 import de.bundeswehr.auf.slaythespire.gui.WithTopBar;
 import javafx.geometry.Insets;
 import javafx.scene.image.Image;
@@ -13,7 +14,7 @@ import de.bundeswehr.auf.slaythespire.model.player.structure.Player;
  *
  * @author OF Daniel Willig
  */
-public class BarLayout extends StackPane {
+public class BarLayout extends StackPane implements View {
 
     private final InfoLayout infoLayout;
     private final Player player;
@@ -55,6 +56,11 @@ public class BarLayout extends StackPane {
         Image background = new Image("/images/view/gui/layouts/topbar/Topbar.png");
         ImageView imageView = new ImageView(background);
         getChildren().addAll(imageView, icons);
+    }
+
+    @Override
+    public void discard() {
+        settingsLayout.discard();
     }
 
     /**

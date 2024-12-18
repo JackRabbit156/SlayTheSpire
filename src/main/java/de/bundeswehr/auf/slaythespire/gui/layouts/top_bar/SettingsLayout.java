@@ -1,8 +1,10 @@
 package de.bundeswehr.auf.slaythespire.gui.layouts.top_bar;
 
+import de.bundeswehr.auf.slaythespire.gui.View;
 import de.bundeswehr.auf.slaythespire.gui.WithTopBar;
 import de.bundeswehr.auf.slaythespire.gui.components.MapButton;
 import de.bundeswehr.auf.slaythespire.gui.components.SettingsButton;
+import de.bundeswehr.auf.slaythespire.gui.components.TimerText;
 import de.bundeswehr.auf.slaythespire.model.player.structure.Player;
 import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
@@ -29,7 +31,7 @@ import javafx.scene.text.Text;
  *
  * @author OF Daniel Willig
  */
-public class SettingsLayout extends HBox {
+public class SettingsLayout extends HBox implements View {
 
     private final static Font font = Font.font("Kreon", FontWeight.BOLD, 20);
     private final static FontSmoothingType smoothingType = FontSmoothingType.GRAY;
@@ -43,12 +45,19 @@ public class SettingsLayout extends HBox {
     private final Text libraryText = new Text();
     private final Text libraryTextStroke = new Text();
     private Button map;
+    private ImageView timerIconView;
+    private TimerText timerText;
     private final WithTopBar view;
 
     public SettingsLayout(WithTopBar view) {
         this.view = view;
 
         HBox.setHgrow(this, Priority.ALWAYS);
+
+        initTimerIcon();
+        initTimerText();
+        getChildren().addAll(timerIconView, timerText);
+        addSpacer();
 
         if (view.showLibrary()) {
             initLibraryIcon();
@@ -57,9 +66,7 @@ public class SettingsLayout extends HBox {
             library.getChildren().addAll(libraryIconView, libraryTextStroke, libraryText);
             library.setAlignment(Pos.CENTER);
             getChildren().add(library);
-            Pane spacer = new Pane();
-            spacer.setPrefWidth(50);
-            getChildren().add(spacer);
+            addSpacer();
         }
 
         if (view.showMap()) {
@@ -78,6 +85,27 @@ public class SettingsLayout extends HBox {
         setAlignment(Pos.CENTER_RIGHT);
     }
 
+    private void addSpacer() {
+        Pane spacer = new Pane();
+        spacer.setPrefWidth(30);
+        getChildren().add(spacer);
+    }
+
+    private void initTimerIcon() {
+        String path = "/images/view/gui/layouts/settings/timer.png";
+        Image timer = new Image(path);
+        timerIconView = new ImageView(timer);
+    }
+
+    private void initTimerText() {
+        timerText = new TimerText();
+    }
+
+    @Override
+    public void discard() {
+        timerText.discard();
+    }
+
     public void setLibraryText(Player player) {
         libraryTextStroke.setText(String.valueOf(player.getDeck().size()));
         libraryText.setText(String.valueOf(player.getDeck().size()));
@@ -90,7 +118,7 @@ public class SettingsLayout extends HBox {
 
     private void initLibraryIcon() {
         String path = "/images/view/gui/layouts/settings/deck.png";
-        Image deck = new Image(getClass().getResource(path).toExternalForm());
+        Image deck = new Image(path);
         libraryIconView = new ImageView(deck);
     }
 

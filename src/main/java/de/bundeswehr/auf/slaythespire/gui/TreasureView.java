@@ -155,6 +155,11 @@ public class TreasureView extends StackPane implements WithTopBar, CardEventList
         cardSelectionButtonStackPane.setDisable(true);
     }
 
+    @Override
+    public void discard() {
+        top.discard();
+    }
+
     /**
      * Initialisiert die View und zeigt die Schatz-Ansicht an.
      *

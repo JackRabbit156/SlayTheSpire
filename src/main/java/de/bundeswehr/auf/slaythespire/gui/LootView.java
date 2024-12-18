@@ -66,6 +66,11 @@ public class LootView extends StackPane implements WithTopBar, CardEventListener
         display();
     }
 
+    @Override
+    public void discard() {
+        top.discard();
+    }
+
     /**
      * Initialisiert die View.
      */

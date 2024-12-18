@@ -2,6 +2,8 @@ package de.bundeswehr.auf.slaythespire.gui;
 
 public interface WithTopBar {
 
+    void discard();
+
     void onFullScreen();
 
     default void onLibrary() {

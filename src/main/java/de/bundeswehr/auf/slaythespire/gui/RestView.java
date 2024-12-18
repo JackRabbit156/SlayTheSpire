@@ -43,6 +43,11 @@ public class RestView extends StackPane implements WithTopBar {
         display();
     }
 
+    @Override
+    public void discard() {
+        top.discard();
+    }
+
     /**
      * Initialisiert die View.
      */

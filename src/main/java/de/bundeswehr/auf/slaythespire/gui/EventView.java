@@ -84,21 +84,9 @@ public class EventView implements WithTopBar {
         // TODO Wenn der Player stirbt
     }
 
-    public void updateTop() {
-        top.update();
-    }
-
-    private void initUpdater(TopBarLayout top) {
-        top.update();
-        if (option1 != null) {
-            option1.addEventHandler(MouseEvent.MOUSE_RELEASED, e -> top.update());
-        }
-        if (option2 != null) {
-            option2.addEventHandler(MouseEvent.MOUSE_RELEASED, e -> top.update());
-        }
-        if (option3 != null) {
-            option3.addEventHandler(MouseEvent.MOUSE_RELEASED, e -> top.update());
-        }
+    @Override
+    public void discard() {
+        top.discard();
     }
 
     public BorderPane display() {
@@ -162,6 +150,23 @@ public class EventView implements WithTopBar {
         popup.show(layoutPane.getScene().getWindow(), bounds.getMinX(), bounds.getMinY());
     }
 
+    public void updateTop() {
+        top.update();
+    }
+
+    private void highlightOnClick(Button button) {
+        button.setOnMousePressed(event -> {
+            button.setBackground(buttonBG);
+            button.setScaleX(button.getScaleX() * 0.99);
+            button.setScaleY(button.getScaleY() * 0.9);
+        });
+        button.setOnMouseReleased(event -> {
+            button.setBackground(buttonHighlight);
+            button.setScaleX(button.getScaleX() * 1.01);
+            button.setScaleY(button.getScaleY() * 1.1);
+        });
+    }
+
     private void initStyle() {
         label.setPadding(new Insets(0, 0, 220, 220));
         label.setFont(labelFont);
@@ -187,17 +192,17 @@ public class EventView implements WithTopBar {
         initialize(leave);
     }
 
-    private void highlightOnClick(Button button) {
-        button.setOnMousePressed(event -> {
-            button.setBackground(buttonBG);
-            button.setScaleX(button.getScaleX() * 0.99);
-            button.setScaleY(button.getScaleY() * 0.9);
-        });
-        button.setOnMouseReleased(event -> {
-            button.setBackground(buttonHighlight);
-            button.setScaleX(button.getScaleX() * 1.01);
-            button.setScaleY(button.getScaleY() * 1.1);
-        });
+    private void initUpdater(TopBarLayout top) {
+        top.update();
+        if (option1 != null) {
+            option1.addEventHandler(MouseEvent.MOUSE_RELEASED, e -> top.update());
+        }
+        if (option2 != null) {
+            option2.addEventHandler(MouseEvent.MOUSE_RELEASED, e -> top.update());
+        }
+        if (option3 != null) {
+            option3.addEventHandler(MouseEvent.MOUSE_RELEASED, e -> top.update());
+        }
     }
 
     private void initialize(Button button) {

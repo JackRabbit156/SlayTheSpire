@@ -40,7 +40,7 @@ public class ShopView extends StackPane implements CardEventListener, WithTopBar
     private List<Card> shopCards;
     private final BorderPane shopLayout = new BorderPane();
     private ShopViewEvents shopViewEvents;
-    private TopBarLayout topBarLayout;
+    private TopBarLayout top;
 
     public ShopView(Player player, List<Card> shopCards, ShopViewEvents shopViewEvents, Potion... potion) {
         this.player = player;
@@ -48,6 +48,11 @@ public class ShopView extends StackPane implements CardEventListener, WithTopBar
         this.shopViewEvents = shopViewEvents;
         this.potion = potion[0] != null ? potion[0] : null;
         display();
+    }
+
+    @Override
+    public void discard() {
+        top.discard();
     }
 
     /**
@@ -114,7 +119,7 @@ public class ShopView extends StackPane implements CardEventListener, WithTopBar
     }
 
     public void refreshInfo() {
-        topBarLayout.update();
+        top.update();
     }
 
     /**
@@ -195,8 +200,8 @@ public class ShopView extends StackPane implements CardEventListener, WithTopBar
     }
 
     private void initOuterLayout() {
-        topBarLayout = new TopBarLayout(this, player, new PotionLayout(player.getPotions()));
-        outerLayout.setTop(topBarLayout);
+        top = new TopBarLayout(this, player, new PotionLayout(player.getPotions()));
+        outerLayout.setTop(top);
 
         BackLayout back = new BackLayout(this);
         HBox buttonZone = new HBox(back);

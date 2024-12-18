@@ -35,6 +35,7 @@ public class MapView extends StackPane implements View, WithTopBar {
     private final MapLayout mapCenter;
     private final MapViewEvents mapViewEvents;
     private final Player player;
+    private TopBarLayout top;
 
     /**
      * Konstruktor für 'MapView'.
@@ -125,6 +126,7 @@ public class MapView extends StackPane implements View, WithTopBar {
     @Override
     public void discard() {
         mapCenter.discard();
+        top.discard();
     }
 
     @Override
@@ -164,7 +166,7 @@ public class MapView extends StackPane implements View, WithTopBar {
     }
 
     private void initTopSide() {
-        TopBarLayout top = new TopBarLayout(this, player);
+        top = new TopBarLayout(this, player);
         top.update();
         mainMap.setTop(top);
     }
