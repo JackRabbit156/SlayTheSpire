@@ -17,7 +17,7 @@ public class RageCard extends SkillCard implements TriggeredCard {
      * Constructor Entrench card.
      */
     public RageCard() {
-        super("Rage", "Whenever you play an Attack this turn, gain 3 Block.", 2, CardRarity.UNCOMMON, CardGrave.DISCARD);
+        super("Rage", "Whenever you play an Attack this turn, gain 3 Block.", 0, CardRarity.UNCOMMON, CardGrave.DISCARD);
         setImagePath(new PathAssistent().toPath(this));
     }
 

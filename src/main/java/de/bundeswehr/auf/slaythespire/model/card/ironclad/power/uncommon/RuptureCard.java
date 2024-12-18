@@ -19,7 +19,7 @@ public class RuptureCard extends PowerCard {
      * Constructor Entrench card.
      */
     public RuptureCard() {
-        super("Rupture", "Whenever you lose HP from a card, gain 1 Strength.", 2, CardRarity.UNCOMMON, CardGrave.DISCARD, CardTrigger.LOSE_HP_CARD);
+        super("Rupture", "Whenever you lose HP from a card, gain 1 Strength.", 1, CardRarity.UNCOMMON, CardGrave.DISCARD, CardTrigger.LOSE_HP_CARD);
         setImagePath(new PathAssistent().toPath(this));
     }
 
