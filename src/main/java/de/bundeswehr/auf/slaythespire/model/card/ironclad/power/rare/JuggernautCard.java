@@ -16,6 +16,7 @@ import java.util.Random;
  * @author OF Daniel Willig
  */
 public class JuggernautCard extends PowerCard {
+
     /**
      * Constructor Juggernaut card.
      */
@@ -24,19 +25,8 @@ public class JuggernautCard extends PowerCard {
         setImagePath(new PathAssistent().toPath(this));
     }
 
-
     @Override
-    public void play(GameContext gameContext) {
-        Player player = gameContext.getPlayer();
-        BattleDeck battleDeck = gameContext.getBattleDeck();
-
-        battleDeck.addPowerCards(new JuggernautCard());
-
-        player.decreaseCurrentEnergy(getCost());
-    }
-
-    @Override
-    public void ability(GameContext gameContext) {
+    public void onTrigger(GameContext gameContext) {
         List<Enemy> allEnemies = gameContext.getEnemies();
         Random rand = new Random();
         int targetIndex = rand.nextInt(allEnemies.size());
@@ -44,4 +34,5 @@ public class JuggernautCard extends PowerCard {
         Enemy enemy = gameContext.getEnemies().get(targetIndex);
         enemy.takeDamage(5);
     }
+
 }

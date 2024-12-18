@@ -14,6 +14,7 @@ import de.bundeswehr.auf.slaythespire.model.player.structure.Player;
  * @author OF Daniel Willig
  */
 public class HemokinesisCard extends AttackCard {
+
     /**
      * Constructor Hemokinesis card.
      */
@@ -24,17 +25,10 @@ public class HemokinesisCard extends AttackCard {
 
     @Override
     public void play(GameContext gameContext) {
-        Enemy enemy = gameContext.getSelectedEnemy();
-        enemy.takeDamage(dealDamage());
-
         Player player = gameContext.getPlayer();
-        player.decreaseCurrentEnergy(getCost());
-
         player.decreaseCurrentHealth(2, true);
+
+        super.play(gameContext);
     }
 
-    @Override
-    public int dealDamage() {
-        return getDamage();
-    }
 }

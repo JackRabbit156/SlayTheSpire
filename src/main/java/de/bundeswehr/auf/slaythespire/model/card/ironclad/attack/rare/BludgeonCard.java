@@ -14,6 +14,7 @@ import de.bundeswehr.auf.slaythespire.model.player.structure.Player;
  * @author OF Daniel Willig
  */
 public class BludgeonCard extends AttackCard {
+
     /**
      * Constructor Bludgeon card.
      */
@@ -22,17 +23,4 @@ public class BludgeonCard extends AttackCard {
         setImagePath(new PathAssistent().toPath(this));
     }
 
-    @Override
-    public void play(GameContext gameContext) {
-        Enemy enemy = gameContext.getSelectedEnemy();
-        enemy.takeDamage(dealDamage());
-
-        Player player = gameContext.getPlayer();
-        player.decreaseCurrentEnergy(getCost());
-    }
-
-    @Override
-    public int dealDamage() {
-        return getDamage();
-    }
 }

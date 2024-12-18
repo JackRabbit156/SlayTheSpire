@@ -14,6 +14,7 @@ import de.bundeswehr.auf.slaythespire.model.player.structure.Player;
  * @author OF Daniel Willig
  */
 public class FeedCard extends AttackCard {
+
     /**
      * Constructor Feed card.
      */
@@ -24,19 +25,13 @@ public class FeedCard extends AttackCard {
 
     @Override
     public void play(GameContext gameContext) {
+        super.play(gameContext);
+
         Enemy enemy = gameContext.getSelectedEnemy();
-        enemy.takeDamage(dealDamage());
-
-        Player player = gameContext.getPlayer();
-        player.decreaseCurrentEnergy(getCost());
-
         if (!enemy.isAlive()) {
+            Player player = gameContext.getPlayer();
             player.increaseMaxHealth(3);
         }
     }
 
-    @Override
-    public int dealDamage() {
-        return getDamage();
-    }
 }

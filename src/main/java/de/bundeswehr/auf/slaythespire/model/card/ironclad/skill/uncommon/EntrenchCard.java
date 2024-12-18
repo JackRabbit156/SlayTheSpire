@@ -12,23 +12,22 @@ import de.bundeswehr.auf.slaythespire.model.player.structure.Player;
  *
  * @author OF Daniel Willig
  */
-public class EntrenchCard extends SkillCard{
-
+public class EntrenchCard extends SkillCard {
 
     /**
      * Constructor Entrench card.
      */
     public EntrenchCard() {
-            super("Entrench", "Double your Block.", 2, CardRarity.UNCOMMON, CardGrave.DISCARD);
-    setImagePath(new PathAssistent().toPath(this));
-        }
+        super("Entrench", "Double your Block.", 2, CardRarity.UNCOMMON, CardGrave.DISCARD);
+        setImagePath(new PathAssistent().toPath(this));
+    }
 
-        @Override
-        public void play(GameContext gameContext) {
-            Player player = gameContext.getPlayer();
+    @Override
+    public void play(GameContext gameContext) {
+        Player player = gameContext.getPlayer();
+        player.increaseBlock(player.getBlock());
 
-            player.increaseBlock(player.getBlock());
+        player.decreaseCurrentEnergy(getCost());
+    }
 
-            player.decreaseCurrentEnergy(getCost());
-        }
 }

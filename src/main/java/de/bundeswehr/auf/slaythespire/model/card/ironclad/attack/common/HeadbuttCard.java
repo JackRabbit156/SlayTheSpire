@@ -31,11 +31,6 @@ public class HeadbuttCard extends AttackCard implements CardEventListener {
     }
 
     @Override
-    public int dealDamage() {
-        return getDamage();
-    }
-
-    @Override
     public Playable isPlayable(GameContext gameContext) {
         if (gameContext.getBattleDeck().getDiscardPile().isEmpty()) {
             return new Playable("Headbutt not playable, no cards in discard pile", "There must be at least one card in the discard pile.");
@@ -51,8 +46,10 @@ public class HeadbuttCard extends AttackCard implements CardEventListener {
         Player player = gameContext.getPlayer();
         battleDeck.removeCardFromDiscardPile(card);
         battleDeck.addToDeck(card);
-        enemy.takeDamage(dealDamage());
+        enemy.takeDamage(dealDamage(gameContext));
+
         player.decreaseCurrentEnergy(getCost());
+
         super.played();
     }
 

@@ -28,7 +28,7 @@ public class BonfireSpirits extends Event {
 
     @Override
     public Button getButton1() {
-        Button button1 = new Button("\t[Take] Give Card in exchange for Health."); // C: heal 5, U: heal 100%, R: heal 100% +10 max HP
+        Button button1 = new Button("\t[Take] Give Card in exchange for Health."); // B: nothing, C: heal 5, U: heal 100%, R: heal 100% +10 maxHP
         button1.setOnAction(event -> {
             button1.setVisible(false);
             TilePane box = new TilePane();
@@ -42,7 +42,7 @@ public class BonfireSpirits extends Event {
                 imageView.setFitHeight(250);
                 imageView.setFitWidth(200);
                 imageView.setOnMouseClicked(e -> {
-                    switch (card.getCardRarity()) {
+                    switch (card.getRarity()) {
                         case COMMON:
                             getPlayer().increaseCurrentHealth(5);
                             break;

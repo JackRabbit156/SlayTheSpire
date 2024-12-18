@@ -4,7 +4,6 @@ import de.bundeswehr.auf.slaythespire.helper.Color;
 import de.bundeswehr.auf.slaythespire.helper.LoggingAssistant;
 import de.bundeswehr.auf.slaythespire.model.Model;
 import de.bundeswehr.auf.slaythespire.model.card.structure.Card;
-import de.bundeswehr.auf.slaythespire.model.card.structure.CardType;
 import de.bundeswehr.auf.slaythespire.model.player.structure.Player;
 import de.bundeswehr.auf.slaythespire.model.potion.structure.Potion;
 import de.bundeswehr.auf.slaythespire.model.relic.structure.Relic;
@@ -26,7 +25,6 @@ public class DeckFactory {
     private static final Random rnd = new Random();
 
     private final int amount;
-    private CardType cardType = CardType.CURSE; //Platzhalter, damit irgendwas gesetzt ist, liegt an der AttackPotion!
     private final List<Card> genDeck;
     private final Player player;
 
@@ -73,7 +71,6 @@ public class DeckFactory {
 
     /**
      * Konstruktor für die DeckFactory, der ein Deck mit einer bestimmten Anzahl an Karten für den gegebenen Spieler erstellt.
-     * Der Kartentyp wird auf den Standardwert "CURSE" gesetzt.
      *
      * @param player Der Spieler, dessen Deck erstellt werden soll.
      * @param amount Die Anzahl der Karten, die im Deck enthalten sein sollen.
@@ -89,13 +86,11 @@ public class DeckFactory {
      *
      * @param player   Der Spieler, dessen Deck erstellt werden soll.
      * @param amount   Die Anzahl der Karten, die im Deck enthalten sein sollen.
-     * @param cardType Der Kartentyp, der für das Deck verwendet wird (z.B. Angriff, Verteidigung, etc.).
+     * @param cls      Der Kartentyp, der für das Deck verwendet wird (z.B. Angriff, Verteidigung, etc.).
      */
-    public DeckFactory(Player player, int amount, CardType cardType) {
-        this.player = player;
-        this.amount = amount;
-        this.cardType = cardType;
-        this.genDeck = new ArrayList<>();
+    public DeckFactory(Player player, int amount, Class<? extends Card> cls) {
+        this(player, amount);
+        // TODO implement type based generation
     }
 
     /**

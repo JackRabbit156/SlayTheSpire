@@ -1,6 +1,8 @@
 package de.bundeswehr.auf.slaythespire.model.card.structure;
 
+import de.bundeswehr.auf.slaythespire.model.battle.BattleDeck;
 import de.bundeswehr.auf.slaythespire.model.battle.GameContext;
+import de.bundeswehr.auf.slaythespire.model.player.structure.Player;
 
 /**
  * Die Power card.
@@ -8,10 +10,11 @@ import de.bundeswehr.auf.slaythespire.model.battle.GameContext;
  * @author OF Daniel Willig
  */
 public abstract class PowerCard extends Card {
+
     /**
      * Wann die Power getriggert wird.
      */
-    CardTrigger cardTrigger;
+    private final CardTrigger cardTrigger;
 
     /**
      * Constructor PowerCard.
@@ -24,19 +27,9 @@ public abstract class PowerCard extends Card {
      * @param cardTrigger was der Karten-Trigger ist
      */
     public PowerCard(String name, String description, int cost, CardRarity rarity, CardGrave cardGrave, CardTrigger cardTrigger) {
-        super(name, description, cost, rarity, cardGrave, CardType.POWER);
+        super(name, description, cost, rarity, cardGrave);
         this.cardTrigger = cardTrigger;
     }
-
-    @Override
-    public abstract void play(GameContext gameContext);
-
-    /**
-     * Was passiert wenn die Karte getriggert wird
-     *
-     * @param gameContext der gameContext
-     */
-    public abstract void ability(GameContext gameContext);
 
     /**
      * getter CardTrigger
@@ -46,4 +39,22 @@ public abstract class PowerCard extends Card {
     public CardTrigger getCardTrigger() {
         return cardTrigger;
     }
+
+    /**
+     * Was passiert wenn die Karte getriggert wird
+     *
+     * @param gameContext der gameContext
+     */
+    public abstract void onTrigger(GameContext gameContext);
+
+    @Override
+    public void play(GameContext gameContext) {
+        Player player = gameContext.getPlayer();
+        BattleDeck battleDeck = gameContext.getBattleDeck();
+
+        battleDeck.addPowerCards(this);
+
+        player.decreaseCurrentEnergy(getCost());
+    }
+
 }

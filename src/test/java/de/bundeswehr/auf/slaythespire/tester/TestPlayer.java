@@ -39,20 +39,6 @@ public class TestPlayer extends Player {
             setImagePath("/images/card/BossCard.jpg");
         }
 
-        @Override
-        public int dealDamage() {
-            return getDamage();
-        }
-
-        @Override
-        public void play(GameContext gameContext) {
-            Enemy enemy = gameContext.getSelectedEnemy();
-            enemy.takeDamage(dealDamage());
-
-            Player player = gameContext.getPlayer();
-            player.decreaseCurrentEnergy(getCost());
-        }
-
     }
 
     public TestPlayer(Stage primaryStage) {

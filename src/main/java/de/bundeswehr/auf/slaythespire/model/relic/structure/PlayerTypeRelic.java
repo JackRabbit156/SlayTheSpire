@@ -3,7 +3,7 @@ package de.bundeswehr.auf.slaythespire.model.relic.structure;
 import de.bundeswehr.auf.slaythespire.model.player.structure.PlayerType;
 
 /**
- * Es gibt verschiedene Typen von Relikten (z.B. anhand Act und Player-Char), hier werden diese definiert.
+ * Relikte, die nur von einem Player-Char verwendet werden dürfen.
  *
  * @author OF Daniel Willig
  */
@@ -14,7 +14,6 @@ public abstract class PlayerTypeRelic extends Relic {
      */
     private PlayerType playerType;
 
-
     /**
      * Constructor Player type relic.
      *
@@ -23,11 +22,10 @@ public abstract class PlayerTypeRelic extends Relic {
      * @param rarity      Die Seltenheit
      * @param playerType  der SpielerTyp
      */
-    protected PlayerTypeRelic(String name, String description, RelicType rarity, PlayerType playerType, RelicTrigger relicTrigger) {
+    protected PlayerTypeRelic(String name, String description, RelicRarity rarity, PlayerType playerType, RelicTrigger relicTrigger) {
         super(name, description, rarity, relicTrigger);
         this.playerType = playerType;
     }
-
 
     /**
      * getter player type.

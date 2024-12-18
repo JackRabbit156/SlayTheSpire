@@ -11,11 +11,15 @@ import de.bundeswehr.auf.slaythespire.gui.layouts.battle.RightSideLayout;
 import de.bundeswehr.auf.slaythespire.gui.layouts.top_bar.TopBarLayout;
 import de.bundeswehr.auf.slaythespire.helper.GuiHelper;
 import de.bundeswehr.auf.slaythespire.model.battle.BattleDeck;
+import de.bundeswehr.auf.slaythespire.model.card.structure.AttackCard;
 import de.bundeswehr.auf.slaythespire.model.card.structure.Card;
-import de.bundeswehr.auf.slaythespire.model.card.structure.CardType;
+import de.bundeswehr.auf.slaythespire.model.card.structure.PowerCard;
+import de.bundeswehr.auf.slaythespire.model.card.structure.SkillCard;
 import de.bundeswehr.auf.slaythespire.model.enemy.Enemy;
 import de.bundeswehr.auf.slaythespire.model.player.structure.Player;
+import de.bundeswehr.auf.slaythespire.model.potion.structure.AttackPotion;
 import de.bundeswehr.auf.slaythespire.model.potion.structure.Potion;
+import de.bundeswehr.auf.slaythespire.model.potion.structure.SkillPotion;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.geometry.Bounds;
 import javafx.geometry.Insets;
@@ -112,21 +116,19 @@ public class BattleView extends BorderPane implements View, WithTopBar, BattleDe
             mode.set(Mode.NORMAL);
             enableBattleView();
         }
-        if (card.getCardType() == CardType.ATTACK) {
+        if (card instanceof AttackCard) {
             mode.set(Mode.ATTACK);
             selectEnemyViewForCard();
         }
-        else if (card.getCardType() == CardType.SKILL) {
+        else if (card instanceof SkillCard) {
             mode.set(Mode.SKILL);
             selectPlayerViewForCard();
         }
-        else if (card.getCardType() == CardType.POWER) {
+        else if (card instanceof PowerCard) {
             mode.set(Mode.POWER);
             selectPlayerViewForCard();
         }
         battleViewEvents.onCardClick(card, index);
-        // TODO ist das für irgendetwas nötig?
-//        updateInformation();
     }
 
     public void clickedOnEndTurn() {
@@ -158,17 +160,15 @@ public class BattleView extends BorderPane implements View, WithTopBar, BattleDe
             mode.set(Mode.NORMAL);
             enableBattleView();
         }
-        if (potion.getCardType() == CardType.ATTACK) {
+        if (potion instanceof AttackPotion) {
             mode.set(Mode.ATTACK);
             selectEnemyViewForPotion();
         }
-        else if (potion.getCardType() == CardType.SKILL) {
+        else if (potion instanceof SkillPotion) {
             mode.set(Mode.SKILL);
             selectPlayerViewForPotion();
         }
         battleViewEvents.onCardClick(potion, index);
-        // TODO notwendig?
-//        updateInformation();
     }
 
     public void disableBattleView() {

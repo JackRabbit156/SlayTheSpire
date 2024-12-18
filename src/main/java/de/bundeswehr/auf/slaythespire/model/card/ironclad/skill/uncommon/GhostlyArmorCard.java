@@ -12,23 +12,23 @@ import de.bundeswehr.auf.slaythespire.model.player.structure.Player;
  *
  * @author OF Daniel Willig
  */
-public class GhostlyArmorCard extends SkillCard{
-
+public class GhostlyArmorCard extends SkillCard {
 
     /**
      * Constructor Ghostly armor card.
      */
     public GhostlyArmorCard() {
-            super("Ghostly Armor", "Exhaust. Gain 10 Block.", 1, CardRarity.UNCOMMON, CardGrave.EXHAUST);
+        super("Ghostly Armor", "Exhaust. Gain 10 Block.", 1, CardRarity.UNCOMMON, CardGrave.EXHAUST);
         setImagePath(new PathAssistent().toPath(this));
-        }
+    }
 
-        @Override
-        public void play(GameContext gameContext) {
-            Player player = gameContext.getPlayer();
+    @Override
+    public void play(GameContext gameContext) {
+        Player player = gameContext.getPlayer();
 
-            player.increaseBlock(10);
+        player.increaseBlock(10);
 
-            player.decreaseCurrentEnergy(getCost());
-        }
+        player.decreaseCurrentEnergy(getCost());
+    }
+
 }

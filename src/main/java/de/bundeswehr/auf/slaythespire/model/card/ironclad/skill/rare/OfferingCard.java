@@ -13,26 +13,26 @@ import de.bundeswehr.auf.slaythespire.model.player.structure.Player;
  *
  * @author OF Daniel Willig
  */
-public class OfferingCard extends SkillCard{
-
+public class OfferingCard extends SkillCard {
 
     /**
      * Constructor Offering card.
      */
     public OfferingCard() {
-            super("Offering", "Lose 6 HP. Gain 2 Energy. Draw 3 cards. Exhaust.", 0, CardRarity.RARE, CardGrave.EXHAUST);
+        super("Offering", "Lose 6 HP. Gain 2 Energy. Draw 3 cards. Exhaust.", 0, CardRarity.RARE, CardGrave.EXHAUST);
         setImagePath(new PathAssistent().toPath(this));
-        }
+    }
 
-        @Override
-        public void play(GameContext gameContext) {
-            Player player = gameContext.getPlayer();
-            BattleDeck battleDeck = gameContext.getBattleDeck();
+    @Override
+    public void play(GameContext gameContext) {
+        Player player = gameContext.getPlayer();
+        BattleDeck battleDeck = gameContext.getBattleDeck();
 
-            player.decreaseCurrentHealth(6, true);
-            player.increaseCurrentEnergy(2);
-            battleDeck.drawCard(3);
+        player.decreaseCurrentHealth(6, true);
+        player.increaseCurrentEnergy(2);
+        battleDeck.drawCard(3);
 
-            player.decreaseCurrentEnergy(getCost());
-        }
+        player.decreaseCurrentEnergy(getCost());
+    }
+
 }

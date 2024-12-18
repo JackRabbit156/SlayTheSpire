@@ -11,22 +11,8 @@ import de.bundeswehr.auf.slaythespire.model.player.structure.Player;
 public class IroncladStrikeCard extends AttackCard {
 
     public IroncladStrikeCard() {
-        super("Strike", "Deal 6 damage.", 1, 6, CardRarity.COMMON, CardGrave.DISCARD);
+        super("Strike", "Deal 6 damage.", 1, 6, CardRarity.BASIC, CardGrave.DISCARD);
         setImagePath(new PathAssistent().toPath(this));
-    }
-
-    @Override
-    public void play(GameContext gameContext) {
-        Enemy enemy = gameContext.getSelectedEnemy();
-        enemy.takeDamage(dealDamage());
-
-        Player player = gameContext.getPlayer();
-        player.decreaseCurrentEnergy(getCost());
-    }
-
-    @Override
-    public int dealDamage() {
-        return getDamage();
     }
 
 }

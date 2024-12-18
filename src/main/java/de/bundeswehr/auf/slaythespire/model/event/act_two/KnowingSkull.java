@@ -49,7 +49,7 @@ public class KnowingSkull extends Event {
             Card selectedCard;
             getPlayer().setCurrentHealth((getPlayer().getMaxHealth() / 10));
             for (Card card : df.init()) {
-                if (card.getCardRarity() == CardRarity.UNCOMMON) {
+                if (card.getRarity() == CardRarity.UNCOMMON) {
                     selectedCard = card;
                     getPlayer().addCardToDeck(selectedCard);
                 }

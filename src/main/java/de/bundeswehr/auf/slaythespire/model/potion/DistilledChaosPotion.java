@@ -10,9 +10,8 @@ import de.bundeswehr.auf.slaythespire.model.battle.Playable;
 import de.bundeswehr.auf.slaythespire.model.card.structure.Card;
 import de.bundeswehr.auf.slaythespire.model.card.structure.CardGrave;
 import de.bundeswehr.auf.slaythespire.model.card.structure.CardRarity;
-import de.bundeswehr.auf.slaythespire.model.card.structure.CardType;
 import de.bundeswehr.auf.slaythespire.model.enemy.Enemy;
-import de.bundeswehr.auf.slaythespire.model.potion.structure.Potion;
+import de.bundeswehr.auf.slaythespire.model.potion.structure.SkillPotion;
 
 import java.util.ArrayDeque;
 import java.util.Queue;
@@ -22,7 +21,7 @@ import java.util.Queue;
  *
  * @author OF Daniel Willig
  */
-public class DistilledChaosPotion extends Potion implements CardDeathListener {
+public class DistilledChaosPotion extends SkillPotion implements CardDeathListener {
 
     private final Queue<Card> cards = new ArrayDeque<>();
     private GameContext gameContext;
@@ -31,7 +30,7 @@ public class DistilledChaosPotion extends Potion implements CardDeathListener {
      * Constructor Distilled chaos potion.
      */
     public DistilledChaosPotion() {
-        super("Distilled Chaos", "Play the top 3 cards of your draw pile.", CardRarity.UNCOMMON, CardType.SKILL);
+        super("Distilled Chaos", "Play the top 3 cards of your draw pile.", CardRarity.UNCOMMON);
         setImagePath(new PathAssistent().toPath(this));
     }
 

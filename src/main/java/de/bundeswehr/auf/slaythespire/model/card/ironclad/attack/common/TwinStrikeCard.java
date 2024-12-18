@@ -14,6 +14,7 @@ import de.bundeswehr.auf.slaythespire.model.player.structure.Player;
  * @author OF Daniel Willig
  */
 public class TwinStrikeCard extends AttackCard {
+
     /**
      * Constructor Twin strike card.
      */
@@ -26,15 +27,11 @@ public class TwinStrikeCard extends AttackCard {
     public void play(GameContext gameContext) {
         Enemy enemy = gameContext.getSelectedEnemy();
         for (int i = 0; i < 2; i++) {
-            enemy.takeDamage(dealDamage());
+            enemy.takeDamage(dealDamage(gameContext));
         }
 
         Player player = gameContext.getPlayer();
         player.decreaseCurrentEnergy(getCost());
     }
 
-    @Override
-    public int dealDamage() {
-        return getDamage();
-    }
 }

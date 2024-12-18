@@ -3,7 +3,6 @@ package de.bundeswehr.auf.slaythespire.model.potion.structure;
 import de.bundeswehr.auf.slaythespire.model.card.structure.Card;
 import de.bundeswehr.auf.slaythespire.model.card.structure.CardGrave;
 import de.bundeswehr.auf.slaythespire.model.card.structure.CardRarity;
-import de.bundeswehr.auf.slaythespire.model.card.structure.CardType;
 import de.bundeswehr.auf.slaythespire.model.battle.GameContext;
 
 /**
@@ -13,26 +12,19 @@ import de.bundeswehr.auf.slaythespire.model.battle.GameContext;
  * @author OF Daniel Willig
  */
 public abstract class Potion extends Card {
+
     /**
      * Constructor Potion card.
      *
      * @param name        der name
      * @param description die description
      * @param rarity      die rarity
-     * @param cardType    der card type
      */
-    public Potion(String name, String description, CardRarity rarity, CardType cardType) {
-        super(name, description, 0, rarity, CardGrave.POTION, cardType);
+    public Potion(String name, String description, CardRarity rarity) {
+        super(name, description, 0, rarity, CardGrave.POTION);
     }
-
 
     @Override
     public abstract void play(GameContext gameContext);
 
-
-
-    @Override
-    public String toString() {
-        return "";
-    }
 }

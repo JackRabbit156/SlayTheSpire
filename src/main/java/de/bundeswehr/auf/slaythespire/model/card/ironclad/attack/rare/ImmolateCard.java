@@ -16,6 +16,7 @@ import java.util.List;
  * @author OF Daniel Willig
  */
 public class ImmolateCard extends AttackCard {
+
     /**
      * Constructor Immolate card.
      */
@@ -28,15 +29,11 @@ public class ImmolateCard extends AttackCard {
     public void play(GameContext gameContext) {
         List<Enemy> allEnemies = gameContext.getEnemies();
         for (Enemy allEnemy : allEnemies) {
-            allEnemy.takeDamage(dealDamage());
+            allEnemy.takeDamage(dealDamage(gameContext));
         }
 
         Player player = gameContext.getPlayer();
         player.decreaseCurrentEnergy(getCost());
     }
 
-    @Override
-    public int dealDamage() {
-        return getDamage();
-    }
 }

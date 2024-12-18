@@ -15,6 +15,7 @@ import de.bundeswehr.auf.slaythespire.model.player.structure.Player;
  * @author OF Daniel Willig
  */
 public class PommelStrikeCard extends AttackCard {
+
     /**
      * Constructor Pommel strike card.
      */
@@ -25,18 +26,10 @@ public class PommelStrikeCard extends AttackCard {
 
     @Override
     public void play(GameContext gameContext) {
-        Enemy enemy = gameContext.getSelectedEnemy();
-        enemy.takeDamage(dealDamage());
-
         BattleDeck battleDeck = gameContext.getBattleDeck();
         battleDeck.drawCard(1);
 
-        Player player = gameContext.getPlayer();
-        player.decreaseCurrentEnergy(getCost());
+        super.play(gameContext);
     }
 
-    @Override
-    public int dealDamage() {
-        return getDamage();
-    }
 }

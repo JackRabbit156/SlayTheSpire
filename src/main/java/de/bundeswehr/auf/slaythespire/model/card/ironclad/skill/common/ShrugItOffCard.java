@@ -15,7 +15,6 @@ import de.bundeswehr.auf.slaythespire.model.player.structure.Player;
  */
 public class ShrugItOffCard extends SkillCard{
 
-
     /**
      * Constructor Shrug it off card.
      */
@@ -27,11 +26,12 @@ public class ShrugItOffCard extends SkillCard{
         @Override
         public void play(GameContext gameContext) {
             Player player = gameContext.getPlayer();
-            BattleDeck battleDeck = gameContext.getBattleDeck();
-
             player.increaseBlock(8);
+
+            BattleDeck battleDeck = gameContext.getBattleDeck();
             battleDeck.drawCard(1);
 
             player.decreaseCurrentEnergy(getCost());
         }
+
 }

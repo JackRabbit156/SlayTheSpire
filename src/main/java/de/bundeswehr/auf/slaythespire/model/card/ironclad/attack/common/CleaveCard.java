@@ -15,6 +15,7 @@ import java.util.List;
  * @author OF Daniel Willig
  */
 public class CleaveCard extends AttackCard {
+
     /**
      * Constructor CleaveCard.
      */
@@ -27,15 +28,11 @@ public class CleaveCard extends AttackCard {
     public void play(GameContext gameContext) {
         List<Enemy> allEnemies = gameContext.getEnemies();
         for (Enemy singleEnemy : allEnemies) {
-            singleEnemy.takeDamage(dealDamage());
+            singleEnemy.takeDamage(dealDamage(gameContext));
         }
 
         Player player = gameContext.getPlayer();
         player.decreaseCurrentEnergy(getCost());
     }
 
-    @Override
-    public int dealDamage() {
-        return getDamage();
-    }
 }

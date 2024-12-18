@@ -3,11 +3,11 @@ package de.bundeswehr.auf.slaythespire.tester;
 import de.bundeswehr.auf.slaythespire.helper.Color;
 import de.bundeswehr.auf.slaythespire.helper.LoggingAssistant;
 import de.bundeswehr.auf.slaythespire.helper.GuiHelper;
+import de.bundeswehr.auf.slaythespire.model.potion.structure.AttackPotion;
 import javafx.application.Application;
 import javafx.stage.Stage;
 import de.bundeswehr.auf.slaythespire.model.battle.GameContext;
 import de.bundeswehr.auf.slaythespire.model.card.structure.CardRarity;
-import de.bundeswehr.auf.slaythespire.model.card.structure.CardType;
 import de.bundeswehr.auf.slaythespire.model.enemy.Enemy;
 import de.bundeswehr.auf.slaythespire.model.enemy.EnemyEnum;
 import de.bundeswehr.auf.slaythespire.model.enemy.act_one.AcidSlimeEnemy;
@@ -37,17 +37,17 @@ import java.util.Random;
  */
 public class BattleTester extends Application {
 
-    private static class CheaterPotion extends Potion {
+    private static class CheaterPotion extends AttackPotion {
 
         public CheaterPotion() {
-            super("Cheater Potion", "Deals 200 damage.", CardRarity.SPECIAL, CardType.ATTACK);
+            super("Cheater Potion", "Deals 200 damage.",200, CardRarity.SPECIAL);
             setImagePath("/images/icon.png");
         }
 
         @Override
         public void play(GameContext gameContext) {
             Enemy enemy = gameContext.getSelectedEnemy();
-            enemy.takeDamage(200);
+            enemy.takeDamage(getDamage());
         }
 
     }

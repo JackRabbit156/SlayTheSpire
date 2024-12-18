@@ -18,22 +18,8 @@ public class SilentStrikeCard extends AttackCard {
      * Constructor Silent strike card.
      */
     public SilentStrikeCard() {
-        super("Strike", "Deal 6 damage.", 1, 6, CardRarity.COMMON, CardGrave.DISCARD);
-
+        super("Strike", "Deal 6 damage.", 1, 6, CardRarity.BASIC, CardGrave.DISCARD);
         setImagePath(new PathAssistent().toPath(this));
     }
 
-    @Override
-    public void play(GameContext gameContext) {
-        Enemy enemy = gameContext.getSelectedEnemy();
-        enemy.takeDamage(dealDamage());
-
-        Player player = gameContext.getPlayer();
-        player.decreaseCurrentEnergy(getCost());
-    }
-
-    @Override
-    public int dealDamage() {
-        return getDamage();
-    }
 }

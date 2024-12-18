@@ -17,6 +17,7 @@ import java.util.List;
  * @author OF Daniel Willig
  */
 public class AngerCard extends AttackCard {
+
     /**
      * Constructor AngerCard
      */
@@ -27,20 +28,11 @@ public class AngerCard extends AttackCard {
 
     @Override
     public void play(GameContext gameContext) {
-        Enemy enemy = gameContext.getSelectedEnemy();
-        enemy.takeDamage(dealDamage());
-
         BattleDeck battleDeck = gameContext.getBattleDeck();
         List<Card> discardPile = battleDeck.getDiscardPile();
-
         discardPile.add(new AngerCard());
 
-        Player player = gameContext.getPlayer();
-        player.decreaseCurrentEnergy(getCost());
+        super.play(gameContext);
     }
 
-    @Override
-    public int dealDamage() {
-        return getDamage();
-    }
 }

@@ -1,24 +1,23 @@
 package de.bundeswehr.auf.slaythespire.model.potion;
 
-import de.bundeswehr.auf.slaythespire.model.battle.GameContext;
 import de.bundeswehr.auf.slaythespire.helper.PathAssistent;
+import de.bundeswehr.auf.slaythespire.model.battle.GameContext;
 import de.bundeswehr.auf.slaythespire.model.card.structure.CardRarity;
-import de.bundeswehr.auf.slaythespire.model.card.structure.CardType;
 import de.bundeswehr.auf.slaythespire.model.player.structure.Player;
-import de.bundeswehr.auf.slaythespire.model.potion.structure.Potion;
+import de.bundeswehr.auf.slaythespire.model.potion.structure.SkillPotion;
 
 /**
  * Die Block potion.
  *
  * @author OF Daniel Willig
  */
-public class BlockPotion extends Potion {
+public class BlockPotion extends SkillPotion {
 
     /**
      * Constructor Block potion.
      */
     public BlockPotion() {
-        super("Block Potion", "Gain 12 Block.", CardRarity.COMMON, CardType.SKILL);
+        super("Block Potion", "Gain 12 Block.", CardRarity.COMMON);
         setImagePath(new PathAssistent().toPath(this));
     }
 
@@ -27,4 +26,5 @@ public class BlockPotion extends Potion {
         Player player = gameContext.getPlayer();
         player.increaseBlock(12);
     }
+
 }

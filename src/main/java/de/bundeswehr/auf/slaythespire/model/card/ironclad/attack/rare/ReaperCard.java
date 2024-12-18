@@ -16,6 +16,7 @@ import java.util.List;
  * @author OF Daniel Willig
  */
 public class ReaperCard extends AttackCard {
+
     /**
      * Constructor Reaper card.
      */
@@ -30,20 +31,15 @@ public class ReaperCard extends AttackCard {
         int bonusHp = 0;
         for (Enemy enemy : allEnemies) {
             int enemyHealthOld = enemy.getHealth();
-            enemy.takeDamage(dealDamage());
+            enemy.takeDamage(dealDamage(gameContext));
             if (enemy.getHealth() < enemyHealthOld) {
                 bonusHp += (enemyHealthOld - enemy.getHealth());
             }
         }
-
         Player player = gameContext.getPlayer();
-        player.decreaseCurrentEnergy(getCost());
-
         player.increaseCurrentHealth(bonusHp);
+
+        player.decreaseCurrentEnergy(getCost());
     }
 
-    @Override
-    public int dealDamage() {
-        return getDamage();
-    }
 }

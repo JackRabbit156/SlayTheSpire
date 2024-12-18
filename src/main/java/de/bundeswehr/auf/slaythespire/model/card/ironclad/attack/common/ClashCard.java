@@ -25,25 +25,14 @@ public class ClashCard extends AttackCard {
     }
 
     @Override
-    public int dealDamage() {
-        return getDamage();
-    }
-
-    @Override
     public Playable isPlayable(GameContext gameContext) {
         List<Card> hand = gameContext.getBattleDeck().getHand();
         for (Card card : hand) {
-            if (!CardType.ATTACK.equals(card.getCardType())) {
+            if (!(card instanceof AttackCard)) {
                 return new Playable("Clash not playable due to " + card.getName(), "Can only be played, if every card in your hand is an Attack.");
             }
         }
         return super.isPlayable(gameContext);
-    }
-
-    @Override
-    public void play(GameContext gameContext) {
-        Enemy enemy = gameContext.getSelectedEnemy();
-        enemy.takeDamage(dealDamage());
     }
 
 }

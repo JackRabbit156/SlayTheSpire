@@ -286,14 +286,14 @@ public class BattleController implements Controller, BattleViewEvents, PlayerEve
         List<PowerCard> powerCards = battleDeck.getCurrentPowerCards();
         for (PowerCard powerCard : powerCards) {
             if (powerCard.getCardTrigger().equals(trigger)) {
-                powerCard.ability(gameContext);
+                powerCard.onTrigger(gameContext);
             }
         }
     }
 
     private void triggerRelics(RelicTrigger trigger) {
         Relic relic = player.getRelic();
-        if (relic.getRelicTrigger().equals(trigger)) {
+        if (relic.getTrigger().equals(trigger)) {
             relic.getsUsed(gameContext);
         }
     }

@@ -15,22 +15,20 @@ public abstract class Card {
 
     private CardDeathListener cardDeathListener;
     private final CardGrave cardGrave;
-    private final CardRarity cardRarity;
-    private final CardType cardType;
+    private final CardRarity rarity;
     private final int cost;
     private final String description;
     private String imagePath;
     private final String name;
     private final int price;
 
-    public Card(String name, String description, int cost, CardRarity cardRarity, CardGrave cardGrave, CardType cardType) {
+    public Card(String name, String description, int cost, CardRarity rarity, CardGrave cardGrave) {
         this.name = name;
         this.description = description;
         this.cost = cost;
-        this.cardRarity = cardRarity;
+        this.rarity = rarity;
         this.cardGrave = cardGrave;
-        this.price = generatePrice();
-        this.cardType = cardType;
+        price = generatePrice();
     }
 
     public void cancel() {
@@ -41,12 +39,8 @@ public abstract class Card {
         return cardGrave;
     }
 
-    public CardRarity getCardRarity() {
-        return cardRarity;
-    }
-
-    public CardType getCardType() {
-        return cardType;
+    public CardRarity getRarity() {
+        return rarity;
     }
 
     public int getCost() {
@@ -94,7 +88,7 @@ public abstract class Card {
     }
 
     public void register(CardDeathListener listener) {
-        this.cardDeathListener = listener;
+        cardDeathListener = listener;
     }
 
     @Override
@@ -109,7 +103,7 @@ public abstract class Card {
     private int generatePrice() {
         // Existieren nur 3 Typen
         // https://slay-the-spire.fandom.com/wiki/Merchant
-        switch (this.cardRarity) {
+        switch (rarity) {
             case COMMON: {
                 return rnd.nextInt(55 + 1 - 45) + 45;
             }

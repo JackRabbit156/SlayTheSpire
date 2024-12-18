@@ -8,29 +8,26 @@ package de.bundeswehr.auf.slaythespire.model.card.structure;
  * @author F Alex Warawa
  */
 public enum CardRarity {
-    /**
-     * gewöhnliche Karte.
-     */
-    COMMON,
-    /**
-     * ungewöhnliche Karte.
-     */
-    UNCOMMON,
-    /**
-     * seltene Karte.
-     */
-    RARE,
+
     /**
      * die Startkarten
      */
     BASIC,
     /**
+     * Gewöhnliche Karte.
+     */
+    COMMON,
+    /**
+     * Ungewöhnliche Karte.
+     */
+    UNCOMMON,
+    /**
+     * Seltene Karte.
+     */
+    RARE,
+    /**
      * Spezielle Karte
      */
-    SPECIAL,
-    /**
-     * Potions
-     */
-    POTION,
-    ENEMY
+    SPECIAL
+
 }

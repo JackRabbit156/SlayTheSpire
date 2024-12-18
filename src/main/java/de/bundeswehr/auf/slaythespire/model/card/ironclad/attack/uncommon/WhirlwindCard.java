@@ -16,11 +16,12 @@ import java.util.List;
  * @author OF Daniel Willig
  */
 public class WhirlwindCard extends AttackCard {
+
     /**
      * Constructor Whirlwind card.
      */
     public WhirlwindCard() {
-        super("Whirlwind", "Deal 8 damage to ALL enemies X times.", 1, 5, CardRarity.UNCOMMON, CardGrave.DISCARD);
+        super("Whirlwind", "Deal 5 damage to ALL enemies X times.", 1, 5, CardRarity.UNCOMMON, CardGrave.DISCARD);
         setImagePath(new PathAssistent().toPath(this));
     }
 
@@ -28,18 +29,13 @@ public class WhirlwindCard extends AttackCard {
     public void play(GameContext gameContext) {
         List<Enemy> enemies = gameContext.getEnemies();
         Player player = gameContext.getPlayer();
-
         for (int i = 0; i < player.getCurrentEnergy(); i++) {
             for (Enemy enemy : enemies) {
-                enemy.takeDamage(dealDamage());
+                enemy.takeDamage(dealDamage(gameContext));
             }
         }
 
         player.decreaseCurrentEnergy(player.getCurrentEnergy());
     }
 
-    @Override
-    public int dealDamage() {
-        return getDamage();
-    }
 }

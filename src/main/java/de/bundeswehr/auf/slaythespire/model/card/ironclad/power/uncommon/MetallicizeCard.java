@@ -15,6 +15,7 @@ import de.bundeswehr.auf.slaythespire.model.player.structure.Player;
  * @author OF Daniel Willig
  */
 public class MetallicizeCard extends PowerCard {
+
     /**
      * Constructor Metallicize card.
      */
@@ -23,21 +24,11 @@ public class MetallicizeCard extends PowerCard {
         setImagePath(new PathAssistent().toPath(this));
     }
 
-
     @Override
-    public void play(GameContext gameContext) {
-        Player player = gameContext.getPlayer();
-        BattleDeck battleDeck = gameContext.getBattleDeck();
-
-        battleDeck.addPowerCards(new MetallicizeCard());
-
-        player.decreaseCurrentEnergy(getCost());
-    }
-
-    @Override
-    public void ability(GameContext gameContext) {
+    public void onTrigger(GameContext gameContext) {
         Player player = gameContext.getPlayer();
 
         player.increaseBlock(3);
     }
+
 }

@@ -13,6 +13,7 @@ import de.bundeswehr.auf.slaythespire.model.player.structure.Player;
  * @author OF Daniel Willig
  */
 public class BashCard extends AttackCard {
+
     /**
      * Constructor BashCard
      */
@@ -23,15 +24,9 @@ public class BashCard extends AttackCard {
 
     @Override
     public void play(GameContext gameContext) {
-        Enemy enemy = gameContext.getSelectedEnemy();
-        enemy.takeDamage(dealDamage());
+        // TODO apply 2 Vulnerable
 
-        Player player = gameContext.getPlayer();
-        player.decreaseCurrentEnergy(getCost());
+        super.play(gameContext);
     }
 
-    @Override
-    public int dealDamage() {
-        return getDamage();
-    }
 }

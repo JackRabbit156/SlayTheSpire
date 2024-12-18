@@ -15,6 +15,7 @@ import de.bundeswehr.auf.slaythespire.model.player.structure.Player;
  * @author OF Daniel Willig
  */
 public class BerserkCard extends PowerCard {
+
     /**
      * Constructor Berserk card.
      */
@@ -23,20 +24,11 @@ public class BerserkCard extends PowerCard {
         setImagePath(new PathAssistent().toPath(this));
     }
 
-
     @Override
-    public void play(GameContext gameContext) {
-        Player player = gameContext.getPlayer();
-        BattleDeck battleDeck = gameContext.getBattleDeck();
-        battleDeck.addPowerCards(new BerserkCard());
-
-        player.decreaseCurrentEnergy(getCost());
-    }
-
-    @Override
-    public void ability(GameContext gameContext) {
+    public void onTrigger(GameContext gameContext) {
         Player player = gameContext.getPlayer();
 
         player.increaseCurrentEnergy(1);
     }
+
 }

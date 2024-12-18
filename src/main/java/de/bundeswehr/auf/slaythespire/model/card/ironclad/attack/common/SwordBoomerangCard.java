@@ -17,6 +17,7 @@ import java.util.Random;
  * @author OF Daniel Willig
  */
 public class SwordBoomerangCard extends AttackCard {
+
     /**
      * Constructor Sword boomerang card.
      */
@@ -33,15 +34,11 @@ public class SwordBoomerangCard extends AttackCard {
 
         Enemy enemy = gameContext.getEnemies().get(targetIndex);
         for (int i = 0; i < 3; i++) {
-            enemy.takeDamage(dealDamage());
+            enemy.takeDamage(dealDamage(gameContext));
         }
 
         Player player = gameContext.getPlayer();
         player.decreaseCurrentEnergy(getCost());
     }
 
-    @Override
-    public int dealDamage() {
-        return getDamage();
-    }
 }

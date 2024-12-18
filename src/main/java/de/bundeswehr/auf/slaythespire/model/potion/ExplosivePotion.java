@@ -1,11 +1,10 @@
 package de.bundeswehr.auf.slaythespire.model.potion;
 
 import de.bundeswehr.auf.slaythespire.helper.PathAssistent;
-import de.bundeswehr.auf.slaythespire.model.card.structure.CardRarity;
 import de.bundeswehr.auf.slaythespire.model.battle.GameContext;
-import de.bundeswehr.auf.slaythespire.model.card.structure.CardType;
+import de.bundeswehr.auf.slaythespire.model.card.structure.CardRarity;
 import de.bundeswehr.auf.slaythespire.model.enemy.Enemy;
-import de.bundeswehr.auf.slaythespire.model.potion.structure.Potion;
+import de.bundeswehr.auf.slaythespire.model.potion.structure.AttackPotion;
 
 import java.util.List;
 
@@ -14,13 +13,13 @@ import java.util.List;
  *
  * @author OF Daniel Willig
  */
-public class ExplosivePotion extends Potion {
+public class ExplosivePotion extends AttackPotion {
 
     /**
      * Constructor Explosive potion.
      */
     public ExplosivePotion() {
-        super("Explosive Potion", "Deal 10 Damage to all enemies.",  CardRarity.COMMON,  CardType.ATTACK);
+        super("Explosive Potion", "Deal 10 Damage to all enemies.", 10, CardRarity.COMMON);
         setImagePath(new PathAssistent().toPath(this));
     }
 
@@ -28,7 +27,8 @@ public class ExplosivePotion extends Potion {
     public void play(GameContext gameContext) {
         List<Enemy> enemies = gameContext.getEnemies();
         for (Enemy enemy : enemies) {
-            enemy.takeDamage(10);
+            enemy.takeDamage(getDamage());
         }
     }
+
 }

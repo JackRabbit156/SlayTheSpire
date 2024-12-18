@@ -9,41 +9,19 @@ import de.bundeswehr.auf.slaythespire.model.battle.GameContext;
  */
 public abstract class Relic {
 
-    /**
-     * Die Deskription.
-     */
     private final String description;
     private String imagePath;
-    /**
-     * Der Name.
-     */
     private final String name;
-    /**
-     * Die Seltenheit.
-     */
-    private final RelicType rarity;
-    private final RelicTrigger relicTrigger;
+    private final RelicRarity rarity;
+    private final RelicTrigger trigger;
 
-
-    /**
-     * Constructor Relic.
-     *
-     * @param name        der Name
-     * @param description die Deskription
-     * @param rarity      Die Seltenheit
-     */
-    protected Relic(String name, String description, RelicType rarity, RelicTrigger relicTrigger) {
+    protected Relic(String name, String description, RelicRarity rarity, RelicTrigger trigger) {
         this.name = name;
         this.description = description;
         this.rarity = rarity;
-        this.relicTrigger = relicTrigger;
+        this.trigger = trigger;
     }
 
-    /**
-     * getter description.
-     *
-     * @return the description
-     */
     public String getDescription() {
         return description;
     }
@@ -56,26 +34,16 @@ public abstract class Relic {
         this.imagePath = imagePath;
     }
 
-    /**
-     * getter name.
-     *
-     * @return the name
-     */
     public String getName() {
         return name;
     }
 
-    /**
-     * getter rarity.
-     *
-     * @return the rarity
-     */
-    public RelicType getRarity() {
+    public RelicRarity getRarity() {
         return rarity;
     }
 
-    public RelicTrigger getRelicTrigger() {
-        return relicTrigger;
+    public RelicTrigger getTrigger() {
+        return trigger;
     }
 
     /**

@@ -13,22 +13,21 @@ import de.bundeswehr.auf.slaythespire.model.player.structure.Player;
  * @author OF Daniel Willig
  */
 public class SilentDefendCard extends SkillCard {
+
     /**
      * Constructor Silent defend card.
      */
     public SilentDefendCard() {
-        super("Defend", "Gain 5 Block.", 1, CardRarity.COMMON, CardGrave.DISCARD);
+        super("Defend", "Gain 5 Block.", 1, CardRarity.BASIC, CardGrave.DISCARD);
         setImagePath(new PathAssistent().toPath(this));
     }
 
     @Override
     public void play(GameContext gameContext) {
         Player player = gameContext.getPlayer();
-
         player.increaseBlock(5);
-
-
 
         player.decreaseCurrentEnergy(getCost());
     }
+
 }

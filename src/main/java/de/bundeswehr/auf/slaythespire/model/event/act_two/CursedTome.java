@@ -8,7 +8,6 @@ import de.bundeswehr.auf.slaythespire.model.card.structure.CardRarity;
 import de.bundeswehr.auf.slaythespire.model.event.Event;
 import de.bundeswehr.auf.slaythespire.model.player.structure.Player;
 
-import java.util.List;
 /**
  * Der Spieler verliert HP wenn er das Tome liest, bekommt aber eine seltene Karte wenn er dran bleibt
  *
@@ -45,7 +44,7 @@ public class CursedTome extends Event {
                 Card selectedCard;
                 getPlayer().setCurrentHealth((getPlayer().getCurrentHealth()- 3));
                 for (Card card : df.init()) {
-                    if (card.getCardRarity() == CardRarity.RARE) {
+                    if (card.getRarity() == CardRarity.RARE) {
                         selectedCard = card;
                         getPlayer().addCardToDeck(selectedCard);
                     }
