@@ -4,7 +4,6 @@ import de.bundeswehr.auf.slaythespire.helper.GuiHelper;
 import de.bundeswehr.auf.slaythespire.model.potion.ExplosivePotion;
 import javafx.application.Application;
 import javafx.stage.Stage;
-import de.bundeswehr.auf.slaythespire.model.player.IroncladPlayer;
 
 public class EventTester extends Application {
 
@@ -20,9 +19,9 @@ public class EventTester extends Application {
 
         player.setCurrentHealth(500);
 
-        player.addPotionCard(new ExplosivePotion());
-        player.addPotionCard(new ExplosivePotion());
-//        player.addPotionCard(new ExplosivePotion());
+        player.addPotion(new ExplosivePotion());
+        player.addPotion(new ExplosivePotion());
+//        player.addPotion(new ExplosivePotion());
 
         player.setCurrentAct(1);
 

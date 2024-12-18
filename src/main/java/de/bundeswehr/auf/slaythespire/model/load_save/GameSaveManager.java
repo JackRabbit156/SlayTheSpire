@@ -6,7 +6,7 @@ import de.bundeswehr.auf.slaythespire.model.card.structure.Card;
 import de.bundeswehr.auf.slaythespire.model.relic.structure.Relic;
 import de.bundeswehr.auf.slaythespire.model.settings.GameSettings;
 import de.bundeswehr.auf.slaythespire.model.player.structure.Player;
-import de.bundeswehr.auf.slaythespire.model.potion.structure.PotionCard;
+import de.bundeswehr.auf.slaythespire.model.potion.structure.Potion;
 
 import java.time.LocalDateTime;
 
@@ -190,9 +190,9 @@ public class GameSaveManager {
     }
 
     private void writePotions(Player player, Map<String, String> gameData) {
-        for (int i = 0; i < player.getPotionCards().size(); i++) {
-            PotionCard potionCard = player.getPotionCards().get(i);
-            String potionName = potionCard.getClass().getSimpleName();
+        for (int i = 0; i < player.getPotions().size(); i++) {
+            Potion potion = player.getPotions().get(i);
+            String potionName = potion.getClass().getSimpleName();
             gameData.put("potion" + i, potionName);
         }
     }

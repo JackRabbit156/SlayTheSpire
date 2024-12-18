@@ -13,7 +13,7 @@ import de.bundeswehr.auf.slaythespire.model.player.IroncladPlayer;
 import de.bundeswehr.auf.slaythespire.model.player.SilentPlayer;
 import de.bundeswehr.auf.slaythespire.model.player.structure.Player;
 import de.bundeswehr.auf.slaythespire.model.player.structure.PlayerType;
-import de.bundeswehr.auf.slaythespire.model.potion.structure.PotionCard;
+import de.bundeswehr.auf.slaythespire.model.potion.structure.Potion;
 import de.bundeswehr.auf.slaythespire.model.relic.structure.Relic;
 import de.bundeswehr.auf.slaythespire.model.settings.GameSettings;
 import de.bundeswehr.auf.slaythespire.model.settings.structure.DifficultyLevel;
@@ -157,13 +157,13 @@ public class LoadController implements Controller, LoadEventListener {
     }
 
     private void readPotions(Map<String, String> gameData, Player player) {
-        List<PotionCard> potions = new ArrayList<>();
+        List<Potion> potions = new ArrayList<>();
         for (int i = 0; gameData.get("potion" + i) != null; i++) {
             String potionName = gameData.get("potion" + i);
-            PotionCard potion = DeckFactory.potionFor(potionName);
+            Potion potion = DeckFactory.potionFor(potionName);
             potions.add(potion);
         }
-        player.setPotionCards(potions);
+        player.setPotions(potions);
     }
 
     private void readRelic(Map<String, String> gameData, Player player) {

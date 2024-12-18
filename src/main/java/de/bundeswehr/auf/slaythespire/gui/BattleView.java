@@ -15,7 +15,7 @@ import de.bundeswehr.auf.slaythespire.model.card.structure.Card;
 import de.bundeswehr.auf.slaythespire.model.card.structure.CardType;
 import de.bundeswehr.auf.slaythespire.model.enemy.Enemy;
 import de.bundeswehr.auf.slaythespire.model.player.structure.Player;
-import de.bundeswehr.auf.slaythespire.model.potion.structure.PotionCard;
+import de.bundeswehr.auf.slaythespire.model.potion.structure.Potion;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.geometry.Bounds;
 import javafx.geometry.Insets;
@@ -148,7 +148,7 @@ public class BattleView extends BorderPane implements View, WithTopBar, BattleDe
         updateInformation();
     }
 
-    public void clickedOnPotion(PotionCard potion, int index) {
+    public void clickedOnPotion(Potion potion, int index) {
         if (potion == null) {
             mode.set(Mode.NORMAL);
             enableBattleView();
@@ -322,7 +322,7 @@ public class BattleView extends BorderPane implements View, WithTopBar, BattleDe
      * Top side for the Player Information
      */
     private void initTop() {
-        top = new TopBarLayout(this, player, new PotionLayout(player.getPotionCards(), this));
+        top = new TopBarLayout(this, player, new PotionLayout(player.getPotions(), this));
         setTop(top);
     }
 

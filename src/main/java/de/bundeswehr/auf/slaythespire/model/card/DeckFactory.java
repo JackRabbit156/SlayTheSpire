@@ -6,12 +6,11 @@ import de.bundeswehr.auf.slaythespire.model.Model;
 import de.bundeswehr.auf.slaythespire.model.card.structure.Card;
 import de.bundeswehr.auf.slaythespire.model.card.structure.CardType;
 import de.bundeswehr.auf.slaythespire.model.player.structure.Player;
-import de.bundeswehr.auf.slaythespire.model.potion.structure.PotionCard;
+import de.bundeswehr.auf.slaythespire.model.potion.structure.Potion;
 import de.bundeswehr.auf.slaythespire.model.relic.structure.Relic;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
@@ -52,8 +51,8 @@ public class DeckFactory {
         return card;
     }
 
-    public static PotionCard potionFor(String potionName) {
-        PotionCard potion = null;
+    public static Potion potionFor(String potionName) {
+        Potion potion = null;
         try {
             potion = Model.ofPotions(potionName);
         } catch (IllegalArgumentException e) {
@@ -105,11 +104,11 @@ public class DeckFactory {
      * und eine entsprechende Trankkarte zurückgegeben.
      * Falls die Liste der verfügbaren Tränke nicht korrekt initialisiert wurde, wird eine Fehlermeldung ausgegeben.
      *
-     * @return {PotionCard} Eine Trankkarte, die dem zufällig ausgewählten Trank entspricht.
+     * @return Eine Trankkarte, die dem zufällig ausgewählten Trank entspricht.
      * Falls ein Fehler auftritt, kann die Methode in einem fehlerhaften Zustand enden.
      */
-    public PotionCard generatePotion() {
-        List<Class<? extends PotionCard>> availablePotions = Model.potions();
+    public Potion generatePotion() {
+        List<Class<? extends Potion>> availablePotions = Model.potions();
         int randomNumber = rnd.nextInt(availablePotions.size());
         try {
             return availablePotions.get(randomNumber).getDeclaredConstructor().newInstance();

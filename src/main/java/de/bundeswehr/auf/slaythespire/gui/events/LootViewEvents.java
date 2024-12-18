@@ -1,7 +1,7 @@
 package de.bundeswehr.auf.slaythespire.gui.events;
 
 import de.bundeswehr.auf.slaythespire.model.card.structure.Card;
-import de.bundeswehr.auf.slaythespire.model.potion.structure.PotionCard;
+import de.bundeswehr.auf.slaythespire.model.potion.structure.Potion;
 /**
  * @author Keil, Vladislav
  */
@@ -13,7 +13,7 @@ public interface LootViewEvents {
 
     void onGoldClick(int gold);
 
-    void onPotionClick(PotionCard potion);
+    void onPotionClick(Potion potion);
 
     void onBackClicked();
 

@@ -9,7 +9,7 @@ import de.bundeswehr.auf.slaythespire.helper.MusicBoy;
 import de.bundeswehr.auf.slaythespire.model.card.DeckFactory;
 import de.bundeswehr.auf.slaythespire.model.card.structure.Card;
 import de.bundeswehr.auf.slaythespire.model.player.structure.Player;
-import de.bundeswehr.auf.slaythespire.model.potion.structure.PotionCard;
+import de.bundeswehr.auf.slaythespire.model.potion.structure.Potion;
 import de.bundeswehr.auf.slaythespire.model.relic.structure.Relic;
 import javafx.stage.Stage;
 
@@ -25,7 +25,7 @@ public class ShopController implements Controller, ShopViewEvents {
 
     private final Player player;
     private final List<Card> purchasableCards;
-    private final PotionCard purchasablePotion;
+    private final Potion purchasablePotion;
     private List<Relic> purchasableRelics;
     private ShopView shopView;
 
@@ -103,13 +103,13 @@ public class ShopController implements Controller, ShopViewEvents {
      * @param potion Der geklickte Trank.
      */
     @Override
-    public void onPotionClick(PotionCard potion) {
+    public void onPotionClick(Potion potion) {
         int cardPrice = potion.getPrice();
 
         if (player.getGold() >= cardPrice) {
-            if (player.getPotionCards().size() < 3) {
+            if (player.getPotions().size() < 3) {
                 player.decreaseGold(cardPrice);
-                player.addPotionCard(potion);
+                player.addPotion(potion);
                 refreshSelectablePotion();
                 LoggingAssistant.log("Refresh Cards");
             }

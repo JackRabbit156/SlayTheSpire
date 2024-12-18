@@ -8,7 +8,7 @@ import de.bundeswehr.auf.slaythespire.helper.GuiHelper;
 import de.bundeswehr.auf.slaythespire.model.card.DeckFactory;
 import de.bundeswehr.auf.slaythespire.model.card.structure.Card;
 import de.bundeswehr.auf.slaythespire.model.player.structure.Player;
-import de.bundeswehr.auf.slaythespire.model.potion.structure.PotionCard;
+import de.bundeswehr.auf.slaythespire.model.potion.structure.Potion;
 import de.bundeswehr.auf.slaythespire.model.settings.GameSettings;
 import javafx.stage.Stage;
 
@@ -30,7 +30,7 @@ public class TreasureController implements Controller, TreasureViewEvents {
     private DeckFactory deckFactory;
     private int gold;
     private final Player player;
-    private PotionCard potionCard;
+    private Potion potion;
     private double potionsChance;
     private final TreasureView treasureView;
 
@@ -46,7 +46,7 @@ public class TreasureController implements Controller, TreasureViewEvents {
         List<Card> selectedCards = initTreasureDeck(player);
         generatePotionByChance();
 
-        treasureView = new TreasureView(selectedCards, gold, potionCard, player, this);
+        treasureView = new TreasureView(selectedCards, gold, potion, player, this);
     }
 
     /**
@@ -104,10 +104,10 @@ public class TreasureController implements Controller, TreasureViewEvents {
      * @param potion Der angeklickte Trank.
      */
     @Override
-    public void onPotionClick(PotionCard potion) {
-        if (player.getPotionCards().size() < 3) {
+    public void onPotionClick(Potion potion) {
+        if (player.getPotions().size() < 3) {
             LoggingAssistant.log("Got a potion: " + potion.getName(), Color.GREEN);
-            player.addPotionCard(potion);
+            player.addPotion(potion);
             treasureView.updateTop();
         }
         else {
@@ -131,7 +131,7 @@ public class TreasureController implements Controller, TreasureViewEvents {
      */
     private void generatePotionByChance() {
         if (rnd.nextDouble() < potionsChance) {
-            potionCard = deckFactory.generatePotion();
+            potion = deckFactory.generatePotion();
         }
     }
 

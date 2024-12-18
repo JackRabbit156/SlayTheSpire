@@ -18,7 +18,7 @@ import de.bundeswehr.auf.slaythespire.model.card.structure.*;
 import de.bundeswehr.auf.slaythespire.model.enemy.Enemy;
 import de.bundeswehr.auf.slaythespire.model.map.field.FieldEnum;
 import de.bundeswehr.auf.slaythespire.model.player.structure.Player;
-import de.bundeswehr.auf.slaythespire.model.potion.structure.PotionCard;
+import de.bundeswehr.auf.slaythespire.model.potion.structure.Potion;
 import de.bundeswehr.auf.slaythespire.model.relic.structure.Relic;
 import de.bundeswehr.auf.slaythespire.model.relic.structure.RelicTrigger;
 import javafx.stage.Stage;
@@ -40,7 +40,7 @@ public class BattleController implements Controller, BattleViewEvents, PlayerEve
     private final FieldEnum fieldType;
     private final GameContext gameContext;
     private final Player player;
-    private final List<PotionCard> potions;
+    private final List<Potion> potions;
     private Card selectedCard;
 
     public BattleController(Player player, List<Enemy> enemies, FieldEnum fieldType) {
@@ -53,7 +53,7 @@ public class BattleController implements Controller, BattleViewEvents, PlayerEve
         }
 
         battleDeck = new BattleDeck(player.getDeck());
-        potions = player.getPotionCards();
+        potions = player.getPotions();
 
         gameContext = new GameContext(player, enemies, battleDeck);
 

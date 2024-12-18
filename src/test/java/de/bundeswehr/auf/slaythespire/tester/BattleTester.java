@@ -3,9 +3,6 @@ package de.bundeswehr.auf.slaythespire.tester;
 import de.bundeswehr.auf.slaythespire.helper.Color;
 import de.bundeswehr.auf.slaythespire.helper.LoggingAssistant;
 import de.bundeswehr.auf.slaythespire.helper.GuiHelper;
-import de.bundeswehr.auf.slaythespire.model.potion.DistilledChaosPotion;
-import de.bundeswehr.auf.slaythespire.model.potion.EnergyPotion;
-import de.bundeswehr.auf.slaythespire.model.potion.ExplosivePotion;
 import javafx.application.Application;
 import javafx.stage.Stage;
 import de.bundeswehr.auf.slaythespire.model.battle.GameContext;
@@ -29,7 +26,7 @@ import de.bundeswehr.auf.slaythespire.model.enemy.act_two.elite.GremlinLeaderEli
 import de.bundeswehr.auf.slaythespire.model.settings.GameSettings;
 import de.bundeswehr.auf.slaythespire.model.settings.structure.DifficultyLevel;
 import de.bundeswehr.auf.slaythespire.model.map.field.FieldEnum;
-import de.bundeswehr.auf.slaythespire.model.potion.structure.PotionCard;
+import de.bundeswehr.auf.slaythespire.model.potion.structure.Potion;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,7 +37,7 @@ import java.util.Random;
  */
 public class BattleTester extends Application {
 
-    private static class CheaterPotion extends PotionCard {
+    private static class CheaterPotion extends Potion {
 
         public CheaterPotion() {
             super("Cheater Potion", "Deals 200 damage.", CardRarity.SPECIAL, CardType.ATTACK);
@@ -65,9 +62,9 @@ public class BattleTester extends Application {
     public void start(Stage primaryStage) {
         TestPlayer player = new TestPlayer(primaryStage);
 
-        player.getPotionCards().add(new CheaterPotion());
-        player.getPotionCards().add(new CheaterPotion());
-        player.getPotionCards().add(new CheaterPotion());
+        player.getPotions().add(new CheaterPotion());
+        player.getPotions().add(new CheaterPotion());
+        player.getPotions().add(new CheaterPotion());
 
         GameSettings.setDifficultyLevel(DifficultyLevel.NORMAL);
 

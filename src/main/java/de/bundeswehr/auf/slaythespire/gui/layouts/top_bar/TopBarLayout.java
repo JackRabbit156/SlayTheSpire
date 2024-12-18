@@ -16,7 +16,7 @@ public class TopBarLayout extends VBox {
     private final BarLayout barLayout;
 
     public TopBarLayout(WithTopBar view, Player player) {
-        this(view, player, new PotionLayout(player.getPotionCards()));
+        this(view, player, new PotionLayout(player.getPotions()));
     }
 
     public TopBarLayout(WithTopBar view, Player player, MiddleBar middleBar) {

@@ -5,14 +5,14 @@ import de.bundeswehr.auf.slaythespire.helper.PathAssistent;
 import de.bundeswehr.auf.slaythespire.model.card.structure.CardRarity;
 import de.bundeswehr.auf.slaythespire.model.card.structure.CardType;
 import de.bundeswehr.auf.slaythespire.model.player.structure.Player;
-import de.bundeswehr.auf.slaythespire.model.potion.structure.PotionCard;
+import de.bundeswehr.auf.slaythespire.model.potion.structure.Potion;
 
 /**
  * Die Block potion.
  *
  * @author OF Daniel Willig
  */
-public class BlockPotion extends PotionCard {
+public class BlockPotion extends Potion {
 
     /**
      * Constructor Block potion.

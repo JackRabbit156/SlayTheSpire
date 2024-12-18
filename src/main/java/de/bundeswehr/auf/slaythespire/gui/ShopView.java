@@ -8,7 +8,7 @@ import de.bundeswehr.auf.slaythespire.gui.layouts.top_bar.TopBarLayout;
 import de.bundeswehr.auf.slaythespire.helper.GuiHelper;
 import de.bundeswehr.auf.slaythespire.model.card.structure.Card;
 import de.bundeswehr.auf.slaythespire.model.player.structure.Player;
-import de.bundeswehr.auf.slaythespire.model.potion.structure.PotionCard;
+import de.bundeswehr.auf.slaythespire.model.potion.structure.Potion;
 import javafx.geometry.Bounds;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -36,17 +36,17 @@ public class ShopView extends StackPane implements CardEventListener, WithTopBar
     private final Insets insets = new Insets(15, 15, 15, 15);
     private final BorderPane outerLayout = new BorderPane();
     private final Player player;
-    private PotionCard potionCard;
+    private Potion potion;
     private List<Card> shopCards;
     private final BorderPane shopLayout = new BorderPane();
     private ShopViewEvents shopViewEvents;
     private TopBarLayout topBarLayout;
 
-    public ShopView(Player player, List<Card> shopCards, ShopViewEvents shopViewEvents, PotionCard... potionCard) {
+    public ShopView(Player player, List<Card> shopCards, ShopViewEvents shopViewEvents, Potion... potion) {
         this.player = player;
         this.shopCards = shopCards;
         this.shopViewEvents = shopViewEvents;
-        this.potionCard = potionCard[0] != null ? potionCard[0] : null;
+        this.potion = potion[0] != null ? potion[0] : null;
         display();
     }
 
@@ -108,7 +108,7 @@ public class ShopView extends StackPane implements CardEventListener, WithTopBar
      *
      * @param card Der angeklickte Trank.
      */
-    public void onPotionClick(PotionCard card) {
+    public void onPotionClick(Potion card) {
         shopViewEvents.onPotionClick(card);
         refreshInfo();
     }
@@ -121,7 +121,7 @@ public class ShopView extends StackPane implements CardEventListener, WithTopBar
      * Setzt die kaufbare Trankkarte auf null und initialisiert die Center View neu.
      */
     public void setPurchaseablePotion() {
-        potionCard = null;
+        potion = null;
         initCenter();
     }
 
@@ -178,8 +178,8 @@ public class ShopView extends StackPane implements CardEventListener, WithTopBar
 
         // Potion Options
         FlowPane potionSelectionLayout;
-        if (this.potionCard != null) {
-            potionSelectionLayout = new PotionSelectionLayout(this.potionCard, this);
+        if (this.potion != null) {
+            potionSelectionLayout = new PotionSelectionLayout(this.potion, this);
         }
         else {
             potionSelectionLayout = new FlowPane();
@@ -195,7 +195,7 @@ public class ShopView extends StackPane implements CardEventListener, WithTopBar
     }
 
     private void initOuterLayout() {
-        topBarLayout = new TopBarLayout(this, player, new PotionLayout(player.getPotionCards()));
+        topBarLayout = new TopBarLayout(this, player, new PotionLayout(player.getPotions()));
         outerLayout.setTop(topBarLayout);
 
         BackLayout back = new BackLayout(this);

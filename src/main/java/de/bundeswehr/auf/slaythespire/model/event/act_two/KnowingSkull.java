@@ -7,9 +7,8 @@ import de.bundeswehr.auf.slaythespire.model.card.structure.Card;
 import de.bundeswehr.auf.slaythespire.model.card.structure.CardRarity;
 import de.bundeswehr.auf.slaythespire.model.event.Event;
 import de.bundeswehr.auf.slaythespire.model.player.structure.Player;
-import de.bundeswehr.auf.slaythespire.model.potion.structure.PotionCard;
+import de.bundeswehr.auf.slaythespire.model.potion.structure.Potion;
 
-import java.util.List;
 /**
  * Der Spieler verliert Leben, kann aber Gold, oder Karten erhalten
  *
@@ -66,10 +65,10 @@ public class KnowingSkull extends Event {
     @Override
     public Button getButton3() {
         DeckFactory df = new DeckFactory(getPlayer(), 1);
-        PotionCard potion = df.generatePotion();
+        Potion potion = df.generatePotion();
         button3.setOnAction(event -> {
             getPlayer().setCurrentHealth(getPlayer().getMaxHealth() / 10);
-            getPlayer().addPotionCard(potion);
+            getPlayer().addPotion(potion);
             button1.setVisible(false);
             button2.setVisible(false);
             button3.setVisible(false);

@@ -5,14 +5,14 @@ import de.bundeswehr.auf.slaythespire.model.card.structure.CardRarity;
 import de.bundeswehr.auf.slaythespire.model.battle.GameContext;
 import de.bundeswehr.auf.slaythespire.model.card.structure.CardType;
 import de.bundeswehr.auf.slaythespire.model.player.structure.Player;
-import de.bundeswehr.auf.slaythespire.model.potion.structure.PotionCard;
+import de.bundeswehr.auf.slaythespire.model.potion.structure.Potion;
 
 /**
  * Die Blood potion.
  *
  * @author OF Daniel Willig
  */
-public class BloodPotion extends PotionCard {
+public class BloodPotion extends Potion {
 
     /**
      * Constructor Blood potion.

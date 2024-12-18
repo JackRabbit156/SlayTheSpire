@@ -3,7 +3,7 @@ package de.bundeswehr.auf.slaythespire.model;
 import de.bundeswehr.auf.slaythespire.helper.Color;
 import de.bundeswehr.auf.slaythespire.helper.LoggingAssistant;
 import de.bundeswehr.auf.slaythespire.model.card.structure.Card;
-import de.bundeswehr.auf.slaythespire.model.potion.structure.PotionCard;
+import de.bundeswehr.auf.slaythespire.model.potion.structure.Potion;
 import de.bundeswehr.auf.slaythespire.model.relic.structure.Relic;
 import org.reflections.Reflections;
 
@@ -18,7 +18,7 @@ public class Model {
     private static final String RELIC = ".relic";
 
     private static final Map<String, Set<Class<? extends Card>>> cardCache = new HashMap<>();
-    private static Set<Class<? extends PotionCard>> potionCache;
+    private static Set<Class<? extends Potion>> potionCache;
     private static Set<Class<? extends Relic>> relicCache;
 
     public static List<Class<? extends Card>> cards(String packageName) {
@@ -42,8 +42,8 @@ public class Model {
     }
 
     @SuppressWarnings("unchecked")
-    public static <P extends PotionCard> P ofPotions(String name) {
-        for (Class<? extends PotionCard> cls : loadPotionClasses()) {
+    public static <P extends Potion> P ofPotions(String name) {
+        for (Class<? extends Potion> cls : loadPotionClasses()) {
             if (cls.getSimpleName().equals(name)) {
                 try {
                     return (P) cls.getDeclaredConstructor().newInstance();
@@ -71,7 +71,7 @@ public class Model {
         throw new IllegalArgumentException("Relic unknown: " + name);
     }
 
-    public static List<Class<? extends PotionCard>> potions() {
+    public static List<Class<? extends Potion>> potions() {
         return new ArrayList<>(loadPotionClasses());
     }
 
@@ -87,10 +87,10 @@ public class Model {
         return cardCache.get(key);
     }
 
-    private static Set<Class<? extends PotionCard>> loadPotionClasses() {
+    private static Set<Class<? extends Potion>> loadPotionClasses() {
         if (potionCache == null) {
             Reflections reflections = new Reflections(DEFAULT_PACKAGE + POTION);
-            potionCache = reflections.getSubTypesOf(PotionCard.class);
+            potionCache = reflections.getSubTypesOf(Potion.class);
         }
         return potionCache;
     }

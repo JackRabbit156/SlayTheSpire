@@ -9,7 +9,7 @@ import de.bundeswehr.auf.slaythespire.gui.layouts.treasure.EntryLayout;
 import de.bundeswehr.auf.slaythespire.helper.GuiHelper;
 import de.bundeswehr.auf.slaythespire.model.card.structure.Card;
 import de.bundeswehr.auf.slaythespire.model.player.structure.Player;
-import de.bundeswehr.auf.slaythespire.model.potion.structure.PotionCard;
+import de.bundeswehr.auf.slaythespire.model.potion.structure.Potion;
 import javafx.geometry.Bounds;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -45,7 +45,7 @@ public class TreasureView extends StackPane implements WithTopBar, CardEventList
     private final BorderPane entryLayout;
     private final int gold;
     private final String playerImagePath;
-    private final PotionCard potionCard;
+    private final Potion potion;
     private TopBarLayout top;
     private final BorderPane treasureLayout;
     private final TreasureViewEvents treasureViewEvents;
@@ -56,15 +56,15 @@ public class TreasureView extends StackPane implements WithTopBar, CardEventList
      *
      * @param cardList           Die Liste der verfügbaren Karten.
      * @param gold               Die Menge an Gold im Schatz.
-     * @param potionCard         Die im Schatz enthaltene Trankkarte.
+     * @param potion         Die im Schatz enthaltene Trankkarte.
      * @param player             Der Spieler
      * @param treasureViewEvents Die Ereignisse der Schatz-Ansicht.
      */
-    public TreasureView(List<Card> cardList, int gold, PotionCard potionCard, Player player, TreasureViewEvents treasureViewEvents) {
+    public TreasureView(List<Card> cardList, int gold, Potion potion, Player player, TreasureViewEvents treasureViewEvents) {
         playerImagePath = player.getImagePath();
         this.cardList = cardList;
         this.gold = gold;
-        this.potionCard = potionCard;
+        this.potion = potion;
         this.treasureViewEvents = treasureViewEvents;
 
         treasureLayout = new BorderPane();
@@ -253,7 +253,7 @@ public class TreasureView extends StackPane implements WithTopBar, CardEventList
     private StackPane getPotionStackPane() {
         Image btnImage = new Image(getClass().getResource("/images/panel/rewardListItemPanel.png").toExternalForm());
         ImageView itemPanelView = new ImageView(btnImage);
-        Image img = new Image(getClass().getResource(potionCard.getImagePath()).toExternalForm());
+        Image img = new Image(getClass().getResource(potion.getImagePath()).toExternalForm());
         ImageView imgView = new ImageView(img);
 
         imgView.setScaleX(PANEL_SCALE);
@@ -261,7 +261,7 @@ public class TreasureView extends StackPane implements WithTopBar, CardEventList
 
         // Label
         Label label = new Label();
-        label.setText(potionCard.getName());
+        label.setText(potion.getName());
         label.setStyle(FONT_SMALL);
         label.setTextFill(Color.WHITE);
 
@@ -326,7 +326,7 @@ public class TreasureView extends StackPane implements WithTopBar, CardEventList
      * Event-Handler für Klicks auf einen Trank im Schatz.
      */
     private void onPotionClick() {
-        treasureViewEvents.onPotionClick(potionCard);
+        treasureViewEvents.onPotionClick(potion);
     }
 
     /**
@@ -373,7 +373,7 @@ public class TreasureView extends StackPane implements WithTopBar, CardEventList
         center.getChildren().add(goldStackPane);
 
         // Potion Option
-        if (potionCard != null) {
+        if (potion != null) {
             StackPane getPotionStackPane = getPotionStackPane();
             center.getChildren().add(getPotionStackPane);
         }

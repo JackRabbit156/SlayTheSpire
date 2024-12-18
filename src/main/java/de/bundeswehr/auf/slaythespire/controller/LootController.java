@@ -8,7 +8,7 @@ import de.bundeswehr.auf.slaythespire.model.card.structure.Card;
 import de.bundeswehr.auf.slaythespire.model.settings.GameSettings;
 import de.bundeswehr.auf.slaythespire.model.map.field.FieldEnum;
 import de.bundeswehr.auf.slaythespire.model.player.structure.Player;
-import de.bundeswehr.auf.slaythespire.model.potion.structure.PotionCard;
+import de.bundeswehr.auf.slaythespire.model.potion.structure.Potion;
 import de.bundeswehr.auf.slaythespire.gui.LootView;
 import de.bundeswehr.auf.slaythespire.gui.events.LootViewEvents;
 import javafx.stage.Stage;
@@ -33,7 +33,7 @@ public class LootController implements Controller, LootViewEvents {
     private int gold;
     private final LootView lootView;
     private final Player player;
-    private PotionCard potionCard;
+    private Potion potion;
     private double potionsChance;
 
     /**
@@ -56,7 +56,7 @@ public class LootController implements Controller, LootViewEvents {
 
         List<Card> selectedCards = initialLootDeck();
 
-        lootView = new LootView(selectedCards, gold, potionCard, player, this);
+        lootView = new LootView(selectedCards, gold, potion, player, this);
     }
 
     /**
@@ -99,10 +99,10 @@ public class LootController implements Controller, LootViewEvents {
     }
 
     @Override
-    public void onPotionClick(PotionCard potion) {
-        if (player.getPotionCards().size() < 3) {
+    public void onPotionClick(Potion potion) {
+        if (player.getPotions().size() < 3) {
             LoggingAssistant.log("Got a potion: " + potion.getName());
-            player.addPotionCard(potion);
+            player.addPotion(potion);
             lootView.updateTop();
         }
         else {
@@ -126,7 +126,7 @@ public class LootController implements Controller, LootViewEvents {
      */
     private void generatePotionByChance() {
         if (rnd.nextDouble() < potionsChance) {
-            potionCard = deckFactory.generatePotion();
+            potion = deckFactory.generatePotion();
         }
     }
 

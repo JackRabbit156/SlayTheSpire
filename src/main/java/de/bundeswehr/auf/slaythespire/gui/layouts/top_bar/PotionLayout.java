@@ -1,6 +1,6 @@
 package de.bundeswehr.auf.slaythespire.gui.layouts.top_bar;
 
-import de.bundeswehr.auf.slaythespire.model.potion.structure.PotionCard;
+import de.bundeswehr.auf.slaythespire.model.potion.structure.Potion;
 import javafx.geometry.Bounds;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -10,8 +10,6 @@ import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Priority;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -37,9 +35,9 @@ public class PotionLayout extends MiddleBar {
 
     private final Image bg = new Image(getClass().getResource("/images/view/gui/layouts/potion/bg.png").toExternalForm());
     private final Image emptyPotionIcon = new Image(getClass().getResource("/images/view/gui/layouts/potion/EmptyPotion.png").toExternalForm());
-    private final List<PotionCard> potions;
+    private final List<Potion> potions;
 
-    public PotionLayout(List<PotionCard> potions) {
+    public PotionLayout(List<Potion> potions) {
         this.potions = potions;
 
         setAlignment(Pos.CENTER_LEFT);
@@ -53,7 +51,7 @@ public class PotionLayout extends MiddleBar {
         showPotions();
     }
 
-    private Node images(PotionCard potion) {
+    private Node images(Potion potion) {
         Image imagePotion = new Image(getClass().getResource(potion.getImagePath()).toExternalForm());
         ImageView imageViewPotion = new ImageView(imagePotion);
         imageViewPotion.setPreserveRatio(true);
@@ -68,7 +66,7 @@ public class PotionLayout extends MiddleBar {
         return emptyPotionIconView;
     }
 
-    private void setEventHandler(ImageView imageView, PotionCard potion) {
+    private void setEventHandler(ImageView imageView, Potion potion) {
         DropShadow glow = new DropShadow();
         glow.setColor(Color.YELLOW);
         glow.setHeight(30);
@@ -78,7 +76,7 @@ public class PotionLayout extends MiddleBar {
         imageView.addEventHandler(MouseEvent.MOUSE_EXITED, e -> imageView.setEffect(null));
     }
 
-    private void showPopup(PotionCard potion, ImageView imageView) {
+    private void showPopup(Potion potion, ImageView imageView) {
         Popup popup = new Popup();
         popup.setAutoHide(true);
 

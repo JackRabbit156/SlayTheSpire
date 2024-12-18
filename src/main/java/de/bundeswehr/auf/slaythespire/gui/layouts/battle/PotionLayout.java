@@ -2,7 +2,7 @@ package de.bundeswehr.auf.slaythespire.gui.layouts.battle;
 
 import de.bundeswehr.auf.slaythespire.gui.BattleView;
 import de.bundeswehr.auf.slaythespire.gui.layouts.top_bar.MiddleBar;
-import de.bundeswehr.auf.slaythespire.model.potion.structure.PotionCard;
+import de.bundeswehr.auf.slaythespire.model.potion.structure.Potion;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.geometry.Bounds;
@@ -14,8 +14,6 @@ import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Priority;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -42,10 +40,10 @@ public class PotionLayout extends MiddleBar {
     private final BattleView battleView;
     private final Image bg = new Image(getClass().getResource("/images/view/gui/layouts/potion/bg.png").toExternalForm());
     private final Image emptyPotionIcon = new Image(getClass().getResource("/images/view/gui/layouts/potion/EmptyPotion.png").toExternalForm());
-    private final List<PotionCard> potions;
-    private final ObjectProperty<PotionCard> selected = new SimpleObjectProperty<>();
+    private final List<Potion> potions;
+    private final ObjectProperty<Potion> selected = new SimpleObjectProperty<>();
 
-    public PotionLayout(List<PotionCard> potions, BattleView battleView) {
+    public PotionLayout(List<Potion> potions, BattleView battleView) {
         this.potions = potions;
         this.battleView = battleView;
 
@@ -61,12 +59,12 @@ public class PotionLayout extends MiddleBar {
         selected.set(null);
     }
 
-    private void handlePotionClick(PotionCard potion, int index) {
+    private void handlePotionClick(Potion potion, int index) {
         selected.set(potion);
         battleView.clickedOnPotion(potion, index);
     }
 
-    private Node images(PotionCard potion) {
+    private Node images(Potion potion) {
         Image imagePotion = new Image(getClass().getResource(potion.getImagePath()).toExternalForm());
         ImageView imageViewPotion = new ImageView(imagePotion);
         imageViewPotion.setPreserveRatio(true);
@@ -81,7 +79,7 @@ public class PotionLayout extends MiddleBar {
         return emptyPotionIconView;
     }
 
-    private void setEventHandler(ImageView imageView, PotionCard potion) {
+    private void setEventHandler(ImageView imageView, Potion potion) {
         DropShadow glow = new DropShadow();
         glow.setColor(Color.YELLOW);
         glow.setHeight(30);
@@ -103,7 +101,7 @@ public class PotionLayout extends MiddleBar {
         });
     }
 
-    private void showPopup(PotionCard potion, ImageView imageView) {
+    private void showPopup(Potion potion, ImageView imageView) {
         Popup popup = new Popup();
         popup.setAutoHide(true);
 

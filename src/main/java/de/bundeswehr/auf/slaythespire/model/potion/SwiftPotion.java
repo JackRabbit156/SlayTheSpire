@@ -5,14 +5,14 @@ import de.bundeswehr.auf.slaythespire.model.card.structure.CardRarity;
 import de.bundeswehr.auf.slaythespire.model.battle.BattleDeck;
 import de.bundeswehr.auf.slaythespire.model.battle.GameContext;
 import de.bundeswehr.auf.slaythespire.model.card.structure.CardType;
-import de.bundeswehr.auf.slaythespire.model.potion.structure.PotionCard;
+import de.bundeswehr.auf.slaythespire.model.potion.structure.Potion;
 
 /**
  * Die Swift potion.
  *
  * @author OF Daniel Willig
  */
-public class SwiftPotion extends PotionCard {
+public class SwiftPotion extends Potion {
 
     /**
      * Constructor Swift potion.

@@ -29,9 +29,9 @@ public class MapTester extends Application {
 
         player.setGold(500);
 
-        player.getPotionCards().add(new BloodPotion());
-        player.getPotionCards().add(new EnergyPotion());
-        player.getPotionCards().add(new EnergyPotion());
+        player.getPotions().add(new BloodPotion());
+        player.getPotions().add(new EnergyPotion());
+        player.getPotions().add(new EnergyPotion());
 
         GuiHelper.Scenes.startMapScene(player);
     }

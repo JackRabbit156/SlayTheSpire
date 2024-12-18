@@ -12,7 +12,7 @@ import de.bundeswehr.auf.slaythespire.model.card.structure.CardGrave;
 import de.bundeswehr.auf.slaythespire.model.card.structure.CardRarity;
 import de.bundeswehr.auf.slaythespire.model.card.structure.CardType;
 import de.bundeswehr.auf.slaythespire.model.enemy.Enemy;
-import de.bundeswehr.auf.slaythespire.model.potion.structure.PotionCard;
+import de.bundeswehr.auf.slaythespire.model.potion.structure.Potion;
 
 import java.util.ArrayDeque;
 import java.util.Queue;
@@ -22,7 +22,7 @@ import java.util.Queue;
  *
  * @author OF Daniel Willig
  */
-public class DistilledChaosPotion extends PotionCard implements CardDeathListener {
+public class DistilledChaosPotion extends Potion implements CardDeathListener {
 
     private final Queue<Card> cards = new ArrayDeque<>();
     private GameContext gameContext;

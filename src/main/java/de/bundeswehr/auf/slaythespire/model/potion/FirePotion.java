@@ -5,14 +5,14 @@ import de.bundeswehr.auf.slaythespire.model.card.structure.CardRarity;
 import de.bundeswehr.auf.slaythespire.model.battle.GameContext;
 import de.bundeswehr.auf.slaythespire.model.card.structure.CardType;
 import de.bundeswehr.auf.slaythespire.model.enemy.Enemy;
-import de.bundeswehr.auf.slaythespire.model.potion.structure.PotionCard;
+import de.bundeswehr.auf.slaythespire.model.potion.structure.Potion;
 
 /**
  * Die Fire potion.
  *
  * @author OF Daniel Willig
  */
-public class FirePotion extends PotionCard {
+public class FirePotion extends Potion {
 
     /**
      * Constructor Fire potion.

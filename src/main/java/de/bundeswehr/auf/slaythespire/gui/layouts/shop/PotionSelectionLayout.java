@@ -13,7 +13,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
-import de.bundeswehr.auf.slaythespire.model.potion.structure.PotionCard;
+import de.bundeswehr.auf.slaythespire.model.potion.structure.Potion;
 import de.bundeswehr.auf.slaythespire.gui.ShopView;
 
 /**
@@ -26,10 +26,10 @@ public class PotionSelectionLayout extends FlowPane {
 
 
     private final Image bg = new Image(getClass().getResource("/images/view/gui/layouts/potion/bg.png").toExternalForm());
-    private final PotionCard potion;
+    private final Potion potion;
     private final ShopView shopView;
 
-    public PotionSelectionLayout(PotionCard potion, ShopView shopView) {
+    public PotionSelectionLayout(Potion potion, ShopView shopView) {
         this.potion = potion;
         this.shopView = shopView;
         // Center of the bottom

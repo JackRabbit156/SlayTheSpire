@@ -22,9 +22,9 @@ public class TreasureTester extends Application {
 
         GameSettings.setDifficultyLevel(DifficultyLevel.EASY);
 
-        player.addPotionCard(new ExplosivePotion());
-        player.addPotionCard(new ExplosivePotion());
-        player.addPotionCard(new ExplosivePotion());
+        player.addPotion(new ExplosivePotion());
+        player.addPotion(new ExplosivePotion());
+        player.addPotion(new ExplosivePotion());
 
         GuiHelper.Scenes.startTreasureScene(player);
     }

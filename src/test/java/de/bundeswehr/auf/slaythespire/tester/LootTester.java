@@ -24,9 +24,9 @@ public class LootTester extends Application {
 
         GameSettings.setDifficultyLevel(DifficultyLevel.NORMAL);
 
-        player.getPotionCards().add(new BloodPotion());
-        player.getPotionCards().add(new EnergyPotion());
-//        player.getPotionCards().add(new EnergyPotion());
+        player.getPotions().add(new BloodPotion());
+        player.getPotions().add(new EnergyPotion());
+//        player.getPotions().add(new EnergyPotion());
 
         GuiHelper.Scenes.startLootScene(player, FieldEnum.ENEMYFIELD);
     }

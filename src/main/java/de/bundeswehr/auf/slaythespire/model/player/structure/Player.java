@@ -6,7 +6,7 @@ import de.bundeswehr.auf.slaythespire.events.PlayerDamageEvent;
 import javafx.stage.Stage;
 import de.bundeswehr.auf.slaythespire.model.card.structure.Card;
 import de.bundeswehr.auf.slaythespire.model.settings.GameSettings;
-import de.bundeswehr.auf.slaythespire.model.potion.structure.PotionCard;
+import de.bundeswehr.auf.slaythespire.model.potion.structure.Potion;
 import de.bundeswehr.auf.slaythespire.model.relic.structure.Relic;
 
 import java.util.ArrayList;
@@ -36,7 +36,7 @@ public abstract class Player {
     private final String name;
     private PlayerEventListener playerEventListener;
     private final PlayerType playerType;
-    private List<PotionCard> potionCards;
+    private List<Potion> potions;
     private Stage primaryStage;
     private Relic relic;
     private String username;
@@ -58,15 +58,15 @@ public abstract class Player {
         this.currentEnergy = this.maxEnergy;
         this.playerType = playerType;
         this.primaryStage = primaryStage;
-        this.potionCards = new ArrayList<>();
+        this.potions = new ArrayList<>();
     }
 
     public void addCardToDeck(Card addCard) {
         this.deck.add(addCard);
     }
 
-    public void addPotionCard(PotionCard potionCards) {
-        this.potionCards.add(potionCards);
+    public void addPotion(Potion potion) {
+        this.potions.add(potion);
     }
 
     /**
@@ -211,12 +211,12 @@ public abstract class Player {
         return playerType;
     }
 
-    public List<PotionCard> getPotionCards() {
-        return potionCards;
+    public List<Potion> getPotions() {
+        return potions;
     }
 
-    public void setPotionCards(List<PotionCard> potionCards) {
-        this.potionCards = potionCards;
+    public void setPotions(List<Potion> potions) {
+        this.potions = potions;
     }
 
     public Stage getPrimaryStage() {

@@ -12,7 +12,7 @@ import de.bundeswehr.auf.slaythespire.model.battle.GameContext;
  *
  * @author OF Daniel Willig
  */
-public abstract class PotionCard extends Card {
+public abstract class Potion extends Card {
     /**
      * Constructor Potion card.
      *
@@ -21,7 +21,7 @@ public abstract class PotionCard extends Card {
      * @param rarity      die rarity
      * @param cardType    der card type
      */
-    public PotionCard(String name, String description, CardRarity rarity, CardType cardType) {
+    public Potion(String name, String description, CardRarity rarity, CardType cardType) {
         super(name, description, 0, rarity, CardGrave.POTION, cardType);
     }
 
