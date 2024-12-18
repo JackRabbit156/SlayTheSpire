@@ -1,6 +1,7 @@
 package de.bundeswehr.auf.slaythespire.gui.layouts.battle;
 
 import de.bundeswehr.auf.slaythespire.gui.BattleView;
+import de.bundeswehr.auf.slaythespire.gui.components.MovingAnimation;
 import de.bundeswehr.auf.slaythespire.model.enemy.Enemy;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;

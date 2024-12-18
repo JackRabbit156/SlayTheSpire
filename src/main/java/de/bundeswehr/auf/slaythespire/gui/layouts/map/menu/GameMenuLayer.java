@@ -1,4 +1,4 @@
-package de.bundeswehr.auf.slaythespire.gui.layouts.map;
+package de.bundeswehr.auf.slaythespire.gui.layouts.map.menu;
 
 import de.bundeswehr.auf.slaythespire.helper.GuiHelper;
 import javafx.geometry.Insets;

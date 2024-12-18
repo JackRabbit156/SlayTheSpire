@@ -9,7 +9,8 @@ import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 
 public class PlayerLayout extends HBox {
-    private String playerImagePath;
+
+    private final String playerImagePath;
 
     public PlayerLayout(String playerImagePath) {
         this.playerImagePath = playerImagePath;
@@ -25,17 +26,27 @@ public class PlayerLayout extends HBox {
     }
 
     /**
+     * Erstellt und gibt ein ImageView für das Spielerbild zurück.
+     *
+     * @return Das ImageView für das Spielerbild.
+     */
+    private ImageView getPlayerImageView() {
+        Image image = new Image(playerImagePath);
+        return new ImageView(image);
+    }
+
+    /**
      * Initialisiert den linken Bereich des Layouts.
      * Fügt das Spielerbild dem Layout hinzu.
      */
     private void initLeft() {
-        VBox vPlayer = new VBox();
-        HBox.setHgrow(vPlayer, Priority.ALWAYS);
-        vPlayer.setAlignment(Pos.CENTER);
-        vPlayer.setTranslateY(150);
-        vPlayer.setTranslateX(-700);
-        vPlayer.getChildren().add(getPlayerImageView());
-        getChildren().add(vPlayer);
+        VBox player = new VBox();
+        HBox.setHgrow(player, Priority.ALWAYS);
+        player.setAlignment(Pos.CENTER);
+        player.setTranslateY(150);
+        player.setTranslateX(-700);
+        player.getChildren().add(getPlayerImageView());
+        getChildren().add(player);
     }
 
     /**
@@ -46,17 +57,6 @@ public class PlayerLayout extends HBox {
         VBox vBox = new VBox();
         vBox.getChildren().add(new Region());
         getChildren().add(vBox);
-    }
-
-    /**
-     * Erstellt und gibt ein ImageView für das Spielerbild zurück.
-     *
-     * @return Das ImageView für das Spielerbild.
-     */
-    private ImageView getPlayerImageView() {
-        Image image = new Image(getClass().getResource(this.playerImagePath).toExternalForm());
-        ImageView imageView = new ImageView(image);
-        return imageView;
     }
 
 }
