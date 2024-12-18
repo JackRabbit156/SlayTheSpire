@@ -8,7 +8,9 @@ import de.bundeswehr.auf.slaythespire.model.relic.structure.Relic;
 import org.reflections.Reflections;
 
 import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Modifier;
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class Model {
 
@@ -82,7 +84,9 @@ public class Model {
     private static Set<Class<? extends Card>> loadCardClasses(String key) {
         if (!cardCache.containsKey(key)) {
             Reflections reflections = new Reflections(DEFAULT_PACKAGE + CARD + key);
-            cardCache.put(key, reflections.getSubTypesOf(Card.class));
+            cardCache.put(key, reflections.getSubTypesOf(Card.class).stream()
+                    .filter(cls -> !Modifier.isAbstract(cls.getModifiers()))
+                    .collect(Collectors.toSet()));
         }
         return cardCache.get(key);
     }
@@ -90,7 +94,9 @@ public class Model {
     private static Set<Class<? extends Potion>> loadPotionClasses() {
         if (potionCache == null) {
             Reflections reflections = new Reflections(DEFAULT_PACKAGE + POTION);
-            potionCache = reflections.getSubTypesOf(Potion.class);
+            potionCache = reflections.getSubTypesOf(Potion.class).stream()
+                    .filter(cls -> !Modifier.isAbstract(cls.getModifiers()))
+                    .collect(Collectors.toSet());
         }
         return potionCache;
     }
@@ -98,7 +104,9 @@ public class Model {
     private static Set<Class<? extends Relic>> loadRelicClasses() {
         if (relicCache == null) {
             Reflections reflections = new Reflections(DEFAULT_PACKAGE + RELIC);
-            relicCache = reflections.getSubTypesOf(Relic.class);
+            relicCache = reflections.getSubTypesOf(Relic.class).stream()
+                    .filter(cls -> !Modifier.isAbstract(cls.getModifiers()))
+                    .collect(Collectors.toSet());
         }
         return relicCache;
     }
