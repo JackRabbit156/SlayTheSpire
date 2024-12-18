@@ -23,7 +23,7 @@ import java.util.List;
  */
 public class CardSelectionLayout extends HBox {
 
-    private BooleanProperty cardClicked = new SimpleBooleanProperty();
+    private final BooleanProperty cardClicked = new SimpleBooleanProperty();
     private final CardEventListener[] eventListeners;
 
     /**
@@ -67,7 +67,7 @@ public class CardSelectionLayout extends HBox {
      * @return Die grafische Darstellung der Karte als Node.
      */
     private Node images(Card card) {
-        Image imageCard = new Image(getClass().getResource(card.getImagePath()).toExternalForm());
+        Image imageCard = new Image(card.getImagePath());
         ImageView imageViewCard = new ImageView(imageCard);
 
         imageViewCard.setFitHeight(350);
