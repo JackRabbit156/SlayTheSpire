@@ -1,6 +1,6 @@
 package de.bundeswehr.auf.slaythespire.tester;
 
-import de.bundeswehr.auf.slaythespire.model.enemy.Enemy;
+import de.bundeswehr.auf.slaythespire.model.enemy.structure.Enemy;
 import de.bundeswehr.auf.slaythespire.model.enemy.act_one.AcidSlimeEnemy;
 import de.bundeswehr.auf.slaythespire.model.enemy.act_one.CultistEnemy;
 import de.bundeswehr.auf.slaythespire.model.enemy.act_one.MadGremlinEnemy;

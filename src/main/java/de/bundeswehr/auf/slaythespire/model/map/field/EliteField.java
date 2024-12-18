@@ -3,7 +3,7 @@ package de.bundeswehr.auf.slaythespire.model.map.field;
 import de.bundeswehr.auf.slaythespire.controller.LootController;
 import de.bundeswehr.auf.slaythespire.helper.GuiHelper;
 import de.bundeswehr.auf.slaythespire.helper.MusicBoy;
-import de.bundeswehr.auf.slaythespire.model.enemy.Enemy;
+import de.bundeswehr.auf.slaythespire.model.enemy.structure.Enemy;
 import de.bundeswehr.auf.slaythespire.model.player.structure.Player;
 
 import java.util.List;

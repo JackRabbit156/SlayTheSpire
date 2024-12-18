@@ -1,7 +1,7 @@
 package de.bundeswehr.auf.slaythespire.model.enemy_card.structure;
 
 import de.bundeswehr.auf.slaythespire.model.battle.GameContext;
-import de.bundeswehr.auf.slaythespire.model.enemy.Enemy;
+import de.bundeswehr.auf.slaythespire.model.enemy.structure.Enemy;
 
 /**
  * Die Enemy card.

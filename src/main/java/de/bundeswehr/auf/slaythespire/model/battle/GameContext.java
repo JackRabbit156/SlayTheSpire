@@ -1,6 +1,6 @@
 package de.bundeswehr.auf.slaythespire.model.battle;
 
-import de.bundeswehr.auf.slaythespire.model.enemy.Enemy;
+import de.bundeswehr.auf.slaythespire.model.enemy.structure.Enemy;
 import de.bundeswehr.auf.slaythespire.model.player.structure.Player;
 
 import java.util.List;

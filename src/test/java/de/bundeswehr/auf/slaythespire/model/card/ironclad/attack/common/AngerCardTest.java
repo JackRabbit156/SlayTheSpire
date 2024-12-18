@@ -4,7 +4,7 @@ import de.bundeswehr.auf.slaythespire.controller.BattleController;
 import de.bundeswehr.auf.slaythespire.model.battle.BattleDeck;
 import de.bundeswehr.auf.slaythespire.model.battle.GameContext;
 import de.bundeswehr.auf.slaythespire.model.card.structure.Card;
-import de.bundeswehr.auf.slaythespire.model.enemy.Enemy;
+import de.bundeswehr.auf.slaythespire.model.enemy.structure.Enemy;
 import de.bundeswehr.auf.slaythespire.model.enemy.act_one.boss.SlimeBoss;
 import de.bundeswehr.auf.slaythespire.model.map.field.FieldEnum;
 import de.bundeswehr.auf.slaythespire.model.player.IroncladPlayer;

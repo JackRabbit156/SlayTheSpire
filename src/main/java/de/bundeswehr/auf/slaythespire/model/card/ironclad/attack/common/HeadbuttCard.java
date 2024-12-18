@@ -10,7 +10,7 @@ import de.bundeswehr.auf.slaythespire.model.card.structure.AttackCard;
 import de.bundeswehr.auf.slaythespire.model.card.structure.Card;
 import de.bundeswehr.auf.slaythespire.model.card.structure.CardGrave;
 import de.bundeswehr.auf.slaythespire.model.card.structure.CardRarity;
-import de.bundeswehr.auf.slaythespire.model.enemy.Enemy;
+import de.bundeswehr.auf.slaythespire.model.enemy.structure.Enemy;
 import de.bundeswehr.auf.slaythespire.model.player.structure.Player;
 
 /**

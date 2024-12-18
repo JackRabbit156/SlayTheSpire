@@ -1,8 +1,7 @@
 package de.bundeswehr.auf.slaythespire.model.enemy.act_one;
 
 import de.bundeswehr.auf.slaythespire.helper.PathAssistent;
-import de.bundeswehr.auf.slaythespire.model.battle.GameContext;
-import de.bundeswehr.auf.slaythespire.model.enemy.Enemy;
+import de.bundeswehr.auf.slaythespire.model.enemy.structure.Enemy;
 import de.bundeswehr.auf.slaythespire.model.enemy_card.act_one.mad_gremlin.ScratchEnemyCard;
 import de.bundeswehr.auf.slaythespire.model.enemy_card.structure.EnemyCard;
 
@@ -18,6 +17,7 @@ import java.util.List;
  * @author OF Daniel Willig
  */
 public class MadGremlinEnemy extends Enemy {
+
     public MadGremlinEnemy() {
         super("Mad Gremlin", 20, 24);
         setImagePath(new PathAssistent().toPath(this));
@@ -30,12 +30,6 @@ public class MadGremlinEnemy extends Enemy {
         deck.add(new ScratchEnemyCard());
 
         setEnemyDeck(deck);
-    }
-
-
-    @Override
-    public void attack(GameContext gameContext) {
-        getEnemyDeck().get(getEnemyCardToBePlayed()).playEnemy(gameContext, this);
     }
 
 }

@@ -1,8 +1,7 @@
 package de.bundeswehr.auf.slaythespire.model.enemy.act_four.boss;
 
 import de.bundeswehr.auf.slaythespire.helper.PathAssistent;
-import de.bundeswehr.auf.slaythespire.model.battle.GameContext;
-import de.bundeswehr.auf.slaythespire.model.enemy.Enemy;
+import de.bundeswehr.auf.slaythespire.model.enemy.structure.Boss;
 import de.bundeswehr.auf.slaythespire.model.enemy_card.act_four.boss.corrupt_heart.BloodShotsEnemyCard;
 import de.bundeswehr.auf.slaythespire.model.enemy_card.act_four.boss.corrupt_heart.EchoEnemyCard;
 import de.bundeswehr.auf.slaythespire.model.enemy_card.structure.EnemyCard;
@@ -14,10 +13,10 @@ import java.util.List;
  * @author Keil, Vladislav
  * @author OF Daniel Willig
  */
-public class CorruptHeartBoss extends Enemy {
+public class CorruptHeartBoss extends Boss {
 
     public CorruptHeartBoss() {
-        super("CorruptHeart",750, 750);
+        super("CorruptHeart", 750, 750);
         setImagePath(new PathAssistent().toPath(this));
         initEnemyDeck();
     }
@@ -31,8 +30,4 @@ public class CorruptHeartBoss extends Enemy {
         setEnemyDeck(deck);
     }
 
-    @Override
-    public void attack(GameContext gameContext) {
-        getEnemyDeck().get(getEnemyCardToBePlayed()).playEnemy(gameContext, this);
-    }
 }

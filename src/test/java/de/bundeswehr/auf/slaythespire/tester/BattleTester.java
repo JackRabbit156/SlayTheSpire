@@ -8,8 +8,8 @@ import javafx.application.Application;
 import javafx.stage.Stage;
 import de.bundeswehr.auf.slaythespire.model.battle.GameContext;
 import de.bundeswehr.auf.slaythespire.model.card.structure.CardRarity;
-import de.bundeswehr.auf.slaythespire.model.enemy.Enemy;
-import de.bundeswehr.auf.slaythespire.model.enemy.EnemyEnum;
+import de.bundeswehr.auf.slaythespire.model.enemy.structure.Enemy;
+import de.bundeswehr.auf.slaythespire.model.enemy.structure.EnemyEnum;
 import de.bundeswehr.auf.slaythespire.model.enemy.act_one.AcidSlimeEnemy;
 import de.bundeswehr.auf.slaythespire.model.enemy.act_one.CultistEnemy;
 import de.bundeswehr.auf.slaythespire.model.enemy.act_one.MadGremlinEnemy;
@@ -26,7 +26,6 @@ import de.bundeswehr.auf.slaythespire.model.enemy.act_two.elite.GremlinLeaderEli
 import de.bundeswehr.auf.slaythespire.model.settings.GameSettings;
 import de.bundeswehr.auf.slaythespire.model.settings.structure.DifficultyLevel;
 import de.bundeswehr.auf.slaythespire.model.map.field.FieldEnum;
-import de.bundeswehr.auf.slaythespire.model.potion.structure.Potion;
 
 import java.util.ArrayList;
 import java.util.List;

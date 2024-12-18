@@ -2,7 +2,7 @@ package de.bundeswehr.auf.slaythespire.model.enemy_card.act_two.elite.gremlin_le
 
 import de.bundeswehr.auf.slaythespire.helper.PathAssistent;
 import de.bundeswehr.auf.slaythespire.model.battle.GameContext;
-import de.bundeswehr.auf.slaythespire.model.enemy.Enemy;
+import de.bundeswehr.auf.slaythespire.model.enemy.structure.Enemy;
 import de.bundeswehr.auf.slaythespire.model.enemy_card.structure.EnemyCard;
 
 /**

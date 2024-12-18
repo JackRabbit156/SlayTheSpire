@@ -4,8 +4,6 @@ import de.bundeswehr.auf.slaythespire.helper.PathAssistent;
 import de.bundeswehr.auf.slaythespire.model.battle.GameContext;
 import de.bundeswehr.auf.slaythespire.model.battle.Playable;
 import de.bundeswehr.auf.slaythespire.model.card.structure.*;
-import de.bundeswehr.auf.slaythespire.model.enemy.Enemy;
-import de.bundeswehr.auf.slaythespire.model.player.structure.Player;
 
 import java.util.List;
 

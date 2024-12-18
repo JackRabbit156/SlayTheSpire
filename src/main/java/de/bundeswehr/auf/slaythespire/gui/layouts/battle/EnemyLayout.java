@@ -2,7 +2,9 @@ package de.bundeswehr.auf.slaythespire.gui.layouts.battle;
 
 import de.bundeswehr.auf.slaythespire.gui.BattleView;
 import de.bundeswehr.auf.slaythespire.gui.components.MovingAnimation;
-import de.bundeswehr.auf.slaythespire.model.enemy.Enemy;
+import de.bundeswehr.auf.slaythespire.model.enemy.structure.Boss;
+import de.bundeswehr.auf.slaythespire.model.enemy.structure.Elite;
+import de.bundeswehr.auf.slaythespire.model.enemy.structure.Enemy;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.effect.DropShadow;
@@ -29,14 +31,14 @@ import javafx.scene.paint.Color;
  * @author Warawa Alexander, Willig Daniel
  */
 public class EnemyLayout extends VBox {
-    private MovingAnimation animation;
-    private boolean attackMode = false;
-    private BattleView battleView;
-    private DefendLayout defendLayout;
-    private Enemy enemy;
-    private HealthBarLayout healthBarLayout;
-    private IntentLayout intentLayout;
 
+    private final MovingAnimation animation;
+    private boolean attackMode = false;
+    private final BattleView battleView;
+    private final DefendLayout defendLayout;
+    private final Enemy enemy;
+    private final HealthBarLayout healthBarLayout;
+    private final IntentLayout intentLayout;
 
     /**
      * Konstruktor für die Klasse 'EnemyLayout'.
@@ -57,8 +59,6 @@ public class EnemyLayout extends VBox {
         defendLayout = new DefendLayout();
         intentLayout = new IntentLayout(enemy);
 
-//        intentLayout.setTranslateY(50);
-
         HBox defendHealthBar = new HBox();
         defendHealthBar.getChildren().addAll(defendLayout, healthBarLayout);
         defendHealthBar.setAlignment(Pos.CENTER);
@@ -67,7 +67,6 @@ public class EnemyLayout extends VBox {
 
         getChildren().addAll(intentLayout, image(), defendHealthBar);
 
-        // Die HP Bar muss nachjustiert werden
         setMargin(healthBarLayout, new Insets(0, 100, 0, 0));
 
         alignmentProperty().set(Pos.BOTTOM_LEFT);
@@ -102,14 +101,23 @@ public class EnemyLayout extends VBox {
     }
 
     private ImageView image() {
-        Image figureImage = new Image(getClass().getResource(enemy.getImagePath()).toExternalForm());
+        Image figureImage = new Image(enemy.getImagePath());
         ImageView imageViewFigure = new ImageView(figureImage);
 
-        // TODO better size for bosses and elites
-        imageViewFigure.setFitWidth(Math.sqrt(imageViewFigure.getImage().getWidth()) * 10); // Breite in Pixel
-        imageViewFigure.setFitHeight(Math.sqrt(imageViewFigure.getImage().getHeight()) * 10); // Höhe in Pixel
+        int factor;
+        if (enemy instanceof Boss) {
+            factor = 20;
+        }
+        else if (enemy instanceof Elite) {
+            factor = 15;
+        }
+        else {
+            factor = 10;
+        }
+        imageViewFigure.setFitWidth(Math.sqrt(imageViewFigure.getImage().getWidth()) * factor);
+        imageViewFigure.setFitHeight(Math.sqrt(imageViewFigure.getImage().getHeight()) * factor);
         imageViewFigure.setPreserveRatio(true);
-        //handBox = new Pane( imageViewIronclad);
+
         imageViewFigure.setStyle("-fx-background-color: #926099;");
 
         setHoverEffect(imageViewFigure);

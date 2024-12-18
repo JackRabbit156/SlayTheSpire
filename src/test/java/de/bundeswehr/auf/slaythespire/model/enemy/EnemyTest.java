@@ -4,6 +4,7 @@ import de.bundeswehr.auf.slaythespire.controller.listener.EnemyEventListener;
 import de.bundeswehr.auf.slaythespire.events.EnemyDamageEvent;
 import de.bundeswehr.auf.slaythespire.model.battle.BattleDeck;
 import de.bundeswehr.auf.slaythespire.model.battle.GameContext;
+import de.bundeswehr.auf.slaythespire.model.enemy.structure.Enemy;
 import de.bundeswehr.auf.slaythespire.model.enemy_card.structure.EnemyCard;
 import de.bundeswehr.auf.slaythespire.model.player.IroncladPlayer;
 import org.junit.jupiter.api.Assertions;

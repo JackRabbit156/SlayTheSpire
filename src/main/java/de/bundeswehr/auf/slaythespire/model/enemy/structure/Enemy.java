@@ -1,4 +1,4 @@
-package de.bundeswehr.auf.slaythespire.model.enemy;
+package de.bundeswehr.auf.slaythespire.model.enemy.structure;
 
 import de.bundeswehr.auf.slaythespire.controller.listener.EnemyEventListener;
 import de.bundeswehr.auf.slaythespire.events.EnemyDamageEvent;
@@ -82,7 +82,9 @@ public abstract class Enemy {
      *
      * @param gameContext Der aktuelle Spielkontext, der weitere Informationen enthält.
      */
-    public abstract void attack(GameContext gameContext);
+    public void attack(GameContext gameContext) {
+        getEnemyDeck().get(enemyCardToBePlayed).playEnemy(gameContext, this);
+    }
 
     /**
      * berechnet die Aktion bevor sie ausgeführt wird. Wie bei diesem Film indem die Polizei Bösewichte fangen bevor sie Straftaten begehen.
@@ -94,7 +96,7 @@ public abstract class Enemy {
         int randomNumber = (rnd.nextInt(100) + 1);
         if (difficulty.getAttackPercentage() >= randomNumber) {
             setEnemyCardToBePlayed(rnd.nextInt(getEnemyDeck().size()));
-            setIntent(getEnemyDeck().get(getEnemyCardToBePlayed()));
+            setIntent(getEnemyDeck().get(enemyCardToBePlayed));
         }
         else {
             setIntent(insult);
@@ -107,10 +109,6 @@ public abstract class Enemy {
 
     public void setBlock(int block) {
         this.block = block;
-    }
-
-    public int getEnemyCardToBePlayed() {
-        return enemyCardToBePlayed;
     }
 
     public void setEnemyCardToBePlayed(int enemyCardToBePlayed) {

@@ -1,8 +1,7 @@
 package de.bundeswehr.auf.slaythespire.model.enemy.act_two.boss;
 
 import de.bundeswehr.auf.slaythespire.helper.PathAssistent;
-import de.bundeswehr.auf.slaythespire.model.battle.GameContext;
-import de.bundeswehr.auf.slaythespire.model.enemy.Enemy;
+import de.bundeswehr.auf.slaythespire.model.enemy.structure.Boss;
 import de.bundeswehr.auf.slaythespire.model.enemy_card.act_two.boss.the_champ.DefensiveStanceEnemyCard;
 import de.bundeswehr.auf.slaythespire.model.enemy_card.act_two.boss.the_champ.ExecuteEnemyCard;
 import de.bundeswehr.auf.slaythespire.model.enemy_card.act_two.boss.the_champ.FaceSlapEnemyCard;
@@ -16,7 +15,7 @@ import java.util.List;
  * @author Keil, Vladislav
  * @author OF Daniel Willig
  */
-public class TheChampBoss extends Enemy {
+public class TheChampBoss extends Boss {
     /**
      * Konstruktor für die Enemy-Klasse.
      * Initialisiert einen Gegner mit einem Namen und einem maximalen Gesundheitsbereich.
@@ -38,8 +37,4 @@ public class TheChampBoss extends Enemy {
         setEnemyDeck(deck);
     }
 
-    @Override
-    public void attack(GameContext gameContext) {
-        getEnemyDeck().get(getEnemyCardToBePlayed()).playEnemy(gameContext, this);
-    }
 }

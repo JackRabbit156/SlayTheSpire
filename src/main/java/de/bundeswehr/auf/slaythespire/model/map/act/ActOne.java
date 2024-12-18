@@ -3,8 +3,8 @@ package de.bundeswehr.auf.slaythespire.model.map.act;
 import de.bundeswehr.auf.slaythespire.helper.Color;
 import de.bundeswehr.auf.slaythespire.helper.LoggingAssistant;
 import de.bundeswehr.auf.slaythespire.helper.MusicBoy;
-import de.bundeswehr.auf.slaythespire.model.enemy.Enemy;
-import de.bundeswehr.auf.slaythespire.model.enemy.EnemyEnum;
+import de.bundeswehr.auf.slaythespire.model.enemy.structure.Enemy;
+import de.bundeswehr.auf.slaythespire.model.enemy.structure.EnemyEnum;
 import de.bundeswehr.auf.slaythespire.model.enemy.act_one.AcidSlimeEnemy;
 import de.bundeswehr.auf.slaythespire.model.enemy.act_one.CultistEnemy;
 import de.bundeswehr.auf.slaythespire.model.enemy.act_one.MadGremlinEnemy;
@@ -17,7 +17,6 @@ import de.bundeswehr.auf.slaythespire.model.map.Coordinates;
 import de.bundeswehr.auf.slaythespire.model.map.Node;
 import de.bundeswehr.auf.slaythespire.model.map.field.*;
 import de.bundeswehr.auf.slaythespire.model.player.structure.Player;
-import javafx.scene.image.Image;
 
 import java.util.ArrayList;
 import java.util.List;

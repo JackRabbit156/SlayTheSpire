@@ -1,8 +1,7 @@
 package de.bundeswehr.auf.slaythespire.model.enemy.act_one;
 
 import de.bundeswehr.auf.slaythespire.helper.PathAssistent;
-import de.bundeswehr.auf.slaythespire.model.battle.GameContext;
-import de.bundeswehr.auf.slaythespire.model.enemy.Enemy;
+import de.bundeswehr.auf.slaythespire.model.enemy.structure.Enemy;
 import de.bundeswehr.auf.slaythespire.model.enemy_card.act_one.cultist.DarkStrikeEnemyCard;
 import de.bundeswehr.auf.slaythespire.model.enemy_card.structure.EnemyCard;
 
@@ -18,6 +17,7 @@ import java.util.List;
  * @author OF Daniel Willig
  */
 public class CultistEnemy extends Enemy {
+
     public CultistEnemy() {
         super("Cultist", 48, 54);
         setImagePath(new PathAssistent().toPath(this));
@@ -32,8 +32,4 @@ public class CultistEnemy extends Enemy {
         setEnemyDeck(deck);
     }
 
-    @Override
-    public void attack(GameContext gameContext) {
-        getEnemyDeck().get(getEnemyCardToBePlayed()).playEnemy(gameContext, this);
-    }
 }

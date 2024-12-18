@@ -1,6 +1,6 @@
 package de.bundeswehr.auf.slaythespire.events;
 
-import de.bundeswehr.auf.slaythespire.model.enemy.Enemy;
+import de.bundeswehr.auf.slaythespire.model.enemy.structure.Enemy;
 
 /**
  * Das EnemyDamageEvent dient dazu notified zu werden, wenn ein Gegner schaden bekommt.
@@ -9,9 +9,9 @@ import de.bundeswehr.auf.slaythespire.model.enemy.Enemy;
  * @author OF Daniel Willig
  */
 public class EnemyDamageEvent {
+
     private final Enemy enemy;
     private final int damageAmount;
-
 
     /**
      * Constructor Enemy damage event.
@@ -31,4 +31,5 @@ public class EnemyDamageEvent {
     public int getDamageAmount() {
         return damageAmount;
     }
+
 }

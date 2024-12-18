@@ -1,8 +1,7 @@
 package de.bundeswehr.auf.slaythespire.model.enemy.act_two;
 
 import de.bundeswehr.auf.slaythespire.helper.PathAssistent;
-import de.bundeswehr.auf.slaythespire.model.battle.GameContext;
-import de.bundeswehr.auf.slaythespire.model.enemy.Enemy;
+import de.bundeswehr.auf.slaythespire.model.enemy.structure.Enemy;
 import de.bundeswehr.auf.slaythespire.model.enemy_card.act_two.spheric_guardian.ActivateEnemyCard;
 import de.bundeswehr.auf.slaythespire.model.enemy_card.act_two.spheric_guardian.HardenEnemyCard;
 import de.bundeswehr.auf.slaythespire.model.enemy_card.act_two.spheric_guardian.SlamSEnemyCard;
@@ -20,6 +19,7 @@ import java.util.List;
  * @author OF Daniel Willig
  */
 public class SphericGuardianEnemy extends Enemy {
+
     public SphericGuardianEnemy() {
         super("Spheric Guardian", 20, 20);
         setImagePath(new PathAssistent().toPath(this));
@@ -37,8 +37,4 @@ public class SphericGuardianEnemy extends Enemy {
         setEnemyDeck(deck);
     }
 
-    @Override
-    public void attack(GameContext gameContext) {
-        getEnemyDeck().get(getEnemyCardToBePlayed()).playEnemy(gameContext, this);
-    }
 }

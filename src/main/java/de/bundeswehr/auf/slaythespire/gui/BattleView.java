@@ -15,7 +15,7 @@ import de.bundeswehr.auf.slaythespire.model.card.structure.AttackCard;
 import de.bundeswehr.auf.slaythespire.model.card.structure.Card;
 import de.bundeswehr.auf.slaythespire.model.card.structure.PowerCard;
 import de.bundeswehr.auf.slaythespire.model.card.structure.SkillCard;
-import de.bundeswehr.auf.slaythespire.model.enemy.Enemy;
+import de.bundeswehr.auf.slaythespire.model.enemy.structure.Enemy;
 import de.bundeswehr.auf.slaythespire.model.player.structure.Player;
 import de.bundeswehr.auf.slaythespire.model.potion.structure.AttackPotion;
 import de.bundeswehr.auf.slaythespire.model.potion.structure.Potion;

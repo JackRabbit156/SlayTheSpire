@@ -2,7 +2,7 @@ package de.bundeswehr.auf.slaythespire.helper;
 
 import de.bundeswehr.auf.slaythespire.controller.*;
 import de.bundeswehr.auf.slaythespire.gui.GameOverView;
-import de.bundeswehr.auf.slaythespire.model.enemy.Enemy;
+import de.bundeswehr.auf.slaythespire.model.enemy.structure.Enemy;
 import de.bundeswehr.auf.slaythespire.model.map.field.FieldEnum;
 import de.bundeswehr.auf.slaythespire.model.player.structure.Player;
 import de.bundeswehr.auf.slaythespire.model.settings.GameSettings;
@@ -111,7 +111,7 @@ public class GuiHelper {
             EventController eventController = new EventController(player);
             registerController(eventController);
             Stage primaryStage = player.getPrimaryStage();
-            String cssPath = "/css/eventStyle.css";
+            String cssPath = "";
             fadeTransition(primaryStage, eventController.getEventView(), cssPath);
         }
 
@@ -491,17 +491,6 @@ public class GuiHelper {
             imageView.setScaleX(downScaleX); // Reset the width to original
             imageView.setScaleY(downScaleY); // Reset the height to original
         });
-        // TODO doppelt notwendig?
-//        imageView.addEventHandler(MouseEvent.MOUSE_ENTERED, e -> {
-//            imageView.setEffect(glow);
-//            imageView.setScaleX(upScaleX); // Slightly increase the width
-//            imageView.setScaleY(upScaleY); // Slightly increase the height
-//        });
-//        imageView.addEventHandler(MouseEvent.MOUSE_EXITED, e -> {
-//            imageView.setEffect(null);
-//            imageView.setScaleX(downScaleX); // Reset the width to original
-//            imageView.setScaleY(downScaleY); // Reset the height to original
-//        });
     }
 
     /**

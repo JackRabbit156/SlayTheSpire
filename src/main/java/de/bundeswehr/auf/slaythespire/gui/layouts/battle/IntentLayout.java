@@ -1,5 +1,6 @@
 package de.bundeswehr.auf.slaythespire.gui.layouts.battle;
 
+import de.bundeswehr.auf.slaythespire.model.enemy.structure.Enemy;
 import javafx.geometry.Pos;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -9,7 +10,6 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontSmoothingType;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
-import de.bundeswehr.auf.slaythespire.model.enemy.Enemy;
 
 
 /**
@@ -19,20 +19,16 @@ import de.bundeswehr.auf.slaythespire.model.enemy.Enemy;
  * @author OF Daniel Willig
  */
 public class IntentLayout extends StackPane {
-    private final Text intentText = new Text();
-    private final Text intentTextStroke = new Text();
-
-    private ImageView intentIconView = new ImageView();
-
-    private final String strokeColor = "#424443";
-    private final int strokeWidth = 3;
-
-    private final String textColor = "#fdf8fc";
-
-    private final Font font = Font.font("Kreon", FontWeight.BOLD, 20);
-    private final FontSmoothingType smoothingType = FontSmoothingType.GRAY;
 
     private Enemy enemy;
+    private final Font font = Font.font("Kreon", FontWeight.BOLD, 20);
+    private ImageView intentIconView = new ImageView();
+    private final Text intentText = new Text();
+    private final Text intentTextStroke = new Text();
+    private final FontSmoothingType smoothingType = FontSmoothingType.GRAY;
+    private final String strokeColor = "#424443";
+    private final int strokeWidth = 3;
+    private final String textColor = "#fdf8fc";
 
 
     public IntentLayout(Enemy enemy) {
@@ -44,14 +40,20 @@ public class IntentLayout extends StackPane {
         setAlignment(Pos.BOTTOM_CENTER);
     }
 
+    public void setIntentIcon(String intent) {
+        if (intent != null) {
+            intentIconView.setImage(new Image(getClass().getResource(intent).toExternalForm()));
+        }
+    }
+
     public void setIntentText(String intent) {
         intentText.setText(intent);
         intentTextStroke.setText(intent);
     }
 
-    public void setIntentIcon(String intent) {
-        if (intent != null)
-            intentIconView.setImage(new Image(getClass().getResource(intent).toExternalForm()));
+    private void initIntentIcon() {
+        intentIconView.setFitHeight(75);
+        intentIconView.setFitWidth(75);
     }
 
     private void initText() {
@@ -63,11 +65,5 @@ public class IntentLayout extends StackPane {
         intentText.setFont(font);
         intentText.setFontSmoothingType(smoothingType);
     }
-
-    private void initIntentIcon() {
-        intentIconView.setFitHeight(75);
-        intentIconView.setFitWidth(75);
-    }
-
 
 }

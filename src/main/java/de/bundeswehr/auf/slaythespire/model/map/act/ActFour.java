@@ -2,7 +2,7 @@ package de.bundeswehr.auf.slaythespire.model.map.act;
 
 
 import de.bundeswehr.auf.slaythespire.helper.MusicBoy;
-import de.bundeswehr.auf.slaythespire.model.enemy.Enemy;
+import de.bundeswehr.auf.slaythespire.model.enemy.structure.Enemy;
 import de.bundeswehr.auf.slaythespire.model.enemy.act_four.SpikerEnemy;
 import de.bundeswehr.auf.slaythespire.model.enemy.act_four.boss.CorruptHeartBoss;
 import de.bundeswehr.auf.slaythespire.model.enemy.act_four.elite.SpireShieldElite;

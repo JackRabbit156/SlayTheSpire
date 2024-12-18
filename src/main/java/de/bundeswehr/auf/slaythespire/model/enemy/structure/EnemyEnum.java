@@ -1,4 +1,4 @@
-package de.bundeswehr.auf.slaythespire.model.enemy;
+package de.bundeswehr.auf.slaythespire.model.enemy.structure;
 /**
  * @author Keil, Vladislav
  */

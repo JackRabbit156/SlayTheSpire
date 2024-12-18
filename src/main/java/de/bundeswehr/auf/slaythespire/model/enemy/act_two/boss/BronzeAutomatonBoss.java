@@ -1,8 +1,7 @@
 package de.bundeswehr.auf.slaythespire.model.enemy.act_two.boss;
 
 import de.bundeswehr.auf.slaythespire.helper.PathAssistent;
-import de.bundeswehr.auf.slaythespire.model.battle.GameContext;
-import de.bundeswehr.auf.slaythespire.model.enemy.Enemy;
+import de.bundeswehr.auf.slaythespire.model.enemy.structure.Boss;
 import de.bundeswehr.auf.slaythespire.model.enemy_card.act_two.boss.bronze_automaton.BoostEnemyCard;
 import de.bundeswehr.auf.slaythespire.model.enemy_card.act_two.boss.bronze_automaton.FlailEnemyCard;
 import de.bundeswehr.auf.slaythespire.model.enemy_card.act_two.boss.bronze_automaton.HyperBeamEnemyCard;
@@ -15,12 +14,13 @@ import java.util.List;
  * @author Keil, Vladislav
  * @author OF Daniel Willig
  */
-public class BronzeAutomatonBoss extends Enemy {
+public class BronzeAutomatonBoss extends Boss {
+
     /**
      * Konstruktor für die Enemy-Klasse.
      * Initialisiert einen Gegner mit einem Namen und einem maximalen Gesundheitsbereich.
      */
-    public BronzeAutomatonBoss( ) {
+    public BronzeAutomatonBoss() {
         super("Bronze Automaton", 300, 320);
         setImagePath(new PathAssistent().toPath(this));
         initEnemyDeck();
@@ -36,9 +36,4 @@ public class BronzeAutomatonBoss extends Enemy {
         setEnemyDeck(deck);
     }
 
-
-    @Override
-    public void attack(GameContext gameContext) {
-        getEnemyDeck().get(getEnemyCardToBePlayed()).playEnemy(gameContext, this);
-    }
 }
