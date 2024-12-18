@@ -153,7 +153,7 @@ public class TreasureController implements Controller, TreasureViewEvents {
      */
     private List<Card> initTreasureDeck(Player player) {
         deckFactory = new DeckFactory(player, amount);
-        return deckFactory.init();
+        return deckFactory.init(false);
     }
 
 }

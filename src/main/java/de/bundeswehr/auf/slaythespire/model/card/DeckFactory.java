@@ -9,9 +9,7 @@ import de.bundeswehr.auf.slaythespire.model.potion.structure.Potion;
 import de.bundeswehr.auf.slaythespire.model.relic.structure.Relic;
 
 import java.lang.reflect.InvocationTargetException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 /**
  * Die DeckFactory-Klasse ist verantwortlich für die Erstellung und Verwaltung des Kartendecks eines Spielers.
@@ -84,9 +82,9 @@ public class DeckFactory {
     /**
      * Konstruktor für die DeckFactory, der ein Deck mit einer bestimmten Anzahl an Karten und einem spezifischen Kartentyp erstellt.
      *
-     * @param player   Der Spieler, dessen Deck erstellt werden soll.
-     * @param amount   Die Anzahl der Karten, die im Deck enthalten sein sollen.
-     * @param cls      Der Kartentyp, der für das Deck verwendet wird (z.B. Angriff, Verteidigung, etc.).
+     * @param player Der Spieler, dessen Deck erstellt werden soll.
+     * @param amount Die Anzahl der Karten, die im Deck enthalten sein sollen.
+     * @param cls    Der Kartentyp, der für das Deck verwendet wird (z.B. Angriff, Verteidigung, etc.).
      */
     public DeckFactory(Player player, int amount, Class<? extends Card> cls) {
         this(player, amount);
@@ -122,12 +120,12 @@ public class DeckFactory {
      * @return Eine Liste von Karten, die das Initialisierungsdeck des Spielers darstellt.
      * Im Falle eines Fehlers wird null zurückgegeben.
      */
-    public List<Card> init() {
+    public List<Card> init(boolean duplicatesAllowed) {
         switch (player.getPlayerType()) {
-            case SILENT:
-                return initSilentCards();
             case IRONCLAD:
-                return initIroncladCards();
+                return initIroncladCards(duplicatesAllowed);
+            case SILENT:
+                return initSilentCards(duplicatesAllowed);
             case WATCHER:
             case DEFECT:
             default:
@@ -151,30 +149,33 @@ public class DeckFactory {
         player.removeCardFromDeck(selectedCard);
     }
 
-    private List<Card> initIroncladCards() {
-        List<Class<? extends Card>> availableCards = Model.cards("ironclad");
-        for (int i = 0; i < this.amount; i++) {
-            int randomNumber = rnd.nextInt(availableCards.size());
+    private List<Card> initCards(String packageName, boolean duplicatesAllowed) {
+        List<Class<? extends Card>> availableCards = Model.cards(packageName);
+        Set<Integer> indices = new HashSet<>();
+        for (int i = 0; i < amount; i++) {
+            int randomNumber;
+            do {
+                randomNumber = rnd.nextInt(availableCards.size());
+            } while (!duplicatesAllowed && indices.contains(randomNumber));
+            indices.add(randomNumber);
             try {
                 genDeck.add(availableCards.get(randomNumber).getDeclaredConstructor().newInstance());
             } catch (InstantiationException | IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
                 LoggingAssistant.log(e, Color.RED);
+            }
+            if (!duplicatesAllowed && indices.size() >= availableCards.size()) {
+                break;
             }
         }
         return genDeck;
     }
 
-    private List<Card> initSilentCards() {
-        List<Class<? extends Card>> availableCards = Model.cards("silent");
-        for (int i = 0; i < this.amount; i++) {
-            int randomNumber = rnd.nextInt(availableCards.size());
-            try {
-                genDeck.add(availableCards.get(randomNumber).getDeclaredConstructor().newInstance());
-            } catch (InstantiationException | IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
-                LoggingAssistant.log(e, Color.RED);
-            }
-        }
-        return genDeck;
+    private List<Card> initIroncladCards(boolean duplicatesAllowed) {
+        return initCards("ironclad", duplicatesAllowed);
+    }
+
+    private List<Card> initSilentCards(boolean duplicatesAllowed) {
+        return initCards("silent", duplicatesAllowed);
     }
 
 }

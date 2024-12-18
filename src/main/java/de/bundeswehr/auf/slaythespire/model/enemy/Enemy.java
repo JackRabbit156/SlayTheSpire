@@ -89,7 +89,7 @@ public abstract class Enemy {
      *
      * @author OF Daniel Willig
      */
-    public void calcIntent() {
+    public void calculateIntent() {
         DifficultyLevel difficulty = GameSettings.getDifficultyLevel();
         int randomNumber = (rnd.nextInt(100) + 1);
         if (difficulty.getAttackPercentage() >= randomNumber) {

@@ -167,7 +167,7 @@ public class LootController implements Controller, LootViewEvents {
      * @return Die Liste der initialisierten Karten.
      */
     private List<Card> initialLootDeck() {
-        return deckFactory.init();
+        return deckFactory.init(false);
     }
 
 }

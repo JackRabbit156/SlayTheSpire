@@ -37,16 +37,17 @@ public class CursedTome extends Event {
     @Override
     public Button getButton2() {
         button2.setVisible(false);
-        DeckFactory df = new DeckFactory(getPlayer(), 1);
         button2.setOnAction(event -> {
             getPlayer().setCurrentHealth((getPlayer().getCurrentHealth()- 2));
             button2.setOnAction(e -> {
                 Card selectedCard;
                 getPlayer().setCurrentHealth((getPlayer().getCurrentHealth()- 3));
-                for (Card card : df.init()) {
+                DeckFactory df = new DeckFactory(getPlayer(), 100);
+                for (Card card : df.init(false)) {
                     if (card.getRarity() == CardRarity.RARE) {
                         selectedCard = card;
                         getPlayer().addCardToDeck(selectedCard);
+                        break;
                     }
                 }
                 button2.setVisible(false);

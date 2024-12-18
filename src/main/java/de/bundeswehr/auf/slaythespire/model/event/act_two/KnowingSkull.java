@@ -44,14 +44,15 @@ public class KnowingSkull extends Event {
 
     @Override
     public Button getButton2() {
-        DeckFactory df = new DeckFactory(getPlayer(), 44);
         button2.setOnAction(event -> {
             Card selectedCard;
             getPlayer().setCurrentHealth((getPlayer().getMaxHealth() / 10));
-            for (Card card : df.init()) {
+            DeckFactory df = new DeckFactory(getPlayer(), 100);
+            for (Card card : df.init(false)) {
                 if (card.getRarity() == CardRarity.UNCOMMON) {
                     selectedCard = card;
                     getPlayer().addCardToDeck(selectedCard);
+                    break;
                 }
             }
             button2.setVisible(false);

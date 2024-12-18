@@ -42,7 +42,7 @@ public class TheLibrary extends Event {
             box.setMaxSize(1920, 1080);
             box.setAlignment(Pos.BOTTOM_CENTER);
             Popup cardPopup = new Popup();
-            for(Card card : df.init()) {
+            for(Card card : df.init(false)) {
                 Image imageCard = new Image(getClass().getResource(card.getImagePath()).toExternalForm());
                 ImageView imageView = new ImageView(imageCard);
                 imageView.setFitHeight(250);

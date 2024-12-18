@@ -1,13 +1,10 @@
 package de.bundeswehr.auf.slaythespire.model.battle;
 
 import de.bundeswehr.auf.slaythespire.controller.listener.BattleDeckListener;
-import de.bundeswehr.auf.slaythespire.controller.listener.CardDeathListener;
 import de.bundeswehr.auf.slaythespire.gui.events.CardEventListener;
-import de.bundeswehr.auf.slaythespire.helper.Color;
-import de.bundeswehr.auf.slaythespire.helper.LoggingAssistant;
 import de.bundeswehr.auf.slaythespire.model.card.structure.Card;
 import de.bundeswehr.auf.slaythespire.model.card.structure.PowerCard;
-import de.bundeswehr.auf.slaythespire.model.settings.GameSettings;
+import de.bundeswehr.auf.slaythespire.model.card.structure.TriggeredCard;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -27,7 +24,7 @@ public class BattleDeck implements CardEventListener{
     private static final Random rnd = new Random();
 
     private BattleDeckListener battleDeckListener;
-    private final List<PowerCard> currentPowerCards;
+    private final List<TriggeredCard> triggeredCards;
     private final List<Card> deck;
     private final List<Card> discardPile;
     private final List<Card> exhaustPile;
@@ -45,7 +42,7 @@ public class BattleDeck implements CardEventListener{
         this.discardPile = new ArrayList<>();
         this.exhaustPile = new ArrayList<>();
         this.startHandSize = 5;
-        this.currentPowerCards = new ArrayList<>();
+        this.triggeredCards = new ArrayList<>();
         createShuffledDeck();
     }
 
@@ -54,8 +51,8 @@ public class BattleDeck implements CardEventListener{
         battleDeckListener.onCardFill();
     }
 
-    public void addPowerCards(PowerCard powerCard) {
-        currentPowerCards.add(powerCard);
+    public void addTriggeredCard(TriggeredCard card) {
+        triggeredCards.add(card);
     }
 
     public void chooseCardFromDiscardPile(CardEventListener cardEventListener) {
@@ -148,8 +145,8 @@ public class BattleDeck implements CardEventListener{
         battleDeckListener.onCardFill();
     }
 
-    public List<PowerCard> getCurrentPowerCards() {
-        return currentPowerCards;
+    public List<TriggeredCard> getTriggeredCards() {
+        return triggeredCards;
     }
 
     public List<Card> getDeck() {
@@ -220,6 +217,14 @@ public class BattleDeck implements CardEventListener{
         hand.remove(card);
     }
 
+    public void removeNonPowerCards() {
+        for (int i = triggeredCards.size() - 1; i >= 0; i--) {
+            if (!(triggeredCards.get(i) instanceof PowerCard)) {
+                triggeredCards.remove(i);
+            }
+        }
+    }
+
     /**
      * Fülle den Abhebestapel durch die abgelegten Karten.
      */
@@ -241,6 +246,6 @@ public class BattleDeck implements CardEventListener{
                 "hand=" + hand + "\n" +
                 "discardPile=" + discardPile + "\n" +
                 "exhaustPile=" + exhaustPile + "\n" +
-                "powerCards=" + currentPowerCards;
+                "triggeredCards=" + triggeredCards;
     }
 }

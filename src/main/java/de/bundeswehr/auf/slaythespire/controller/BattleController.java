@@ -7,8 +7,8 @@ import de.bundeswehr.auf.slaythespire.events.*;
 import de.bundeswehr.auf.slaythespire.gui.BattleView;
 import de.bundeswehr.auf.slaythespire.gui.events.BattleViewEvents;
 import de.bundeswehr.auf.slaythespire.helper.Color;
-import de.bundeswehr.auf.slaythespire.helper.LoggingAssistant;
 import de.bundeswehr.auf.slaythespire.helper.GuiHelper;
+import de.bundeswehr.auf.slaythespire.helper.LoggingAssistant;
 import de.bundeswehr.auf.slaythespire.model.battle.BattleDeck;
 import de.bundeswehr.auf.slaythespire.model.battle.GameContext;
 import de.bundeswehr.auf.slaythespire.model.battle.Playable;
@@ -47,7 +47,6 @@ public class BattleController implements Controller, BattleViewEvents, PlayerEve
         this.fieldType = fieldType;
         for (Enemy enemy : enemies) {
             enemy.setEnemyEventListener(this);
-            enemy.calcIntent();
         }
 
         battleDeck = new BattleDeck(player.getDeck());
@@ -55,6 +54,7 @@ public class BattleController implements Controller, BattleViewEvents, PlayerEve
 
         gameContext = new GameContext(player, enemies, battleDeck);
 
+        calculateIntentForAllEnemies();
         battleView = new BattleView(player, enemies, this, battleDeck);
         player.setPlayerEventListener(this);
 
@@ -107,16 +107,6 @@ public class BattleController implements Controller, BattleViewEvents, PlayerEve
     }
 
     @Override
-    public void onEnergyReceived(PlayerEnergyEvent event) {
-        triggerPowerCards(CardTrigger.GAIN_ENERGY);
-    }
-
-    @Override
-    public void onHealthReceived(PlayerHealthEvent event) {
-        triggerPowerCards(CardTrigger.GAIN_HP);
-    }
-
-    @Override
     public void onDamageReceived(PlayerDamageEvent event) {
         if (event.isCard()) {
             triggerPowerCards(CardTrigger.LOSE_HP_CARD);
@@ -161,10 +151,20 @@ public class BattleController implements Controller, BattleViewEvents, PlayerEve
     }
 
     @Override
+    public void onEnergyReceived(PlayerEnergyEvent event) {
+        triggerPowerCards(CardTrigger.GAIN_ENERGY);
+    }
+
+    @Override
     public void onFullScreenClick() {
         Stage primaryStage = player.getPrimaryStage();
 
         primaryStage.setFullScreen(!primaryStage.isFullScreen());
+    }
+
+    @Override
+    public void onHealthReceived(PlayerHealthEvent event) {
+        triggerPowerCards(CardTrigger.GAIN_HP);
     }
 
     @Override
@@ -183,9 +183,9 @@ public class BattleController implements Controller, BattleViewEvents, PlayerEve
         player.resetBlock();
     }
 
-    private void calcIntentForAllEnemies() {
+    private void calculateIntentForAllEnemies() {
         for (Enemy enemy : enemies) {
-            enemy.calcIntent();
+            enemy.calculateIntent();
         }
     }
 
@@ -263,7 +263,7 @@ public class BattleController implements Controller, BattleViewEvents, PlayerEve
 
     private void playerBOT() {
         LoggingAssistant.log("Players' turn");
-        calcIntentForAllEnemies();
+        calculateIntentForAllEnemies();
         resetEnergyAndBlock();
         battleDeck.fillHand(battleDeck.getStartHandSize());
 
@@ -272,6 +272,7 @@ public class BattleController implements Controller, BattleViewEvents, PlayerEve
 
     private void playerEOT() {
         removeHandAfterEndOfTurn();
+        battleDeck.removeNonPowerCards();
 
         triggerPowerCards(CardTrigger.PLAYER_EOT);
     }
@@ -292,7 +293,6 @@ public class BattleController implements Controller, BattleViewEvents, PlayerEve
 
     private void startOfCombat() {
         LoggingAssistant.log("Start of combat");
-        calcIntentForAllEnemies();
         resetEnergyAndBlock();
         battleDeck.fillHand(battleDeck.getStartHandSize());
 
@@ -301,10 +301,10 @@ public class BattleController implements Controller, BattleViewEvents, PlayerEve
     }
 
     private void triggerPowerCards(CardTrigger trigger) {
-        List<PowerCard> powerCards = battleDeck.getCurrentPowerCards();
-        for (PowerCard powerCard : powerCards) {
-            if (powerCard.getCardTrigger().equals(trigger)) {
-                powerCard.onTrigger(gameContext);
+        List<TriggeredCard> cards = battleDeck.getTriggeredCards();
+        for (TriggeredCard card : cards) {
+            if (card.getTrigger().equals(trigger)) {
+                card.onTrigger(gameContext);
             }
         }
     }

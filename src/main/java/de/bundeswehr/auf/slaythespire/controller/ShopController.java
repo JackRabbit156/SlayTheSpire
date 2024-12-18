@@ -42,7 +42,7 @@ public class ShopController implements Controller, ShopViewEvents {
         DeckFactory deckFactory = new DeckFactory(player, 5);
         // Bei jeder Initialisierung wird der Shop befüllt.
         // Wird beim Spielstart ausgeführt und bei jedem Act.
-        purchasableCards = deckFactory.init();
+        purchasableCards = deckFactory.init(true);
         purchasablePotion = deckFactory.generatePotion();
         entryShop();
     }

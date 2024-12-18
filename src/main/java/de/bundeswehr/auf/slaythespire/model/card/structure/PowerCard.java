@@ -9,7 +9,7 @@ import de.bundeswehr.auf.slaythespire.model.player.structure.Player;
  *
  * @author OF Daniel Willig
  */
-public abstract class PowerCard extends Card {
+public abstract class PowerCard extends Card implements TriggeredCard {
 
     /**
      * Wann die Power getriggert wird.
@@ -31,28 +31,17 @@ public abstract class PowerCard extends Card {
         this.cardTrigger = cardTrigger;
     }
 
-    /**
-     * getter CardTrigger
-     *
-     * @return den Trigger
-     */
-    public CardTrigger getCardTrigger() {
+    @Override
+    public CardTrigger getTrigger() {
         return cardTrigger;
     }
-
-    /**
-     * Was passiert wenn die Karte getriggert wird
-     *
-     * @param gameContext der gameContext
-     */
-    public abstract void onTrigger(GameContext gameContext);
 
     @Override
     public void play(GameContext gameContext) {
         Player player = gameContext.getPlayer();
         BattleDeck battleDeck = gameContext.getBattleDeck();
 
-        battleDeck.addPowerCards(this);
+        battleDeck.addTriggeredCard(this);
 
         player.decreaseCurrentEnergy(getCost());
     }
