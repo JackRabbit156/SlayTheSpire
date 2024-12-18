@@ -3,23 +3,23 @@ package de.bundeswehr.auf.slaythespire.events;
 import de.bundeswehr.auf.slaythespire.model.player.structure.Player;
 
 /**
- * Das Player Block Event
+ * Das Player Lebenskraft Event
  * @author OF Daniel Willig
  */
-public class PlayerBlockEvent {
-
+public class PlayerHealthEvent {
+    
     private final Player player;
-    private final int blockAmount;
+    private final int hpAmount;
 
     /**
-     * Constructor PlayerBlockEvent
+     * Constructor PlayerHealthEvent
      *
-     * @param player      der Spieler
-     * @param blockAmount Block Menge
+     * @param player     der Spieler
+     * @param hpAmount   Lebenskraft Menge
      */
-    public PlayerBlockEvent(Player player, int blockAmount) {
+    public PlayerHealthEvent(Player player, int hpAmount) {
         this.player = player;
-        this.blockAmount = blockAmount;
+        this.hpAmount = hpAmount;
     }
 
     /**
@@ -36,8 +36,8 @@ public class PlayerBlockEvent {
      *
      * @return die Block Menge
      */
-    public int getBlockAmount() {
-        return blockAmount;
+    public int getHpAmount() {
+        return hpAmount;
     }
 
 }

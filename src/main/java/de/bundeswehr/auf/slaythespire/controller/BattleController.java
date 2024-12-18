@@ -3,9 +3,7 @@ package de.bundeswehr.auf.slaythespire.controller;
 import de.bundeswehr.auf.slaythespire.controller.listener.CardDeathListener;
 import de.bundeswehr.auf.slaythespire.controller.listener.EnemyEventListener;
 import de.bundeswehr.auf.slaythespire.controller.listener.PlayerEventListener;
-import de.bundeswehr.auf.slaythespire.events.EnemyDamageEvent;
-import de.bundeswehr.auf.slaythespire.events.PlayerBlockEvent;
-import de.bundeswehr.auf.slaythespire.events.PlayerDamageEvent;
+import de.bundeswehr.auf.slaythespire.events.*;
 import de.bundeswehr.auf.slaythespire.gui.BattleView;
 import de.bundeswehr.auf.slaythespire.gui.events.BattleViewEvents;
 import de.bundeswehr.auf.slaythespire.helper.Color;
@@ -90,12 +88,32 @@ public class BattleController implements Controller, BattleViewEvents, PlayerEve
 
     @Override
     public void onCardDeath(Card card) {
+        if (card instanceof AttackCard) {
+            triggerPowerCards(CardTrigger.PLAY_ATTACK);
+        }
+        else if (card instanceof SkillCard) {
+            triggerPowerCards(CardTrigger.PLAY_SKILL);
+        }
+        else if (card instanceof PowerCard) {
+            triggerPowerCards(CardTrigger.ALWAYS);
+            triggerPowerCards(CardTrigger.PLAY_POWER);
+        }
         cardDeath(card);
     }
 
     @Override
     public void onDamageDealt() {
 
+    }
+
+    @Override
+    public void onEnergyReceived(PlayerEnergyEvent event) {
+        triggerPowerCards(CardTrigger.GAIN_ENERGY);
+    }
+
+    @Override
+    public void onHealthReceived(PlayerHealthEvent event) {
+        triggerPowerCards(CardTrigger.GAIN_HP);
     }
 
     @Override

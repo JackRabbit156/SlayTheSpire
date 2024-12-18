@@ -3,11 +3,13 @@ package de.bundeswehr.auf.slaythespire.model.player.structure;
 import de.bundeswehr.auf.slaythespire.controller.listener.PlayerEventListener;
 import de.bundeswehr.auf.slaythespire.events.PlayerBlockEvent;
 import de.bundeswehr.auf.slaythespire.events.PlayerDamageEvent;
-import javafx.stage.Stage;
+import de.bundeswehr.auf.slaythespire.events.PlayerEnergyEvent;
+import de.bundeswehr.auf.slaythespire.events.PlayerHealthEvent;
 import de.bundeswehr.auf.slaythespire.model.card.structure.Card;
-import de.bundeswehr.auf.slaythespire.model.settings.GameSettings;
 import de.bundeswehr.auf.slaythespire.model.potion.structure.Potion;
 import de.bundeswehr.auf.slaythespire.model.relic.structure.Relic;
+import de.bundeswehr.auf.slaythespire.model.settings.GameSettings;
+import javafx.stage.Stage;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -260,6 +262,7 @@ public abstract class Player {
      */
     public void increaseCurrentEnergy(int energy) {
         currentEnergy += energy;
+        notifyEnergyReceived(energy);
     }
 
     /**
@@ -268,10 +271,12 @@ public abstract class Player {
      * @param hp Der Punktwert, um den die Gesundheit erhöht werden soll.
      */
     public void increaseCurrentHealth(int hp) {
+        int oldHealth = currentHealth;
         currentHealth += hp;
         if (currentHealth > maxHealth) {
             currentHealth = maxHealth;
         }
+        notifyHealthReceived(currentHealth - oldHealth);
     }
 
     /**
@@ -335,15 +340,34 @@ public abstract class Player {
     }
 
     /**
-     * Benachrichtigt den Listener über den empfangenen Schaden.
+     * Benachrichtigt den Listener über den erlittenen Schaden.
      *
-     * @param damageAmount   Der Betrag des Schadens, der empfangen wurde.
+     * @param damageAmount   Der Betrag des Schadens, der erlitten wurde.
      * @param damageFromCard Gibt an, ob der Schaden von einer Karte stammt.
      */
     protected void notifyDamageReceived(int damageAmount, boolean damageFromCard) {
         PlayerDamageEvent event = new PlayerDamageEvent(this, damageAmount, damageFromCard);
         playerEventListener.onDamageReceived(event);
+    }
 
+    /**
+     * Benachrichtigt den Listener über die empfangene Energie.
+     *
+     * @param energyAmount Der Betrag der Energie, die empfangen wurde.
+     */
+    protected void notifyEnergyReceived(int energyAmount) {
+        PlayerEnergyEvent event = new PlayerEnergyEvent(this, energyAmount);
+        playerEventListener.onEnergyReceived(event);
+    }
+
+    /**
+     * Benachrichtigt den Listener über die empfangene Lebenskraft.
+     *
+     * @param hpAmount Der Betrag der Lebenskraft, die empfangen wurde.
+     */
+    protected void notifyHealthReceived(int hpAmount) {
+        PlayerHealthEvent event = new PlayerHealthEvent(this, hpAmount);
+        playerEventListener.onHealthReceived(event);
     }
 
 }
