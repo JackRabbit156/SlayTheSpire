@@ -1,7 +1,7 @@
 package de.bundeswehr.auf.slaythespire.tester;
 
 import de.bundeswehr.auf.slaythespire.helper.GuiHelper;
-import de.bundeswehr.auf.slaythespire.model.potion.ExplosivePotion;
+import de.bundeswehr.auf.slaythespire.model.potion.common.ExplosivePotion;
 import javafx.application.Application;
 import javafx.stage.Stage;
 import de.bundeswehr.auf.slaythespire.model.settings.GameSettings;

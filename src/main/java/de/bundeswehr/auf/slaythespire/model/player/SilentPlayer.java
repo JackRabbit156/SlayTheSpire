@@ -10,7 +10,7 @@ import de.bundeswehr.auf.slaythespire.model.card.silent.attack.common.Neutralize
 import de.bundeswehr.auf.slaythespire.model.card.silent.skill.common.SurvivorCard;
 import de.bundeswehr.auf.slaythespire.model.player.structure.Player;
 import de.bundeswehr.auf.slaythespire.model.player.structure.PlayerType;
-import de.bundeswehr.auf.slaythespire.model.relic.RingOfTheSnakeRelic;
+import de.bundeswehr.auf.slaythespire.model.relic.silent.common.RingOfTheSnakeRelic;
 import de.bundeswehr.auf.slaythespire.model.relic.structure.Relic;
 
 import java.util.ArrayList;

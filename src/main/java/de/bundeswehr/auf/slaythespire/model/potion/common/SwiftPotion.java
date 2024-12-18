@@ -1,30 +1,29 @@
-package de.bundeswehr.auf.slaythespire.model.potion;
+package de.bundeswehr.auf.slaythespire.model.potion.common;
 
 import de.bundeswehr.auf.slaythespire.helper.PathAssistent;
+import de.bundeswehr.auf.slaythespire.model.battle.BattleDeck;
 import de.bundeswehr.auf.slaythespire.model.battle.GameContext;
 import de.bundeswehr.auf.slaythespire.model.card.structure.CardRarity;
-import de.bundeswehr.auf.slaythespire.model.player.structure.Player;
 import de.bundeswehr.auf.slaythespire.model.potion.structure.SkillPotion;
 
 /**
- * Die Energy potion.
+ * Die Swift potion.
  *
  * @author OF Daniel Willig
  */
-public class EnergyPotion extends SkillPotion {
+public class SwiftPotion extends SkillPotion {
 
     /**
-     * Constructor Energy potion.
+     * Constructor Swift potion.
      */
-    public EnergyPotion() {
-        super("Energy Potion", "Gain 2 Energy.", CardRarity.COMMON);
+    public SwiftPotion() {
+        super("Swift Potion", "Draw 3 cards.", CardRarity.COMMON);
         setImagePath(new PathAssistent().toPath(this));
     }
 
     @Override
     public void play(GameContext gameContext) {
-        Player player = gameContext.getPlayer();
-        player.increaseCurrentEnergy(2);
+        BattleDeck battleDeck = gameContext.getBattleDeck();
+        battleDeck.drawCard(3);
     }
-
 }

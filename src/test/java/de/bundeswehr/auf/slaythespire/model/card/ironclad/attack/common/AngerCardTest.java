@@ -53,7 +53,7 @@ class AngerCardTest {
     @Test
     void dealDamage() {
         int expected = 6;
-        int actual = angerCard.dealDamage();
+        int actual = angerCard.dealDamage(gameContext);
 
         Assertions.assertEquals(expected, actual);
     }

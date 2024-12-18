@@ -1,4 +1,4 @@
-package de.bundeswehr.auf.slaythespire.model.potion;
+package de.bundeswehr.auf.slaythespire.model.potion.common;
 
 import de.bundeswehr.auf.slaythespire.helper.PathAssistent;
 import de.bundeswehr.auf.slaythespire.model.battle.GameContext;

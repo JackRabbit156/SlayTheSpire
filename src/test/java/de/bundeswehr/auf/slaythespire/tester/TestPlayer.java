@@ -5,7 +5,6 @@ import de.bundeswehr.auf.slaythespire.model.card.ironclad.attack.common.Headbutt
 import de.bundeswehr.auf.slaythespire.model.card.ironclad.skill.common.WarcryCard;
 import de.bundeswehr.auf.slaythespire.model.settings.GameSettings;
 import javafx.stage.Stage;
-import de.bundeswehr.auf.slaythespire.model.battle.GameContext;
 import de.bundeswehr.auf.slaythespire.model.card.structure.AttackCard;
 import de.bundeswehr.auf.slaythespire.model.card.structure.Card;
 import de.bundeswehr.auf.slaythespire.model.card.structure.CardGrave;
@@ -17,11 +16,10 @@ import de.bundeswehr.auf.slaythespire.model.card.silent.SilentDefendCard;
 import de.bundeswehr.auf.slaythespire.model.card.silent.SilentStrikeCard;
 import de.bundeswehr.auf.slaythespire.model.card.silent.attack.common.NeutralizeCard;
 import de.bundeswehr.auf.slaythespire.model.card.silent.skill.common.SurvivorCard;
-import de.bundeswehr.auf.slaythespire.model.enemy.Enemy;
 import de.bundeswehr.auf.slaythespire.model.player.structure.Player;
 import de.bundeswehr.auf.slaythespire.model.player.structure.PlayerType;
-import de.bundeswehr.auf.slaythespire.model.relic.BurningBloodRelic;
-import de.bundeswehr.auf.slaythespire.model.relic.RingOfTheSnakeRelic;
+import de.bundeswehr.auf.slaythespire.model.relic.ironclad.common.BurningBloodRelic;
+import de.bundeswehr.auf.slaythespire.model.relic.silent.common.RingOfTheSnakeRelic;
 import de.bundeswehr.auf.slaythespire.model.relic.structure.Relic;
 
 import java.util.ArrayList;

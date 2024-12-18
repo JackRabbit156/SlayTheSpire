@@ -3,6 +3,8 @@ package de.bundeswehr.auf.slaythespire.model.enemy.act_one;
 import de.bundeswehr.auf.slaythespire.controller.listener.PlayerEventListener;
 import de.bundeswehr.auf.slaythespire.events.PlayerBlockEvent;
 import de.bundeswehr.auf.slaythespire.events.PlayerDamageEvent;
+import de.bundeswehr.auf.slaythespire.events.PlayerEnergyEvent;
+import de.bundeswehr.auf.slaythespire.events.PlayerHealthEvent;
 import de.bundeswehr.auf.slaythespire.helper.PathAssistent;
 import jdk.jfr.Description;
 import de.bundeswehr.auf.slaythespire.model.battle.BattleDeck;
@@ -17,6 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 class AcidSlimeEnemyTest {
+
     private class TestBattleListener implements PlayerEventListener {
         @Override
         public void onBlockReceived(PlayerBlockEvent event) {}
@@ -26,6 +29,12 @@ class AcidSlimeEnemyTest {
 
         @Override
         public void onDamageDealt() {}
+
+        @Override
+        public void onEnergyReceived(PlayerEnergyEvent event) {}
+
+        @Override
+        public void onHealthReceived(PlayerHealthEvent event) {}
     }
 
     private AcidSlimeEnemy acidSlimeEnemy;

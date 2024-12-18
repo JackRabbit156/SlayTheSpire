@@ -6,8 +6,8 @@ import javafx.stage.Stage;
 import de.bundeswehr.auf.slaythespire.model.settings.GameSettings;
 import de.bundeswehr.auf.slaythespire.model.settings.structure.DifficultyLevel;
 import de.bundeswehr.auf.slaythespire.model.map.field.FieldEnum;
-import de.bundeswehr.auf.slaythespire.model.potion.BloodPotion;
-import de.bundeswehr.auf.slaythespire.model.potion.EnergyPotion;
+import de.bundeswehr.auf.slaythespire.model.potion.common.BloodPotion;
+import de.bundeswehr.auf.slaythespire.model.potion.common.EnergyPotion;
 
 /**
  * @author Keil, Vladislav

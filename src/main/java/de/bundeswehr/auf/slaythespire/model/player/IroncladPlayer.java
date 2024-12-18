@@ -8,7 +8,7 @@ import de.bundeswehr.auf.slaythespire.model.card.ironclad.IroncladStrikeCard;
 import de.bundeswehr.auf.slaythespire.model.card.ironclad.attack.common.BashCard;
 import de.bundeswehr.auf.slaythespire.model.player.structure.Player;
 import de.bundeswehr.auf.slaythespire.model.player.structure.PlayerType;
-import de.bundeswehr.auf.slaythespire.model.relic.BurningBloodRelic;
+import de.bundeswehr.auf.slaythespire.model.relic.ironclad.common.BurningBloodRelic;
 import de.bundeswehr.auf.slaythespire.model.relic.structure.Relic;
 
 import java.util.ArrayList;

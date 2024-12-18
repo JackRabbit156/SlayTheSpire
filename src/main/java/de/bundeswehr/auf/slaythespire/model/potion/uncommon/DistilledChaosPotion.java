@@ -1,4 +1,4 @@
-package de.bundeswehr.auf.slaythespire.model.potion;
+package de.bundeswehr.auf.slaythespire.model.potion.uncommon;
 
 import de.bundeswehr.auf.slaythespire.controller.listener.CardDeathListener;
 import de.bundeswehr.auf.slaythespire.helper.Color;
