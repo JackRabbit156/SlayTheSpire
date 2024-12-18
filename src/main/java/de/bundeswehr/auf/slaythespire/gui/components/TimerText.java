@@ -20,7 +20,6 @@ public class TimerText extends Label implements View {
         future = GameSettings.executorService.scheduleAtFixedRate(() -> Platform.runLater(this::update), 1L, 1L, TimeUnit.SECONDS);
         setTextFill(Paint.valueOf("#e9cd77"));
         setFont(Font.font("Kreon", FontWeight.BOLD, 20));
-        setPrefWidth(80);
     }
 
     @Override
