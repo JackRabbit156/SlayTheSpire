@@ -56,7 +56,7 @@ public class ShopView extends StackPane implements CardEventListener, WithTopBar
     public void display() {
         getChildren().addAll(entryLayout, shopLayout, outerLayout);
 
-        setBackground(new Background(GuiHelper.backgroundInHD("/images/act1.png")));
+        setBackground(new Background(GuiHelper.backgroundInHD(player.getActImage())));
 
         entryLayout.setPickOnBounds(false);
         shopLayout.setPickOnBounds(false);

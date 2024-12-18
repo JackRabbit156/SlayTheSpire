@@ -166,7 +166,7 @@ public class TreasureView extends StackPane implements WithTopBar, CardEventList
         treasureLayout.setPickOnBounds(false);
 
         getChildren().addAll(entryLayout, treasureLayout, backLayout);
-        setBackground(new Background(GuiHelper.backgroundInHD("/images/act1.png")));
+        setBackground(new Background(GuiHelper.backgroundInHD(player.getActImage())));
         initEntryLayout();
         initBackLayout(player);
     }

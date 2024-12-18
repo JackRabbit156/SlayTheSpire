@@ -35,18 +35,20 @@ public class StatisticsView extends StackPane {
      * @param player Der Spieler, dessen Statistiken angezeigt werden.
      */
     public StatisticsView(Player player) {
-        this.statisticLayout = new BorderPane();
-        this.bottomLayout = new BorderPane();
-        this.backgroundLayout = new BorderPane();
         this.player = player;
-        this.act = this.player.getCurrentAct();
-        switch (this.act) {
+
+        statisticLayout = new BorderPane();
+        bottomLayout = new BorderPane();
+        backgroundLayout = new BorderPane();
+
+        act = player.getCurrentAct();
+        switch (act) {
             case 1:
-                this.player.setCurrentAct(2);
+                player.setCurrentAct(2);
                 break;
             case 2:
             case 4:
-                this.player.setCurrentAct(4);
+                player.setCurrentAct(4);
                 break;
         }
         LoggingAssistant.log(player.getCurrentAct() + " act");
@@ -57,11 +59,11 @@ public class StatisticsView extends StackPane {
      * Initialisiert die View.
      */
     public void display() {
-        setBackground(new Background(GuiHelper.backgroundInHD("/images/act1.png")));
+        setBackground(new Background(GuiHelper.backgroundInHD(player.getActImage())));
 
-        getChildren().add(this.backgroundLayout);
-        getChildren().add(this.statisticLayout);
-        getChildren().add(this.bottomLayout);
+        getChildren().add(backgroundLayout);
+        getChildren().add(statisticLayout);
+        getChildren().add(bottomLayout);
 
         initBackgroundLayout();
         initStatisticLayout();
@@ -71,7 +73,7 @@ public class StatisticsView extends StackPane {
     private void initBackgroundLayout() {
         this.backgroundLayout.setPickOnBounds(false);
         PlayerLayout playerLayout = new PlayerLayout(player.getImagePath());
-        setBackground(new Background(GuiHelper.backgroundInHD("/images/act1.png")));
+        setBackground(new Background(GuiHelper.backgroundInHD(player.getActImage())));
 
         this.backgroundLayout.setCenter(playerLayout);
     }
@@ -80,7 +82,7 @@ public class StatisticsView extends StackPane {
      * Initialisiert das Layout der Statistik-Ansicht.
      */
     private void initBottom() {
-        Image img = new Image(getClass().getResource("/images/buttons/buttonL.png").toExternalForm());
+        Image img = new Image("/images/buttons/buttonL.png");
         ImageView imgView = new ImageView(img);
         HBox bottomHBox = new HBox();
 
@@ -141,7 +143,7 @@ public class StatisticsView extends StackPane {
         centerRight.setWrapText(true);
         centerRight.setTextAlignment(TextAlignment.RIGHT);
         centerRight.setText(
-                this.act + "\n" +
+                act + "\n" +
                 GameSettings.getDistributedDamageStats() + "\n" +
                 GameSettings.getReceivedDamageStats() + "\n" +
                 GameSettings.getReceivedGoldStats() + "\n" +

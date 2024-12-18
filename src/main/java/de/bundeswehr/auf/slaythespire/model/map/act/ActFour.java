@@ -30,6 +30,8 @@ import java.util.List;
  */
 public class ActFour extends Act {
 
+    public static final String IMAGE = "/images/act3.png";
+
     private static final int MAP_HEIGHT = 10;
     private static final int MAP_WIDTH = 2;
 

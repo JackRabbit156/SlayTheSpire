@@ -273,7 +273,7 @@ public class LootView extends StackPane implements WithTopBar, CardEventListener
         backgroundLayout.setPickOnBounds(false);
 
         PlayerLayout playerLayout = new PlayerLayout(player.getImagePath());
-        setBackground(new Background(GuiHelper.backgroundInHD("/images/act1.png")));
+        setBackground(new Background(GuiHelper.backgroundInHD(player.getActImage())));
         backgroundLayout.setCenter(playerLayout);
     }
 

@@ -45,7 +45,7 @@ public class GameOverView extends StackPane {
      * Initialisiert die View.
      */
     public void display() {
-        setBackground(new Background(GuiHelper.backgroundInHD("/images/act1.png")));
+        setBackground(new Background(GuiHelper.backgroundInHD(player.getActImage())));
 
         getChildren().add(this.backgroundLayout);
         getChildren().add(this.statisticLayout);
@@ -59,7 +59,7 @@ public class GameOverView extends StackPane {
     private void initBackgroundLayout() {
         this.backgroundLayout.setPickOnBounds(false);
         PlayerLayout playerLayout = new PlayerLayout(player.getAltImagePath());
-        setBackground(new Background(GuiHelper.backgroundInHD("/images/act1.png")));
+        setBackground(new Background(GuiHelper.backgroundInHD(player.getActImage())));
 
         this.backgroundLayout.setCenter(playerLayout);
     }

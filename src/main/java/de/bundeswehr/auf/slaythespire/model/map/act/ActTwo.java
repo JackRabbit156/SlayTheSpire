@@ -33,6 +33,8 @@ import java.util.List;
  */
 public class ActTwo extends Act {
 
+    public static final String IMAGE = "/images/act2.png";
+
     private static final int MAP_HEIGHT = 14;
     private static final int MAP_WIDTH = 4;
     private static final Class<?>[] possibleEnemies = { ByrdEnemy.class, CultistEnemy.class, SphericGuardianEnemy.class };

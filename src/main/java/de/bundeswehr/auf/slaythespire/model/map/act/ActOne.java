@@ -17,6 +17,7 @@ import de.bundeswehr.auf.slaythespire.model.map.Coordinates;
 import de.bundeswehr.auf.slaythespire.model.map.Node;
 import de.bundeswehr.auf.slaythespire.model.map.field.*;
 import de.bundeswehr.auf.slaythespire.model.player.structure.Player;
+import javafx.scene.image.Image;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,11 +33,14 @@ import java.util.List;
  */
 public class ActOne extends Act {
 
+    public static final String IMAGE = "/images/act1.png";
+
     private static final int MAP_HEIGHT = 16;
     private static final int MAP_WIDTH = 7;
-    private static final Class<?>[] possibleEnemies = { AcidSlimeEnemy.class, CultistEnemy.class, MadGremlinEnemy.class};
+    private static final Class<?>[] possibleEnemies = { AcidSlimeEnemy.class, CultistEnemy.class, MadGremlinEnemy.class };
 
     private Player player;
+
 
     /**
      * Konstruktor für die Klasse ActOne.

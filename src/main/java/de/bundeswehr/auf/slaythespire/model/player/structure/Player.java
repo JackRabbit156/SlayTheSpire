@@ -6,6 +6,9 @@ import de.bundeswehr.auf.slaythespire.events.PlayerDamageEvent;
 import de.bundeswehr.auf.slaythespire.events.PlayerEnergyEvent;
 import de.bundeswehr.auf.slaythespire.events.PlayerHealthEvent;
 import de.bundeswehr.auf.slaythespire.model.card.structure.Card;
+import de.bundeswehr.auf.slaythespire.model.map.act.ActFour;
+import de.bundeswehr.auf.slaythespire.model.map.act.ActOne;
+import de.bundeswehr.auf.slaythespire.model.map.act.ActTwo;
 import de.bundeswehr.auf.slaythespire.model.potion.structure.Potion;
 import de.bundeswehr.auf.slaythespire.model.relic.structure.Relic;
 import de.bundeswehr.auf.slaythespire.model.settings.GameSettings;
@@ -115,6 +118,19 @@ public abstract class Player {
      */
     public void decreaseGold(int gold) {
         this.gold -= gold;
+    }
+
+    public String getActImage() {
+        switch (currentAct) {
+            case 1:
+                return ActOne.IMAGE;
+            case 2:
+                return ActTwo.IMAGE;
+            case 3:
+            case 4:
+            default:
+                return ActFour.IMAGE;
+        }
     }
 
     public String getAltImagePath() {
