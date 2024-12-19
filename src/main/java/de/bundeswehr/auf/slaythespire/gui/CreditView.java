@@ -58,7 +58,7 @@ public class CreditView {
      */
     public VBox display(){
         output.setBackground(new Background(GuiHelper.backgroundInHD("/images/backgrounds/greenBg.jpg")));
-        Text creditText = new Text("Re-Engineered by:\nDaniel Willig\nVladislav Keil\nAlexander Warawa\nMarijan Loeschner");
+        Text creditText = new Text("Re-Engineered by:\nDaniel Willig\nVladislav Keil\nAlexander Warawa\nMarijan Löschner");
         creditText.setFont(Font.loadFont(getClass().getResourceAsStream(GuiHelper.DEFAULT_FONT_BOLD), 24));
         creditText.setFill(Color.WHITE);
         creditText.setTextAlignment(TextAlignment.CENTER);
