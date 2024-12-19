@@ -19,7 +19,7 @@ public class MapTester extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        TestPlayer player = new TestPlayer(primaryStage);
+        TestPlayer player = TestPlayer.ironclad(primaryStage);
 
         player.setCurrentHealth(123);
 

@@ -17,7 +17,7 @@ public class RestSiteTester extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        TestPlayer player = new TestPlayer(primaryStage);
+        TestPlayer player = TestPlayer.cheater(primaryStage);
 
         GameSettings.setDifficultyLevel(DifficultyLevel.NORMAL);
 

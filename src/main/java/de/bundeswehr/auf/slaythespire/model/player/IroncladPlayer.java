@@ -34,7 +34,7 @@ public class IroncladPlayer extends Player {
     }
 
     @Override
-    protected void initDeck() {
+    public void initDeck() {
         List<Card> deck = new ArrayList<>();
         for (int i = 0; i < 5; i++) {
             deck.add(new IroncladStrikeCard());
@@ -50,7 +50,7 @@ public class IroncladPlayer extends Player {
     }
 
     @Override
-    protected void initRelic() {
+    public void initRelic() {
         Relic startRelic = new BurningBloodRelic();
         setRelic(startRelic);
     }

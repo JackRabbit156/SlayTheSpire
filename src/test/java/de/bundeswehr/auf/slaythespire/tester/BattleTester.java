@@ -41,7 +41,7 @@ public class BattleTester extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        TestPlayer player = new TestPlayer(primaryStage);
+        TestPlayer player = TestPlayer.cheater(primaryStage);
 
         player.getPotions().add(new CheaterPotion());
         player.getPotions().add(new CheaterPotion());

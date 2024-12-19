@@ -20,7 +20,7 @@ public class LootTester extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        TestPlayer player = new TestPlayer(primaryStage);
+        TestPlayer player = TestPlayer.silent(primaryStage);
 
         GameSettings.setDifficultyLevel(DifficultyLevel.NORMAL);
 

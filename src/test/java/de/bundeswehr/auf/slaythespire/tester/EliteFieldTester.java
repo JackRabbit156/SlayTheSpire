@@ -24,7 +24,7 @@ public class EliteFieldTester {
 
         EliteField eliteField = new EliteField(tester.createElitesEnemies());
 
-        Player player = new TestPlayer(null);
+        Player player = TestPlayer.cheater(null);
 
         // Es muss gekämpft werden, um die ausgabe zu erhalten.
         // FALL 1: ERWARTE : Hier kommt die StatisticsView mit Loot View

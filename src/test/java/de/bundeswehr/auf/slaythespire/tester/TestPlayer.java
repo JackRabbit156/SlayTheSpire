@@ -1,58 +1,83 @@
 package de.bundeswehr.auf.slaythespire.tester;
 
-import de.bundeswehr.auf.slaythespire.model.Model;
+import de.bundeswehr.auf.slaythespire.model.card.ironclad.IroncladStrikeCard;
 import de.bundeswehr.auf.slaythespire.model.card.ironclad.attack.common.ClashCard;
 import de.bundeswehr.auf.slaythespire.model.card.ironclad.attack.common.HeadbuttCard;
 import de.bundeswehr.auf.slaythespire.model.card.ironclad.skill.common.WarcryCard;
-import de.bundeswehr.auf.slaythespire.model.potion.structure.Potion;
-import de.bundeswehr.auf.slaythespire.model.settings.GameSettings;
-import javafx.stage.Stage;
 import de.bundeswehr.auf.slaythespire.model.card.structure.Card;
-import de.bundeswehr.auf.slaythespire.model.card.ironclad.IroncladDefendCard;
-import de.bundeswehr.auf.slaythespire.model.card.ironclad.IroncladStrikeCard;
-import de.bundeswehr.auf.slaythespire.model.card.ironclad.attack.common.BashCard;
-import de.bundeswehr.auf.slaythespire.model.card.silent.SilentDefendCard;
-import de.bundeswehr.auf.slaythespire.model.card.silent.SilentStrikeCard;
-import de.bundeswehr.auf.slaythespire.model.card.silent.attack.common.NeutralizeCard;
-import de.bundeswehr.auf.slaythespire.model.card.silent.skill.common.SurvivorCard;
+import de.bundeswehr.auf.slaythespire.model.player.IroncladPlayer;
+import de.bundeswehr.auf.slaythespire.model.player.SilentPlayer;
 import de.bundeswehr.auf.slaythespire.model.player.structure.Player;
 import de.bundeswehr.auf.slaythespire.model.player.structure.PlayerType;
 import de.bundeswehr.auf.slaythespire.model.relic.ironclad.common.BurningBloodRelic;
-import de.bundeswehr.auf.slaythespire.model.relic.silent.common.RingOfTheSnakeRelic;
 import de.bundeswehr.auf.slaythespire.model.relic.structure.Relic;
-import org.reflections.Reflections;
+import de.bundeswehr.auf.slaythespire.model.settings.GameSettings;
+import javafx.stage.Stage;
 
-import java.lang.reflect.Modifier;
-import java.util.*;
-import java.util.stream.Collectors;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author Keil, Vladislav
  */
 public class TestPlayer extends Player {
 
-    public TestPlayer(Stage primaryStage) {
-        super("Tester", 1000, 1000, PlayerType.IRONCLAD, primaryStage);
-        setImagePath("/images/player/IroncladPlayer.png");
-        setAltImagePath("/images/player/IroncladPlayerAlt1.png");
+    public static TestPlayer cheater(Stage primaryStage) {
+        TestPlayer testPlayer = new TestPlayer(PlayerType.IRONCLAD, primaryStage);
+        testPlayer.setImagePath("/images/player/IroncladPlayer.png");
+        testPlayer.setAltImagePath("/images/player/IroncladPlayerAlt1.png");
+        testPlayer.initRelic();
+        testPlayer.cheaterDeck();
+        return testPlayer;
+    }
 
+    public static TestPlayer custom(Stage primaryStage) {
+        TestPlayer testPlayer = new TestPlayer(PlayerType.IRONCLAD, primaryStage);
+        testPlayer.setImagePath("/images/player/IroncladPlayer.png");
+        testPlayer.setAltImagePath("/images/player/IroncladPlayerAlt1.png");
+        testPlayer.initRelic();
+        testPlayer.customDeck();
+        return testPlayer;
+    }
+
+    public static TestPlayer ironclad(Stage primaryStage) {
+        TestPlayer testPlayer = new TestPlayer(PlayerType.IRONCLAD, primaryStage);
+        testPlayer.setImagePath("/images/player/IroncladPlayer.png");
+        testPlayer.setAltImagePath("/images/player/IroncladPlayerAlt1.png");
+        testPlayer.initWithDelegate(new IroncladPlayer(primaryStage));
+        return testPlayer;
+    }
+
+    public static TestPlayer silent(Stage primaryStage) {
+        TestPlayer testPlayer = new TestPlayer(PlayerType.SILENT, primaryStage);
+        testPlayer.setImagePath("/images/player/SilentPlayer.png");
+        testPlayer.setAltImagePath("/images/player/SilentPlayerAlt1.png");
+        testPlayer.initWithDelegate(new SilentPlayer(primaryStage));
+        return testPlayer;
+    }
+
+    private TestPlayer(PlayerType playerType, Stage primaryStage) {
+        super("Tester", 1000, 1000, playerType, primaryStage);
         ModelInitializer.initModel();
-
-//        super("TesterPlayer", 1000, 1000, PlayerType.SILENT, primaryStage);
-//        setImagePath("/images/player/SilentPlayer.png");
-//        setAltImagePath("/images/player/SilentPlayerAlt1.png");
-
-        initRelic();
-        initDeck();
         GameSettings.startTimer();
     }
 
     @Override
-    protected void initDeck() {
-//        starterDeckIronclad();
-//        starterDeckSilent();
-        cheaterDeck();
-//        customDeck();
+    public void initDeck() {
+    }
+
+    @Override
+    public void initRelic() {
+        Relic startRelic = new BurningBloodRelic();
+        setRelic(startRelic);
+    }
+
+    private void cheaterDeck() {
+        List<Card> deck = new ArrayList<>();
+        for (int i = 0; i < 10; i++) {
+            deck.add(new CheaterCard());
+        }
+        setDeck(deck);
     }
 
     private void customDeck() {
@@ -72,69 +97,11 @@ public class TestPlayer extends Player {
         setDeck(deck);
     }
 
-    // * Methods *
-    @Override
-    protected void initRelic() {
-        starterRelicIronclad();
-//        starterRelicSilent();
-    }
-
-    private void starterRelicIronclad() {
-        Relic startRelic = new BurningBloodRelic();
-        setRelic(startRelic);
-    }
-
-    private void starterRelicSilent() {
-        Relic startRelic = new RingOfTheSnakeRelic();
-        setRelic(startRelic);
-    }
-
-    private void cheaterDeck() {
-        List<Card> deck = new ArrayList<>();
-
-        for (int i = 0; i < 5; i++) {
-            deck.add(new CheaterCard());
-        }
-
-        for (int i = 0; i < 4; i++) {
-            deck.add(new CheaterCard());
-        }
-
-        deck.add(new BashCard());
-
-        setDeck(deck);
-    }
-
-    private void starterDeckIronclad() {
-        List<Card> deck = new ArrayList<>();
-        for (int i = 0; i < 5; i++) {
-            deck.add(new IroncladStrikeCard());
-        }
-
-        for (int i = 0; i < 4; i++) {
-            deck.add(new IroncladDefendCard());
-        }
-
-        deck.add(new BashCard());
-
-        setDeck(deck);
-    }
-
-    private void starterDeckSilent() {
-        List<Card> deck = new ArrayList<>();
-        for (int i = 0; i < 5; i++) {
-            deck.add(new SilentStrikeCard());
-        }
-
-        for (int i = 0; i < 5; i++) {
-            deck.add(new SilentDefendCard());
-        }
-
-        deck.add(new SurvivorCard());
-
-        deck.add(new NeutralizeCard());
-
-        setDeck(deck);
+    private void initWithDelegate(Player delegate) {
+        delegate.initRelic();
+        setRelic(delegate.getRelic());
+        delegate.initDeck();
+        setDeck(delegate.getDeck());
     }
 
 }
