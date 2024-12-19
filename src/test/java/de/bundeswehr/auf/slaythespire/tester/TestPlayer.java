@@ -1,14 +1,13 @@
 package de.bundeswehr.auf.slaythespire.tester;
 
+import de.bundeswehr.auf.slaythespire.model.Model;
 import de.bundeswehr.auf.slaythespire.model.card.ironclad.attack.common.ClashCard;
 import de.bundeswehr.auf.slaythespire.model.card.ironclad.attack.common.HeadbuttCard;
 import de.bundeswehr.auf.slaythespire.model.card.ironclad.skill.common.WarcryCard;
+import de.bundeswehr.auf.slaythespire.model.potion.structure.Potion;
 import de.bundeswehr.auf.slaythespire.model.settings.GameSettings;
 import javafx.stage.Stage;
-import de.bundeswehr.auf.slaythespire.model.card.structure.AttackCard;
 import de.bundeswehr.auf.slaythespire.model.card.structure.Card;
-import de.bundeswehr.auf.slaythespire.model.card.structure.CardGrave;
-import de.bundeswehr.auf.slaythespire.model.card.structure.CardRarity;
 import de.bundeswehr.auf.slaythespire.model.card.ironclad.IroncladDefendCard;
 import de.bundeswehr.auf.slaythespire.model.card.ironclad.IroncladStrikeCard;
 import de.bundeswehr.auf.slaythespire.model.card.ironclad.attack.common.BashCard;
@@ -21,28 +20,23 @@ import de.bundeswehr.auf.slaythespire.model.player.structure.PlayerType;
 import de.bundeswehr.auf.slaythespire.model.relic.ironclad.common.BurningBloodRelic;
 import de.bundeswehr.auf.slaythespire.model.relic.silent.common.RingOfTheSnakeRelic;
 import de.bundeswehr.auf.slaythespire.model.relic.structure.Relic;
+import org.reflections.Reflections;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.lang.reflect.Modifier;
+import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * @author Keil, Vladislav
  */
 public class TestPlayer extends Player {
 
-    private static class CheaterCard extends AttackCard {
-
-        public CheaterCard() {
-            super("Cheater Card", "Deals 40 damage. For free.", 0, 40, CardRarity.SPECIAL, CardGrave.DISCARD);
-            setImagePath("/images/card/BossCard.jpg");
-        }
-
-    }
-
     public TestPlayer(Stage primaryStage) {
         super("Tester", 1000, 1000, PlayerType.IRONCLAD, primaryStage);
         setImagePath("/images/player/IroncladPlayer.png");
         setAltImagePath("/images/player/IroncladPlayerAlt1.png");
+
+        ModelInitializer.initModel();
 
 //        super("TesterPlayer", 1000, 1000, PlayerType.SILENT, primaryStage);
 //        setImagePath("/images/player/SilentPlayer.png");
