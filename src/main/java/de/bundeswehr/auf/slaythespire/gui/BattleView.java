@@ -291,7 +291,7 @@ public class BattleView extends BorderPane implements View, WithTopBar, BattleDe
      * Bottom side for the Hand cards
      */
     private void initBottom() {
-        bottom = new BottomSideLayout(this, player, battleDeck.getHand());
+        bottom = new BottomSideLayout(this, player, battleDeck);
         setBottom(bottom);
     }
 

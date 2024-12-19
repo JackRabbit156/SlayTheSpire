@@ -81,7 +81,7 @@ public class CardLayout extends HBox {
     }
 
     private Node images(Card card) {
-        Image imageCard = new Image(getClass().getResource(card.getImagePath()).toExternalForm());
+        Image imageCard = new Image(card.getImagePath());
         ImageView imageViewCard = new ImageView(imageCard);
 
         imageViewCard.setFitWidth(250);

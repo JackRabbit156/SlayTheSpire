@@ -1,18 +1,16 @@
 package de.bundeswehr.auf.slaythespire.gui.layouts.battle;
 
+import de.bundeswehr.auf.slaythespire.gui.BattleView;
 import de.bundeswehr.auf.slaythespire.helper.GuiHelper;
+import de.bundeswehr.auf.slaythespire.model.battle.BattleDeck;
+import de.bundeswehr.auf.slaythespire.model.player.structure.Player;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
-import de.bundeswehr.auf.slaythespire.model.card.structure.Card;
-import de.bundeswehr.auf.slaythespire.model.player.structure.Player;
-import de.bundeswehr.auf.slaythespire.gui.BattleView;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
-
-import java.util.List;
 
 /**
  * Die Klasse 'BottomSideLayout' repräsentiert das untere Layout im
@@ -31,17 +29,19 @@ import java.util.List;
  */
 public class BottomSideLayout extends HBox {
 
+    private final BattleDeck battleDeck;
     private final BattleView battleView;
     private CardLayout cardLayout;
+    private DeckLayout deckLayout;
+    private DiscardPileLayout discardPileLayout;
     private EnergyLayout energyLayout;
-    private final List<Card> hand;
     private final Player player;
     private HBox right;
 
-    public BottomSideLayout(BattleView battleView, Player player, List<Card> hand) {
+    public BottomSideLayout(BattleView battleView, Player player, BattleDeck battleDeck) {
         this.player = player;
         this.battleView = battleView;
-        this.hand = hand;
+        this.battleDeck = battleDeck;
 
         initBottomSide();
     }
@@ -51,11 +51,13 @@ public class BottomSideLayout extends HBox {
     }
 
     public void update() {
+        deckLayout.setDeckText(battleDeck.getDeck().size());
         energyLayout.setEnergyText(player.getCurrentEnergy(), player.getMaxEnergy());
+        discardPileLayout.setDiscardPileText(battleDeck.getDiscardPile().size());
         cardLayout.refreshHand();
     }
 
-    private void initBottomSide() {
+    private Button createEndTurn() {
         Button endTurnButton = new Button("End Turn");
         endTurnButton.setTextFill(Color.WHITE);
         endTurnButton.setFont(Font.loadFont(getClass().getResourceAsStream(GuiHelper.DEFAULT_FONT_BOLD), 24));
@@ -65,15 +67,22 @@ public class BottomSideLayout extends HBox {
         endTurnButton.setOnMouseExited(event -> endTurnButton.setBackground(new Background(GuiHelper.backgroundEndTurn("/images/buttons/endTurnButton.png"))));
         endTurnButton.setOnMouseReleased(event -> endTurnButton.setBackground(new Background(GuiHelper.backgroundEndTurn("/images/buttons/endTurnButton.png"))));
         endTurnButton.setOnAction(event -> battleView.clickedOnEndTurn());
+        return endTurnButton;
+    }
 
+    private void initBottomSide() {
+        deckLayout = new DeckLayout();
         energyLayout = new EnergyLayout();
-        HBox left = new HBox(energyLayout);
-        left.setAlignment(Pos.CENTER);
+        HBox left = new HBox(deckLayout, energyLayout);
+        left.setAlignment(Pos.CENTER_LEFT);
         left.setPrefWidth(400);
 
-        cardLayout = new CardLayout(hand, battleView);
-        right = new HBox(endTurnButton);
-        right.setAlignment(Pos.CENTER);
+        cardLayout = new CardLayout(battleDeck.getHand(), battleView);
+
+        Button endTurnButton = createEndTurn();
+        discardPileLayout = new DiscardPileLayout();
+        right = new HBox(endTurnButton, discardPileLayout);
+        right.setAlignment(Pos.CENTER_RIGHT);
         right.setPrefWidth(400);
 
         getChildren().addAll(left, cardLayout, right);

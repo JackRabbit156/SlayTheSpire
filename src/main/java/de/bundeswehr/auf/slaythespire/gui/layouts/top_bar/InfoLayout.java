@@ -80,7 +80,7 @@ public class InfoLayout extends HBox {
 
     private void initFloorText() {
         floorLabel.setFont(font);
-        floorLabel.setTextFill(Color.DARKGRAY);
+        floorLabel.setTextFill(Paint.valueOf("#E7D4AD"));
         floorLabel.setPadding(new Insets(0, 30, 0, 0));
     }
 
