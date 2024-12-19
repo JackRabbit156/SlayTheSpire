@@ -16,47 +16,24 @@ import java.util.Objects;
 
 /**
  * Darstellungskomonente der Credits
+ *
  * @author Loeschner, Marijan
  */
 public class CreditView {
-    private Button back = new Button();
-    private VBox output = new VBox();
 
-    public CreditView(){
+    private final Button back = new Button();
+    private final VBox output = new VBox();
+
+    public CreditView() {
         initButton();
-    }
-
-    public void initButton(){
-        back.setText("Back");
-        back.setTextFill(Color.WHITE);
-        back.setFont(Font.font(GuiHelper.DEFAULT_FONT_BOLD, 24));
-        back.setTextAlignment(TextAlignment.CENTER);
-        back.setBackground(new Background(GuiHelper.backgroundInHD("/images/buttons/endTurnButton.png")));
-        back.setMinSize(200, 200);
-
-        back.setOnMouseEntered(event -> {
-            back.setBackground(new Background(
-                    GuiHelper.backgroundInHD("/images/buttons/endTurnButtonGlow.png")));
-        });
-        back.setOnMouseExited(event -> {
-            back.setBackground(new Background(
-                    GuiHelper.backgroundInHD("/images/buttons/endTurnButton.png")));
-        });
-    }
-
-    public Button getBackButton() {
-        return back;
-    }
-
-    public VBox getOutput() {
-        return output;
     }
 
     /**
      * Methode die die Credits darstellt
+     *
      * @return output VBox
      */
-    public VBox display(){
+    public VBox display() {
         output.setBackground(new Background(GuiHelper.backgroundInHD("/images/backgrounds/greenBg.jpg")));
         Text creditText = new Text("Re-Engineered by:\nDaniel Willig\nVladislav Keil\nAlexander Warawa\nMarijan Löschner");
         creditText.setFont(Font.loadFont(getClass().getResourceAsStream(GuiHelper.DEFAULT_FONT_BOLD), 24));
@@ -70,6 +47,26 @@ public class CreditView {
         output.getChildren().addAll(creditImage, creditText, back);
 
         return output;
+    }
+
+    public Button getBackButton() {
+        return back;
+    }
+
+    public VBox getOutput() {
+        return output;
+    }
+
+    public void initButton() {
+        back.setText("Back");
+        back.setTextFill(Color.WHITE);
+        back.setFont(Font.font(GuiHelper.DEFAULT_FONT_BOLD, 24));
+        back.setTextAlignment(TextAlignment.CENTER);
+        back.setBackground(new Background(GuiHelper.backgroundInHD("/images/buttons/endTurnButton.png")));
+        back.setMinSize(200, 200);
+
+        back.setOnMouseEntered(event -> back.setBackground(new Background(GuiHelper.backgroundInHD("/images/buttons/endTurnButtonGlow.png"))));
+        back.setOnMouseExited(event -> back.setBackground(new Background(GuiHelper.backgroundInHD("/images/buttons/endTurnButton.png"))));
     }
 
 }
