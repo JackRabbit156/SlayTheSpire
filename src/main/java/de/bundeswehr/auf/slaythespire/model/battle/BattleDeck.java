@@ -2,6 +2,7 @@ package de.bundeswehr.auf.slaythespire.model.battle;
 
 import de.bundeswehr.auf.slaythespire.controller.listener.BattleDeckListener;
 import de.bundeswehr.auf.slaythespire.gui.events.CardEventListener;
+import de.bundeswehr.auf.slaythespire.model.card.DeckFactory;
 import de.bundeswehr.auf.slaythespire.model.card.structure.Card;
 import de.bundeswehr.auf.slaythespire.model.card.structure.PowerCard;
 import de.bundeswehr.auf.slaythespire.model.card.structure.TriggeredCard;
@@ -37,7 +38,7 @@ public class BattleDeck implements CardEventListener{
      * @param originalDeck Der Originalstapel, von dem eine Kopie erstellt wird.
      */
     public BattleDeck(List<Card> originalDeck) {
-        this.deck = new ArrayList<>(originalDeck); // Create a copy of the deck of the player
+        this.deck = DeckFactory.copy(originalDeck); // Create a copy of the deck of the player
         this.hand = new ArrayList<>();
         this.discardPile = new ArrayList<>();
         this.exhaustPile = new ArrayList<>();

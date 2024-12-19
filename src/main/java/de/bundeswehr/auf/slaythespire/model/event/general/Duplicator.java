@@ -42,7 +42,7 @@ public class Duplicator extends Event {
                 imageView.setFitHeight(250);
                 imageView.setFitWidth(200);
                 imageView.setOnMouseClicked(e -> {
-                    getPlayer().addCardToDeck(DeckFactory.cardFor(card.getClass().getSimpleName()));
+                    getPlayer().addCardToDeck(DeckFactory.copy(card));
                     getEventView().updateTop();
                     cardPopup.hide();
                 });

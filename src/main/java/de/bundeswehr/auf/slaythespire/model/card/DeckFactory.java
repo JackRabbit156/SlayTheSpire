@@ -4,6 +4,7 @@ import de.bundeswehr.auf.slaythespire.helper.Color;
 import de.bundeswehr.auf.slaythespire.helper.LoggingAssistant;
 import de.bundeswehr.auf.slaythespire.model.Model;
 import de.bundeswehr.auf.slaythespire.model.card.structure.Card;
+import de.bundeswehr.auf.slaythespire.model.card.structure.CardRarity;
 import de.bundeswehr.auf.slaythespire.model.player.structure.Player;
 import de.bundeswehr.auf.slaythespire.model.potion.structure.Potion;
 import de.bundeswehr.auf.slaythespire.model.relic.structure.Relic;
@@ -45,6 +46,26 @@ public class DeckFactory {
             }
         }
         return card;
+    }
+
+    public static Card copy(Card card) {
+        return cardFor(card.getClass().getSimpleName());
+    }
+
+    public static List<Card> copy(List<Card> cards) {
+        List<Card> copy = new ArrayList<>();
+        for (Card card : cards) {
+            copy.add(copy(card));
+        }
+        return copy;
+    }
+
+    public static Potion copy(Potion potion) {
+        return potionFor(potion.getClass().getSimpleName());
+    }
+
+    public static Relic copy(Relic relic) {
+        return relicFor(relic.getClass().getSimpleName());
     }
 
     public static Potion potionFor(String potionName) {
@@ -89,6 +110,18 @@ public class DeckFactory {
     public DeckFactory(Player player, int amount, Class<? extends Card> cls) {
         this(player, amount);
         // TODO implement type based generation
+    }
+
+    /**
+     * Konstruktor für die DeckFactory, der ein Deck mit einer bestimmten Anzahl an Karten und einem spezifischen Kartentyp erstellt.
+     *
+     * @param player Der Spieler, dessen Deck erstellt werden soll.
+     * @param amount Die Anzahl der Karten, die im Deck enthalten sein sollen.
+     * @param rarity Die Seltenheit, die für das Deck verwendet wird.
+     */
+    public DeckFactory(Player player, int amount, CardRarity rarity) {
+        this(player, amount);
+        // TODO implement rarity based generation
     }
 
     /**
