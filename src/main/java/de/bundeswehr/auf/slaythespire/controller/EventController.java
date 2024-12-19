@@ -44,6 +44,11 @@ public class EventController implements Controller, EventViewEvents {
         primaryStage.setFullScreen(!primaryStage.isFullScreen());
     }
 
+    @Override
+    public void discard() {
+        eventView.discard();
+    }
+
     public BorderPane getEventView() {
         return eventView.display();
     }

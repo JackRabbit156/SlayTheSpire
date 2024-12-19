@@ -49,6 +49,11 @@ public class TreasureController implements Controller, TreasureViewEvents {
         treasureView = new TreasureView(selectedCards, gold, potion, player, this);
     }
 
+    @Override
+    public void discard() {
+        treasureView.discard();
+    }
+
     /**
      * Gibt die Schatz-Ansicht zurück.
      *

@@ -59,6 +59,11 @@ public class LootController implements Controller, LootViewEvents {
         lootView = new LootView(selectedCards, gold, potion, player, this);
     }
 
+    @Override
+    public void discard() {
+        lootView.discard();
+    }
+
     /**
      * Gibt die Loot-Ansicht zurück.
      *

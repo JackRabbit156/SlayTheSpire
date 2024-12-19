@@ -47,6 +47,11 @@ public class ShopController implements Controller, ShopViewEvents {
         entryShop();
     }
 
+    @Override
+    public void discard() {
+        shopView.discard();
+    }
+
     /**
      * Gibt die Shop-Ansicht zurück.
      *

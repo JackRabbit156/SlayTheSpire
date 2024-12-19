@@ -31,6 +31,11 @@ public class RestController implements Controller, RestViewEvents {
     }
 
     @Override
+    public void discard() {
+        restView.discard();
+    }
+
+    @Override
     public void onFullScreenClicked() {
         Stage primaryStage = player.getPrimaryStage();
 
