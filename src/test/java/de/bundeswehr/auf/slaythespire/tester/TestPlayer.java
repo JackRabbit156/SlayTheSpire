@@ -14,6 +14,8 @@ import de.bundeswehr.auf.slaythespire.model.relic.structure.Relic;
 import de.bundeswehr.auf.slaythespire.model.settings.GameSettings;
 import javafx.stage.Stage;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -63,11 +65,11 @@ public class TestPlayer extends Player {
     }
 
     @Override
-    public void initDeck() {
+    protected void initDeck() {
     }
 
     @Override
-    public void initRelic() {
+    protected void initRelic() {
         Relic startRelic = new BurningBloodRelic();
         setRelic(startRelic);
     }
@@ -98,10 +100,20 @@ public class TestPlayer extends Player {
     }
 
     private void initWithDelegate(Player delegate) {
-        delegate.initRelic();
-        setRelic(delegate.getRelic());
-        delegate.initDeck();
-        setDeck(delegate.getDeck());
+        try {
+            Method initRelic = delegate.getClass().getDeclaredMethod("initRelic");
+            initRelic.setAccessible(true);
+            initRelic.invoke(delegate);
+            setRelic(delegate.getRelic());
+
+            Method initDeck = delegate.getClass().getDeclaredMethod("initDeck");
+            initDeck.setAccessible(true);
+            initDeck.invoke(delegate);
+
+            setDeck(delegate.getDeck());
+        } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
+            e.printStackTrace();
+        }
     }
 
 }

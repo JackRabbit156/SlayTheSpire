@@ -36,7 +36,7 @@ public class SilentPlayer extends Player {
     }
 
     @Override
-    public void initDeck() {
+    protected void initDeck() {
         List<Card> deck = new ArrayList<>();
         for (int i = 0; i < 5; i++) {
             deck.add(new SilentStrikeCard());
@@ -54,7 +54,7 @@ public class SilentPlayer extends Player {
     }
 
     @Override
-    public void initRelic() {
+    protected void initRelic() {
         Relic startRelic = new RingOfTheSnakeRelic();
         setRelic(startRelic);
     }

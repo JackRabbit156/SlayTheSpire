@@ -40,7 +40,7 @@ public class EnemyField extends Field{
      */
     @Override
     public void doFieldThing(Player player) {
-        GuiHelper.Scenes.startBattleScene(player, enemies, FieldEnum.ENEMYFIELD);
+        GuiHelper.Scenes.startBattleScene(player, enemies, FieldEnum.ENEMY_FIELD);
     }
 
     /**

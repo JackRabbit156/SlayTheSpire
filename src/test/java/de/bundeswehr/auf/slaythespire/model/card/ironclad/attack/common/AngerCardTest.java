@@ -29,7 +29,7 @@ class AngerCardTest {
         BattleDeck battleDeck = new BattleDeck(deck);
         gameContext = new GameContext(ironcladPlayer, enemies, battleDeck);
 
-        battleController = new BattleController(ironcladPlayer,enemies, FieldEnum.BOSSFIELD); //TODO error an der stelle
+        battleController = new BattleController(ironcladPlayer,enemies, FieldEnum.BOSS_FIELD); //TODO error an der stelle
     }
 
     @Test

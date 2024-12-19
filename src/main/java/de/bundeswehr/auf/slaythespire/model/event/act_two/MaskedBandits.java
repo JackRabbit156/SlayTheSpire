@@ -48,7 +48,7 @@ public class MaskedBandits extends Event {
             enemyList.add(new ByrdEnemy());
             button2.setVisible(false);
             button1.setVisible(false);
-            GuiHelper.Scenes.startBattleScene(getPlayer(), enemyList, FieldEnum.ENEMYFIELD);
+            GuiHelper.Scenes.startBattleScene(getPlayer(), enemyList, FieldEnum.ENEMY_FIELD);
         });
         return button2;
     }

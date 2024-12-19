@@ -22,6 +22,6 @@ public class EliteField extends Field {
 
     @Override
     public void doFieldThing(Player player) {
-        GuiHelper.Scenes.startBattleScene(player, enemies, FieldEnum.ELITEFIELD);
+        GuiHelper.Scenes.startBattleScene(player, enemies, FieldEnum.ELITE_FIELD);
     }
 }

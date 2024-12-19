@@ -3,8 +3,6 @@ package de.bundeswehr.auf.slaythespire.model.map.act;
 import de.bundeswehr.auf.slaythespire.helper.Color;
 import de.bundeswehr.auf.slaythespire.helper.LoggingAssistant;
 import de.bundeswehr.auf.slaythespire.helper.MusicBoy;
-import de.bundeswehr.auf.slaythespire.model.enemy.structure.Enemy;
-import de.bundeswehr.auf.slaythespire.model.enemy.structure.EnemyEnum;
 import de.bundeswehr.auf.slaythespire.model.enemy.act_one.AcidSlimeEnemy;
 import de.bundeswehr.auf.slaythespire.model.enemy.act_one.CultistEnemy;
 import de.bundeswehr.auf.slaythespire.model.enemy.act_one.MadGremlinEnemy;
@@ -12,11 +10,13 @@ import de.bundeswehr.auf.slaythespire.model.enemy.act_one.boss.SlimeBoss;
 import de.bundeswehr.auf.slaythespire.model.enemy.act_one.boss.TheGuardianBoss;
 import de.bundeswehr.auf.slaythespire.model.enemy.act_one.elite.GremlinNobElite;
 import de.bundeswehr.auf.slaythespire.model.enemy.act_one.elite.LagavulinElite;
-import de.bundeswehr.auf.slaythespire.model.settings.GameSettings;
+import de.bundeswehr.auf.slaythespire.model.enemy.structure.Enemy;
+import de.bundeswehr.auf.slaythespire.model.enemy.structure.EnemyEnum;
 import de.bundeswehr.auf.slaythespire.model.map.Coordinates;
 import de.bundeswehr.auf.slaythespire.model.map.Node;
 import de.bundeswehr.auf.slaythespire.model.map.field.*;
 import de.bundeswehr.auf.slaythespire.model.player.structure.Player;
+import de.bundeswehr.auf.slaythespire.model.settings.GameSettings;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,7 +36,7 @@ public class ActOne extends Act {
 
     private static final int MAP_HEIGHT = 16;
     private static final int MAP_WIDTH = 7;
-    private static final Class<?>[] possibleEnemies = { AcidSlimeEnemy.class, CultistEnemy.class, MadGremlinEnemy.class };
+    private static final Class<?>[] possibleEnemies = {AcidSlimeEnemy.class, CultistEnemy.class, MadGremlinEnemy.class};
 
     private Player player;
 
@@ -132,26 +132,7 @@ public class ActOne extends Act {
         return enemies;
     }
 
-    /**
-     * @return An Enemy
-     * @author Keil, Vladislav
-     */
-    private Enemy createEnemiesOfType(EnemyEnum type) {
-        switch (type) {
-            case HEXA:
-                return new MadGremlinEnemy();
-            case GUARDIAN:
-                return new CultistEnemy();
-            case LAGAVULIN:
-                return new CultistEnemy();
-            case GOBLIN:
-                return new MadGremlinEnemy();
-            default: // SLIME
-                return new AcidSlimeEnemy();
-        }
-    }
-
-    private List<Enemy> generateEnemies() {
+    private List<Enemy> createEnemies() {
         int numberOfEnemies = GameSettings.getDifficultyLevel().getNumberOfEnemies();
         List<Enemy> enemies = new ArrayList<>();
         for (int i = 0; i < numberOfEnemies; i++) {
@@ -174,21 +155,40 @@ public class ActOne extends Act {
         return enemies;
     }
 
+    /**
+     * @return An Enemy
+     * @author Keil, Vladislav
+     */
+    private Enemy createEnemiesOfType(EnemyEnum type) {
+        switch (type) {
+            case HEXA:
+                return new MadGremlinEnemy();
+            case GUARDIAN:
+                return new CultistEnemy();
+            case LAGAVULIN:
+                return new CultistEnemy();
+            case GOBLIN:
+                return new MadGremlinEnemy();
+            default: // SLIME
+                return new AcidSlimeEnemy();
+        }
+    }
+
     private void initNodes() {
-        Node start1 = new Node("1", new EnemyField(generateEnemies()), new Coordinates(3, 16));
-        Node fight2 = new Node("2", new EnemyField(generateEnemies()), new Coordinates(3, 14));
-        Node unknown3 = new Node("3", new UnknownField(new EventField(), new EnemyField(generateEnemies()), new EliteField(createElitesEnemies()), new ShopField()), new Coordinates(1, 12));
-        Node fight4 = new Node("4", new EnemyField(generateEnemies()), new Coordinates(5, 12));
-        Node fight5 = new Node("5", new EnemyField(generateEnemies()), new Coordinates(0, 10));
+        Node start1 = new Node("1", new EnemyField(createEnemies()), new Coordinates(3, 16));
+        Node fight2 = new Node("2", new EnemyField(createEnemies()), new Coordinates(3, 14));
+        Node unknown3 = new Node("3", new UnknownField(new EventField(), new EnemyField(createEnemies()), new EliteField(createElitesEnemies()), new ShopField()), new Coordinates(1, 12));
+        Node fight4 = new Node("4", new EnemyField(createEnemies()), new Coordinates(5, 12));
+        Node fight5 = new Node("5", new EnemyField(createEnemies()), new Coordinates(0, 10));
         Node elite6 = new Node("6", new EliteField(createElitesEnemies()), new Coordinates(2, 10));
-        Node fight7 = new Node("7", new EnemyField(generateEnemies()), new Coordinates(5, 10));
+        Node fight7 = new Node("7", new EnemyField(createEnemies()), new Coordinates(5, 10));
         Node shop8 = new Node("8", new ShopField(), new Coordinates(2, 8));
         //Node unknown9 = new Node("9", new UnknownField(new EventField(randomEvent()), new EnemyField(generateEnemies()), new EliteField(createElitesEnemies()), new ShopField()), new Coordinates(5, 8));
         Node treasure9 = new Node("9", new TreasureField(), new Coordinates(5, 8));
         Node event10 = new Node("10", new EventField(), new Coordinates(1, 6));
-        Node fight11 = new Node("11", new EnemyField(generateEnemies()), new Coordinates(4, 6));
-        Node fight12 = new Node("12", new EnemyField(generateEnemies()), new Coordinates(6, 6));
-        Node unknown13 = new Node("13", new UnknownField(new EventField(), new EnemyField(generateEnemies()), new EliteField(createElitesEnemies()), new ShopField()), new Coordinates(4, 4));
+        Node fight11 = new Node("11", new EnemyField(createEnemies()), new Coordinates(4, 6));
+        Node fight12 = new Node("12", new EnemyField(createEnemies()), new Coordinates(6, 6));
+        Node unknown13 = new Node("13", new UnknownField(new EventField(), new EnemyField(createEnemies()), new EliteField(createElitesEnemies()), new ShopField()), new Coordinates(4, 4));
         Node elite14 = new Node("14", new EliteField(createElitesEnemies()), new Coordinates(6, 4));
         Node rest15 = new Node("15", new RestField(), new Coordinates(4, 2));
         Node boss16 = new Node("16", new BossField(createBossEnemies()), new Coordinates(4, 0));

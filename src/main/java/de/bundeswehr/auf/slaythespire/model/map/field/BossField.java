@@ -23,6 +23,6 @@ public class BossField extends Field{
 
     @Override
     public void doFieldThing(Player player) {
-        GuiHelper.Scenes.startBattleScene(player, enemies, FieldEnum.BOSSFIELD);
+        GuiHelper.Scenes.startBattleScene(player, enemies, FieldEnum.BOSS_FIELD);
     }
 }

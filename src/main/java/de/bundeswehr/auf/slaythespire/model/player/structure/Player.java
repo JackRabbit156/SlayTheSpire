@@ -341,9 +341,9 @@ public abstract class Player {
         currentEnergy = maxEnergy;
     }
 
-    public abstract void initDeck();
+    protected abstract void initDeck();
 
-    public abstract void initRelic();
+    protected abstract void initRelic();
 
     /**
      * Benachrichtigt den Listener über den empfangenen Blockwert.

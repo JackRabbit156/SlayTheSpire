@@ -28,7 +28,7 @@ public class LootTester extends Application {
         player.getPotions().add(new EnergyPotion());
 //        player.getPotions().add(new EnergyPotion());
 
-        GuiHelper.Scenes.startLootScene(player, FieldEnum.ENEMYFIELD);
+        GuiHelper.Scenes.startLootScene(player, FieldEnum.ENEMY_FIELD);
     }
 
 }

@@ -28,12 +28,6 @@ public class Model {
         return new ArrayList<>(classes);
     }
 
-    public static void load(Map<String, Set<Class<? extends Card>>> cardCache, Set<Class<? extends Potion>> potionCache, Set<Class<? extends Relic>> relicCache) {
-        Model.cardCache.putAll(cardCache);
-        Model.potionCache = potionCache;
-        Model.relicCache = relicCache;
-    }
-
     @SuppressWarnings("unchecked")
     public static <C extends Card> C ofCards(String packageName, String name) {
         for (Class<? extends Card> cls : loadCardClasses(packageName)) {

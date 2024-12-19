@@ -76,7 +76,7 @@ public class LootController implements Controller, LootViewEvents {
     @Override
     public void onBackClicked() {
         LoggingAssistant.log("LootView closed");
-        if (fieldType == FieldEnum.BOSSFIELD) {
+        if (fieldType == FieldEnum.BOSS_FIELD) {
             GuiHelper.Scenes.startStatisticScene(player);
             return;
         }
@@ -142,15 +142,15 @@ public class LootController implements Controller, LootViewEvents {
      */
     private void initGoldLoot(FieldEnum fieldType) {
         switch (fieldType) {
-            case BOSSFIELD:
+            case BOSS_FIELD:
                 // 95 - 105
                 gold = rnd.nextInt(105 + 1 - 95) + 95;
                 break;
-            case ELITEFIELD:
+            case ELITE_FIELD:
                 // 25 - 35
                 gold = rnd.nextInt(35 + 1 - 25) + 25;
                 break;
-            case ENEMYFIELD:
+            case ENEMY_FIELD:
                 // 10 - 20
                 gold = rnd.nextInt(20 + 1 - 10) + 10;
                 break;
