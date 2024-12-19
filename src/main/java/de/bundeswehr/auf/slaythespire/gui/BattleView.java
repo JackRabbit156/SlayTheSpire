@@ -11,6 +11,7 @@ import de.bundeswehr.auf.slaythespire.gui.layouts.battle.RightSideLayout;
 import de.bundeswehr.auf.slaythespire.gui.layouts.top_bar.TopBarLayout;
 import de.bundeswehr.auf.slaythespire.helper.GuiHelper;
 import de.bundeswehr.auf.slaythespire.model.battle.BattleDeck;
+import de.bundeswehr.auf.slaythespire.model.battle.GameContext;
 import de.bundeswehr.auf.slaythespire.model.card.structure.AttackCard;
 import de.bundeswehr.auf.slaythespire.model.card.structure.Card;
 import de.bundeswehr.auf.slaythespire.model.card.structure.PowerCard;
@@ -50,7 +51,6 @@ public class BattleView extends BorderPane implements View, WithTopBar, BattleDe
         NORMAL, ATTACK, SKILL, POWER
     }
 
-    private final BattleDeck battleDeck;
     private final BattleViewEvents battleViewEvents;
     private BottomSideLayout bottom;
     private final Pane center = new Pane();
@@ -64,16 +64,16 @@ public class BattleView extends BorderPane implements View, WithTopBar, BattleDe
     private RightSideLayout right;
     private TopBarLayout top;
 
-    public BattleView(Player player, List<Enemy> enemies, BattleViewEvents battleViewEvents, BattleDeck battleDeck) {
+    public BattleView(Player player, List<Enemy> enemies, BattleViewEvents battleViewEvents, GameContext gameContext) {
         this.battleViewEvents = battleViewEvents;
         this.player = player;
         this.enemies = enemies;
-        this.battleDeck = battleDeck;
-        this.battleDeck.setBattleDeckListener(this);
+        BattleDeck battleDeck = gameContext.getBattleDeck();
+        battleDeck.setBattleDeckListener(this);
 
         setBackground(new Background(GuiHelper.backgroundInHD(player.getActImage())));
         setCenter(center);
-        initNodes();
+        initNodes(gameContext);
     }
 
     @Override
@@ -290,8 +290,8 @@ public class BattleView extends BorderPane implements View, WithTopBar, BattleDe
     /**
      * Bottom side for the Hand cards
      */
-    private void initBottom() {
-        bottom = new BottomSideLayout(this, player, battleDeck);
+    private void initBottom(GameContext gameContext) {
+        bottom = new BottomSideLayout(this, player, gameContext);
         setBottom(bottom);
     }
 
@@ -303,11 +303,11 @@ public class BattleView extends BorderPane implements View, WithTopBar, BattleDe
         setLeft(left);
     }
 
-    private void initNodes() {
+    private void initNodes(GameContext gameContext) {
         initTop();
         initLeft();
         initRight();
-        initBottom();
+        initBottom(gameContext);
         updateInformation();
     }
 

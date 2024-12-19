@@ -55,7 +55,7 @@ public class BattleController implements Controller, BattleViewEvents, PlayerEve
         gameContext = new GameContext(player, enemies, battleDeck);
 
         calculateIntentForAllEnemies();
-        battleView = new BattleView(player, enemies, this, battleDeck);
+        battleView = new BattleView(player, enemies, this, gameContext);
         player.setPlayerEventListener(this);
 
         startOfCombat();

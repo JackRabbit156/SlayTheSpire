@@ -1,5 +1,8 @@
 package de.bundeswehr.auf.slaythespire.gui.layouts.battle;
 
+import de.bundeswehr.auf.slaythespire.gui.BattleView;
+import de.bundeswehr.auf.slaythespire.model.battle.GameContext;
+import de.bundeswehr.auf.slaythespire.model.card.structure.Card;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.geometry.Pos;
@@ -10,8 +13,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
-import de.bundeswehr.auf.slaythespire.model.card.structure.Card;
-import de.bundeswehr.auf.slaythespire.gui.BattleView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,6 +34,7 @@ import java.util.List;
 public class CardLayout extends HBox {
 
     private final BattleView battleView;
+    private final GameContext gameContext;
     private final List<Card> hand;
     private final ObjectProperty<Card> selected = new SimpleObjectProperty<>();
 
@@ -48,9 +50,10 @@ public class CardLayout extends HBox {
      * @param hand       Die Liste der Handkarten des Spielers
      * @param battleView Die aktuelle Instanz der Schlachtansicht
      */
-    public CardLayout(List<Card> hand, BattleView battleView) {
-        this.battleView = battleView;
+    public CardLayout(List<Card> hand, GameContext gameContext, BattleView battleView) {
         this.hand = hand;
+        this.gameContext = gameContext;
+        this.battleView = battleView;
         // Cards move close to each other
         setSpacing(-30);
         // Center of the bottom
@@ -93,13 +96,21 @@ public class CardLayout extends HBox {
         return imageViewCard;
     }
 
+    private boolean isPlayable(Card card) {
+        return gameContext.getPlayer().getCurrentEnergy() >= card.getCost() &&
+                card.isPlayable(gameContext).isPlayable();
+    }
+
     private void setEventHandler(ImageView imageView, Card card) {
-        DropShadow glow = new DropShadow();
-        glow.setColor(Color.YELLOW);
-        glow.setHeight(30);
-        glow.setWidth(30);
+        if (isPlayable(card)) {
+            DropShadow glow = new DropShadow();
+            glow.setColor(Color.DEEPSKYBLUE);
+            glow.setHeight(50);
+            glow.setWidth(50);
+            imageView.setEffect(glow);
+        }
         imageView.addEventHandler(MouseEvent.MOUSE_CLICKED, e -> handleCardClick(card, hand.indexOf(card)));
-        imageView.addEventHandler(MouseEvent.MOUSE_ENTERED, e -> setHoverEffect(imageView, glow));
+        imageView.addEventHandler(MouseEvent.MOUSE_ENTERED, e -> setHoverEffect(imageView));
         imageView.addEventHandler(MouseEvent.MOUSE_EXITED, e -> {
             if (selected.get() != card) {
                 unsetHoverEffect(imageView);
@@ -112,15 +123,7 @@ public class CardLayout extends HBox {
         });
     }
 
-    private void unsetHoverEffect(ImageView imageView) {
-        imageView.setEffect(null);
-        imageView.setScaleX(1.0); // Reset the width to original
-        imageView.setScaleY(1.0); // Reset the height to original
-        imageView.setTranslateY(60); // Bild wieder nach unten verschieben
-    }
-
-    private void setHoverEffect(ImageView imageView, DropShadow glow) {
-        imageView.setEffect(glow);
+    private void setHoverEffect(ImageView imageView) {
         imageView.setScaleX(1.1); // Slightly increase the width
         imageView.setScaleY(1.1); // Slightly increase the height
         imageView.setClip(null); // Clip entfernen, um das gesamte Bild anzuzeigen
@@ -133,6 +136,12 @@ public class CardLayout extends HBox {
             nodes.add(images(card));
         }
         getChildren().addAll(nodes);
+    }
+
+    private void unsetHoverEffect(ImageView imageView) {
+        imageView.setScaleX(1.0); // Reset the width to original
+        imageView.setScaleY(1.0); // Reset the height to original
+        imageView.setTranslateY(60); // Bild wieder nach unten verschieben
     }
 
 }

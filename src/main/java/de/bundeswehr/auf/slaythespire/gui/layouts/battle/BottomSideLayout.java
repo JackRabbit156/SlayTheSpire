@@ -3,6 +3,7 @@ package de.bundeswehr.auf.slaythespire.gui.layouts.battle;
 import de.bundeswehr.auf.slaythespire.gui.BattleView;
 import de.bundeswehr.auf.slaythespire.helper.GuiHelper;
 import de.bundeswehr.auf.slaythespire.model.battle.BattleDeck;
+import de.bundeswehr.auf.slaythespire.model.battle.GameContext;
 import de.bundeswehr.auf.slaythespire.model.player.structure.Player;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -38,12 +39,12 @@ public class BottomSideLayout extends HBox {
     private final Player player;
     private HBox right;
 
-    public BottomSideLayout(BattleView battleView, Player player, BattleDeck battleDeck) {
+    public BottomSideLayout(BattleView battleView, Player player, GameContext gameContext) {
         this.player = player;
         this.battleView = battleView;
-        this.battleDeck = battleDeck;
+        this.battleDeck = gameContext.getBattleDeck();
 
-        initBottomSide();
+        initBottomSide(gameContext);
     }
 
     public void setDisableEndTurn(boolean value) {
@@ -70,14 +71,14 @@ public class BottomSideLayout extends HBox {
         return endTurnButton;
     }
 
-    private void initBottomSide() {
+    private void initBottomSide(GameContext gameContext) {
         deckLayout = new DeckLayout();
         energyLayout = new EnergyLayout();
         HBox left = new HBox(deckLayout, energyLayout);
         left.setAlignment(Pos.CENTER_LEFT);
         left.setPrefWidth(400);
 
-        cardLayout = new CardLayout(battleDeck.getHand(), battleView);
+        cardLayout = new CardLayout(battleDeck.getHand(), gameContext, battleView);
 
         Button endTurnButton = createEndTurn();
         discardPileLayout = new DiscardPileLayout();
