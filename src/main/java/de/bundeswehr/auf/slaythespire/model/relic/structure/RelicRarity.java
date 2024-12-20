@@ -18,6 +18,7 @@ public enum RelicRarity {
     /**
      * Selten.
      */
-    RARE
+    RARE,
+    SPECIAL
 
 }

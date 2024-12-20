@@ -98,6 +98,9 @@ public class BattleController implements Controller, BattleViewEvents, PlayerEve
             triggerPowerCards(CardTrigger.ALWAYS);
             triggerPowerCards(CardTrigger.PLAY_POWER);
         }
+        else if (card instanceof Potion) {
+            triggerRelics(RelicTrigger.PLAY_POTION);
+        }
         cardDeath(card);
     }
 
@@ -312,7 +315,7 @@ public class BattleController implements Controller, BattleViewEvents, PlayerEve
     private void triggerRelics(RelicTrigger trigger) {
         Relic relic = player.getRelic();
         if (relic.getTrigger().equals(trigger)) {
-            relic.getsUsed(gameContext);
+            relic.activate(gameContext);
         }
     }
 

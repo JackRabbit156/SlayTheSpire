@@ -26,7 +26,7 @@ public class RingOfTheSnakeRelic extends StarterTypeRelic {
     }
 
     @Override
-    public void getsUsed(GameContext gameContext) {
+    public void activate(GameContext gameContext) {
         BattleDeck battleDeck = gameContext.getBattleDeck();
         battleDeck.drawCard(2);
     }

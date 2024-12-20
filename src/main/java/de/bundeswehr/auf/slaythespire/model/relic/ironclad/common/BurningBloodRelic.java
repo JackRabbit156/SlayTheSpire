@@ -23,7 +23,7 @@ public class BurningBloodRelic extends StarterTypeRelic {
     }
 
     @Override
-    public void getsUsed(GameContext gameContext) {
+    public void activate(GameContext gameContext) {
         Player player = gameContext.getPlayer();
         player.increaseCurrentHealth(6);
     }

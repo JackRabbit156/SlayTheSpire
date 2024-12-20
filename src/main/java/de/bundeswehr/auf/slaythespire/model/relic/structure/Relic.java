@@ -51,6 +51,6 @@ public abstract class Relic {
      *
      * @param gameContext the game context
      */
-    public abstract void getsUsed(GameContext gameContext);
+    public abstract void activate(GameContext gameContext);
 
 }

@@ -1,16 +1,15 @@
-package de.bundeswehr.auf.slaythespire.tester;
+package de.bundeswehr.auf.slaythespire.model.player;
 
+import de.bundeswehr.auf.slaythespire.model.ModelInitializer;
+import de.bundeswehr.auf.slaythespire.model.card.CheaterCard;
 import de.bundeswehr.auf.slaythespire.model.card.ironclad.IroncladStrikeCard;
 import de.bundeswehr.auf.slaythespire.model.card.ironclad.attack.common.ClashCard;
 import de.bundeswehr.auf.slaythespire.model.card.ironclad.attack.common.HeadbuttCard;
 import de.bundeswehr.auf.slaythespire.model.card.ironclad.skill.common.WarcryCard;
 import de.bundeswehr.auf.slaythespire.model.card.structure.Card;
-import de.bundeswehr.auf.slaythespire.model.player.IroncladPlayer;
-import de.bundeswehr.auf.slaythespire.model.player.SilentPlayer;
 import de.bundeswehr.auf.slaythespire.model.player.structure.Player;
 import de.bundeswehr.auf.slaythespire.model.player.structure.PlayerType;
-import de.bundeswehr.auf.slaythespire.model.relic.ironclad.common.BurningBloodRelic;
-import de.bundeswehr.auf.slaythespire.model.relic.structure.Relic;
+import de.bundeswehr.auf.slaythespire.model.relic.CheaterRelic;
 import de.bundeswehr.auf.slaythespire.model.settings.GameSettings;
 import javafx.stage.Stage;
 
@@ -26,63 +25,27 @@ public class TestPlayer extends Player {
 
     public static TestPlayer cheater(Stage primaryStage) {
         TestPlayer testPlayer = new TestPlayer(PlayerType.IRONCLAD, primaryStage);
-        testPlayer.setImagePath("/images/player/IroncladPlayer.png");
-        testPlayer.setAltImagePath("/images/player/IroncladPlayerAlt1.png");
+        testPlayer.setImagePath("/images/player/TestPlayer.png");
+        testPlayer.setAltImagePath("/images/player/TestPlayerAlt1.png");
         testPlayer.initRelic();
-        testPlayer.cheaterDeck();
+        testPlayer.initDeck();
         return testPlayer;
     }
 
     public static TestPlayer custom(Stage primaryStage) {
+        return custom(primaryStage, customDeck());
+    }
+
+    public static TestPlayer custom(Stage primaryStage, List<Card> deck) {
         TestPlayer testPlayer = new TestPlayer(PlayerType.IRONCLAD, primaryStage);
-        testPlayer.setImagePath("/images/player/IroncladPlayer.png");
-        testPlayer.setAltImagePath("/images/player/IroncladPlayerAlt1.png");
+        testPlayer.setImagePath("/images/player/TestPlayer.png");
+        testPlayer.setAltImagePath("/images/player/TestPlayerAlt1.png");
         testPlayer.initRelic();
-        testPlayer.customDeck();
+        testPlayer.setDeck(deck);
         return testPlayer;
     }
 
-    public static TestPlayer ironclad(Stage primaryStage) {
-        TestPlayer testPlayer = new TestPlayer(PlayerType.IRONCLAD, primaryStage);
-        testPlayer.setImagePath("/images/player/IroncladPlayer.png");
-        testPlayer.setAltImagePath("/images/player/IroncladPlayerAlt1.png");
-        testPlayer.initWithDelegate(new IroncladPlayer(primaryStage));
-        return testPlayer;
-    }
-
-    public static TestPlayer silent(Stage primaryStage) {
-        TestPlayer testPlayer = new TestPlayer(PlayerType.SILENT, primaryStage);
-        testPlayer.setImagePath("/images/player/SilentPlayer.png");
-        testPlayer.setAltImagePath("/images/player/SilentPlayerAlt1.png");
-        testPlayer.initWithDelegate(new SilentPlayer(primaryStage));
-        return testPlayer;
-    }
-
-    private TestPlayer(PlayerType playerType, Stage primaryStage) {
-        super("Tester", 1000, 1000, playerType, primaryStage);
-        ModelInitializer.initModel();
-        GameSettings.startTimer();
-    }
-
-    @Override
-    protected void initDeck() {
-    }
-
-    @Override
-    protected void initRelic() {
-        Relic startRelic = new BurningBloodRelic();
-        setRelic(startRelic);
-    }
-
-    private void cheaterDeck() {
-        List<Card> deck = new ArrayList<>();
-        for (int i = 0; i < 10; i++) {
-            deck.add(new CheaterCard());
-        }
-        setDeck(deck);
-    }
-
-    private void customDeck() {
+    public static List<Card> customDeck() {
         List<Card> deck = new ArrayList<>();
         for (int i = 0; i < 5; i++) {
             deck.add(new IroncladStrikeCard());
@@ -96,20 +59,54 @@ public class TestPlayer extends Player {
         for (int i = 0; i < 3; i++) {
             deck.add(new ClashCard());
         }
+        return deck;
+    }
+
+    public static TestPlayer ironclad(Stage primaryStage) {
+        TestPlayer testPlayer = new TestPlayer(PlayerType.IRONCLAD, primaryStage);
+        testPlayer.initWithDelegate(new IroncladPlayer(primaryStage));
+        return testPlayer;
+    }
+
+    public static TestPlayer silent(Stage primaryStage) {
+        TestPlayer testPlayer = new TestPlayer(PlayerType.SILENT, primaryStage);
+        testPlayer.initWithDelegate(new SilentPlayer(primaryStage));
+        return testPlayer;
+    }
+
+    private TestPlayer(PlayerType playerType, Stage primaryStage) {
+        super("Tester", 1000, 10, playerType, primaryStage);
+        ModelInitializer.initModel();
+        GameSettings.startTimer();
+    }
+
+    @Override
+    protected void initDeck() {
+        List<Card> deck = new ArrayList<>();
+        for (int i = 0; i < 40; i++) {
+            deck.add(new CheaterCard());
+        }
         setDeck(deck);
+    }
+
+    @Override
+    protected void initRelic() {
+        setRelic(new CheaterRelic());
     }
 
     private void initWithDelegate(Player delegate) {
         try {
+            setImagePath(delegate.getImagePath());
+            setAltImagePath(delegate.getAltImagePath());
+            // Use starter relic of delegate
             Method initRelic = delegate.getClass().getDeclaredMethod("initRelic");
             initRelic.setAccessible(true);
             initRelic.invoke(delegate);
             setRelic(delegate.getRelic());
-
+            // Use starter deck of delegate
             Method initDeck = delegate.getClass().getDeclaredMethod("initDeck");
             initDeck.setAccessible(true);
             initDeck.invoke(delegate);
-
             setDeck(delegate.getDeck());
         } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
             e.printStackTrace();
