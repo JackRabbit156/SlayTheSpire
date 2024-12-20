@@ -2,10 +2,14 @@ package de.bundeswehr.auf.slaythespire.model.player;
 
 import de.bundeswehr.auf.slaythespire.model.ModelInitializer;
 import de.bundeswehr.auf.slaythespire.model.card.CheaterCard;
+import de.bundeswehr.auf.slaythespire.model.card.ironclad.IroncladDefendCard;
 import de.bundeswehr.auf.slaythespire.model.card.ironclad.IroncladStrikeCard;
 import de.bundeswehr.auf.slaythespire.model.card.ironclad.attack.common.ClashCard;
 import de.bundeswehr.auf.slaythespire.model.card.ironclad.attack.common.HeadbuttCard;
+import de.bundeswehr.auf.slaythespire.model.card.ironclad.skill.common.ShrugItOffCard;
 import de.bundeswehr.auf.slaythespire.model.card.ironclad.skill.common.WarcryCard;
+import de.bundeswehr.auf.slaythespire.model.card.ironclad.skill.uncommon.EntrenchCard;
+import de.bundeswehr.auf.slaythespire.model.card.ironclad.skill.uncommon.GhostlyArmorCard;
 import de.bundeswehr.auf.slaythespire.model.card.structure.Card;
 import de.bundeswehr.auf.slaythespire.model.player.structure.Player;
 import de.bundeswehr.auf.slaythespire.model.player.structure.PlayerType;
@@ -47,7 +51,23 @@ public class TestPlayer extends Player {
         return testPlayer;
     }
 
-    public static List<Card> customDeck() {
+    public static TestPlayer defensive(Stage primaryStage) {
+        return custom(primaryStage, defensiveDeck());
+    }
+
+    public static TestPlayer ironclad(Stage primaryStage) {
+        TestPlayer testPlayer = new TestPlayer(PlayerType.IRONCLAD, primaryStage);
+        testPlayer.initWithDelegate(new IroncladPlayer(primaryStage));
+        return testPlayer;
+    }
+
+    public static TestPlayer silent(Stage primaryStage) {
+        TestPlayer testPlayer = new TestPlayer(PlayerType.SILENT, primaryStage);
+        testPlayer.initWithDelegate(new SilentPlayer(primaryStage));
+        return testPlayer;
+    }
+
+    private static List<Card> customDeck() {
         List<Card> deck = new ArrayList<>();
         for (int i = 0; i < 5; i++) {
             deck.add(new IroncladStrikeCard());
@@ -64,16 +84,21 @@ public class TestPlayer extends Player {
         return deck;
     }
 
-    public static TestPlayer ironclad(Stage primaryStage) {
-        TestPlayer testPlayer = new TestPlayer(PlayerType.IRONCLAD, primaryStage);
-        testPlayer.initWithDelegate(new IroncladPlayer(primaryStage));
-        return testPlayer;
-    }
-
-    public static TestPlayer silent(Stage primaryStage) {
-        TestPlayer testPlayer = new TestPlayer(PlayerType.SILENT, primaryStage);
-        testPlayer.initWithDelegate(new SilentPlayer(primaryStage));
-        return testPlayer;
+    private static List<Card> defensiveDeck() {
+        List<Card> deck = new ArrayList<>();
+        for (int i = 0; i < 5; i++) {
+            deck.add(new IroncladDefendCard());
+        }
+        for (int i = 0; i < 3; i++) {
+            deck.add(new GhostlyArmorCard());
+        }
+        for (int i = 0; i < 5; i++) {
+            deck.add(new ShrugItOffCard());
+        }
+        for (int i = 0; i < 3; i++) {
+            deck.add(new EntrenchCard());
+        }
+        return deck;
     }
 
     private TestPlayer(PlayerType playerType, Stage primaryStage) {

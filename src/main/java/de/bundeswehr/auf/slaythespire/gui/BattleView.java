@@ -171,6 +171,13 @@ public class BattleView extends BorderPane implements View, WithTopBar, BattleDe
         battleViewEvents.onCardClick(potion, index);
     }
 
+    public void deselectCard() {
+        mode.set(Mode.NORMAL);
+        enableBattleView();
+        battleViewEvents.onCardClick(null, -1);
+        updateInformation();
+    }
+
     public void disableBattleView() {
         top.setDisableMiddleBar(true);
         left.setDisable(true);

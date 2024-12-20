@@ -16,7 +16,7 @@ public class GameOverTester extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        TestPlayer player = TestPlayer.cheater(primaryStage);
+        TestPlayer player = TestPlayer.defensive(primaryStage);
 
         player.setCurrentAct(2);
 

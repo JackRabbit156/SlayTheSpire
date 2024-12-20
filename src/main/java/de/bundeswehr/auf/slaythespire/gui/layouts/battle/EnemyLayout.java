@@ -1,14 +1,12 @@
 package de.bundeswehr.auf.slaythespire.gui.layouts.battle;
 
 import de.bundeswehr.auf.slaythespire.gui.BattleView;
+import de.bundeswehr.auf.slaythespire.gui.components.EnemyImageView;
 import de.bundeswehr.auf.slaythespire.gui.components.MovingAnimation;
-import de.bundeswehr.auf.slaythespire.model.enemy.structure.Boss;
-import de.bundeswehr.auf.slaythespire.model.enemy.structure.Elite;
 import de.bundeswehr.auf.slaythespire.model.enemy.structure.Enemy;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.effect.DropShadow;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
@@ -93,36 +91,17 @@ public class EnemyLayout extends VBox {
      * Verarbeitet das Klicken auf den Feind.
      */
     private void handleEnemyClick() {
-        // Verarbeite hier den Klick auf die Karte, z.B. öffne Details oder führe eine Aktion aus
         battleView.clickedOnEnemy(enemy);
     }
 
     private ImageView image() {
-        ImageView figure = new ImageView(new Image(enemy.getImagePath()));
-
-        int factor;
-        if (enemy instanceof Boss) {
-            factor = 20;
-        }
-        else if (enemy instanceof Elite) {
-            factor = 15;
-        }
-        else {
-            factor = 10;
-        }
-        figure.setFitWidth(Math.sqrt(figure.getImage().getWidth()) * factor);
-        figure.setFitHeight(Math.sqrt(figure.getImage().getHeight()) * factor);
-        figure.setPreserveRatio(true);
-
-        figure.setStyle("-fx-background-color: #926099;");
+        ImageView figure = new EnemyImageView(enemy);
 
         animation = new MovingAnimation(figure);
         animation.start();
 
         setHoverEffect(figure);
-
         figure.addEventHandler(MouseEvent.MOUSE_CLICKED, e -> handleEnemyClick());
-
         battleView.modeProperty().addListener((obs, oldMode, newMode) -> {
             if (newMode == BattleView.Mode.ATTACK) {
                 attackMode = true;
@@ -141,7 +120,6 @@ public class EnemyLayout extends VBox {
                 figure.setEffect(null);
             }
         });
-
         return figure;
     }
 

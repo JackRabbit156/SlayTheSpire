@@ -178,9 +178,7 @@ public class BattleController implements Controller, BattleViewEvents, PlayerEve
         if (selectedCard == null) {
             return;
         }
-
         playCard();
-
         selectedCard = null;
     }
 

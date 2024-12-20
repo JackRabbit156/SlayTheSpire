@@ -6,9 +6,13 @@ import de.bundeswehr.auf.slaythespire.model.enemy.structure.Enemy;
 public interface BattleViewEvents {
 
     void onCardClick(Card card, int index);
-    void onEnemyClick(Enemy enemy);
-    void onFullScreenClick();
-    void onPlayerClick();
+
     void onEndTurnClick();
+
+    void onEnemyClick(Enemy enemy);
+
+    void onFullScreenClick();
+
+    void onPlayerClick();
 
 }

@@ -1,14 +1,18 @@
 package de.bundeswehr.auf.slaythespire.gui.layouts.battle;
 
 import de.bundeswehr.auf.slaythespire.gui.BattleView;
+import de.bundeswehr.auf.slaythespire.gui.components.CardImageView;
+import de.bundeswehr.auf.slaythespire.gui.components.EnemyImageView;
+import de.bundeswehr.auf.slaythespire.gui.components.PlayerImageView;
 import de.bundeswehr.auf.slaythespire.model.battle.GameContext;
 import de.bundeswehr.auf.slaythespire.model.card.structure.Card;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
+import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.scene.effect.DropShadow;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
@@ -32,6 +36,29 @@ import java.util.List;
  * @author Warawa Alexander, Willig Daniel
  */
 public class CardLayout extends HBox {
+
+    private class DeselectHandler implements EventHandler<MouseEvent> {
+        private final Scene scene;
+
+        public DeselectHandler(Scene scene) {
+            this.scene = scene;
+        }
+
+        @Override
+        public void handle(MouseEvent event) {
+            scene.removeEventFilter(MouseEvent.MOUSE_CLICKED, this);
+            if (!isValidNextClick(event)) {
+                deselectCard();
+            }
+        }
+
+        private boolean isValidNextClick(MouseEvent event) {
+            return event.getTarget() instanceof CardImageView ||
+                    event.getTarget() instanceof EnemyImageView ||
+                    event.getTarget() instanceof PlayerImageView;
+        }
+
+    }
 
     private final BattleView battleView;
     private final GameContext gameContext;
@@ -63,17 +90,6 @@ public class CardLayout extends HBox {
     }
 
     /**
-     * Verarbeitet das Klicken auf eine Karte.
-     *
-     * @param card  Die angeklickte Karte
-     * @param index Der Index der Karte in der Hand
-     */
-    public void handleCardClick(Card card, int index) {
-        selected.set(card);
-        battleView.clickedOnCard(card, index);
-    }
-
-    /**
      * Aktualisiert das Layout, indem es die aktuellen Handkarten
      * des Spielers erneut anzeigt.
      */
@@ -83,17 +99,25 @@ public class CardLayout extends HBox {
         selected.set(null);
     }
 
+    private void deselectCard() {
+        battleView.deselectCard();
+    }
+
+    /**
+     * Verarbeitet das Klicken auf eine Karte.
+     *
+     * @param card  Die angeklickte Karte
+     * @param index Der Index der Karte in der Hand
+     */
+    private void handleCardClick(Card card, int index) {
+        selected.set(card);
+        battleView.clickedOnCard(card, index);
+    }
+
     private Node images(Card card) {
-        Image imageCard = new Image(card.getImagePath());
-        ImageView imageViewCard = new ImageView(imageCard);
-
-        imageViewCard.setFitWidth(250);
-        imageViewCard.setFitHeight(250);
-        imageViewCard.setPreserveRatio(true);
-        imageViewCard.setTranslateY(60);
-
-        setEventHandler(imageViewCard, card);
-        return imageViewCard;
+        ImageView imageView = new CardImageView(card.getImagePath());
+        setEventHandler(imageView, card);
+        return imageView;
     }
 
     private boolean isPlayable(Card card) {
@@ -109,7 +133,11 @@ public class CardLayout extends HBox {
             glow.setWidth(50);
             imageView.setEffect(glow);
         }
-        imageView.addEventHandler(MouseEvent.MOUSE_CLICKED, e -> handleCardClick(card, hand.indexOf(card)));
+        imageView.addEventHandler(MouseEvent.MOUSE_CLICKED, e -> {
+            handleCardClick(card, hand.indexOf(card));
+            final Scene scene = imageView.getScene();
+            scene.addEventFilter(MouseEvent.MOUSE_CLICKED, new DeselectHandler(scene));
+        });
         imageView.addEventHandler(MouseEvent.MOUSE_ENTERED, e -> setHoverEffect(imageView));
         imageView.addEventHandler(MouseEvent.MOUSE_EXITED, e -> {
             if (selected.get() != card) {

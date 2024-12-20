@@ -1,18 +1,18 @@
 package de.bundeswehr.auf.slaythespire.gui.layouts.battle;
 
+import de.bundeswehr.auf.slaythespire.gui.BattleView;
 import de.bundeswehr.auf.slaythespire.gui.components.MovingAnimation;
+import de.bundeswehr.auf.slaythespire.gui.components.PlayerImageView;
 import de.bundeswehr.auf.slaythespire.helper.GuiHelper;
+import de.bundeswehr.auf.slaythespire.model.player.structure.Player;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.effect.DropShadow;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
-import de.bundeswehr.auf.slaythespire.model.player.structure.Player;
-import de.bundeswehr.auf.slaythespire.gui.BattleView;
 
 /**
  * Das Player layout.
@@ -23,16 +23,16 @@ import de.bundeswehr.auf.slaythespire.gui.BattleView;
  */
 public class PlayerLayout extends VBox {
 
-    private final Player player;
-    private final HealthBarLayout healthBarLayout;
-    private final DefendLayout defendLayout;
     private MovingAnimation animation;
     private final BattleView battleView;
-    private boolean skillMode = false;
-    private boolean powerMode = false;
     private boolean deadFlag = false;
+    private final DefendLayout defendLayout;
+    private final HealthBarLayout healthBarLayout;
+    private final Player player;
+    private boolean powerMode = false;
+    private boolean skillMode = false;
 
-    public PlayerLayout(Player player, BattleView battleView){
+    public PlayerLayout(Player player, BattleView battleView) {
         this.player = player;
         this.battleView = battleView;
 
@@ -57,7 +57,7 @@ public class PlayerLayout extends VBox {
         animation.stop();
     }
 
-    public void updatePlayer(){
+    public void updatePlayer() {
         if (player.getCurrentHealth() <= 0 && !deadFlag) {
             GuiHelper.Scenes.startGameOverScene(player);
             deadFlag = true;
@@ -66,10 +66,12 @@ public class PlayerLayout extends VBox {
         defendLayout.setBlockText(player.getBlock());
     }
 
+    private void handlePlayerClick() {
+        battleView.clickedOnPlayer();
+    }
+
     private ImageView image() {
-        ImageView figure = new ImageView(new Image(player.getImagePath()));
-        figure.setPreserveRatio(true);
-        figure.setStyle("-fx-background-color: #926099;");
+        ImageView figure = new PlayerImageView(player);
 
         animation = new MovingAnimation(figure);
         animation.start();
@@ -88,7 +90,8 @@ public class PlayerLayout extends VBox {
                 figure.setEffect(glowNotSelectedPlayer);
                 figure.setScaleX(1.0); // Reset the width to original
                 figure.setScaleY(1.0); // Reset the height to original
-            } else if (newMode == BattleView.Mode.POWER) {
+            }
+            else if (newMode == BattleView.Mode.POWER) {
                 powerMode = true;
 
                 DropShadow glowNotSelectedPlayer = new DropShadow();
@@ -109,7 +112,7 @@ public class PlayerLayout extends VBox {
         return figure;
     }
 
-    private void setHoverEffect (ImageView imageView) {
+    private void setHoverEffect(ImageView imageView) {
         DropShadow glowNotSelectedPlayer = new DropShadow();
         glowNotSelectedPlayer.setColor(Color.CYAN);
         glowNotSelectedPlayer.setHeight(30);
@@ -140,10 +143,6 @@ public class PlayerLayout extends VBox {
                 imageView.setScaleY(1.0); // Reset the height to original
             }
         });
-    }
-
-    private void handlePlayerClick() {
-        battleView.clickedOnPlayer();
     }
 
 }
