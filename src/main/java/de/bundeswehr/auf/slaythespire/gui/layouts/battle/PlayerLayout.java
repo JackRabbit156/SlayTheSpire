@@ -26,19 +26,16 @@ public class PlayerLayout extends VBox {
     private final Player player;
     private final HealthBarLayout healthBarLayout;
     private final DefendLayout defendLayout;
-    private final MovingAnimation animation;
+    private MovingAnimation animation;
     private final BattleView battleView;
     private boolean skillMode = false;
     private boolean powerMode = false;
     private boolean deadFlag = false;
 
-    private String imagePath;
-
     public PlayerLayout(Player player, BattleView battleView){
         this.player = player;
         this.battleView = battleView;
 
-        this.imagePath = player.getImagePath();
         healthBarLayout = new HealthBarLayout();
         defendLayout = new DefendLayout();
 
@@ -54,9 +51,6 @@ public class PlayerLayout extends VBox {
         this.alignmentProperty().set(Pos.BOTTOM_RIGHT);
 
         updatePlayer();
-
-        animation = new MovingAnimation(this);
-        animation.start();
     }
 
     public void handlePlayerDeath() {
@@ -73,21 +67,15 @@ public class PlayerLayout extends VBox {
     }
 
     private ImageView image() {
-        Image figureImage = new Image(getClass().getResource(player.getImagePath()).toExternalForm());
-        ImageView imageViewFigure = new ImageView(figureImage);
+        ImageView figure = new ImageView(new Image(player.getImagePath()));
+        figure.setPreserveRatio(true);
+        figure.setStyle("-fx-background-color: #926099;");
 
-//        imageViewFigure.setFitWidth(350); // Breite in Pixel
-//        imageViewFigure.setFitHeight(350); // Höhe in Pixel
-        imageViewFigure.setPreserveRatio(true);
-        //handBox = new Pane( imageViewIronclad);
-        imageViewFigure.setStyle("-fx-background-color: #926099;");
+        animation = new MovingAnimation(figure);
+        animation.start();
 
-        setHoverEffect(imageViewFigure);
-
-        imageViewFigure.addEventHandler(MouseEvent.MOUSE_CLICKED, e -> {
-            handlePlayerClick(); // Hier eine Methode aufrufen, die das Klick-Event verarbeitet
-        });
-
+        setHoverEffect(figure);
+        figure.addEventHandler(MouseEvent.MOUSE_CLICKED, e -> handlePlayerClick());
         battleView.modeProperty().addListener((obs, oldMode, newMode) -> {
             if (newMode == BattleView.Mode.SKILL) {
                 skillMode = true;
@@ -97,9 +85,9 @@ public class PlayerLayout extends VBox {
                 glowNotSelectedPlayer.setHeight(30);
                 glowNotSelectedPlayer.setWidth(30);
 
-                imageViewFigure.setEffect(glowNotSelectedPlayer);
-                imageViewFigure.setScaleX(1.0); // Reset the width to original
-                imageViewFigure.setScaleY(1.0); // Reset the height to original
+                figure.setEffect(glowNotSelectedPlayer);
+                figure.setScaleX(1.0); // Reset the width to original
+                figure.setScaleY(1.0); // Reset the height to original
             } else if (newMode == BattleView.Mode.POWER) {
                 powerMode = true;
 
@@ -108,27 +96,17 @@ public class PlayerLayout extends VBox {
                 glowNotSelectedPlayer.setHeight(30);
                 glowNotSelectedPlayer.setWidth(30);
 
-                imageViewFigure.setEffect(glowNotSelectedPlayer);
-                imageViewFigure.setScaleX(1.0); // Reset the width to original
-                imageViewFigure.setScaleY(1.0); // Reset the height to original
+                figure.setEffect(glowNotSelectedPlayer);
+                figure.setScaleX(1.0); // Reset the width to original
+                figure.setScaleY(1.0); // Reset the height to original
             }
-
             else {
                 skillMode = false;
                 powerMode = false;
-                imageViewFigure.setEffect(null);
+                figure.setEffect(null);
             }
         });
-
-
-
-
-
-
-
-
-
-        return imageViewFigure;
+        return figure;
     }
 
     private void setHoverEffect (ImageView imageView) {
@@ -143,15 +121,10 @@ public class PlayerLayout extends VBox {
         glowSelectedPlayer.setWidth(30);
 
         imageView.addEventHandler(MouseEvent.MOUSE_ENTERED, e -> {
-            if (skillMode) {
+            if (skillMode || powerMode) {
                 imageView.setEffect(glowSelectedPlayer);
                 imageView.setScaleX(1.1); // Slightly increase the width
                 imageView.setScaleY(1.1); // Slightly increase the height
-            }
-            else if (powerMode) {
-                imageView.setEffect(glowSelectedPlayer);
-                imageView.setScaleY(1.1); // Slightly increase the height
-                imageView.setScaleX(1.1); // Slightly increase the width
             }
         });
 
@@ -163,14 +136,14 @@ public class PlayerLayout extends VBox {
             }
             else if (powerMode) {
                 imageView.setEffect(glowNotSelectedPlayer);
-                imageView.setScaleY(1.0); // Reset the height to original
                 imageView.setScaleX(1.0); // Reset the width to original
+                imageView.setScaleY(1.0); // Reset the height to original
             }
         });
     }
 
-    public void handlePlayerClick() {
-        // Verarbeite hier den Klick auf die Karte, z.B. öffne Details oder führe eine Aktion aus
+    private void handlePlayerClick() {
         battleView.clickedOnPlayer();
     }
+
 }

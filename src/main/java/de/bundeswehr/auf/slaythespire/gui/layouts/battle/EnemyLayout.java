@@ -32,7 +32,7 @@ import javafx.scene.paint.Color;
  */
 public class EnemyLayout extends VBox {
 
-    private final MovingAnimation animation;
+    private MovingAnimation animation;
     private boolean attackMode = false;
     private final BattleView battleView;
     private final DefendLayout defendLayout;
@@ -72,9 +72,6 @@ public class EnemyLayout extends VBox {
         alignmentProperty().set(Pos.BOTTOM_LEFT);
 
         updateEnemy();
-
-        animation = new MovingAnimation(this);
-        animation.start();
     }
 
     public void handleEnemyDeath() {
@@ -101,8 +98,7 @@ public class EnemyLayout extends VBox {
     }
 
     private ImageView image() {
-        Image figureImage = new Image(enemy.getImagePath());
-        ImageView imageViewFigure = new ImageView(figureImage);
+        ImageView figure = new ImageView(new Image(enemy.getImagePath()));
 
         int factor;
         if (enemy instanceof Boss) {
@@ -114,15 +110,18 @@ public class EnemyLayout extends VBox {
         else {
             factor = 10;
         }
-        imageViewFigure.setFitWidth(Math.sqrt(imageViewFigure.getImage().getWidth()) * factor);
-        imageViewFigure.setFitHeight(Math.sqrt(imageViewFigure.getImage().getHeight()) * factor);
-        imageViewFigure.setPreserveRatio(true);
+        figure.setFitWidth(Math.sqrt(figure.getImage().getWidth()) * factor);
+        figure.setFitHeight(Math.sqrt(figure.getImage().getHeight()) * factor);
+        figure.setPreserveRatio(true);
 
-        imageViewFigure.setStyle("-fx-background-color: #926099;");
+        figure.setStyle("-fx-background-color: #926099;");
 
-        setHoverEffect(imageViewFigure);
+        animation = new MovingAnimation(figure);
+        animation.start();
 
-        imageViewFigure.addEventHandler(MouseEvent.MOUSE_CLICKED, e -> handleEnemyClick());
+        setHoverEffect(figure);
+
+        figure.addEventHandler(MouseEvent.MOUSE_CLICKED, e -> handleEnemyClick());
 
         battleView.modeProperty().addListener((obs, oldMode, newMode) -> {
             if (newMode == BattleView.Mode.ATTACK) {
@@ -133,17 +132,17 @@ public class EnemyLayout extends VBox {
                 glowNotSelectedEnemy.setHeight(30);
                 glowNotSelectedEnemy.setWidth(30);
 
-                imageViewFigure.setEffect(glowNotSelectedEnemy);
-                imageViewFigure.setScaleX(1.0); // Reset the width to original
-                imageViewFigure.setScaleY(1.0); // Reset the height to original
+                figure.setEffect(glowNotSelectedEnemy);
+                figure.setScaleX(1.0); // Reset the width to original
+                figure.setScaleY(1.0); // Reset the height to original
             }
             else {
                 attackMode = false;
-                imageViewFigure.setEffect(null);
+                figure.setEffect(null);
             }
         });
 
-        return imageViewFigure;
+        return figure;
     }
 
     private void setHoverEffect(ImageView imageView) {
