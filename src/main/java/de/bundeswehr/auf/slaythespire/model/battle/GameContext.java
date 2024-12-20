@@ -36,12 +36,14 @@ public class GameContext {
         this.battleDeck = battleDeck;
     }
 
-    public void setSelectedEnemy(Enemy selectedEnemy){
+    public void setSelectedEnemy(Enemy selectedEnemy) {
         this.selectedEnemy = selectedEnemy;
     }
 
-    public void setRandomEnemy(){
-        this.selectedEnemy = enemies.get(rnd.nextInt(enemies.size()));
+    public void setRandomEnemy() {
+        do {
+            selectedEnemy = enemies.get(rnd.nextInt(enemies.size()));
+        } while (!selectedEnemy.isAlive());
     }
 
     public Enemy getSelectedEnemy() {

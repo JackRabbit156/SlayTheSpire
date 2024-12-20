@@ -85,6 +85,7 @@ public class DistilledChaosPotion extends SkillPotion implements CardDeathListen
             Playable cardPlayable = card.isPlayable(gameContext);
             if (cardPlayable.isPlayable()) {
                 gameContext.getPlayer().increaseCurrentEnergy(card.getCost());
+                gameContext.setRandomEnemy();
                 card.register(this);
                 card.play(gameContext);
                 card.played();
