@@ -10,10 +10,11 @@ public enum RelicTrigger {
     PICKUP,
 
     START_OF_COMBAT,
-    FIRST_ATTACK,
     START_OF_TURN,
+    PLAY_ATTACK,
     PLAY_POTION,
-    HP_CHANGED,
+    GAIN_HP,
+    LOSE_HP,
     EFFECT,
     END_OF_COMBAT,
 

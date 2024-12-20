@@ -177,23 +177,26 @@ public class GameSaveManager {
     }
 
     private void writeDeck(Player player, Map<String, String> gameData) {
-        for (int i = 0; i < player.getDeck().size(); i++) {
-            Card card = player.getDeck().get(i);
+        List<Card> deck = player.getDeck();
+        for (int i = 0; i < deck.size(); i++) {
+            Card card = deck.get(i);
             gameData.put("card" + i, card.getClass().getSimpleName());
         }
     }
 
     private void writeRelic(Player player, Map<String, String> gameData) {
-        Relic relic = player.getRelic();
-        String relicName = relic.getClass().getSimpleName();
-        gameData.put("relic", relicName);
+        List<Relic> relics = player.getRelics();
+        for (int i = 0; i < relics.size(); i++) {
+            Relic relic = relics.get(i);
+            gameData.put("relic" + i, relic.getClass().getSimpleName());
+        }
     }
 
     private void writePotions(Player player, Map<String, String> gameData) {
-        for (int i = 0; i < player.getPotions().size(); i++) {
-            Potion potion = player.getPotions().get(i);
-            String potionName = potion.getClass().getSimpleName();
-            gameData.put("potion" + i, potionName);
+        List<Potion> potions = player.getPotions();
+        for (int i = 0; i < potions.size(); i++) {
+            Potion potion = potions.get(i);
+            gameData.put("potion" + i, potion.getClass().getSimpleName());
         }
     }
 

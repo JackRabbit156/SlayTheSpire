@@ -95,7 +95,9 @@ public class RelicLayout extends HBox {
     }
 
     private void showRelic() {
-        getChildren().add(images(player.getRelic()));
+        for (Relic relic : player.getRelics()) {
+            getChildren().add(images(relic));
+        }
     }
 
 }

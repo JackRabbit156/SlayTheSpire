@@ -56,7 +56,7 @@ public class SilentPlayer extends Player {
     @Override
     protected void initRelic() {
         Relic startRelic = new RingOfTheSnakeRelic();
-        setRelic(startRelic);
+        addRelic(startRelic);
     }
 
 }

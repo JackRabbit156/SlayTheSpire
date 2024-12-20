@@ -10,6 +10,8 @@ import de.bundeswehr.auf.slaythespire.model.card.structure.Card;
 import de.bundeswehr.auf.slaythespire.model.player.structure.Player;
 import de.bundeswehr.auf.slaythespire.model.player.structure.PlayerType;
 import de.bundeswehr.auf.slaythespire.model.relic.CheaterRelic;
+import de.bundeswehr.auf.slaythespire.model.relic.ironclad.common.BurningBloodRelic;
+import de.bundeswehr.auf.slaythespire.model.relic.silent.common.RingOfTheSnakeRelic;
 import de.bundeswehr.auf.slaythespire.model.settings.GameSettings;
 import javafx.stage.Stage;
 
@@ -91,7 +93,9 @@ public class TestPlayer extends Player {
 
     @Override
     protected void initRelic() {
-        setRelic(new CheaterRelic());
+        addRelic(new CheaterRelic());
+        addRelic(new BurningBloodRelic());
+        addRelic(new RingOfTheSnakeRelic());
     }
 
     private void initWithDelegate(Player delegate) {
@@ -102,7 +106,7 @@ public class TestPlayer extends Player {
             Method initRelic = delegate.getClass().getDeclaredMethod("initRelic");
             initRelic.setAccessible(true);
             initRelic.invoke(delegate);
-            setRelic(delegate.getRelic());
+            setRelics(delegate.getRelics());
             // Use starter deck of delegate
             Method initDeck = delegate.getClass().getDeclaredMethod("initDeck");
             initDeck.setAccessible(true);

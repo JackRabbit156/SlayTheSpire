@@ -90,6 +90,7 @@ public class BattleController implements Controller, BattleViewEvents, PlayerEve
     public void onCardDeath(Card card) {
         if (card instanceof AttackCard) {
             triggerPowerCards(CardTrigger.PLAY_ATTACK);
+            triggerRelics(RelicTrigger.PLAY_ATTACK);
         }
         else if (card instanceof SkillCard) {
             triggerPowerCards(CardTrigger.PLAY_SKILL);
@@ -117,6 +118,7 @@ public class BattleController implements Controller, BattleViewEvents, PlayerEve
         else {
             triggerPowerCards(CardTrigger.LOSE_HP_ENEMY);
         }
+        triggerRelics(RelicTrigger.LOSE_HP);
     }
 
     @Override
@@ -168,6 +170,7 @@ public class BattleController implements Controller, BattleViewEvents, PlayerEve
     @Override
     public void onHealthReceived(PlayerHealthEvent event) {
         triggerPowerCards(CardTrigger.GAIN_HP);
+        triggerRelics(RelicTrigger.GAIN_HP);
     }
 
     @Override
@@ -271,6 +274,7 @@ public class BattleController implements Controller, BattleViewEvents, PlayerEve
         battleDeck.fillHand(battleDeck.getStartHandSize());
 
         triggerPowerCards(CardTrigger.PLAYER_BOT);
+        triggerRelics(RelicTrigger.START_OF_TURN);
     }
 
     private void playerEOT() {
@@ -300,6 +304,7 @@ public class BattleController implements Controller, BattleViewEvents, PlayerEve
         battleDeck.fillHand(battleDeck.getStartHandSize());
 
         triggerRelics(RelicTrigger.START_OF_COMBAT);
+        triggerRelics(RelicTrigger.START_OF_TURN);
         triggerPowerCards(CardTrigger.PLAYER_BOT);
     }
 
@@ -313,9 +318,10 @@ public class BattleController implements Controller, BattleViewEvents, PlayerEve
     }
 
     private void triggerRelics(RelicTrigger trigger) {
-        Relic relic = player.getRelic();
-        if (relic.getTrigger().equals(trigger)) {
-            relic.activate(gameContext);
+        for (Relic relic : player.getRelics()) {
+            if (relic.getTrigger().equals(trigger)) {
+                relic.activate(gameContext);
+            }
         }
     }
 

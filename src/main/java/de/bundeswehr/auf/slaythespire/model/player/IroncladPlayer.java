@@ -52,7 +52,7 @@ public class IroncladPlayer extends Player {
     @Override
     protected void initRelic() {
         Relic startRelic = new BurningBloodRelic();
-        setRelic(startRelic);
+        addRelic(startRelic);
     }
 
 }

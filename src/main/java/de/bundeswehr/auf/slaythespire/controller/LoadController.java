@@ -167,9 +167,13 @@ public class LoadController implements Controller, LoadEventListener {
     }
 
     private void readRelic(Map<String, String> gameData, Player player) {
-        String relicName = gameData.get("relic");
-        Relic relic = DeckFactory.relicFor(relicName);
-        player.setRelic(relic);
+        List<Relic> relics = new ArrayList<>();
+        for (int i = 0; gameData.get("relic" + i) != null; i++) {
+            String relicName = gameData.get("relic" + i);
+            Relic relic = DeckFactory.relicFor(relicName);
+            relics.add(relic);
+        }
+        player.setRelics(relics);
     }
 
     private void readDeck(Map<String, String> gameData, Player player) {

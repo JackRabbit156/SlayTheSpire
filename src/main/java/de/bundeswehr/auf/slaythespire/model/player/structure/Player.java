@@ -41,9 +41,9 @@ public abstract class Player {
     private final String name;
     private PlayerEventListener playerEventListener;
     private final PlayerType playerType;
-    private List<Potion> potions;
+    private List<Potion> potions = new ArrayList<>();
     private Stage primaryStage;
-    private Relic relic;
+    private List<Relic> relics = new ArrayList<>();
     private String username;
 
     /**
@@ -63,15 +63,18 @@ public abstract class Player {
         this.currentEnergy = this.maxEnergy;
         this.playerType = playerType;
         this.primaryStage = primaryStage;
-        this.potions = new ArrayList<>();
     }
 
-    public void addCardToDeck(Card addCard) {
-        this.deck.add(addCard);
+    public void addCardToDeck(Card card) {
+        deck.add(card);
     }
 
     public void addPotion(Potion potion) {
-        this.potions.add(potion);
+        potions.add(potion);
+    }
+
+    public void addRelic(Relic relic) {
+        relics.add(relic);
     }
 
     /**
@@ -205,6 +208,10 @@ public abstract class Player {
         return maxEnergy;
     }
 
+    public void setMaxEnergy(int maxEnergy) {
+        this.maxEnergy = maxEnergy;
+    }
+
     public int getMaxHealth() {
         return maxHealth;
     }
@@ -245,12 +252,12 @@ public abstract class Player {
         this.primaryStage = primaryStage;
     }
 
-    public Relic getRelic() {
-        return relic;
+    public List<Relic> getRelics() {
+        return relics;
     }
 
-    public void setRelic(Relic relic) {
-        this.relic = relic;
+    public void setRelics(List<Relic> relics) {
+        this.relics = relics;
     }
 
     public String getUsername() {
