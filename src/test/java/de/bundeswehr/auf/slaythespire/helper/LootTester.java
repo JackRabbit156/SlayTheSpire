@@ -1,17 +1,18 @@
-package de.bundeswehr.auf.slaythespire.tester;
+package de.bundeswehr.auf.slaythespire.helper;
 
-import de.bundeswehr.auf.slaythespire.helper.GuiHelper;
+import de.bundeswehr.auf.slaythespire.model.player.TestPlayer;
 import javafx.application.Application;
 import javafx.stage.Stage;
 import de.bundeswehr.auf.slaythespire.model.settings.GameSettings;
 import de.bundeswehr.auf.slaythespire.model.settings.structure.DifficultyLevel;
+import de.bundeswehr.auf.slaythespire.model.map.field.FieldEnum;
 import de.bundeswehr.auf.slaythespire.model.potion.common.BloodPotion;
 import de.bundeswehr.auf.slaythespire.model.potion.common.EnergyPotion;
 
 /**
  * @author Keil, Vladislav
  */
-public class MapTester extends Application {
+public class LootTester extends Application {
 
     public static void main(String[] args) {
         launch(args);
@@ -19,21 +20,15 @@ public class MapTester extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        TestPlayer player = TestPlayer.ironclad(primaryStage);
-
-        player.setCurrentHealth(123);
-
-        player.setCurrentField("7");
+        TestPlayer player = TestPlayer.silent(primaryStage);
 
         GameSettings.setDifficultyLevel(DifficultyLevel.NORMAL);
 
-        player.setGold(500);
-
         player.getPotions().add(new BloodPotion());
         player.getPotions().add(new EnergyPotion());
-        player.getPotions().add(new EnergyPotion());
+//        player.getPotions().add(new EnergyPotion());
 
-        GuiHelper.Scenes.startMapScene(player);
+        GuiHelper.Scenes.startLootScene(player, FieldEnum.ENEMY_FIELD);
     }
 
 }

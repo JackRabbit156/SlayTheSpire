@@ -1,6 +1,6 @@
-package de.bundeswehr.auf.slaythespire.tester;
+package de.bundeswehr.auf.slaythespire.helper;
 
-import de.bundeswehr.auf.slaythespire.helper.GuiHelper;
+import de.bundeswehr.auf.slaythespire.model.player.TestPlayer;
 import javafx.application.Application;
 import javafx.stage.Stage;
 import de.bundeswehr.auf.slaythespire.model.settings.GameSettings;
@@ -16,7 +16,7 @@ public class GameOverTester extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        TestPlayer player = TestPlayer.ironclad(primaryStage);
+        TestPlayer player = TestPlayer.cheater(primaryStage);
 
         player.setCurrentAct(2);
 

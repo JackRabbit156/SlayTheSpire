@@ -1,7 +1,9 @@
-package de.bundeswehr.auf.slaythespire.tester;
+package de.bundeswehr.auf.slaythespire.model;
 
 import de.bundeswehr.auf.slaythespire.model.Model;
+import de.bundeswehr.auf.slaythespire.model.card.CheaterCard;
 import de.bundeswehr.auf.slaythespire.model.card.structure.Card;
+import de.bundeswehr.auf.slaythespire.model.potion.CheaterPotion;
 import de.bundeswehr.auf.slaythespire.model.potion.structure.Potion;
 import de.bundeswehr.auf.slaythespire.model.relic.structure.Relic;
 import org.reflections.Reflections;

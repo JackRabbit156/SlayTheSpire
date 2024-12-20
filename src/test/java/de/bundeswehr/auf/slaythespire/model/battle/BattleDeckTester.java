@@ -1,7 +1,8 @@
-package de.bundeswehr.auf.slaythespire.tester;
+package de.bundeswehr.auf.slaythespire.model.battle;
 
-import de.bundeswehr.auf.slaythespire.model.battle.BattleDeck;
 import de.bundeswehr.auf.slaythespire.model.player.structure.Player;
+import de.bundeswehr.auf.slaythespire.model.player.TestPlayer;
+
 /**
  * @author Keil, Vladislav
  */

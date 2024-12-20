@@ -1,4 +1,4 @@
-package de.bundeswehr.auf.slaythespire.tester;
+package de.bundeswehr.auf.slaythespire.model.map.field;
 
 import de.bundeswehr.auf.slaythespire.model.enemy.structure.Enemy;
 import de.bundeswehr.auf.slaythespire.model.enemy.act_one.AcidSlimeEnemy;
@@ -7,7 +7,7 @@ import de.bundeswehr.auf.slaythespire.model.enemy.act_one.MadGremlinEnemy;
 import de.bundeswehr.auf.slaythespire.model.enemy.act_one.boss.SlimeBoss;
 import de.bundeswehr.auf.slaythespire.model.enemy.act_one.elite.GremlinNobElite;
 import de.bundeswehr.auf.slaythespire.model.enemy.act_one.elite.LagavulinElite;
-import de.bundeswehr.auf.slaythespire.model.map.field.EliteField;
+import de.bundeswehr.auf.slaythespire.model.player.TestPlayer;
 import de.bundeswehr.auf.slaythespire.model.player.structure.Player;
 
 import java.util.ArrayList;

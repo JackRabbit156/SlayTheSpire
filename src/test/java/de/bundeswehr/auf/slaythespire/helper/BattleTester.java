@@ -1,11 +1,13 @@
-package de.bundeswehr.auf.slaythespire.tester;
+package de.bundeswehr.auf.slaythespire.helper;
 
-import de.bundeswehr.auf.slaythespire.helper.GuiHelper;
 import de.bundeswehr.auf.slaythespire.model.enemy.structure.Enemy;
 import de.bundeswehr.auf.slaythespire.model.map.act.Act;
 import de.bundeswehr.auf.slaythespire.model.map.act.ActOne;
 import de.bundeswehr.auf.slaythespire.model.map.act.ActTwo;
 import de.bundeswehr.auf.slaythespire.model.map.field.FieldEnum;
+import de.bundeswehr.auf.slaythespire.model.player.TestPlayer;
+import de.bundeswehr.auf.slaythespire.model.potion.CheaterPotion;
+import de.bundeswehr.auf.slaythespire.model.potion.uncommon.DistilledChaosPotion;
 import de.bundeswehr.auf.slaythespire.model.settings.GameSettings;
 import de.bundeswehr.auf.slaythespire.model.settings.structure.DifficultyLevel;
 import javafx.application.Application;
@@ -32,8 +34,7 @@ public class BattleTester extends Application {
         TestPlayer player = TestPlayer.cheater(primaryStage);
 
         player.getPotions().add(new CheaterPotion());
-        player.getPotions().add(new CheaterPotion());
-        player.getPotions().add(new CheaterPotion());
+        player.getPotions().add(new DistilledChaosPotion());
 
         GameSettings.setDifficultyLevel(DifficultyLevel.NORMAL);
 
