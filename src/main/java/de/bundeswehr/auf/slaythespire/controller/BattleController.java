@@ -46,7 +46,7 @@ public class BattleController implements Controller, BattleViewEvents, PlayerEve
         this.enemies = enemies;
         this.fieldType = fieldType;
         for (Enemy enemy : enemies) {
-            enemy.setEnemyEventListener(this);
+            enemy.addEnemyEventListener(this);
         }
 
         battleDeck = new BattleDeck(player.getDeck());
@@ -56,7 +56,7 @@ public class BattleController implements Controller, BattleViewEvents, PlayerEve
 
         calculateIntentForAllEnemies();
         battleView = new BattleView(player, enemies, this, gameContext);
-        player.setPlayerEventListener(this);
+        player.addPlayerEventListener(this);
 
         startOfCombat();
     }
@@ -106,7 +106,12 @@ public class BattleController implements Controller, BattleViewEvents, PlayerEve
     }
 
     @Override
-    public void onDamageDealt() {
+    public void onDamageDealt(PlayerDamageEvent event) {
+
+    }
+
+    @Override
+    public void onDamageDealt(EnemyDamageEvent event) {
 
     }
 

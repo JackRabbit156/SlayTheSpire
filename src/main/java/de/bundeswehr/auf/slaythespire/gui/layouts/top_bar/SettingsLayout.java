@@ -1,19 +1,17 @@
 package de.bundeswehr.auf.slaythespire.gui.layouts.top_bar;
 
+import com.sun.javafx.scene.traversal.Direction;
+import de.bundeswehr.auf.slaythespire.controller.listener.EmptyInventoryEventListener;
+import de.bundeswehr.auf.slaythespire.events.InventoryEvent;
 import de.bundeswehr.auf.slaythespire.gui.View;
 import de.bundeswehr.auf.slaythespire.gui.WithTopBar;
-import de.bundeswehr.auf.slaythespire.gui.components.MapButton;
-import de.bundeswehr.auf.slaythespire.gui.components.SettingsButton;
-import de.bundeswehr.auf.slaythespire.gui.components.TimerText;
+import de.bundeswehr.auf.slaythespire.gui.components.*;
 import de.bundeswehr.auf.slaythespire.model.player.structure.Player;
-import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
-import javafx.scene.control.Separator;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
-import de.bundeswehr.auf.slaythespire.gui.components.FullScreenButton;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.StackPane;
@@ -38,18 +36,17 @@ public class SettingsLayout extends HBox implements View {
     private final static String strokeColor = "#000000";
     private final static int strokeWidth = 3;
     private final static String textColor = "#ffffff";
-
-    private Button settings;
     private Button fullScreen;
     private ImageView libraryIconView;
     private final Text libraryText = new Text();
     private final Text libraryTextStroke = new Text();
     private Button map;
+    private Button settings;
     private ImageView timerIconView;
     private TimerText timerText;
     private final WithTopBar view;
 
-    public SettingsLayout(WithTopBar view) {
+    public SettingsLayout(WithTopBar view, Player player) {
         this.view = view;
 
         HBox.setHgrow(this, Priority.ALWAYS);
@@ -67,6 +64,14 @@ public class SettingsLayout extends HBox implements View {
             library.setAlignment(Pos.CENTER);
             getChildren().add(library);
             addSpacer();
+            player.addInventoryEventListener(new EmptyInventoryEventListener() {
+
+                @Override
+                public void onCardEvent(InventoryEvent event) {
+                    CardText.applyAnimation(new CardText(), library, event.getDirection() == InventoryEvent.Direction.GAIN ? Direction.UP : Direction.DOWN);
+                }
+
+            });
         }
 
         if (view.showMap()) {
@@ -85,22 +90,6 @@ public class SettingsLayout extends HBox implements View {
         setAlignment(Pos.CENTER_RIGHT);
     }
 
-    private void addSpacer() {
-        Pane spacer = new Pane();
-        spacer.setPrefWidth(30);
-        getChildren().add(spacer);
-    }
-
-    private void initTimerIcon() {
-        String path = "/images/view/gui/layouts/settings/timer.png";
-        Image timer = new Image(path);
-        timerIconView = new ImageView(timer);
-    }
-
-    private void initTimerText() {
-        timerText = new TimerText();
-    }
-
     @Override
     public void discard() {
         timerText.discard();
@@ -109,6 +98,12 @@ public class SettingsLayout extends HBox implements View {
     public void setLibraryText(Player player) {
         libraryTextStroke.setText(String.valueOf(player.getDeck().size()));
         libraryText.setText(String.valueOf(player.getDeck().size()));
+    }
+
+    private void addSpacer() {
+        Pane spacer = new Pane();
+        spacer.setPrefWidth(30);
+        getChildren().add(spacer);
     }
 
     private void initFullScreenIcon() {
@@ -140,6 +135,16 @@ public class SettingsLayout extends HBox implements View {
     private void initSettingsIcon() {
         settings = new SettingsButton();
         settings.setOnAction(e -> view.onSettings());
+    }
+
+    private void initTimerIcon() {
+        String path = "/images/view/gui/layouts/settings/timer.png";
+        Image timer = new Image(path);
+        timerIconView = new ImageView(timer);
+    }
+
+    private void initTimerText() {
+        timerText = new TimerText();
     }
 
 }

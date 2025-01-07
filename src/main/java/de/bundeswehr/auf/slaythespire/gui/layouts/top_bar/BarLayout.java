@@ -1,12 +1,21 @@
 package de.bundeswehr.auf.slaythespire.gui.layouts.top_bar;
 
+import com.sun.javafx.scene.traversal.Direction;
+import de.bundeswehr.auf.slaythespire.controller.listener.EmptyInventoryEventListener;
+import de.bundeswehr.auf.slaythespire.events.InventoryEvent;
 import de.bundeswehr.auf.slaythespire.gui.View;
 import de.bundeswehr.auf.slaythespire.gui.WithTopBar;
+import de.bundeswehr.auf.slaythespire.gui.components.InventoryText;
+import de.bundeswehr.auf.slaythespire.gui.components.PotionText;
+import de.bundeswehr.auf.slaythespire.gui.components.RelicText;
+import de.bundeswehr.auf.slaythespire.model.player.structure.Player;
 import javafx.geometry.Insets;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.*;
-import de.bundeswehr.auf.slaythespire.model.player.structure.Player;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.StackPane;
 
 /**
  * Die Bar layout.
@@ -17,16 +26,16 @@ import de.bundeswehr.auf.slaythespire.model.player.structure.Player;
 public class BarLayout extends StackPane implements View {
 
     private final InfoLayout infoLayout;
-    private final Player player;
     private final MiddleBar middleBar;
+    private final Player player;
     private final RelicLayout relic;
     private final SettingsLayout settingsLayout;
 
     /**
      * Constructor Bar layout.
      *
-     * @param view       die zugehörige view
-     * @param player     der player
+     * @param view   die zugehörige view
+     * @param player der player
      */
     public BarLayout(WithTopBar view, Player player, MiddleBar middleBar) {
         this.player = player;
@@ -34,7 +43,7 @@ public class BarLayout extends StackPane implements View {
         HBox icons = new HBox();
         icons.setPadding(new Insets(0, 30, 20, 30));
 
-        infoLayout = new InfoLayout();
+        infoLayout = new InfoLayout(player);
         icons.getChildren().add(infoLayout);
 
         this.middleBar = middleBar;
@@ -49,13 +58,26 @@ public class BarLayout extends StackPane implements View {
         HBox.setHgrow(spacer, Priority.ALWAYS);
         icons.getChildren().add(spacer);
 
-
-        settingsLayout = new SettingsLayout(view);
+        settingsLayout = new SettingsLayout(view, player);
         icons.getChildren().add(settingsLayout);
 
         Image background = new Image("/images/view/gui/layouts/topbar/Topbar.png");
         ImageView imageView = new ImageView(background);
         getChildren().addAll(imageView, icons);
+
+        player.addInventoryEventListener(new EmptyInventoryEventListener() {
+
+            @Override
+            public void onPotionEvent(InventoryEvent event) {
+                InventoryText.applyAnimation(new PotionText(), middleBar, event.getDirection() == InventoryEvent.Direction.GAIN ? Direction.UP : Direction.DOWN);
+            }
+
+            @Override
+            public void onRelicEvent(InventoryEvent event) {
+                InventoryText.applyAnimation(new RelicText(), relic, Direction.UP);
+            }
+
+        });
     }
 
     @Override

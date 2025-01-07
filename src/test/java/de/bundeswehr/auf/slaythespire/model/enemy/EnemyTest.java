@@ -19,18 +19,19 @@ import java.util.List;
 
 class EnemyTest {
 
-    private class EnemyCardTest extends  EnemyCard{
+    private static class EnemyCardTest extends  EnemyCard{
+
         public EnemyCardTest() {
             super("IntentTest", "IntentDesc.", "*");
         }
 
         @Override
-        public void playEnemy(GameContext gameContext, Enemy enemy) {
+        public void playEnemy(GameContext gameContext, Enemy enemy) {}
 
-        }
     }
 
     private class TestEnemy extends Enemy {
+
         /**
          * Konstruktor für die Enemy-Klasse.
          * Initialisiert einen Gegner mit einem Namen und einem maximalen Gesundheitsbereich.
@@ -44,15 +45,20 @@ class EnemyTest {
         public void attack(GameContext gameContext) {
             attacked = true;
         }
+
     }
 
-    private class TestController implements EnemyEventListener{
+    private static class TestController implements EnemyEventListener{
+
+        @Override
+        public void onDamageDealt(EnemyDamageEvent event) {}
 
         @Override
         public void onDamageReceived(EnemyDamageEvent event) {}
 
         @Override
         public void onEnemyDeath(Enemy enemy) {}
+
     }
 
     @Mock
@@ -71,7 +77,7 @@ class EnemyTest {
         BattleDeck battleDeck = new BattleDeck(player.getDeck());
 
         enemyTest = new TestEnemy();
-        enemyTest.setEnemyEventListener(controller);
+        enemyTest.addEnemyEventListener(controller);
 
         List<Enemy> enemyList = new ArrayList<>();
         enemyList.add(enemyTest);
@@ -218,11 +224,11 @@ class EnemyTest {
     void testSetEnemyEventListener() {
         MockitoAnnotations.openMocks(this);
 
-        TestController controller =  new TestController();
+        TestController controller = new TestController();
 
-        enemyTest.setEnemyEventListener(controller);
+        enemyTest.addEnemyEventListener(controller);
 
-        Mockito.verify(enemyTest).setEnemyEventListener(controller);
+        Mockito.verify(enemyTest).addEnemyEventListener(controller);
     }
 
     @Test

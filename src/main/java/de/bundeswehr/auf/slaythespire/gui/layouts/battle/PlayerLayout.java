@@ -1,12 +1,16 @@
 package de.bundeswehr.auf.slaythespire.gui.layouts.battle;
 
+import de.bundeswehr.auf.slaythespire.controller.listener.EmptyPlayerEventListener;
+import de.bundeswehr.auf.slaythespire.events.PlayerBlockEvent;
+import de.bundeswehr.auf.slaythespire.events.PlayerDamageEvent;
+import de.bundeswehr.auf.slaythespire.events.PlayerHealthEvent;
 import de.bundeswehr.auf.slaythespire.gui.BattleView;
-import de.bundeswehr.auf.slaythespire.gui.components.MovingAnimation;
-import de.bundeswehr.auf.slaythespire.gui.components.PlayerImageView;
+import de.bundeswehr.auf.slaythespire.gui.components.*;
 import de.bundeswehr.auf.slaythespire.helper.GuiHelper;
 import de.bundeswehr.auf.slaythespire.model.player.structure.Player;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -45,16 +49,17 @@ public class PlayerLayout extends VBox {
         defendHealthBar.setTranslateX(40);
         defendHealthBar.setSpacing(-105);
 
-        this.getChildren().addAll(image(), defendHealthBar);
+        getChildren().addAll(image(), defendHealthBar);
 
-        this.setPadding(new Insets(500, 0, 0, 450));
-        this.alignmentProperty().set(Pos.BOTTOM_RIGHT);
+        setPadding(new Insets(500, 0, 0, 450));
+        alignmentProperty().set(Pos.BOTTOM_RIGHT);
 
         updatePlayer();
     }
 
     public void handlePlayerDeath() {
         animation.stop();
+        player.resetListeners();
     }
 
     public void updatePlayer() {
@@ -66,12 +71,35 @@ public class PlayerLayout extends VBox {
         defendLayout.setBlockText(player.getBlock());
     }
 
+    private void addCombatText(Node node) {
+        player.addPlayerEventListener(new EmptyPlayerEventListener() {
+
+            @Override
+            public void onBlockReceived(PlayerBlockEvent event) {
+                CombatText.applyAnimation(new BlockText(event.getBlockAmount()), node);
+            }
+
+            @Override
+            public void onDamageReceived(PlayerDamageEvent event) {
+                CombatText.applyAnimation(new DamageCombatText(event.getDamageAmount()), node);
+            }
+
+            @Override
+            public void onHealthReceived(PlayerHealthEvent event) {
+                CombatText.applyAnimation(new HealCombatText(event.getHpAmount()), node);
+            }
+
+        });
+    }
+
     private void handlePlayerClick() {
         battleView.clickedOnPlayer();
     }
 
     private ImageView image() {
         ImageView figure = new PlayerImageView(player);
+
+        addCombatText(figure);
 
         animation = new MovingAnimation(figure);
         animation.start();

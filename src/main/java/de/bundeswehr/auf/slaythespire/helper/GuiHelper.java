@@ -55,7 +55,7 @@ public class GuiHelper {
 
         public static void close() {
             GameSettings.stop();
-            discardLast();
+            discardLastController();
             Platform.exit();
         }
 
@@ -71,6 +71,7 @@ public class GuiHelper {
          * @param enemyField aktueller Feldtyp
          */
         public static void startBattleScene(Player player, List<Enemy> enemies, FieldEnum enemyField) {
+            discardLastController(player);
             BattleController battleController = new BattleController(player, enemies, enemyField);
             registerController(battleController);
             Stage primaryStage = player.getPrimaryStage();
@@ -84,6 +85,7 @@ public class GuiHelper {
          * @param primaryStage die Stage die Übergeben wird
          */
         public static void startCharSelection(Stage primaryStage) {
+            discardLastController();
             CharacterController characterController = new CharacterController();
             registerController(characterController);
             String cssPath = "";
@@ -96,6 +98,7 @@ public class GuiHelper {
          * @param primaryStage das primäre 'Stage'-Objekt der Anwendung
          */
         public static void startDeleteMenuScene(Stage primaryStage) {
+            discardLastController();
             DeleteController deleteController = new DeleteController(primaryStage);
             registerController(deleteController);
             String cssPath = "/css/loadViewStyle.css";
@@ -108,6 +111,7 @@ public class GuiHelper {
          * @param player die Stage die Übergeben wird
          */
         public static void startEventScene(Player player) {
+            discardLastController(player);
             EventController eventController = new EventController(player);
             registerController(eventController);
             Stage primaryStage = player.getPrimaryStage();
@@ -116,6 +120,7 @@ public class GuiHelper {
         }
 
         public static void startGameOverScene(Player player) {
+            discardLastController(player);
             GameOverView view = new GameOverView(player);
             Stage primaryStage = player.getPrimaryStage();
             String cssPath = "/css/battleStyle.css";
@@ -128,6 +133,7 @@ public class GuiHelper {
          * @param player der Player, im aktuellen Spiel
          */
         public static void startLoadGameFromMapScene(Player player) {
+            discardLastController(player);
             LoadController loadController = new LoadController(player);
             registerController(loadController);
             Stage primaryStage = player.getPrimaryStage();
@@ -141,6 +147,7 @@ public class GuiHelper {
          * @param primaryStage das primäre 'Stage'-Objekt der Anwendung
          */
         public static void startLoadGameFromMenuScene(Stage primaryStage) {
+            discardLastController();
             LoadController loadController = new LoadController(primaryStage);
             registerController(loadController);
             String cssPath = "/css/loadViewStyle.css";
@@ -154,6 +161,7 @@ public class GuiHelper {
          * @param fieldType Welchen fieldType man vorher besucht hat.
          */
         public static void startLootScene(Player player, FieldEnum fieldType) {
+            discardLastController(player);
             LootController lootController = new LootController(player, fieldType);
             registerController(lootController);
             Stage primaryStage = player.getPrimaryStage();
@@ -167,6 +175,7 @@ public class GuiHelper {
          * @param primaryStage die Stage die Übergeben wird
          */
         public static void startMainMenuScene(Stage primaryStage) {
+            discardLastController();
             MainMenuController mainMenuController = new MainMenuController();
             registerController(mainMenuController);
             String cssPath = "";
@@ -180,6 +189,7 @@ public class GuiHelper {
          * @param player die {@code Player}-Instanz des aktuellen Spiels
          */
         public static void startMapScene(Player player) {
+            discardLastController(player);
             MapController mapController = new MapController(player);
             registerController(mapController);
             Stage primaryStage = player.getPrimaryStage();
@@ -193,6 +203,7 @@ public class GuiHelper {
          * @param player die 'Player'-Instanz, die den Spieler im Spiel repräsentiert
          */
         public static void startRestScene(Player player) {
+            discardLastController(player);
             RestController restController = new RestController(player);
             registerController(restController);
             Stage primaryStage = player.getPrimaryStage();
@@ -228,6 +239,7 @@ public class GuiHelper {
          * @param player die 'Player'-Instanz, die den Spieler im Spiel repräsentiert
          */
         public static void startShopScene(Player player) {
+            discardLastController(player);
             ShopController shopController = new ShopController(player);
             registerController(shopController);
             Stage primaryStage = player.getPrimaryStage();
@@ -241,6 +253,7 @@ public class GuiHelper {
          * @param player die 'Player'-Instanz, die den Spieler im Spiel repräsentiert
          */
         public static void startStatisticScene(Player player) {
+            discardLastController(player);
             StatisticsController statisticsController = new StatisticsController(player);
             registerController(statisticsController);
             Stage primaryStage = player.getPrimaryStage();
@@ -254,6 +267,7 @@ public class GuiHelper {
          * @param player die 'Player'-Instanz, die den Spieler im Spiel repräsentiert
          */
         public static void startTreasureScene(Player player) {
+            discardLastController(player);
             TreasureController treasureController = new TreasureController(player);
             registerController(treasureController);
             Stage primaryStage = player.getPrimaryStage();
@@ -284,7 +298,7 @@ public class GuiHelper {
 
             VBox content = new VBox();
             content.setBackground(new Background(GuiHelper.backgroundInHD("/images/popup/popupBg.png")));
-            content.setPadding(new Insets(25,0,0,0));
+            content.setPadding(new Insets(25, 0, 0, 0));
             content.setPrefSize(900, 500);
             content.setAlignment(Pos.CENTER);
             content.getChildren().addAll(text, buttons);
@@ -293,9 +307,16 @@ public class GuiHelper {
             return quitPopup;
         }
 
-        private static void discardLast() {
+        private static void discardLastController() {
+            discardLastController(null);
+        }
+
+        private static void discardLastController(Player player) {
             if (lastController != null) {
                 lastController.discard();
+            }
+            if (player != null) {
+                player.resetListeners();
             }
         }
 
@@ -345,7 +366,6 @@ public class GuiHelper {
         }
 
         private static void registerController(Controller controller) {
-            discardLast();
             lastController = controller;
         }
 
@@ -407,14 +427,15 @@ public class GuiHelper {
      * @return ein 'BackgroundImage', das mit den angegebenen Eigenschaften konfiguriert ist
      * @throws NullPointerException wenn der angegebene Pfad nicht existiert oder ungültig ist
      */
-    public static BackgroundImage backgroundInHD(String backgroundPath) {
-        Image backgroundImage = new Image(Objects.requireNonNull(GuiHelper.class.getResource(backgroundPath)).toExternalForm());
+    public static BackgroundImage background(String backgroundPath) {
+        Image backgroundImage = new Image(backgroundPath);
         return new BackgroundImage(
                 backgroundImage,
                 BackgroundRepeat.NO_REPEAT, // Option: NO_REPEAT, REPEAT, REPEAT_X, REPEAT_Y
                 BackgroundRepeat.NO_REPEAT,
-                BackgroundPosition.DEFAULT,
-                new BackgroundSize(1920, 1080, false, false, false, true));
+                new BackgroundPosition(Side.LEFT, 0, false,
+                        Side.TOP, 0, false),
+                BackgroundSize.DEFAULT);
     }
 
     /**
@@ -442,15 +463,14 @@ public class GuiHelper {
      * @return ein 'BackgroundImage', das mit den angegebenen Eigenschaften konfiguriert ist
      * @throws NullPointerException wenn der angegebene Pfad nicht existiert oder ungültig ist
      */
-    public static BackgroundImage background(String backgroundPath) {
-        Image backgroundImage = new Image(backgroundPath);
+    public static BackgroundImage backgroundInHD(String backgroundPath) {
+        Image backgroundImage = new Image(Objects.requireNonNull(GuiHelper.class.getResource(backgroundPath)).toExternalForm());
         return new BackgroundImage(
                 backgroundImage,
                 BackgroundRepeat.NO_REPEAT, // Option: NO_REPEAT, REPEAT, REPEAT_X, REPEAT_Y
                 BackgroundRepeat.NO_REPEAT,
-                new BackgroundPosition(Side.LEFT, 0, false,
-                        Side.TOP, 0, false),
-                BackgroundSize.DEFAULT);
+                BackgroundPosition.DEFAULT,
+                new BackgroundSize(1920, 1080, false, false, false, true));
     }
 
     /**

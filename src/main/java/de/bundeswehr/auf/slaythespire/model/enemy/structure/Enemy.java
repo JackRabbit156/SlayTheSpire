@@ -10,10 +10,7 @@ import de.bundeswehr.auf.slaythespire.model.enemy_card.structure.EnemyCard;
 import de.bundeswehr.auf.slaythespire.model.settings.GameSettings;
 import de.bundeswehr.auf.slaythespire.model.settings.structure.DifficultyLevel;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
-import java.util.Scanner;
+import java.util.*;
 
 /**
  * Diese abstrakte Klasse repräsentiert einen allgemeinen Gegner im Spiel.
@@ -29,7 +26,7 @@ public abstract class Enemy {
     private int currentHealth;
     private int enemyCardToBePlayed;
     private List<EnemyCard> enemyDeck;
-    private EnemyEventListener enemyEventListener;
+    private final List<EnemyEventListener> enemyEventListeners = new ArrayList<>();
     private String imagePath;
     private final EnemyCard insult = new InsultEnemyCard();
     private EnemyCard intent;
@@ -76,6 +73,10 @@ public abstract class Enemy {
         this.block += block;
     }
 
+    public void addEnemyEventListener(EnemyEventListener enemyEventListener) {
+        enemyEventListeners.add(enemyEventListener);
+    }
+
     /**
      * Führt den Angriff des Gegners aus.
      * Diese Methode muss in den spezifischen Unterklassen implementiert werden.
@@ -109,10 +110,6 @@ public abstract class Enemy {
 
     public void setBlock(int block) {
         this.block = block;
-    }
-
-    public void setEnemyCardToBePlayed(int enemyCardToBePlayed) {
-        this.enemyCardToBePlayed = enemyCardToBePlayed;
     }
 
     public List<EnemyCard> getEnemyDeck() {
@@ -155,8 +152,12 @@ public abstract class Enemy {
         return currentHealth > 0;
     }
 
-    public void setEnemyEventListener(EnemyEventListener enemyEventListener) {
-        this.enemyEventListener = enemyEventListener;
+    public void resetListeners() {
+        enemyEventListeners.clear();
+    }
+
+    public void setEnemyCardToBePlayed(int enemyCardToBePlayed) {
+        this.enemyCardToBePlayed = enemyCardToBePlayed;
     }
 
     /**
@@ -206,14 +207,20 @@ public abstract class Enemy {
      * @author OF Daniel Willig
      */
     protected String doNothing() {
-        return wittyBanterList.get(rnd.nextInt( wittyBanterList.size()));
+        return wittyBanterList.get(rnd.nextInt(wittyBanterList.size()));
     }
 
     protected void notifyDamageReceived(int damageAmount) {
         EnemyDamageEvent event = new EnemyDamageEvent(this, damageAmount);
-        enemyEventListener.onDamageReceived(event);
+        for (EnemyEventListener enemyEventListener : enemyEventListeners) {
+            enemyEventListener.onDamageReceived(event);
+        }
         if (!isAlive()) {
-            enemyEventListener.onEnemyDeath(this);
+            for (int i = enemyEventListeners.size() - 1; i >= 0; i--) {
+                if (!enemyEventListeners.isEmpty()) {
+                    enemyEventListeners.get(i).onEnemyDeath(this);
+                }
+            }
         }
     }
 

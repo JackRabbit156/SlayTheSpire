@@ -1,10 +1,8 @@
 package de.bundeswehr.auf.slaythespire.model.player.structure;
 
+import de.bundeswehr.auf.slaythespire.controller.listener.InventoryEventListener;
 import de.bundeswehr.auf.slaythespire.controller.listener.PlayerEventListener;
-import de.bundeswehr.auf.slaythespire.events.PlayerBlockEvent;
-import de.bundeswehr.auf.slaythespire.events.PlayerDamageEvent;
-import de.bundeswehr.auf.slaythespire.events.PlayerEnergyEvent;
-import de.bundeswehr.auf.slaythespire.events.PlayerHealthEvent;
+import de.bundeswehr.auf.slaythespire.events.*;
 import de.bundeswehr.auf.slaythespire.model.card.structure.Card;
 import de.bundeswehr.auf.slaythespire.model.map.act.ActFour;
 import de.bundeswehr.auf.slaythespire.model.map.act.ActOne;
@@ -36,10 +34,11 @@ public abstract class Player {
     private List<Card> deck;
     private int gold;
     private String imagePath;
+    private final List<InventoryEventListener> inventoryEventListeners = new ArrayList<>();
     private int maxEnergy;
     private int maxHealth;
     private final String name;
-    private PlayerEventListener playerEventListener;
+    private final List<PlayerEventListener> playerEventListeners = new ArrayList<>();
     private final PlayerType playerType;
     private List<Potion> potions = new ArrayList<>();
     private Stage primaryStage;
@@ -67,14 +66,25 @@ public abstract class Player {
 
     public void addCardToDeck(Card card) {
         deck.add(card);
+        notifyCardEvent(new InventoryEvent(this, InventoryEvent.Direction.GAIN, InventoryEvent.Type.CARD, card));
+    }
+
+    public void addInventoryEventListener(InventoryEventListener inventoryEventListener) {
+        inventoryEventListeners.add(inventoryEventListener);
+    }
+
+    public void addPlayerEventListener(PlayerEventListener playerEventListener) {
+        playerEventListeners.add(playerEventListener);
     }
 
     public void addPotion(Potion potion) {
         potions.add(potion);
+        notifyPotionEvent(new InventoryEvent(this, InventoryEvent.Direction.GAIN, InventoryEvent.Type.POTION, potion));
     }
 
     public void addRelic(Relic relic) {
         relics.add(relic);
+        notifyRelicEvent(new InventoryEvent(this, InventoryEvent.Direction.GAIN, InventoryEvent.Type.RELIC, relic));
     }
 
     /**
@@ -95,23 +105,21 @@ public abstract class Player {
      */
     public void decreaseCurrentHealth(int dmg, boolean damageFromCard) {
         GameSettings.increaseReceivedDamageStats(dmg);
-        int tmpDmg;
-
-        notifyDamageReceived(dmg, damageFromCard);
-
+        int oldHealth = currentHealth;
+        int damageAfterBlock;
         if (getBlock() - dmg >= 0) {
             setBlock(getBlock() - dmg);
-            tmpDmg = 0;
+            damageAfterBlock = 0;
         }
         else {
-            tmpDmg = Math.abs(getBlock() - dmg);
+            damageAfterBlock = Math.abs(getBlock() - dmg);
             setBlock(0);
         }
-
-        currentHealth -= tmpDmg;
+        currentHealth -= damageAfterBlock;
         if (currentHealth < 0) {
             currentHealth = 0;
         }
+        notifyDamageReceived(oldHealth - currentHealth, damageFromCard);
     }
 
     /**
@@ -121,6 +129,7 @@ public abstract class Player {
      */
     public void decreaseGold(int gold) {
         this.gold -= gold;
+        notifyGoldEvent(new InventoryEvent(this, InventoryEvent.Direction.LOSE, InventoryEvent.Type.GOLD, gold));
     }
 
     public String getActImage() {
@@ -170,6 +179,7 @@ public abstract class Player {
 
     public void setCurrentField(String currentField) {
         this.currentField = currentField;
+        notifyLevelEvent(new InventoryEvent(this, InventoryEvent.Direction.GAIN, InventoryEvent.Type.LEVEL, currentField));
     }
 
     public int getCurrentHealth() {
@@ -222,14 +232,6 @@ public abstract class Player {
 
     public String getName() {
         return name;
-    }
-
-    public PlayerEventListener getPlayerEventListener() {
-        return playerEventListener;
-    }
-
-    public void setPlayerEventListener(PlayerEventListener playerEventListener) {
-        this.playerEventListener = playerEventListener;
     }
 
     public PlayerType getPlayerType() {
@@ -310,6 +312,7 @@ public abstract class Player {
     public void increaseGold(int gold) {
         this.gold += gold;
         GameSettings.increaseGoldStats(gold);
+        notifyGoldEvent(new InventoryEvent(this, InventoryEvent.Direction.GAIN, InventoryEvent.Type.GOLD, gold));
     }
 
     /**
@@ -330,8 +333,9 @@ public abstract class Player {
         return currentHealth > 0;
     }
 
-    public void removeCardFromDeck(Card addCard) {
-        this.deck.remove(addCard);
+    public void removeCardFromDeck(Card card) {
+        deck.remove(card);
+        notifyCardEvent(new InventoryEvent(this, InventoryEvent.Direction.LOSE, InventoryEvent.Type.CARD, card));
     }
 
     /**
@@ -348,6 +352,11 @@ public abstract class Player {
         currentEnergy = maxEnergy;
     }
 
+    public void resetListeners() {
+        inventoryEventListeners.clear();
+        playerEventListeners.clear();
+    }
+
     protected abstract void initDeck();
 
     protected abstract void initRelic();
@@ -358,9 +367,15 @@ public abstract class Player {
      * @param blockAmount Der Betrag des Blocks, der empfangen wurde.
      */
     protected void notifyBlockReceived(int blockAmount) {
-        if (playerEventListener != null) {
-            PlayerBlockEvent event = new PlayerBlockEvent(this, blockAmount);
+        PlayerBlockEvent event = new PlayerBlockEvent(this, blockAmount);
+        for (PlayerEventListener playerEventListener : playerEventListeners) {
             playerEventListener.onBlockReceived(event);
+        }
+    }
+
+    protected void notifyCardEvent(InventoryEvent event) {
+        for (InventoryEventListener inventoryListener : inventoryEventListeners) {
+            inventoryListener.onCardEvent(event);
         }
     }
 
@@ -371,8 +386,8 @@ public abstract class Player {
      * @param damageFromCard Gibt an, ob der Schaden von einer Karte stammt.
      */
     protected void notifyDamageReceived(int damageAmount, boolean damageFromCard) {
-        if (playerEventListener != null) {
-            PlayerDamageEvent event = new PlayerDamageEvent(this, damageAmount, damageFromCard);
+        PlayerDamageEvent event = new PlayerDamageEvent(this, damageAmount, damageFromCard);
+        for (PlayerEventListener playerEventListener : playerEventListeners) {
             playerEventListener.onDamageReceived(event);
         }
     }
@@ -383,9 +398,15 @@ public abstract class Player {
      * @param energyAmount Der Betrag der Energie, die empfangen wurde.
      */
     protected void notifyEnergyReceived(int energyAmount) {
-        if (playerEventListener != null) {
-            PlayerEnergyEvent event = new PlayerEnergyEvent(this, energyAmount);
+        PlayerEnergyEvent event = new PlayerEnergyEvent(this, energyAmount);
+        for (PlayerEventListener playerEventListener : playerEventListeners) {
             playerEventListener.onEnergyReceived(event);
+        }
+    }
+
+    protected void notifyGoldEvent(InventoryEvent event) {
+        for (InventoryEventListener inventoryListener : inventoryEventListeners) {
+            inventoryListener.onGoldEvent(event);
         }
     }
 
@@ -395,9 +416,27 @@ public abstract class Player {
      * @param hpAmount Der Betrag der Lebenskraft, die empfangen wurde.
      */
     protected void notifyHealthReceived(int hpAmount) {
-        if (playerEventListener != null) {
-            PlayerHealthEvent event = new PlayerHealthEvent(this, hpAmount);
+        PlayerHealthEvent event = new PlayerHealthEvent(this, hpAmount);
+        for (PlayerEventListener playerEventListener : playerEventListeners) {
             playerEventListener.onHealthReceived(event);
+        }
+    }
+
+    protected void notifyLevelEvent(InventoryEvent event) {
+        for (InventoryEventListener inventoryListener : inventoryEventListeners) {
+            inventoryListener.onLevelEvent(event);
+        }
+    }
+
+    protected void notifyPotionEvent(InventoryEvent event) {
+        for (InventoryEventListener inventoryListener : inventoryEventListeners) {
+            inventoryListener.onPotionEvent(event);
+        }
+    }
+
+    protected void notifyRelicEvent(InventoryEvent event) {
+        for (InventoryEventListener inventoryListener : inventoryEventListeners) {
+            inventoryListener.onRelicEvent(event);
         }
     }
 

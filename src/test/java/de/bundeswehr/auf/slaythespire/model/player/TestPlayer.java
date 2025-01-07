@@ -2,6 +2,9 @@ package de.bundeswehr.auf.slaythespire.model.player;
 
 import de.bundeswehr.auf.slaythespire.model.ModelInitializer;
 import de.bundeswehr.auf.slaythespire.model.card.CheaterCard;
+import de.bundeswehr.auf.slaythespire.model.card.CheaterDefendCard;
+import de.bundeswehr.auf.slaythespire.model.card.CheaterEnergyCard;
+import de.bundeswehr.auf.slaythespire.model.card.CheaterHealCard;
 import de.bundeswehr.auf.slaythespire.model.card.ironclad.IroncladDefendCard;
 import de.bundeswehr.auf.slaythespire.model.card.ironclad.IroncladStrikeCard;
 import de.bundeswehr.auf.slaythespire.model.card.ironclad.attack.common.ClashCard;
@@ -110,8 +113,17 @@ public class TestPlayer extends Player {
     @Override
     protected void initDeck() {
         List<Card> deck = new ArrayList<>();
-        for (int i = 0; i < 40; i++) {
+        for (int i = 0; i < 20; i++) {
             deck.add(new CheaterCard());
+        }
+        for (int i = 0; i < 10; i++) {
+            deck.add(new CheaterDefendCard());
+        }
+        for (int i = 0; i < 10; i++) {
+            deck.add(new CheaterEnergyCard());
+        }
+        for (int i = 0; i < 10; i++) {
+            deck.add(new CheaterHealCard());
         }
         setDeck(deck);
     }

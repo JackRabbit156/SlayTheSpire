@@ -28,7 +28,7 @@ class AcidSlimeEnemyTest {
         public void onDamageReceived(PlayerDamageEvent event) {}
 
         @Override
-        public void onDamageDealt() {}
+        public void onDamageDealt(PlayerDamageEvent event) {}
 
         @Override
         public void onEnergyReceived(PlayerEnergyEvent event) {}
@@ -48,7 +48,7 @@ class AcidSlimeEnemyTest {
     void setUp() {
         TestBattleListener testBattleListener = new TestBattleListener();
         player = new IroncladPlayer(null);
-        player.setPlayerEventListener(testBattleListener);
+        player.addPlayerEventListener(testBattleListener);
 
         battleDeck = new BattleDeck(player.getDeck());
 

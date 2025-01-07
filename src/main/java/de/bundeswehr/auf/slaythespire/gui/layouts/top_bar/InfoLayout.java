@@ -1,5 +1,12 @@
 package de.bundeswehr.auf.slaythespire.gui.layouts.top_bar;
 
+import com.sun.javafx.scene.traversal.Direction;
+import de.bundeswehr.auf.slaythespire.controller.listener.EmptyInventoryEventListener;
+import de.bundeswehr.auf.slaythespire.controller.listener.EmptyPlayerEventListener;
+import de.bundeswehr.auf.slaythespire.events.InventoryEvent;
+import de.bundeswehr.auf.slaythespire.events.PlayerDamageEvent;
+import de.bundeswehr.auf.slaythespire.events.PlayerHealthEvent;
+import de.bundeswehr.auf.slaythespire.gui.components.*;
 import de.bundeswehr.auf.slaythespire.helper.GuiHelper;
 import de.bundeswehr.auf.slaythespire.model.player.structure.Player;
 import javafx.geometry.Insets;
@@ -9,7 +16,6 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
-import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontSmoothingType;
@@ -37,11 +43,11 @@ public class InfoLayout extends HBox {
     private final Text playerText = new Text();
     private final Text playerTextStroke = new Text();
 
-    public InfoLayout() {
+    public InfoLayout(Player player) {
         initPlayerText();
-        StackPane player = new StackPane();
-        player.getChildren().addAll(playerTextStroke, playerText);
-        player.setAlignment(Pos.CENTER);
+        StackPane name = new StackPane();
+        name.getChildren().addAll(playerTextStroke, playerText);
+        name.setAlignment(Pos.CENTER);
 
         Image heart = new Image("/images/view/gui/layouts/info/heart.png");
         ImageView heartIcon = new ImageView(heart);
@@ -66,9 +72,36 @@ public class InfoLayout extends HBox {
         HBox level = new HBox(floorImage, floorLabel);
         level.setAlignment(Pos.CENTER);
 
-        getChildren().addAll(player, health, money, level);
-
+        getChildren().addAll(name, health, money, level);
         setAlignment(Pos.CENTER_LEFT);
+
+        player.addPlayerEventListener(new EmptyPlayerEventListener() {
+
+            @Override
+            public void onDamageReceived(PlayerDamageEvent event) {
+                InventoryText.applyAnimation(new DamageInventoryText(event.getDamageAmount()), health, Direction.DOWN);
+            }
+
+            @Override
+            public void onHealthReceived(PlayerHealthEvent event) {
+                InventoryText.applyAnimation(new HealInventoryText(event.getHpAmount()), health, Direction.UP);
+            }
+
+        });
+        player.addInventoryEventListener(new EmptyInventoryEventListener() {
+
+            @Override
+            public void onGoldEvent(InventoryEvent event) {
+                InventoryText.applyAnimation(new GoldText((int) event.getValue()), money,
+                        event.getDirection() == InventoryEvent.Direction.GAIN ? Direction.UP : Direction.DOWN);
+            }
+
+            @Override
+            public void onLevelEvent(InventoryEvent event) {
+                InventoryText.applyAnimation(new LevelText(), level, Direction.UP);
+            }
+
+        });
     }
 
     public void update(Player player) {

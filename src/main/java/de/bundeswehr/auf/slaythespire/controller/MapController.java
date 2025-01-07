@@ -32,13 +32,13 @@ import javafx.stage.Stage;
  */
 public class MapController implements Controller, MapViewEvents, GameMenuListener, DifficultyMenuListener {
 
-    private Act act;
     private MapView mapView;
     private final Player player;
 
     public MapController(Player player) {
         this.player = player;
         MusicBoy.play("map");
+        Act act;
         switch (player.getCurrentAct()) {
             case 1:
                 act = new ActOne(player);
@@ -127,9 +127,9 @@ public class MapController implements Controller, MapViewEvents, GameMenuListene
 
     @Override
     public void onValidFieldClick(Player player, Node node) {
-        node.doFieldThing(player);
-
         player.setCurrentField(node.getFieldName());
+
+        node.doFieldThing(player);
     }
 
 }

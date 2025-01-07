@@ -28,7 +28,7 @@ public interface PlayerEventListener {
     /**
      * Wenn Spieler Schaden verursacht
      */
-    void onDamageDealt();
+    void onDamageDealt(PlayerDamageEvent event);
 
     /**
      * Wenn Spieler Schaden bekommt

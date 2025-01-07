@@ -1,7 +1,9 @@
 package de.bundeswehr.auf.slaythespire.model;
 
-import de.bundeswehr.auf.slaythespire.model.Model;
 import de.bundeswehr.auf.slaythespire.model.card.CheaterCard;
+import de.bundeswehr.auf.slaythespire.model.card.CheaterDefendCard;
+import de.bundeswehr.auf.slaythespire.model.card.CheaterEnergyCard;
+import de.bundeswehr.auf.slaythespire.model.card.CheaterHealCard;
 import de.bundeswehr.auf.slaythespire.model.card.structure.Card;
 import de.bundeswehr.auf.slaythespire.model.potion.CheaterPotion;
 import de.bundeswehr.auf.slaythespire.model.potion.structure.Potion;
@@ -27,6 +29,9 @@ public class ModelInitializer {
             Map<String, Set<Class<? extends Card>>> cardCache = new HashMap<>();
             loadCardClasses(cardCache, "ironclad");
             cardCache.get("ironclad").add(CheaterCard.class);
+            cardCache.get("ironclad").add(CheaterDefendCard.class);
+            cardCache.get("ironclad").add(CheaterEnergyCard.class);
+            cardCache.get("ironclad").add(CheaterHealCard.class);
             loadCardClasses(cardCache, "silent");
             Field cardCacheField = Model.class.getDeclaredField("cardCache");
             cardCacheField.setAccessible(true);
@@ -37,14 +42,14 @@ public class ModelInitializer {
 
             Set<Class<? extends Potion>> potionCache = loadPotionClasses();
             potionCache.add(CheaterPotion.class);
-            Field potionCacheField = Model.class.getDeclaredField("relicCache");
+            Field potionCacheField = Model.class.getDeclaredField("potionCache");
             potionCacheField.setAccessible(true);
             potionCacheField.set(Model.class, potionCache);
 
             Set<Class<? extends Relic>> relicCache = loadRelicClasses();
             Field relicCacheField = Model.class.getDeclaredField("relicCache");
             relicCacheField.setAccessible(true);
-            relicCacheField.set(Model.class, potionCache);
+            relicCacheField.set(Model.class, relicCache);
         } catch (NoSuchFieldException | IllegalAccessException e) {
             e.printStackTrace();
         }

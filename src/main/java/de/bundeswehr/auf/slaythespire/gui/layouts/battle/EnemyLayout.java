@@ -1,11 +1,16 @@
 package de.bundeswehr.auf.slaythespire.gui.layouts.battle;
 
+import de.bundeswehr.auf.slaythespire.controller.listener.EmptyEnemyEventListener;
+import de.bundeswehr.auf.slaythespire.events.EnemyDamageEvent;
 import de.bundeswehr.auf.slaythespire.gui.BattleView;
+import de.bundeswehr.auf.slaythespire.gui.components.CombatText;
+import de.bundeswehr.auf.slaythespire.gui.components.DamageCombatText;
 import de.bundeswehr.auf.slaythespire.gui.components.EnemyImageView;
 import de.bundeswehr.auf.slaythespire.gui.components.MovingAnimation;
 import de.bundeswehr.auf.slaythespire.model.enemy.structure.Enemy;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -74,6 +79,7 @@ public class EnemyLayout extends VBox {
 
     public void handleEnemyDeath() {
         animation.stop();
+        enemy.resetListeners();
     }
 
     /**
@@ -87,6 +93,17 @@ public class EnemyLayout extends VBox {
         intentLayout.setIntentIcon(enemy.getIntent().getImagePath());
     }
 
+    private void addCombatText(Node node) {
+        enemy.addEnemyEventListener(new EmptyEnemyEventListener() {
+
+            @Override
+            public void onDamageReceived(EnemyDamageEvent event) {
+                CombatText.applyAnimation(new DamageCombatText(event.getDamageAmount()), node);
+            }
+
+        });
+    }
+
     /**
      * Verarbeitet das Klicken auf den Feind.
      */
@@ -96,6 +113,8 @@ public class EnemyLayout extends VBox {
 
     private ImageView image() {
         ImageView figure = new EnemyImageView(enemy);
+
+        addCombatText(figure);
 
         animation = new MovingAnimation(figure);
         animation.start();
