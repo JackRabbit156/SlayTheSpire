@@ -32,7 +32,7 @@ public class SurvivorCard extends SkillCard {
     @Override
     public void play(GameContext gameContext) {
         Player player = gameContext.getPlayer();
-        player.setBlock(8);
+        player.increaseBlock(8);
 
         BattleDeck battleDeck = gameContext.getBattleDeck();
         List<Card> hand = gameContext.getBattleDeck().getHand();
