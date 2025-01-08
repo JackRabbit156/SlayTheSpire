@@ -27,7 +27,6 @@ public class BarLayout extends StackPane implements View {
 
     private final InfoLayout infoLayout;
     private final MiddleBar middleBar;
-    private final Player player;
     private final RelicLayout relic;
     private final SettingsLayout settingsLayout;
 
@@ -38,8 +37,6 @@ public class BarLayout extends StackPane implements View {
      * @param player der player
      */
     public BarLayout(WithTopBar view, Player player, MiddleBar middleBar) {
-        this.player = player;
-
         HBox icons = new HBox();
         icons.setPadding(new Insets(0, 30, 20, 30));
 
@@ -92,16 +89,6 @@ public class BarLayout extends StackPane implements View {
     public void discard() {
         settingsLayout.discard();
     }
-
-//    /**
-//     * Refresh bar, falls eine Änderung passiert, wird alles einmal aktualisiert
-//     */
-//    public void refresh() {
-//        infoLayout.update(player);
-//        middleBar.refresh();
-//        relic.refresh();
-//        settingsLayout.setLibraryText(player);
-//    }
 
     public void setDisableMiddleBar(boolean value) {
         middleBar.setDisable(value);
