@@ -35,6 +35,10 @@ class AcidSlimeEnemyTest {
 
         @Override
         public void onHealthReceived(PlayerHealthEvent event) {}
+
+        @Override
+        public void onMaxHealthChanged(PlayerHealthEvent event) {}
+
     }
 
     private AcidSlimeEnemy acidSlimeEnemy;
