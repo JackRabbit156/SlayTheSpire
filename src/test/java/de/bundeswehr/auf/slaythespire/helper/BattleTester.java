@@ -2,6 +2,7 @@ package de.bundeswehr.auf.slaythespire.helper;
 
 import de.bundeswehr.auf.slaythespire.model.enemy.structure.Enemy;
 import de.bundeswehr.auf.slaythespire.model.map.act.Act;
+import de.bundeswehr.auf.slaythespire.model.map.act.ActFour;
 import de.bundeswehr.auf.slaythespire.model.map.act.ActOne;
 import de.bundeswehr.auf.slaythespire.model.map.act.ActTwo;
 import de.bundeswehr.auf.slaythespire.model.map.field.FieldEnum;
@@ -16,14 +17,11 @@ import javafx.stage.Stage;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.List;
-import java.util.Random;
 
 /**
  * @author Keil, Vladislav
  */
 public class BattleTester extends Application {
-
-    private static final Random rnd = new Random();
 
     public static void main(String[] args) {
         launch(args);
@@ -38,14 +36,35 @@ public class BattleTester extends Application {
 
         GameSettings.setDifficultyLevel(DifficultyLevel.NORMAL);
 
+        // Act I
         GuiHelper.Scenes.startBattleScene(player, actOneGenerateEnemies(player), FieldEnum.ENEMY_FIELD);
 //        GuiHelper.Scenes.startBattleScene(player, actOneGenerateElitesEnemies(player), FieldEnum.ELITE_FIELD);
 //        GuiHelper.Scenes.startBattleScene(player, actOneGenerateBossEnemies(player), FieldEnum.BOSS_FIELD);
 
+        // Act II
 //        player.setCurrentAct(2);
 //        GuiHelper.Scenes.startBattleScene(player, actTwoGenerateEnemies(player), FieldEnum.ENEMY_FIELD);
 //        GuiHelper.Scenes.startBattleScene(player, actTwoGenerateElitesEnemies(player), FieldEnum.ELITE_FIELD);
 //        GuiHelper.Scenes.startBattleScene(player, actTwoGenerateBossEnemies(player), FieldEnum.BOSS_FIELD);
+
+        // TODO Act III
+
+        // Act IV
+//        player.setCurrentAct(4);
+//        GuiHelper.Scenes.startBattleScene(player, actFourGenerateElitesEnemies(player), FieldEnum.ELITE_FIELD);
+//        GuiHelper.Scenes.startBattleScene(player, actFourGenerateBossEnemies(player), FieldEnum.BOSS_FIELD);
+    }
+
+    private List<Enemy> actOneGenerateBossEnemies(TestPlayer player) {
+        return invoke(new ActOne(player), "createBossEnemies");
+    }
+
+    private List<Enemy> actOneGenerateElitesEnemies(TestPlayer player) {
+        return invoke(new ActOne(player), "createElitesEnemies");
+    }
+
+    private List<Enemy> actOneGenerateEnemies(TestPlayer player) {
+        return invoke(new ActOne(player), "createEnemies");
     }
 
     private List<Enemy> actTwoGenerateBossEnemies(TestPlayer player) {
@@ -60,16 +79,12 @@ public class BattleTester extends Application {
         return invoke(new ActTwo(player), "createEnemies");
     }
 
-    private List<Enemy> actOneGenerateBossEnemies(TestPlayer player) {
-        return invoke(new ActOne(player), "createBossEnemies");
+    private List<Enemy> actFourGenerateBossEnemies(TestPlayer player) {
+        return invoke(new ActFour(player), "createBossEnemies");
     }
 
-    private List<Enemy> actOneGenerateElitesEnemies(TestPlayer player) {
-        return invoke(new ActOne(player), "createElitesEnemies");
-    }
-
-    private List<Enemy> actOneGenerateEnemies(TestPlayer player) {
-        return invoke(new ActOne(player), "createEnemies");
+    private List<Enemy> actFourGenerateElitesEnemies(TestPlayer player) {
+        return invoke(new ActFour(player), "createElitesEnemies");
     }
 
     @SuppressWarnings("unchecked")

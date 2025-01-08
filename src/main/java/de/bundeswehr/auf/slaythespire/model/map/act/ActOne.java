@@ -10,6 +10,8 @@ import de.bundeswehr.auf.slaythespire.model.enemy.act_one.boss.SlimeBoss;
 import de.bundeswehr.auf.slaythespire.model.enemy.act_one.boss.TheGuardianBoss;
 import de.bundeswehr.auf.slaythespire.model.enemy.act_one.elite.GremlinNobElite;
 import de.bundeswehr.auf.slaythespire.model.enemy.act_one.elite.LagavulinElite;
+import de.bundeswehr.auf.slaythespire.model.enemy.structure.Boss;
+import de.bundeswehr.auf.slaythespire.model.enemy.structure.Elite;
 import de.bundeswehr.auf.slaythespire.model.enemy.structure.Enemy;
 import de.bundeswehr.auf.slaythespire.model.enemy.structure.EnemyEnum;
 import de.bundeswehr.auf.slaythespire.model.map.Coordinates;
@@ -69,23 +71,25 @@ public class ActOne extends Act {
     public List<Enemy> createElitesEnemies() {
         List<Enemy> enemies = new ArrayList<>();
         int randElite = rnd.nextInt(2);
-        int randAmountEnemies = rnd.nextInt(2);
+        int randAmountEnemies = GameSettings.getDifficultyLevel().getNumberOfEnemies() - 3;
         EnemyEnum type;
+        Elite elite;
         switch (randElite) {
             case 0:
                 // 1 - Gremlin Nob
-                enemies.add(new GremlinNobElite());
-                type = EnemyEnum.GOBLIN;
+                elite = new GremlinNobElite();
+                type = EnemyEnum.GREMLIN_NOB;
                 break;
             default:
                 // 2 - Lagavulin
-                enemies.add(new LagavulinElite());
+                elite = new LagavulinElite();
                 type = EnemyEnum.LAGAVULIN;
                 break;
         }
         for (int i = 0; i < randAmountEnemies; i++) {
             enemies.add(createEnemiesOfType(type));
         }
+        enemies.add(elite);
         return enemies;
     }
 
@@ -109,26 +113,28 @@ public class ActOne extends Act {
         int randBoss = rnd.nextInt(3);
         int randAmountEnemies = GameSettings.getDifficultyLevel().getNumberOfEnemies() - 1;
         EnemyEnum type;
+        Boss boss;
         switch (randBoss) {
             case 0:
                 // 1 - SlimeBoss
-                enemies.add(new SlimeBoss());
+                boss = new SlimeBoss();
                 type = EnemyEnum.SLIME;
                 break;
             case 1:
                 // 2 - TheGuardian (Soll)
-                enemies.add(new TheGuardianBoss());
+                boss = new TheGuardianBoss();
                 type = EnemyEnum.GUARDIAN;
                 break;
             default:
                 // 3 - Hexaghost (Kann)
-                enemies.add(new SlimeBoss());
-                type = EnemyEnum.HEXA;
+                boss = new SlimeBoss();
+                type = EnemyEnum.HEXA_GHOST;
                 break;
         }
         for (int i = 0; i < randAmountEnemies; i++) {
             enemies.add(createEnemiesOfType(type));
         }
+        enemies.add(boss);
         return enemies;
     }
 
@@ -161,13 +167,13 @@ public class ActOne extends Act {
      */
     private Enemy createEnemiesOfType(EnemyEnum type) {
         switch (type) {
-            case HEXA:
-                return new MadGremlinEnemy();
+            case HEXA_GHOST:
+                return new CultistEnemy();
             case GUARDIAN:
-                return new CultistEnemy();
+                return rnd.nextInt(100) >= 20 ? new CultistEnemy() : new MadGremlinEnemy();
             case LAGAVULIN:
-                return new CultistEnemy();
-            case GOBLIN:
+                return rnd.nextInt(100) >= 50 ? new CultistEnemy() : new MadGremlinEnemy();
+            case GREMLIN_NOB:
                 return new MadGremlinEnemy();
             default: // SLIME
                 return new AcidSlimeEnemy();

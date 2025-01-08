@@ -53,8 +53,8 @@ public class PlayerLayout extends VBox {
 
         getChildren().addAll(image(), defendHealthBar);
 
-        setPadding(new Insets(500, 0, 0, 450));
-        alignmentProperty().set(Pos.BOTTOM_RIGHT);
+        setPadding(new Insets(500, 0, 0, 250));
+        setAlignment(Pos.BOTTOM_RIGHT);
 
         updatePlayer();
     }

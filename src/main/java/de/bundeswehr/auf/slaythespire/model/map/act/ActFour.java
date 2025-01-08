@@ -2,12 +2,11 @@ package de.bundeswehr.auf.slaythespire.model.map.act;
 
 
 import de.bundeswehr.auf.slaythespire.helper.MusicBoy;
-import de.bundeswehr.auf.slaythespire.model.enemy.structure.Enemy;
 import de.bundeswehr.auf.slaythespire.model.enemy.act_four.SpikerEnemy;
 import de.bundeswehr.auf.slaythespire.model.enemy.act_four.boss.CorruptHeartBoss;
 import de.bundeswehr.auf.slaythespire.model.enemy.act_four.elite.SpireShieldElite;
 import de.bundeswehr.auf.slaythespire.model.enemy.act_four.elite.SpireSpearElite;
-import de.bundeswehr.auf.slaythespire.model.settings.GameSettings;
+import de.bundeswehr.auf.slaythespire.model.enemy.structure.Enemy;
 import de.bundeswehr.auf.slaythespire.model.map.Coordinates;
 import de.bundeswehr.auf.slaythespire.model.map.Node;
 import de.bundeswehr.auf.slaythespire.model.map.field.BossField;
@@ -15,6 +14,7 @@ import de.bundeswehr.auf.slaythespire.model.map.field.EliteField;
 import de.bundeswehr.auf.slaythespire.model.map.field.RestField;
 import de.bundeswehr.auf.slaythespire.model.map.field.ShopField;
 import de.bundeswehr.auf.slaythespire.model.player.structure.Player;
+import de.bundeswehr.auf.slaythespire.model.settings.GameSettings;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -73,21 +73,21 @@ public class ActFour extends Act {
 
     private List<Enemy> createBossEnemies() {
         List<Enemy> enemies = new ArrayList<>();
-
-        int randAmountEnemies = GameSettings.getDifficultyLevel().getNumberOfEnemies();
-        enemies.add(new CorruptHeartBoss());
-
+        int randAmountEnemies = GameSettings.getDifficultyLevel().getNumberOfEnemies() - 1;
         for (int i = 0; i < randAmountEnemies; i++) {
             enemies.add(new SpikerEnemy());
         }
+        enemies.add(new CorruptHeartBoss());
         return enemies;
     }
 
     private List<Enemy> createElitesEnemies() {
         List<Enemy> enemies = new ArrayList<>();
         int randElite = rnd.nextInt(2);
-        int randAmountEnemies = rnd.nextInt(2);
-
+        int randAmountEnemies = GameSettings.getDifficultyLevel().getNumberOfEnemies() - 1;
+        for (int i = 0; i < randAmountEnemies; i++) {
+            enemies.add(new SpikerEnemy());
+        }
         switch (randElite) {
             case 0:
                 // 1 - SpireShield
@@ -98,10 +98,6 @@ public class ActFour extends Act {
                 enemies.add(new SpireSpearElite());
                 break;
         }
-        for (int i = 0; i < randAmountEnemies; i++) {
-            enemies.add(new SpikerEnemy());
-        }
-
         return enemies;
     }
 

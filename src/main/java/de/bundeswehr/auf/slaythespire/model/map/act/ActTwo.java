@@ -11,6 +11,8 @@ import de.bundeswehr.auf.slaythespire.model.enemy.act_two.boss.BronzeAutomatonBo
 import de.bundeswehr.auf.slaythespire.model.enemy.act_two.boss.TheChampBoss;
 import de.bundeswehr.auf.slaythespire.model.enemy.act_two.elite.BookOfStabbingElite;
 import de.bundeswehr.auf.slaythespire.model.enemy.act_two.elite.GremlinLeaderElite;
+import de.bundeswehr.auf.slaythespire.model.enemy.structure.Boss;
+import de.bundeswehr.auf.slaythespire.model.enemy.structure.Elite;
 import de.bundeswehr.auf.slaythespire.model.enemy.structure.Enemy;
 import de.bundeswehr.auf.slaythespire.model.enemy.structure.EnemyEnum;
 import de.bundeswehr.auf.slaythespire.model.map.Coordinates;
@@ -66,21 +68,23 @@ public class ActTwo extends Act {
     public List<Enemy> createElitesEnemies() {
         List<Enemy> enemies = new ArrayList<>();
         int randElite = rnd.nextInt(2);
-        int randAmountEnemies = rnd.nextInt(2);
+        int randAmountEnemies = GameSettings.getDifficultyLevel().getNumberOfEnemies() - 2;
         EnemyEnum type;
+        Elite elite;
         switch (randElite) {
             case 0:
-                enemies.add(new GremlinLeaderElite());
-                type = EnemyEnum.GOBLIN;
+                elite = new GremlinLeaderElite();
+                type = EnemyEnum.GREMLIN;
                 break;
             default:
-                enemies.add(new BookOfStabbingElite());
+                elite = new BookOfStabbingElite();
                 type = EnemyEnum.STABBING;
                 break;
         }
         for (int i = 0; i < randAmountEnemies; i++) {
             enemies.add(createEnemiesOfType(type));
         }
+        enemies.add(elite);
         return enemies;
     }
 
@@ -98,21 +102,23 @@ public class ActTwo extends Act {
         List<Enemy> enemies = new ArrayList<>();
 
         int randBoss = rnd.nextInt(2);
-        int randAmountEnemies = GameSettings.getDifficultyLevel().getNumberOfEnemies();
+        int randAmountEnemies = GameSettings.getDifficultyLevel().getNumberOfEnemies() - 1;
         EnemyEnum type;
+        Boss boss;
         switch (randBoss) {
             case 0:
-                enemies.add(new BronzeAutomatonBoss());
-                type = EnemyEnum.GUARDIAN;
+                boss = new BronzeAutomatonBoss();
+                type = EnemyEnum.BRONZE_AUTOMATON;
                 break;
             default:
-                enemies.add(new TheChampBoss());
-                type = EnemyEnum.LAGAVULIN;
+                boss = new TheChampBoss();
+                type = EnemyEnum.THE_CHAMP;
                 break;
         }
         for (int i = 0; i < randAmountEnemies; i++) {
             enemies.add(createEnemiesOfType(type));
         }
+        enemies.add(boss);
         return enemies;
     }
 
@@ -147,9 +153,9 @@ public class ActTwo extends Act {
         switch (type) {
             case STABBING:
                 return new ByrdEnemy();
-            case GUARDIAN:
+            case BRONZE_AUTOMATON:
                 return new SphericGuardianEnemy();
-            case LAGAVULIN:
+            case THE_CHAMP:
                 return new CultistEnemy();
             default: // GREMLIN
                 return new MadGremlinEnemy();

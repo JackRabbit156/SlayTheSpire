@@ -136,22 +136,12 @@ public class TestPlayer extends Player {
     }
 
     private void initWithDelegate(Player delegate) {
-        try {
-            setImagePath(delegate.getImagePath());
-            setAltImagePath(delegate.getAltImagePath());
-            // Use starter relic of delegate
-            Method initRelic = delegate.getClass().getDeclaredMethod("initRelic");
-            initRelic.setAccessible(true);
-            initRelic.invoke(delegate);
-            setRelics(delegate.getRelics());
-            // Use starter deck of delegate
-            Method initDeck = delegate.getClass().getDeclaredMethod("initDeck");
-            initDeck.setAccessible(true);
-            initDeck.invoke(delegate);
-            setDeck(delegate.getDeck());
-        } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
-            e.printStackTrace();
-        }
+        setImagePath(delegate.getImagePath());
+        setAltImagePath(delegate.getAltImagePath());
+        // Use starter relic of delegate
+        setRelics(delegate.getRelics());
+        // Use starter deck of delegate
+        setDeck(delegate.getDeck());
     }
 
 }

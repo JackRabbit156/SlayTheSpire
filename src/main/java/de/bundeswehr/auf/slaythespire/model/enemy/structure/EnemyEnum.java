@@ -4,11 +4,14 @@ package de.bundeswehr.auf.slaythespire.model.enemy.structure;
  */
 public enum EnemyEnum {
 
-    HEXA,
+    BRONZE_AUTOMATON,
+    HEXA_GHOST,
     GUARDIAN,
     LAGAVULIN,
-    GOBLIN,
+    GREMLIN,
+    GREMLIN_NOB,
     SLIME,
-    STABBING
+    STABBING,
+    THE_CHAMP
 
 }
