@@ -81,6 +81,7 @@ public class CardLayout extends HBox {
         this.hand = hand;
         this.gameContext = gameContext;
         this.battleView = battleView;
+        setMinHeight(250);
         // Cards move close to each other
         setSpacing(-30);
         // Center of the bottom
