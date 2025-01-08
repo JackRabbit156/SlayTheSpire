@@ -12,6 +12,30 @@ public class LoggingAssistant {
 
     private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss,SSS");
 
+    static {
+        Thread.setDefaultUncaughtExceptionHandler(new Thread.UncaughtExceptionHandler() {
+
+            @Override
+            public void uncaughtException(Thread t, Throwable e) {
+                if (!hack(t, e)) {
+                    log(e, Color.RED);
+                    debug(e, Color.RED);
+                }
+            }
+
+            /**
+             * Problem gelöst mit Java 9. Siehe <a href="https://git.itsbw.cir/10050080/Java-2024-2_SlayTheSpire/issues/85">#85</a>.
+             */
+            private boolean hack(Thread t, Throwable e) {
+                return "Window.java".equals(e.getStackTrace()[0].getFileName()) &&
+                        e.getStackTrace()[0].getLineNumber() == 1292 &&
+                        e instanceof NullPointerException &&
+                        t.getName().equals("JavaFX Application Thread");
+            }
+
+        });
+    }
+
     /**
      * Dient zur Ausgabe in {@link Color#WHITE}, falls {@value GameSettings#DEBUG_MODE}.
      *
@@ -29,7 +53,7 @@ public class LoggingAssistant {
      * @param e      Es wird automatisch der Stacktrace ausgegeben
      * @param colors Color Code {@link Color} Farben von
      */
-    public static void debug(Exception e, Color... colors) {
+    public static void debug(Throwable e, Color... colors) {
         if (GameSettings.DEBUG_MODE) {
             StringBuilder sb = new StringBuilder();
             append(sb, e);
@@ -43,8 +67,9 @@ public class LoggingAssistant {
      * @param e      Es wird automatisch die localized message genutzt
      * @param colors Color Code {@link Color} Farben von
      */
-    public static void log(Exception e, Color... colors) {
-        log(e.getLocalizedMessage(), colors);
+    public static void log(Throwable e, Color... colors) {
+        String message = e.getClass().getCanonicalName() + ": " + e.getLocalizedMessage();
+        log(message, colors);
     }
 
     /**
@@ -97,12 +122,15 @@ public class LoggingAssistant {
         StackTraceElement[] stackTrace = Thread.currentThread().getStackTrace();
         StackTraceElement element = stackTrace[3];
         for (int i = 1; i < stackTrace.length; i++) {
-            if (!LoggingAssistant.class.getName().equals(stackTrace[i].getClassName())) {
+            if (!stackTrace[i].getClassName().contains(LoggingAssistant.class.getName())) {
                 element = stackTrace[i];
                 break;
             }
         }
         String className = element.getClassName();
+        if (className.endsWith("ThreadGroup")) {
+            className = Thread.currentThread().getName();
+        }
         return className.substring(className.lastIndexOf(".") + 1);
     }
 
