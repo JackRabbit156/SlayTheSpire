@@ -28,7 +28,6 @@ public class RightSideLayout extends HBox {
     private final List<EnemyLayout> enemyLayouts = new ArrayList<>();
 
     public RightSideLayout(BattleView battleView, List<Enemy> enemies) {
-//        setSpacing(-50);
         this.enemies = enemies;
         for (Enemy enemy : enemies) {
             enemyLayouts.add(new EnemyLayout(enemy, battleView));
@@ -38,7 +37,6 @@ public class RightSideLayout extends HBox {
 
     public void update() {
         for (int i = enemyLayouts.size() - 1; i >= 0; i--) {
-//            enemyLayouts.get(i).updateEnemy();
             // remove enemy layout
             if (!enemies.get(i).isAlive()) {
                 EnemyLayout dead = enemyLayouts.remove(i);
