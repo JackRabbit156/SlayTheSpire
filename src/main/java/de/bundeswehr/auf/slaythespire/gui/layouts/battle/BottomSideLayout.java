@@ -58,6 +58,7 @@ public class BottomSideLayout extends HBox {
 
     public void update() {
         deckLayout.setDeckText(battleDeck.getDeck().size());
+        energyLayout.setEnergyText(player.getCurrentEnergy(), player.getMaxEnergy());
         discardPileLayout.setDiscardPileText(battleDeck.getDiscardPile().size());
         cardLayout.refreshHand();
     }

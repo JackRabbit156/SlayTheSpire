@@ -9,8 +9,7 @@ package de.bundeswehr.auf.slaythespire.gui.layouts.battle;
 public class EnergyLayout extends IconLayout {
 
     public void setEnergyText(int currentEnergy, int maxEnergy) {
-        String text = currentEnergy + "/" + maxEnergy;
-        setText(text);
+        setText(currentEnergy + "/" + maxEnergy);
     }
 
     @Override
