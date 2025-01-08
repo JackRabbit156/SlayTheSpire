@@ -1,7 +1,7 @@
 package de.bundeswehr.auf.slaythespire.model.enemy.act_one.boss;
 
 import de.bundeswehr.auf.slaythespire.helper.PathAssistent;
-import de.bundeswehr.auf.slaythespire.model.enemy.structure.Enemy;
+import de.bundeswehr.auf.slaythespire.model.enemy.structure.Boss;
 import de.bundeswehr.auf.slaythespire.model.enemy_card.act_one.boss.the_guardian.ChargingUpEnemyCard;
 import de.bundeswehr.auf.slaythespire.model.enemy_card.act_one.boss.the_guardian.FierceBashEnemyCard;
 import de.bundeswehr.auf.slaythespire.model.enemy_card.act_one.boss.the_guardian.WhirlwindEnemyCard;
@@ -16,7 +16,7 @@ import java.util.List;
  * @author Keil, Vladislav
  * @author OF Daniel Willig
  */
-public class TheGuardianBoss extends Enemy {
+public class TheGuardianBoss extends Boss {
 
     public TheGuardianBoss() {
         super("The Guardian", 240, 240);
