@@ -1,6 +1,7 @@
 package de.bundeswehr.auf.slaythespire.model.enemy.structure;
 
 import de.bundeswehr.auf.slaythespire.controller.listener.EnemyEventListener;
+import de.bundeswehr.auf.slaythespire.events.EnemyBanterEvent;
 import de.bundeswehr.auf.slaythespire.events.EnemyBlockEvent;
 import de.bundeswehr.auf.slaythespire.events.EnemyDamageEvent;
 import de.bundeswehr.auf.slaythespire.helper.Color;
@@ -65,10 +66,12 @@ public abstract class Enemy {
      */
     public void action(GameContext gameContext) {
         if (getIntent().equals(insult)) {
-            LoggingAssistant.log(doNothing(), Color.ITALIC, Color.CYAN);
+            String banter = doNothing();
+            notifyBanter(banter);
+            LoggingAssistant.log(getName() + ": \"" + banter + "\"", Color.ITALIC, Color.CYAN);
         }
         else {
-            LoggingAssistant.log("attacking", Color.ITALIC, Color.BLUE);
+            LoggingAssistant.log(getName() + " attacking", Color.ITALIC, Color.BLUE);
             attack(gameContext);
         }
     }
@@ -211,7 +214,7 @@ public abstract class Enemy {
      * @return call of the enemy
      * @author OF Daniel Willig
      */
-    protected String doNothing() {
+    private String doNothing() {
         return wittyBanterList.get(rnd.nextInt(wittyBanterList.size()));
     }
 
@@ -251,6 +254,13 @@ public abstract class Enemy {
         EnemyBlockEvent event = new EnemyBlockEvent(this, blockAmount);
         for (EnemyEventListener enemyEventListener : enemyEventListeners) {
             enemyEventListener.onBlockReceived(event);
+        }
+    }
+
+    private void notifyBanter(String banter) {
+        EnemyBanterEvent event = new EnemyBanterEvent(this, banter);
+        for (EnemyEventListener enemyEventListener : enemyEventListeners) {
+            enemyEventListener.onBanter(event);
         }
     }
 

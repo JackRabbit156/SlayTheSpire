@@ -75,6 +75,10 @@ public class EnemyLayout extends VBox {
         alignmentProperty().set(Pos.BOTTOM_LEFT);
     }
 
+    public Enemy getEnemy() {
+        return enemy;
+    }
+
     public void handleEnemyDeath() {
         animation.stop();
         enemy.resetListeners();

@@ -1,5 +1,6 @@
 package de.bundeswehr.auf.slaythespire.gui.layouts.battle;
 
+import javafx.scene.Node;
 import javafx.scene.layout.HBox;
 import de.bundeswehr.auf.slaythespire.model.enemy.structure.Enemy;
 import de.bundeswehr.auf.slaythespire.gui.BattleView;
@@ -33,6 +34,15 @@ public class RightSideLayout extends HBox {
             enemyLayouts.add(new EnemyLayout(enemy, battleView));
         }
         getChildren().addAll(enemyLayouts);
+    }
+
+    public Node getEnemyLayout(Enemy enemy) {
+        for (EnemyLayout enemyLayout : enemyLayouts) {
+            if (enemyLayout.getEnemy() == enemy) {
+                return enemyLayout;
+            }
+        }
+        return this;
     }
 
     public void update() {

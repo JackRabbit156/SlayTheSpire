@@ -1,6 +1,7 @@
 package de.bundeswehr.auf.slaythespire.gui;
 
 import de.bundeswehr.auf.slaythespire.controller.listener.BattleDeckListener;
+import de.bundeswehr.auf.slaythespire.gui.components.BanterText;
 import de.bundeswehr.auf.slaythespire.gui.events.BattleViewEvents;
 import de.bundeswehr.auf.slaythespire.gui.events.CardEventListener;
 import de.bundeswehr.auf.slaythespire.gui.layouts.CardSelectionLayout;
@@ -9,6 +10,7 @@ import de.bundeswehr.auf.slaythespire.gui.layouts.battle.LeftSideLayout;
 import de.bundeswehr.auf.slaythespire.gui.layouts.battle.PotionLayout;
 import de.bundeswehr.auf.slaythespire.gui.layouts.battle.RightSideLayout;
 import de.bundeswehr.auf.slaythespire.gui.layouts.top_bar.TopBarLayout;
+import de.bundeswehr.auf.slaythespire.helper.Animate;
 import de.bundeswehr.auf.slaythespire.helper.GuiHelper;
 import de.bundeswehr.auf.slaythespire.model.battle.BattleDeck;
 import de.bundeswehr.auf.slaythespire.model.battle.GameContext;
@@ -74,6 +76,10 @@ public class BattleView extends BorderPane implements View, WithTopBar, BattleDe
         setBackground(new Background(GuiHelper.backgroundInHD(player.getActImage())));
         setCenter(center);
         initNodes(gameContext);
+    }
+
+    public void banter(Enemy enemy, String banter) {
+        Animate.circlePathAnimation(new BanterText(banter), right.getEnemyLayout(enemy), left, null);
     }
 
     @Override

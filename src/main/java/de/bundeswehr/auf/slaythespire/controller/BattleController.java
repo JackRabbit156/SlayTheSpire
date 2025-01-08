@@ -76,6 +76,11 @@ public class BattleController implements Controller, BattleViewEvents, PlayerEve
     }
 
     @Override
+    public void onBanter(EnemyBanterEvent event) {
+        battleView.banter(event.getEnemy(), event.getBanter());
+    }
+
+    @Override
     public void onBlockReceived(EnemyBlockEvent event) {
 
     }
