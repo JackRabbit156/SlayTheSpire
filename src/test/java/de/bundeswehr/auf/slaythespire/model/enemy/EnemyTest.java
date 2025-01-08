@@ -1,6 +1,7 @@
 package de.bundeswehr.auf.slaythespire.model.enemy;
 
 import de.bundeswehr.auf.slaythespire.controller.listener.EnemyEventListener;
+import de.bundeswehr.auf.slaythespire.events.EnemyBanterEvent;
 import de.bundeswehr.auf.slaythespire.events.EnemyBlockEvent;
 import de.bundeswehr.auf.slaythespire.events.EnemyDamageEvent;
 import de.bundeswehr.auf.slaythespire.model.battle.BattleDeck;
@@ -53,6 +54,9 @@ class EnemyTest {
 
         @Override
         public void onDamageDealt(EnemyDamageEvent event) {}
+
+        @Override
+        public void onBanter(EnemyBanterEvent event) {}
 
         @Override
         public void onBlockReceived(EnemyBlockEvent event) {}
