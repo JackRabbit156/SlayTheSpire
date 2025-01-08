@@ -1,13 +1,10 @@
 package de.bundeswehr.auf.slaythespire.gui.layouts.battle;
 
+import de.bundeswehr.auf.slaythespire.gui.components.StrokedText;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Paint;
-import javafx.scene.text.Font;
-import javafx.scene.text.FontSmoothingType;
-import javafx.scene.text.FontWeight;
-import javafx.scene.text.Text;
 
 /**
  * Das Defend layout.
@@ -16,46 +13,27 @@ import javafx.scene.text.Text;
  * @author OF Daniel Willig
  */
 public class DefendLayout extends StackPane {
-    private final Text blockTextStroke = new Text();
-    private final Text blockText = new Text();
+
+    private static final Paint STROKE_COLOR = Paint.valueOf("#13503e");
+    private static final Paint TEXT_COLOR = Paint.valueOf("#fdf9fc");
+
     private ImageView blockShieldView;
-
-
-    private final String strokeColor = "#13503e";
-    private final int strokeWidth = 3;
-
-    private final String textColor = "#fdf9fc";
-
-    private final Font font = Font.font("Kreon", FontWeight.BOLD, 20);
-    private final FontSmoothingType smoothingType = FontSmoothingType.GRAY;
-
+    private final StrokedText blockText = new StrokedText(20, TEXT_COLOR, STROKE_COLOR, 3);
 
     /**
      * Constructor Defend layout.
      */
-    public DefendLayout(){
+    public DefendLayout() {
         initBlockShield();
-        initText();
 
-        getChildren().addAll(blockShieldView, blockTextStroke, blockText);
+        getChildren().addAll(blockShieldView, blockText);
     }
 
     public void setBlockText(int block) {
-        blockTextStroke.setText(String.valueOf(block));
         blockText.setText(String.valueOf(block));
     }
 
-    private void initText(){
-        blockTextStroke.setStroke(Paint.valueOf(strokeColor));
-        blockTextStroke.setStrokeWidth(strokeWidth);
-        blockText.setFill(Paint.valueOf(textColor));
-        blockTextStroke.setFont(font);
-        blockTextStroke.setFontSmoothingType(smoothingType);
-        blockText.setFont(font);
-        blockText.setFontSmoothingType(smoothingType);
-    }
-
-    private void initBlockShield(){
+    private void initBlockShield() {
         String path = "/images/view/gui/layouts/battle/Block.png";
         Image blockShield = new Image(getClass().getResource(path).toExternalForm());
         blockShieldView = new ImageView(blockShield);
@@ -63,4 +41,5 @@ public class DefendLayout extends StackPane {
         blockShieldView.setFitHeight(34);
         blockShieldView.setFitWidth(34);
     }
+
 }

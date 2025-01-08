@@ -1,7 +1,5 @@
 package de.bundeswehr.auf.slaythespire.gui.layouts.battle;
 
-import javafx.scene.layout.HBox;
-
 public class DeckLayout extends IconLayout {
 
     public DeckLayout() {
@@ -36,13 +34,13 @@ public class DeckLayout extends IconLayout {
     }
 
     @Override
-    protected String getTextColor() {
-        return "#FFF9F3";
+    protected double getStrokeWidth() {
+        return 7;
     }
 
     @Override
-    protected double getStrokeWidth() {
-        return 7;
+    protected String getTextColor() {
+        return "#FFF9F3";
     }
 
 }

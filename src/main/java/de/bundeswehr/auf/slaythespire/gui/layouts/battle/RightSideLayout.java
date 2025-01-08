@@ -37,6 +37,7 @@ public class RightSideLayout extends HBox {
 
     public void update() {
         for (int i = enemyLayouts.size() - 1; i >= 0; i--) {
+            enemyLayouts.get(i).updateEnemy();
             // remove enemy layout
             if (!enemies.get(i).isAlive()) {
                 EnemyLayout dead = enemyLayouts.remove(i);

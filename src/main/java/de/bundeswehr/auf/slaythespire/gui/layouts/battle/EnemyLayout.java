@@ -73,8 +73,6 @@ public class EnemyLayout extends VBox {
         setMargin(healthBarLayout, new Insets(0, 100, 0, 0));
 
         alignmentProperty().set(Pos.BOTTOM_LEFT);
-
-        updateEnemy();
     }
 
     public void handleEnemyDeath() {
@@ -82,7 +80,18 @@ public class EnemyLayout extends VBox {
         enemy.resetListeners();
     }
 
+    /**
+     * Aktualisiert das Layout des Feindes mit den aktuellen
+     * Gesundheitswerten, Verteidigungswerten und Absichten.
+     */
+    public void updateEnemy() {
+        intentLayout.setIntentText(enemy.getIntent().getIconText());
+        intentLayout.setIntentIcon(enemy.getIntent().getImagePath());
+    }
+
     private void addCombatText(Node node) {
+        defendLayout.setBlockText(enemy.getBlock());
+        healthBarLayout.setHealthText(enemy.getHealth(), enemy.getMaxHealth());
         enemy.addEnemyEventListener(new EmptyEnemyEventListener() {
 
             @Override
@@ -168,17 +177,6 @@ public class EnemyLayout extends VBox {
                 imageView.setScaleY(1.0); // Reset the height to original
             }
         });
-    }
-
-    /**
-     * Aktualisiert das Layout des Feindes mit den aktuellen
-     * Gesundheitswerten, Verteidigungswerten und Absichten.
-     */
-    private void updateEnemy() {
-        healthBarLayout.setHealthText(enemy.getHealth(), enemy.getMaxHealth());
-        defendLayout.setBlockText(enemy.getBlock());
-        intentLayout.setIntentText(enemy.getIntent().getIconText());
-        intentLayout.setIntentIcon(enemy.getIntent().getImagePath());
     }
 
 }
