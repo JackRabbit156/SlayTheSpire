@@ -6,6 +6,7 @@ import de.bundeswehr.auf.slaythespire.events.InventoryEvent;
 import de.bundeswehr.auf.slaythespire.gui.View;
 import de.bundeswehr.auf.slaythespire.gui.WithTopBar;
 import de.bundeswehr.auf.slaythespire.gui.components.*;
+import de.bundeswehr.auf.slaythespire.helper.Animate;
 import de.bundeswehr.auf.slaythespire.model.player.structure.Player;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -64,11 +65,15 @@ public class SettingsLayout extends HBox implements View {
             library.setAlignment(Pos.CENTER);
             getChildren().add(library);
             addSpacer();
+            setLibraryText(player);
             player.addInventoryEventListener(new EmptyInventoryEventListener() {
 
                 @Override
                 public void onCardEvent(InventoryEvent event) {
-                    CardText.applyAnimation(new CardText(), library, event.getDirection() == InventoryEvent.Direction.GAIN ? Direction.UP : Direction.DOWN);
+                    Animate.pathAnimationBelowTarget(new CardText(),
+                            library,
+                            event.getDirection() == InventoryEvent.Direction.GAIN ? Direction.UP : Direction.DOWN,
+                            e -> setLibraryText(player));
                 }
 
             });
@@ -95,7 +100,7 @@ public class SettingsLayout extends HBox implements View {
         timerText.discard();
     }
 
-    public void setLibraryText(Player player) {
+    private void setLibraryText(Player player) {
         libraryTextStroke.setText(String.valueOf(player.getDeck().size()));
         libraryText.setText(String.valueOf(player.getDeck().size()));
     }

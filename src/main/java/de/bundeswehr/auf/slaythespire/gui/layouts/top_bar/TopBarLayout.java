@@ -35,8 +35,4 @@ public class TopBarLayout extends VBox implements View {
         barLayout.setDisableMiddleBar(value);
     }
 
-    public void update() {
-        barLayout.refresh();
-    }
-
 }

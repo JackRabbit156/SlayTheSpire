@@ -177,7 +177,7 @@ public class DeckFactory {
         int randomNumber = rnd.nextInt(deck.size());
         Card selectedCard = deck.get(randomNumber);
 
-        LoggingAssistant.log("DeckFactory.class: Entfernung der Karte: " + selectedCard.getName(), Color.RED);
+        LoggingAssistant.log("DeckFactory.class: Entfernung der Karte: " + selectedCard.getName(), Color.YELLOW);
 
         player.removeCardFromDeck(selectedCard);
     }

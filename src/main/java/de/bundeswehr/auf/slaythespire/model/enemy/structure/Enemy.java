@@ -1,6 +1,7 @@
 package de.bundeswehr.auf.slaythespire.model.enemy.structure;
 
 import de.bundeswehr.auf.slaythespire.controller.listener.EnemyEventListener;
+import de.bundeswehr.auf.slaythespire.events.EnemyBlockEvent;
 import de.bundeswehr.auf.slaythespire.events.EnemyDamageEvent;
 import de.bundeswehr.auf.slaythespire.helper.Color;
 import de.bundeswehr.auf.slaythespire.helper.LoggingAssistant;
@@ -10,7 +11,10 @@ import de.bundeswehr.auf.slaythespire.model.enemy_card.structure.EnemyCard;
 import de.bundeswehr.auf.slaythespire.model.settings.GameSettings;
 import de.bundeswehr.auf.slaythespire.model.settings.structure.DifficultyLevel;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+import java.util.Scanner;
 
 /**
  * Diese abstrakte Klasse repräsentiert einen allgemeinen Gegner im Spiel.
@@ -71,6 +75,7 @@ public abstract class Enemy {
 
     public void addBlock(int block) {
         this.block += block;
+        notifyBlockReceived(block);
     }
 
     public void addEnemyEventListener(EnemyEventListener enemyEventListener) {
@@ -210,20 +215,6 @@ public abstract class Enemy {
         return wittyBanterList.get(rnd.nextInt(wittyBanterList.size()));
     }
 
-    protected void notifyDamageReceived(int damageAmount) {
-        EnemyDamageEvent event = new EnemyDamageEvent(this, damageAmount);
-        for (EnemyEventListener enemyEventListener : enemyEventListeners) {
-            enemyEventListener.onDamageReceived(event);
-        }
-        if (!isAlive()) {
-            for (int i = enemyEventListeners.size() - 1; i >= 0; i--) {
-                if (!enemyEventListeners.isEmpty()) {
-                    enemyEventListeners.get(i).onEnemyDeath(this);
-                }
-            }
-        }
-    }
-
     /**
      * Generiert einen maximalen Gesundheitswert für den Gegner
      * innerhalb des angegebenen Bereichs.
@@ -241,4 +232,26 @@ public abstract class Enemy {
 
         return lowestMaxHealthPossible + hp;
     }
+
+    private void notifyDamageReceived(int damageAmount) {
+        EnemyDamageEvent event = new EnemyDamageEvent(this, damageAmount);
+        for (EnemyEventListener enemyEventListener : enemyEventListeners) {
+            enemyEventListener.onDamageReceived(event);
+        }
+        if (!isAlive()) {
+            for (int i = enemyEventListeners.size() - 1; i >= 0; i--) {
+                if (!enemyEventListeners.isEmpty()) {
+                    enemyEventListeners.get(i).onEnemyDeath(this);
+                }
+            }
+        }
+    }
+
+    private void notifyBlockReceived(int blockAmount) {
+        EnemyBlockEvent event = new EnemyBlockEvent(this, blockAmount);
+        for (EnemyEventListener enemyEventListener : enemyEventListeners) {
+            enemyEventListener.onBlockReceived(event);
+        }
+    }
+
 }

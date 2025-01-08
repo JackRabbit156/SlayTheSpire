@@ -75,6 +75,11 @@ public class BattleController implements Controller, BattleViewEvents, PlayerEve
         triggerPowerCards(CardTrigger.GAIN_BLOCK);
     }
 
+    @Override
+    public void onBlockReceived(EnemyBlockEvent event) {
+
+    }
+
     /**
      * This function calls 'playerTurn(...)' and checks if the card needs a target
      *
@@ -176,6 +181,11 @@ public class BattleController implements Controller, BattleViewEvents, PlayerEve
     public void onHealthReceived(PlayerHealthEvent event) {
         triggerPowerCards(CardTrigger.GAIN_HP);
         triggerRelics(RelicTrigger.GAIN_HP);
+    }
+
+    @Override
+    public void onMaxHealthChanged(PlayerHealthEvent event) {
+
     }
 
     @Override

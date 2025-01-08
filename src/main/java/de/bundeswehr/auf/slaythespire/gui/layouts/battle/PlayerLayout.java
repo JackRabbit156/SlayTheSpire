@@ -1,11 +1,13 @@
 package de.bundeswehr.auf.slaythespire.gui.layouts.battle;
 
+import com.sun.javafx.scene.traversal.Direction;
 import de.bundeswehr.auf.slaythespire.controller.listener.EmptyPlayerEventListener;
 import de.bundeswehr.auf.slaythespire.events.PlayerBlockEvent;
 import de.bundeswehr.auf.slaythespire.events.PlayerDamageEvent;
 import de.bundeswehr.auf.slaythespire.events.PlayerHealthEvent;
 import de.bundeswehr.auf.slaythespire.gui.BattleView;
 import de.bundeswehr.auf.slaythespire.gui.components.*;
+import de.bundeswehr.auf.slaythespire.helper.Animate;
 import de.bundeswehr.auf.slaythespire.helper.GuiHelper;
 import de.bundeswehr.auf.slaythespire.model.player.structure.Player;
 import javafx.geometry.Insets;
@@ -27,7 +29,7 @@ import javafx.scene.paint.Color;
  */
 public class PlayerLayout extends VBox {
 
-    private MovingAnimation animation;
+    private IdleAnimation animation;
     private final BattleView battleView;
     private boolean deadFlag = false;
     private final DefendLayout defendLayout;
@@ -62,31 +64,31 @@ public class PlayerLayout extends VBox {
         player.resetListeners();
     }
 
-    public void updatePlayer() {
-        if (player.getCurrentHealth() <= 0 && !deadFlag) {
-            GuiHelper.Scenes.startGameOverScene(player);
-            deadFlag = true;
-        }
-        healthBarLayout.setHealthText(player.getCurrentHealth(), player.getMaxHealth());
-        defendLayout.setBlockText(player.getBlock());
-    }
-
     private void addCombatText(Node node) {
         player.addPlayerEventListener(new EmptyPlayerEventListener() {
 
             @Override
             public void onBlockReceived(PlayerBlockEvent event) {
-                CombatText.applyAnimation(new BlockText(event.getBlockAmount()), node);
+                Animate.pathAnimationAboveTarget(new BlockText(event.getBlockAmount()),
+                        node,
+                        Direction.UP,
+                        e -> updatePlayer());
             }
 
             @Override
             public void onDamageReceived(PlayerDamageEvent event) {
-                CombatText.applyAnimation(new DamageCombatText(event.getDamageAmount()), node);
+                Animate.pathAnimationAboveTarget(new DamageText(event.getDamageAmount()),
+                        node,
+                        Direction.UP,
+                        e -> updatePlayer());
             }
 
             @Override
             public void onHealthReceived(PlayerHealthEvent event) {
-                CombatText.applyAnimation(new HealCombatText(event.getHpAmount()), node);
+                Animate.pathAnimationAboveTarget(new HealText(event.getHpAmount()),
+                        node,
+                        Direction.UP,
+                        e -> updatePlayer());
             }
 
         });
@@ -171,6 +173,15 @@ public class PlayerLayout extends VBox {
                 imageView.setScaleY(1.0); // Reset the height to original
             }
         });
+    }
+
+    private void updatePlayer() {
+        if (player.getCurrentHealth() <= 0 && !deadFlag) {
+            GuiHelper.Scenes.startGameOverScene(player);
+            deadFlag = true;
+        }
+        healthBarLayout.setHealthText(player.getCurrentHealth(), player.getMaxHealth());
+        defendLayout.setBlockText(player.getBlock());
     }
 
 }

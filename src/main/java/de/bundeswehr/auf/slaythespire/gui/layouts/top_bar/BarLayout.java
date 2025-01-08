@@ -5,9 +5,9 @@ import de.bundeswehr.auf.slaythespire.controller.listener.EmptyInventoryEventLis
 import de.bundeswehr.auf.slaythespire.events.InventoryEvent;
 import de.bundeswehr.auf.slaythespire.gui.View;
 import de.bundeswehr.auf.slaythespire.gui.WithTopBar;
-import de.bundeswehr.auf.slaythespire.gui.components.InventoryText;
 import de.bundeswehr.auf.slaythespire.gui.components.PotionText;
 import de.bundeswehr.auf.slaythespire.gui.components.RelicText;
+import de.bundeswehr.auf.slaythespire.helper.Animate;
 import de.bundeswehr.auf.slaythespire.model.player.structure.Player;
 import javafx.geometry.Insets;
 import javafx.scene.image.Image;
@@ -65,16 +65,24 @@ public class BarLayout extends StackPane implements View {
         ImageView imageView = new ImageView(background);
         getChildren().addAll(imageView, icons);
 
+        middleBar.refresh();
+        relic.refresh();
         player.addInventoryEventListener(new EmptyInventoryEventListener() {
 
             @Override
             public void onPotionEvent(InventoryEvent event) {
-                InventoryText.applyAnimation(new PotionText(), middleBar, event.getDirection() == InventoryEvent.Direction.GAIN ? Direction.UP : Direction.DOWN);
+                Animate.pathAnimationBelowTarget(new PotionText(),
+                        middleBar,
+                        event.getDirection() == InventoryEvent.Direction.GAIN ? Direction.UP : Direction.DOWN,
+                        e -> middleBar.refresh());
             }
 
             @Override
             public void onRelicEvent(InventoryEvent event) {
-                InventoryText.applyAnimation(new RelicText(), relic, Direction.UP);
+                Animate.pathAnimationBelowTarget(new RelicText(),
+                        relic,
+                        Direction.UP,
+                        e -> relic.refresh());
             }
 
         });
@@ -85,15 +93,15 @@ public class BarLayout extends StackPane implements View {
         settingsLayout.discard();
     }
 
-    /**
-     * Refresh bar, falls eine Änderung passiert, wird alles einmal aktualisiert
-     */
-    public void refresh() {
-        infoLayout.update(player);
-        middleBar.refresh();
-        relic.refresh();
-        settingsLayout.setLibraryText(player);
-    }
+//    /**
+//     * Refresh bar, falls eine Änderung passiert, wird alles einmal aktualisiert
+//     */
+//    public void refresh() {
+//        infoLayout.update(player);
+//        middleBar.refresh();
+//        relic.refresh();
+//        settingsLayout.setLibraryText(player);
+//    }
 
     public void setDisableMiddleBar(boolean value) {
         middleBar.setDisable(value);

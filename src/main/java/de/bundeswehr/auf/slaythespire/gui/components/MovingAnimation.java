@@ -9,7 +9,7 @@ import javafx.util.Duration;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
-public class MovingAnimation {
+public class MovingAnimation implements IdleAnimation {
 
     private static final Random rnd = new Random();
 

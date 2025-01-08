@@ -1,10 +1,11 @@
 package de.bundeswehr.auf.slaythespire.gui.layouts.battle;
 
+import com.sun.javafx.scene.traversal.Direction;
 import de.bundeswehr.auf.slaythespire.controller.listener.EmptyPlayerEventListener;
 import de.bundeswehr.auf.slaythespire.events.PlayerEnergyEvent;
 import de.bundeswehr.auf.slaythespire.gui.BattleView;
-import de.bundeswehr.auf.slaythespire.gui.components.CombatText;
 import de.bundeswehr.auf.slaythespire.gui.components.EnergyText;
+import de.bundeswehr.auf.slaythespire.helper.Animate;
 import de.bundeswehr.auf.slaythespire.helper.GuiHelper;
 import de.bundeswehr.auf.slaythespire.model.battle.BattleDeck;
 import de.bundeswehr.auf.slaythespire.model.battle.GameContext;
@@ -57,7 +58,6 @@ public class BottomSideLayout extends HBox {
 
     public void update() {
         deckLayout.setDeckText(battleDeck.getDeck().size());
-        energyLayout.setEnergyText(player.getCurrentEnergy(), player.getMaxEnergy());
         discardPileLayout.setDiscardPileText(battleDeck.getDiscardPile().size());
         cardLayout.refreshHand();
     }
@@ -78,13 +78,17 @@ public class BottomSideLayout extends HBox {
     private void initBottomSide(GameContext gameContext) {
         deckLayout = new DeckLayout();
         energyLayout = new EnergyLayout();
+        energyLayout.setEnergyText(player.getCurrentEnergy(), player.getMaxEnergy());
         player.addPlayerEventListener(new EmptyPlayerEventListener() {
 
             @Override
             public void onEnergyReceived(PlayerEnergyEvent event) {
-                EnergyText.applyAnimation(new EnergyText(event.getEnergyAmount()), energyLayout);
+                Animate.pathAnimationBelowTarget(new EnergyText(event.getEnergyAmount()),
+                        energyLayout,
+                        Direction.DOWN,
+                        e -> energyLayout.setEnergyText(player.getCurrentEnergy(), player.getMaxEnergy()));
             }
-
+            
         });
         HBox left = new HBox(deckLayout, energyLayout);
         left.setAlignment(Pos.CENTER_LEFT);

@@ -167,7 +167,6 @@ public class MapView extends StackPane implements View, WithTopBar {
 
     private void initTopSide() {
         top = new TopBarLayout(this, player);
-        top.update();
         mainMap.setTop(top);
     }
 

@@ -7,6 +7,7 @@ import de.bundeswehr.auf.slaythespire.events.PlayerHealthEvent;
 
 /**
  * Interface Player event de.bundeswehr.auf.slaythespire.controller.listener.
+ *
  * @author OF Daniel Willig
  */
 public interface PlayerEventListener {
@@ -19,16 +20,16 @@ public interface PlayerEventListener {
     void onBlockReceived(PlayerBlockEvent event);
 
     /**
+     * Wenn Spieler Schaden verursacht
+     */
+    void onDamageDealt(PlayerDamageEvent event);
+
+    /**
      * Wenn Spieler Schaden erleidet
      *
      * @param event das Event
      */
     void onDamageReceived(PlayerDamageEvent event);
-
-    /**
-     * Wenn Spieler Schaden verursacht
-     */
-    void onDamageDealt(PlayerDamageEvent event);
 
     /**
      * Wenn Spieler Schaden bekommt
@@ -43,5 +44,12 @@ public interface PlayerEventListener {
      * @param event das Event
      */
     void onHealthReceived(PlayerHealthEvent event);
+
+    /**
+     * Wenn die maximale Gesundheit verändert wird.
+     *
+     * @param event das Event
+     */
+    void onMaxHealthChanged(PlayerHealthEvent event);
 
 }

@@ -1,9 +1,9 @@
 package de.bundeswehr.auf.slaythespire.gui.layouts.battle;
 
+import de.bundeswehr.auf.slaythespire.gui.BattleView;
+import de.bundeswehr.auf.slaythespire.model.player.structure.Player;
 import javafx.geometry.Pos;
 import javafx.scene.layout.VBox;
-import de.bundeswehr.auf.slaythespire.model.player.structure.Player;
-import de.bundeswehr.auf.slaythespire.gui.BattleView;
 
 public class LeftSideLayout extends VBox {
 
@@ -26,7 +26,6 @@ public class LeftSideLayout extends VBox {
         if (!player.isAlive()) {
             getChildren().remove(playerLayout);
         }
-        playerLayout.updatePlayer();
     }
 
 }

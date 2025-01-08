@@ -81,7 +81,6 @@ public class TreasureController implements Controller, TreasureViewEvents {
     @Override
     public void onCardClick(Card card) {
         addCardToDeck(card);
-        treasureView.updateTop();
     }
 
     @Override
@@ -100,7 +99,6 @@ public class TreasureController implements Controller, TreasureViewEvents {
     public void onGoldClick(int gold) {
         LoggingAssistant.log("Got gold: " + gold, Color.GREEN);
         player.increaseGold(gold);
-        treasureView.updateTop();
     }
 
     /**
@@ -113,7 +111,6 @@ public class TreasureController implements Controller, TreasureViewEvents {
         if (player.getPotions().size() < 3) {
             LoggingAssistant.log("Got a potion: " + potion.getName(), Color.GREEN);
             player.addPotion(potion);
-            treasureView.updateTop();
         }
         else {
             LoggingAssistant.log("Maximum amount of potions", Color.YELLOW);

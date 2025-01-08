@@ -80,7 +80,6 @@ public class RestView extends StackPane implements WithTopBar {
      */
     private void initBackLayout() {
         top = new TopBarLayout(this, player);
-        top.update();
         backLayout.setTop(top);
 
         ImageView imgView = new ImageView(new Image("/images/buttons/buttonL-small.png"));
@@ -119,13 +118,11 @@ public class RestView extends StackPane implements WithTopBar {
         center.setTranslateX(125);
         label.setOnMouseClicked(event -> {
             restViewEvents.onHealClicked();
-            top.update();
             label.setDisable(true);
             imgView.setDisable(true);
         });
         imgView.setOnMouseClicked(event -> {
             restViewEvents.onHealClicked();
-            top.update();
             label.setDisable(true);
             imgView.setDisable(true);
         });

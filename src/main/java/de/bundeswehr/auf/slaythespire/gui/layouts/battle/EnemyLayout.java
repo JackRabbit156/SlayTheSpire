@@ -1,12 +1,12 @@
 package de.bundeswehr.auf.slaythespire.gui.layouts.battle;
 
+import com.sun.javafx.scene.traversal.Direction;
 import de.bundeswehr.auf.slaythespire.controller.listener.EmptyEnemyEventListener;
+import de.bundeswehr.auf.slaythespire.events.EnemyBlockEvent;
 import de.bundeswehr.auf.slaythespire.events.EnemyDamageEvent;
 import de.bundeswehr.auf.slaythespire.gui.BattleView;
-import de.bundeswehr.auf.slaythespire.gui.components.CombatText;
-import de.bundeswehr.auf.slaythespire.gui.components.DamageCombatText;
-import de.bundeswehr.auf.slaythespire.gui.components.EnemyImageView;
-import de.bundeswehr.auf.slaythespire.gui.components.MovingAnimation;
+import de.bundeswehr.auf.slaythespire.gui.components.*;
+import de.bundeswehr.auf.slaythespire.helper.Animate;
 import de.bundeswehr.auf.slaythespire.model.enemy.structure.Enemy;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -35,7 +35,7 @@ import javafx.scene.paint.Color;
  */
 public class EnemyLayout extends VBox {
 
-    private MovingAnimation animation;
+    private IdleAnimation animation;
     private boolean attackMode = false;
     private final BattleView battleView;
     private final DefendLayout defendLayout;
@@ -82,23 +82,23 @@ public class EnemyLayout extends VBox {
         enemy.resetListeners();
     }
 
-    /**
-     * Aktualisiert das Layout des Feindes mit den aktuellen
-     * Gesundheitswerten, Verteidigungswerten und Absichten.
-     */
-    public void updateEnemy() {
-        healthBarLayout.setHealthText(enemy.getHealth(), enemy.getMaxHealth());
-        defendLayout.setBlockText(enemy.getBlock());
-        intentLayout.setIntentText(enemy.getIntent().getIconText());
-        intentLayout.setIntentIcon(enemy.getIntent().getImagePath());
-    }
-
     private void addCombatText(Node node) {
         enemy.addEnemyEventListener(new EmptyEnemyEventListener() {
 
             @Override
+            public void onBlockReceived(EnemyBlockEvent event) {
+                Animate.pathAnimationAboveTarget(new BlockText(event.getBlockAmount()),
+                        node,
+                        Direction.UP,
+                        e -> defendLayout.setBlockText(enemy.getBlock()));
+            }
+
+            @Override
             public void onDamageReceived(EnemyDamageEvent event) {
-                CombatText.applyAnimation(new DamageCombatText(event.getDamageAmount()), node);
+                Animate.pathAnimationAboveTarget(new DamageText(event.getDamageAmount()),
+                        node,
+                        Direction.UP,
+                        e -> healthBarLayout.setHealthText(enemy.getHealth(), enemy.getMaxHealth()));
             }
 
         });
@@ -168,6 +168,17 @@ public class EnemyLayout extends VBox {
                 imageView.setScaleY(1.0); // Reset the height to original
             }
         });
+    }
+
+    /**
+     * Aktualisiert das Layout des Feindes mit den aktuellen
+     * Gesundheitswerten, Verteidigungswerten und Absichten.
+     */
+    private void updateEnemy() {
+        healthBarLayout.setHealthText(enemy.getHealth(), enemy.getMaxHealth());
+        defendLayout.setBlockText(enemy.getBlock());
+        intentLayout.setIntentText(enemy.getIntent().getIconText());
+        intentLayout.setIntentIcon(enemy.getIntent().getImagePath());
     }
 
 }

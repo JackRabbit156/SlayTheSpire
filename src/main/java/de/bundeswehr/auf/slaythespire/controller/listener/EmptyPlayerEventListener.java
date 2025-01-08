@@ -22,4 +22,7 @@ public class EmptyPlayerEventListener implements PlayerEventListener {
     @Override
     public void onHealthReceived(PlayerHealthEvent event) {}
 
+    @Override
+    public void onMaxHealthChanged(PlayerHealthEvent event) {}
+
 }

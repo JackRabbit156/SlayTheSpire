@@ -6,7 +6,11 @@ import de.bundeswehr.auf.slaythespire.controller.listener.EmptyPlayerEventListen
 import de.bundeswehr.auf.slaythespire.events.InventoryEvent;
 import de.bundeswehr.auf.slaythespire.events.PlayerDamageEvent;
 import de.bundeswehr.auf.slaythespire.events.PlayerHealthEvent;
-import de.bundeswehr.auf.slaythespire.gui.components.*;
+import de.bundeswehr.auf.slaythespire.gui.components.DamageText;
+import de.bundeswehr.auf.slaythespire.gui.components.GoldText;
+import de.bundeswehr.auf.slaythespire.gui.components.HealText;
+import de.bundeswehr.auf.slaythespire.gui.components.LevelText;
+import de.bundeswehr.auf.slaythespire.helper.Animate;
 import de.bundeswehr.auf.slaythespire.helper.GuiHelper;
 import de.bundeswehr.auf.slaythespire.model.player.structure.Player;
 import javafx.geometry.Insets;
@@ -45,6 +49,7 @@ public class InfoLayout extends HBox {
 
     public InfoLayout(Player player) {
         initPlayerText();
+
         StackPane name = new StackPane();
         name.getChildren().addAll(playerTextStroke, playerText);
         name.setAlignment(Pos.CENTER);
@@ -75,16 +80,31 @@ public class InfoLayout extends HBox {
         getChildren().addAll(name, health, money, level);
         setAlignment(Pos.CENTER_LEFT);
 
+        initialize(player);
         player.addPlayerEventListener(new EmptyPlayerEventListener() {
 
             @Override
             public void onDamageReceived(PlayerDamageEvent event) {
-                InventoryText.applyAnimation(new DamageInventoryText(event.getDamageAmount()), health, Direction.DOWN);
+                Animate.pathAnimationBelowTarget(new DamageText(event.getDamageAmount()),
+                        health,
+                        Direction.DOWN,
+                        e -> setHealthText(player.getCurrentHealth(), player.getMaxHealth()));
             }
 
             @Override
             public void onHealthReceived(PlayerHealthEvent event) {
-                InventoryText.applyAnimation(new HealInventoryText(event.getHpAmount()), health, Direction.UP);
+                Animate.pathAnimationBelowTarget(new HealText(event.getHpAmount()),
+                        health,
+                        Direction.UP,
+                        e -> setHealthText(player.getCurrentHealth(), player.getMaxHealth()));
+            }
+
+            @Override
+            public void onMaxHealthChanged(PlayerHealthEvent event) {
+                Animate.pathAnimationBelowTarget(new HealText(event.getHpAmount()),
+                        health,
+                        Direction.UP,
+                        e -> setHealthText(player.getCurrentHealth(), player.getMaxHealth()));
             }
 
         });
@@ -92,23 +112,21 @@ public class InfoLayout extends HBox {
 
             @Override
             public void onGoldEvent(InventoryEvent event) {
-                InventoryText.applyAnimation(new GoldText((int) event.getValue()), money,
-                        event.getDirection() == InventoryEvent.Direction.GAIN ? Direction.UP : Direction.DOWN);
+                Animate.pathAnimationBelowTarget(new GoldText((int) event.getValue()),
+                        money,
+                        event.getDirection() == InventoryEvent.Direction.GAIN ? Direction.UP : Direction.DOWN,
+                        e -> setMoneyText(player.getGold()));
             }
 
             @Override
             public void onLevelEvent(InventoryEvent event) {
-                InventoryText.applyAnimation(new LevelText(), level, Direction.UP);
+                Animate.pathAnimationBelowTarget(new LevelText(),
+                        level,
+                        Direction.UP,
+                        e -> setFloorLabel(player));
             }
 
         });
-    }
-
-    public void update(Player player) {
-        setPlayerText(player.getName());
-        setMoneyText(player.getGold());
-        setHealthText(player.getCurrentHealth(), player.getMaxHealth());
-        setFloorLabel(player);
     }
 
     private void initFloorText() {
@@ -144,6 +162,13 @@ public class InfoLayout extends HBox {
         playerText.setFill(Paint.valueOf(s));
         playerText.setFont(font);
         playerText.setFontSmoothingType(smoothingType);
+    }
+
+    private void initialize(Player player) {
+        setPlayerText(player.getName());
+        setHealthText(player.getCurrentHealth(), player.getMaxHealth());
+        setMoneyText(player.getGold());
+        setFloorLabel(player);
     }
 
     private void setFloorLabel(Player player) {

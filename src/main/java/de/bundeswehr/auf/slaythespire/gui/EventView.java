@@ -79,7 +79,6 @@ public class EventView implements WithTopBar {
         layoutPane.setCenter(center);
 
         top = new TopBarLayout(this, player);
-        initUpdater(top);
         layoutPane.setTop(top);
         // TODO Wenn der Player stirbt
     }
@@ -150,10 +149,6 @@ public class EventView implements WithTopBar {
         popup.show(layoutPane.getScene().getWindow(), bounds.getMinX(), bounds.getMinY());
     }
 
-    public void updateTop() {
-        top.update();
-    }
-
     private void highlightOnClick(Button button) {
         button.setOnMousePressed(event -> {
             button.setBackground(buttonBG);
@@ -190,19 +185,6 @@ public class EventView implements WithTopBar {
         }
 
         initialize(leave);
-    }
-
-    private void initUpdater(TopBarLayout top) {
-        top.update();
-        if (option1 != null) {
-            option1.addEventHandler(MouseEvent.MOUSE_RELEASED, e -> top.update());
-        }
-        if (option2 != null) {
-            option2.addEventHandler(MouseEvent.MOUSE_RELEASED, e -> top.update());
-        }
-        if (option3 != null) {
-            option3.addEventHandler(MouseEvent.MOUSE_RELEASED, e -> top.update());
-        }
     }
 
     private void initialize(Button button) {

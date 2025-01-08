@@ -44,7 +44,7 @@ import java.util.Objects;
  *
  * @author Warawa Alexander, ...
  */
-public class GuiHelper {
+public final class GuiHelper {
 
     /**
      * Verschachtelte Klasse mit Hilfsmethoden zur Verwaltung von Szenen.
@@ -375,6 +375,9 @@ public class GuiHelper {
             scene.setCursor(customCursor);
         }
 
+        private Scenes() {
+        }
+
     }
 
     public static final String DEFAULT_FONT_BOLD = "/font/kreon/static/Kreon-Bold.ttf";
@@ -411,8 +414,6 @@ public class GuiHelper {
         btnStackPane.setMaxSize(imgView.getFitWidth(), imgView.getFitHeight());
 
         label.setStyle("-fx-font-size: 24; -fx-font-family: Kreon;");
-        //DEBUGGER
-//    btnStackPane.setBackground(new Background(new BackgroundFill(Paint.valueOf("Purple"), null, null)));
         btnStackPane.getChildren().add(label);
         btnStackPane.setMaxHeight(100);
 
@@ -538,6 +539,9 @@ public class GuiHelper {
             imageView.setScaleX(downScaleX); // Reset the width to original
             imageView.setScaleY(downScaleY); // Reset the height to original
         });
+    }
+
+    private GuiHelper() {
     }
 
 }

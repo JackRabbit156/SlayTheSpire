@@ -70,7 +70,6 @@ public class ShopView extends StackPane implements CardEventListener, WithTopBar
         initEntryLayout();
         shopLayout.setPadding(new Insets(70, 0, 0, 0));
         initOuterLayout();
-        refreshInfo();
     }
 
     /**
@@ -95,7 +94,6 @@ public class ShopView extends StackPane implements CardEventListener, WithTopBar
     @Override
     public void onCardClick(Card card) {
         shopViewEvents.onCardClick(card);
-        refreshInfo();
     }
 
     @Override
@@ -115,11 +113,6 @@ public class ShopView extends StackPane implements CardEventListener, WithTopBar
      */
     public void onPotionClick(Potion card) {
         shopViewEvents.onPotionClick(card);
-        refreshInfo();
-    }
-
-    public void refreshInfo() {
-        top.update();
     }
 
     /**

@@ -55,7 +55,6 @@ public class BonfireSpirits extends Event {
                             break;
                     }
                     cardPopup.hide();
-                    getEventView().updateTop();
                 });
                 box.getChildren().addAll(imageView);
             }

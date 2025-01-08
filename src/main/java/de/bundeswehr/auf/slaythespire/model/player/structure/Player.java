@@ -322,6 +322,7 @@ public abstract class Player {
      */
     public void increaseMaxHealth(int hp) {
         maxHealth += hp;
+        notifyMaxHealthChanged(hp);
     }
 
     /**
@@ -366,14 +367,14 @@ public abstract class Player {
      *
      * @param blockAmount Der Betrag des Blocks, der empfangen wurde.
      */
-    protected void notifyBlockReceived(int blockAmount) {
+    private void notifyBlockReceived(int blockAmount) {
         PlayerBlockEvent event = new PlayerBlockEvent(this, blockAmount);
         for (PlayerEventListener playerEventListener : playerEventListeners) {
             playerEventListener.onBlockReceived(event);
         }
     }
 
-    protected void notifyCardEvent(InventoryEvent event) {
+    private void notifyCardEvent(InventoryEvent event) {
         for (InventoryEventListener inventoryListener : inventoryEventListeners) {
             inventoryListener.onCardEvent(event);
         }
@@ -385,7 +386,7 @@ public abstract class Player {
      * @param damageAmount   Der Betrag des Schadens, der erlitten wurde.
      * @param damageFromCard Gibt an, ob der Schaden von einer Karte stammt.
      */
-    protected void notifyDamageReceived(int damageAmount, boolean damageFromCard) {
+    private void notifyDamageReceived(int damageAmount, boolean damageFromCard) {
         PlayerDamageEvent event = new PlayerDamageEvent(this, damageAmount, damageFromCard);
         for (PlayerEventListener playerEventListener : playerEventListeners) {
             playerEventListener.onDamageReceived(event);
@@ -397,14 +398,14 @@ public abstract class Player {
      *
      * @param energyAmount Der Betrag der Energie, die empfangen wurde.
      */
-    protected void notifyEnergyReceived(int energyAmount) {
+    private void notifyEnergyReceived(int energyAmount) {
         PlayerEnergyEvent event = new PlayerEnergyEvent(this, energyAmount);
         for (PlayerEventListener playerEventListener : playerEventListeners) {
             playerEventListener.onEnergyReceived(event);
         }
     }
 
-    protected void notifyGoldEvent(InventoryEvent event) {
+    private void notifyGoldEvent(InventoryEvent event) {
         for (InventoryEventListener inventoryListener : inventoryEventListeners) {
             inventoryListener.onGoldEvent(event);
         }
@@ -415,26 +416,33 @@ public abstract class Player {
      *
      * @param hpAmount Der Betrag der Lebenskraft, die empfangen wurde.
      */
-    protected void notifyHealthReceived(int hpAmount) {
+    private void notifyHealthReceived(int hpAmount) {
         PlayerHealthEvent event = new PlayerHealthEvent(this, hpAmount);
         for (PlayerEventListener playerEventListener : playerEventListeners) {
             playerEventListener.onHealthReceived(event);
         }
     }
 
-    protected void notifyLevelEvent(InventoryEvent event) {
+    private void notifyLevelEvent(InventoryEvent event) {
         for (InventoryEventListener inventoryListener : inventoryEventListeners) {
             inventoryListener.onLevelEvent(event);
         }
     }
 
-    protected void notifyPotionEvent(InventoryEvent event) {
+    private void notifyMaxHealthChanged(int hpAmount) {
+        PlayerHealthEvent event = new PlayerHealthEvent(this, hpAmount);
+        for (PlayerEventListener playerEventListener : playerEventListeners) {
+            playerEventListener.onMaxHealthChanged(event);
+        }
+    }
+
+    private void notifyPotionEvent(InventoryEvent event) {
         for (InventoryEventListener inventoryListener : inventoryEventListeners) {
             inventoryListener.onPotionEvent(event);
         }
     }
 
-    protected void notifyRelicEvent(InventoryEvent event) {
+    private void notifyRelicEvent(InventoryEvent event) {
         for (InventoryEventListener inventoryListener : inventoryEventListeners) {
             inventoryListener.onRelicEvent(event);
         }

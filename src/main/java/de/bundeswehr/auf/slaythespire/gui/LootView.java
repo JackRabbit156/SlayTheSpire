@@ -134,10 +134,6 @@ public class LootView extends StackPane implements WithTopBar, CardEventListener
         return true;
     }
 
-    public void updateTop() {
-        top.update();
-    }
-
     /**
      * Deaktiviert die Kartenauswahl im Loot.
      */
@@ -251,7 +247,6 @@ public class LootView extends StackPane implements WithTopBar, CardEventListener
      */
     private void initBackLayout() {
         top = new TopBarLayout(this, player);
-        top.update();
         backLayout.setTop(top);
 
         Image btnImage = new Image(getClass().getResource("/images/buttons/buttonL-small.png").toExternalForm());

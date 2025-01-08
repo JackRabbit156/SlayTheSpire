@@ -290,7 +290,6 @@ public class BattleView extends BorderPane implements View, WithTopBar, BattleDe
     public void updateInformation() {
         right.update();
         bottom.update();
-        top.update();
         left.update();
     }
 

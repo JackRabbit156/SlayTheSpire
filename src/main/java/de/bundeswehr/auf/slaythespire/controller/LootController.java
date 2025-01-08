@@ -86,7 +86,6 @@ public class LootController implements Controller, LootViewEvents {
     @Override
     public void onCardClick(Card card) {
         addCardToDeck(card);
-        lootView.updateTop();
     }
 
     @Override
@@ -100,7 +99,6 @@ public class LootController implements Controller, LootViewEvents {
     public void onGoldClick(int gold) {
         LoggingAssistant.log("Got gold: " + gold);
         player.increaseGold(gold);
-        lootView.updateTop();
     }
 
     @Override
@@ -108,7 +106,6 @@ public class LootController implements Controller, LootViewEvents {
         if (player.getPotions().size() < 3) {
             LoggingAssistant.log("Got a potion: " + potion.getName());
             player.addPotion(potion);
-            lootView.updateTop();
         }
         else {
             LoggingAssistant.log("Maximum number of potions reached", Color.YELLOW);

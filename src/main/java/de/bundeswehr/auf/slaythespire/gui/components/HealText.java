@@ -2,9 +2,9 @@ package de.bundeswehr.auf.slaythespire.gui.components;
 
 import javafx.scene.paint.Color;
 
-public class HealInventoryText extends InventoryText {
+public class HealText extends CombatText {
 
-    public HealInventoryText(int amount) {
+    public HealText(int amount) {
         super(Color.GREEN, amount);
     }
 

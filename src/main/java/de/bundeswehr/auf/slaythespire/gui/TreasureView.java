@@ -141,10 +141,6 @@ public class TreasureView extends StackPane implements WithTopBar, CardEventList
         return true;
     }
 
-    public void updateTop() {
-        top.update();
-    }
-
     /**
      * Deaktiviert die Kartenauswahl im Schatz.
      */
@@ -293,7 +289,6 @@ public class TreasureView extends StackPane implements WithTopBar, CardEventList
 
     private void initBackLayout(Player player) {
         top = new TopBarLayout(this, player);
-        top.update();
         backLayout.setTop(top);
 
         BackLayout back = new BackLayout(this);
