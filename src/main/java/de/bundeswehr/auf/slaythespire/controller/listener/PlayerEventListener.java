@@ -1,9 +1,6 @@
 package de.bundeswehr.auf.slaythespire.controller.listener;
 
-import de.bundeswehr.auf.slaythespire.events.PlayerBlockEvent;
-import de.bundeswehr.auf.slaythespire.events.PlayerDamageEvent;
-import de.bundeswehr.auf.slaythespire.events.PlayerEnergyEvent;
-import de.bundeswehr.auf.slaythespire.events.PlayerHealthEvent;
+import de.bundeswehr.auf.slaythespire.events.*;
 
 /**
  * Interface Player event de.bundeswehr.auf.slaythespire.controller.listener.
@@ -30,6 +27,13 @@ public interface PlayerEventListener {
      * @param event das Event
      */
     void onDamageReceived(PlayerDamageEvent event);
+
+    /**
+     * Wenn Spieler einen Effekt bekommt
+     *
+     * @param event das Event
+     */
+    void onEffect(EffectEvent event);
 
     /**
      * Wenn Spieler Schaden bekommt

@@ -13,13 +13,23 @@ public abstract class IconLayout extends StackPane {
     private final StrokedText text;
 
     public IconLayout() {
-        initImage();
+        initImage(getPath());
         text = new StrokedText(getFontSize(), Paint.valueOf(getTextColor()), Paint.valueOf(getStrokeColor()), getStrokeWidth());
         getChildren().addAll(imageView, new AnchorPane(text));
         anchorTop(100.0);
         anchorRight(50.0);
         anchorBottom(100.0);
         anchorLeft(50.0);
+    }
+
+    public IconLayout(String path) {
+        initImage(path);
+        text = new StrokedText(getFontSize(), Paint.valueOf(getTextColor()), Paint.valueOf(getStrokeColor()), getStrokeWidth());
+        getChildren().addAll(imageView, new AnchorPane(text));
+        anchorTop(0.0);
+        anchorRight(0.0);
+        anchorBottom(0.0);
+        anchorLeft(0.0);
     }
 
     protected void anchorBottom(Double value) {
@@ -54,10 +64,8 @@ public abstract class IconLayout extends StackPane {
         this.text.setText(text);
     }
 
-    private void initImage() {
-        Image energyIcon = new Image(getPath());
-        imageView = new ImageView(energyIcon);
-
+    private void initImage(String path) {
+        imageView = new ImageView(new Image(path));
         imageView.setFitHeight(getSize());
         imageView.setFitWidth(getSize());
     }

@@ -27,7 +27,7 @@ public class PlayerHealthEvent {
      *
      * @return das Spieler Event
      */
-    public Player getPlayerEvent() {
+    public Player getPlayer() {
         return player;
     }
 

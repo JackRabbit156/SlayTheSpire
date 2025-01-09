@@ -16,7 +16,7 @@ public abstract class AttackCard extends Card {
     @Override
     public void play(GameContext gameContext) {
         Enemy enemy = gameContext.getSelectedEnemy();
-        enemy.takeDamage(dealDamage(gameContext));
+        enemy.takeDamage(dealDamage(gameContext), gameContext);
 
         Player player = gameContext.getPlayer();
         player.decreaseCurrentEnergy(getCost());

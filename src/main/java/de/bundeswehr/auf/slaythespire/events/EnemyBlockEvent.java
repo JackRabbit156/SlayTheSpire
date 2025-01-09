@@ -1,7 +1,6 @@
 package de.bundeswehr.auf.slaythespire.events;
 
 import de.bundeswehr.auf.slaythespire.model.enemy.structure.Enemy;
-import de.bundeswehr.auf.slaythespire.model.player.structure.Player;
 
 /**
  * Das Enemy Block Event
@@ -22,7 +21,7 @@ public class EnemyBlockEvent {
         return blockAmount;
     }
 
-    public Enemy getEnemyEvent() {
+    public Enemy getEnemy() {
         return enemy;
     }
 

@@ -28,8 +28,9 @@ public class ImmolateCard extends AttackCard {
     @Override
     public void play(GameContext gameContext) {
         List<Enemy> allEnemies = gameContext.getEnemies();
-        for (Enemy allEnemy : allEnemies) {
-            allEnemy.takeDamage(dealDamage(gameContext));
+        for (Enemy enemy : allEnemies) {
+            gameContext.setSelectedEnemy(enemy);
+            enemy.takeDamage(dealDamage(gameContext), gameContext);
         }
 
         Player player = gameContext.getPlayer();

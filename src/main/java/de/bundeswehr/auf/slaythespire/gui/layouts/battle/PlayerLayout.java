@@ -2,6 +2,7 @@ package de.bundeswehr.auf.slaythespire.gui.layouts.battle;
 
 import com.sun.javafx.scene.traversal.Direction;
 import de.bundeswehr.auf.slaythespire.controller.listener.EmptyPlayerEventListener;
+import de.bundeswehr.auf.slaythespire.events.EffectEvent;
 import de.bundeswehr.auf.slaythespire.events.PlayerBlockEvent;
 import de.bundeswehr.auf.slaythespire.events.PlayerDamageEvent;
 import de.bundeswehr.auf.slaythespire.events.PlayerHealthEvent;
@@ -33,6 +34,7 @@ public class PlayerLayout extends VBox {
     private final BattleView battleView;
     private boolean deadFlag = false;
     private final DefendLayout defendLayout;
+    private final EffectBarLayout effectBarLayout;
     private final HealthBarLayout healthBarLayout;
     private final Player player;
     private boolean powerMode = false;
@@ -44,6 +46,7 @@ public class PlayerLayout extends VBox {
 
         healthBarLayout = new HealthBarLayout();
         defendLayout = new DefendLayout();
+        effectBarLayout = new EffectBarLayout(player);
 
         HBox defendHealthBar = new HBox();
         defendHealthBar.getChildren().addAll(defendLayout, healthBarLayout);
@@ -51,9 +54,9 @@ public class PlayerLayout extends VBox {
         defendHealthBar.setTranslateX(40);
         defendHealthBar.setSpacing(-105);
 
-        getChildren().addAll(image(), defendHealthBar);
+        getChildren().addAll(image(), defendHealthBar, effectBarLayout);
 
-        setPadding(new Insets(500, 0, 0, 250));
+        setPadding(new Insets(400, 0, 0, 250));
         setAlignment(Pos.BOTTOM_RIGHT);
 
         updatePlayer();
@@ -80,6 +83,14 @@ public class PlayerLayout extends VBox {
                 Animate.pathAnimationAboveTarget(new DamageText(event.getDamageAmount()),
                         node,
                         Direction.UP,
+                        e -> updatePlayer());
+            }
+
+            @Override
+            public void onEffect(EffectEvent event) {
+                Animate.pathAnimationBelowTarget(new GoldText(event.getValue()),
+                        node,
+                        Direction.DOWN,
                         e -> updatePlayer());
             }
 
@@ -182,6 +193,7 @@ public class PlayerLayout extends VBox {
         }
         healthBarLayout.setHealthText(player.getCurrentHealth(), player.getMaxHealth());
         defendLayout.setBlockText(player.getBlock());
+        effectBarLayout.update();
     }
 
 }

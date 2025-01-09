@@ -30,7 +30,8 @@ public class JuggernautCard extends PowerCard {
         int targetIndex = rand.nextInt(allEnemies.size());
 
         Enemy enemy = gameContext.getEnemies().get(targetIndex);
-        enemy.takeDamage(5);
+        gameContext.setSelectedEnemy(enemy);
+        enemy.takeDamage(5, gameContext);
     }
 
 }

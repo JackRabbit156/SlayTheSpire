@@ -9,10 +9,13 @@ import de.bundeswehr.auf.slaythespire.gui.events.BattleViewEvents;
 import de.bundeswehr.auf.slaythespire.helper.Color;
 import de.bundeswehr.auf.slaythespire.helper.GuiHelper;
 import de.bundeswehr.auf.slaythespire.helper.LoggingAssistant;
+import de.bundeswehr.auf.slaythespire.model.Entity;
 import de.bundeswehr.auf.slaythespire.model.battle.BattleDeck;
 import de.bundeswehr.auf.slaythespire.model.battle.GameContext;
 import de.bundeswehr.auf.slaythespire.model.battle.Playable;
 import de.bundeswehr.auf.slaythespire.model.card.structure.*;
+import de.bundeswehr.auf.slaythespire.model.effect.structure.Effect;
+import de.bundeswehr.auf.slaythespire.model.effect.structure.EffectTrigger;
 import de.bundeswehr.auf.slaythespire.model.enemy.structure.Enemy;
 import de.bundeswehr.auf.slaythespire.model.map.field.FieldEnum;
 import de.bundeswehr.auf.slaythespire.model.player.structure.Player;
@@ -71,13 +74,13 @@ public class BattleController implements Controller, BattleViewEvents, PlayerEve
     }
 
     @Override
-    public void onBlockReceived(PlayerBlockEvent event) {
-        triggerPowerCards(CardTrigger.GAIN_BLOCK);
+    public void onBanter(EnemyBanterEvent event) {
+        battleView.banter(event.getEnemy(), event.getBanter());
     }
 
     @Override
-    public void onBanter(EnemyBanterEvent event) {
-        battleView.banter(event.getEnemy(), event.getBanter());
+    public void onBlockReceived(PlayerBlockEvent event) {
+        triggerPowerCards(CardTrigger.GAIN_BLOCK);
     }
 
     @Override
@@ -134,6 +137,11 @@ public class BattleController implements Controller, BattleViewEvents, PlayerEve
             triggerPowerCards(CardTrigger.LOSE_HP_ENEMY);
         }
         triggerRelics(RelicTrigger.LOSE_HP);
+    }
+
+    @Override
+    public void onEffect(EffectEvent event) {
+
     }
 
     @Override
@@ -232,6 +240,7 @@ public class BattleController implements Controller, BattleViewEvents, PlayerEve
 
     private void endOfCombat() {
         LoggingAssistant.log("End of combat");
+        removeEffects();
         triggerRelics(RelicTrigger.END_OF_COMBAT);
 
         GuiHelper.Scenes.startLootScene(this.player, this.fieldType);
@@ -239,9 +248,11 @@ public class BattleController implements Controller, BattleViewEvents, PlayerEve
 
     private void enemyTurn() {
         LoggingAssistant.log("Enemies' turn");
+        removeDamageModifiers();
         removeBlockOfEnemiesAfterEndOfTurn();
         for (Enemy enemy : enemies) {
             if (enemy.isAlive()) {
+                enemy.reduceDurationEffects();
                 enemy.action(gameContext);
             }
         }
@@ -287,8 +298,10 @@ public class BattleController implements Controller, BattleViewEvents, PlayerEve
 
     private void playerBOT() {
         LoggingAssistant.log("Players' turn");
+        removeDamageModifiers();
         calculateIntentForAllEnemies();
         resetEnergyAndBlock();
+        player.reduceDurationEffects();
         battleDeck.fillHand(battleDeck.getStartHandSize());
 
         triggerPowerCards(CardTrigger.PLAYER_BOT);
@@ -309,6 +322,19 @@ public class BattleController implements Controller, BattleViewEvents, PlayerEve
         }
     }
 
+    private void removeDamageModifiers() {
+        player.setDamageModifier(0);
+        player.setDamageFactor(1.0);
+        for (Enemy enemy : enemies) {
+            enemy.setDamageModifier(0);
+            enemy.setDamageFactor(1.0);
+        }
+    }
+
+    private void removeEffects() {
+        player.getEffects().clear();
+    }
+
     private void removeHandAfterEndOfTurn() {
         int size = battleDeck.getHand().size();
         for (int i = 0; i < size; i++) {
@@ -318,12 +344,21 @@ public class BattleController implements Controller, BattleViewEvents, PlayerEve
 
     private void startOfCombat() {
         LoggingAssistant.log("Start of combat");
+        removeDamageModifiers();
         resetEnergyAndBlock();
         battleDeck.fillHand(battleDeck.getStartHandSize());
 
         triggerRelics(RelicTrigger.START_OF_COMBAT);
         triggerRelics(RelicTrigger.START_OF_TURN);
         triggerPowerCards(CardTrigger.PLAYER_BOT);
+    }
+
+    private void triggerEffect(EffectTrigger trigger, Entity target) {
+        for (Effect effect : player.getEffects().keySet()) {
+            if (effect.getEffectTrigger() == trigger) {
+                effect.apply(gameContext, target);
+            }
+        }
     }
 
     private void triggerPowerCards(CardTrigger trigger) {

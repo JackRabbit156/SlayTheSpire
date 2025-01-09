@@ -6,6 +6,7 @@ import de.bundeswehr.auf.slaythespire.model.card.structure.CardGrave;
 import de.bundeswehr.auf.slaythespire.model.card.structure.CardRarity;
 import de.bundeswehr.auf.slaythespire.model.card.structure.CardTrigger;
 import de.bundeswehr.auf.slaythespire.model.card.structure.PowerCard;
+import de.bundeswehr.auf.slaythespire.model.effect.buff.StrengthBuff;
 import de.bundeswehr.auf.slaythespire.model.player.structure.Player;
 
 /**
@@ -24,9 +25,14 @@ public class RuptureCard extends PowerCard {
     }
 
     @Override
+    public void play(GameContext gameContext) {
+        super.play(gameContext);
+    }
+
+    @Override
     public void onTrigger(GameContext gameContext) {
         Player player = gameContext.getPlayer();
-        // TODO gain 1 strength
+        player.addEffect(new StrengthBuff(), 1);
     }
 
 }

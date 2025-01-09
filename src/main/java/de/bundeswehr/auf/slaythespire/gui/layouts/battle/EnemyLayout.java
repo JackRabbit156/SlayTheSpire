@@ -2,6 +2,7 @@ package de.bundeswehr.auf.slaythespire.gui.layouts.battle;
 
 import com.sun.javafx.scene.traversal.Direction;
 import de.bundeswehr.auf.slaythespire.controller.listener.EmptyEnemyEventListener;
+import de.bundeswehr.auf.slaythespire.events.EffectEvent;
 import de.bundeswehr.auf.slaythespire.events.EnemyBlockEvent;
 import de.bundeswehr.auf.slaythespire.events.EnemyDamageEvent;
 import de.bundeswehr.auf.slaythespire.gui.BattleView;
@@ -39,6 +40,7 @@ public class EnemyLayout extends VBox {
     private boolean attackMode = false;
     private final BattleView battleView;
     private final DefendLayout defendLayout;
+    private final EffectBarLayout effectBarLayout;
     private final Enemy enemy;
     private final HealthBarLayout healthBarLayout;
     private final IntentLayout intentLayout;
@@ -61,6 +63,7 @@ public class EnemyLayout extends VBox {
         healthBarLayout = new HealthBarLayout();
         defendLayout = new DefendLayout();
         intentLayout = new IntentLayout(enemy);
+        effectBarLayout = new EffectBarLayout(enemy);
 
         HBox defendHealthBar = new HBox();
         defendHealthBar.getChildren().addAll(defendLayout, healthBarLayout);
@@ -68,7 +71,7 @@ public class EnemyLayout extends VBox {
         defendHealthBar.setTranslateX(-25);
         defendHealthBar.setSpacing(-105);
 
-        getChildren().addAll(intentLayout, image(), defendHealthBar);
+        getChildren().addAll(intentLayout, image(), defendHealthBar, effectBarLayout);
 
         setMargin(healthBarLayout, new Insets(0, 100, 0, 0));
 
@@ -91,6 +94,7 @@ public class EnemyLayout extends VBox {
     public void updateEnemy() {
         intentLayout.setIntentText(enemy.getIntent().getIconText());
         intentLayout.setIntentIcon(enemy.getIntent().getImagePath());
+        effectBarLayout.update();
     }
 
     private void addCombatText(Node node) {
@@ -112,6 +116,14 @@ public class EnemyLayout extends VBox {
                         node,
                         Direction.UP,
                         e -> healthBarLayout.setHealthText(enemy.getHealth(), enemy.getMaxHealth()));
+            }
+
+            @Override
+            public void onEffect(EffectEvent event) {
+                Animate.pathAnimationBelowTarget(new GoldText(event.getValue()),
+                        node,
+                        Direction.DOWN,
+                        e -> effectBarLayout.update());
             }
 
         });

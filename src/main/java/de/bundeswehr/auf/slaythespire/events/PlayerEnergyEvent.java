@@ -27,7 +27,7 @@ public class PlayerEnergyEvent {
      *
      * @return das Spieler Event
      */
-    public Player getPlayerEvent() {
+    public Player getPlayer() {
         return player;
     }
 

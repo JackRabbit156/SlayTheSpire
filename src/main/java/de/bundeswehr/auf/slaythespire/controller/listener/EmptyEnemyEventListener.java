@@ -1,5 +1,6 @@
 package de.bundeswehr.auf.slaythespire.controller.listener;
 
+import de.bundeswehr.auf.slaythespire.events.EffectEvent;
 import de.bundeswehr.auf.slaythespire.events.EnemyBanterEvent;
 import de.bundeswehr.auf.slaythespire.events.EnemyBlockEvent;
 import de.bundeswehr.auf.slaythespire.events.EnemyDamageEvent;
@@ -18,6 +19,9 @@ public class EmptyEnemyEventListener implements EnemyEventListener {
 
     @Override
     public void onDamageReceived(EnemyDamageEvent event) {}
+
+    @Override
+    public void onEffect(EffectEvent event) {}
 
     @Override
     public void onEnemyDeath(Enemy enemy) {}

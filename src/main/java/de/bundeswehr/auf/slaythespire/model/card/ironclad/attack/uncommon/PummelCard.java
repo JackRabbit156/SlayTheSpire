@@ -27,7 +27,7 @@ public class PummelCard extends AttackCard {
     public void play(GameContext gameContext) {
         Enemy enemy = gameContext.getSelectedEnemy();
         for (int i = 0; i < 4; i++) {
-            enemy.takeDamage(dealDamage(gameContext));
+            enemy.takeDamage(dealDamage(gameContext), gameContext);
         }
         Player player = gameContext.getPlayer();
         player.decreaseCurrentEnergy(getCost());

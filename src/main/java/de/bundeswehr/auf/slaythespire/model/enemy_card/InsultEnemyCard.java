@@ -12,6 +12,7 @@ import de.bundeswehr.auf.slaythespire.model.enemy_card.structure.EnemyCard;
  * @author OF Daniel Willig
  */
 public class InsultEnemyCard extends EnemyCard {
+
     /**
      * Constructor Insult enemy card.
      */
@@ -24,4 +25,5 @@ public class InsultEnemyCard extends EnemyCard {
     public void playEnemy(GameContext gameContext, Enemy enemy) {
         // nothing will happen
     }
+
 }

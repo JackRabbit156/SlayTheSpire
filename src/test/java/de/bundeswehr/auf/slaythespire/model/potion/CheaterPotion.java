@@ -16,7 +16,7 @@ public class CheaterPotion extends AttackPotion {
     @Override
     public void play(GameContext gameContext) {
         Enemy enemy = gameContext.getSelectedEnemy();
-        enemy.takeDamage(enemy.getHealth());
+        enemy.takeDamage(enemy.getHealth(),gameContext);
     }
 
 }

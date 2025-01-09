@@ -24,7 +24,7 @@ public class FirePotion extends AttackPotion {
     @Override
     public void play(GameContext gameContext) {
         Enemy enemy = gameContext.getSelectedEnemy();
-        enemy.takeDamage(getDamage());
+        enemy.takeDamage(getDamage(), gameContext);
     }
 
 }

@@ -5,6 +5,7 @@ import de.bundeswehr.auf.slaythespire.model.battle.GameContext;
 import de.bundeswehr.auf.slaythespire.model.enemy.structure.Enemy;
 import de.bundeswehr.auf.slaythespire.model.enemy_card.structure.EnemyCard;
 import de.bundeswehr.auf.slaythespire.model.player.structure.Player;
+import de.bundeswehr.auf.slaythespire.model.settings.GameSettings;
 
 import java.util.Random;
 
@@ -14,14 +15,16 @@ import java.util.Random;
  * @author OF Daniel Willig
  */
 public class MultiStabEnemyCard extends EnemyCard {
-    Random randi = new Random();
-    int randomAttack = randi.nextInt(3);
+
+    private static final Random rnd = new Random();
+
+    private int randomAttack = rnd.nextInt(3);
 
     /**
      * Constructor Multi stab enemy card.
      */
     public MultiStabEnemyCard() {
-        super("Multi Stab", "Deals 6 x N damage.", "6 x N");
+        super("Multi Stab", "Deals " + GameSettings.getDifficultyLevel().getDamage(6) + " x N damage.", GameSettings.getDifficultyLevel().getDamage(6) + " x N");
         setImagePath(new PathAssistent().toPath(this));
     }
 
@@ -30,8 +33,8 @@ public class MultiStabEnemyCard extends EnemyCard {
         Player player = gameContext.getPlayer();
 
         for (int i = 0; i < randomAttack; i++) {
-            player.decreaseCurrentHealth(6, false);
-
+            player.decreaseCurrentHealth(GameSettings.getDifficultyLevel().getDamage(6), false, gameContext);
         }
     }
+
 }

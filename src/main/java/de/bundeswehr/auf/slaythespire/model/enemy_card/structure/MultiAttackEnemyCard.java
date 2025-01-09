@@ -28,7 +28,7 @@ public abstract class MultiAttackEnemyCard extends EnemyCard {
     public void playEnemy(GameContext gameContext, Enemy enemy) {
         Player player = gameContext.getPlayer();
         for (int i = 0; i < multiplier; i++) {
-            player.decreaseCurrentHealth(dealDamage(gameContext), false);
+            player.decreaseCurrentHealth(dealDamage(gameContext), false, gameContext);
         }
     }
 

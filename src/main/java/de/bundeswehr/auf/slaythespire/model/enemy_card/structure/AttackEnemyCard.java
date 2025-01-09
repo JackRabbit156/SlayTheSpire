@@ -25,7 +25,7 @@ public abstract class AttackEnemyCard extends EnemyCard {
     @Override
     public void playEnemy(GameContext gameContext, Enemy enemy) {
         Player player = gameContext.getPlayer();
-        player.decreaseCurrentHealth(dealDamage(gameContext), false);
+        player.decreaseCurrentHealth(dealDamage(gameContext), false, gameContext);
     }
 
 }

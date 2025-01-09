@@ -5,6 +5,8 @@ import de.bundeswehr.auf.slaythespire.model.card.structure.AttackCard;
 import de.bundeswehr.auf.slaythespire.model.card.structure.CardGrave;
 import de.bundeswehr.auf.slaythespire.model.card.structure.CardRarity;
 import de.bundeswehr.auf.slaythespire.model.battle.GameContext;
+import de.bundeswehr.auf.slaythespire.model.effect.debuff.VulnerableDebuff;
+import de.bundeswehr.auf.slaythespire.model.enemy.structure.Enemy;
 
 /**
  * Bash Karte.
@@ -22,9 +24,10 @@ public class BashCard extends AttackCard {
 
     @Override
     public void play(GameContext gameContext) {
-        // TODO apply 2 Vulnerable
-
         super.play(gameContext);
+
+        Enemy enemy = gameContext.getSelectedEnemy();
+        enemy.addEffect(new VulnerableDebuff(), 2);
     }
 
 }

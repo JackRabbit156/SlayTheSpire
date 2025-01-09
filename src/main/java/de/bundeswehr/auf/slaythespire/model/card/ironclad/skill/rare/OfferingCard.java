@@ -28,7 +28,7 @@ public class OfferingCard extends SkillCard {
         Player player = gameContext.getPlayer();
         BattleDeck battleDeck = gameContext.getBattleDeck();
 
-        player.decreaseCurrentHealth(6, true);
+        player.decreaseCurrentHealth(6, true, gameContext);
         player.increaseCurrentEnergy(2);
         battleDeck.drawCard(3);
 

@@ -29,7 +29,7 @@ public class PlayerDamageEvent {
      *
      * @return das PlayerEvent
      */
-    public Player getPlayerEvent() {
+    public Player getPlayer() {
         return player;
     }
 

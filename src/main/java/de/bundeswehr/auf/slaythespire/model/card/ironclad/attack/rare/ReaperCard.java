@@ -31,7 +31,8 @@ public class ReaperCard extends AttackCard {
         int bonusHp = 0;
         for (Enemy enemy : allEnemies) {
             int enemyHealthOld = enemy.getHealth();
-            enemy.takeDamage(dealDamage(gameContext));
+            gameContext.setSelectedEnemy(enemy);
+            enemy.takeDamage(dealDamage(gameContext), gameContext);
             if (enemy.getHealth() < enemyHealthOld) {
                 bonusHp += (enemyHealthOld - enemy.getHealth());
             }

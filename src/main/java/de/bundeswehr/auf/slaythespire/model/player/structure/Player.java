@@ -3,7 +3,12 @@ package de.bundeswehr.auf.slaythespire.model.player.structure;
 import de.bundeswehr.auf.slaythespire.controller.listener.InventoryEventListener;
 import de.bundeswehr.auf.slaythespire.controller.listener.PlayerEventListener;
 import de.bundeswehr.auf.slaythespire.events.*;
+import de.bundeswehr.auf.slaythespire.model.Entity;
+import de.bundeswehr.auf.slaythespire.model.battle.GameContext;
 import de.bundeswehr.auf.slaythespire.model.card.structure.Card;
+import de.bundeswehr.auf.slaythespire.model.effect.structure.Effect;
+import de.bundeswehr.auf.slaythespire.model.effect.structure.EffectTrigger;
+import de.bundeswehr.auf.slaythespire.model.effect.structure.StackingBehaviour;
 import de.bundeswehr.auf.slaythespire.model.map.act.ActFour;
 import de.bundeswehr.auf.slaythespire.model.map.act.ActOne;
 import de.bundeswehr.auf.slaythespire.model.map.act.ActTwo;
@@ -13,7 +18,9 @@ import de.bundeswehr.auf.slaythespire.model.settings.GameSettings;
 import javafx.stage.Stage;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Abstrakte Klasse, die die grundlegenden Eigenschaften und Methoden eines Spielers im Spiel definiert.
@@ -23,7 +30,7 @@ import java.util.List;
  * @author F Alexander Warawa
  * @author OF Daniel Willig
  */
-public abstract class Player {
+public abstract class Player implements Entity {
 
     private String altImagePath;
     private int block;
@@ -31,7 +38,10 @@ public abstract class Player {
     private int currentEnergy;
     private String currentField = "0";
     private int currentHealth;
+    private double damageFactor;
+    private int damageModifier;
     private List<Card> deck;
+    private final Map<Effect, Integer> effects = new HashMap<>();
     private int gold;
     private String imagePath;
     private final List<InventoryEventListener> inventoryEventListeners = new ArrayList<>();
@@ -69,6 +79,21 @@ public abstract class Player {
         notifyCardEvent(new InventoryEvent(this, InventoryEvent.Direction.GAIN, InventoryEvent.Type.CARD, card));
     }
 
+    @Override
+    public void addDamageFactor(double factor) {
+        this.damageFactor *= factor;
+    }
+
+    @Override
+    public void addDamageModifier(int modifier) {
+        this.damageModifier += modifier;
+    }
+
+    public void addEffect(Effect effect, int value) {
+        notifyEffect(effect, value);
+        effects.put(effect, effects.getOrDefault(effect, 0) + value);
+    }
+
     public void addInventoryEventListener(InventoryEventListener inventoryEventListener) {
         inventoryEventListeners.add(inventoryEventListener);
     }
@@ -100,26 +125,44 @@ public abstract class Player {
     /**
      * Verringert die aktuelle Gesundheit des Spielers um den angegebenen Schaden.
      *
-     * @param dmg            Der Schaden, der dem Spieler zugefügt wird.
-     * @param damageFromCard Gibt an, ob der Schaden von einer Karte stammt.
+     * @param damage         Der Schaden, der dem Spieler zugefügt wird.
+     * @param damageFromCard Gibt an, ob der Schaden von einer eigenen Karte stammt.
      */
-    public void decreaseCurrentHealth(int dmg, boolean damageFromCard) {
-        GameSettings.increaseReceivedDamageStats(dmg);
+    public void decreaseCurrentHealth(int damage, boolean damageFromCard) {
+        decreaseCurrentHealth(damage, damageFromCard, null);
+    }
+
+    public void decreaseCurrentHealth(int damage, boolean damageFromCard, GameContext gameContext) {
+        if (gameContext != null) {
+            triggerEffect(EffectTrigger.BEFORE_ATTACK_SOURCE, gameContext, gameContext.getSelectedEnemy());
+            triggerEffect(EffectTrigger.BEFORE_ATTACK_TARGET, gameContext, this);
+        }
+        int damageAfterEffects = (int) ((damage + damageModifier) * damageFactor);
         int oldHealth = currentHealth;
         int damageAfterBlock;
-        if (getBlock() - dmg >= 0) {
-            setBlock(getBlock() - dmg);
+        if (block - damageAfterEffects >= 0) {
+            block -= damageAfterEffects;
             damageAfterBlock = 0;
         }
         else {
-            damageAfterBlock = Math.abs(getBlock() - dmg);
-            setBlock(0);
+            damageAfterBlock = Math.abs(block - damageAfterEffects);
+            block = 0;
         }
         currentHealth -= damageAfterBlock;
         if (currentHealth < 0) {
             currentHealth = 0;
         }
+        GameSettings.increaseReceivedDamageStats(oldHealth - currentHealth);
         notifyDamageReceived(oldHealth - currentHealth, damageFromCard);
+        triggerEffect(EffectTrigger.AFTER_ATTACK, gameContext, this);
+    }
+
+    protected void triggerEffect(EffectTrigger trigger, GameContext gameContext, Entity target) {
+        for (Effect effect : effects.keySet()) {
+            if (effect.getEffectTrigger() == trigger) {
+                effect.apply(gameContext, target);
+            }
+        }
     }
 
     /**
@@ -196,6 +239,16 @@ public abstract class Player {
 
     public void setDeck(List<Card> deck) {
         this.deck = deck;
+    }
+
+    @Override
+    public int getEffectCounter(Effect effect) {
+        return effects.getOrDefault(effect, 0);
+    }
+
+    @Override
+    public Map<Effect, Integer> getEffects() {
+        return effects;
     }
 
     public int getGold() {
@@ -334,6 +387,15 @@ public abstract class Player {
         return currentHealth > 0;
     }
 
+    public void reduceDurationEffects() {
+        for (Map.Entry<Effect, Integer> entry : effects.entrySet()) {
+            if (entry.getKey().getStackingBehaviour() == StackingBehaviour.DURATION) {
+                entry.setValue(entry.getValue() - 1);
+            }
+        }
+        effects.entrySet().removeIf(entry -> entry.getValue() <= 0);
+    }
+
     public void removeCardFromDeck(Card card) {
         deck.remove(card);
         notifyCardEvent(new InventoryEvent(this, InventoryEvent.Direction.LOSE, InventoryEvent.Type.CARD, card));
@@ -356,6 +418,14 @@ public abstract class Player {
     public void resetListeners() {
         inventoryEventListeners.clear();
         playerEventListeners.clear();
+    }
+
+    public void setDamageFactor(double damageFactor) {
+        this.damageFactor = damageFactor;
+    }
+
+    public void setDamageModifier(int damageModifier) {
+        this.damageModifier = damageModifier;
     }
 
     protected abstract void initDeck();
@@ -402,6 +472,13 @@ public abstract class Player {
         PlayerEnergyEvent event = new PlayerEnergyEvent(this, energyAmount);
         for (PlayerEventListener playerEventListener : playerEventListeners) {
             playerEventListener.onEnergyReceived(event);
+        }
+    }
+
+    private void notifyEffect(Effect effect, int value) {
+        EffectEvent event = new EffectEvent(this, effect, value);
+        for (PlayerEventListener playerEventListener : playerEventListeners) {
+            playerEventListener.onEffect(event);
         }
     }
 

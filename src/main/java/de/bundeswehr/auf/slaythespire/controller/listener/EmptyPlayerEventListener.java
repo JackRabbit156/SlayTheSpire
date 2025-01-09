@@ -1,9 +1,6 @@
 package de.bundeswehr.auf.slaythespire.controller.listener;
 
-import de.bundeswehr.auf.slaythespire.events.PlayerBlockEvent;
-import de.bundeswehr.auf.slaythespire.events.PlayerDamageEvent;
-import de.bundeswehr.auf.slaythespire.events.PlayerEnergyEvent;
-import de.bundeswehr.auf.slaythespire.events.PlayerHealthEvent;
+import de.bundeswehr.auf.slaythespire.events.*;
 
 public class EmptyPlayerEventListener implements PlayerEventListener {
 
@@ -12,6 +9,9 @@ public class EmptyPlayerEventListener implements PlayerEventListener {
 
     @Override
     public void onDamageReceived(PlayerDamageEvent event) {}
+
+    @Override
+    public void onEffect(EffectEvent event) {}
 
     @Override
     public void onDamageDealt(PlayerDamageEvent event) {}

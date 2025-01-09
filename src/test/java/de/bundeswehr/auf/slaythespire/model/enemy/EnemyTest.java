@@ -1,6 +1,7 @@
 package de.bundeswehr.auf.slaythespire.model.enemy;
 
 import de.bundeswehr.auf.slaythespire.controller.listener.EnemyEventListener;
+import de.bundeswehr.auf.slaythespire.events.EffectEvent;
 import de.bundeswehr.auf.slaythespire.events.EnemyBanterEvent;
 import de.bundeswehr.auf.slaythespire.events.EnemyBlockEvent;
 import de.bundeswehr.auf.slaythespire.events.EnemyDamageEvent;
@@ -65,6 +66,9 @@ class EnemyTest {
         public void onDamageReceived(EnemyDamageEvent event) {}
 
         @Override
+        public void onEffect(EffectEvent event) {}
+
+        @Override
         public void onEnemyDeath(Enemy enemy) {}
 
     }
@@ -117,7 +121,7 @@ class EnemyTest {
         Assertions.assertEquals(expectedHealth, actualHealth, "Health does not fit!");
 
         int expectedHealthAfterDamageTaken = enemyTest.getMaxHealth() - 5;
-        enemyTest.takeDamage(5);
+        enemyTest.takeDamage(5,gameContext);
         int actualHealthAfterDamageTaken = enemyTest.getHealth();
 
         Assertions.assertEquals(expectedHealthAfterDamageTaken, actualHealthAfterDamageTaken, "Health does not fit!");
@@ -167,7 +171,7 @@ class EnemyTest {
 
         Assertions.assertEquals(expectedIsAlive, actualIsAlive, "Enemy should be Alive");
 
-        enemyTest.takeDamage(20);
+        enemyTest.takeDamage(20,gameContext);
 
         boolean expectedIsNotAlive = false;
 
@@ -180,7 +184,7 @@ class EnemyTest {
     void testTakeDamage() {
         int expectedHp = enemyTest.getHealth() - 5;
 
-        enemyTest.takeDamage(5);
+        enemyTest.takeDamage(5,gameContext);
 
         int actualHp = enemyTest.getHealth();
 

@@ -25,9 +25,10 @@ public class ExplosivePotion extends AttackPotion {
 
     @Override
     public void play(GameContext gameContext) {
-        List<Enemy> enemies = gameContext.getEnemies();
-        for (Enemy enemy : enemies) {
-            enemy.takeDamage(getDamage());
+        List<Enemy> allEnemies = gameContext.getEnemies();
+        for (Enemy enemy : allEnemies) {
+            gameContext.setSelectedEnemy(enemy);
+            enemy.takeDamage(getDamage(), gameContext);
         }
     }
 

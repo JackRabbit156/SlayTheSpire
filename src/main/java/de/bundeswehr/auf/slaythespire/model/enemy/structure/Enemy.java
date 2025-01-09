@@ -1,21 +1,23 @@
 package de.bundeswehr.auf.slaythespire.model.enemy.structure;
 
 import de.bundeswehr.auf.slaythespire.controller.listener.EnemyEventListener;
+import de.bundeswehr.auf.slaythespire.events.EffectEvent;
 import de.bundeswehr.auf.slaythespire.events.EnemyBanterEvent;
 import de.bundeswehr.auf.slaythespire.events.EnemyBlockEvent;
 import de.bundeswehr.auf.slaythespire.events.EnemyDamageEvent;
 import de.bundeswehr.auf.slaythespire.helper.Color;
 import de.bundeswehr.auf.slaythespire.helper.LoggingAssistant;
+import de.bundeswehr.auf.slaythespire.model.Entity;
 import de.bundeswehr.auf.slaythespire.model.battle.GameContext;
+import de.bundeswehr.auf.slaythespire.model.effect.structure.Effect;
+import de.bundeswehr.auf.slaythespire.model.effect.structure.EffectTrigger;
+import de.bundeswehr.auf.slaythespire.model.effect.structure.StackingBehaviour;
 import de.bundeswehr.auf.slaythespire.model.enemy_card.InsultEnemyCard;
 import de.bundeswehr.auf.slaythespire.model.enemy_card.structure.EnemyCard;
 import de.bundeswehr.auf.slaythespire.model.settings.GameSettings;
 import de.bundeswehr.auf.slaythespire.model.settings.structure.DifficultyLevel;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
-import java.util.Scanner;
+import java.util.*;
 
 /**
  * Diese abstrakte Klasse repräsentiert einen allgemeinen Gegner im Spiel.
@@ -23,12 +25,15 @@ import java.util.Scanner;
  *
  * @author Warawa Alexander
  */
-public abstract class Enemy {
+public abstract class Enemy implements Entity {
 
     private static final Random rnd = new Random();
 
     private int block;
     private int currentHealth;
+    private double damageFactor;
+    private int damageModifier;
+    private final Map<Effect, Integer> effects = new HashMap<>();
     private int enemyCardToBePlayed;
     private List<EnemyCard> enemyDeck;
     private final List<EnemyEventListener> enemyEventListeners = new ArrayList<>();
@@ -81,6 +86,21 @@ public abstract class Enemy {
         notifyBlockReceived(block);
     }
 
+    @Override
+    public void addDamageFactor(double factor) {
+        this.damageFactor *= factor;
+    }
+
+    @Override
+    public void addDamageModifier(int modifier) {
+        this.damageModifier += modifier;
+    }
+
+    public void addEffect(Effect effect, int value) {
+        notifyEffect(effect, value);
+        effects.put(effect, effects.getOrDefault(effect, 0) + value);
+    }
+
     public void addEnemyEventListener(EnemyEventListener enemyEventListener) {
         enemyEventListeners.add(enemyEventListener);
     }
@@ -92,7 +112,9 @@ public abstract class Enemy {
      * @param gameContext Der aktuelle Spielkontext, der weitere Informationen enthält.
      */
     public void attack(GameContext gameContext) {
+//        triggerEffect(EffectTrigger.BEFORE_ATTACK, gameContext);
         getEnemyDeck().get(enemyCardToBePlayed).playEnemy(gameContext, this);
+//        triggerEffect(EffectTrigger.AFTER_ATTACK, gameContext);
     }
 
     /**
@@ -118,6 +140,16 @@ public abstract class Enemy {
 
     public void setBlock(int block) {
         this.block = block;
+    }
+
+    @Override
+    public int getEffectCounter(Effect effect) {
+        return effects.getOrDefault(effect, 0);
+    }
+
+    @Override
+    public Map<Effect, Integer> getEffects() {
+        return effects;
     }
 
     public List<EnemyCard> getEnemyDeck() {
@@ -160,8 +192,25 @@ public abstract class Enemy {
         return currentHealth > 0;
     }
 
+    public void reduceDurationEffects() {
+        for (Map.Entry<Effect, Integer> entry : effects.entrySet()) {
+            if (entry.getKey().getStackingBehaviour() == StackingBehaviour.DURATION) {
+                entry.setValue(entry.getValue() - 1);
+            }
+        }
+        effects.entrySet().removeIf(entry -> entry.getValue() <= 0);
+    }
+
     public void resetListeners() {
         enemyEventListeners.clear();
+    }
+
+    public void setDamageFactor(double damageFactor) {
+        this.damageFactor = damageFactor;
+    }
+
+    public void setDamageModifier(int damageModifier) {
+        this.damageModifier = damageModifier;
     }
 
     public void setEnemyCardToBePlayed(int enemyCardToBePlayed) {
@@ -174,25 +223,28 @@ public abstract class Enemy {
      *
      * @param damage Der zuzu fügende Schaden.
      */
-    public void takeDamage(int damage) {
-        if (block == 0) {
-            currentHealth -= damage;
-            if (currentHealth < 0) {
-                currentHealth = 0;
-            }
+    public void takeDamage(int damage, GameContext gameContext) {
+        triggerEffect(EffectTrigger.BEFORE_ATTACK_SOURCE, gameContext, gameContext.getPlayer());
+        triggerEffect(EffectTrigger.BEFORE_ATTACK_TARGET, gameContext, this);
+        System.out.println("Enemy.takeDamage damageModifier=" + damageModifier + ", factor=" + damageFactor);
+        int damageAfterEffects = (int) ((damage + damageModifier) * damageFactor);
+        int oldHealth = currentHealth;
+        int damageAfterBlock;
+        if (block - damageAfterEffects >= 0) {
+            block -= damageAfterEffects;
+            damageAfterBlock = 0;
         }
         else {
-            block -= damage;
-            if (block < 0) {
-                currentHealth += block;
-                block = 0;
-            }
+            damageAfterBlock = Math.abs(block - damageAfterEffects);
+            block = 0;
         }
-        GameSettings.increaseDistributedDamageStats(damage);
+        currentHealth -= damageAfterBlock;
         if (currentHealth < 0) {
             currentHealth = 0;
         }
-        notifyDamageReceived(damage);
+        GameSettings.increaseDistributedDamageStats(oldHealth - currentHealth);
+        notifyDamageReceived(oldHealth - currentHealth);
+        triggerEffect(EffectTrigger.AFTER_ATTACK, gameContext, this);
     }
 
     @Override
@@ -206,6 +258,14 @@ public abstract class Enemy {
                 ", insult=" + insult +
                 ", intent=" + intent +
                 '}';
+    }
+
+    protected void triggerEffect(EffectTrigger trigger, GameContext gameContext, Entity target) {
+        for (Effect effect : effects.keySet()) {
+            if (effect.getEffectTrigger() == trigger) {
+                effect.apply(gameContext, target);
+            }
+        }
     }
 
     /**
@@ -236,6 +296,20 @@ public abstract class Enemy {
         return lowestMaxHealthPossible + hp;
     }
 
+    private void notifyBanter(String banter) {
+        EnemyBanterEvent event = new EnemyBanterEvent(this, banter);
+        for (EnemyEventListener enemyEventListener : enemyEventListeners) {
+            enemyEventListener.onBanter(event);
+        }
+    }
+
+    private void notifyBlockReceived(int blockAmount) {
+        EnemyBlockEvent event = new EnemyBlockEvent(this, blockAmount);
+        for (EnemyEventListener enemyEventListener : enemyEventListeners) {
+            enemyEventListener.onBlockReceived(event);
+        }
+    }
+
     private void notifyDamageReceived(int damageAmount) {
         EnemyDamageEvent event = new EnemyDamageEvent(this, damageAmount);
         for (EnemyEventListener enemyEventListener : enemyEventListeners) {
@@ -250,17 +324,10 @@ public abstract class Enemy {
         }
     }
 
-    private void notifyBlockReceived(int blockAmount) {
-        EnemyBlockEvent event = new EnemyBlockEvent(this, blockAmount);
+    private void notifyEffect(Effect effect, int value) {
+        EffectEvent event = new EffectEvent(this, effect, value);
         for (EnemyEventListener enemyEventListener : enemyEventListeners) {
-            enemyEventListener.onBlockReceived(event);
-        }
-    }
-
-    private void notifyBanter(String banter) {
-        EnemyBanterEvent event = new EnemyBanterEvent(this, banter);
-        for (EnemyEventListener enemyEventListener : enemyEventListeners) {
-            enemyEventListener.onBanter(event);
+            enemyEventListener.onEffect(event);
         }
     }
 

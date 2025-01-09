@@ -33,8 +33,9 @@ public class SwordBoomerangCard extends AttackCard {
         int targetIndex = rand.nextInt(allEnemies.size());
 
         Enemy enemy = gameContext.getEnemies().get(targetIndex);
+        gameContext.setSelectedEnemy(enemy);
         for (int i = 0; i < 3; i++) {
-            enemy.takeDamage(dealDamage(gameContext));
+            enemy.takeDamage(dealDamage(gameContext), gameContext);
         }
 
         Player player = gameContext.getPlayer();
