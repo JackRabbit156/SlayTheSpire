@@ -15,9 +15,9 @@ public class GameSettings {
 
     public static final boolean DEBUG_MODE = true;
     public static final ScheduledExecutorService executorService = Executors.newScheduledThreadPool(1);
-
     public static String lastSession = "";
-    private static DifficultyLevel difficultyLevel = DifficultyLevel.EASY;
+
+    private static DifficultyLevel difficultyLevel;
     private static int distributedDamageStats = 0;
     private static int energySpentStats = 0;
     private static GameMode gameMode = GameMode.NORMAL;
@@ -29,8 +29,8 @@ public class GameSettings {
         return difficultyLevel;
     }
 
-    public static void setDifficultyLevel(DifficultyLevel difLevel) {
-        difficultyLevel = difLevel;
+    public static void setDifficultyLevel(DifficultyLevel difficultyLevel) {
+        GameSettings.difficultyLevel = difficultyLevel;
     }
 
     public static int getDistributedDamageStats() {
@@ -40,10 +40,6 @@ public class GameSettings {
     public static int getEnergySpentStats() {
         return energySpentStats;
     }
-
-    /*public static int openGameMenu(Player player) {
-        return gameMenu.display(player);
-    }*/
 
     public static GameMode getGameMode() {
         return gameMode;
