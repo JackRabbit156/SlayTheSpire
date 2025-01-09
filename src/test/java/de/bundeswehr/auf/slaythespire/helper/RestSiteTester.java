@@ -1,10 +1,10 @@
 package de.bundeswehr.auf.slaythespire.helper;
 
 import de.bundeswehr.auf.slaythespire.model.player.TestPlayer;
+import de.bundeswehr.auf.slaythespire.model.settings.GameSettings;
+import de.bundeswehr.auf.slaythespire.model.settings.structure.Normal;
 import javafx.application.Application;
 import javafx.stage.Stage;
-import de.bundeswehr.auf.slaythespire.model.settings.GameSettings;
-import de.bundeswehr.auf.slaythespire.model.settings.structure.DifficultyLevel;
 
 /**
  * @author Keil, Vladislav
@@ -19,7 +19,7 @@ public class RestSiteTester extends Application {
     public void start(Stage primaryStage) {
         TestPlayer player = TestPlayer.cheater(primaryStage);
 
-        GameSettings.setDifficultyLevel(DifficultyLevel.NORMAL);
+        GameSettings.setDifficultyLevel(new Normal());
 
         player.setCurrentHealth(666);
 

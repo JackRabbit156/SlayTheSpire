@@ -10,7 +10,7 @@ import de.bundeswehr.auf.slaythespire.model.player.TestPlayer;
 import de.bundeswehr.auf.slaythespire.model.potion.CheaterPotion;
 import de.bundeswehr.auf.slaythespire.model.potion.uncommon.DistilledChaosPotion;
 import de.bundeswehr.auf.slaythespire.model.settings.GameSettings;
-import de.bundeswehr.auf.slaythespire.model.settings.structure.DifficultyLevel;
+import de.bundeswehr.auf.slaythespire.model.settings.structure.Normal;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
@@ -34,7 +34,7 @@ public class BattleTester extends Application {
         player.getPotions().add(new CheaterPotion());
         player.getPotions().add(new DistilledChaosPotion());
 
-        GameSettings.setDifficultyLevel(DifficultyLevel.NORMAL);
+        GameSettings.setDifficultyLevel(new Normal());
 
         // Act I
         GuiHelper.Scenes.startBattleScene(player, actOneGenerateEnemies(player), FieldEnum.ENEMY_FIELD);
@@ -53,6 +53,14 @@ public class BattleTester extends Application {
 //        player.setCurrentAct(4);
 //        GuiHelper.Scenes.startBattleScene(player, actFourGenerateElitesEnemies(player), FieldEnum.ELITE_FIELD);
 //        GuiHelper.Scenes.startBattleScene(player, actFourGenerateBossEnemies(player), FieldEnum.BOSS_FIELD);
+    }
+
+    private List<Enemy> actFourGenerateBossEnemies(TestPlayer player) {
+        return invoke(new ActFour(player), "createBossEnemies");
+    }
+
+    private List<Enemy> actFourGenerateElitesEnemies(TestPlayer player) {
+        return invoke(new ActFour(player), "createElitesEnemies");
     }
 
     private List<Enemy> actOneGenerateBossEnemies(TestPlayer player) {
@@ -77,14 +85,6 @@ public class BattleTester extends Application {
 
     private List<Enemy> actTwoGenerateEnemies(TestPlayer player) {
         return invoke(new ActTwo(player), "createEnemies");
-    }
-
-    private List<Enemy> actFourGenerateBossEnemies(TestPlayer player) {
-        return invoke(new ActFour(player), "createBossEnemies");
-    }
-
-    private List<Enemy> actFourGenerateElitesEnemies(TestPlayer player) {
-        return invoke(new ActFour(player), "createElitesEnemies");
     }
 
     @SuppressWarnings("unchecked")

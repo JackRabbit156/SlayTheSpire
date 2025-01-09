@@ -49,7 +49,7 @@ public abstract class Enemy {
      */
     public Enemy(String name, int lowestMaxHealthPossible, int highestMaxHealthPossible) {
         this.name = name;
-        maxHealth = generateMaxHealth(lowestMaxHealthPossible, highestMaxHealthPossible);
+        maxHealth = GameSettings.getDifficultyLevel().getHealth(generateMaxHealth(lowestMaxHealthPossible, highestMaxHealthPossible));
         currentHealth = maxHealth;
         try (Scanner fileScanner = new Scanner(Enemy.class.getResourceAsStream("/wittybanter.txt"))) {
             while (fileScanner.hasNext()) {

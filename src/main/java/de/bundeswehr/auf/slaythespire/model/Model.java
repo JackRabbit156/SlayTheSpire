@@ -5,6 +5,7 @@ import de.bundeswehr.auf.slaythespire.helper.LoggingAssistant;
 import de.bundeswehr.auf.slaythespire.model.card.structure.Card;
 import de.bundeswehr.auf.slaythespire.model.potion.structure.Potion;
 import de.bundeswehr.auf.slaythespire.model.relic.structure.Relic;
+import de.bundeswehr.auf.slaythespire.model.settings.structure.DifficultyLevel;
 import org.reflections.Reflections;
 
 import java.lang.reflect.InvocationTargetException;
@@ -18,8 +19,10 @@ public class Model {
     private static final String DEFAULT_PACKAGE = "de.bundeswehr.auf.slaythespire.model";
     private static final String POTION = ".potion";
     private static final String RELIC = ".relic";
+    private static final String SETTINGS = ".settings";
 
     private static final Map<String, Set<Class<? extends Card>>> cardCache = new HashMap<>();
+    private static Set<Class<? extends DifficultyLevel>> difficultyLevelCache;
     private static Set<Class<? extends Potion>> potionCache;
     private static Set<Class<? extends Relic>> relicCache;
 
@@ -41,6 +44,21 @@ public class Model {
             }
         }
         throw new IllegalArgumentException(packageName + " Card unknown: " + name);
+    }
+
+    @SuppressWarnings("unchecked")
+    public static <P extends DifficultyLevel> P ofDifficultyLevel(String name) {
+        for (Class<? extends DifficultyLevel> cls : loadDifficultyLevelClasses()) {
+            if (cls.getSimpleName().equals(name)) {
+                try {
+                    return (P) cls.getDeclaredConstructor().newInstance();
+                } catch (InstantiationException | IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
+                    LoggingAssistant.log(e, Color.RED);
+                    LoggingAssistant.debug(e, Color.RED);
+                }
+            }
+        }
+        throw new IllegalArgumentException("Difficulty Level unknown: " + name);
     }
 
     @SuppressWarnings("unchecked")
@@ -89,6 +107,16 @@ public class Model {
                     .collect(Collectors.toSet()));
         }
         return cardCache.get(key);
+    }
+
+    private static Set<Class<? extends DifficultyLevel>> loadDifficultyLevelClasses() {
+        if (difficultyLevelCache == null) {
+            Reflections reflections = new Reflections(DEFAULT_PACKAGE + SETTINGS);
+            difficultyLevelCache = reflections.getSubTypesOf(DifficultyLevel.class).stream()
+                    .filter(cls -> !Modifier.isAbstract(cls.getModifiers()))
+                    .collect(Collectors.toSet());
+        }
+        return difficultyLevelCache;
     }
 
     private static Set<Class<? extends Potion>> loadPotionClasses() {

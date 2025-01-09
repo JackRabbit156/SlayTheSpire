@@ -2,23 +2,17 @@ package de.bundeswehr.auf.slaythespire.model.settings.structure;
 
 import java.util.Random;
 
-public enum DifficultyLevel {
-
-    SUPER_EASY(25, 0, 0, 0, 1.5, 7, 1.0),
-    EASY(50, 0, 25, 50, 1.5, 5, 0.8),
-    NORMAL(75, 25, 50, 75, 1.0, 3, 0.5),
-    HARD(90, 50, 75, 100, 0.5, 1, 0.1),
-    IMPOSSIBLE(100, 100, 100, 100, 0.1, 1, 0.0);
+public abstract class DifficultyLevel {
 
     private static final Random rnd = new Random();
 
+    private final int amount;
     private final int attackPercentage;
     private final int fourEnemies;
+    private final double goldFactor;
+    private final double potionChance;
     private final int threeEnemies;
     private final int twoEnemies;
-    private final double goldFactor;
-    private final int amount;
-    private final double potionChance;
 
     DifficultyLevel(int attackPercentage, int fourEnemies, int threeEnemies, int twoEnemies, double goldFactor, int amount, double potionChance) {
         this.attackPercentage = attackPercentage;
@@ -30,47 +24,60 @@ public enum DifficultyLevel {
         this.potionChance = potionChance;
     }
 
-    public int get2Enemies() {
-        return twoEnemies;
+    DifficultyLevel(int attackPercentage, double goldFactor, int amount, double potionChance) {
+        this.attackPercentage = attackPercentage;
+        this.fourEnemies = -1;
+        this.threeEnemies = -1;
+        this.twoEnemies = -1;
+        this.goldFactor = goldFactor;
+        this.amount = amount;
+        this.potionChance = potionChance;
     }
 
-    public int get3Enemies() {
-        return threeEnemies;
-    }
-
-    public int get4Enemies() {
-        return fourEnemies;
+    /**
+     * Anzahl an möglichen Karten (beim Loot)
+     */
+    public int getAmount() {
+        return amount;
     }
 
     public int getAttackPercentage() {
         return attackPercentage;
     }
 
+    public int getDamage(int damage) {
+        return damage;
+    }
+
     public int getGold(int gold) {
         return (int) (gold * this.goldFactor);
     }
 
-    public int getAmount() {
-        return amount;
+    public int getHealth(int hp) {
+        return hp;
+    }
+
+    public int getNumberOfEnemies() {
+        int randomNumberOfEnemies = rnd.nextInt(100) + 1;
+        int numberOfEnemies = 1;
+        if (fourEnemies >= randomNumberOfEnemies) {
+            numberOfEnemies = 4;
+        }
+        else if (threeEnemies >= randomNumberOfEnemies) {
+            numberOfEnemies = 3;
+        }
+        else if (twoEnemies >= randomNumberOfEnemies) {
+            numberOfEnemies = 2;
+        }
+        return numberOfEnemies;
     }
 
     public double getPotionChance() {
         return potionChance;
     }
 
-    public int getNumberOfEnemies() {
-        int randomNumberOfEnemies = rnd.nextInt(100) + 1;
-        int numberOfEnemies = 1;
-        if (get4Enemies() >= randomNumberOfEnemies) {
-            numberOfEnemies = 4;
-        }
-        else if (get3Enemies() >= randomNumberOfEnemies) {
-            numberOfEnemies = 3;
-        }
-        else if (get2Enemies() >= randomNumberOfEnemies) {
-            numberOfEnemies = 2;
-        }
-        return numberOfEnemies;
+    public String name() {
+        return getClass().getSimpleName();
     }
 
 }

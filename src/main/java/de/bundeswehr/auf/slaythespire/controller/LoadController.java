@@ -3,8 +3,9 @@ package de.bundeswehr.auf.slaythespire.controller;
 import de.bundeswehr.auf.slaythespire.controller.listener.LoadEventListener;
 import de.bundeswehr.auf.slaythespire.gui.LoadView;
 import de.bundeswehr.auf.slaythespire.helper.Color;
-import de.bundeswehr.auf.slaythespire.helper.LoggingAssistant;
 import de.bundeswehr.auf.slaythespire.helper.GuiHelper;
+import de.bundeswehr.auf.slaythespire.helper.LoggingAssistant;
+import de.bundeswehr.auf.slaythespire.model.Model;
 import de.bundeswehr.auf.slaythespire.model.card.DeckFactory;
 import de.bundeswehr.auf.slaythespire.model.card.structure.Card;
 import de.bundeswehr.auf.slaythespire.model.load_save.GameSaveManager;
@@ -16,7 +17,6 @@ import de.bundeswehr.auf.slaythespire.model.player.structure.PlayerType;
 import de.bundeswehr.auf.slaythespire.model.potion.structure.Potion;
 import de.bundeswehr.auf.slaythespire.model.relic.structure.Relic;
 import de.bundeswehr.auf.slaythespire.model.settings.GameSettings;
-import de.bundeswehr.auf.slaythespire.model.settings.structure.DifficultyLevel;
 import javafx.stage.Stage;
 
 import java.util.ArrayList;
@@ -84,33 +84,22 @@ public class LoadController implements Controller, LoadEventListener {
         return gameSaveManager.listSaveFiles();
     }
 
-    /**
-     * Startet das Spiel mit den Daten aus der angegebenen Speicherdatei.
-     *
-     * @param id Die ID der Speicherdatei, die geladen werden soll.
-     */
-    private void startLoadedGame(int id) {
-        Map<String, String> gameData = gameSaveManager.loadGame(id);
-        Player player = readPlayer(gameData);
-        if (player == null) {
-            return;
+    private void readDeck(Map<String, String> gameData, Player player) {
+        List<Card> deck = new ArrayList<>();
+        for (int i = 0; gameData.get("card" + i) != null; i++) {
+            String cardName = gameData.get("card" + i);
+            Card card = DeckFactory.cardFor(cardName);
+            deck.add(card);
         }
-        readDeck(gameData, player);
-        readPotions(gameData, player);
-        readRelic(gameData, player);
-        readGameSettings(gameData);
-        readStatistics(gameData);
-
-        GuiHelper.Scenes.startMapScene(player);
-
-        GameSettings.restartTimer();
-        readTimePlayed(gameData);
+        player.setDeck(deck);
     }
 
-    private void readTimePlayed(Map<String, String> gameData) {
-        GameSettings.setTimerSeconds(Integer.parseInt(gameData.get("seconds")));
-        GameSettings.setTimerMinutes(Integer.parseInt(gameData.get("minutes")));
-        GameSettings.setTimerHours(Integer.parseInt(gameData.get("hours")));
+    private void readGameSettings(Map<String, String> gameData) {
+        String difficulty = gameData.get("difficulty");
+
+        GameSettings.setDifficultyLevel(Model.ofDifficultyLevel(difficulty));
+
+        GameSettings.lastSession = gameData.get("lastSession");
     }
 
     private Player readPlayer(Map<String, String> gameData) {
@@ -139,23 +128,6 @@ public class LoadController implements Controller, LoadEventListener {
         return player;
     }
 
-    private void readStatistics(Map<String, String> gameData) {
-        int receivedGoldStats = Integer.parseInt(gameData.get("receivedGoldStats"));
-        int receivedDamageStats = Integer.parseInt(gameData.get("receivedDamageStats"));
-        int distributedDamageStats = Integer.parseInt(gameData.get("distributedDamageStats"));
-        int energySpentStats = Integer.parseInt(gameData.get("energySpentStats"));
-
-        GameSettings.setStats(receivedGoldStats, receivedDamageStats, distributedDamageStats, energySpentStats);
-    }
-
-    private void readGameSettings(Map<String, String> gameData) {
-        String difficulty = gameData.get("difficulty");
-
-        GameSettings.setDifficultyLevel(DifficultyLevel.valueOf(difficulty));
-
-        GameSettings.lastSession = gameData.get("lastSession");
-    }
-
     private void readPotions(Map<String, String> gameData, Player player) {
         List<Potion> potions = new ArrayList<>();
         for (int i = 0; gameData.get("potion" + i) != null; i++) {
@@ -176,14 +148,42 @@ public class LoadController implements Controller, LoadEventListener {
         player.setRelics(relics);
     }
 
-    private void readDeck(Map<String, String> gameData, Player player) {
-        List<Card> deck = new ArrayList<>();
-        for (int i = 0; gameData.get("card" + i) != null; i++) {
-            String cardName = gameData.get("card" + i);
-            Card card = DeckFactory.cardFor(cardName);
-            deck.add(card);
+    private void readStatistics(Map<String, String> gameData) {
+        int receivedGoldStats = Integer.parseInt(gameData.get("receivedGoldStats"));
+        int receivedDamageStats = Integer.parseInt(gameData.get("receivedDamageStats"));
+        int distributedDamageStats = Integer.parseInt(gameData.get("distributedDamageStats"));
+        int energySpentStats = Integer.parseInt(gameData.get("energySpentStats"));
+
+        GameSettings.setStats(receivedGoldStats, receivedDamageStats, distributedDamageStats, energySpentStats);
+    }
+
+    private void readTimePlayed(Map<String, String> gameData) {
+        GameSettings.setTimerSeconds(Integer.parseInt(gameData.get("seconds")));
+        GameSettings.setTimerMinutes(Integer.parseInt(gameData.get("minutes")));
+        GameSettings.setTimerHours(Integer.parseInt(gameData.get("hours")));
+    }
+
+    /**
+     * Startet das Spiel mit den Daten aus der angegebenen Speicherdatei.
+     *
+     * @param id Die ID der Speicherdatei, die geladen werden soll.
+     */
+    private void startLoadedGame(int id) {
+        Map<String, String> gameData = gameSaveManager.loadGame(id);
+        Player player = readPlayer(gameData);
+        if (player == null) {
+            return;
         }
-        player.setDeck(deck);
+        readDeck(gameData, player);
+        readPotions(gameData, player);
+        readRelic(gameData, player);
+        readGameSettings(gameData);
+        readStatistics(gameData);
+
+        GuiHelper.Scenes.startMapScene(player);
+
+        GameSettings.restartTimer();
+        readTimePlayed(gameData);
     }
 
 }

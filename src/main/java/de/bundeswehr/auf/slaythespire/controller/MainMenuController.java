@@ -5,8 +5,7 @@ import de.bundeswehr.auf.slaythespire.gui.MainMenuView;
 import de.bundeswehr.auf.slaythespire.helper.GuiHelper;
 import de.bundeswehr.auf.slaythespire.helper.MusicBoy;
 import de.bundeswehr.auf.slaythespire.model.settings.GameSettings;
-import de.bundeswehr.auf.slaythespire.model.settings.structure.DifficultyLevel;
-import de.bundeswehr.auf.slaythespire.model.settings.structure.GameMode;
+import de.bundeswehr.auf.slaythespire.model.settings.structure.*;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
@@ -61,19 +60,27 @@ public class MainMenuController implements Controller {
 
         view.getSuperEasyDifficulty().setOnMouseClicked(event -> {
             view.setDifficultyButtons(view.getSuperEasyDifficulty());
-            GameSettings.setDifficultyLevel(DifficultyLevel.SUPER_EASY);
+            GameSettings.setDifficultyLevel(new SuperEasy());
             difficultySet.set(true);
         });
-
         view.getEasyDifficulty().setOnMouseClicked(event -> {
             view.setDifficultyButtons(view.getEasyDifficulty());
-            GameSettings.setDifficultyLevel(DifficultyLevel.EASY);
+            GameSettings.setDifficultyLevel(new Easy());
             difficultySet.set(true);
         });
-
         view.getNormalDifficulty().setOnMouseClicked(event -> {
             view.setDifficultyButtons(view.getNormalDifficulty());
-            GameSettings.setDifficultyLevel(DifficultyLevel.NORMAL);
+            GameSettings.setDifficultyLevel(new Normal());
+            difficultySet.set(true);
+        });
+        view.getHardDifficulty().setOnMouseClicked(event -> {
+            view.setDifficultyButtons(view.getHardDifficulty());
+            GameSettings.setDifficultyLevel(new Hard());
+            difficultySet.set(true);
+        });
+        view.getImpossibleDifficulty().setOnMouseClicked(event -> {
+            view.setDifficultyButtons(view.getImpossibleDifficulty());
+            GameSettings.setDifficultyLevel(new Impossible());
             difficultySet.set(true);
         });
 
@@ -82,7 +89,6 @@ public class MainMenuController implements Controller {
             GameSettings.setGameMode(GameMode.NORMAL);
             modeSet.set(true);
         });
-
         view.getHardcoreMode().setOnMouseClicked(event -> {
             view.setModeButtons(view.getHardcoreMode());
             GameSettings.setGameMode(GameMode.HARDCORE);

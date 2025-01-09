@@ -2,16 +2,14 @@ package de.bundeswehr.auf.slaythespire.gui;
 
 
 import de.bundeswehr.auf.slaythespire.helper.GuiHelper;
-import de.bundeswehr.auf.slaythespire.model.settings.structure.DifficultyLevel;
-import de.bundeswehr.auf.slaythespire.model.settings.structure.GameMode;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
-import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 
 /**
@@ -28,17 +26,51 @@ public class MainMenuView {
     private final Button continueButton = new Button("Continue");
     private final Button credits = new Button("Credits");
     private final Button deleteSaveGame = new Button("Delete Save");
-    private final Button easyDifficulty = new Button(DifficultyLevel.EASY.name());
-    private final Button hardcoreMode = new Button(GameMode.HARDCORE.name());
+    private final Button easyDifficulty = new Button("Easy");
+    private final Button hardDifficulty = new Button("Hard");
+    private final Button hardcoreMode = new Button("Hardcore");
+    private final Button impossibleDifficulty = new Button("Impossible");
     private final Button loadGame = new Button("Load Game");
     private final Button newGame = new Button("New Game");
-    private final Button normalDifficulty = new Button(DifficultyLevel.NORMAL.name());
-    private final Button normalMode = new Button(GameMode.NORMAL.name());
+    private final Button normalDifficulty = new Button("Normal");
+    private final Button normalMode = new Button("Normal");
     private final Button quit = new Button("Quit");
-    private final Button superEasyDifficulty = new Button(DifficultyLevel.SUPER_EASY.name());
+    private final Button superEasyDifficulty = new Button("Super Easy");
 
     public MainMenuView() {
         initButtons();
+    }
+
+    public Pane createPopupContent() {
+        Label difficultyText = new Label("Difficulty");
+        initializeHeader(difficultyText);
+        Label modeText = new Label("Mode");
+        initializeHeader(modeText);
+        modeText.setPadding(new Insets(25, 0, 0, 0));
+
+        HBox difficultyButtons1 = new HBox(superEasyDifficulty, easyDifficulty, normalDifficulty);
+        difficultyButtons1.setAlignment(Pos.CENTER);
+
+        HBox difficultyButtons2 = new HBox(hardDifficulty, impossibleDifficulty);
+        difficultyButtons2.setAlignment(Pos.CENTER);
+
+        HBox modeButtons = new HBox(normalMode, hardcoreMode);
+        modeButtons.setPadding(new Insets(0, 256, 0, 0));
+        modeButtons.setAlignment(Pos.CENTER);
+
+        HBox continuePane = new HBox(continueButton);
+        continuePane.setAlignment(Pos.BOTTOM_RIGHT);
+
+        VBox content = new VBox(difficultyText, difficultyButtons1, difficultyButtons2, modeText, modeButtons, continuePane);
+        content.setPadding(new Insets(100, 0, 0, 0));
+        content.setMaxSize(1000, 600);
+        content.setAlignment(Pos.CENTER);
+        content.setSpacing(5);
+
+        BorderPane background = new BorderPane(content);
+        background.setBackground(new Background(GuiHelper.backgroundInHD("/images/popup/popupBg.png")));
+        background.setPrefSize(1920, 1080);
+        return background;
     }
 
     public BorderPane display() {
@@ -48,34 +80,6 @@ public class MainMenuView {
         BorderPane background = new BorderPane();
         background.setBackground(new Background(GuiHelper.backgroundInHD("/images/backgrounds/MainMenuBG.png")));
         background.setLeft(menu);
-        return background;
-    }
-
-    public Pane createPopupContent() {
-        Text difficultyText = new Text("Difficulty");
-        initializeHeader(difficultyText);
-        Text modeText = new Text("Mode");
-        initializeHeader(modeText);
-
-        HBox difficultyButtons1 = new HBox(superEasyDifficulty, easyDifficulty, normalDifficulty);
-        difficultyButtons1.setAlignment(Pos.CENTER);
-
-        HBox modeButtons = new HBox(normalMode, hardcoreMode);
-        modeButtons.setPadding(new Insets(0, 256, 0, 0));
-        modeButtons.setAlignment(Pos.CENTER);
-
-        HBox continuePane = new HBox(continueButton);
-        continuePane.setAlignment(Pos.BOTTOM_RIGHT);
-
-        VBox content = new VBox(difficultyText, difficultyButtons1, modeText, modeButtons, continuePane);
-        content.setPadding(new Insets(100, 0, 0, 0));
-        content.setMaxSize(1000, 600);
-        content.setAlignment(Pos.CENTER);
-        content.setSpacing(25);
-
-        BorderPane background = new BorderPane(content);
-        background.setBackground(new Background(GuiHelper.backgroundInHD("/images/popup/popupBg.png")));
-        background.setPrefSize(1920, 1080);
         return background;
     }
 
@@ -95,8 +99,16 @@ public class MainMenuView {
         return easyDifficulty;
     }
 
+    public Button getHardDifficulty() {
+        return hardDifficulty;
+    }
+
     public Button getHardcoreMode() {
         return hardcoreMode;
+    }
+
+    public Button getImpossibleDifficulty() {
+        return impossibleDifficulty;
     }
 
     public Button getLoadGameButton() {
@@ -127,6 +139,8 @@ public class MainMenuView {
         initialize(superEasyDifficulty);
         initialize(easyDifficulty);
         initialize(normalDifficulty);
+        initialize(hardDifficulty);
+        initialize(impossibleDifficulty);
         initialize(normalMode);
         initialize(hardcoreMode);
 
@@ -136,7 +150,6 @@ public class MainMenuView {
         continueButton.setMinSize(256, 100);
         continueButton.setOnMouseEntered(event -> continueButton.setBackground(new Background(GuiHelper.backgroundEndTurn(END_TURN_GLOW))));
         continueButton.setOnMouseExited(event -> continueButton.setBackground(new Background(GuiHelper.backgroundEndTurn(END_TURN))));
-        continueButton.setTranslateY(20);
 
         initializeMenuButton(newGame);
         initializeMenuButton(loadGame);
@@ -146,7 +159,7 @@ public class MainMenuView {
     }
 
     public void setDifficultyButtons(Button button) {
-        Button[] diffButtons = {superEasyDifficulty, easyDifficulty, normalDifficulty};
+        Button[] diffButtons = {superEasyDifficulty, easyDifficulty, normalDifficulty, hardDifficulty, impossibleDifficulty};
         for (Button diffButton : diffButtons) {
             diffButton.setBackground(new Background(GuiHelper.backgroundEndTurn(END_TURN)));
         }
@@ -169,8 +182,8 @@ public class MainMenuView {
         button.setMinSize(256, 100);
     }
 
-    private void initializeHeader(Text text) {
-        text.setFill(Color.WHITE);
+    private void initializeHeader(Label text) {
+        text.setTextFill(Color.WHITE);
         text.setTextAlignment(TextAlignment.CENTER);
         text.setFont(Font.font("Kreon", FontWeight.BOLD, 20));
     }

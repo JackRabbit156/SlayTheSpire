@@ -3,7 +3,7 @@ package de.bundeswehr.auf.slaythespire.model.enemy_card.act_four.elite.spire_shi
 import de.bundeswehr.auf.slaythespire.helper.PathAssistent;
 import de.bundeswehr.auf.slaythespire.model.battle.GameContext;
 import de.bundeswehr.auf.slaythespire.model.enemy.structure.Enemy;
-import de.bundeswehr.auf.slaythespire.model.enemy_card.structure.EnemyCard;
+import de.bundeswehr.auf.slaythespire.model.enemy_card.structure.AttackEnemyCard;
 import de.bundeswehr.auf.slaythespire.model.player.structure.Player;
 
 /**
@@ -11,12 +11,13 @@ import de.bundeswehr.auf.slaythespire.model.player.structure.Player;
  *
  * @author OF Daniel Willig
  */
-public class SmashEnemyCard extends EnemyCard {
+public class SmashEnemyCard extends AttackEnemyCard {
+
     /**
      * Constructor Smash enemy card.
      */
     public SmashEnemyCard() {
-        super("Smash", "Deals 34 damage. Gains Block equal to its damage output.", "34");
+        super("Smash", "Deals 34 damage. Gains Block equal to its damage output.", 34);
         setImagePath(new PathAssistent().toPath(this));
     }
 
@@ -24,7 +25,8 @@ public class SmashEnemyCard extends EnemyCard {
     public void playEnemy(GameContext gameContext, Enemy enemy) {
         Player player = gameContext.getPlayer();
         int oldHp = player.getCurrentHealth();
-        player.decreaseCurrentHealth(34, false);
+        player.decreaseCurrentHealth(dealDamage(gameContext), false);
         enemy.addBlock(oldHp - player.getCurrentHealth());
     }
+
 }
