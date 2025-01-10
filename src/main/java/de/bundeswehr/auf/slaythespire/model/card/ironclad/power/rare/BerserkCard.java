@@ -7,6 +7,7 @@ import de.bundeswehr.auf.slaythespire.model.card.structure.CardGrave;
 import de.bundeswehr.auf.slaythespire.model.card.structure.CardRarity;
 import de.bundeswehr.auf.slaythespire.model.card.structure.CardTrigger;
 import de.bundeswehr.auf.slaythespire.model.card.structure.PowerCard;
+import de.bundeswehr.auf.slaythespire.model.effect.debuff.VulnerableDebuff;
 import de.bundeswehr.auf.slaythespire.model.player.structure.Player;
 
 /**
@@ -20,8 +21,16 @@ public class BerserkCard extends PowerCard {
      * Constructor Berserk card.
      */
     public BerserkCard() {
-        super("Berserk", "At the start of your turn, gain 1 Energy.", 0, CardRarity.RARE, CardGrave.NONE, CardTrigger.PLAYER_BOT);
+        super("Berserk", "Gain 2 Vulnerable. At the start of your turn, gain 1 Energy.", 0, CardRarity.RARE, CardGrave.NONE, CardTrigger.PLAYER_BOT);
         setImagePath(new PathAssistent().toPath(this));
+    }
+
+    @Override
+    public void play(GameContext gameContext) {
+        Player player = gameContext.getPlayer();
+        player.addEffect(new VulnerableDebuff(), 2);
+
+        super.play(gameContext);
     }
 
     @Override
