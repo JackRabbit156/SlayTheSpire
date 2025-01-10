@@ -73,7 +73,7 @@ public class ActFour extends Act {
 
     private List<Enemy> createBossEnemies() {
         List<Enemy> enemies = new ArrayList<>();
-        int randAmountEnemies = GameSettings.getDifficultyLevel().getNumberOfEnemies() - 1;
+        int randAmountEnemies = GameSettings.getDifficultyLevel().getNumberOfMinionsElite(1);
         for (int i = 0; i < randAmountEnemies; i++) {
             enemies.add(new SpikerEnemy());
         }
@@ -84,7 +84,7 @@ public class ActFour extends Act {
     private List<Enemy> createElitesEnemies() {
         List<Enemy> enemies = new ArrayList<>();
         int randElite = rnd.nextInt(2);
-        int randAmountEnemies = GameSettings.getDifficultyLevel().getNumberOfEnemies() - 1;
+        int randAmountEnemies = GameSettings.getDifficultyLevel().getNumberOfMinionsElite(3);
         for (int i = 0; i < randAmountEnemies; i++) {
             enemies.add(new SpikerEnemy());
         }

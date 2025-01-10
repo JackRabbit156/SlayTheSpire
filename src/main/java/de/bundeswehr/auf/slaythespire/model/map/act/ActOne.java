@@ -71,7 +71,7 @@ public class ActOne extends Act {
     public List<Enemy> createElitesEnemies() {
         List<Enemy> enemies = new ArrayList<>();
         int randElite = rnd.nextInt(2);
-        int randAmountEnemies = GameSettings.getDifficultyLevel().getNumberOfEnemies() - 3;
+        int randAmountEnemies = GameSettings.getDifficultyLevel().getNumberOfMinionsElite(3);
         EnemyEnum type;
         Elite elite;
         switch (randElite) {
@@ -111,7 +111,7 @@ public class ActOne extends Act {
         List<Enemy> enemies = new ArrayList<>();
 
         int randBoss = rnd.nextInt(3);
-        int randAmountEnemies = GameSettings.getDifficultyLevel().getNumberOfEnemies() - 1;
+        int randAmountEnemies = GameSettings.getDifficultyLevel().getNumberOfMinionsBoss(2);
         EnemyEnum type;
         Boss boss;
         switch (randBoss) {
