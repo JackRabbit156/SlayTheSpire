@@ -25,7 +25,7 @@ public class PotionSelectionLayout extends FlowPane {
     private static final Font smallFont = Font.font("Kreon", FontWeight.BOLD, 20);
 
 
-    private final Image bg = new Image(getClass().getResource("/images/view/gui/layouts/potion/bg.png").toExternalForm());
+    private final Image bg = new Image(getClass().getResource("/images/gui/potion/bg.png").toExternalForm());
     private final Potion potion;
     private final ShopView shopView;
 
@@ -88,7 +88,7 @@ public class PotionSelectionLayout extends FlowPane {
 
     private void showPotion() {
         HBox priceBox = new HBox();
-        Image img = new Image(getClass().getResource("/images/gold.png").toExternalForm());
+        Image img = new Image(getClass().getResource("/images/gui/info/gold.png").toExternalForm());
         ImageView imgView = new ImageView(img);
         Label label = new Label();
 

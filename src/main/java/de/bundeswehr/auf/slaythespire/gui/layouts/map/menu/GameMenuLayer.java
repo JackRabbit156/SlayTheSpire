@@ -46,7 +46,7 @@ public class GameMenuLayer extends BorderPane {
         this.player = player;
         this.mapView = mapView;
 
-        setBackground(new Background(GuiHelper.backgroundInHD("/images/backgrounds/loadViewBackground.png")));
+        setBackground(new Background(GuiHelper.backgroundInHD("/images/backgrounds/load.png")));
 
         Font kreonFont = Font.loadFont(getClass().getResourceAsStream(GuiHelper.DEFAULT_FONT_BOLD), 44);
         // Erstellen eines DropShadow-Effekts
@@ -83,7 +83,7 @@ public class GameMenuLayer extends BorderPane {
     }
 
     private void assignButtonDesign(Button button) {
-        String highlightPath = "/images/buttons/menu_highlight.png";
+        String highlightPath = "/images/buttons/menu_highlighted.png";
 
         button.setTextFill(Color.WHITE);
         button.setFont(Font.font(GuiHelper.DEFAULT_FONT_BOLD, 30));

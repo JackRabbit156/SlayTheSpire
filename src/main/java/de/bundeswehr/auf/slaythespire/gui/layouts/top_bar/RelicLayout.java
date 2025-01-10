@@ -12,7 +12,6 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.Priority;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -33,7 +32,7 @@ public class RelicLayout extends HBox {
     private static final Font largeFont = Font.font("Kreon", FontWeight.BOLD, 30);
     private static final Font smallFont = Font.font("Kreon", FontWeight.BOLD, 20);
 
-    private final Image bg = new Image(getClass().getResource("/images/view/gui/layouts/potion/bg.png").toExternalForm());
+    private final Image bg = new Image(getClass().getResource("/images/gui/potion/bg.png").toExternalForm());
     private final Player player;
 
     public RelicLayout(Player player) {

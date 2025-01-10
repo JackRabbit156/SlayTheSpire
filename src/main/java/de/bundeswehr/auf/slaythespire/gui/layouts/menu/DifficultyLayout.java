@@ -7,10 +7,10 @@ import javafx.scene.text.FontSmoothingType;
 import javafx.scene.text.FontWeight;
 
 public class DifficultyLayout extends StackPane {
-    private final Image backGroundImage = new Image(getClass().getResource("/images/view/gui/layouts/menu/background.png").toExternalForm());
-    private final Image buttonImage = new Image(getClass().getResource("/images/view/gui/layouts/menu/nameBox.png").toExternalForm());
-    private final Image yesImage = new Image(getClass().getResource("/images/view/gui/layouts/menu/background.png").toExternalForm());
-    private final Image noImage = new Image(getClass().getResource("/images/view/gui/layouts/menu/background.png").toExternalForm());
+    private final Image backGroundImage = new Image(getClass().getResource("/images/gui/menu/background.png").toExternalForm());
+    private final Image buttonImage = new Image(getClass().getResource("/images/gui/menu/nameBox.png").toExternalForm());
+    private final Image yesImage = new Image(getClass().getResource("/images/gui/menu/background.png").toExternalForm());
+    private final Image noImage = new Image(getClass().getResource("/images/gui/menu/background.png").toExternalForm());
 
 
     private final String strokeColor = "#000000";

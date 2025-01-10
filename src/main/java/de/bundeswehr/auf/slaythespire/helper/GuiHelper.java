@@ -359,10 +359,10 @@ public final class GuiHelper {
             button.setTextFill(Color.WHITE);
             button.setFont(Font.loadFont(GuiHelper.class.getResourceAsStream(DEFAULT_FONT_BOLD), 24));
             button.setAlignment(Pos.CENTER);
-            button.setBackground(new Background(GuiHelper.backgroundInHD("/images/buttons/endTurnButton.png")));
+            button.setBackground(new Background(GuiHelper.backgroundInHD("/images/buttons/end_turn.png")));
             button.setPrefSize(120, 120);
-            button.setOnMouseEntered(event -> button.setBackground(new Background(GuiHelper.backgroundInHD("/images/buttons/endTurnButtonGlow.png"))));
-            button.setOnMouseExited(event -> button.setBackground(new Background(GuiHelper.backgroundInHD("/images/buttons/endTurnButton.png"))));
+            button.setOnMouseEntered(event -> button.setBackground(new Background(GuiHelper.backgroundInHD("/images/buttons/end_turn_glow.png"))));
+            button.setOnMouseExited(event -> button.setBackground(new Background(GuiHelper.backgroundInHD("/images/buttons/end_turn.png"))));
         }
 
         private static void registerController(Controller controller) {

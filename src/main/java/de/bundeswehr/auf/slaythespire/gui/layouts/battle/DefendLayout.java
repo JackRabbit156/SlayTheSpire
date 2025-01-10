@@ -34,7 +34,7 @@ public class DefendLayout extends StackPane {
     }
 
     private void initBlockShield() {
-        String path = "/images/view/gui/layouts/battle/Block.png";
+        String path = "/images/gui/battle/Block.png";
         Image blockShield = new Image(getClass().getResource(path).toExternalForm());
         blockShieldView = new ImageView(blockShield);
 

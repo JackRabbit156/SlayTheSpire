@@ -7,6 +7,10 @@ import de.bundeswehr.auf.slaythespire.events.InventoryEvent;
 import de.bundeswehr.auf.slaythespire.events.PlayerDamageEvent;
 import de.bundeswehr.auf.slaythespire.events.PlayerHealthEvent;
 import de.bundeswehr.auf.slaythespire.gui.components.*;
+import de.bundeswehr.auf.slaythespire.gui.components.animation.DamageText;
+import de.bundeswehr.auf.slaythespire.gui.components.animation.GoldText;
+import de.bundeswehr.auf.slaythespire.gui.components.animation.HealText;
+import de.bundeswehr.auf.slaythespire.gui.components.animation.LevelText;
 import de.bundeswehr.auf.slaythespire.helper.Animate;
 import de.bundeswehr.auf.slaythespire.helper.GuiHelper;
 import de.bundeswehr.auf.slaythespire.model.player.structure.Player;
@@ -16,8 +20,6 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Paint;
-import javafx.scene.text.Font;
-import javafx.scene.text.FontWeight;
 
 
 /**
@@ -41,14 +43,14 @@ public class InfoLayout extends HBox {
 
         playerText.setAlignment(Pos.CENTER);
 
-        Image heart = new Image("/images/view/gui/layouts/info/heart.png");
+        Image heart = new Image("/images/gui/info/heart.png");
         ImageView heartIcon = new ImageView(heart);
         initHealthText();
         HBox health = new HBox();
         health.getChildren().addAll(heartIcon, healthText);
         health.setAlignment(Pos.CENTER);
 
-        Image moneybag = new Image("/images/view/gui/layouts/info/moneybag.png");
+        Image moneybag = new Image("/images/gui/info/moneybag.png");
         ImageView moneybagIconView = new ImageView(moneybag);
         initMoneyText();
         HBox money = new HBox();

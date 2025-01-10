@@ -107,11 +107,11 @@ public class EntryLayout extends HBox {
     private void setTreasureImageView(boolean open) {
         Image treasureImg;
         if (!open) {
-            treasureImg = new Image(getClass().getResource("/images/treasure/treasure.png").toExternalForm());
+            treasureImg = new Image(getClass().getResource("/images/treasure/chest.png").toExternalForm());
         }
         else {
             LoggingAssistant.log("Treasure Open");
-            treasureImg = new Image(getClass().getResource("/images/treasure/treasureOpen.png").toExternalForm());
+            treasureImg = new Image(getClass().getResource("/images/treasure/chest_open.png").toExternalForm());
         }
         this.treasureImgView = new ImageView(treasureImg);
         GuiHelper.setHoverEffect(treasureImgView);

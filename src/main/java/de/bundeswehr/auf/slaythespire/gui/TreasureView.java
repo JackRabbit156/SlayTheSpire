@@ -178,8 +178,8 @@ public class TreasureView extends StackPane implements WithTopBar, CardEventList
      * @return Das StackPane für die Kartenauswahl.
      */
     private StackPane getCardSelectionStackPane() {
-        Image btnImage = new Image("/images/panel/rewardListItemPanel.png");
-        Image img = new Image("/images/card/cardSymbol.png");
+        Image btnImage = new Image("/images/panel/reward_list_item.png");
+        Image img = new Image("/images/card/card.png");
         ImageView imgView = new ImageView(img);
         ImageView itemPanelView = new ImageView(btnImage);
 
@@ -211,8 +211,8 @@ public class TreasureView extends StackPane implements WithTopBar, CardEventList
      * @return Das StackPane für die Gold-Option.
      */
     private StackPane getGoldStackPane() {
-        Image btnImage = new Image(getClass().getResource("/images/panel/rewardListItemPanel.png").toExternalForm());
-        Image img = new Image(getClass().getResource("/images/gold.png").toExternalForm());
+        Image btnImage = new Image(getClass().getResource("/images/panel/reward_list_item.png").toExternalForm());
+        Image img = new Image(getClass().getResource("/images/gui/info/gold.png").toExternalForm());
         ImageView imgView = new ImageView(img);
         ImageView itemPanelView = new ImageView(btnImage);
 
@@ -252,7 +252,7 @@ public class TreasureView extends StackPane implements WithTopBar, CardEventList
      * @return Das StackPane für die Trank-Option.
      */
     private StackPane getPotionStackPane() {
-        Image btnImage = new Image(getClass().getResource("/images/panel/rewardListItemPanel.png").toExternalForm());
+        Image btnImage = new Image(getClass().getResource("/images/panel/reward_list_item.png").toExternalForm());
         ImageView itemPanelView = new ImageView(btnImage);
         Image img = new Image(getClass().getResource(potion.getImagePath()).toExternalForm());
         ImageView imgView = new ImageView(img);
@@ -359,7 +359,7 @@ public class TreasureView extends StackPane implements WithTopBar, CardEventList
     private void treasureCenterLayer() {
         center = new VBox();
 
-        Image btnImage = new Image(getClass().getResource("/images/panel/rewardPanel.png").toExternalForm());
+        Image btnImage = new Image(getClass().getResource("/images/panel/reward.png").toExternalForm());
         ImageView rewardPanelImgView = new ImageView(btnImage);
         StackPane rewardStackPanel = new StackPane(rewardPanelImgView);
         rewardPanelImgView.setTranslateY(-140);

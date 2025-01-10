@@ -6,6 +6,10 @@ import de.bundeswehr.auf.slaythespire.events.InventoryEvent;
 import de.bundeswehr.auf.slaythespire.gui.View;
 import de.bundeswehr.auf.slaythespire.gui.WithTopBar;
 import de.bundeswehr.auf.slaythespire.gui.components.*;
+import de.bundeswehr.auf.slaythespire.gui.components.animation.CardIconLayout;
+import de.bundeswehr.auf.slaythespire.gui.components.buttons.FullScreenButton;
+import de.bundeswehr.auf.slaythespire.gui.components.buttons.MapButton;
+import de.bundeswehr.auf.slaythespire.gui.components.buttons.SettingsButton;
 import de.bundeswehr.auf.slaythespire.helper.Animate;
 import de.bundeswehr.auf.slaythespire.model.card.structure.Card;
 import de.bundeswehr.auf.slaythespire.model.player.structure.Player;
@@ -102,7 +106,7 @@ public class SettingsLayout extends HBox implements View {
     }
 
     private void initLibraryIcon() {
-        String path = "/images/view/gui/layouts/settings/deck.png";
+        String path = "/images/gui/settings/deck.png";
         Image deck = new Image(path);
         libraryIconView = new ImageView(deck);
     }
@@ -118,7 +122,7 @@ public class SettingsLayout extends HBox implements View {
     }
 
     private void initTimerIcon() {
-        String path = "/images/view/gui/layouts/settings/timer.png";
+        String path = "/images/gui/settings/timer.png";
         Image timer = new Image(path);
         timerIconView = new ImageView(timer);
     }

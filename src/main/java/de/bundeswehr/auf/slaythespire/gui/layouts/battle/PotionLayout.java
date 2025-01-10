@@ -38,8 +38,8 @@ public class PotionLayout extends MiddleBar {
     private static final Font smallFont = Font.font("Kreon", FontWeight.BOLD, 20);
 
     private final BattleView battleView;
-    private final Image bg = new Image(getClass().getResource("/images/view/gui/layouts/potion/bg.png").toExternalForm());
-    private final Image emptyPotionIcon = new Image(getClass().getResource("/images/view/gui/layouts/potion/EmptyPotion.png").toExternalForm());
+    private final Image bg = new Image(getClass().getResource("/images/gui/potion/bg.png").toExternalForm());
+    private final Image emptyPotionIcon = new Image(getClass().getResource("/images/gui/potion/EmptyPotion.png").toExternalForm());
     private final List<Potion> potions;
     private final ObjectProperty<Potion> selected = new SimpleObjectProperty<>();
 

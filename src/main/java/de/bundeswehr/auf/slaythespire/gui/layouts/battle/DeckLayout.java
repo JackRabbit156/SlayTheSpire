@@ -22,7 +22,7 @@ public class DeckLayout extends IconLayout {
 
     @Override
     protected String getPath() {
-        return "/images/view/gui/layouts/battle/Deck.png";
+        return "/images/gui/battle/Deck.png";
     }
 
     @Override

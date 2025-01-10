@@ -28,13 +28,13 @@ public class LegendLayout extends StackPane {
 
         ImageView background = image("/images/map/legend.png");
 
-        LegendItemLayout item1 = new LegendItemLayout("Unknown", "/images/view/gui/layouts/map/legend/UnknownLegend.png");
+        LegendItemLayout item1 = new LegendItemLayout("Unknown", "/images/gui/legend/UnknownLegend.png");
         item1.setPadding(new Insets(140, 0, 0, 80));
-        LegendItemLayout item2 = new LegendItemLayout("Merchant", "/images/view/gui/layouts/map/legend/ShopLegend.png");
-        LegendItemLayout item3 = new LegendItemLayout("Treasure", "/images/view/gui/layouts/map/legend/TreasureLegend.png");
-        LegendItemLayout item4 = new LegendItemLayout("Rest", "/images/view/gui/layouts/map/legend/RestLegend.png");
-        LegendItemLayout item5 = new LegendItemLayout("Enemy", "/images/view/gui/layouts/map/legend/EnemyLegend.png");
-        LegendItemLayout item6 = new LegendItemLayout("Elite", "/images/view/gui/layouts/map/legend/EliteLegend.png");
+        LegendItemLayout item2 = new LegendItemLayout("Merchant", "/images/gui/legend/ShopLegend.png");
+        LegendItemLayout item3 = new LegendItemLayout("Treasure", "/images/gui/legend/TreasureLegend.png");
+        LegendItemLayout item4 = new LegendItemLayout("Rest", "/images/gui/legend/RestLegend.png");
+        LegendItemLayout item5 = new LegendItemLayout("Enemy", "/images/gui/legend/EnemyLegend.png");
+        LegendItemLayout item6 = new LegendItemLayout("Elite", "/images/gui/legend/EliteLegend.png");
 
         legendItems.getChildren().addAll(item1, item2, item3, item4, item5, item6);
         getChildren().addAll(background, legendItems);

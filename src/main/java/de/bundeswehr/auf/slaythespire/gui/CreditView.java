@@ -34,13 +34,13 @@ public class CreditView {
      * @return output VBox
      */
     public VBox display() {
-        output.setBackground(new Background(GuiHelper.backgroundInHD("/images/backgrounds/greenBg.jpg")));
+        output.setBackground(new Background(GuiHelper.backgroundInHD("/images/backgrounds/border.jpg")));
         Text creditText = new Text("Re-Engineered by:\nDaniel Willig\nVladislav Keil\nAlexander Warawa\nMarijan Löschner");
         creditText.setFont(Font.loadFont(getClass().getResourceAsStream(GuiHelper.DEFAULT_FONT_BOLD), 24));
         creditText.setFill(Color.WHITE);
         creditText.setTextAlignment(TextAlignment.CENTER);
         ImageView creditImage = new ImageView(new Image(Objects.requireNonNull(
-                GuiHelper.class.getResource("/images/backgrounds/STSLogo.png")).toExternalForm()));
+                GuiHelper.class.getResource("/images/backgrounds/logo.png")).toExternalForm()));
 
         output.setAlignment(Pos.CENTER);
         output.getChildren().clear();
@@ -62,11 +62,11 @@ public class CreditView {
         back.setTextFill(Color.WHITE);
         back.setFont(Font.font(GuiHelper.DEFAULT_FONT_BOLD, 24));
         back.setTextAlignment(TextAlignment.CENTER);
-        back.setBackground(new Background(GuiHelper.backgroundInHD("/images/buttons/endTurnButton.png")));
+        back.setBackground(new Background(GuiHelper.backgroundInHD("/images/buttons/end_turn.png")));
         back.setMinSize(200, 200);
 
-        back.setOnMouseEntered(event -> back.setBackground(new Background(GuiHelper.backgroundInHD("/images/buttons/endTurnButtonGlow.png"))));
-        back.setOnMouseExited(event -> back.setBackground(new Background(GuiHelper.backgroundInHD("/images/buttons/endTurnButton.png"))));
+        back.setOnMouseEntered(event -> back.setBackground(new Background(GuiHelper.backgroundInHD("/images/buttons/end_turn_glow.png"))));
+        back.setOnMouseExited(event -> back.setBackground(new Background(GuiHelper.backgroundInHD("/images/buttons/end_turn.png"))));
     }
 
 }

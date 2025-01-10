@@ -21,7 +21,7 @@ public class EnergyLayout extends IconLayout {
 
     @Override
     protected String getPath() {
-        return "/images/view/gui/layouts/battle/Energy.png";
+        return "/images/gui/battle/Energy.png";
     }
 
     @Override

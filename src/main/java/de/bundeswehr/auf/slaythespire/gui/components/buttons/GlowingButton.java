@@ -1,4 +1,4 @@
-package de.bundeswehr.auf.slaythespire.gui.components;
+package de.bundeswehr.auf.slaythespire.gui.components.buttons;
 
 import de.bundeswehr.auf.slaythespire.helper.GuiHelper;
 import javafx.scene.Cursor;

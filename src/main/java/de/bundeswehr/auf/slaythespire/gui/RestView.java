@@ -55,7 +55,7 @@ public class RestView extends StackPane implements WithTopBar {
         getChildren().add(restLayout);
         getChildren().add(backLayout);
 
-        setBackground(new Background(GuiHelper.backgroundInHD("/images/backgrounds/RestViewBG.jpeg")));
+        setBackground(new Background(GuiHelper.backgroundInHD("/images/backgrounds/rest_site.jpeg")));
         initRestLayout();
         initBackLayout();
     }
@@ -82,7 +82,7 @@ public class RestView extends StackPane implements WithTopBar {
         top = new TopBarLayout(this, player);
         backLayout.setTop(top);
 
-        ImageView imgView = new ImageView(new Image("/images/buttons/buttonL-small.png"));
+        ImageView imgView = new ImageView(new Image("/images/buttons/golden_border_small.png"));
 
         Label label = new Label("Back");
         label.setTextFill(Paint.valueOf("White"));
@@ -105,7 +105,7 @@ public class RestView extends StackPane implements WithTopBar {
      */
     private void initCenter() {
         VBox center = new VBox();
-        Image img = new Image(getClass().getResource("/images/buttons/blankButton.png").toExternalForm());
+        Image img = new Image(getClass().getResource("/images/buttons/blank.png").toExternalForm());
         ImageView imgView = new ImageView(img);
 
         // Options

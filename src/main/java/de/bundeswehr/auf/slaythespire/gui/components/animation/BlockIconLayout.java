@@ -1,17 +1,15 @@
-package de.bundeswehr.auf.slaythespire.gui.components;
+package de.bundeswehr.auf.slaythespire.gui.components.animation;
 
 import de.bundeswehr.auf.slaythespire.gui.components.IconLayout;
-import de.bundeswehr.auf.slaythespire.model.effect.structure.Effect;
-import javafx.scene.control.Tooltip;
 
 /**
  * Das Layout für ein Block Icon.
  *
  * @author L Frank Rieger
  */
-public class BlockLayout extends IconLayout {
+public class BlockIconLayout extends IconLayout {
 
-    public BlockLayout(int amount) {
+    public BlockIconLayout(int amount) {
         if (amount > 0) {
             setText(Integer.toString(amount));
         }
@@ -24,7 +22,7 @@ public class BlockLayout extends IconLayout {
 
     @Override
     protected String getPath() {
-        return "/images/view/gui/layouts/battle/Block.png";
+        return "/images/gui/battle/Block.png";
     }
 
     @Override

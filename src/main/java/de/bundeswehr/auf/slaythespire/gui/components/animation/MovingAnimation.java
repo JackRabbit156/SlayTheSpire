@@ -1,4 +1,4 @@
-package de.bundeswehr.auf.slaythespire.gui.components;
+package de.bundeswehr.auf.slaythespire.gui.components.animation;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;

@@ -11,7 +11,6 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
-import de.bundeswehr.auf.slaythespire.model.player.structure.Player;
 
 /**
  * Darstellungskomponente für die Charaktererstellung
@@ -20,110 +19,32 @@ import de.bundeswehr.auf.slaythespire.model.player.structure.Player;
  */
 public class CharacterView {
 
-    private final BorderPane ground = new BorderPane();
-    private final HBox buttonBox = new HBox();
-    private final HBox right = new HBox();
-    private final HBox left = new HBox();
-    private final VBox wrap = new VBox();
-    private final VBox infoBox = new VBox();
-    private final HBox hpGold = new HBox();
-    private Background icBG = new Background(GuiHelper.backgroundInHD("/images/backgrounds/ironcladPortrait.jpg"));
-    private Background slBG = new Background(GuiHelper.backgroundInHD("/images/backgrounds/silentPortrait.jpg"));
-    private Background icHighlight = new Background(GuiHelper.backgroundInHD("/images/buttons/ironcladButtonHighlighted.png"));
-    private Background slHighlight = new Background(GuiHelper.backgroundInHD("/images/buttons/silentButtonHighlighted.png"));
-    private Background slButtonBG = new Background(GuiHelper.backgroundInHD("/images/buttons/silentButton.png"));
-    private Background icButtonBG = new Background(GuiHelper.backgroundInHD("/images/buttons/ironcladButton.png"));
-    private ImageView heart = new ImageView(new Image("/images/panel/panelHeart.png"));
-    private ImageView goldBag = new ImageView(new Image("images/panel/panelGoldBag.png"));
-    private final Text text = new Text("Choose your Character");
-    private final Text head = new Text();
-    private final Text hp = new Text();
-    private final Text gold = new Text();
-    private final ToggleButton ic = new ToggleButton();
-    private final ToggleButton sl = new ToggleButton();
     private final Button backs = new Button();
+    private final HBox buttonBox = new HBox();
     private final Button embark = new Button();
+    private final Text gold = new Text();
+    private final ImageView goldBag = new ImageView(new Image("/images/gui/info/gold.png"));
+    private final BorderPane ground = new BorderPane();
+    private final Text head = new Text();
+    private final ImageView heart = new ImageView(new Image("/images/gui/info/heart.png"));
+    private final Text hp = new Text();
+    private final HBox hpGold = new HBox();
+    private final ToggleButton ic = new ToggleButton();
+    private Background icBG = new Background(GuiHelper.backgroundInHD("/images/backgrounds/player/ironcladPortrait.jpg"));
+    private Background icButtonBG = new Background(GuiHelper.backgroundInHD("/images/buttons/player/ironclad.png"));
+    private Background icHighlight = new Background(GuiHelper.backgroundInHD("/images/buttons/player/ironclad_highlighted.png"));
+    private final VBox infoBox = new VBox();
+    private final HBox left = new HBox();
+    private final HBox right = new HBox();
+    private final ToggleButton sl = new ToggleButton();
+    private Background slBG = new Background(GuiHelper.backgroundInHD("/images/backgrounds/player/silentPortrait.jpg"));
+    private Background slButtonBG = new Background(GuiHelper.backgroundInHD("/images/buttons/player/silent.png"));
+    private Background slHighlight = new Background(GuiHelper.backgroundInHD("/images/buttons/player/silent_highlighted.png"));
+    private final Text text = new Text("Choose your Character");
+    private final VBox wrap = new VBox();
 
-    public CharacterView(){
+    public CharacterView() {
         initButtons();
-    }
-
-    private void initButtons() {
-        ic.setBackground(new Background(GuiHelper.backgroundInHD("/images/buttons/ironcladButton.png")));
-        ic.setPrefSize(120, 120);
-
-        sl.setBackground(new Background(GuiHelper.backgroundInHD("/images/buttons/silentButton.png")));
-        sl.setPrefSize(120, 120);
-
-        Font font30 = Font.loadFont(getClass().getResourceAsStream(GuiHelper.DEFAULT_FONT_BOLD), 30);
-
-        embark.setText("Embark");
-        embark.setBackground(new Background(GuiHelper.backgroundInHD("/images/buttons/confirmButton.png")));
-        embark.setFont(font30);
-        embark.setTextFill(Color.WHITE);
-        embark.setPrefSize(200, 200);
-        embark.setOnMouseEntered(event -> {
-            embark.setBackground(new Background(
-                    GuiHelper.backgroundInHD("/images/buttons/confirmButtonSelected.png")));
-        });
-        embark.setOnMouseExited(event -> {
-            embark.setBackground(new Background(GuiHelper.backgroundInHD("/images/buttons/confirmButton.png")));
-        });
-
-        backs.setText("Back");
-        backs.setBackground(new Background(GuiHelper.backgroundInHD("/images/buttons/cancelButton.png")));
-        backs.setFont(font30);
-        backs.setTextFill(Color.WHITE);
-        backs.setPrefSize(220, 200);
-        backs.setOnMouseEntered(event -> {
-            backs.setBackground(new Background(
-                    GuiHelper.backgroundInHD("/images/buttons/cancelButtonSelected.png")));
-        });
-        backs.setOnMouseExited(event -> {
-            backs.setBackground(new Background(GuiHelper.backgroundInHD("/images/buttons/cancelButton.png")));
-        });
-
-        text.setFont(font30);
-        text.setFill(Color.WHITE);
-
-        head.setFont(Font.loadFont(getClass().getResourceAsStream(GuiHelper.DEFAULT_FONT_BOLD), 44));
-        head.setFill(Color.GOLD);
-        head.setTextAlignment(TextAlignment.LEFT);
-
-        hp.setFont(font30);
-        hp.setFill(Color.RED);
-        hp.setTextAlignment(TextAlignment.CENTER);
-
-        gold.setFont(font30);
-        gold.setFill(Color.GOLD);
-        gold.setTextAlignment(TextAlignment.CENTER);
-        gold.setText("Gold : 99");
-
-        hpGold.setAlignment(Pos.TOP_CENTER);
-    }
-
-    public ToggleButton getIc() {
-        return ic;
-    }
-
-    public ToggleButton getSl() {
-        return sl;
-    }
-
-    public Button getBacks() {
-        return backs;
-    }
-
-    public Button getEmbark() {
-        return embark;
-    }
-
-    public Background getIcButtonBG() {
-        return icButtonBG;
-    }
-
-    public Background getSlButtonBG() {
-        return slButtonBG;
     }
 
     public BorderPane display() {
@@ -138,17 +59,21 @@ public class CharacterView {
             ic.setBackground(icHighlight);
         });
         ic.setOnMouseExited(event -> {
-            if(!ic.isSelected()) { ic.setBackground(icButtonBG); }
+            if (!ic.isSelected()) {
+                ic.setBackground(icButtonBG);
+            }
         });
 
         sl.setOnMouseEntered(event -> {
             sl.setBackground(slHighlight);
         });
         sl.setOnMouseExited(event -> {
-                    if(!sl.isSelected()) { sl.setBackground(slButtonBG); }
+            if (!sl.isSelected()) {
+                sl.setBackground(slButtonBG);
+            }
         });
 
-        ground.setBackground(new Background(GuiHelper.backgroundInHD("/images/backgrounds/MainMenuBG.png")));
+        ground.setBackground(new Background(GuiHelper.backgroundInHD("/images/backgrounds/main_menu.png")));
 
         left.setAlignment(Pos.BASELINE_LEFT);
         left.getChildren().add(backs);
@@ -172,7 +97,31 @@ public class CharacterView {
         return ground;
     }
 
-    public void selectIC(){
+    public Button getBacks() {
+        return backs;
+    }
+
+    public Button getEmbark() {
+        return embark;
+    }
+
+    public ToggleButton getIc() {
+        return ic;
+    }
+
+    public Background getIcButtonBG() {
+        return icButtonBG;
+    }
+
+    public ToggleButton getSl() {
+        return sl;
+    }
+
+    public Background getSlButtonBG() {
+        return slButtonBG;
+    }
+
+    public void selectIC() {
         infoBox.getChildren().clear();
         sl.setSelected(false);
 
@@ -189,7 +138,7 @@ public class CharacterView {
         ic.isSelected();
     }
 
-    public void selectSL(){
+    public void selectSL() {
         infoBox.getChildren().clear();
         ic.setSelected(false);
 
@@ -204,5 +153,59 @@ public class CharacterView {
         ground.setLeft(infoBox);
         ground.setBackground(slBG);
         sl.isSelected();
+    }
+
+    private void initButtons() {
+        ic.setBackground(new Background(GuiHelper.backgroundInHD("/images/buttons/player/ironclad.png")));
+        ic.setPrefSize(120, 120);
+
+        sl.setBackground(new Background(GuiHelper.backgroundInHD("/images/buttons/player/silent.png")));
+        sl.setPrefSize(120, 120);
+
+        Font font30 = Font.loadFont(getClass().getResourceAsStream(GuiHelper.DEFAULT_FONT_BOLD), 30);
+
+        embark.setText("Embark");
+        embark.setBackground(new Background(GuiHelper.backgroundInHD("/images/buttons/confirm.png")));
+        embark.setFont(font30);
+        embark.setTextFill(Color.WHITE);
+        embark.setPrefSize(200, 200);
+        embark.setOnMouseEntered(event -> {
+            embark.setBackground(new Background(
+                    GuiHelper.backgroundInHD("/images/buttons/confirm_selected.png")));
+        });
+        embark.setOnMouseExited(event -> {
+            embark.setBackground(new Background(GuiHelper.backgroundInHD("/images/buttons/confirm.png")));
+        });
+
+        backs.setText("Back");
+        backs.setBackground(new Background(GuiHelper.backgroundInHD("/images/buttons/cancel.png")));
+        backs.setFont(font30);
+        backs.setTextFill(Color.WHITE);
+        backs.setPrefSize(220, 200);
+        backs.setOnMouseEntered(event -> {
+            backs.setBackground(new Background(
+                    GuiHelper.backgroundInHD("/images/buttons/cancel_selected.png")));
+        });
+        backs.setOnMouseExited(event -> {
+            backs.setBackground(new Background(GuiHelper.backgroundInHD("/images/buttons/cancel.png")));
+        });
+
+        text.setFont(font30);
+        text.setFill(Color.WHITE);
+
+        head.setFont(Font.loadFont(getClass().getResourceAsStream(GuiHelper.DEFAULT_FONT_BOLD), 44));
+        head.setFill(Color.GOLD);
+        head.setTextAlignment(TextAlignment.LEFT);
+
+        hp.setFont(font30);
+        hp.setFill(Color.RED);
+        hp.setTextAlignment(TextAlignment.CENTER);
+
+        gold.setFont(font30);
+        gold.setFill(Color.GOLD);
+        gold.setTextAlignment(TextAlignment.CENTER);
+        gold.setText("Gold : 99");
+
+        hpGold.setAlignment(Pos.TOP_CENTER);
     }
 }

@@ -14,7 +14,6 @@ import javafx.scene.control.Label;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
@@ -57,7 +56,7 @@ public class EventView implements WithTopBar {
         option2 = event.getButton2();
         option3 = event.getButton3();
 
-        layoutPane.setBackground(new Background(GuiHelper.backgroundInHD("/images/backgrounds/greenBg.jpg")));
+        layoutPane.setBackground(new Background(GuiHelper.backgroundInHD("/images/backgrounds/border.jpg")));
 
         ImageView image = new ImageView();
         image.setImage(event.getImage());

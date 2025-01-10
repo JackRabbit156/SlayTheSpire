@@ -34,7 +34,7 @@ import java.util.List;
  */
 public class ActOne extends Act {
 
-    public static final String IMAGE = "/images/act1.png";
+    public static final String IMAGE = "/images/gui/act1.png";
 
     private static final int MAP_HEIGHT = 16;
     private static final int MAP_WIDTH = 7;

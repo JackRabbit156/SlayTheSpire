@@ -80,7 +80,7 @@ public class CardSelectionLayout extends FlowPane {
 
             card = selectableCard;
 
-            Image img = new Image(getClass().getResource("/images/gold.png").toExternalForm());
+            Image img = new Image(getClass().getResource("/images/gui/info/gold.png").toExternalForm());
             ImageView imgView = new ImageView(img);
             Label label = new Label();
             label.setText(String.valueOf(card.getPrice()));

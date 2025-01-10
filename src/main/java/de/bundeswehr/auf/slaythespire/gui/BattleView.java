@@ -1,7 +1,7 @@
 package de.bundeswehr.auf.slaythespire.gui;
 
 import de.bundeswehr.auf.slaythespire.controller.listener.BattleDeckListener;
-import de.bundeswehr.auf.slaythespire.gui.components.BanterText;
+import de.bundeswehr.auf.slaythespire.gui.components.animation.BanterText;
 import de.bundeswehr.auf.slaythespire.gui.events.BattleViewEvents;
 import de.bundeswehr.auf.slaythespire.gui.events.CardEventListener;
 import de.bundeswehr.auf.slaythespire.gui.layouts.CardSelectionLayout;

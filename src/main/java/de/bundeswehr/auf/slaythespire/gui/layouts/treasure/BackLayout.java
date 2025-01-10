@@ -42,7 +42,7 @@ public class BackLayout extends HBox {
      * Fügt den Button dem Layout hinzu und setzt die Ereignis-Handler.
      */
     private void initBackButton() {
-        Image btnImage = new Image(getClass().getResource("/images/buttons/buttonL-small.png").toExternalForm());
+        Image btnImage = new Image(getClass().getResource("/images/buttons/golden_border_small.png").toExternalForm());
         ImageView imgView = new ImageView(btnImage);
 
         Label label = new Label("Back");

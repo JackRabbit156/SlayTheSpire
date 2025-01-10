@@ -5,8 +5,8 @@ import de.bundeswehr.auf.slaythespire.controller.listener.EmptyInventoryEventLis
 import de.bundeswehr.auf.slaythespire.events.InventoryEvent;
 import de.bundeswehr.auf.slaythespire.gui.View;
 import de.bundeswehr.auf.slaythespire.gui.WithTopBar;
-import de.bundeswehr.auf.slaythespire.gui.components.PotionIconLayout;
-import de.bundeswehr.auf.slaythespire.gui.components.RelicIconLayout;
+import de.bundeswehr.auf.slaythespire.gui.components.animation.PotionIconLayout;
+import de.bundeswehr.auf.slaythespire.gui.components.animation.RelicIconLayout;
 import de.bundeswehr.auf.slaythespire.helper.Animate;
 import de.bundeswehr.auf.slaythespire.model.player.structure.Player;
 import de.bundeswehr.auf.slaythespire.model.potion.structure.Potion;
@@ -60,7 +60,7 @@ public class BarLayout extends StackPane implements View {
         settingsLayout = new SettingsLayout(view, player);
         icons.getChildren().add(settingsLayout);
 
-        Image background = new Image("/images/view/gui/layouts/topbar/Topbar.png");
+        Image background = new Image("/images/gui/topbar/topbar.png");
         ImageView imageView = new ImageView(background);
         getChildren().addAll(imageView, icons);
 

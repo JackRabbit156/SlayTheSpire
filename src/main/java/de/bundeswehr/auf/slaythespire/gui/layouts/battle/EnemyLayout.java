@@ -7,6 +7,10 @@ import de.bundeswehr.auf.slaythespire.events.EnemyBlockEvent;
 import de.bundeswehr.auf.slaythespire.events.EnemyDamageEvent;
 import de.bundeswehr.auf.slaythespire.gui.BattleView;
 import de.bundeswehr.auf.slaythespire.gui.components.*;
+import de.bundeswehr.auf.slaythespire.gui.components.animation.BlockIconLayout;
+import de.bundeswehr.auf.slaythespire.gui.components.animation.DamageText;
+import de.bundeswehr.auf.slaythespire.gui.components.animation.IdleAnimation;
+import de.bundeswehr.auf.slaythespire.gui.components.animation.MovingAnimation;
 import de.bundeswehr.auf.slaythespire.helper.Animate;
 import de.bundeswehr.auf.slaythespire.model.enemy.structure.Enemy;
 import javafx.geometry.Insets;
@@ -104,7 +108,7 @@ public class EnemyLayout extends VBox {
 
             @Override
             public void onBlockReceived(EnemyBlockEvent event) {
-                Animate.pathAnimationAboveTarget(new BlockLayout(event.getBlockAmount()),
+                Animate.pathAnimationAboveTarget(new BlockIconLayout(event.getBlockAmount()),
                         node,
                         Direction.UP,
                         e -> defendLayout.setBlockText(enemy.getBlock()));
@@ -113,7 +117,7 @@ public class EnemyLayout extends VBox {
             @Override
             public void onDamageReceived(EnemyDamageEvent event) {
                 if (event.getDamageAmount() == 0) {
-                    Animate.shatterAnimation(new BlockLayout(0),
+                    Animate.shatterAnimation(new BlockIconLayout(0),
                             node,
                             e -> defendLayout.setBlockText(enemy.getBlock()));
                 }

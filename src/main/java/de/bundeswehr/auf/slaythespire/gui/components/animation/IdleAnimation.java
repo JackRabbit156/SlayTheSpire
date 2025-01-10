@@ -1,4 +1,4 @@
-package de.bundeswehr.auf.slaythespire.gui.components;
+package de.bundeswehr.auf.slaythespire.gui.components.animation;
 
 public interface IdleAnimation {
 

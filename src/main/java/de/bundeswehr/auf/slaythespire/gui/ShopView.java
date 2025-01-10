@@ -207,7 +207,7 @@ public class ShopView extends StackPane implements CardEventListener, WithTopBar
      * Initialisiert das Layout der Shop-Ansicht.
      */
     private void initShopLayout() {
-        shopLayout.setBackground(new Background(GuiHelper.backgroundInHD("/images/backgrounds/shop_panel_bg.png")));
+        shopLayout.setBackground(new Background(GuiHelper.backgroundInHD("/images/shop/shop_panel.png")));
         initTop();
         initCenter();
     }

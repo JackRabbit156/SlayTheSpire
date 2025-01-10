@@ -68,7 +68,7 @@ public class GameOverView extends StackPane {
      * Initialisiert das Layout der Statistik-Ansicht.
      */
     private void initBottom() {
-        Image img = new Image(getClass().getResource("/images/buttons/buttonL.png").toExternalForm());
+        Image img = new Image(getClass().getResource("/images/buttons/golden_border.png").toExternalForm());
         ImageView imgView = new ImageView(img);
         HBox bottomHBox = new HBox();
 
@@ -105,7 +105,7 @@ public class GameOverView extends StackPane {
      */
     private void initCenter() {
         VBox center = new VBox();
-        Image btnImage = new Image(getClass().getResource("/images/panel/rewardPanel.png").toExternalForm());
+        Image btnImage = new Image(getClass().getResource("/images/panel/reward.png").toExternalForm());
         ImageView rewardPanelImgView = new ImageView(btnImage);
         StackPane rewardStackPanel = new StackPane(rewardPanelImgView);
 

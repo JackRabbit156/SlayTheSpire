@@ -8,6 +8,7 @@ import de.bundeswehr.auf.slaythespire.events.PlayerDamageEvent;
 import de.bundeswehr.auf.slaythespire.events.PlayerHealthEvent;
 import de.bundeswehr.auf.slaythespire.gui.BattleView;
 import de.bundeswehr.auf.slaythespire.gui.components.*;
+import de.bundeswehr.auf.slaythespire.gui.components.animation.*;
 import de.bundeswehr.auf.slaythespire.helper.Animate;
 import de.bundeswehr.auf.slaythespire.helper.GuiHelper;
 import de.bundeswehr.auf.slaythespire.model.player.structure.Player;
@@ -72,7 +73,7 @@ public class PlayerLayout extends VBox {
 
             @Override
             public void onBlockReceived(PlayerBlockEvent event) {
-                Animate.pathAnimationAboveTarget(new BlockLayout(event.getBlockAmount()),
+                Animate.pathAnimationAboveTarget(new BlockIconLayout(event.getBlockAmount()),
                         node,
                         Direction.UP,
                         e -> updatePlayer());
@@ -81,7 +82,7 @@ public class PlayerLayout extends VBox {
             @Override
             public void onDamageReceived(PlayerDamageEvent event) {
                 if (event.getDamageAmount() == 0) {
-                    Animate.shatterAnimation(new BlockLayout(0),
+                    Animate.shatterAnimation(new BlockIconLayout(0),
                             node,
                             e -> updatePlayer());
                 }

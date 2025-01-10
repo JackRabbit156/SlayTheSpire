@@ -1,5 +1,6 @@
-package de.bundeswehr.auf.slaythespire.gui.components;
+package de.bundeswehr.auf.slaythespire.gui.components.animation;
 
+import de.bundeswehr.auf.slaythespire.gui.components.IconOnlyLayout;
 import de.bundeswehr.auf.slaythespire.model.card.structure.Card;
 
 public class CardIconLayout extends IconOnlyLayout {

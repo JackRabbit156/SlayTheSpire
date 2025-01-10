@@ -82,7 +82,7 @@ public class StatisticsView extends StackPane {
      * Initialisiert das Layout der Statistik-Ansicht.
      */
     private void initBottom() {
-        Image img = new Image("/images/buttons/buttonL.png");
+        Image img = new Image("/images/buttons/golden_border.png");
         ImageView imgView = new ImageView(img);
         HBox bottomHBox = new HBox();
 
@@ -119,7 +119,7 @@ public class StatisticsView extends StackPane {
      */
     private void initCenter() {
         VBox center = new VBox();
-        Image btnImage = new Image(getClass().getResource("/images/panel/rewardPanel.png").toExternalForm());
+        Image btnImage = new Image(getClass().getResource("/images/panel/reward.png").toExternalForm());
         ImageView rewardPanelImgView = new ImageView(btnImage);
         StackPane rewardStackPanel = new StackPane(rewardPanelImgView);
 

@@ -22,7 +22,7 @@ public class DiscardPileLayout extends IconLayout {
 
     @Override
     protected String getPath() {
-        return "/images/view/gui/layouts/battle/DiscardPile.png";
+        return "/images/gui/battle/DiscardPile.png";
     }
 
     @Override

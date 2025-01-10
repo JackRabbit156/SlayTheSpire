@@ -2,7 +2,7 @@ package de.bundeswehr.auf.slaythespire.gui.layouts.map;
 
 import de.bundeswehr.auf.slaythespire.gui.MapView;
 import de.bundeswehr.auf.slaythespire.gui.View;
-import de.bundeswehr.auf.slaythespire.gui.components.MovingAnimation;
+import de.bundeswehr.auf.slaythespire.gui.components.animation.MovingAnimation;
 import de.bundeswehr.auf.slaythespire.model.map.Node;
 import javafx.geometry.Insets;
 import javafx.scene.effect.DropShadow;

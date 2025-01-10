@@ -19,9 +19,9 @@ import javafx.scene.text.TextAlignment;
  */
 public class MainMenuView {
 
-    private static final String END_TURN = "/images/buttons/endTurnButton.png";
-    private static final String END_TURN_GLOW = "/images/buttons/endTurnButtonGlow.png";
-    private static final String HIGHLIGHT = "/images/buttons/menu_highlight.png";
+    private static final String END_TURN = "/images/buttons/end_turn.png";
+    private static final String END_TURN_GLOW = "/images/buttons/end_turn_glow.png";
+    private static final String HIGHLIGHT = "/images/buttons/menu_highlighted.png";
 
     private final Button continueButton = new Button("Continue");
     private final Button credits = new Button("Credits");
@@ -78,7 +78,7 @@ public class MainMenuView {
         menu.setAlignment(Pos.BOTTOM_LEFT);
         menu.getChildren().addAll(newGame, loadGame, deleteSaveGame, credits, quit);
         BorderPane background = new BorderPane();
-        background.setBackground(new Background(GuiHelper.backgroundInHD("/images/backgrounds/MainMenuBG.png")));
+        background.setBackground(new Background(GuiHelper.backgroundInHD("/images/backgrounds/main_menu.png")));
         background.setLeft(menu);
         return background;
     }

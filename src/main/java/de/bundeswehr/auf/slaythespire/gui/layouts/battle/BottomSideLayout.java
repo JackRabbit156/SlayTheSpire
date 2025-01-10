@@ -4,7 +4,7 @@ import com.sun.javafx.scene.traversal.Direction;
 import de.bundeswehr.auf.slaythespire.controller.listener.EmptyPlayerEventListener;
 import de.bundeswehr.auf.slaythespire.events.PlayerEnergyEvent;
 import de.bundeswehr.auf.slaythespire.gui.BattleView;
-import de.bundeswehr.auf.slaythespire.gui.components.EnergyText;
+import de.bundeswehr.auf.slaythespire.gui.components.animation.EnergyText;
 import de.bundeswehr.auf.slaythespire.helper.Animate;
 import de.bundeswehr.auf.slaythespire.helper.GuiHelper;
 import de.bundeswehr.auf.slaythespire.model.battle.BattleDeck;
@@ -67,11 +67,11 @@ public class BottomSideLayout extends HBox {
         Button endTurnButton = new Button("End Turn");
         endTurnButton.setTextFill(Color.WHITE);
         endTurnButton.setFont(Font.loadFont(getClass().getResourceAsStream(GuiHelper.DEFAULT_FONT_BOLD), 24));
-        endTurnButton.setBackground(new Background(GuiHelper.backgroundEndTurn("/images/buttons/endTurnButton.png")));
+        endTurnButton.setBackground(new Background(GuiHelper.backgroundEndTurn("/images/buttons/end_turn.png")));
         endTurnButton.setMinSize(256, 100);
-        endTurnButton.setOnMouseEntered(event -> endTurnButton.setBackground(new Background(GuiHelper.backgroundEndTurn("/images/buttons/endTurnButtonGlow.png"))));
-        endTurnButton.setOnMouseExited(event -> endTurnButton.setBackground(new Background(GuiHelper.backgroundEndTurn("/images/buttons/endTurnButton.png"))));
-        endTurnButton.setOnMouseReleased(event -> endTurnButton.setBackground(new Background(GuiHelper.backgroundEndTurn("/images/buttons/endTurnButton.png"))));
+        endTurnButton.setOnMouseEntered(event -> endTurnButton.setBackground(new Background(GuiHelper.backgroundEndTurn("/images/buttons/end_turn_glow.png"))));
+        endTurnButton.setOnMouseExited(event -> endTurnButton.setBackground(new Background(GuiHelper.backgroundEndTurn("/images/buttons/end_turn.png"))));
+        endTurnButton.setOnMouseReleased(event -> endTurnButton.setBackground(new Background(GuiHelper.backgroundEndTurn("/images/buttons/end_turn.png"))));
         endTurnButton.setOnAction(event -> battleView.clickedOnEndTurn());
         return endTurnButton;
     }

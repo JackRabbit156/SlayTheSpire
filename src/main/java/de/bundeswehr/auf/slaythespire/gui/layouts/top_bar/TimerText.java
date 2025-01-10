@@ -1,6 +1,7 @@
-package de.bundeswehr.auf.slaythespire.gui.components;
+package de.bundeswehr.auf.slaythespire.gui.layouts.top_bar;
 
 import de.bundeswehr.auf.slaythespire.gui.View;
+import de.bundeswehr.auf.slaythespire.gui.components.StrokedText;
 import de.bundeswehr.auf.slaythespire.model.settings.GameSettings;
 import javafx.application.Platform;
 import javafx.scene.control.Label;
