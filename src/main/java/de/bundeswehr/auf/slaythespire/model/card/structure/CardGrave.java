@@ -12,6 +12,10 @@ public enum CardGrave {
      */
     EXHAUST,
     /**
+     * Karte geht in Discard, wenn gespielt, ansonsten in Exhaust Pile
+     */
+    ETHEREAL,
+    /**
      * Karte geht in den Discard Pile.
      */
     DISCARD,
@@ -23,5 +27,4 @@ public enum CardGrave {
      * Extra für Potions.
      */
     POTION,
-    ENEMY
 }

@@ -44,14 +44,16 @@ public class DistilledChaosPotion extends SkillPotion implements CardDeathListen
     @Override
     public void onCardDeath(Card card) {
         BattleDeck battleDeck = gameContext.getBattleDeck();
-        if (card.getCardGrave().equals(CardGrave.EXHAUST)) {
-            battleDeck.exhaustCardFromDeck(card);
-        }
-        else if (card.getCardGrave().equals(CardGrave.DISCARD)) {
-            battleDeck.discardCardFromDeck(card);
-        }
-        else {
-            battleDeck.removeCardFromDeck(card);
+        switch (card.getCardGrave()) {
+            case EXHAUST:
+                battleDeck.exhaustCardFromDeck(card);
+                break;
+            case ETHEREAL:
+            case DISCARD:
+                battleDeck.discardCardFromDeck(card);
+                break;
+            default:
+                battleDeck.removeCardFromDeck(card);
         }
         if (card == cards.poll() && !endOfCombat()) {
             play(cards.peek());

@@ -20,17 +20,17 @@ import java.util.Random;
  *
  * @author Warawa Alexander, Willig Daniel
  */
-public class BattleDeck implements CardEventListener{
+public class BattleDeck implements CardEventListener {
 
     private static final Random rnd = new Random();
 
     private BattleDeckListener battleDeckListener;
-    private final List<TriggeredCard> triggeredCards;
     private final List<Card> deck;
     private final List<Card> discardPile;
     private final List<Card> exhaustPile;
     private final List<Card> hand;
     private final int startHandSize;
+    private final List<TriggeredCard> triggeredCards;
 
     /**
      * Konstruktor für die BattleDeck-Klasse.
@@ -141,13 +141,11 @@ public class BattleDeck implements CardEventListener{
             if (deck.isEmpty()) {
                 break;
             }
-            hand.add(deck.remove(deck.size() - 1)); // zieht von oben
+            Card card = deck.remove(deck.size() - 1); // zieht von oben
+            battleDeckListener.onCardDrawn(card);
+            hand.add(card);
         }
         battleDeckListener.onCardFill();
-    }
-
-    public List<TriggeredCard> getTriggeredCards() {
-        return triggeredCards;
     }
 
     public List<Card> getDeck() {
@@ -187,6 +185,10 @@ public class BattleDeck implements CardEventListener{
         return cards;
     }
 
+    public List<TriggeredCard> getTriggeredCards() {
+        return triggeredCards;
+    }
+
     @Override
     public void onCardClick(Card card) {
         battleDeckListener.onCardClick(card);
@@ -194,6 +196,7 @@ public class BattleDeck implements CardEventListener{
 
     /**
      * Entfernt eine Karte aus dem Abhebestapel
+     *
      * @param card Die zu entfernende Karte
      */
     public void removeCardFromDeck(Card card) {
@@ -226,16 +229,6 @@ public class BattleDeck implements CardEventListener{
         }
     }
 
-    /**
-     * Fülle den Abhebestapel durch die abgelegten Karten.
-     */
-    private void resetDeckFromDiscardPile() {
-        if (deck.isEmpty() && !discardPile.isEmpty()) {
-            deck.addAll(discardPile);
-            discardPile.clear();
-        }
-    }
-
     public void setBattleDeckListener(BattleDeckListener battleDeckListener) {
         this.battleDeckListener = battleDeckListener;
     }
@@ -249,4 +242,15 @@ public class BattleDeck implements CardEventListener{
                 "exhaustPile=" + exhaustPile + "\n" +
                 "triggeredCards=" + triggeredCards;
     }
+
+    /**
+     * Fülle den Abhebestapel durch die abgelegten Karten.
+     */
+    private void resetDeckFromDiscardPile() {
+        if (deck.isEmpty() && !discardPile.isEmpty()) {
+            deck.addAll(discardPile);
+            discardPile.clear();
+        }
+    }
+
 }

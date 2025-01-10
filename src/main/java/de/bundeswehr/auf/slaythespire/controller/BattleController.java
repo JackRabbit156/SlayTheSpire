@@ -100,6 +100,13 @@ public class BattleController implements Controller, BattleViewEvents, PlayerEve
     }
 
     @Override
+    public void onCardDrawn(Card card) {
+        if (card instanceof StatusCard) {
+            ((StatusCard) card).onDraw(gameContext);
+        }
+    }
+
+    @Override
     public void onCardDeath(Card card) {
         if (card instanceof AttackCard) {
             triggerPowerCards(CardTrigger.PLAY_ATTACK);
@@ -229,6 +236,7 @@ public class BattleController implements Controller, BattleViewEvents, PlayerEve
             case EXHAUST:
                 battleDeck.exhaustCardFromHand(card);
                 break;
+            case ETHEREAL:
             case DISCARD:
                 battleDeck.discardCardFromHand(card);
                 break;
@@ -308,9 +316,9 @@ public class BattleController implements Controller, BattleViewEvents, PlayerEve
 
     private void playerEOT() {
         removeHandAfterEndOfTurn();
-        battleDeck.removeNonPowerCards();
 
         triggerPowerCards(CardTrigger.PLAYER_EOT);
+        battleDeck.removeNonPowerCards();
     }
 
     // Block hält nur 1. Runde an.
@@ -327,7 +335,13 @@ public class BattleController implements Controller, BattleViewEvents, PlayerEve
     private void removeHandAfterEndOfTurn() {
         int size = battleDeck.getHand().size();
         for (int i = 0; i < size; i++) {
-            battleDeck.discardCardFromHand(battleDeck.getHand().get(0));
+            Card card = battleDeck.getHand().get(0);
+            if (card.getCardGrave() == CardGrave.ETHEREAL) {
+                battleDeck.exhaustCardFromHand(card);
+            }
+            else {
+                battleDeck.discardCardFromHand(card);
+            }
         }
     }
 

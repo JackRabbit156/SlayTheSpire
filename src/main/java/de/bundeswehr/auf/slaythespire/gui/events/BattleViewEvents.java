@@ -7,6 +7,8 @@ public interface BattleViewEvents {
 
     void onCardClick(Card card, int index);
 
+    void onCardDrawn(Card card);
+
     void onEndTurnClick();
 
     void onEnemyClick(Enemy enemy);

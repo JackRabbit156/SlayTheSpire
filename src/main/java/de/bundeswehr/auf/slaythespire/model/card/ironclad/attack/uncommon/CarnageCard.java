@@ -16,7 +16,7 @@ public class CarnageCard extends AttackCard {
      * Constructor Carnage card.
      */
     public CarnageCard() {
-        super("Carnage", "Deal 20 damage.", 2, 20, CardRarity.UNCOMMON, CardGrave.DISCARD);
+        super("Carnage", "Deal 20 damage.", 2, 20, CardRarity.UNCOMMON, CardGrave.ETHEREAL);
         setImagePath(new PathAssistent().toPath(this));
     }
 

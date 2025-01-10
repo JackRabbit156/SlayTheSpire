@@ -112,6 +112,11 @@ public class BattleView extends BorderPane implements View, WithTopBar, BattleDe
         popup.show(center.getScene().getWindow(), bounds.getMinX() - centerCard.getBoundsInLocal().getWidth() / 2, bounds.getMinY());
     }
 
+    @Override
+    public void onCardDrawn(Card card) {
+        battleViewEvents.onCardDrawn(card);
+    }
+
     public void clickedOnCard(Card card, int index) {
         if (card == null) {
             mode.set(Mode.NORMAL);
