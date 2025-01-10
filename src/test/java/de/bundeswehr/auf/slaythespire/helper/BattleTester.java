@@ -90,7 +90,6 @@ public class BattleTester extends Application {
                 break;
             // Act II
             case ACT_II_ENEMY:
-                player.setCurrentAct(2);
                 GuiHelper.Scenes.startBattleScene(player, actTwoGenerateEnemies(player), FieldEnum.ENEMY_FIELD);
                 break;
             case ACT_II_ELITE:
@@ -100,6 +99,7 @@ public class BattleTester extends Application {
                 GuiHelper.Scenes.startBattleScene(player, actTwoGenerateBossEnemies(player), FieldEnum.BOSS_FIELD);
                 break;
             // TODO Act III
+
             // Act IV
             case ACT_IV_ELITE:
                 GuiHelper.Scenes.startBattleScene(player, actFourGenerateElitesEnemies(player), FieldEnum.ELITE_FIELD);
