@@ -62,7 +62,7 @@ public class BattleDeck implements CardEventListener {
 
     public void chooseCardFromDiscardPile(CardEventListener cardEventListener) {
         List<Card> cards = new ArrayList<>(discardPile);
-        cards.sort((o1, o2) -> rnd.nextInt(3) - 1);
+        shuffle(cards);
         battleDeckListener.chooseCard(cards, cardEventListener);
     }
 
@@ -237,6 +237,10 @@ public class BattleDeck implements CardEventListener {
         this.battleDeckListener = battleDeckListener;
     }
 
+    public void shuffleDeck() {
+        shuffle(deck);
+    }
+
     public void shuffleInDrawPile(Card card) {
         deck.add(rnd.nextInt(deck.size() + 1), card);
     }
@@ -258,7 +262,12 @@ public class BattleDeck implements CardEventListener {
         if (deck.isEmpty() && !discardPile.isEmpty()) {
             deck.addAll(discardPile);
             discardPile.clear();
+            shuffleDeck();
         }
+    }
+
+    private void shuffle(List<Card> cards) {
+        cards.sort((o1, o2) -> rnd.nextInt(3) - 1);
     }
 
 }
