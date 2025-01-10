@@ -1,5 +1,7 @@
 package de.bundeswehr.auf.slaythespire.gui.layouts.battle;
 
+import de.bundeswehr.auf.slaythespire.gui.components.IconLayout;
+
 public class DeckLayout extends IconLayout {
 
     public DeckLayout() {

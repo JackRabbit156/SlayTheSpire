@@ -1,12 +1,14 @@
 package de.bundeswehr.auf.slaythespire.gui.layouts.battle;
 
+import de.bundeswehr.auf.slaythespire.gui.components.IconLayout;
+
 public class DiscardPileLayout extends IconLayout {
 
     public DiscardPileLayout() {
         anchorLeft(22.0);
         anchorRight(null);
         anchorTop(null);
-        anchorBottom(72.0);
+        anchorBottom(77.0);
     }
 
     public void setDiscardPileText(int amount) {

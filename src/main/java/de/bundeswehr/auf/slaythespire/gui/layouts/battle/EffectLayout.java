@@ -1,5 +1,6 @@
 package de.bundeswehr.auf.slaythespire.gui.layouts.battle;
 
+import de.bundeswehr.auf.slaythespire.gui.components.IconLayout;
 import de.bundeswehr.auf.slaythespire.model.effect.structure.Effect;
 import javafx.scene.control.Tooltip;
 

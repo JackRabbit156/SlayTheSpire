@@ -120,7 +120,7 @@ public class EnemyLayout extends VBox {
 
             @Override
             public void onEffect(EffectEvent event) {
-                Animate.pathAnimationBelowTarget(new GoldText(event.getValue()),
+                Animate.pathAnimationBelowTarget(new EffectLayout(event.getEffect(), event.getValue()),
                         node,
                         Direction.DOWN,
                         e -> effectBarLayout.update());

@@ -1,5 +1,7 @@
 package de.bundeswehr.auf.slaythespire.gui.layouts.battle;
 
+import de.bundeswehr.auf.slaythespire.gui.components.IconLayout;
+
 /**
  * Das Energy layout.
  * Das kleine Icon links, welches angibt wie viel energy der spieler noch hat

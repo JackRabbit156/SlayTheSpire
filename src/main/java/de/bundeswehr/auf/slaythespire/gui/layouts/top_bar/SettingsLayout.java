@@ -7,6 +7,7 @@ import de.bundeswehr.auf.slaythespire.gui.View;
 import de.bundeswehr.auf.slaythespire.gui.WithTopBar;
 import de.bundeswehr.auf.slaythespire.gui.components.*;
 import de.bundeswehr.auf.slaythespire.helper.Animate;
+import de.bundeswehr.auf.slaythespire.model.card.structure.Card;
 import de.bundeswehr.auf.slaythespire.model.player.structure.Player;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -59,7 +60,7 @@ public class SettingsLayout extends HBox implements View {
 
                 @Override
                 public void onCardEvent(InventoryEvent event) {
-                    Animate.pathAnimationBelowTarget(new CardText(),
+                    Animate.pathAnimationBelowTarget(new CardIconLayout((Card) event.getValue()),
                             library,
                             event.getDirection() == InventoryEvent.Direction.GAIN ? Direction.UP : Direction.DOWN,
                             e -> setLibraryText(player));

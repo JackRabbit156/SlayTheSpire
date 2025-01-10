@@ -1,6 +1,5 @@
-package de.bundeswehr.auf.slaythespire.gui.layouts.battle;
+package de.bundeswehr.auf.slaythespire.gui.components;
 
-import de.bundeswehr.auf.slaythespire.gui.components.StrokedText;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
@@ -66,6 +65,7 @@ public abstract class IconLayout extends StackPane {
 
     private void initImage(String path) {
         imageView = new ImageView(new Image(path));
+        imageView.setPreserveRatio(true);
         imageView.setFitHeight(getSize());
         imageView.setFitWidth(getSize());
     }

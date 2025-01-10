@@ -5,10 +5,12 @@ import de.bundeswehr.auf.slaythespire.controller.listener.EmptyInventoryEventLis
 import de.bundeswehr.auf.slaythespire.events.InventoryEvent;
 import de.bundeswehr.auf.slaythespire.gui.View;
 import de.bundeswehr.auf.slaythespire.gui.WithTopBar;
-import de.bundeswehr.auf.slaythespire.gui.components.PotionText;
-import de.bundeswehr.auf.slaythespire.gui.components.RelicText;
+import de.bundeswehr.auf.slaythespire.gui.components.PotionIconLayout;
+import de.bundeswehr.auf.slaythespire.gui.components.RelicIconLayout;
 import de.bundeswehr.auf.slaythespire.helper.Animate;
 import de.bundeswehr.auf.slaythespire.model.player.structure.Player;
+import de.bundeswehr.auf.slaythespire.model.potion.structure.Potion;
+import de.bundeswehr.auf.slaythespire.model.relic.structure.Relic;
 import javafx.geometry.Insets;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -68,7 +70,7 @@ public class BarLayout extends StackPane implements View {
 
             @Override
             public void onPotionEvent(InventoryEvent event) {
-                Animate.pathAnimationBelowTarget(new PotionText(),
+                Animate.pathAnimationBelowTarget(new PotionIconLayout((Potion) event.getValue()),
                         middleBar,
                         event.getDirection() == InventoryEvent.Direction.GAIN ? Direction.UP : Direction.DOWN,
                         e -> middleBar.refresh());
@@ -76,7 +78,7 @@ public class BarLayout extends StackPane implements View {
 
             @Override
             public void onRelicEvent(InventoryEvent event) {
-                Animate.pathAnimationBelowTarget(new RelicText(),
+                Animate.pathAnimationBelowTarget(new RelicIconLayout((Relic) event.getValue()),
                         relic,
                         Direction.UP,
                         e -> relic.refresh());
