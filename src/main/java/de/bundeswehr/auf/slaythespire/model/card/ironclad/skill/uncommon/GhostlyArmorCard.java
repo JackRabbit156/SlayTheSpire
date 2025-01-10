@@ -18,7 +18,7 @@ public class GhostlyArmorCard extends SkillCard {
      * Constructor Ghostly armor card.
      */
     public GhostlyArmorCard() {
-        super("Ghostly Armor", "Exhaust. Gain 10 Block.", 1, CardRarity.UNCOMMON, CardGrave.EXHAUST);
+        super("Ghostly Armor", "Ethereal. Gain 10 Block.", 1, CardRarity.UNCOMMON, CardGrave.ETHEREAL);
         setImagePath(new PathAssistent().toPath(this));
     }
 
