@@ -5,7 +5,7 @@ import de.bundeswehr.auf.slaythespire.model.Entity;
 public class AttackContext {
 
     private double damage;
-    private Object action;
+    private final Object action;
     private final Entity source;
     private final Entity target;
 
