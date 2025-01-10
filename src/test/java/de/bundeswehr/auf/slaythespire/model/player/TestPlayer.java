@@ -22,8 +22,6 @@ import de.bundeswehr.auf.slaythespire.model.relic.silent.common.RingOfTheSnakeRe
 import de.bundeswehr.auf.slaythespire.model.settings.GameSettings;
 import javafx.stage.Stage;
 
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 
