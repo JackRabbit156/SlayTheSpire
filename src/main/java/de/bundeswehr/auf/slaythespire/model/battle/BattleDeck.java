@@ -52,6 +52,10 @@ public class BattleDeck implements CardEventListener {
         battleDeckListener.onCardFill();
     }
 
+    public void addToDiscardPile(Card card) {
+        discardPile.add(card);
+    }
+
     public void addTriggeredCard(TriggeredCard card) {
         triggeredCards.add(card);
     }
@@ -231,6 +235,10 @@ public class BattleDeck implements CardEventListener {
 
     public void setBattleDeckListener(BattleDeckListener battleDeckListener) {
         this.battleDeckListener = battleDeckListener;
+    }
+
+    public void shuffleInDrawPile(Card card) {
+        deck.add(rnd.nextInt(deck.size() + 1), card);
     }
 
     @Override

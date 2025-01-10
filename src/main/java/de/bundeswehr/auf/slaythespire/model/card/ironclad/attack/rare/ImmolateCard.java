@@ -1,7 +1,9 @@
 package de.bundeswehr.auf.slaythespire.model.card.ironclad.attack.rare;
 
 import de.bundeswehr.auf.slaythespire.helper.PathAssistent;
+import de.bundeswehr.auf.slaythespire.model.battle.BattleDeck;
 import de.bundeswehr.auf.slaythespire.model.battle.GameContext;
+import de.bundeswehr.auf.slaythespire.model.card.status.BurnCard;
 import de.bundeswehr.auf.slaythespire.model.card.structure.AttackCard;
 import de.bundeswehr.auf.slaythespire.model.card.structure.CardGrave;
 import de.bundeswehr.auf.slaythespire.model.card.structure.CardRarity;
@@ -21,7 +23,7 @@ public class ImmolateCard extends AttackCard {
      * Constructor Immolate card.
      */
     public ImmolateCard() {
-        super("Immolate", "Deal 21 damage to ALL enemies.", 2, 21, CardRarity.RARE, CardGrave.DISCARD);
+        super("Immolate", "Deal 21 damage to ALL enemies. Add a Burn to your discard pile.", 2, 21, CardRarity.RARE, CardGrave.DISCARD);
         setImagePath(new PathAssistent().toPath(this));
     }
 
@@ -34,6 +36,9 @@ public class ImmolateCard extends AttackCard {
         }
 
         player.decreaseCurrentEnergy(getCost());
+
+        BattleDeck battleDeck = gameContext.getBattleDeck();
+        battleDeck.addToDiscardPile(new BurnCard());
     }
 
 }
