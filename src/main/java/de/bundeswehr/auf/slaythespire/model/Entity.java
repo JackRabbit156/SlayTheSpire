@@ -34,6 +34,12 @@ public abstract class Entity {
         }
     }
 
+    public void dealDamage(GameContext gameContext, int damage, Entity target, Object action) {
+        gameContext.setAttackContext(new AttackContext(this, target, damage, action));
+        triggerEffect(EffectTrigger.BEFORE_ATTACK_SOURCE, gameContext, this);
+        target.takeDamage(gameContext);
+    }
+
     /**
      * Erhöht den Blockwert des Spielers um einen bestimmten Betrag.
      *
@@ -135,12 +141,6 @@ public abstract class Entity {
      */
     public void resetBlock() {
         block = 0;
-    }
-
-    public void dealDamage(GameContext gameContext, int damage, Entity target, Object action) {
-        triggerEffect(EffectTrigger.BEFORE_ATTACK_SOURCE, gameContext, gameContext.getSelectedEnemy());
-        gameContext.setAttackContext(new AttackContext(this, target, damage, action));
-        target.takeDamage(gameContext);
     }
 
     /**
