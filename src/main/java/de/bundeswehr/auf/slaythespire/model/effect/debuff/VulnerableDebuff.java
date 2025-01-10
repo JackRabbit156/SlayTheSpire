@@ -17,7 +17,7 @@ public class VulnerableDebuff extends Debuff {
     @Override
     public void apply(GameContext gameContext, Entity target) {
         if (target.getEffectCounter(this) > 0) {
-            target.addDamageFactor(1.5);
+            gameContext.getAttackContext().multiplyDamage(1.5);
         }
     }
 

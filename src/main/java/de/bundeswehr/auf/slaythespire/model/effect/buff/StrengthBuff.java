@@ -16,14 +16,7 @@ public class StrengthBuff extends Buff {
 
     @Override
     public void apply(GameContext gameContext, Entity target) {
-        Entity receiver;
-        if (target == gameContext.getPlayer()) {
-            receiver = gameContext.getSelectedEnemy();
-        }
-        else {
-            receiver = gameContext.getPlayer();
-        }
-        receiver.addDamageModifier(target.getEffectCounter(this));
+        gameContext.getAttackContext().addDamage(target.getEffectCounter(this));
     }
 
 }

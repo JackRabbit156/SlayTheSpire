@@ -26,7 +26,7 @@ public class GhostlyArmorCard extends SkillCard {
     public void play(GameContext gameContext) {
         Player player = gameContext.getPlayer();
 
-        player.increaseBlock(10);
+        player.gainBlock(10);
 
         player.decreaseCurrentEnergy(getCost());
     }

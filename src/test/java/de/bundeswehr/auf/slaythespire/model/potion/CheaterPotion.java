@@ -4,6 +4,7 @@ import de.bundeswehr.auf.slaythespire.helper.PathAssistent;
 import de.bundeswehr.auf.slaythespire.model.battle.GameContext;
 import de.bundeswehr.auf.slaythespire.model.card.structure.CardRarity;
 import de.bundeswehr.auf.slaythespire.model.enemy.structure.Enemy;
+import de.bundeswehr.auf.slaythespire.model.player.structure.Player;
 import de.bundeswehr.auf.slaythespire.model.potion.structure.AttackPotion;
 
 public class CheaterPotion extends AttackPotion {
@@ -15,8 +16,9 @@ public class CheaterPotion extends AttackPotion {
 
     @Override
     public void play(GameContext gameContext) {
+        Player player = gameContext.getPlayer();
         Enemy enemy = gameContext.getSelectedEnemy();
-        enemy.takeDamage(enemy.getHealth(),gameContext);
+        player.dealDamage(gameContext, enemy.getCurrentHealth(), enemy, this);
     }
 
 }

@@ -25,7 +25,7 @@ public class EntrenchCard extends SkillCard {
     @Override
     public void play(GameContext gameContext) {
         Player player = gameContext.getPlayer();
-        player.increaseBlock(player.getBlock());
+        player.gainBlock(player.getBlock());
 
         player.decreaseCurrentEnergy(getCost());
     }

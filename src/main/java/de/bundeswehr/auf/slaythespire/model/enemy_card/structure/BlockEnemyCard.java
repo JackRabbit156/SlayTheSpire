@@ -9,12 +9,12 @@ public abstract class BlockEnemyCard extends EnemyCard {
     private final int block;
 
     private static String replace(int damage, String description) {
-        return description.replaceAll(Integer.toString(damage), Integer.toString(GameSettings.getDifficultyLevel().getDamage(damage)));
+        return description.replaceAll(Integer.toString(damage), Integer.toString(GameSettings.getDifficultyLevel().modifyDamage(damage)));
     }
 
     public BlockEnemyCard(String name, String description, int block) {
         super(name, replace(block, description), "");
-        this.block = GameSettings.getDifficultyLevel().getDamage(block);
+        this.block = GameSettings.getDifficultyLevel().modifyDamage(block);
     }
 
     public int gainBlock(GameContext gameContext) {
@@ -23,7 +23,7 @@ public abstract class BlockEnemyCard extends EnemyCard {
 
     @Override
     public void playEnemy(GameContext gameContext, Enemy enemy) {
-        enemy.addBlock(gainBlock(gameContext));
+        enemy.gainBlock(gainBlock(gameContext));
     }
 
 }

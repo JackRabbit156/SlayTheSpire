@@ -7,8 +7,6 @@ import de.bundeswehr.auf.slaythespire.model.Entity;
 import de.bundeswehr.auf.slaythespire.model.battle.GameContext;
 import de.bundeswehr.auf.slaythespire.model.card.structure.Card;
 import de.bundeswehr.auf.slaythespire.model.effect.structure.Effect;
-import de.bundeswehr.auf.slaythespire.model.effect.structure.EffectTrigger;
-import de.bundeswehr.auf.slaythespire.model.effect.structure.StackingBehaviour;
 import de.bundeswehr.auf.slaythespire.model.map.act.ActFour;
 import de.bundeswehr.auf.slaythespire.model.map.act.ActOne;
 import de.bundeswehr.auf.slaythespire.model.map.act.ActTwo;
@@ -18,9 +16,7 @@ import de.bundeswehr.auf.slaythespire.model.settings.GameSettings;
 import javafx.stage.Stage;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Abstrakte Klasse, die die grundlegenden Eigenschaften und Methoden eines Spielers im Spiel definiert.
@@ -30,24 +26,16 @@ import java.util.Map;
  * @author F Alexander Warawa
  * @author OF Daniel Willig
  */
-public abstract class Player implements Entity {
+public abstract class Player extends Entity {
 
     private String altImagePath;
-    private int block;
     private int currentAct = 1;
     private int currentEnergy;
     private String currentField = "0";
-    private int currentHealth;
-    private double damageFactor;
-    private int damageModifier;
     private List<Card> deck;
-    private final Map<Effect, Integer> effects = new HashMap<>();
     private int gold;
-    private String imagePath;
     private final List<InventoryEventListener> inventoryEventListeners = new ArrayList<>();
     private int maxEnergy;
-    private int maxHealth;
-    private final String name;
     private final List<PlayerEventListener> playerEventListeners = new ArrayList<>();
     private final PlayerType playerType;
     private List<Potion> potions = new ArrayList<>();
@@ -65,9 +53,7 @@ public abstract class Player implements Entity {
      * @param primaryStage die aktuelle Stage
      */
     public Player(String name, int maxHealth, int maxEnergy, PlayerType playerType, Stage primaryStage) {
-        this.name = name;
-        this.maxHealth = maxHealth;
-        this.currentHealth = this.maxHealth;
+        super(name, maxHealth);
         this.maxEnergy = maxEnergy;
         this.currentEnergy = this.maxEnergy;
         this.playerType = playerType;
@@ -77,21 +63,6 @@ public abstract class Player implements Entity {
     public void addCardToDeck(Card card) {
         deck.add(card);
         notifyCardEvent(new InventoryEvent(this, InventoryEvent.Direction.GAIN, InventoryEvent.Type.CARD, card));
-    }
-
-    @Override
-    public void addDamageFactor(double factor) {
-        this.damageFactor *= factor;
-    }
-
-    @Override
-    public void addDamageModifier(int modifier) {
-        this.damageModifier += modifier;
-    }
-
-    public void addEffect(Effect effect, int value) {
-        notifyEffect(effect, value);
-        effects.put(effect, effects.getOrDefault(effect, 0) + value);
     }
 
     public void addInventoryEventListener(InventoryEventListener inventoryEventListener) {
@@ -120,49 +91,6 @@ public abstract class Player implements Entity {
     public void decreaseCurrentEnergy(int energy) {
         currentEnergy -= energy;
         GameSettings.increaseEnergySpentStats(energy);
-    }
-
-    /**
-     * Verringert die aktuelle Gesundheit des Spielers um den angegebenen Schaden.
-     *
-     * @param damage         Der Schaden, der dem Spieler zugefügt wird.
-     * @param damageFromCard Gibt an, ob der Schaden von einer eigenen Karte stammt.
-     */
-    public void decreaseCurrentHealth(int damage, boolean damageFromCard) {
-        decreaseCurrentHealth(damage, damageFromCard, null);
-    }
-
-    public void decreaseCurrentHealth(int damage, boolean damageFromCard, GameContext gameContext) {
-        if (gameContext != null) {
-            triggerEffect(EffectTrigger.BEFORE_ATTACK_SOURCE, gameContext, gameContext.getSelectedEnemy());
-            triggerEffect(EffectTrigger.BEFORE_ATTACK_TARGET, gameContext, this);
-        }
-        int damageAfterEffects = (int) ((damage + damageModifier) * damageFactor);
-        int oldHealth = currentHealth;
-        int damageAfterBlock;
-        if (block - damageAfterEffects >= 0) {
-            block -= damageAfterEffects;
-            damageAfterBlock = 0;
-        }
-        else {
-            damageAfterBlock = Math.abs(block - damageAfterEffects);
-            block = 0;
-        }
-        currentHealth -= damageAfterBlock;
-        if (currentHealth < 0) {
-            currentHealth = 0;
-        }
-        GameSettings.increaseReceivedDamageStats(oldHealth - currentHealth);
-        notifyDamageReceived(oldHealth - currentHealth, damageFromCard);
-        triggerEffect(EffectTrigger.AFTER_ATTACK, gameContext, this);
-    }
-
-    protected void triggerEffect(EffectTrigger trigger, GameContext gameContext, Entity target) {
-        for (Effect effect : effects.keySet()) {
-            if (effect.getEffectTrigger() == trigger) {
-                effect.apply(gameContext, target);
-            }
-        }
     }
 
     /**
@@ -196,14 +124,6 @@ public abstract class Player implements Entity {
         this.altImagePath = altImagePath;
     }
 
-    public int getBlock() {
-        return block;
-    }
-
-    public void setBlock(int block) {
-        this.block = block;
-    }
-
     public int getCurrentAct() {
         return currentAct;
     }
@@ -225,30 +145,12 @@ public abstract class Player implements Entity {
         notifyLevelEvent(new InventoryEvent(this, InventoryEvent.Direction.GAIN, InventoryEvent.Type.LEVEL, currentField));
     }
 
-    public int getCurrentHealth() {
-        return currentHealth;
-    }
-
-    public void setCurrentHealth(int currentHealth) {
-        this.currentHealth = currentHealth;
-    }
-
     public List<Card> getDeck() {
         return deck;
     }
 
     public void setDeck(List<Card> deck) {
         this.deck = deck;
-    }
-
-    @Override
-    public int getEffectCounter(Effect effect) {
-        return effects.getOrDefault(effect, 0);
-    }
-
-    @Override
-    public Map<Effect, Integer> getEffects() {
-        return effects;
     }
 
     public int getGold() {
@@ -259,32 +161,12 @@ public abstract class Player implements Entity {
         this.gold = gold;
     }
 
-    public String getImagePath() {
-        return imagePath;
-    }
-
-    public void setImagePath(String imagePath) {
-        this.imagePath = imagePath;
-    }
-
     public int getMaxEnergy() {
         return maxEnergy;
     }
 
     public void setMaxEnergy(int maxEnergy) {
         this.maxEnergy = maxEnergy;
-    }
-
-    public int getMaxHealth() {
-        return maxHealth;
-    }
-
-    public void setMaxHealth(int maxHealth) {
-        this.maxHealth = maxHealth;
-    }
-
-    public String getName() {
-        return name;
     }
 
     public PlayerType getPlayerType() {
@@ -324,16 +206,6 @@ public abstract class Player implements Entity {
     }
 
     /**
-     * Erhöht den Blockwert des Spielers um einen bestimmten Betrag.
-     *
-     * @param block Der Betrag, um den der Blockwert erhöht werden soll.
-     */
-    public void increaseBlock(int block) {
-        this.block += block;
-        notifyBlockReceived(block);
-    }
-
-    /**
      * Erhöht die aktuelle Energie des Spielers um einen bestimmten Betrag.
      *
      * @param energy Der Betrag, um den die Energie erhöht werden soll.
@@ -341,20 +213,6 @@ public abstract class Player implements Entity {
     public void increaseCurrentEnergy(int energy) {
         currentEnergy += energy;
         notifyEnergyReceived(energy);
-    }
-
-    /**
-     * Erhöht die aktuelle Gesundheit des Spielers um einen bestimmten Punktwert.
-     *
-     * @param hp Der Punktwert, um den die Gesundheit erhöht werden soll.
-     */
-    public void increaseCurrentHealth(int hp) {
-        int oldHealth = currentHealth;
-        currentHealth += hp;
-        if (currentHealth > maxHealth) {
-            currentHealth = maxHealth;
-        }
-        notifyHealthReceived(currentHealth - oldHealth);
     }
 
     /**
@@ -368,44 +226,9 @@ public abstract class Player implements Entity {
         notifyGoldEvent(new InventoryEvent(this, InventoryEvent.Direction.GAIN, InventoryEvent.Type.GOLD, gold));
     }
 
-    /**
-     * Erhöht die maximale Gesundheit des Spielers um einen bestimmten Punktwert.
-     *
-     * @param hp Der Punktwert, um den die maximale Gesundheit erhöht werden soll.
-     */
-    public void increaseMaxHealth(int hp) {
-        maxHealth += hp;
-        notifyMaxHealthChanged(hp);
-    }
-
-    /**
-     * Überprüft, ob der Spieler lebt.
-     *
-     * @return true, wenn die aktuelle Gesundheit größer als 0 ist, andernfalls false.
-     */
-    public boolean isAlive() {
-        return currentHealth > 0;
-    }
-
-    public void reduceDurationEffects() {
-        for (Map.Entry<Effect, Integer> entry : effects.entrySet()) {
-            if (entry.getKey().getStackingBehaviour() == StackingBehaviour.DURATION) {
-                entry.setValue(entry.getValue() - 1);
-            }
-        }
-        effects.entrySet().removeIf(entry -> entry.getValue() <= 0);
-    }
-
     public void removeCardFromDeck(Card card) {
         deck.remove(card);
         notifyCardEvent(new InventoryEvent(this, InventoryEvent.Direction.LOSE, InventoryEvent.Type.CARD, card));
-    }
-
-    /**
-     * Setzt den Blockwert des Spielers auf 0 zurück.
-     */
-    public void resetBlock() {
-        block = 0;
     }
 
     /**
@@ -420,46 +243,66 @@ public abstract class Player implements Entity {
         playerEventListeners.clear();
     }
 
-    public void setDamageFactor(double damageFactor) {
-        this.damageFactor = damageFactor;
-    }
-
-    public void setDamageModifier(int damageModifier) {
-        this.damageModifier = damageModifier;
+    /**
+     * Fügt dem Spieler Schaden zu. Der Schaden wird abhängig von
+     * dem Blockwert des Spielers berücksichtigt.
+     *
+     * @param gameContext im {@link de.bundeswehr.auf.slaythespire.model.battle.AttackContext} des {@link GameContext} findet sich der zugefügte Schaden.
+     */
+    @Override
+    public void takeDamage(GameContext gameContext) {
+        super.takeDamage(gameContext);
+        GameSettings.increaseReceivedDamageStats(gameContext.getAttackContext().getDamage());
     }
 
     protected abstract void initDeck();
 
     protected abstract void initRelic();
 
-    /**
-     * Benachrichtigt den Listener über den empfangenen Blockwert.
-     *
-     * @param blockAmount Der Betrag des Blocks, der empfangen wurde.
-     */
-    private void notifyBlockReceived(int blockAmount) {
+    @Override
+    protected void notifyBlockReceived(int blockAmount) {
         PlayerBlockEvent event = new PlayerBlockEvent(this, blockAmount);
         for (PlayerEventListener playerEventListener : playerEventListeners) {
             playerEventListener.onBlockReceived(event);
         }
     }
 
-    private void notifyCardEvent(InventoryEvent event) {
-        for (InventoryEventListener inventoryListener : inventoryEventListeners) {
-            inventoryListener.onCardEvent(event);
+    @Override
+    protected void notifyDamageReceived(GameContext gameContext) {
+        boolean damageFromCard = gameContext.getAttackContext().getSource() == gameContext.getAttackContext().getTarget();
+        PlayerDamageEvent event = new PlayerDamageEvent(this, gameContext.getAttackContext().getDamage(), damageFromCard);
+        for (PlayerEventListener playerEventListener : playerEventListeners) {
+            playerEventListener.onDamageReceived(event);
         }
     }
 
-    /**
-     * Benachrichtigt den Listener über den erlittenen Schaden.
-     *
-     * @param damageAmount   Der Betrag des Schadens, der erlitten wurde.
-     * @param damageFromCard Gibt an, ob der Schaden von einer Karte stammt.
-     */
-    private void notifyDamageReceived(int damageAmount, boolean damageFromCard) {
-        PlayerDamageEvent event = new PlayerDamageEvent(this, damageAmount, damageFromCard);
+    @Override
+    protected void notifyEffect(Effect effect, int value) {
+        EffectEvent event = new EffectEvent(this, effect, value);
         for (PlayerEventListener playerEventListener : playerEventListeners) {
-            playerEventListener.onDamageReceived(event);
+            playerEventListener.onEffect(event);
+        }
+    }
+
+    @Override
+    protected void notifyHealthReceived(int hpAmount) {
+        PlayerHealthEvent event = new PlayerHealthEvent(this, hpAmount);
+        for (PlayerEventListener playerEventListener : playerEventListeners) {
+            playerEventListener.onHealthReceived(event);
+        }
+    }
+
+    @Override
+    protected void notifyMaxHealthChanged(int hpAmount) {
+        PlayerHealthEvent event = new PlayerHealthEvent(this, hpAmount);
+        for (PlayerEventListener playerEventListener : playerEventListeners) {
+            playerEventListener.onMaxHealthChanged(event);
+        }
+    }
+
+    private void notifyCardEvent(InventoryEvent event) {
+        for (InventoryEventListener inventoryListener : inventoryEventListeners) {
+            inventoryListener.onCardEvent(event);
         }
     }
 
@@ -475,41 +318,15 @@ public abstract class Player implements Entity {
         }
     }
 
-    private void notifyEffect(Effect effect, int value) {
-        EffectEvent event = new EffectEvent(this, effect, value);
-        for (PlayerEventListener playerEventListener : playerEventListeners) {
-            playerEventListener.onEffect(event);
-        }
-    }
-
     private void notifyGoldEvent(InventoryEvent event) {
         for (InventoryEventListener inventoryListener : inventoryEventListeners) {
             inventoryListener.onGoldEvent(event);
         }
     }
 
-    /**
-     * Benachrichtigt den Listener über die empfangene Lebenskraft.
-     *
-     * @param hpAmount Der Betrag der Lebenskraft, die empfangen wurde.
-     */
-    private void notifyHealthReceived(int hpAmount) {
-        PlayerHealthEvent event = new PlayerHealthEvent(this, hpAmount);
-        for (PlayerEventListener playerEventListener : playerEventListeners) {
-            playerEventListener.onHealthReceived(event);
-        }
-    }
-
     private void notifyLevelEvent(InventoryEvent event) {
         for (InventoryEventListener inventoryListener : inventoryEventListeners) {
             inventoryListener.onLevelEvent(event);
-        }
-    }
-
-    private void notifyMaxHealthChanged(int hpAmount) {
-        PlayerHealthEvent event = new PlayerHealthEvent(this, hpAmount);
-        for (PlayerEventListener playerEventListener : playerEventListeners) {
-            playerEventListener.onMaxHealthChanged(event);
         }
     }
 

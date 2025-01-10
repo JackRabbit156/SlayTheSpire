@@ -27,7 +27,7 @@ public class BodySlamCard extends AttackCard {
      * @return the int
      */
     @Override
-    public int dealDamage(GameContext gameContext) {
+    public int getDamage(GameContext gameContext) {
         Player player = gameContext.getPlayer();
         return player.getBlock();
     }

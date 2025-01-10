@@ -4,6 +4,7 @@ import de.bundeswehr.auf.slaythespire.helper.PathAssistent;
 import de.bundeswehr.auf.slaythespire.model.battle.GameContext;
 import de.bundeswehr.auf.slaythespire.model.card.structure.*;
 import de.bundeswehr.auf.slaythespire.model.enemy.structure.Enemy;
+import de.bundeswehr.auf.slaythespire.model.player.structure.Player;
 
 import java.util.List;
 import java.util.Random;
@@ -15,6 +16,8 @@ import java.util.Random;
  */
 public class JuggernautCard extends PowerCard {
 
+    private static final Random rnd = new Random();
+
     /**
      * Constructor Juggernaut card.
      */
@@ -25,13 +28,11 @@ public class JuggernautCard extends PowerCard {
 
     @Override
     public void onTrigger(GameContext gameContext) {
+        Player player = gameContext.getPlayer();
         List<Enemy> allEnemies = gameContext.getEnemies();
-        Random rand = new Random();
-        int targetIndex = rand.nextInt(allEnemies.size());
-
-        Enemy enemy = gameContext.getEnemies().get(targetIndex);
-        gameContext.setSelectedEnemy(enemy);
-        enemy.takeDamage(5, gameContext);
+        int targetIndex = rnd.nextInt(allEnemies.size());
+        Enemy enemy = allEnemies.get(targetIndex);
+        player.dealDamage(gameContext, 5, enemy, this);
     }
 
 }

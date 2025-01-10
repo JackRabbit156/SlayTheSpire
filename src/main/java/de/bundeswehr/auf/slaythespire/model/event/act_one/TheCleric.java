@@ -29,7 +29,7 @@ public class TheCleric extends Event {
     public Button getButton1() {
         button1.setOnAction(event -> {
             if (getPlayer().getGold() >= 35) {
-                getPlayer().increaseCurrentHealth(getPlayer().getMaxHealth() / 4);
+                getPlayer().heal(getPlayer().getMaxHealth() / 4);
                 getPlayer().decreaseGold(35);
             }
             else {

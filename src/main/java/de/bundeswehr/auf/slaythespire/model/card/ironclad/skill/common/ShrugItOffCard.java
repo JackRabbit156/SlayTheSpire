@@ -26,7 +26,7 @@ public class ShrugItOffCard extends SkillCard{
         @Override
         public void play(GameContext gameContext) {
             Player player = gameContext.getPlayer();
-            player.increaseBlock(8);
+            player.gainBlock(8);
 
             BattleDeck battleDeck = gameContext.getBattleDeck();
             battleDeck.drawCard(1);

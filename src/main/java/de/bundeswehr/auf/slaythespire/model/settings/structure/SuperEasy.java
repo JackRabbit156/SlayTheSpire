@@ -7,12 +7,12 @@ public class SuperEasy extends DifficultyLevel {
     }
 
     @Override
-    public int getDamage(int damage) {
+    public int modifyDamage(int damage) {
         return Math.max(1, damage / 2);
     }
 
     @Override
-    public int getHealth(int hp) {
+    public int modifyHealth(int hp) {
         return hp / 2;
     }
 

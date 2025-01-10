@@ -27,18 +27,18 @@ public class ReaperCard extends AttackCard {
 
     @Override
     public void play(GameContext gameContext) {
+        Player player = gameContext.getPlayer();
         List<Enemy> allEnemies = gameContext.getEnemies();
         int bonusHp = 0;
         for (Enemy enemy : allEnemies) {
-            int enemyHealthOld = enemy.getHealth();
+            int enemyHealthOld = enemy.getCurrentHealth();
             gameContext.setSelectedEnemy(enemy);
-            enemy.takeDamage(dealDamage(gameContext), gameContext);
-            if (enemy.getHealth() < enemyHealthOld) {
-                bonusHp += (enemyHealthOld - enemy.getHealth());
+            player.dealDamage(gameContext, getDamage(gameContext), enemy, this);
+            if (enemy.getCurrentHealth() < enemyHealthOld) {
+                bonusHp += (enemyHealthOld - enemy.getCurrentHealth());
             }
         }
-        Player player = gameContext.getPlayer();
-        player.increaseCurrentHealth(bonusHp);
+        player.heal(bonusHp);
 
         player.decreaseCurrentEnergy(getCost());
     }

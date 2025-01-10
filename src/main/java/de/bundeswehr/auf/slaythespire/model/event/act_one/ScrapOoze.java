@@ -1,5 +1,7 @@
 package de.bundeswehr.auf.slaythespire.model.event.act_one;
 
+import de.bundeswehr.auf.slaythespire.model.battle.AttackContext;
+import de.bundeswehr.auf.slaythespire.model.battle.GameContext;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import de.bundeswehr.auf.slaythespire.model.event.Event;
@@ -26,7 +28,7 @@ public class ScrapOoze extends Event {
     public Button getButton1() {
         Button button1 = new Button("\t[Reach Inside] "); // hp -3
         button1.setOnAction(event -> {
-            getPlayer().decreaseCurrentHealth(3, false);
+            getPlayer().takeDamage(new GameContext(getPlayer(), new AttackContext(null, getPlayer(), 3, this)));
             button1.setVisible(false);
         });
         return button1;

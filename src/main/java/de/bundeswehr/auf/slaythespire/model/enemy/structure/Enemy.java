@@ -10,14 +10,15 @@ import de.bundeswehr.auf.slaythespire.helper.LoggingAssistant;
 import de.bundeswehr.auf.slaythespire.model.Entity;
 import de.bundeswehr.auf.slaythespire.model.battle.GameContext;
 import de.bundeswehr.auf.slaythespire.model.effect.structure.Effect;
-import de.bundeswehr.auf.slaythespire.model.effect.structure.EffectTrigger;
-import de.bundeswehr.auf.slaythespire.model.effect.structure.StackingBehaviour;
 import de.bundeswehr.auf.slaythespire.model.enemy_card.InsultEnemyCard;
 import de.bundeswehr.auf.slaythespire.model.enemy_card.structure.EnemyCard;
 import de.bundeswehr.auf.slaythespire.model.settings.GameSettings;
 import de.bundeswehr.auf.slaythespire.model.settings.structure.DifficultyLevel;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+import java.util.Scanner;
 
 /**
  * Diese abstrakte Klasse repräsentiert einen allgemeinen Gegner im Spiel.
@@ -25,24 +26,30 @@ import java.util.*;
  *
  * @author Warawa Alexander
  */
-public abstract class Enemy implements Entity {
+public abstract class Enemy extends Entity {
 
     private static final Random rnd = new Random();
 
-    private int block;
-    private int currentHealth;
-    private double damageFactor;
-    private int damageModifier;
-    private final Map<Effect, Integer> effects = new HashMap<>();
     private int enemyCardToBePlayed;
     private List<EnemyCard> enemyDeck;
     private final List<EnemyEventListener> enemyEventListeners = new ArrayList<>();
-    private String imagePath;
     private final EnemyCard insult = new InsultEnemyCard();
     private EnemyCard intent;
-    private final int maxHealth;
-    private final String name;
     private final List<String> wittyBanterList = new ArrayList<>();
+
+    /**
+     * Generiert einen maximalen Gesundheitswert für den Gegner
+     * innerhalb des angegebenen Bereichs.
+     *
+     * @param lowestMaxHealthPossible  Der niedrigste mögliche Maximalwert für die Gesundheit.
+     * @param highestMaxHealthPossible Der höchste mögliche Maximalwert für die Gesundheit.
+     * @return Der generierte maximale Gesundheitswert.
+     */
+    private static int generateMaxHealth(int lowestMaxHealthPossible, int highestMaxHealthPossible) {
+        int difference = highestMaxHealthPossible - lowestMaxHealthPossible;
+        int hp = rnd.nextInt(difference + 1);
+        return lowestMaxHealthPossible + hp;
+    }
 
     /**
      * Konstruktor für die Enemy-Klasse.
@@ -53,9 +60,7 @@ public abstract class Enemy implements Entity {
      * @param highestMaxHealthPossible Der höchste mögliche Maximalwert für die Gesundheit.
      */
     public Enemy(String name, int lowestMaxHealthPossible, int highestMaxHealthPossible) {
-        this.name = name;
-        maxHealth = GameSettings.getDifficultyLevel().getHealth(generateMaxHealth(lowestMaxHealthPossible, highestMaxHealthPossible));
-        currentHealth = maxHealth;
+        super(name, GameSettings.getDifficultyLevel().modifyHealth(generateMaxHealth(lowestMaxHealthPossible, highestMaxHealthPossible)));
         try (Scanner fileScanner = new Scanner(Enemy.class.getResourceAsStream("/wittybanter.txt"))) {
             while (fileScanner.hasNext()) {
                 wittyBanterList.add(fileScanner.nextLine());
@@ -79,26 +84,6 @@ public abstract class Enemy implements Entity {
             LoggingAssistant.log(getName() + " attacking", Color.ITALIC, Color.BLUE);
             attack(gameContext);
         }
-    }
-
-    public void addBlock(int block) {
-        this.block += block;
-        notifyBlockReceived(block);
-    }
-
-    @Override
-    public void addDamageFactor(double factor) {
-        this.damageFactor *= factor;
-    }
-
-    @Override
-    public void addDamageModifier(int modifier) {
-        this.damageModifier += modifier;
-    }
-
-    public void addEffect(Effect effect, int value) {
-        notifyEffect(effect, value);
-        effects.put(effect, effects.getOrDefault(effect, 0) + value);
     }
 
     public void addEnemyEventListener(EnemyEventListener enemyEventListener) {
@@ -134,42 +119,12 @@ public abstract class Enemy implements Entity {
         }
     }
 
-    public int getBlock() {
-        return block;
-    }
-
-    public void setBlock(int block) {
-        this.block = block;
-    }
-
-    @Override
-    public int getEffectCounter(Effect effect) {
-        return effects.getOrDefault(effect, 0);
-    }
-
-    @Override
-    public Map<Effect, Integer> getEffects() {
-        return effects;
-    }
-
     public List<EnemyCard> getEnemyDeck() {
         return enemyDeck;
     }
 
     public void setEnemyDeck(List<EnemyCard> enemyDeck) {
         this.enemyDeck = enemyDeck;
-    }
-
-    public int getHealth() {
-        return currentHealth;
-    }
-
-    public String getImagePath() {
-        return imagePath;
-    }
-
-    public void setImagePath(String imagePath) {
-        this.imagePath = imagePath;
     }
 
     public EnemyCard getIntent() {
@@ -180,37 +135,8 @@ public abstract class Enemy implements Entity {
         this.intent = intent;
     }
 
-    public int getMaxHealth() {
-        return maxHealth;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public boolean isAlive() {
-        return currentHealth > 0;
-    }
-
-    public void reduceDurationEffects() {
-        for (Map.Entry<Effect, Integer> entry : effects.entrySet()) {
-            if (entry.getKey().getStackingBehaviour() == StackingBehaviour.DURATION) {
-                entry.setValue(entry.getValue() - 1);
-            }
-        }
-        effects.entrySet().removeIf(entry -> entry.getValue() <= 0);
-    }
-
     public void resetListeners() {
         enemyEventListeners.clear();
-    }
-
-    public void setDamageFactor(double damageFactor) {
-        this.damageFactor = damageFactor;
-    }
-
-    public void setDamageModifier(int damageModifier) {
-        this.damageModifier = damageModifier;
     }
 
     public void setEnemyCardToBePlayed(int enemyCardToBePlayed) {
@@ -221,97 +147,25 @@ public abstract class Enemy implements Entity {
      * Fügt dem Gegner Schaden zu. Der Schaden wird abhängig von
      * dem Blockwert des Gegners berücksichtigt.
      *
-     * @param damage Der zuzu fügende Schaden.
+     * @param gameContext im {@link de.bundeswehr.auf.slaythespire.model.battle.AttackContext} des {@link GameContext} findet sich der zugefügte Schaden.
      */
-    public void takeDamage(int damage, GameContext gameContext) {
-        triggerEffect(EffectTrigger.BEFORE_ATTACK_SOURCE, gameContext, gameContext.getPlayer());
-        triggerEffect(EffectTrigger.BEFORE_ATTACK_TARGET, gameContext, this);
-        System.out.println("Enemy.takeDamage damageModifier=" + damageModifier + ", factor=" + damageFactor);
-        int damageAfterEffects = (int) ((damage + damageModifier) * damageFactor);
-        int oldHealth = currentHealth;
-        int damageAfterBlock;
-        if (block - damageAfterEffects >= 0) {
-            block -= damageAfterEffects;
-            damageAfterBlock = 0;
-        }
-        else {
-            damageAfterBlock = Math.abs(block - damageAfterEffects);
-            block = 0;
-        }
-        currentHealth -= damageAfterBlock;
-        if (currentHealth < 0) {
-            currentHealth = 0;
-        }
-        GameSettings.increaseDistributedDamageStats(oldHealth - currentHealth);
-        notifyDamageReceived(oldHealth - currentHealth);
-        triggerEffect(EffectTrigger.AFTER_ATTACK, gameContext, this);
+    @Override
+    public void takeDamage(GameContext gameContext) {
+        super.takeDamage(gameContext);
+        GameSettings.increaseDistributedDamageStats(gameContext.getAttackContext().getDamage());
     }
 
     @Override
-    public String toString() {
-        return "Enemy{" +
-                ", name='" + name + '\'' +
-                ", health=" + currentHealth + "/" + maxHealth +
-                ", block=" + block +
-                ", enemyCardToBePlayed=" + enemyCardToBePlayed +
-                ", enemyDeck=" + enemyDeck +
-                ", insult=" + insult +
-                ", intent=" + intent +
-                '}';
-    }
-
-    protected void triggerEffect(EffectTrigger trigger, GameContext gameContext, Entity target) {
-        for (Effect effect : effects.keySet()) {
-            if (effect.getEffectTrigger() == trigger) {
-                effect.apply(gameContext, target);
-            }
-        }
-    }
-
-    /**
-     * eine Beleidigung des Spielers (genommen aus wittybanter.txt)
-     *
-     * @return call of the enemy
-     * @author OF Daniel Willig
-     */
-    private String doNothing() {
-        return wittyBanterList.get(rnd.nextInt(wittyBanterList.size()));
-    }
-
-    /**
-     * Generiert einen maximalen Gesundheitswert für den Gegner
-     * innerhalb des angegebenen Bereichs.
-     *
-     * @param lowestMaxHealthPossible  Der niedrigste mögliche Maximalwert für die Gesundheit.
-     * @param highestMaxHealthPossible Der höchste mögliche Maximalwert für die Gesundheit.
-     * @return Der generierte maximale Gesundheitswert.
-     */
-    private int generateMaxHealth(int lowestMaxHealthPossible, int highestMaxHealthPossible) {
-        int difference = highestMaxHealthPossible - lowestMaxHealthPossible;
-
-        Random randi = new Random();
-
-        int hp = randi.nextInt(difference + 1);
-
-        return lowestMaxHealthPossible + hp;
-    }
-
-    private void notifyBanter(String banter) {
-        EnemyBanterEvent event = new EnemyBanterEvent(this, banter);
-        for (EnemyEventListener enemyEventListener : enemyEventListeners) {
-            enemyEventListener.onBanter(event);
-        }
-    }
-
-    private void notifyBlockReceived(int blockAmount) {
+    protected void notifyBlockReceived(int blockAmount) {
         EnemyBlockEvent event = new EnemyBlockEvent(this, blockAmount);
         for (EnemyEventListener enemyEventListener : enemyEventListeners) {
             enemyEventListener.onBlockReceived(event);
         }
     }
 
-    private void notifyDamageReceived(int damageAmount) {
-        EnemyDamageEvent event = new EnemyDamageEvent(this, damageAmount);
+    @Override
+    protected void notifyDamageReceived(GameContext gameContext) {
+        EnemyDamageEvent event = new EnemyDamageEvent(this, gameContext.getAttackContext().getDamage());
         for (EnemyEventListener enemyEventListener : enemyEventListeners) {
             enemyEventListener.onDamageReceived(event);
         }
@@ -324,10 +178,36 @@ public abstract class Enemy implements Entity {
         }
     }
 
-    private void notifyEffect(Effect effect, int value) {
+    @Override
+    protected void notifyEffect(Effect effect, int value) {
         EffectEvent event = new EffectEvent(this, effect, value);
         for (EnemyEventListener enemyEventListener : enemyEventListeners) {
             enemyEventListener.onEffect(event);
+        }
+    }
+
+    @Override
+    protected void notifyHealthReceived(int hpAmount) {
+        // TODO gibt es heal bei Enemies?
+    }
+
+    @Override
+    protected void notifyMaxHealthChanged(int hpAmount) {}
+
+    /**
+     * eine Beleidigung des Spielers (genommen aus wittybanter.txt)
+     *
+     * @return call of the enemy
+     * @author OF Daniel Willig
+     */
+    private String doNothing() {
+        return wittyBanterList.get(rnd.nextInt(wittyBanterList.size()));
+    }
+
+    private void notifyBanter(String banter) {
+        EnemyBanterEvent event = new EnemyBanterEvent(this, banter);
+        for (EnemyEventListener enemyEventListener : enemyEventListeners) {
+            enemyEventListener.onBanter(event);
         }
     }
 

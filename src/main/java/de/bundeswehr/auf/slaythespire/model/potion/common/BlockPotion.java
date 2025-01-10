@@ -24,7 +24,7 @@ public class BlockPotion extends SkillPotion {
     @Override
     public void play(GameContext gameContext) {
         Player player = gameContext.getPlayer();
-        player.increaseBlock(12);
+        player.gainBlock(12);
     }
 
 }

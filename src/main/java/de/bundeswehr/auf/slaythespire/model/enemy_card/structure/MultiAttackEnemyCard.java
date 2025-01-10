@@ -11,12 +11,12 @@ public abstract class MultiAttackEnemyCard extends EnemyCard {
     private final int multiplier;
 
     private static String replace(int damage, String description) {
-        return description.replaceAll(" " + damage + " x", " " + GameSettings.getDifficultyLevel().getDamage(damage) + " x");
+        return description.replaceAll(" " + damage + " x", " " + GameSettings.getDifficultyLevel().modifyDamage(damage) + " x");
     }
 
     public MultiAttackEnemyCard(String name, String description, int damage, int multiplier) {
-        super(name, replace(damage, description), GameSettings.getDifficultyLevel().getDamage(damage) + " x " + multiplier);
-        this.damage = GameSettings.getDifficultyLevel().getDamage(damage);
+        super(name, replace(damage, description), GameSettings.getDifficultyLevel().modifyDamage(damage) + " x " + multiplier);
+        this.damage = GameSettings.getDifficultyLevel().modifyDamage(damage);
         this.multiplier = multiplier;
     }
 
@@ -28,7 +28,7 @@ public abstract class MultiAttackEnemyCard extends EnemyCard {
     public void playEnemy(GameContext gameContext, Enemy enemy) {
         Player player = gameContext.getPlayer();
         for (int i = 0; i < multiplier; i++) {
-            player.decreaseCurrentHealth(dealDamage(gameContext), false, gameContext);
+            enemy.dealDamage(gameContext, dealDamage(gameContext), player, this);
         }
     }
 

@@ -23,7 +23,7 @@ public class EncourageEnemyCard extends BlockEnemyCard {
     @Override
     public void playEnemy(GameContext gameContext, Enemy enemy) {
         for (Enemy singleEnemy : gameContext.getEnemies()) {
-            singleEnemy.addBlock(gainBlock(gameContext));
+            singleEnemy.gainBlock(gainBlock(gameContext));
         }
     }
 

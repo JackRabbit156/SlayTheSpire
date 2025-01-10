@@ -75,7 +75,7 @@ class AcidSlimeEnemyTest {
 
         String actualName = acidSlimeEnemy.getName();
         int actualHealth = acidSlimeEnemy.getMaxHealth();
-        int actualCurrentHealth = acidSlimeEnemy.getHealth();
+        int actualCurrentHealth = acidSlimeEnemy.getCurrentHealth();
         int actualDeckSize = acidSlimeEnemy.getEnemyDeck().size();
         String actualPath = new PathAssistent().toPath(this);
 

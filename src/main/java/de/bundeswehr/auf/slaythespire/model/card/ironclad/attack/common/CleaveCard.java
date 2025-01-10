@@ -26,13 +26,12 @@ public class CleaveCard extends AttackCard {
 
     @Override
     public void play(GameContext gameContext) {
+        Player player = gameContext.getPlayer();
         List<Enemy> allEnemies = gameContext.getEnemies();
-        for (Enemy singleEnemy : allEnemies) {
-            gameContext.setSelectedEnemy(singleEnemy);
-            singleEnemy.takeDamage(dealDamage(gameContext), gameContext);
+        for (Enemy enemy : allEnemies) {
+            player.dealDamage(gameContext, getDamage(gameContext), enemy, this);
         }
 
-        Player player = gameContext.getPlayer();
         player.decreaseCurrentEnergy(getCost());
     }
 

@@ -27,10 +27,10 @@ public class DropkickCard extends AttackCard {
 
     @Override
     public void play(GameContext gameContext) {
-        Enemy enemy = gameContext.getSelectedEnemy();
-        enemy.takeDamage(dealDamage(gameContext), gameContext);
-
         Player player = gameContext.getPlayer();
+        Enemy enemy = gameContext.getSelectedEnemy();
+        player.dealDamage(gameContext, getDamage(gameContext), enemy, this);
+
         BattleDeck battleDeck = gameContext.getBattleDeck();
         if (enemy.getEffectCounter(new VulnerableDebuff()) > 0) {
             player.increaseCurrentEnergy(1);

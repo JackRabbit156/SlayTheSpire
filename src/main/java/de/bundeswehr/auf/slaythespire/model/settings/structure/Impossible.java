@@ -7,16 +7,16 @@ public class Impossible extends DifficultyLevel {
     }
 
     @Override
-    public int getDamage(int damage) {
+    public int modifyDamage(int damage) {
         return damage * 2;
     }
 
-    public int getGold(int gold) {
+    public int modifyGold(int gold) {
         return 1;
     }
 
     @Override
-    public int getHealth(int hp) {
+    public int modifyHealth(int hp) {
         return hp * 2;
     }
 

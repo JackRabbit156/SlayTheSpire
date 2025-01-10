@@ -24,9 +24,8 @@ public class SmashEnemyCard extends AttackEnemyCard {
     @Override
     public void playEnemy(GameContext gameContext, Enemy enemy) {
         Player player = gameContext.getPlayer();
-        int oldHp = player.getCurrentHealth();
-        player.decreaseCurrentHealth(dealDamage(gameContext), false, gameContext);
-        enemy.addBlock(oldHp - player.getCurrentHealth());
+        enemy.dealDamage(gameContext, getDamage(gameContext), player, this);
+        enemy.gainBlock(gameContext.getAttackContext().getDamage());
     }
 
 }

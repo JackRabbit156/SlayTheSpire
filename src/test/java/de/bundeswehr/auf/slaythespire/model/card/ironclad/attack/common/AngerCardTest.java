@@ -38,11 +38,11 @@ class AngerCardTest {
         Enemy enemy = gameContext.getEnemies().get(0);
         gameContext.setSelectedEnemy(enemy);
 
-        int oldHealth = gameContext.getEnemies().get(0).getHealth();
+        int oldHealth = gameContext.getEnemies().get(0).getCurrentHealth();
 
         angerCard.play(gameContext);
 
-        int newHealth = gameContext.getEnemies().get(0).getHealth();
+        int newHealth = gameContext.getEnemies().get(0).getCurrentHealth();
 
         int expected = 6;
         int actual = oldHealth - newHealth;
@@ -53,7 +53,7 @@ class AngerCardTest {
     @Test
     void dealDamage() {
         int expected = 6;
-        int actual = angerCard.dealDamage(gameContext);
+        int actual = angerCard.getDamage(gameContext);
 
         Assertions.assertEquals(expected, actual);
     }

@@ -15,7 +15,7 @@ public class CheaterHealCard extends SkillCard {
 
     @Override
     public void play(GameContext gameContext) {
-        gameContext.getPlayer().increaseCurrentHealth(50);
+        gameContext.getPlayer().heal(50);
     }
 
 }

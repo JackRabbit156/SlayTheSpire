@@ -24,7 +24,7 @@ public class BloodPotion extends SkillPotion {
     @Override
     public void play(GameContext gameContext) {
         Player player = gameContext.getPlayer();
-        player.increaseCurrentHealth((int) (player.getMaxHealth() * 0.2));
+        player.heal((int) (player.getMaxHealth() * 0.2));
     }
 
 }

@@ -25,12 +25,12 @@ public class TwinStrikeCard extends AttackCard {
 
     @Override
     public void play(GameContext gameContext) {
+        Player player = gameContext.getPlayer();
         Enemy enemy = gameContext.getSelectedEnemy();
         for (int i = 0; i < 2; i++) {
-            enemy.takeDamage(dealDamage(gameContext), gameContext);
+            player.dealDamage(gameContext, getDamage(gameContext), enemy, this);
         }
 
-        Player player = gameContext.getPlayer();
         player.decreaseCurrentEnergy(getCost());
     }
 

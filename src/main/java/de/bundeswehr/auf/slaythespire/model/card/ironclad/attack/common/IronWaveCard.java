@@ -25,11 +25,12 @@ public class IronWaveCard extends AttackCard {
 
     @Override
     public void play(GameContext gameContext) {
-        Enemy enemy = gameContext.getSelectedEnemy();
-        enemy.takeDamage(dealDamage(gameContext), gameContext);
-
         Player player = gameContext.getPlayer();
-        player.increaseBlock(5);
+        player.gainBlock(getDamage(gameContext));
+
+        Enemy enemy = gameContext.getSelectedEnemy();
+        player.dealDamage(gameContext, getDamage(gameContext), enemy, this);
+
         player.decreaseCurrentEnergy(getCost());
     }
 

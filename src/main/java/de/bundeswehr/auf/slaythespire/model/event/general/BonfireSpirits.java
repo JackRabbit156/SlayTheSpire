@@ -44,7 +44,7 @@ public class BonfireSpirits extends Event {
                 imageView.setOnMouseClicked(e -> {
                     switch (card.getRarity()) {
                         case COMMON:
-                            getPlayer().increaseCurrentHealth(5);
+                            getPlayer().heal(5);
                             break;
                         case UNCOMMON:
                             getPlayer().setCurrentHealth(getPlayer().getMaxHealth());

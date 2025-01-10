@@ -13,21 +13,21 @@ public abstract class AttackCard extends Card {
         this.damage = damage;
     }
 
-    @Override
-    public void play(GameContext gameContext) {
-        Enemy enemy = gameContext.getSelectedEnemy();
-        enemy.takeDamage(dealDamage(gameContext), gameContext);
-
-        Player player = gameContext.getPlayer();
-        player.decreaseCurrentEnergy(getCost());
-    }
-
-    public int dealDamage(GameContext gameContext) {
+    public int getDamage(GameContext gameContext) {
         return getDamage();
     }
 
     public int getDamage() {
         return this.damage;
+    }
+
+    @Override
+    public void play(GameContext gameContext) {
+        Player player = gameContext.getPlayer();
+        Enemy enemy = gameContext.getSelectedEnemy();
+        player.dealDamage(gameContext, getDamage(gameContext), enemy, this);
+
+        player.decreaseCurrentEnergy(getCost());
     }
 
 }

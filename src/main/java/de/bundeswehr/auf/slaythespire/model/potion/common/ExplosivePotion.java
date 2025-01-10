@@ -4,6 +4,7 @@ import de.bundeswehr.auf.slaythespire.helper.PathAssistent;
 import de.bundeswehr.auf.slaythespire.model.battle.GameContext;
 import de.bundeswehr.auf.slaythespire.model.card.structure.CardRarity;
 import de.bundeswehr.auf.slaythespire.model.enemy.structure.Enemy;
+import de.bundeswehr.auf.slaythespire.model.player.structure.Player;
 import de.bundeswehr.auf.slaythespire.model.potion.structure.AttackPotion;
 
 import java.util.List;
@@ -25,10 +26,10 @@ public class ExplosivePotion extends AttackPotion {
 
     @Override
     public void play(GameContext gameContext) {
+        Player player = gameContext.getPlayer();
         List<Enemy> allEnemies = gameContext.getEnemies();
         for (Enemy enemy : allEnemies) {
-            gameContext.setSelectedEnemy(enemy);
-            enemy.takeDamage(getDamage(), gameContext);
+            player.dealDamage(gameContext, getDamage(), enemy, this);
         }
     }
 

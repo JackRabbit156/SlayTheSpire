@@ -1,11 +1,11 @@
 package de.bundeswehr.auf.slaythespire.model.event.act_one;
 
+import de.bundeswehr.auf.slaythespire.model.battle.AttackContext;
+import de.bundeswehr.auf.slaythespire.model.battle.GameContext;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import de.bundeswehr.auf.slaythespire.model.event.Event;
 import de.bundeswehr.auf.slaythespire.model.player.structure.Player;
-
-import java.util.Random;
 
 /**
  * Der Spieler erhält entweder Gold, oder verliert einen zufälligen Goldwert.
@@ -28,7 +28,7 @@ public class WorldOfGoo extends Event {
     @Override
     public Button getButton1() {
         button1.setOnAction(event -> {
-            getPlayer().decreaseCurrentHealth(11, false);
+            getPlayer().takeDamage(new GameContext(getPlayer(), new AttackContext(null, getPlayer(), 11, this)));
             getPlayer().increaseGold(75);
             button1.setVisible(false);
             button2.setVisible(false);

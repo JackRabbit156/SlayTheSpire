@@ -25,7 +25,7 @@ public class HemokinesisCard extends AttackCard {
     @Override
     public void play(GameContext gameContext) {
         Player player = gameContext.getPlayer();
-        player.decreaseCurrentHealth(2, true, gameContext);
+        player.dealDamage(gameContext, getDamage(gameContext), player, this);
 
         super.play(gameContext);
     }

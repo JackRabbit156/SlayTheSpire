@@ -142,8 +142,8 @@ public class TreasureController implements Controller, TreasureViewEvents {
      */
     private void initItemChanceAndAmount() {
         // Ausgangswert: 35 - 90
-        gold = GameSettings.getDifficultyLevel().getGold(rnd.nextInt(90 + 1 - 35) + 35);
-        amount = GameSettings.getDifficultyLevel().getAmount();
+        gold = GameSettings.getDifficultyLevel().modifyGold(rnd.nextInt(90 + 1 - 35) + 35);
+        amount = GameSettings.getDifficultyLevel().getCardAmount();
         potionsChance = GameSettings.getDifficultyLevel().getPotionChance();
     }
 

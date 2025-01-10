@@ -26,7 +26,7 @@ public class BigFish extends Event {
     @Override
     public Button getButton1() {
         banana.setOnAction(event -> {
-            getPlayer().increaseCurrentHealth(getPlayer().getMaxHealth() / 3);
+            getPlayer().heal(getPlayer().getMaxHealth() / 3);
             donut.setVisible(false);
             banana.setVisible(false);
             box.setVisible(false);

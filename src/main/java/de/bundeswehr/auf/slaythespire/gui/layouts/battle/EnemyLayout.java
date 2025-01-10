@@ -99,7 +99,7 @@ public class EnemyLayout extends VBox {
 
     private void addCombatText(Node node) {
         defendLayout.setBlockText(enemy.getBlock());
-        healthBarLayout.setHealthText(enemy.getHealth(), enemy.getMaxHealth());
+        healthBarLayout.setHealthText(enemy.getCurrentHealth(), enemy.getMaxHealth());
         enemy.addEnemyEventListener(new EmptyEnemyEventListener() {
 
             @Override
@@ -115,7 +115,7 @@ public class EnemyLayout extends VBox {
                 Animate.pathAnimationAboveTarget(new DamageText(event.getDamageAmount()),
                         node,
                         Direction.UP,
-                        e -> healthBarLayout.setHealthText(enemy.getHealth(), enemy.getMaxHealth()));
+                        e -> healthBarLayout.setHealthText(enemy.getCurrentHealth(), enemy.getMaxHealth()));
             }
 
             @Override

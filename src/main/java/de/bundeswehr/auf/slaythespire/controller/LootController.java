@@ -158,8 +158,8 @@ public class LootController implements Controller, LootViewEvents {
      * Initialisiert die Chancen für Items und die Anzahl an möglichen Karten basierend auf dem Schwierigkeitsgrad.
      */
     private void initItemChanceAndAmount() {
-        gold = GameSettings.getDifficultyLevel().getGold(gold);
-        amount = GameSettings.getDifficultyLevel().getAmount();
+        gold = GameSettings.getDifficultyLevel().modifyGold(gold);
+        amount = GameSettings.getDifficultyLevel().getCardAmount();
         potionsChance = GameSettings.getDifficultyLevel().getPotionChance();
     }
 

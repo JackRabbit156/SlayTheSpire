@@ -12,7 +12,6 @@ import de.bundeswehr.auf.slaythespire.model.card.structure.Card;
 import de.bundeswehr.auf.slaythespire.model.event.Event;
 import de.bundeswehr.auf.slaythespire.model.player.structure.Player;
 
-import java.util.List;
 /**
  * Der Spieler kann eine Karte hinzufügen, oder HP erhalten
  *
@@ -63,7 +62,7 @@ public class TheLibrary extends Event {
     @Override
     public Button getButton2() {
         button2.setOnAction(event -> {
-            getPlayer().increaseCurrentHealth(getPlayer().getMaxHealth() / 3);
+            getPlayer().heal(getPlayer().getMaxHealth() / 3);
             button2.setVisible(false);
             button1.setVisible(false);
 

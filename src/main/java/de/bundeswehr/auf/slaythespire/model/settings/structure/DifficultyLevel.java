@@ -37,7 +37,7 @@ public abstract class DifficultyLevel {
     /**
      * Anzahl an möglichen Karten (beim Loot)
      */
-    public int getAmount() {
+    public int getCardAmount() {
         return amount;
     }
 
@@ -45,16 +45,24 @@ public abstract class DifficultyLevel {
         return attackPercentage;
     }
 
-    public int getDamage(int damage) {
+    public int modifyDamage(int damage) {
         return damage;
     }
 
-    public int getGold(int gold) {
+    public int modifyGold(int gold) {
         return (int) (gold * this.goldFactor);
     }
 
-    public int getHealth(int hp) {
+    public int modifyHealth(int hp) {
         return hp;
+    }
+
+    public int getNumberOfMinionsElite(int handicap) {
+        return getNumberOfEnemies() - handicap;
+    }
+
+    public int getNumberOfMinionsBoss(int max) {
+        return Math.min(getNumberOfEnemies(), max);
     }
 
     public int getNumberOfEnemies() {

@@ -7,7 +7,7 @@ public class Hard extends DifficultyLevel {
     }
 
     @Override
-    public int getHealth(int hp) {
+    public int modifyHealth(int hp) {
         return hp * 2;
     }
 

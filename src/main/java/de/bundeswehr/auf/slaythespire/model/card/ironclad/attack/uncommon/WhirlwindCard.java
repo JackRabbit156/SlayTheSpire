@@ -31,8 +31,7 @@ public class WhirlwindCard extends AttackCard {
         Player player = gameContext.getPlayer();
         for (int i = 0; i < player.getCurrentEnergy(); i++) {
             for (Enemy enemy : enemies) {
-                gameContext.setSelectedEnemy(enemy);
-                enemy.takeDamage(dealDamage(gameContext), gameContext);
+                player.dealDamage(gameContext, getDamage(gameContext), enemy, this);
             }
         }
 

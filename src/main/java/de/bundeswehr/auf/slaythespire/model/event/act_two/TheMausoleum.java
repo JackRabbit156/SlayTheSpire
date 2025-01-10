@@ -1,5 +1,7 @@
 package de.bundeswehr.auf.slaythespire.model.event.act_two;
 
+import de.bundeswehr.auf.slaythespire.model.battle.AttackContext;
+import de.bundeswehr.auf.slaythespire.model.battle.GameContext;
 import de.bundeswehr.auf.slaythespire.model.event.Event;
 import de.bundeswehr.auf.slaythespire.model.player.structure.Player;
 import javafx.scene.control.Button;
@@ -22,9 +24,8 @@ public class TheMausoleum extends Event {
     @Override
     public Button getButton1() {
         Button button1 = new Button("\t[Open coffin] "); // decrease health by 50%
-        button1.setOnAction(event -> {
-            getPlayer().decreaseCurrentHealth(getPlayer().getCurrentHealth() / 2, false);
-        });
+        button1.setOnAction(event -> getPlayer().takeDamage(
+                new GameContext(getPlayer(), new AttackContext(null, getPlayer(), getPlayer().getCurrentHealth() / 2, this))));
         return button1;
     }
 

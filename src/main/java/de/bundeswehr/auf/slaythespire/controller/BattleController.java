@@ -248,7 +248,6 @@ public class BattleController implements Controller, BattleViewEvents, PlayerEve
 
     private void enemyTurn() {
         LoggingAssistant.log("Enemies' turn");
-        removeDamageModifiers();
         removeBlockOfEnemiesAfterEndOfTurn();
         for (Enemy enemy : enemies) {
             if (enemy.isAlive()) {
@@ -298,7 +297,6 @@ public class BattleController implements Controller, BattleViewEvents, PlayerEve
 
     private void playerBOT() {
         LoggingAssistant.log("Players' turn");
-        removeDamageModifiers();
         calculateIntentForAllEnemies();
         resetEnergyAndBlock();
         player.reduceDurationEffects();
@@ -322,15 +320,6 @@ public class BattleController implements Controller, BattleViewEvents, PlayerEve
         }
     }
 
-    private void removeDamageModifiers() {
-        player.setDamageModifier(0);
-        player.setDamageFactor(1.0);
-        for (Enemy enemy : enemies) {
-            enemy.setDamageModifier(0);
-            enemy.setDamageFactor(1.0);
-        }
-    }
-
     private void removeEffects() {
         player.getEffects().clear();
     }
@@ -344,7 +333,6 @@ public class BattleController implements Controller, BattleViewEvents, PlayerEve
 
     private void startOfCombat() {
         LoggingAssistant.log("Start of combat");
-        removeDamageModifiers();
         resetEnergyAndBlock();
         battleDeck.fillHand(battleDeck.getStartHandSize());
 

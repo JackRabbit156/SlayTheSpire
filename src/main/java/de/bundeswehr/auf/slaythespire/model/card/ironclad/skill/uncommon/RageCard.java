@@ -24,7 +24,7 @@ public class RageCard extends SkillCard implements TriggeredCard {
     @Override
     public void onTrigger(GameContext gameContext) {
         Player player = gameContext.getPlayer();
-        player.increaseBlock(3);
+        player.gainBlock(3);
     }
 
     @Override

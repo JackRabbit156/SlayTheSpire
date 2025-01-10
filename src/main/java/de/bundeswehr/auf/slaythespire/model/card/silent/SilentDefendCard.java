@@ -25,7 +25,7 @@ public class SilentDefendCard extends SkillCard {
     @Override
     public void play(GameContext gameContext) {
         Player player = gameContext.getPlayer();
-        player.increaseBlock(5);
+        player.gainBlock(5);
 
         player.decreaseCurrentEnergy(getCost());
     }

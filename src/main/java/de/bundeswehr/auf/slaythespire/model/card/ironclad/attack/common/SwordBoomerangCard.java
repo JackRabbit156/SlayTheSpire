@@ -18,6 +18,8 @@ import java.util.Random;
  */
 public class SwordBoomerangCard extends AttackCard {
 
+    private static final Random rnd = new Random();
+
     /**
      * Constructor Sword boomerang card.
      */
@@ -28,17 +30,14 @@ public class SwordBoomerangCard extends AttackCard {
 
     @Override
     public void play(GameContext gameContext) {
+        Player player = gameContext.getPlayer();
         List<Enemy> allEnemies = gameContext.getEnemies();
-        Random rand = new Random();
-        int targetIndex = rand.nextInt(allEnemies.size());
-
-        Enemy enemy = gameContext.getEnemies().get(targetIndex);
-        gameContext.setSelectedEnemy(enemy);
+        int targetIndex = rnd.nextInt(allEnemies.size());
+        Enemy enemy = allEnemies.get(targetIndex);
         for (int i = 0; i < 3; i++) {
-            enemy.takeDamage(dealDamage(gameContext), gameContext);
+            player.dealDamage(gameContext, getDamage(gameContext), enemy, this);
         }
 
-        Player player = gameContext.getPlayer();
         player.decreaseCurrentEnergy(getCost());
     }
 

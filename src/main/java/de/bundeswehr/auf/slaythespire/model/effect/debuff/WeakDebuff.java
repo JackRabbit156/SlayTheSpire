@@ -17,14 +17,7 @@ public class WeakDebuff extends Debuff {
     @Override
     public void apply(GameContext gameContext, Entity target) {
         if (target.getEffectCounter(this) > 0) {
-            Entity receiver;
-            if (target == gameContext.getPlayer()) {
-                receiver = gameContext.getSelectedEnemy();
-            }
-            else {
-                receiver = gameContext.getPlayer();
-            }
-            receiver.addDamageFactor(0.75);
+            gameContext.getAttackContext().multiplyDamage(0.75);
         }
     }
 }

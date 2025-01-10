@@ -69,7 +69,7 @@ public class RestController implements Controller, RestViewEvents {
     public void onHealClicked() {
         if (!healed) {
             int increasedHp = (int) (player.getMaxHealth() * 0.30);
-            player.increaseCurrentHealth(increasedHp);
+            player.heal(increasedHp);
             LoggingAssistant.log("Healed by " + increasedHp);
             healed = true;
         }

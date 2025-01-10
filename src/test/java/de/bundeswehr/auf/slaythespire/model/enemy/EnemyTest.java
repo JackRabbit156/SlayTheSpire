@@ -5,6 +5,7 @@ import de.bundeswehr.auf.slaythespire.events.EffectEvent;
 import de.bundeswehr.auf.slaythespire.events.EnemyBanterEvent;
 import de.bundeswehr.auf.slaythespire.events.EnemyBlockEvent;
 import de.bundeswehr.auf.slaythespire.events.EnemyDamageEvent;
+import de.bundeswehr.auf.slaythespire.model.battle.AttackContext;
 import de.bundeswehr.auf.slaythespire.model.battle.BattleDeck;
 import de.bundeswehr.auf.slaythespire.model.battle.GameContext;
 import de.bundeswehr.auf.slaythespire.model.enemy.structure.Enemy;
@@ -116,13 +117,14 @@ class EnemyTest {
     void testGetHealth() {
         int expectedHealth = enemyTest.getMaxHealth();
 
-        int actualHealth = enemyTest.getHealth();
+        int actualHealth = enemyTest.getCurrentHealth();
 
         Assertions.assertEquals(expectedHealth, actualHealth, "Health does not fit!");
 
         int expectedHealthAfterDamageTaken = enemyTest.getMaxHealth() - 5;
-        enemyTest.takeDamage(5,gameContext);
-        int actualHealthAfterDamageTaken = enemyTest.getHealth();
+        gameContext.setAttackContext(new AttackContext(null, enemyTest, 5, null));
+        enemyTest.takeDamage(gameContext);
+        int actualHealthAfterDamageTaken = enemyTest.getCurrentHealth();
 
         Assertions.assertEquals(expectedHealthAfterDamageTaken, actualHealthAfterDamageTaken, "Health does not fit!");
     }
@@ -171,7 +173,8 @@ class EnemyTest {
 
         Assertions.assertEquals(expectedIsAlive, actualIsAlive, "Enemy should be Alive");
 
-        enemyTest.takeDamage(20,gameContext);
+        gameContext.setAttackContext(new AttackContext(null, enemyTest, 20, null));
+        enemyTest.takeDamage(gameContext);
 
         boolean expectedIsNotAlive = false;
 
@@ -182,11 +185,12 @@ class EnemyTest {
 
     @Test
     void testTakeDamage() {
-        int expectedHp = enemyTest.getHealth() - 5;
+        int expectedHp = enemyTest.getCurrentHealth() - 5;
 
-        enemyTest.takeDamage(5,gameContext);
+        gameContext.setAttackContext(new AttackContext(null, enemyTest, 5, null));
+        enemyTest.takeDamage(gameContext);
 
-        int actualHp = enemyTest.getHealth();
+        int actualHp = enemyTest.getCurrentHealth();
 
         Assertions.assertEquals(expectedHp, actualHp, "Enemy took wrong amount of damage!");
     }
@@ -217,7 +221,7 @@ class EnemyTest {
     void testAddBlock() {
         int expectedBlock = 5;
 
-        enemyTest.addBlock(5);
+        enemyTest.gainBlock(5);
 
         int actualBlock = enemyTest.getBlock();
 
@@ -226,7 +230,7 @@ class EnemyTest {
 
         int expectedBlockAddition = 10;
 
-        enemyTest.addBlock(5);
+        enemyTest.gainBlock(5);
 
         int actualBlockAdded = enemyTest.getBlock();
         Assertions.assertEquals(expectedBlockAddition, actualBlockAdded, "Block Value is wrong");

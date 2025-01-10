@@ -19,18 +19,18 @@ public class HardenEnemyCard extends EnemyCard {
      */
     public HardenEnemyCard() {
         super("Corrosive Spit",
-                "Deals " + GameSettings.getDifficultyLevel().getDamage(10) + " damage, gains " +
-                        GameSettings.getDifficultyLevel().getDamage(15) + " block.",
-                GameSettings.getDifficultyLevel().getDamage(10) + "/" +
-                        GameSettings.getDifficultyLevel().getDamage(15));
+                "Deals " + GameSettings.getDifficultyLevel().modifyDamage(10) + " damage, gains " +
+                        GameSettings.getDifficultyLevel().modifyDamage(15) + " block.",
+                GameSettings.getDifficultyLevel().modifyDamage(10) + "/" +
+                        GameSettings.getDifficultyLevel().modifyDamage(15));
         setImagePath(new PathAssistent().toPath(this));
     }
 
     @Override
     public void playEnemy(GameContext gameContext, Enemy enemy) {
         Player player = gameContext.getPlayer();
-        player.decreaseCurrentHealth(GameSettings.getDifficultyLevel().getDamage(10), false, gameContext);
-        enemy.addBlock(GameSettings.getDifficultyLevel().getDamage(15));
+        enemy.dealDamage(gameContext, GameSettings.getDifficultyLevel().modifyDamage(10), player, this);
+        enemy.gainBlock(GameSettings.getDifficultyLevel().modifyDamage(15));
     }
 
 }

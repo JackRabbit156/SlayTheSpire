@@ -3,6 +3,7 @@ package de.bundeswehr.auf.slaythespire.model.battle;
 import de.bundeswehr.auf.slaythespire.model.enemy.structure.Enemy;
 import de.bundeswehr.auf.slaythespire.model.player.structure.Player;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
@@ -18,32 +19,50 @@ public class GameContext {
 
     private static final Random rnd = new Random();
 
-    private final Player player;
-    private final List<Enemy> enemies;
+    private AttackContext attackContext;
     private final BattleDeck battleDeck;
+    private final List<Enemy> enemies;
+    private final Player player;
     private Enemy selectedEnemy;
+
+    public GameContext(Player player, AttackContext attackContext) {
+        this.player = player;
+        this.attackContext = attackContext;
+        enemies = new ArrayList<>();
+        battleDeck = null;
+    }
 
     /**
      * Konstruktor für die GameContext-Klasse.
      *
-     * @param player Der Spieler im aktuellen Spielkontext.
-     * @param enemies Die Liste der Gegner.
+     * @param player     Der Spieler im aktuellen Spielkontext.
+     * @param enemies    Die Liste der Gegner.
      * @param battleDeck Der Kampfstapel des Spielers.
      */
-    public GameContext(Player player, List<Enemy> enemies, BattleDeck battleDeck){
+    public GameContext(Player player, List<Enemy> enemies, BattleDeck battleDeck) {
         this.player = player;
         this.enemies = enemies;
         this.battleDeck = battleDeck;
     }
 
-    public void setSelectedEnemy(Enemy selectedEnemy) {
-        this.selectedEnemy = selectedEnemy;
+    public AttackContext getAttackContext() {
+        return attackContext;
     }
 
-    public void setRandomEnemy() {
-        do {
-            selectedEnemy = enemies.get(rnd.nextInt(enemies.size()));
-        } while (!selectedEnemy.isAlive());
+    public void setAttackContext(AttackContext attackContext) {
+        this.attackContext = attackContext;
+    }
+
+    public BattleDeck getBattleDeck() {
+        return battleDeck;
+    }
+
+    public List<Enemy> getEnemies() {
+        return enemies;
+    }
+
+    public Player getPlayer() {
+        return player;
     }
 
     public Enemy getSelectedEnemy() {
@@ -53,16 +72,18 @@ public class GameContext {
         return selectedEnemy;
     }
 
-    public Player getPlayer(){
-        return player;
+    public void setSelectedEnemy(Enemy selectedEnemy) {
+        this.selectedEnemy = selectedEnemy;
     }
 
-    public List<Enemy> getEnemies(){
-        return enemies;
+    public boolean isRestricted() {
+        return battleDeck == null;
     }
 
-    public BattleDeck getBattleDeck() {
-        return battleDeck;
+    public void setRandomEnemy() {
+        do {
+            selectedEnemy = enemies.get(rnd.nextInt(enemies.size()));
+        } while (!selectedEnemy.isAlive());
     }
 
 }

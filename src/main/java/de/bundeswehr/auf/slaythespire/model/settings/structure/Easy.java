@@ -7,7 +7,7 @@ public class Easy extends DifficultyLevel {
     }
 
     @Override
-    public int getDamage(int damage) {
+    public int modifyDamage(int damage) {
         return Math.max(1, damage / 2);
     }
 
