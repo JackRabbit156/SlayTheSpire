@@ -104,7 +104,7 @@ public class EnemyLayout extends VBox {
 
             @Override
             public void onBlockReceived(EnemyBlockEvent event) {
-                Animate.pathAnimationAboveTarget(new BlockText(event.getBlockAmount()),
+                Animate.pathAnimationAboveTarget(new BlockLayout(event.getBlockAmount()),
                         node,
                         Direction.UP,
                         e -> defendLayout.setBlockText(enemy.getBlock()));
@@ -112,10 +112,17 @@ public class EnemyLayout extends VBox {
 
             @Override
             public void onDamageReceived(EnemyDamageEvent event) {
-                Animate.pathAnimationAboveTarget(new DamageText(event.getDamageAmount()),
-                        node,
-                        Direction.UP,
-                        e -> healthBarLayout.setHealthText(enemy.getCurrentHealth(), enemy.getMaxHealth()));
+                if (event.getDamageAmount() == 0) {
+                    Animate.shatterAnimation(new BlockLayout(0),
+                            node,
+                            e -> defendLayout.setBlockText(enemy.getBlock()));
+                }
+                else {
+                    Animate.pathAnimationAboveTarget(new DamageText(event.getDamageAmount()),
+                            node,
+                            Direction.UP,
+                            e -> healthBarLayout.setHealthText(enemy.getCurrentHealth(), enemy.getMaxHealth()));
+                }
             }
 
             @Override

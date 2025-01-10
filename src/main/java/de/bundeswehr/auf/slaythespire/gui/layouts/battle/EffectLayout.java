@@ -12,15 +12,11 @@ import javafx.scene.control.Tooltip;
 public class EffectLayout extends IconLayout {
 
     private final Effect effect;
-    private final int value;
 
     public EffectLayout(Effect effect, int value) {
         super(effect.getImagePath());
         this.effect = effect;
-        this.value = value;
-        if (value > 1) {
-            setText(Integer.toString(value));
-        }
+        setValue(value);
         Tooltip.install(this, new Tooltip(effect.getDescription()));
     }
 
@@ -52,6 +48,15 @@ public class EffectLayout extends IconLayout {
     @Override
     protected String getTextColor() {
         return "#ffffff";
+    }
+
+    public void setValue(int value) {
+        if (value > 1) {
+            setText(Integer.toString(value));
+        }
+        else {
+            setText("");
+        }
     }
 
 }

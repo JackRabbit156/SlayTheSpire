@@ -55,6 +55,43 @@ public final class Animate {
         pathAnimation(node, target, path, onFinished);
     }
 
+    public static void shatterAnimation(Node node, Node target, EventHandler<ActionEvent> onFinished) {
+        shatterAnimation(node, target, 2.0, onFinished);
+    }
+
+    private static void animation(Node target, Animation[] animations, Node... nodes) {
+        Popup popup = new Popup();
+        popup.setAutoHide(false);
+        popup.getContent().addAll(nodes);
+        ParallelTransition transition = new ParallelTransition(animations);
+        transition.setOnFinished(event -> popup.hide());
+        Bounds bounds = target.localToScreen(target.getBoundsInLocal());
+        popup.show(target.getScene().getWindow(), bounds.getMinX(), bounds.getMinY());
+        transition.play();
+    }
+
+    private static Path createCircledPath(Node node, double startX, double startY, double endX, double endY) {
+        node.setTranslateX(startX);
+        node.setTranslateY(startY);
+        final Path path = new Path();
+        path.getElements().add(new MoveTo(startX, startY));
+        double radiusX = (startX - endX) / 2;
+        double radiusY = rnd.nextInt(5) * 30 + 50;
+        path.getElements().add(new ArcTo(radiusX, radiusY, 0, endX, endY, true, false));
+        path.setOpacity(0.0);
+        return path;
+    }
+
+    private static Path createPath(Node node, double startX, double startY, double endX, double endY) {
+        node.setTranslateX(startX);
+        node.setTranslateY(startY);
+        final Path path = new Path();
+        path.getElements().add(new MoveTo(startX, startY));
+        path.getElements().add(new LineTo(endX, endY));
+        path.setOpacity(0.0);
+        return path;
+    }
+
     private static Path createPathAboveTarget(Node target, Node node, Direction direction) {
         Bounds targetBounds = target.getBoundsInLocal();
         double x = rnd.nextInt((int) (targetBounds.getMaxX() - targetBounds.getMinX())) + targetBounds.getMinX();
@@ -92,41 +129,41 @@ public final class Animate {
         return createPath(node, startX, startY, endX, endY);
     }
 
-    private static Path createPath(Node node, double startX, double startY, double endX, double endY) {
-        node.setTranslateX(startX);
-        node.setTranslateY(startY);
-        final Path path = new Path();
-        path.getElements().add(new MoveTo(startX, startY));
-        path.getElements().add(new LineTo(endX, endY));
-        path.setOpacity(0.0);
-        return path;
+    private static Animation generateFadeOutTransition(Node node, double duration) {
+        Timeline fadeOut = new Timeline(
+                new KeyFrame(Duration.ZERO,
+                        new KeyValue(node.opacityProperty(), 1.0)
+                ),
+                new KeyFrame(Duration.seconds(duration - duration / 4.0),
+                        new KeyValue(node.opacityProperty(), 1.0)
+                ),
+                new KeyFrame(Duration.seconds(duration),
+                        new KeyValue(node.opacityProperty(), 0.0)
+                )
+        );
+        fadeOut.setCycleCount(1);
+        fadeOut.setAutoReverse(false);
+        return fadeOut;
     }
 
-    private static Path createCircledPath(Node node, double startX, double startY, double endX, double endY) {
-        node.setTranslateX(startX);
-        node.setTranslateY(startY);
-        final Path path = new Path();
-        path.getElements().add(new MoveTo(startX, startY));
-        double radiusX = (startX - endX) / 2;
-        double radiusY = rnd.nextInt(5) * 30 + 50;
-        path.getElements().add(new ArcTo(radiusX, radiusY, 0, endX, endY, true, false));
-        path.setOpacity(0.0);
-        return path;
-    }
-
-    private static Animation generatePathTransition(Popup popup, Node node, Path path, double duration, EventHandler<ActionEvent> onFinished) {
-        popup.getContent().addAll(path, node);
+    private static Animation generatePathTransition(Node node, Path path, double duration, EventHandler<ActionEvent> onFinished) {
         PathTransition pathTransition = new PathTransition(Duration.seconds(duration), path, node);
         pathTransition.setOrientation(PathTransition.OrientationType.NONE);
         pathTransition.setCycleCount(1);
         pathTransition.setAutoReverse(false);
-        pathTransition.setOnFinished(event -> {
-            popup.hide();
-            if (onFinished != null) {
-                onFinished.handle(event);
-            }
-        });
+        pathTransition.setOnFinished(onFinished);
         return pathTransition;
+    }
+
+    private static Animation generateShatterTransition(Node node, double duration, EventHandler<ActionEvent> onFinished) {
+        int cycle = 20;
+        RotateTransition rotateTransition = new RotateTransition(Duration.seconds(duration / cycle), node);
+        rotateTransition.setFromAngle(-5);
+        rotateTransition.setToAngle(5);
+        rotateTransition.setCycleCount(cycle);
+        rotateTransition.setAutoReverse(true);
+        rotateTransition.setOnFinished(onFinished);
+        return rotateTransition;
     }
 
     private static void pathAnimation(Node node, Node target, Path path, EventHandler<ActionEvent> onFinished) {
@@ -134,30 +171,15 @@ public final class Animate {
     }
 
     private static void pathAnimation(Node node, Node target, Path path, double duration, EventHandler<ActionEvent> onFinished) {
-        Popup popup = new Popup();
-        popup.setAutoHide(false);
-        ParallelTransition transition = new ParallelTransition(generatePathTransition(popup, node, path, duration, onFinished),
-                generateFadeOutTransition(node, duration));
-        Bounds bounds = target.localToScreen(target.getBoundsInLocal());
-        popup.show(target.getScene().getWindow(), bounds.getMinX(), bounds.getMinY());
-        transition.play();
+        Animation[] animations = {generatePathTransition(node, path, duration, onFinished),
+                generateFadeOutTransition(node, duration)};
+        animation(target, animations, path, node);
     }
 
-    private static Animation generateFadeOutTransition(Node node, double duration) {
-        Timeline fadeOut = new Timeline(
-            new KeyFrame(Duration.ZERO,
-                new KeyValue(node.opacityProperty(), 1.0)
-            ),
-            new KeyFrame(Duration.seconds(duration - duration / 4.0),
-                new KeyValue(node.opacityProperty(), 1.0)
-            ),
-            new KeyFrame(Duration.seconds(duration),
-                new KeyValue(node.opacityProperty(), 0.0)
-            )
-        );
-        fadeOut.setCycleCount(1);
-        fadeOut.setAutoReverse(false);
-        return fadeOut;
+    private static void shatterAnimation(Node node, Node target, double duration, EventHandler<ActionEvent> onFinished) {
+        Animation[] animations = {generateShatterTransition(node, duration, onFinished),
+                generateFadeOutTransition(node, duration)};
+        animation(target, animations, node);
     }
 
     private Animate() {

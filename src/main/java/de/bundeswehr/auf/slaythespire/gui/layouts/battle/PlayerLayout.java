@@ -72,7 +72,7 @@ public class PlayerLayout extends VBox {
 
             @Override
             public void onBlockReceived(PlayerBlockEvent event) {
-                Animate.pathAnimationAboveTarget(new BlockText(event.getBlockAmount()),
+                Animate.pathAnimationAboveTarget(new BlockLayout(event.getBlockAmount()),
                         node,
                         Direction.UP,
                         e -> updatePlayer());
@@ -80,10 +80,17 @@ public class PlayerLayout extends VBox {
 
             @Override
             public void onDamageReceived(PlayerDamageEvent event) {
-                Animate.pathAnimationAboveTarget(new DamageText(event.getDamageAmount()),
-                        node,
-                        Direction.UP,
-                        e -> updatePlayer());
+                if (event.getDamageAmount() == 0) {
+                    Animate.shatterAnimation(new BlockLayout(0),
+                            node,
+                            e -> updatePlayer());
+                }
+                else {
+                    Animate.pathAnimationAboveTarget(new DamageText(event.getDamageAmount()),
+                            node,
+                            Direction.UP,
+                            e -> updatePlayer());
+                }
             }
 
             @Override
