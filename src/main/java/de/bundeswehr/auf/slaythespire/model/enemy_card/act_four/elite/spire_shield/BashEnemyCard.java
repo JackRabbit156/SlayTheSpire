@@ -1,33 +1,29 @@
-package de.bundeswehr.auf.slaythespire.model.enemy_card.act_two.boss.the_champ;
+package de.bundeswehr.auf.slaythespire.model.enemy_card.act_four.elite.spire_shield;
 
 import de.bundeswehr.auf.slaythespire.helper.PathAssistent;
 import de.bundeswehr.auf.slaythespire.model.battle.GameContext;
-import de.bundeswehr.auf.slaythespire.model.effect.debuff.VulnerableDebuff;
+import de.bundeswehr.auf.slaythespire.model.effect.buff.StrengthBuff;
 import de.bundeswehr.auf.slaythespire.model.enemy.structure.Enemy;
 import de.bundeswehr.auf.slaythespire.model.enemy_card.structure.AttackEnemyCard;
 import de.bundeswehr.auf.slaythespire.model.player.structure.Player;
 
 /**
- * Die Face slap enemy card.
+ * Die Bash enemy card.
  *
- * @author OF Daniel Willig
+ * @author L Frank Rieger
  */
-public class FaceSlapEnemyCard extends AttackEnemyCard {
+public class BashEnemyCard extends AttackEnemyCard {
 
-    /**
-     * Constructor Face slap enemy card.
-     */
-    public FaceSlapEnemyCard() {
-        super("Face Slap", "Deals 12 damage, applying 2 Vulnerable.", 12);
+    public BashEnemyCard() {
+        super("Bash", "Deals 12 damage. Applies -1 Strength.", 12);
         setImagePath(new PathAssistent().toPath(this));
     }
 
     @Override
     public void playEnemy(GameContext gameContext, Enemy enemy) {
-        super.playEnemy(gameContext, enemy);
-
         Player player = gameContext.getPlayer();
-        player.addEffect(new VulnerableDebuff(), 2);
+        enemy.dealDamage(gameContext, getDamage(gameContext), player, this);
+        player.addEffect(new StrengthBuff(), -1);
     }
 
 }

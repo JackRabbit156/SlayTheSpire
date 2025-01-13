@@ -17,13 +17,13 @@ public abstract class BlockEnemyCard extends EnemyCard {
         this.block = GameSettings.getDifficultyLevel().modifyDamage(block);
     }
 
-    public int gainBlock(GameContext gameContext) {
+    public int getBlock(GameContext gameContext) {
         return block;
     }
 
     @Override
     public void playEnemy(GameContext gameContext, Enemy enemy) {
-        enemy.gainBlock(gainBlock(gameContext));
+        enemy.gainBlock(getBlock(gameContext));
     }
 
 }

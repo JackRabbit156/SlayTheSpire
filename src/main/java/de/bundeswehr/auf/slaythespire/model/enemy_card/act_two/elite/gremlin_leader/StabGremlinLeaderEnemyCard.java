@@ -8,12 +8,12 @@ import de.bundeswehr.auf.slaythespire.model.enemy_card.structure.MultiAttackEnem
  *
  * @author OF Daniel Willig
  */
-public class StabGEnemyCard extends MultiAttackEnemyCard {
+public class StabGremlinLeaderEnemyCard extends MultiAttackEnemyCard {
 
     /**
      * Constructor Stab g enemy card.
      */
-    public StabGEnemyCard() {
+    public StabGremlinLeaderEnemyCard() {
         super("Stab", "Deals 6 x 3 damage.", 6, 3);
         setImagePath(new PathAssistent().toPath(this));
     }

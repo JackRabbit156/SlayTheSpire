@@ -2,6 +2,7 @@ package de.bundeswehr.auf.slaythespire.model.enemy.act_two;
 
 import de.bundeswehr.auf.slaythespire.helper.PathAssistent;
 import de.bundeswehr.auf.slaythespire.model.enemy.structure.Enemy;
+import de.bundeswehr.auf.slaythespire.model.enemy_card.act_two.byrd.CawEnemyCard;
 import de.bundeswehr.auf.slaythespire.model.enemy_card.act_two.byrd.HeadbuttEnemyCard;
 import de.bundeswehr.auf.slaythespire.model.enemy_card.act_two.byrd.PeckEnemyCard;
 import de.bundeswehr.auf.slaythespire.model.enemy_card.act_two.byrd.SwoopEnemyCard;
@@ -29,9 +30,10 @@ public class ByrdEnemy extends Enemy {
     private void initEnemyDeck() {
         List<EnemyCard> deck = new ArrayList<>();
 
+        deck.add(new CawEnemyCard());
+        deck.add(new HeadbuttEnemyCard());
         deck.add(new PeckEnemyCard());
         deck.add(new SwoopEnemyCard());
-        deck.add(new HeadbuttEnemyCard());
 
         setEnemyDeck(deck);
     }

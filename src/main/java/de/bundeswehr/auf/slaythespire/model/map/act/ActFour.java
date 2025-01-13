@@ -2,6 +2,8 @@ package de.bundeswehr.auf.slaythespire.model.map.act;
 
 
 import de.bundeswehr.auf.slaythespire.helper.MusicBoy;
+import de.bundeswehr.auf.slaythespire.model.enemy.act_four.ExploderEnemy;
+import de.bundeswehr.auf.slaythespire.model.enemy.act_four.RepulsorEnemy;
 import de.bundeswehr.auf.slaythespire.model.enemy.act_four.SpikerEnemy;
 import de.bundeswehr.auf.slaythespire.model.enemy.act_four.boss.CorruptHeartBoss;
 import de.bundeswehr.auf.slaythespire.model.enemy.act_four.elite.SpireShieldElite;
@@ -73,9 +75,9 @@ public class ActFour extends Act {
 
     private List<Enemy> createBossEnemies() {
         List<Enemy> enemies = new ArrayList<>();
-        int randAmountEnemies = GameSettings.getDifficultyLevel().getNumberOfMinionsElite(1);
-        for (int i = 0; i < randAmountEnemies; i++) {
-            enemies.add(new SpikerEnemy());
+        int numberOfMinions = GameSettings.getDifficultyLevel().getNumberOfMinionsBoss(1);
+        for (int i = 0; i < numberOfMinions; i++) {
+            enemies.add(createMinion());
         }
         enemies.add(new CorruptHeartBoss());
         return enemies;
@@ -84,9 +86,9 @@ public class ActFour extends Act {
     private List<Enemy> createElitesEnemies() {
         List<Enemy> enemies = new ArrayList<>();
         int randElite = rnd.nextInt(2);
-        int randAmountEnemies = GameSettings.getDifficultyLevel().getNumberOfMinionsElite(3);
-        for (int i = 0; i < randAmountEnemies; i++) {
-            enemies.add(new SpikerEnemy());
+        int numberOfMinions = GameSettings.getDifficultyLevel().getNumberOfMinionsElite(3);
+        for (int i = 0; i < numberOfMinions; i++) {
+            enemies.add(createMinion());
         }
         switch (randElite) {
             case 0:
@@ -99,6 +101,21 @@ public class ActFour extends Act {
                 break;
         }
         return enemies;
+    }
+
+    private Enemy createMinion() {
+        int randEnemy = rnd.nextInt(3);
+        switch (randEnemy) {
+            case 0:
+                // 1 - Spiker
+                return new SpikerEnemy();
+            case 1:
+                // 2 - Exploder
+                return new ExploderEnemy();
+            default:
+                // 3 - Repulsor
+                return new RepulsorEnemy();
+        }
     }
 
     private void initNodes() {

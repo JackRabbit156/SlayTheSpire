@@ -4,7 +4,7 @@ import de.bundeswehr.auf.slaythespire.helper.PathAssistent;
 import de.bundeswehr.auf.slaythespire.model.enemy.structure.Enemy;
 import de.bundeswehr.auf.slaythespire.model.enemy_card.act_two.spheric_guardian.ActivateEnemyCard;
 import de.bundeswehr.auf.slaythespire.model.enemy_card.act_two.spheric_guardian.HardenEnemyCard;
-import de.bundeswehr.auf.slaythespire.model.enemy_card.act_two.spheric_guardian.SlamSEnemyCard;
+import de.bundeswehr.auf.slaythespire.model.enemy_card.act_two.spheric_guardian.SlamSphericGuardianEnemyCard;
 import de.bundeswehr.auf.slaythespire.model.enemy_card.structure.EnemyCard;
 
 import java.util.ArrayList;
@@ -30,7 +30,7 @@ public class SphericGuardianEnemy extends Enemy {
     private void initEnemyDeck() {
         List<EnemyCard> deck = new ArrayList<>();
 
-        deck.add(new SlamSEnemyCard());
+        deck.add(new SlamSphericGuardianEnemyCard());
         deck.add(new ActivateEnemyCard());
         deck.add(new HardenEnemyCard());
 

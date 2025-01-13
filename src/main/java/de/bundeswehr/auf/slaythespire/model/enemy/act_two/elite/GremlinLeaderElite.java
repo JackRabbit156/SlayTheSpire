@@ -3,7 +3,7 @@ package de.bundeswehr.auf.slaythespire.model.enemy.act_two.elite;
 import de.bundeswehr.auf.slaythespire.helper.PathAssistent;
 import de.bundeswehr.auf.slaythespire.model.enemy.structure.Elite;
 import de.bundeswehr.auf.slaythespire.model.enemy_card.act_two.elite.gremlin_leader.EncourageEnemyCard;
-import de.bundeswehr.auf.slaythespire.model.enemy_card.act_two.elite.gremlin_leader.StabGEnemyCard;
+import de.bundeswehr.auf.slaythespire.model.enemy_card.act_two.elite.gremlin_leader.StabGremlinLeaderEnemyCard;
 import de.bundeswehr.auf.slaythespire.model.enemy_card.structure.EnemyCard;
 
 import java.util.ArrayList;
@@ -29,7 +29,7 @@ public class GremlinLeaderElite extends Elite {
         List<EnemyCard> deck = new ArrayList<>();
 
         deck.add(new EncourageEnemyCard());
-        deck.add(new StabGEnemyCard());
+        deck.add(new StabGremlinLeaderEnemyCard());
 
         setEnemyDeck(deck);
     }

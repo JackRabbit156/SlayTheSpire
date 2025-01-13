@@ -15,6 +15,7 @@ import de.bundeswehr.auf.slaythespire.model.player.TestPlayer;
 import de.bundeswehr.auf.slaythespire.model.potion.CheaterPotion;
 import de.bundeswehr.auf.slaythespire.model.potion.uncommon.DistilledChaosPotion;
 import de.bundeswehr.auf.slaythespire.model.settings.GameSettings;
+import de.bundeswehr.auf.slaythespire.model.settings.structure.DifficultyLevel;
 import de.bundeswehr.auf.slaythespire.model.settings.structure.Normal;
 import javafx.application.Application;
 import javafx.stage.Stage;
@@ -37,9 +38,12 @@ public class BattleTester extends Application {
     }
 
     private enum Type {
-        CHEATER, DEFENSIVE, EFFECTS, STATUS, CUSTOM, IRONCLAD, SILENT
+        CHEATER, CUSTOM,
+        DEFENSIVE, EFFECTS, STATUS,
+        IRONCLAD, SILENT
     }
 
+    private static final DifficultyLevel DIFFICULTY = new Normal();
     private static final Test TEST = Test.ACT_I_ENEMY;
     private static final Type TYPE = Type.CHEATER;
 
@@ -47,6 +51,9 @@ public class BattleTester extends Application {
         launch(args);
     }
 
+    /**
+     * Wird bei {@link Type#CUSTOM} verwendet.
+     */
     private static List<Card> customDeck() {
         List<Card> deck = new ArrayList<>();
         for (int i = 0; i < 5; i++) {
@@ -93,7 +100,7 @@ public class BattleTester extends Application {
         player.getPotions().add(new CheaterPotion());
         player.getPotions().add(new DistilledChaosPotion());
 
-        GameSettings.setDifficultyLevel(new Normal());
+        GameSettings.setDifficultyLevel(DIFFICULTY);
 
         switch (TEST) {
             case ACT_II_ENEMY:

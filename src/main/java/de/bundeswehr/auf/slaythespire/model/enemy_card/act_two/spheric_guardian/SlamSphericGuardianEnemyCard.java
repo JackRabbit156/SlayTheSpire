@@ -8,12 +8,12 @@ import de.bundeswehr.auf.slaythespire.model.enemy_card.structure.MultiAttackEnem
  *
  * @author OF Daniel Willig
  */
-public class SlamSEnemyCard extends MultiAttackEnemyCard {
+public class SlamSphericGuardianEnemyCard extends MultiAttackEnemyCard {
 
     /**
      * Constructor Slam s enemy card.
      */
-    public SlamSEnemyCard() {
+    public SlamSphericGuardianEnemyCard() {
         super("Slam", "Deals 10 x 2 damage.", 10, 2);
         setImagePath(new PathAssistent().toPath(this));
     }

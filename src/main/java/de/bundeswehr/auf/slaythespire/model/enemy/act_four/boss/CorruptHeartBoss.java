@@ -3,6 +3,8 @@ package de.bundeswehr.auf.slaythespire.model.enemy.act_four.boss;
 import de.bundeswehr.auf.slaythespire.helper.PathAssistent;
 import de.bundeswehr.auf.slaythespire.model.enemy.structure.Boss;
 import de.bundeswehr.auf.slaythespire.model.enemy_card.act_four.boss.corrupt_heart.BloodShotsEnemyCard;
+import de.bundeswehr.auf.slaythespire.model.enemy_card.act_four.boss.corrupt_heart.BuffEnemyCard;
+import de.bundeswehr.auf.slaythespire.model.enemy_card.act_four.boss.corrupt_heart.DebilitateEnemyCard;
 import de.bundeswehr.auf.slaythespire.model.enemy_card.act_four.boss.corrupt_heart.EchoEnemyCard;
 import de.bundeswehr.auf.slaythespire.model.enemy_card.structure.EnemyCard;
 
@@ -25,6 +27,8 @@ public class CorruptHeartBoss extends Boss {
         List<EnemyCard> deck = new ArrayList<>();
 
         deck.add(new BloodShotsEnemyCard());
+        deck.add(new BuffEnemyCard());
+        deck.add(new DebilitateEnemyCard());
         deck.add(new EchoEnemyCard());
 
         setEnemyDeck(deck);

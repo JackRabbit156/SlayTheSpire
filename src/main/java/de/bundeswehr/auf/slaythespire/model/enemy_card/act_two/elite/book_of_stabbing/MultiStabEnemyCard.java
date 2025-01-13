@@ -16,9 +16,7 @@ import java.util.Random;
  */
 public class MultiStabEnemyCard extends EnemyCard {
 
-    private static final Random rnd = new Random();
-
-    private final int randomAttack = rnd.nextInt(3);
+    private int counter;
 
     /**
      * Constructor Multi stab enemy card.
@@ -31,9 +29,10 @@ public class MultiStabEnemyCard extends EnemyCard {
     @Override
     public void playEnemy(GameContext gameContext, Enemy enemy) {
         Player player = gameContext.getPlayer();
-        for (int i = 0; i < randomAttack; i++) {
+        for (int i = 0; i < 2 + counter; i++) {
             enemy.dealDamage(gameContext, GameSettings.getDifficultyLevel().modifyDamage(6), player, this);
         }
+        counter++;
     }
 
 }

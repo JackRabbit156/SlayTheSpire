@@ -243,6 +243,9 @@ public class BattleController implements Controller, BattleViewEvents, PlayerEve
             default:
                 battleDeck.removeCardFromHand(card);
         }
+        if (card.getCardGrave() != CardGrave.POTION) {
+            triggerEffects(EffectTrigger.CARD_DEATH, player);
+        }
         battleView.updateBottom();
     }
 

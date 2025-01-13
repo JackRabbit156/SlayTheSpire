@@ -2,10 +2,7 @@ package de.bundeswehr.auf.slaythespire.model.enemy.act_two.boss;
 
 import de.bundeswehr.auf.slaythespire.helper.PathAssistent;
 import de.bundeswehr.auf.slaythespire.model.enemy.structure.Boss;
-import de.bundeswehr.auf.slaythespire.model.enemy_card.act_two.boss.the_champ.DefensiveStanceEnemyCard;
-import de.bundeswehr.auf.slaythespire.model.enemy_card.act_two.boss.the_champ.ExecuteEnemyCard;
-import de.bundeswehr.auf.slaythespire.model.enemy_card.act_two.boss.the_champ.FaceSlapEnemyCard;
-import de.bundeswehr.auf.slaythespire.model.enemy_card.act_two.boss.the_champ.HeavySlashEnemyCard;
+import de.bundeswehr.auf.slaythespire.model.enemy_card.act_two.boss.the_champ.*;
 import de.bundeswehr.auf.slaythespire.model.enemy_card.structure.EnemyCard;
 
 import java.util.ArrayList;
@@ -29,10 +26,13 @@ public class TheChampBoss extends Boss {
     private void initEnemyDeck() {
         List<EnemyCard> deck = new ArrayList<>();
 
+        deck.add(new AngerEnemyCard());
         deck.add(new DefensiveStanceEnemyCard());
-        deck.add(new FaceSlapEnemyCard());
-        deck.add(new HeavySlashEnemyCard());
         deck.add(new ExecuteEnemyCard());
+        deck.add(new FaceSlapEnemyCard());
+        deck.add(new GloatEnemyCard());
+        deck.add(new HeavySlashEnemyCard());
+        deck.add(new TauntEnemyCard());
 
         setEnemyDeck(deck);
     }
