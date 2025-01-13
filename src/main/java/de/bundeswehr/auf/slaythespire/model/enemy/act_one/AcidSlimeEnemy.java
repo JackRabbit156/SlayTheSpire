@@ -3,6 +3,8 @@ package de.bundeswehr.auf.slaythespire.model.enemy.act_one;
 import de.bundeswehr.auf.slaythespire.helper.PathAssistent;
 import de.bundeswehr.auf.slaythespire.model.enemy.structure.Enemy;
 import de.bundeswehr.auf.slaythespire.model.enemy_card.act_one.acid_slime.CorrosiveSpitEnemyCard;
+import de.bundeswehr.auf.slaythespire.model.enemy_card.act_one.acid_slime.LickEnemyCard;
+import de.bundeswehr.auf.slaythespire.model.enemy_card.act_one.acid_slime.TackleEnemyCard;
 import de.bundeswehr.auf.slaythespire.model.enemy_card.structure.EnemyCard;
 
 import java.util.ArrayList;
@@ -28,6 +30,8 @@ public class AcidSlimeEnemy extends Enemy {
         List<EnemyCard> deck = new ArrayList<>();
 
         deck.add(new CorrosiveSpitEnemyCard());
+        deck.add(new LickEnemyCard());
+        deck.add(new TackleEnemyCard());
 
         setEnemyDeck(deck);
     }

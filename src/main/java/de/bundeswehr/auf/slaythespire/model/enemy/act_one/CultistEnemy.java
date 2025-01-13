@@ -3,6 +3,7 @@ package de.bundeswehr.auf.slaythespire.model.enemy.act_one;
 import de.bundeswehr.auf.slaythespire.helper.PathAssistent;
 import de.bundeswehr.auf.slaythespire.model.enemy.structure.Enemy;
 import de.bundeswehr.auf.slaythespire.model.enemy_card.act_one.cultist.DarkStrikeEnemyCard;
+import de.bundeswehr.auf.slaythespire.model.enemy_card.act_one.cultist.IncantationEnemyCard;
 import de.bundeswehr.auf.slaythespire.model.enemy_card.structure.EnemyCard;
 
 import java.util.ArrayList;
@@ -28,6 +29,7 @@ public class CultistEnemy extends Enemy {
         List<EnemyCard> deck = new ArrayList<>();
 
         deck.add(new DarkStrikeEnemyCard());
+        deck.add(new IncantationEnemyCard());
 
         setEnemyDeck(deck);
     }

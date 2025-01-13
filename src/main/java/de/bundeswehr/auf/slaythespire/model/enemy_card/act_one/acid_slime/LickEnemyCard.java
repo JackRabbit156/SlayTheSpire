@@ -4,33 +4,29 @@ import de.bundeswehr.auf.slaythespire.helper.PathAssistent;
 import de.bundeswehr.auf.slaythespire.model.battle.BattleDeck;
 import de.bundeswehr.auf.slaythespire.model.battle.GameContext;
 import de.bundeswehr.auf.slaythespire.model.card.status.SlimedCard;
+import de.bundeswehr.auf.slaythespire.model.effect.debuff.WeakDebuff;
 import de.bundeswehr.auf.slaythespire.model.enemy.structure.Enemy;
 import de.bundeswehr.auf.slaythespire.model.enemy_card.structure.AttackEnemyCard;
+import de.bundeswehr.auf.slaythespire.model.enemy_card.structure.EnemyCard;
 import de.bundeswehr.auf.slaythespire.model.player.structure.Player;
 
 /**
- * Die Corrosive spit enemy card.
+ * Die Lick enemy card.
  *
- * @author OF Daniel Willig
+ * @author L Frank Rieger
  */
-public class CorrosiveSpitEnemyCard extends AttackEnemyCard {
+public class LickEnemyCard extends EnemyCard {
 
-    /**
-     * Constructor Corrosive spit enemy card.
-     */
-    public CorrosiveSpitEnemyCard() {
-        super("Corrosive Spit", "Deals 11 damage, shuffles 2 Slimed into the discard pile.", 11);
+    public LickEnemyCard() {
+        super("Lick", "Inflicts 2 Weak.", "2");
         setImagePath(new PathAssistent().toPath(this));
     }
 
 
     @Override
     public void playEnemy(GameContext gameContext, Enemy enemy) {
-        super.playEnemy(gameContext, enemy);
-
-        BattleDeck battleDeck = gameContext.getBattleDeck();
-        battleDeck.addToDiscardPile(new SlimedCard());
-        battleDeck.addToDiscardPile(new SlimedCard());
+        Player player = gameContext.getPlayer();
+        player.addEffect(new WeakDebuff(), 2);
     }
 
 

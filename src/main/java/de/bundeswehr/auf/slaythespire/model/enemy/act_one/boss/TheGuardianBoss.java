@@ -4,6 +4,7 @@ import de.bundeswehr.auf.slaythespire.helper.PathAssistent;
 import de.bundeswehr.auf.slaythespire.model.enemy.structure.Boss;
 import de.bundeswehr.auf.slaythespire.model.enemy_card.act_one.boss.the_guardian.ChargingUpEnemyCard;
 import de.bundeswehr.auf.slaythespire.model.enemy_card.act_one.boss.the_guardian.FierceBashEnemyCard;
+import de.bundeswehr.auf.slaythespire.model.enemy_card.act_one.boss.the_guardian.VentSteamEnemyCard;
 import de.bundeswehr.auf.slaythespire.model.enemy_card.act_one.boss.the_guardian.WhirlwindEnemyCard;
 import de.bundeswehr.auf.slaythespire.model.enemy_card.structure.EnemyCard;
 
@@ -29,6 +30,7 @@ public class TheGuardianBoss extends Boss {
 
         deck.add(new ChargingUpEnemyCard());
         deck.add(new FierceBashEnemyCard());
+        deck.add(new VentSteamEnemyCard());
         deck.add(new WhirlwindEnemyCard());
 
         setEnemyDeck(deck);

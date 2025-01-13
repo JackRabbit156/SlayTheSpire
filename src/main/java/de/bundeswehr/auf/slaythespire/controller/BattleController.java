@@ -261,6 +261,7 @@ public class BattleController implements Controller, BattleViewEvents, PlayerEve
             if (enemy.isAlive()) {
                 enemy.reduceDurationEffects();
                 enemy.action(gameContext);
+                triggerEffects(EffectTrigger.END_OF_TURN, enemy);
             }
         }
     }
@@ -318,6 +319,7 @@ public class BattleController implements Controller, BattleViewEvents, PlayerEve
         removeHandAfterEndOfTurn();
 
         triggerPowerCards(CardTrigger.PLAYER_EOT);
+        triggerEffects(EffectTrigger.END_OF_TURN, player);
         battleDeck.removeNonPowerCards();
     }
 
@@ -355,8 +357,8 @@ public class BattleController implements Controller, BattleViewEvents, PlayerEve
         triggerPowerCards(CardTrigger.PLAYER_BOT);
     }
 
-    private void triggerEffect(EffectTrigger trigger, Entity target) {
-        for (Effect effect : player.getEffects().keySet()) {
+    private void triggerEffects(EffectTrigger trigger, Entity target) {
+        for (Effect effect : target.getEffects().keySet()) {
             if (effect.getEffectTrigger() == trigger) {
                 effect.apply(gameContext, target);
             }

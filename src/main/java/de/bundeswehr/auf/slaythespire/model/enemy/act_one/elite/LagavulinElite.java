@@ -3,6 +3,7 @@ package de.bundeswehr.auf.slaythespire.model.enemy.act_one.elite;
 import de.bundeswehr.auf.slaythespire.helper.PathAssistent;
 import de.bundeswehr.auf.slaythespire.model.enemy.structure.Elite;
 import de.bundeswehr.auf.slaythespire.model.enemy_card.act_one.elite.lagavulin.LagavulinAttackEnemyCard;
+import de.bundeswehr.auf.slaythespire.model.enemy_card.act_one.elite.lagavulin.SiphonSoulEnemyCard;
 import de.bundeswehr.auf.slaythespire.model.enemy_card.structure.EnemyCard;
 
 import java.util.ArrayList;
@@ -24,6 +25,7 @@ public class LagavulinElite extends Elite {
         List<EnemyCard> deck = new ArrayList<>();
 
         deck.add(new LagavulinAttackEnemyCard());
+        deck.add(new SiphonSoulEnemyCard());
 
         setEnemyDeck(deck);
     }

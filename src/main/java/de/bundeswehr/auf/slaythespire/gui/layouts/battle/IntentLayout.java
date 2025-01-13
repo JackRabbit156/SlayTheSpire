@@ -2,7 +2,9 @@ package de.bundeswehr.auf.slaythespire.gui.layouts.battle;
 
 import de.bundeswehr.auf.slaythespire.gui.components.StrokedText;
 import de.bundeswehr.auf.slaythespire.model.enemy.structure.Enemy;
+import de.bundeswehr.auf.slaythespire.model.enemy_card.structure.EnemyCard;
 import javafx.geometry.Pos;
+import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
@@ -30,6 +32,12 @@ public class IntentLayout extends StackPane {
 
         getChildren().addAll(intentIconView, intentText);
         setAlignment(Pos.BOTTOM_CENTER);
+    }
+
+    public void setIntent(EnemyCard intent) {
+        Tooltip.install(this, new Tooltip(intent.getDescription()));
+        setIntentText(intent.getIconText());
+        setIntentIcon(intent.getImagePath());
     }
 
     public void setIntentIcon(String intent) {

@@ -96,8 +96,7 @@ public class EnemyLayout extends VBox {
      * Gesundheitswerten, Verteidigungswerten und Absichten.
      */
     public void updateEnemy() {
-        intentLayout.setIntentText(enemy.getIntent().getIconText());
-        intentLayout.setIntentIcon(enemy.getIntent().getImagePath());
+        intentLayout.setIntent(enemy.getIntent());
         effectBarLayout.update();
     }
 
