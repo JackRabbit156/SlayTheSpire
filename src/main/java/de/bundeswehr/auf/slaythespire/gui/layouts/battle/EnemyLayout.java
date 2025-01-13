@@ -97,6 +97,7 @@ public class EnemyLayout extends VBox {
      */
     public void updateEnemy() {
         intentLayout.setIntent(enemy.getIntent());
+        defendLayout.setBlockText(enemy.getBlock());
         effectBarLayout.update();
     }
 
