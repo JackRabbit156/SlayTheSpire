@@ -1,5 +1,6 @@
 package de.bundeswehr.auf.slaythespire.model.player;
 
+import de.bundeswehr.auf.slaythespire.helper.PathAssistent;
 import de.bundeswehr.auf.slaythespire.model.ModelInitializer;
 import de.bundeswehr.auf.slaythespire.model.card.CheaterCard;
 import de.bundeswehr.auf.slaythespire.model.card.CheaterDefendCard;
@@ -37,8 +38,9 @@ public class TestPlayer extends Player {
 
     public static TestPlayer cheater(Stage primaryStage) {
         TestPlayer testPlayer = new TestPlayer(PlayerType.IRONCLAD, primaryStage);
-        testPlayer.setImagePath("/images/player/TestPlayer.png");
-        testPlayer.setAltImagePath("/images/player/TestPlayerAlt1.png");
+        testPlayer.setImagePath(new PathAssistent().toPath(testPlayer));
+        testPlayer.setGameOverImagePath(new PathAssistent().toAltPath(testPlayer, 1));
+        testPlayer.setEnergyIconPath(new PathAssistent().toAltPath(testPlayer, 2));
         testPlayer.initRelic();
         testPlayer.initDeck();
         return testPlayer;
@@ -46,8 +48,9 @@ public class TestPlayer extends Player {
 
     public static TestPlayer custom(Stage primaryStage, List<Card> deck) {
         TestPlayer testPlayer = new TestPlayer(PlayerType.IRONCLAD, primaryStage);
-        testPlayer.setImagePath("/images/player/TestPlayer.png");
-        testPlayer.setAltImagePath("/images/player/TestPlayerAlt1.png");
+        testPlayer.setImagePath(new PathAssistent().toPath(testPlayer));
+        testPlayer.setGameOverImagePath(new PathAssistent().toAltPath(testPlayer, 1));
+        testPlayer.setEnergyIconPath(new PathAssistent().toAltPath(testPlayer, 2));
         testPlayer.initRelic();
         testPlayer.setDeck(deck);
         return testPlayer;
@@ -164,7 +167,7 @@ public class TestPlayer extends Player {
 
     private void initWithDelegate(Player delegate) {
         setImagePath(delegate.getImagePath());
-        setAltImagePath(delegate.getAltImagePath());
+        setGameOverImagePath(delegate.getGameOverImagePath());
         // Use starter relic of delegate
         setRelics(delegate.getRelics());
         // Use starter deck of delegate

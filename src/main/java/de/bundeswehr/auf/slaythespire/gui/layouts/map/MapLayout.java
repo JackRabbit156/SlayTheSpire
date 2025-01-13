@@ -4,6 +4,7 @@ import de.bundeswehr.auf.slaythespire.gui.MapView;
 import de.bundeswehr.auf.slaythespire.gui.View;
 import de.bundeswehr.auf.slaythespire.gui.components.animation.MovingAnimation;
 import de.bundeswehr.auf.slaythespire.model.map.Node;
+import de.bundeswehr.auf.slaythespire.model.player.structure.Player;
 import javafx.geometry.Insets;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
@@ -51,17 +52,17 @@ public class MapLayout extends StackPane implements View {
      * @param playerField Das Feld des Spielers
      */
 
-    public MapLayout(MapView mapView, List<Node> nodes, int mapWidth, int mapHeight, int playerField) {
+    public MapLayout(MapView mapView, List<Node> nodes, int mapWidth, int mapHeight, Player player) {
         this.mapHeight = mapHeight;
         this.mapWidth = mapWidth;
         this.mapView = mapView;
-        this.playerField = playerField;
+        playerField = Integer.parseInt(player.getCurrentField());
         lineLayer = new Pane();
         gridLayer = new GridPane();
         // Raster der GridPane setzen
         initMapGridPane();
         // Setze die Knoten und Linien
-        setNodesOnMap(nodes);
+        setNodesOnMap(nodes, player);
         drawLines(nodes);
 
         getChildren().addAll(lineLayer, gridLayer);
@@ -177,7 +178,7 @@ public class MapLayout extends StackPane implements View {
      *
      * @param nodes Die Liste von Knoten, die auf der Karte angezeigt werden sollen
      */
-    private void setNodesOnMap(List<Node> nodes) {
+    private void setNodesOnMap(List<Node> nodes, Player player) {
         List<Node> availablePosFromPlayer = new ArrayList<>();
 
         ImageView image;
@@ -196,7 +197,7 @@ public class MapLayout extends StackPane implements View {
                     availablePosFromPlayer.add(nodes.get(i).getMiddleNode());
                 }
 
-                ImageView playerImage = image("/images/map/player/ironclad.png");
+                ImageView playerImage = image(player.getEnergyIconPath());
                 animation = new MovingAnimation(playerImage);
                 animation.start();
                 gridLayer.add(playerImage, nodes.get(i).getX(), nodes.get(i).getY());

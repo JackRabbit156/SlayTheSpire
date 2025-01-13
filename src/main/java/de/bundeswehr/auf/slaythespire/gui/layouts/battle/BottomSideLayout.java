@@ -78,7 +78,7 @@ public class BottomSideLayout extends HBox {
 
     private void initBottomSide(GameContext gameContext) {
         deckLayout = new DeckLayout();
-        energyLayout = new EnergyLayout();
+        energyLayout = new EnergyLayout(gameContext.getPlayer());
         energyLayout.setEnergyText(player.getCurrentEnergy(), player.getMaxEnergy());
         player.addPlayerEventListener(new EmptyPlayerEventListener() {
 

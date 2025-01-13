@@ -26,9 +26,9 @@ public class IroncladPlayer extends Player {
     public IroncladPlayer(Stage primaryStage) {
         super("Ironclad", 80, 3, PlayerType.IRONCLAD, primaryStage);
         setImagePath(new PathAssistent().toPath(this));
-        setAltImagePath(new PathAssistent().toAltPath(this, 1));
+        setGameOverImagePath(new PathAssistent().toAltPath(this, 1));
+        setEnergyIconPath(new PathAssistent().toAltPath(this, 2));
         setGold(99);
-
         initRelic();
         initDeck();
     }

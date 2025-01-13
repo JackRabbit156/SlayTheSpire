@@ -1,6 +1,7 @@
 package de.bundeswehr.auf.slaythespire.gui.layouts.battle;
 
 import de.bundeswehr.auf.slaythespire.gui.components.IconLayout;
+import de.bundeswehr.auf.slaythespire.model.player.structure.Player;
 
 /**
  * Das Energy layout.
@@ -9,6 +10,13 @@ import de.bundeswehr.auf.slaythespire.gui.components.IconLayout;
  * @author OF Daniel Willig
  */
 public class EnergyLayout extends IconLayout {
+
+    private final Player player;
+
+    public EnergyLayout(Player player) {
+        super(player.getEnergyIconPath());
+        this.player = player;
+    }
 
     public void setEnergyText(int currentEnergy, int maxEnergy) {
         setText(currentEnergy + "/" + maxEnergy);
@@ -21,7 +29,7 @@ public class EnergyLayout extends IconLayout {
 
     @Override
     protected String getPath() {
-        return "/images/gui/battle/Energy.png";
+        return player.getEnergyIconPath();
     }
 
     @Override

@@ -28,11 +28,12 @@ import java.util.List;
  */
 public abstract class Player extends Entity {
 
-    private String altImagePath;
     private int currentAct = 1;
     private int currentEnergy;
     private String currentField = "0";
     private List<Card> deck;
+    private String energyIconPath;
+    private String gameOverImagePath;
     private int gold;
     private final List<InventoryEventListener> inventoryEventListeners = new ArrayList<>();
     private int maxEnergy;
@@ -116,14 +117,6 @@ public abstract class Player extends Entity {
         }
     }
 
-    public String getAltImagePath() {
-        return altImagePath;
-    }
-
-    public void setAltImagePath(String altImagePath) {
-        this.altImagePath = altImagePath;
-    }
-
     public int getCurrentAct() {
         return currentAct;
     }
@@ -151,6 +144,22 @@ public abstract class Player extends Entity {
 
     public void setDeck(List<Card> deck) {
         this.deck = deck;
+    }
+
+    public String getEnergyIconPath() {
+        return energyIconPath;
+    }
+
+    public void setEnergyIconPath(String energyIconPath) {
+        this.energyIconPath = energyIconPath;
+    }
+
+    public String getGameOverImagePath() {
+        return gameOverImagePath;
+    }
+
+    public void setGameOverImagePath(String gameOverImagePath) {
+        this.gameOverImagePath = gameOverImagePath;
     }
 
     public int getGold() {

@@ -58,7 +58,7 @@ public class GameOverView extends StackPane {
 
     private void initBackgroundLayout() {
         this.backgroundLayout.setPickOnBounds(false);
-        PlayerLayout playerLayout = new PlayerLayout(player.getAltImagePath());
+        PlayerLayout playerLayout = new PlayerLayout(player.getGameOverImagePath());
         setBackground(new Background(GuiHelper.backgroundInHD(player.getActImage())));
 
         this.backgroundLayout.setCenter(playerLayout);

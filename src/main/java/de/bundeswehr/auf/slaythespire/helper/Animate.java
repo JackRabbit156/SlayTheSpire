@@ -66,8 +66,13 @@ public final class Animate {
         ParallelTransition transition = new ParallelTransition(animations);
         transition.setOnFinished(event -> popup.hide());
         Bounds bounds = target.localToScreen(target.getBoundsInLocal());
-        popup.show(target.getScene().getWindow(), bounds.getMinX(), bounds.getMinY());
-        transition.play();
+        if (target.getScene() != null && target.getScene().getWindow() != null) {
+            popup.show(target.getScene().getWindow(), bounds.getMinX(), bounds.getMinY());
+            transition.play();
+        }
+        else {
+            LoggingAssistant.debug("Animation not played. No Window.");
+        }
     }
 
     private static Path createCircledPath(Node node, double startX, double startY, double endX, double endY) {

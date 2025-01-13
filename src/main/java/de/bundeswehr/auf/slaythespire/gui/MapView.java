@@ -62,7 +62,7 @@ public class MapView extends StackPane implements View, WithTopBar {
 
         mainMap = new BorderPane();
         mainMap.setBackground(new Background(GuiHelper.backgroundInHD("/images/map/mapMid.png")));
-        mapCenter = new MapLayout(this, nodes, mapWidth, mapHeight, Integer.parseInt(player.getCurrentField()));
+        mapCenter = new MapLayout(this, nodes, mapWidth, mapHeight, player);
         mainMap.setCenter(mapCenter);
 
         initTopSide();

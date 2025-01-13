@@ -29,7 +29,8 @@ public class SilentPlayer extends Player {
     public SilentPlayer(Stage primaryStage) {
         super("Silent", 70, 3, PlayerType.SILENT, primaryStage);
         setImagePath(new PathAssistent().toPath(this));
-        setAltImagePath(new PathAssistent().toAltPath(this, 1));
+        setGameOverImagePath(new PathAssistent().toAltPath(this, 1));
+        setEnergyIconPath(new PathAssistent().toAltPath(this, 2));
         setGold(99);
         initRelic();
         initDeck();
