@@ -9,7 +9,7 @@ import de.bundeswehr.auf.slaythespire.model.player.TestPlayer;
 public class BattleDeckTester {
 
     public static void main(String[] args) {
-        Player player = TestPlayer.custom(null);
+        Player player = TestPlayer.silent(null);
 
         BattleDeck battleDeck = new BattleDeck(player.getDeck());
 
