@@ -125,7 +125,10 @@ public class EnemyLayout extends VBox {
                     Animate.pathAnimationAboveTarget(new DamageText(event.getDamageAmount()),
                             node,
                             Direction.UP,
-                            e -> healthBarLayout.setHealthText(enemy.getCurrentHealth(), enemy.getMaxHealth()));
+                            e -> {
+                                healthBarLayout.setHealthText(enemy.getCurrentHealth(), enemy.getMaxHealth());
+                                defendLayout.setBlockText(enemy.getBlock());
+                    });
                 }
             }
 
