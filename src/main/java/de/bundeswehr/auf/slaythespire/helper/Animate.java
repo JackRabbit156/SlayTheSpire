@@ -177,6 +177,11 @@ public final class Animate {
     }
 
     private static void shatterAnimation(Node node, Node target, double duration, EventHandler<ActionEvent> onFinished) {
+        Bounds targetBounds = target.getBoundsInLocal();
+        double centerX = targetBounds.getMinX() + targetBounds.getWidth() / 2;
+        double centerY = targetBounds.getMinY() + targetBounds.getHeight() / 2;
+        node.setTranslateX(centerX);
+        node.setTranslateY(centerY);
         Animation[] animations = {generateShatterTransition(node, duration, onFinished),
                 generateFadeOutTransition(node, duration)};
         animation(target, animations, node);
