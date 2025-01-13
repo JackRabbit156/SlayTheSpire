@@ -6,11 +6,16 @@ import de.bundeswehr.auf.slaythespire.model.card.CheaterDefendCard;
 import de.bundeswehr.auf.slaythespire.model.card.CheaterEnergyCard;
 import de.bundeswehr.auf.slaythespire.model.card.CheaterHealCard;
 import de.bundeswehr.auf.slaythespire.model.card.ironclad.IroncladDefendCard;
-import de.bundeswehr.auf.slaythespire.model.card.ironclad.IroncladStrikeCard;
-import de.bundeswehr.auf.slaythespire.model.card.ironclad.attack.common.ClashCard;
-import de.bundeswehr.auf.slaythespire.model.card.ironclad.attack.common.HeadbuttCard;
+import de.bundeswehr.auf.slaythespire.model.card.ironclad.attack.common.ClotheslineCard;
+import de.bundeswehr.auf.slaythespire.model.card.ironclad.attack.common.HeavyBladeCard;
+import de.bundeswehr.auf.slaythespire.model.card.ironclad.attack.common.ThunderclapCard;
+import de.bundeswehr.auf.slaythespire.model.card.ironclad.attack.common.WildStrikeCard;
+import de.bundeswehr.auf.slaythespire.model.card.ironclad.attack.rare.ImmolateCard;
+import de.bundeswehr.auf.slaythespire.model.card.ironclad.attack.uncommon.HemokinesisCard;
+import de.bundeswehr.auf.slaythespire.model.card.ironclad.attack.uncommon.RecklessChargeCard;
+import de.bundeswehr.auf.slaythespire.model.card.ironclad.attack.uncommon.UppercutCard;
+import de.bundeswehr.auf.slaythespire.model.card.ironclad.power.uncommon.RuptureCard;
 import de.bundeswehr.auf.slaythespire.model.card.ironclad.skill.common.ShrugItOffCard;
-import de.bundeswehr.auf.slaythespire.model.card.ironclad.skill.common.WarcryCard;
 import de.bundeswehr.auf.slaythespire.model.card.ironclad.skill.uncommon.EntrenchCard;
 import de.bundeswehr.auf.slaythespire.model.card.ironclad.skill.uncommon.GhostlyArmorCard;
 import de.bundeswehr.auf.slaythespire.model.card.structure.Card;
@@ -39,10 +44,6 @@ public class TestPlayer extends Player {
         return testPlayer;
     }
 
-    public static TestPlayer custom(Stage primaryStage) {
-        return custom(primaryStage, customDeck());
-    }
-
     public static TestPlayer custom(Stage primaryStage, List<Card> deck) {
         TestPlayer testPlayer = new TestPlayer(PlayerType.IRONCLAD, primaryStage);
         testPlayer.setImagePath("/images/player/TestPlayer.png");
@@ -54,6 +55,10 @@ public class TestPlayer extends Player {
 
     public static TestPlayer defensive(Stage primaryStage) {
         return custom(primaryStage, defensiveDeck());
+    }
+
+    public static TestPlayer effects(Stage primaryStage) {
+        return custom(primaryStage, effectsDeck());
     }
 
     public static TestPlayer ironclad(Stage primaryStage) {
@@ -68,21 +73,8 @@ public class TestPlayer extends Player {
         return testPlayer;
     }
 
-    private static List<Card> customDeck() {
-        List<Card> deck = new ArrayList<>();
-        for (int i = 0; i < 5; i++) {
-            deck.add(new IroncladStrikeCard());
-        }
-        for (int i = 0; i < 3; i++) {
-            deck.add(new HeadbuttCard());
-        }
-        for (int i = 0; i < 3; i++) {
-            deck.add(new WarcryCard());
-        }
-        for (int i = 0; i < 3; i++) {
-            deck.add(new ClashCard());
-        }
-        return deck;
+    public static TestPlayer status(Stage primaryStage) {
+        return custom(primaryStage, statusDeck());
     }
 
     private static List<Card> defensiveDeck() {
@@ -98,6 +90,43 @@ public class TestPlayer extends Player {
         }
         for (int i = 0; i < 3; i++) {
             deck.add(new EntrenchCard());
+        }
+        return deck;
+    }
+
+    private static List<Card> effectsDeck() {
+        List<Card> deck = new ArrayList<>();
+        for (int i = 0; i < 5; i++) {
+            deck.add(new RuptureCard());
+        }
+        for (int i = 0; i < 5; i++) {
+            deck.add(new HemokinesisCard());
+        }
+        for (int i = 0; i < 3; i++) {
+            deck.add(new HeavyBladeCard());
+        }
+        for (int i = 0; i < 5; i++) {
+            deck.add(new UppercutCard());
+        }
+        for (int i = 0; i < 5; i++) {
+            deck.add(new ThunderclapCard());
+        }
+        for (int i = 0; i < 5; i++) {
+            deck.add(new ClotheslineCard());
+        }
+        return deck;
+    }
+
+    private static List<Card> statusDeck() {
+        List<Card> deck = new ArrayList<>();
+        for (int i = 0; i < 5; i++) {
+            deck.add(new RecklessChargeCard());
+        }
+        for (int i = 0; i < 5; i++) {
+            deck.add(new ImmolateCard());
+        }
+        for (int i = 0; i < 5; i++) {
+            deck.add(new WildStrikeCard());
         }
         return deck;
     }

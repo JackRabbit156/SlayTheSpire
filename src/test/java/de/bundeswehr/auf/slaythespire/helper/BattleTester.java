@@ -1,5 +1,10 @@
 package de.bundeswehr.auf.slaythespire.helper;
 
+import de.bundeswehr.auf.slaythespire.model.card.ironclad.IroncladStrikeCard;
+import de.bundeswehr.auf.slaythespire.model.card.ironclad.attack.common.ClashCard;
+import de.bundeswehr.auf.slaythespire.model.card.ironclad.attack.common.HeadbuttCard;
+import de.bundeswehr.auf.slaythespire.model.card.ironclad.skill.common.WarcryCard;
+import de.bundeswehr.auf.slaythespire.model.card.structure.Card;
 import de.bundeswehr.auf.slaythespire.model.enemy.structure.Enemy;
 import de.bundeswehr.auf.slaythespire.model.map.act.Act;
 import de.bundeswehr.auf.slaythespire.model.map.act.ActFour;
@@ -16,16 +21,13 @@ import javafx.stage.Stage;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * @author Keil, Vladislav
  */
 public class BattleTester extends Application {
-
-    private enum Type {
-        CHEATER, DEFENSIVE, CUSTOM, IRONCLAD, SILENT
-    }
 
     private enum Test {
         ACT_I_ENEMY, ACT_I_ELITE, ACT_I_BOSS,
@@ -34,11 +36,32 @@ public class BattleTester extends Application {
         ACT_IV_ELITE, ACT_IV_BOSS
     }
 
+    private enum Type {
+        CHEATER, DEFENSIVE, EFFECTS, STATUS, CUSTOM, IRONCLAD, SILENT
+    }
+
     private static final Test TEST = Test.ACT_I_ENEMY;
     private static final Type TYPE = Type.CHEATER;
 
     public static void main(String[] args) {
         launch(args);
+    }
+
+    private static List<Card> customDeck() {
+        List<Card> deck = new ArrayList<>();
+        for (int i = 0; i < 5; i++) {
+            deck.add(new IroncladStrikeCard());
+        }
+        for (int i = 0; i < 3; i++) {
+            deck.add(new HeadbuttCard());
+        }
+        for (int i = 0; i < 3; i++) {
+            deck.add(new WarcryCard());
+        }
+        for (int i = 0; i < 3; i++) {
+            deck.add(new ClashCard());
+        }
+        return deck;
     }
 
     @Override
@@ -54,8 +77,14 @@ public class BattleTester extends Application {
             case DEFENSIVE:
                 player = TestPlayer.defensive(primaryStage);
                 break;
+            case EFFECTS:
+                player = TestPlayer.effects(primaryStage);
+                break;
+            case STATUS:
+                player = TestPlayer.status(primaryStage);
+                break;
             case CUSTOM:
-                player = TestPlayer.custom(primaryStage);
+                player = TestPlayer.custom(primaryStage, customDeck());
                 break;
             default:
                 player = TestPlayer.cheater(primaryStage);
