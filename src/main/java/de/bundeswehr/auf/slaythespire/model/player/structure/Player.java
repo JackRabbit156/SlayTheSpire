@@ -121,6 +121,11 @@ public abstract class Player extends Entity {
         return currentAct;
     }
 
+    public void removePotion(Potion potion) {
+        potions.remove(potion);
+        notifyPotionEvent(new InventoryEvent(this, InventoryEvent.Direction.LOSE, InventoryEvent.Type.POTION, potion));
+    }
+
     public void setCurrentAct(int currentAct) {
         this.currentAct = currentAct;
     }

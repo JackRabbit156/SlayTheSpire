@@ -226,7 +226,7 @@ public final class GuiHelper {
                 event.consume();
                 quitPopup.show(primaryStage);
             });
-            primaryStage.setX(1920); // TODO remove
+            primaryStage.setX(1920); // TODO Rechter Bildschirm-Hack
             primaryStage.setFullScreen(true);
             primaryStage.setScene(scene);
             primaryStage.setTitle(title);

@@ -16,9 +16,12 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Popup;
+import javafx.stage.PopupWindow;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 
 /**
@@ -36,6 +39,7 @@ public class PotionLayout extends MiddleBar {
     private final Image bg = new Image(getClass().getResource("/images/gui/potion/bg.png").toExternalForm());
     private final Image emptyPotionIcon = new Image(getClass().getResource("/images/gui/potion/EmptyPotion.png").toExternalForm());
     private final List<Potion> potions;
+    private final Set<Popup> popups = new HashSet<>();
 
     public PotionLayout(List<Potion> potions) {
         this.potions = potions;
@@ -47,6 +51,7 @@ public class PotionLayout extends MiddleBar {
 
     @Override
     public void refresh() {
+        popups.forEach(PopupWindow::hide);
         getChildren().clear();
         showPotions();
     }
@@ -80,6 +85,8 @@ public class PotionLayout extends MiddleBar {
         Popup popup = new Popup();
         popup.setAutoHide(true);
 
+        popups.add(popup);
+
         Label name = new Label(potion.getName());
         name.setTextFill(Color.WHITE);
         name.setFont(largeFont);
@@ -101,6 +108,9 @@ public class PotionLayout extends MiddleBar {
         popup.getContent().add(root);
         Bounds bounds = imageView.localToScreen(imageView.getBoundsInLocal());
         popup.show(imageView, bounds.getMinX() + bounds.getWidth() / 2 - popup.getWidth() / 2, bounds.getMaxY());
+        popup.setOnHiding(event -> {
+            popups.remove(popup);
+        });
     }
 
     private void showPotions() {

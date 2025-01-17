@@ -41,7 +41,6 @@ public class BattleController implements Controller, BattleViewEvents, PlayerEve
     private final FieldEnum fieldType;
     private final GameContext gameContext;
     private final Player player;
-    private final List<Potion> potions;
     private Card selectedCard;
 
     public BattleController(Player player, List<Enemy> enemies, FieldEnum fieldType) {
@@ -53,7 +52,6 @@ public class BattleController implements Controller, BattleViewEvents, PlayerEve
         }
 
         battleDeck = new BattleDeck(player.getDeck());
-        potions = player.getPotions();
 
         gameContext = new GameContext(player, enemies, battleDeck);
 
@@ -231,7 +229,7 @@ public class BattleController implements Controller, BattleViewEvents, PlayerEve
     private void cardDeath(Card card) {
         switch (card.getCardGrave()) {
             case POTION:
-                potions.remove(card);
+                player.removePotion((Potion) card);
                 break;
             case EXHAUST:
                 battleDeck.exhaustCardFromHand(card);
