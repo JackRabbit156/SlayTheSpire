@@ -475,6 +475,14 @@ public final class GuiHelper {
     }
 
     /**
+     * Cards move close to each other depending on the maximum width available, the width of one card and
+     * the amount of cards displayed.
+     */
+    public static int calculateCardSpacing(int cards, int maxWidth, int defaultCardWidth) {
+        return cards <= 1 ? 0 : -(cards * defaultCardWidth - maxWidth) / cards - 1;
+    }
+
+    /**
      * Erstellt ein Bild in der gewünschten Größe.
      */
     public static ImageView image(String imagePath, double width, double height) {

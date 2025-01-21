@@ -82,6 +82,7 @@ public class CardSelectionLayout extends HBox {
      * Zeigt die Karten in der Ansicht an.
      */
     private void showCards(List<Card> cards) {
+        setSpacing(GuiHelper.calculateCardSpacing(cards.size(), 1800, 272));
         for (Card selectableCard : cards) {
             VBox box = new VBox();
             box.getChildren().addAll(images(selectableCard));

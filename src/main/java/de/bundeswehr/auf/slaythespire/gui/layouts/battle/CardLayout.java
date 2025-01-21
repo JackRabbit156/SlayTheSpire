@@ -4,6 +4,7 @@ import de.bundeswehr.auf.slaythespire.gui.BattleView;
 import de.bundeswehr.auf.slaythespire.gui.components.CardImageView;
 import de.bundeswehr.auf.slaythespire.gui.components.EnemyImageView;
 import de.bundeswehr.auf.slaythespire.gui.components.PlayerImageView;
+import de.bundeswehr.auf.slaythespire.helper.GuiHelper;
 import de.bundeswehr.auf.slaythespire.model.battle.GameContext;
 import de.bundeswehr.auf.slaythespire.model.card.structure.Card;
 import javafx.beans.property.ObjectProperty;
@@ -18,7 +19,6 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -82,8 +82,6 @@ public class CardLayout extends HBox {
         this.gameContext = gameContext;
         this.battleView = battleView;
         setMinHeight(250);
-        // Cards move close to each other
-        setSpacing(-30);
         // Center of the bottom
         setAlignment(Pos.CENTER);
 
@@ -95,7 +93,7 @@ public class CardLayout extends HBox {
      * des Spielers erneut anzeigt.
      */
     public void refreshHand() {
-        this.getChildren().clear();
+        getChildren().clear();
         showCards();
         selected.set(null);
     }
@@ -160,11 +158,11 @@ public class CardLayout extends HBox {
     }
 
     private void showCards() {
-        List<Node> nodes = new ArrayList<>();
+        int spacing = GuiHelper.calculateCardSpacing(hand.size(), 1550, 242);
+        setSpacing(Math.min(spacing, -15));
         for (Card card : hand) {
-            nodes.add(images(card));
+            getChildren().add(images(card));
         }
-        getChildren().addAll(nodes);
     }
 
     private void unsetHoverEffect(ImageView imageView) {
