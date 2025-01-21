@@ -19,7 +19,7 @@ import java.util.List;
 public class NoxiousFumesCard extends PowerCard {
 
     public NoxiousFumesCard() {
-        super("Noxious Fumes", "At the start of your turn, apply 2 Poison to ALL enemies.", 1, CardRarity.UNCOMMON, CardGrave.DISCARD, CardTrigger.PLAYER_BEGIN_OF_TURN);
+        super("Noxious Fumes", "At the start of your turn, apply 2 Poison to ALL enemies.", 1, CardRarity.UNCOMMON, CardGrave.NONE, CardTrigger.PLAYER_BEGIN_OF_TURN);
         setImagePath(new PathAssistent().toPath(this));
     }
 

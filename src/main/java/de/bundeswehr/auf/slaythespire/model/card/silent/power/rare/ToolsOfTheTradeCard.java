@@ -20,7 +20,7 @@ public class ToolsOfTheTradeCard extends PowerCard implements CardEventListener 
     private GameContext gameContext;
 
     public ToolsOfTheTradeCard() {
-        super("Tools of the Trade", "At the start of your turn, draw 1 card and discard 1 card.", 1, CardRarity.RARE, CardGrave.DISCARD, CardTrigger.PLAYER_BEGIN_OF_TURN);
+        super("Tools of the Trade", "At the start of your turn, draw 1 card and discard 1 card.", 1, CardRarity.RARE, CardGrave.NONE, CardTrigger.PLAYER_BEGIN_OF_TURN);
         setImagePath(new PathAssistent().toPath(this));
     }
 

@@ -20,7 +20,7 @@ import de.bundeswehr.auf.slaythespire.model.player.structure.Player;
 public class EnvenomCard extends PowerCard {
 
     public EnvenomCard() {
-        super("Envenom", "Whenever an attack deals unblocked damage, apply 1 Poison.", 2, CardRarity.RARE, CardGrave.DISCARD, CardTrigger.PLAY_ATTACK);
+        super("Envenom", "Whenever an attack deals unblocked damage, apply 1 Poison.", 2, CardRarity.RARE, CardGrave.NONE, CardTrigger.PLAY_ATTACK);
         setImagePath(new PathAssistent().toPath(this));
     }
 

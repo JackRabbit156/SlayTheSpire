@@ -19,7 +19,7 @@ import java.util.List;
 public class AThousandCutsCard extends PowerCard {
 
     public AThousandCutsCard() {
-        super("A Thousand Cuts", "Whenever you play a card, deal 1 damage to ALL enemies.", 2, CardRarity.RARE, CardGrave.DISCARD, CardTrigger.PLAY_CARD);
+        super("A Thousand Cuts", "Whenever you play a card, deal 1 damage to ALL enemies.", 2, CardRarity.RARE, CardGrave.NONE, CardTrigger.PLAY_CARD);
         setImagePath(new PathAssistent().toPath(this));
     }
 

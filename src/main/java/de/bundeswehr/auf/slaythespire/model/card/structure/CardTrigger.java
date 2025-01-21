@@ -7,6 +7,8 @@ package de.bundeswehr.auf.slaythespire.model.card.structure;
  */
 public enum CardTrigger {
 
+    NONE,
+
     PLAYER_BEGIN_OF_TURN, // on beginning of player turn
     PLAYER_END_OF_TURN, // on end of player turn
 

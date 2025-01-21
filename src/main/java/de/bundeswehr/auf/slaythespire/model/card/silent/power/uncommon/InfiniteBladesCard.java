@@ -17,7 +17,7 @@ import de.bundeswehr.auf.slaythespire.model.card.structure.PowerCard;
 public class InfiniteBladesCard extends PowerCard {
 
     public InfiniteBladesCard() {
-        super("Infinite Blades", "At the start of your turn, add a Shiv to your hand.", 1, CardRarity.UNCOMMON, CardGrave.DISCARD, CardTrigger.PLAYER_BEGIN_OF_TURN);
+        super("Infinite Blades", "At the start of your turn, add a Shiv to your hand.", 1, CardRarity.UNCOMMON, CardGrave.NONE, CardTrigger.PLAYER_BEGIN_OF_TURN);
         setImagePath(new PathAssistent().toPath(this));
     }
 

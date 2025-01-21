@@ -19,7 +19,7 @@ import java.util.Random;
 public class CaltropsCard extends PowerCard {
 
     public CaltropsCard() {
-        super("Caltrops", "Whenever you are attacked, deal 3 damage back.", 1, CardRarity.UNCOMMON, CardGrave.DISCARD, CardTrigger.PLAY_ATTACK);
+        super("Caltrops", "Whenever you are attacked, deal 3 damage back.", 1, CardRarity.UNCOMMON, CardGrave.NONE, CardTrigger.PLAY_ATTACK);
         setImagePath(new PathAssistent().toPath(this));
     }
 

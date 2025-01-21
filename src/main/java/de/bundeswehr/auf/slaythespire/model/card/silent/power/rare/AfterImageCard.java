@@ -19,7 +19,7 @@ import java.util.List;
 public class AfterImageCard extends PowerCard {
 
     public AfterImageCard() {
-        super("After Image", "Whenever you play a card, gain 1 Block.", 2, CardRarity.RARE, CardGrave.DISCARD, CardTrigger.PLAY_CARD);
+        super("After Image", "Whenever you play a card, gain 1 Block.", 2, CardRarity.RARE, CardGrave.NONE, CardTrigger.PLAY_CARD);
         setImagePath(new PathAssistent().toPath(this));
     }
 
