@@ -37,7 +37,7 @@ public class BigFish extends Event {
     @Override
     public Button getButton2() {
         donut.setOnAction(event -> {
-            getPlayer().increaseMaxHealth(5);
+            getPlayer().gainMaxHp(5);
             donut.setVisible(false);
             banana.setVisible(false);
             box.setVisible(false);

@@ -16,7 +16,7 @@ public class MetallicizeBuff extends Buff {
 
     @Override
     public void apply(GameContext gameContext, Entity target) {
-        target.gainBlock(target.getEffectCounter(new MetallicizeBuff()));
+        target.gainBlock(target.getEffectCounter(this));
     }
 
 }

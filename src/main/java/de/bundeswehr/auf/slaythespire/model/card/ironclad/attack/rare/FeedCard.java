@@ -30,7 +30,7 @@ public class FeedCard extends AttackCard {
         Enemy enemy = gameContext.getSelectedEnemy();
         if (!enemy.isAlive()) {
             Player player = gameContext.getPlayer();
-            player.increaseMaxHealth(3);
+            player.gainMaxHp(3);
         }
     }
 

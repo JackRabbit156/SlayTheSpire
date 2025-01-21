@@ -113,7 +113,7 @@ public abstract class Entity {
      *
      * @param hp Der Punktwert, um den die maximale Gesundheit erhöht werden soll.
      */
-    public void increaseMaxHealth(int hp) {
+    public void gainMaxHp(int hp) {
         maxHealth += hp;
         notifyMaxHealthChanged(hp);
     }

@@ -50,7 +50,7 @@ public class BonfireSpirits extends Event {
                             getPlayer().setCurrentHealth(getPlayer().getMaxHealth());
                             break;
                         case RARE:
-                            getPlayer().increaseMaxHealth(10);
+                            getPlayer().gainMaxHp(10);
                             getPlayer().setCurrentHealth(getPlayer().getMaxHealth());
                             break;
                     }
