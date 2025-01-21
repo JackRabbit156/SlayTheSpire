@@ -127,6 +127,13 @@ public abstract class Entity {
         return currentHealth > 0;
     }
 
+    /**
+     * Entity loses health. Ignores Block.
+     */
+    public void looseHp(GameContext gameContext) {
+        takeDamage(gameContext, true);
+    }
+
     public void reduceDurationEffects() {
         for (Map.Entry<Effect, Integer> entry : effects.entrySet()) {
             if (entry.getKey().getStackingBehaviour() == StackingBehaviour.DURATION) {
@@ -134,6 +141,11 @@ public abstract class Entity {
             }
         }
         effects.entrySet().removeIf(entry -> entry.getValue() <= 0);
+    }
+
+    public void reduceEffectCounter(Effect effect, int value) {
+        effects.put(effect, effects.get(effect) - value);
+        notifyEffect(effect, -value);
     }
 
     /**
@@ -149,25 +161,7 @@ public abstract class Entity {
      * @param gameContext im {@link de.bundeswehr.auf.slaythespire.model.battle.AttackContext} des {@link GameContext} findet sich der zugefügte Schaden.
      */
     public void takeDamage(GameContext gameContext) {
-        triggerEffect(EffectTrigger.BEFORE_ATTACK_TARGET, gameContext, this);
-        int damageAfterEffects = gameContext.getAttackContext().getDamage();
-        int oldHealth = currentHealth;
-        int damage;
-        if (block - damageAfterEffects >= 0) {
-            block -= damageAfterEffects;
-            damage = 0;
-        }
-        else {
-            damage = Math.abs(block - damageAfterEffects);
-            block = 0;
-        }
-        currentHealth -= damage;
-        if (currentHealth < 0) {
-            currentHealth = 0;
-        }
-        gameContext.getAttackContext().setDamage(oldHealth - currentHealth);
-        notifyDamageReceived(gameContext);
-        triggerEffect(EffectTrigger.AFTER_ATTACK, gameContext, this);
+        takeDamage(gameContext, false);
     }
 
     /**
@@ -176,6 +170,13 @@ public abstract class Entity {
      * @param blockAmount Der Betrag des Blocks, der empfangen wurde.
      */
     protected abstract void notifyBlockReceived(int blockAmount);
+
+    /**
+     * Benachrichtigt den Listener über den ausgeteilten Schaden.
+     *
+     * @param gameContext im {@link de.bundeswehr.auf.slaythespire.model.battle.AttackContext} des {@link GameContext} findet sich der zugefügte Schaden.
+     */
+    protected abstract void notifyDamageDealt(GameContext gameContext);
 
     /**
      * Benachrichtigt den Listener über den erlittenen Schaden.
@@ -194,6 +195,29 @@ public abstract class Entity {
     protected abstract void notifyHealthReceived(int hpAmount);
 
     protected abstract void notifyMaxHealthChanged(int hpAmount);
+
+    private void takeDamage(GameContext gameContext, boolean ignoreBlock) {
+        triggerEffect(EffectTrigger.BEFORE_ATTACK_TARGET, gameContext, this);
+        int oldHealth = currentHealth;
+        int damage = gameContext.getAttackContext().getDamage();
+        if (!ignoreBlock) {
+            if (block - damage >= 0) {
+                block -= damage;
+                damage = 0;
+            }
+            else {
+                damage = Math.abs(block - damage);
+                block = 0;
+            }
+        }
+        currentHealth -= damage;
+        if (currentHealth < 0) {
+            currentHealth = 0;
+        }
+        gameContext.getAttackContext().setDamage(oldHealth - currentHealth);
+        notifyDamageReceived(gameContext);
+        triggerEffect(EffectTrigger.AFTER_ATTACK, gameContext, this);
+    }
 
     private void triggerEffect(EffectTrigger trigger, GameContext gameContext, Entity target) {
         if (!gameContext.isRestricted()) {

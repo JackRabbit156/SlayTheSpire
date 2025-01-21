@@ -4,6 +4,7 @@ import de.bundeswehr.auf.slaythespire.model.Entity;
 import de.bundeswehr.auf.slaythespire.model.effect.structure.Effect;
 import javafx.scene.layout.HBox;
 
+import java.util.HashSet;
 import java.util.Map;
 
 public class EffectBarLayout extends HBox {
@@ -18,7 +19,7 @@ public class EffectBarLayout extends HBox {
 
     public void update() {
         getChildren().clear();
-        for (Map.Entry<Effect, Integer> entry : entity.getEffects().entrySet()) {
+        for (Map.Entry<Effect, Integer> entry : new HashSet<>(entity.getEffects().entrySet())) {
             if (entry.getValue() > 0) {
                 getChildren().add(new EffectLayout(entry.getKey(), entry.getValue()));
             }

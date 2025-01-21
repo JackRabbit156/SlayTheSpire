@@ -24,7 +24,7 @@ public class EnergyPotion extends SkillPotion {
     @Override
     public void play(GameContext gameContext) {
         Player player = gameContext.getPlayer();
-        player.increaseCurrentEnergy(2);
+        player.gainEnergy(2);
     }
 
 }

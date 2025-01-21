@@ -33,7 +33,7 @@ public class DropkickCard extends AttackCard {
 
         BattleDeck battleDeck = gameContext.getBattleDeck();
         if (enemy.getEffectCounter(new VulnerableDebuff()) > 0) {
-            player.increaseCurrentEnergy(1);
+            player.gainEnergy(1);
             battleDeck.drawCard(1);
         }
 

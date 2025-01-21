@@ -1,16 +1,14 @@
 package de.bundeswehr.auf.slaythespire.model.enemy.structure;
 
 import de.bundeswehr.auf.slaythespire.controller.listener.EnemyEventListener;
-import de.bundeswehr.auf.slaythespire.events.EffectEvent;
-import de.bundeswehr.auf.slaythespire.events.EnemyBanterEvent;
-import de.bundeswehr.auf.slaythespire.events.EnemyBlockEvent;
-import de.bundeswehr.auf.slaythespire.events.EnemyDamageEvent;
+import de.bundeswehr.auf.slaythespire.events.*;
 import de.bundeswehr.auf.slaythespire.helper.Color;
 import de.bundeswehr.auf.slaythespire.helper.LoggingAssistant;
 import de.bundeswehr.auf.slaythespire.model.Entity;
 import de.bundeswehr.auf.slaythespire.model.battle.GameContext;
 import de.bundeswehr.auf.slaythespire.model.effect.structure.Effect;
 import de.bundeswehr.auf.slaythespire.model.enemy_card.InsultEnemyCard;
+import de.bundeswehr.auf.slaythespire.model.enemy_card.structure.AttackEnemyCard;
 import de.bundeswehr.auf.slaythespire.model.enemy_card.structure.EnemyCard;
 import de.bundeswehr.auf.slaythespire.model.settings.GameSettings;
 import de.bundeswehr.auf.slaythespire.model.settings.structure.DifficultyLevel;
@@ -97,9 +95,11 @@ public abstract class Enemy extends Entity {
      * @param gameContext Der aktuelle Spielkontext, der weitere Informationen enthält.
      */
     public void attack(GameContext gameContext) {
-//        triggerEffect(EffectTrigger.BEFORE_ATTACK, gameContext);
-        getEnemyDeck().get(enemyCardToBePlayed).playEnemy(gameContext, this);
-//        triggerEffect(EffectTrigger.AFTER_ATTACK, gameContext);
+        EnemyCard card = getEnemyDeck().get(enemyCardToBePlayed);
+        card.playEnemy(gameContext, this);
+        if (card instanceof AttackEnemyCard) {
+            notifyDamageDealt(gameContext);
+        }
     }
 
     /**
@@ -164,6 +164,14 @@ public abstract class Enemy extends Entity {
     }
 
     @Override
+    protected void notifyDamageDealt(GameContext gameContext) {
+        EnemyDamageEvent event = new EnemyDamageEvent(this, gameContext.getAttackContext().getDamage());
+        for (EnemyEventListener enemyEventListener : enemyEventListeners) {
+            enemyEventListener.onDamageDealt(event);
+        }
+    }
+
+    @Override
     protected void notifyDamageReceived(GameContext gameContext) {
         EnemyDamageEvent event = new EnemyDamageEvent(this, gameContext.getAttackContext().getDamage());
         for (EnemyEventListener enemyEventListener : enemyEventListeners) {
@@ -192,7 +200,8 @@ public abstract class Enemy extends Entity {
     }
 
     @Override
-    protected void notifyMaxHealthChanged(int hpAmount) {}
+    protected void notifyMaxHealthChanged(int hpAmount) {
+    }
 
     /**
      * eine Beleidigung des Spielers (genommen aus wittybanter.txt)

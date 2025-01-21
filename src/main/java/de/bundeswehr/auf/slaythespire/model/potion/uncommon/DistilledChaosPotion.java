@@ -8,7 +8,6 @@ import de.bundeswehr.auf.slaythespire.model.battle.BattleDeck;
 import de.bundeswehr.auf.slaythespire.model.battle.GameContext;
 import de.bundeswehr.auf.slaythespire.model.battle.Playable;
 import de.bundeswehr.auf.slaythespire.model.card.structure.Card;
-import de.bundeswehr.auf.slaythespire.model.card.structure.CardGrave;
 import de.bundeswehr.auf.slaythespire.model.card.structure.CardRarity;
 import de.bundeswehr.auf.slaythespire.model.enemy.structure.Enemy;
 import de.bundeswehr.auf.slaythespire.model.potion.structure.SkillPotion;
@@ -46,14 +45,14 @@ public class DistilledChaosPotion extends SkillPotion implements CardDeathListen
         BattleDeck battleDeck = gameContext.getBattleDeck();
         switch (card.getCardGrave()) {
             case EXHAUST:
-                battleDeck.exhaustCardFromDeck(card);
+                battleDeck.exhaustCardFromDrawPile(card);
                 break;
             case ETHEREAL:
             case DISCARD:
-                battleDeck.discardCardFromDeck(card);
+                battleDeck.discardCardFromDrawPile(card);
                 break;
             default:
-                battleDeck.removeCardFromDeck(card);
+                battleDeck.removeCardFromDrawPile(card);
         }
         if (card == cards.poll() && !endOfCombat()) {
             play(cards.peek());
@@ -64,7 +63,7 @@ public class DistilledChaosPotion extends SkillPotion implements CardDeathListen
     public void play(GameContext gameContext) {
         this.gameContext = gameContext;
         BattleDeck battleDeck = gameContext.getBattleDeck();
-        cards.addAll(battleDeck.getTopFromDeck(3));
+        cards.addAll(battleDeck.getTopFromDrawPile(3));
     }
 
     @Override
@@ -86,7 +85,7 @@ public class DistilledChaosPotion extends SkillPotion implements CardDeathListen
         if (card != null) {
             Playable cardPlayable = card.isPlayable(gameContext);
             if (cardPlayable.isPlayable()) {
-                gameContext.getPlayer().increaseCurrentEnergy(card.getCost());
+                gameContext.getPlayer().gainEnergy(card.getCost());
                 gameContext.setRandomEnemy();
                 card.register(this);
                 card.play(gameContext);

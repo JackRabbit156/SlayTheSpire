@@ -16,7 +16,7 @@ public class BurnCard extends UnplayableCard implements TriggeredCard {
     public BurnCard() {
         super("Burn", "Unplayable. At the end of your turn, take 2 damage.", CardGrave.DISCARD);
         setImagePath(new PathAssistent().toPath(this));
-        this.cardTrigger = CardTrigger.PLAYER_EOT;
+        this.cardTrigger = CardTrigger.PLAYER_END_OF_TURN;
     }
 
     @Override

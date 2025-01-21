@@ -24,6 +24,7 @@ import de.bundeswehr.auf.slaythespire.model.relic.structure.Relic;
 import de.bundeswehr.auf.slaythespire.model.relic.structure.RelicTrigger;
 import javafx.stage.Stage;
 
+import java.util.HashSet;
 import java.util.List;
 
 /**
@@ -98,14 +99,8 @@ public class BattleController implements Controller, BattleViewEvents, PlayerEve
     }
 
     @Override
-    public void onCardDrawn(Card card) {
-        if (card instanceof StatusCard) {
-            ((StatusCard) card).onDraw(gameContext);
-        }
-    }
-
-    @Override
     public void onCardDeath(Card card) {
+        triggerPowerCards(CardTrigger.PLAY_CARD);
         if (card instanceof AttackCard) {
             triggerPowerCards(CardTrigger.PLAY_ATTACK);
             triggerRelics(RelicTrigger.PLAY_ATTACK);
@@ -114,7 +109,6 @@ public class BattleController implements Controller, BattleViewEvents, PlayerEve
             triggerPowerCards(CardTrigger.PLAY_SKILL);
         }
         else if (card instanceof PowerCard) {
-            triggerPowerCards(CardTrigger.ALWAYS);
             triggerPowerCards(CardTrigger.PLAY_POWER);
         }
         else if (card instanceof Potion) {
@@ -124,13 +118,20 @@ public class BattleController implements Controller, BattleViewEvents, PlayerEve
     }
 
     @Override
+    public void onCardDrawn(Card card) {
+        if (card instanceof StatusCard) {
+            ((StatusCard) card).onDraw(gameContext);
+        }
+    }
+
+    @Override
     public void onDamageDealt(PlayerDamageEvent event) {
 
     }
 
     @Override
     public void onDamageDealt(EnemyDamageEvent event) {
-
+        triggerPowerCards(CardTrigger.PLAY_ATTACK);
     }
 
     @Override
@@ -145,20 +146,20 @@ public class BattleController implements Controller, BattleViewEvents, PlayerEve
     }
 
     @Override
-    public void onEffect(EffectEvent event) {
-
-    }
-
-    @Override
     public void onDamageReceived(EnemyDamageEvent event) {
 
     }
 
     @Override
+    public void onEffect(EffectEvent event) {
+
+    }
+
+    @Override
     public void onEndTurnClick() {
-        playerEOT();
+        playerEndOfTurn();
         enemyTurn();
-        playerBOT();
+        playerBeginOfTurn();
     }
 
     /**
@@ -252,7 +253,7 @@ public class BattleController implements Controller, BattleViewEvents, PlayerEve
         removeEffects();
         triggerRelics(RelicTrigger.END_OF_COMBAT);
 
-        GuiHelper.Scenes.startLootScene(this.player, this.fieldType);
+        GuiHelper.Scenes.startLootScene(player, fieldType);
     }
 
     private void enemyTurn() {
@@ -261,6 +262,7 @@ public class BattleController implements Controller, BattleViewEvents, PlayerEve
         for (Enemy enemy : enemies) {
             if (enemy.isAlive()) {
                 enemy.reduceDurationEffects();
+                triggerEffects(EffectTrigger.BEGIN_OF_TURN, enemy);
                 enemy.action(gameContext);
                 triggerEffects(EffectTrigger.END_OF_TURN, enemy);
             }
@@ -305,22 +307,23 @@ public class BattleController implements Controller, BattleViewEvents, PlayerEve
         selectedCard.played();
     }
 
-    private void playerBOT() {
+    private void playerBeginOfTurn() {
         LoggingAssistant.log("Players' turn");
         calculateIntentForAllEnemies();
         resetEnergyAndBlock();
         player.reduceDurationEffects();
         battleDeck.fillHand(battleDeck.getStartHandSize());
 
-        triggerPowerCards(CardTrigger.PLAYER_BOT);
-        triggerRelics(RelicTrigger.START_OF_TURN);
+        triggerRelics(RelicTrigger.BEGIN_OF_TURN);
+        triggerEffects(EffectTrigger.BEGIN_OF_TURN, player);
+        triggerPowerCards(CardTrigger.PLAYER_BEGIN_OF_TURN);
     }
 
-    private void playerEOT() {
+    private void playerEndOfTurn() {
         removeHandAfterEndOfTurn();
 
-        triggerPowerCards(CardTrigger.PLAYER_EOT);
         triggerEffects(EffectTrigger.END_OF_TURN, player);
+        triggerPowerCards(CardTrigger.PLAYER_END_OF_TURN);
         battleDeck.removeNonPowerCards();
     }
 
@@ -354,12 +357,13 @@ public class BattleController implements Controller, BattleViewEvents, PlayerEve
         battleDeck.fillHand(battleDeck.getStartHandSize());
 
         triggerRelics(RelicTrigger.START_OF_COMBAT);
-        triggerRelics(RelicTrigger.START_OF_TURN);
-        triggerPowerCards(CardTrigger.PLAYER_BOT);
+        triggerRelics(RelicTrigger.BEGIN_OF_TURN);
+        triggerEffects(EffectTrigger.BEGIN_OF_TURN, player);
+        triggerPowerCards(CardTrigger.PLAYER_BEGIN_OF_TURN);
     }
 
     private void triggerEffects(EffectTrigger trigger, Entity target) {
-        for (Effect effect : target.getEffects().keySet()) {
+        for (Effect effect : new HashSet<>(target.getEffects().keySet())) {
             if (effect.getEffectTrigger() == trigger) {
                 effect.apply(gameContext, target);
             }

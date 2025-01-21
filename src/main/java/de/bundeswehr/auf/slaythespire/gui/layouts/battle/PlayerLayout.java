@@ -52,8 +52,6 @@ public class PlayerLayout extends VBox {
         HBox defendHealthBar = new HBox();
         defendHealthBar.getChildren().addAll(defendLayout, healthBarLayout);
         defendHealthBar.setAlignment(Pos.CENTER);
-        defendHealthBar.setTranslateX(40);
-        defendHealthBar.setSpacing(-105);
 
         getChildren().addAll(image(), defendHealthBar, effectBarLayout);
 

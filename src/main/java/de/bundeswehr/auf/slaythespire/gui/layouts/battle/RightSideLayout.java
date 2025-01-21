@@ -1,5 +1,6 @@
 package de.bundeswehr.auf.slaythespire.gui.layouts.battle;
 
+import de.bundeswehr.auf.slaythespire.helper.DebugPane;
 import javafx.scene.Node;
 import javafx.scene.layout.HBox;
 import de.bundeswehr.auf.slaythespire.model.enemy.structure.Enemy;
@@ -34,6 +35,13 @@ public class RightSideLayout extends HBox {
             enemyLayouts.add(new EnemyLayout(enemy, battleView));
         }
         getChildren().addAll(enemyLayouts);
+        setSpacing();
+    }
+
+    private void setSpacing() {
+        int enemies = enemyLayouts.size();
+        int spacing = enemies > 4 ? -(enemies - 4) * 10 : 0;
+        setSpacing(spacing);
     }
 
     public Node getEnemyLayout(Enemy enemy) {
@@ -57,6 +65,7 @@ public class RightSideLayout extends HBox {
         }
         // remove enemy
         enemies.removeIf(enemy -> !enemy.isAlive());
+        setSpacing();
     }
 
     public void discard() {

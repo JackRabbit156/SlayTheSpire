@@ -13,7 +13,6 @@ import de.bundeswehr.auf.slaythespire.gui.components.animation.IdleAnimation;
 import de.bundeswehr.auf.slaythespire.gui.components.animation.MovingAnimation;
 import de.bundeswehr.auf.slaythespire.helper.Animate;
 import de.bundeswehr.auf.slaythespire.model.enemy.structure.Enemy;
-import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.effect.DropShadow;
@@ -72,14 +71,10 @@ public class EnemyLayout extends VBox {
         HBox defendHealthBar = new HBox();
         defendHealthBar.getChildren().addAll(defendLayout, healthBarLayout);
         defendHealthBar.setAlignment(Pos.CENTER);
-        defendHealthBar.setTranslateX(-25);
-        defendHealthBar.setSpacing(-105);
 
         getChildren().addAll(intentLayout, image(), defendHealthBar, effectBarLayout);
 
-        setMargin(healthBarLayout, new Insets(0, 100, 0, 0));
-
-        alignmentProperty().set(Pos.BOTTOM_LEFT);
+        setAlignment(Pos.BOTTOM_LEFT);
     }
 
     public Enemy getEnemy() {
@@ -192,7 +187,7 @@ public class EnemyLayout extends VBox {
         glowSelectedEnemy.setHeight(30);
         glowSelectedEnemy.setWidth(30);
 
-        imageView.addEventHandler(MouseEvent.MOUSE_ENTERED, e -> {
+        imageView.addEventFilter(MouseEvent.MOUSE_ENTERED, e -> {
             if (attackMode) {
                 imageView.setEffect(glowSelectedEnemy);
                 imageView.setScaleX(1.1); // Slightly increase the width
@@ -200,7 +195,7 @@ public class EnemyLayout extends VBox {
             }
         });
 
-        imageView.addEventHandler(MouseEvent.MOUSE_EXITED, e -> {
+        imageView.addEventFilter(MouseEvent.MOUSE_EXITED, e -> {
             if (attackMode) {
                 imageView.setEffect(glowNotSelectedEnemy);
                 imageView.setScaleX(1.0); // Reset the width to original

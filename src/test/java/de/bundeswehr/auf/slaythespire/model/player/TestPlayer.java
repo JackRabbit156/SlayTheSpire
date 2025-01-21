@@ -168,6 +168,7 @@ public class TestPlayer extends Player {
     private void initWithDelegate(Player delegate) {
         setImagePath(delegate.getImagePath());
         setGameOverImagePath(delegate.getGameOverImagePath());
+        setEnergyIconPath(delegate.getEnergyIconPath());
         // Use starter relic of delegate
         setRelics(delegate.getRelics());
         // Use starter deck of delegate

@@ -1,25 +1,24 @@
 package de.bundeswehr.auf.slaythespire.model.card.silent.skill.common;
 
 import de.bundeswehr.auf.slaythespire.helper.PathAssistent;
+import de.bundeswehr.auf.slaythespire.model.battle.BattleDeck;
+import de.bundeswehr.auf.slaythespire.model.battle.GameContext;
 import de.bundeswehr.auf.slaythespire.model.card.structure.Card;
 import de.bundeswehr.auf.slaythespire.model.card.structure.CardGrave;
 import de.bundeswehr.auf.slaythespire.model.card.structure.CardRarity;
 import de.bundeswehr.auf.slaythespire.model.card.structure.SkillCard;
-import de.bundeswehr.auf.slaythespire.model.battle.BattleDeck;
-import de.bundeswehr.auf.slaythespire.model.battle.GameContext;
 import de.bundeswehr.auf.slaythespire.model.player.structure.Player;
 
 import java.util.List;
-import java.util.Random;
 
 /**
  * Die Survivor Karte.
+ * Survivor discards the last card in your hand.
+ * Survivor can be played as the last card in your hand without needing to discard anything.
  *
  * @author OF Daniel Willig
  */
 public class SurvivorCard extends SkillCard {
-
-    private static final Random rnd = new Random();
 
     /**
      * Constructor Survivor card.
@@ -35,12 +34,13 @@ public class SurvivorCard extends SkillCard {
         player.gainBlock(8);
 
         BattleDeck battleDeck = gameContext.getBattleDeck();
-        List<Card> hand = gameContext.getBattleDeck().getHand();
+        List<Card> hand = battleDeck.getHand();
         if (hand.size() > 1) {
             Card card;
+            int i = hand.size();
             do {
-                card = hand.get(rnd.nextInt(hand.size()));
-            } while (card != this);
+                card = hand.get(--i);
+            } while (card == this);
             battleDeck.discardCardFromHand(card);
         }
 

@@ -19,7 +19,7 @@ public class MetallicizeCard extends PowerCard {
      * Constructor Metallicize card.
      */
     public MetallicizeCard() {
-        super("Metallicize", "At the end of your turn, gain 3 Block.", 1, CardRarity.UNCOMMON, CardGrave.NONE, CardTrigger.PLAYER_EOT);
+        super("Metallicize", "At the end of your turn, gain 3 Block.", 1, CardRarity.UNCOMMON, CardGrave.NONE, CardTrigger.PLAYER_END_OF_TURN);
         setImagePath(new PathAssistent().toPath(this));
     }
 

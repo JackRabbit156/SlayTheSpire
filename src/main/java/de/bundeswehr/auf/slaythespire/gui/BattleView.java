@@ -71,7 +71,7 @@ public class BattleView extends BorderPane implements View, WithTopBar, BattleDe
         this.player = player;
         this.enemies = enemies;
         BattleDeck battleDeck = gameContext.getBattleDeck();
-        battleDeck.setBattleDeckListener(this);
+        battleDeck.addBattleDeckListener(this);
 
         setBackground(new Background(GuiHelper.backgroundInHD(player.getActImage())));
         setCenter(center);

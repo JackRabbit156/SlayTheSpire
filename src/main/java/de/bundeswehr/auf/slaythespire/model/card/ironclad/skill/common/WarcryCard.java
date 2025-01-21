@@ -42,7 +42,7 @@ public class WarcryCard extends SkillCard implements CardEventListener {
         BattleDeck battleDeck = gameContext.getBattleDeck();
         battleDeck.drawCard(1);
         battleDeck.removeCardFromHand(card);
-        battleDeck.addToDeck(card);
+        battleDeck.addToDrawPile(card);
         super.played();
     }
 

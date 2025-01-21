@@ -14,11 +14,7 @@ public abstract class AttackCard extends Card {
     }
 
     public int getDamage(GameContext gameContext) {
-        return getDamage();
-    }
-
-    public int getDamage() {
-        return this.damage;
+        return damage;
     }
 
     @Override

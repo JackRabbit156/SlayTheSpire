@@ -104,6 +104,16 @@ public abstract class Player extends Entity {
         notifyGoldEvent(new InventoryEvent(this, InventoryEvent.Direction.LOSE, InventoryEvent.Type.GOLD, gold));
     }
 
+    /**
+     * Erhöht die aktuelle Energie des Spielers um einen bestimmten Betrag.
+     *
+     * @param energy Der Betrag, um den die Energie erhöht werden soll.
+     */
+    public void gainEnergy(int energy) {
+        currentEnergy += energy;
+        notifyEnergyReceived(energy);
+    }
+
     public String getActImage() {
         switch (currentAct) {
             case 1:
@@ -119,11 +129,6 @@ public abstract class Player extends Entity {
 
     public int getCurrentAct() {
         return currentAct;
-    }
-
-    public void removePotion(Potion potion) {
-        potions.remove(potion);
-        notifyPotionEvent(new InventoryEvent(this, InventoryEvent.Direction.LOSE, InventoryEvent.Type.POTION, potion));
     }
 
     public void setCurrentAct(int currentAct) {
@@ -220,16 +225,6 @@ public abstract class Player extends Entity {
     }
 
     /**
-     * Erhöht die aktuelle Energie des Spielers um einen bestimmten Betrag.
-     *
-     * @param energy Der Betrag, um den die Energie erhöht werden soll.
-     */
-    public void increaseCurrentEnergy(int energy) {
-        currentEnergy += energy;
-        notifyEnergyReceived(energy);
-    }
-
-    /**
      * Erhöht das Gold des Spielers um einen bestimmten Betrag.
      *
      * @param gold Der Betrag, um den das Gold erhöht werden soll.
@@ -243,6 +238,11 @@ public abstract class Player extends Entity {
     public void removeCardFromDeck(Card card) {
         deck.remove(card);
         notifyCardEvent(new InventoryEvent(this, InventoryEvent.Direction.LOSE, InventoryEvent.Type.CARD, card));
+    }
+
+    public void removePotion(Potion potion) {
+        potions.remove(potion);
+        notifyPotionEvent(new InventoryEvent(this, InventoryEvent.Direction.LOSE, InventoryEvent.Type.POTION, potion));
     }
 
     /**
@@ -278,6 +278,15 @@ public abstract class Player extends Entity {
         PlayerBlockEvent event = new PlayerBlockEvent(this, blockAmount);
         for (PlayerEventListener playerEventListener : playerEventListeners) {
             playerEventListener.onBlockReceived(event);
+        }
+    }
+
+    @Override
+    protected void notifyDamageDealt(GameContext gameContext) {
+        boolean damageFromCard = gameContext.getAttackContext().getSource() == gameContext.getAttackContext().getTarget();
+        PlayerDamageEvent event = new PlayerDamageEvent(this, gameContext.getAttackContext().getDamage(), damageFromCard);
+        for (PlayerEventListener playerEventListener : playerEventListeners) {
+            playerEventListener.onDamageDealt(event);
         }
     }
 

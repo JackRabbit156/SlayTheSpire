@@ -7,11 +7,8 @@ package de.bundeswehr.auf.slaythespire.model.card.structure;
  */
 public enum CardTrigger {
 
-    ALWAYS, // does not trigger, sets something (like Strength)
-    NEVER, // is never there
-
-    PLAYER_BOT, // on beginning of player turn
-    PLAYER_EOT, // on end of player turn
+    PLAYER_BEGIN_OF_TURN, // on beginning of player turn
+    PLAYER_END_OF_TURN, // on end of player turn
 
     GAIN_BLOCK, // on gaining block
     GAIN_HP, // on gaining health
@@ -20,6 +17,7 @@ public enum CardTrigger {
     LOSE_HP_CARD, // on losing life from a card
     LOSE_HP_ENEMY, // on losing life from an enemy
 
+    PLAY_CARD, // on playing any card
     PLAY_ATTACK, // on playing an attack card
     PLAY_SKILL, // on playing a skill card
     PLAY_POWER // on playing a power card

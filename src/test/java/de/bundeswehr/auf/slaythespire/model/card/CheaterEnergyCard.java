@@ -15,7 +15,7 @@ public class CheaterEnergyCard extends SkillCard {
 
     @Override
     public void play(GameContext gameContext) {
-        gameContext.getPlayer().increaseCurrentEnergy(10);
+        gameContext.getPlayer().gainEnergy(10);
     }
 
 }

@@ -45,7 +45,7 @@ public class HeadbuttCard extends AttackCard implements CardEventListener {
         BattleDeck battleDeck = gameContext.getBattleDeck();
         Player player = gameContext.getPlayer();
         battleDeck.removeCardFromDiscardPile(card);
-        battleDeck.addToDeck(card);
+        battleDeck.addToDrawPile(card);
         player.dealDamage(gameContext, getDamage(gameContext), enemy, this);
 
         player.decreaseCurrentEnergy(getCost());

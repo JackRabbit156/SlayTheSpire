@@ -1,7 +1,6 @@
 package de.bundeswehr.auf.slaythespire.model.card.ironclad.power.rare;
 
 import de.bundeswehr.auf.slaythespire.helper.PathAssistent;
-import de.bundeswehr.auf.slaythespire.model.battle.BattleDeck;
 import de.bundeswehr.auf.slaythespire.model.battle.GameContext;
 import de.bundeswehr.auf.slaythespire.model.card.structure.CardGrave;
 import de.bundeswehr.auf.slaythespire.model.card.structure.CardRarity;
@@ -21,7 +20,7 @@ public class BerserkCard extends PowerCard {
      * Constructor Berserk card.
      */
     public BerserkCard() {
-        super("Berserk", "Gain 2 Vulnerable. At the start of your turn, gain 1 Energy.", 0, CardRarity.RARE, CardGrave.NONE, CardTrigger.PLAYER_BOT);
+        super("Berserk", "Gain 2 Vulnerable. At the start of your turn, gain 1 Energy.", 0, CardRarity.RARE, CardGrave.NONE, CardTrigger.PLAYER_BEGIN_OF_TURN);
         setImagePath(new PathAssistent().toPath(this));
     }
 
@@ -37,7 +36,7 @@ public class BerserkCard extends PowerCard {
     public void onTrigger(GameContext gameContext) {
         Player player = gameContext.getPlayer();
 
-        player.increaseCurrentEnergy(1);
+        player.gainEnergy(1);
     }
 
 }
