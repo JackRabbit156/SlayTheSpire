@@ -16,7 +16,7 @@ import de.bundeswehr.auf.slaythespire.model.potion.CheaterPotion;
 import de.bundeswehr.auf.slaythespire.model.potion.uncommon.DistilledChaosPotion;
 import de.bundeswehr.auf.slaythespire.model.settings.GameSettings;
 import de.bundeswehr.auf.slaythespire.model.settings.structure.DifficultyLevel;
-import de.bundeswehr.auf.slaythespire.model.settings.structure.Normal;
+import de.bundeswehr.auf.slaythespire.model.settings.structure.Impossible;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
@@ -43,7 +43,7 @@ public class BattleTester extends Application {
         IRONCLAD, SILENT
     }
 
-    private static final DifficultyLevel DIFFICULTY = new Normal();
+    private static final DifficultyLevel DIFFICULTY = new Impossible();
     private static final Test TEST = Test.ACT_I_ENEMY;
     private static final Type TYPE = Type.CHEATER;
 
