@@ -22,7 +22,7 @@ public class TheSssssserpent extends Event {
     public Button getButton1() {
         Button agree = new Button("\t[Agree] "); // get 175 gold
         agree.setOnAction(event -> {
-            getPlayer().increaseGold(175);
+            getPlayer().gainGold(175);
             agree.setVisible(false);
         });
         return agree;

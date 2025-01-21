@@ -22,6 +22,7 @@ import de.bundeswehr.auf.slaythespire.model.player.structure.Player;
 import de.bundeswehr.auf.slaythespire.model.potion.structure.Potion;
 import de.bundeswehr.auf.slaythespire.model.relic.structure.Relic;
 import de.bundeswehr.auf.slaythespire.model.relic.structure.RelicTrigger;
+import de.bundeswehr.auf.slaythespire.model.settings.structure.Resetable;
 import javafx.stage.Stage;
 
 import java.util.HashSet;
@@ -59,8 +60,6 @@ public class BattleController implements Controller, BattleViewEvents, PlayerEve
         calculateIntentForAllEnemies();
         battleView = new BattleView(player, enemies, this, gameContext);
         player.addPlayerEventListener(this);
-
-        startOfCombat();
     }
 
     @Override
@@ -100,15 +99,18 @@ public class BattleController implements Controller, BattleViewEvents, PlayerEve
 
     @Override
     public void onCardDeath(Card card) {
+        triggerRelics(RelicTrigger.PLAY_CARD);
         triggerPowerCards(CardTrigger.PLAY_CARD);
         if (card instanceof AttackCard) {
-            triggerPowerCards(CardTrigger.PLAY_ATTACK);
             triggerRelics(RelicTrigger.PLAY_ATTACK);
+            triggerPowerCards(CardTrigger.PLAY_ATTACK);
         }
         else if (card instanceof SkillCard) {
+            triggerRelics(RelicTrigger.PLAY_SKILL);
             triggerPowerCards(CardTrigger.PLAY_SKILL);
         }
         else if (card instanceof PowerCard) {
+            triggerRelics(RelicTrigger.PLAY_POWER);
             triggerPowerCards(CardTrigger.PLAY_POWER);
         }
         else if (card instanceof Potion) {
@@ -221,6 +223,19 @@ public class BattleController implements Controller, BattleViewEvents, PlayerEve
         player.resetBlock();
     }
 
+    public void startOfCombat() {
+        LoggingAssistant.log("Start of combat");
+        resetEnergyAndBlock();
+
+        triggerRelics(RelicTrigger.START_OF_COMBAT);
+
+        battleDeck.fillHand(battleDeck.getStartHandSize());
+
+        triggerRelics(RelicTrigger.BEGIN_OF_TURN);
+        triggerEffects(EffectTrigger.BEGIN_OF_TURN, player);
+        triggerPowerCards(CardTrigger.PLAYER_BEGIN_OF_TURN);
+    }
+
     private void calculateIntentForAllEnemies() {
         for (Enemy enemy : enemies) {
             enemy.calculateIntent();
@@ -234,10 +249,12 @@ public class BattleController implements Controller, BattleViewEvents, PlayerEve
                 break;
             case EXHAUST:
                 battleDeck.exhaustCardFromHand(card);
+                triggerRelics(RelicTrigger.EXHAUST);
                 break;
             case ETHEREAL:
             case DISCARD:
                 battleDeck.discardCardFromHand(card);
+                triggerRelics(RelicTrigger.DISCARD);
                 break;
             default:
                 battleDeck.removeCardFromHand(card);
@@ -252,6 +269,11 @@ public class BattleController implements Controller, BattleViewEvents, PlayerEve
         LoggingAssistant.log("End of combat");
         removeEffects();
         triggerRelics(RelicTrigger.END_OF_COMBAT);
+        for (Relic relic : player.getRelics()) {
+            if (relic instanceof Resetable) {
+                ((Resetable) relic).reset();
+            }
+        }
 
         GuiHelper.Scenes.startLootScene(player, fieldType);
     }
@@ -322,6 +344,7 @@ public class BattleController implements Controller, BattleViewEvents, PlayerEve
     private void playerEndOfTurn() {
         removeHandAfterEndOfTurn();
 
+        triggerRelics(RelicTrigger.END_OF_TURN);
         triggerEffects(EffectTrigger.END_OF_TURN, player);
         triggerPowerCards(CardTrigger.PLAYER_END_OF_TURN);
         battleDeck.removeNonPowerCards();
@@ -349,17 +372,6 @@ public class BattleController implements Controller, BattleViewEvents, PlayerEve
                 battleDeck.discardCardFromHand(card);
             }
         }
-    }
-
-    private void startOfCombat() {
-        LoggingAssistant.log("Start of combat");
-        resetEnergyAndBlock();
-        battleDeck.fillHand(battleDeck.getStartHandSize());
-
-        triggerRelics(RelicTrigger.START_OF_COMBAT);
-        triggerRelics(RelicTrigger.BEGIN_OF_TURN);
-        triggerEffects(EffectTrigger.BEGIN_OF_TURN, player);
-        triggerPowerCards(CardTrigger.PLAYER_BEGIN_OF_TURN);
     }
 
     private void triggerEffects(EffectTrigger trigger, Entity target) {

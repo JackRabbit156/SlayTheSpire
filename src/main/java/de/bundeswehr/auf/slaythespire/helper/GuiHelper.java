@@ -77,6 +77,7 @@ public final class GuiHelper {
             Stage primaryStage = player.getPrimaryStage();
             String cssPath = "/css/battleStyle.css";
             fadeTransition(primaryStage, battleController.getBattleView(), cssPath);
+            battleController.startOfCombat();
         }
 
         /**

@@ -5,8 +5,6 @@ import javafx.scene.image.Image;
 import de.bundeswehr.auf.slaythespire.model.event.Event;
 import de.bundeswehr.auf.slaythespire.model.player.structure.Player;
 
-import java.util.Random;
-
 /**
  * Der Spieler kann mit einer bestimmten Wahrscheinlichkeit Gold finden
  *
@@ -28,7 +26,7 @@ public class DeadAdventurer extends Event {
         search.setOnAction(event -> {
             boolean chance = rnd.nextInt(100) <= 50;
             if (chance) {
-                getPlayer().increaseGold(30);
+                getPlayer().gainGold(30);
             }
             search.setVisible(false);
         });

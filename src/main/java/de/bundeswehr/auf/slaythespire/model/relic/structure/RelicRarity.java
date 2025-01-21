@@ -8,6 +8,11 @@ package de.bundeswehr.auf.slaythespire.model.relic.structure;
 public enum RelicRarity {
 
     /**
+     * Starter Relics are granted upon starting a run with the corresponding character.
+     */
+    STARTER,
+
+    /**
      * Gewöhnlich.
      */
     COMMON,
@@ -19,6 +24,20 @@ public enum RelicRarity {
      * Selten.
      */
     RARE,
+
+    /**
+     * Boss Relics can only be found from Bosses.
+     */
+    BOSS,
+    /**
+     * Event Relics can only be found from specific event outcomes.
+     */
+    EVENT,
+    /**
+     * Shop Relics can only be purchased from the Merchant.
+     */
+    SHOP,
+
     SPECIAL
 
 }

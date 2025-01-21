@@ -5,7 +5,6 @@ import javafx.scene.image.Image;
 import de.bundeswehr.auf.slaythespire.model.event.Event;
 import de.bundeswehr.auf.slaythespire.model.player.structure.Player;
 
-import java.util.Random;
 /**
  * Der Spieler kann wetten und mit einer bestimmten Wahrscheinlichkeit Gold gewinnen
  *
@@ -28,7 +27,7 @@ public class TheJoust extends Event {
         button1.setOnAction(event -> {
             boolean chance = rnd.nextInt(100) <= 70;
             if (chance) {
-                getPlayer().increaseGold(50);
+                getPlayer().gainGold(50);
             }
             else {
                 getPlayer().decreaseGold(50);
@@ -44,7 +43,7 @@ public class TheJoust extends Event {
         boolean chance = rnd.nextInt(100) <= 30;
         button2.setOnAction(event -> {
             if (chance) {
-                getPlayer().increaseGold(200);
+                getPlayer().gainGold(200);
             }
             else {
                 getPlayer().decreaseGold(50);

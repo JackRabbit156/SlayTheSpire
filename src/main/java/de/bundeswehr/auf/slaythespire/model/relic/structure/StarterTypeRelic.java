@@ -14,11 +14,10 @@ public abstract class StarterTypeRelic extends PlayerTypeRelic {
      *
      * @param name        der Name
      * @param description Die Beschreibung
-     * @param rarity      Die Seltenheit
      * @param playerType  der SpielerTyp
      */
-    protected StarterTypeRelic(String name, String description, RelicRarity rarity, PlayerType playerType, RelicTrigger relicTrigger) {
-        super(name, description, rarity, playerType, relicTrigger);
+    protected StarterTypeRelic(String name, String description, PlayerType playerType, RelicTrigger relicTrigger) {
+        super(name, description, RelicRarity.STARTER, playerType, relicTrigger);
     }
 
 }

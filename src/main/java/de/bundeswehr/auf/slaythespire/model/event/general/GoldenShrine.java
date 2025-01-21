@@ -22,7 +22,7 @@ public class GoldenShrine extends Event {
     public Button getButton1() {
         Button button1 = new Button("\t[Pray] "); // get 100 gold
         button1.setOnAction(event -> {
-            getPlayer().increaseGold(100);
+            getPlayer().gainGold(100);
             button1.setVisible(false);
         });
         return button1;

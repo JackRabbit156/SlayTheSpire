@@ -104,18 +104,13 @@ public abstract class Card {
         // Existieren nur 3 Typen
         // https://slay-the-spire.fandom.com/wiki/Merchant
         switch (rarity) {
-            case COMMON: {
-                return rnd.nextInt(55 + 1 - 45) + 45;
-            }
-            case UNCOMMON: {
+            case UNCOMMON:
                 return rnd.nextInt(82 + 1 - 68) + 68;
-            }
-            case RARE: {
+            case RARE:
                 return rnd.nextInt(165 + 1 - 135) + 135;
-            }
-            default: {
-                return rnd.nextInt(9);
-            }
+            case COMMON:
+            default:
+                return rnd.nextInt(55 + 1 - 45) + 45;
         }
     }
 

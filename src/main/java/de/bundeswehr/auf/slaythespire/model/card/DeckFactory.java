@@ -6,15 +6,13 @@ import de.bundeswehr.auf.slaythespire.model.Model;
 import de.bundeswehr.auf.slaythespire.model.card.structure.Card;
 import de.bundeswehr.auf.slaythespire.model.card.structure.CardRarity;
 import de.bundeswehr.auf.slaythespire.model.player.structure.Player;
-import de.bundeswehr.auf.slaythespire.model.potion.structure.Potion;
-import de.bundeswehr.auf.slaythespire.model.relic.structure.Relic;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.*;
 
 /**
- * Die DeckFactory-Klasse ist verantwortlich für die Erstellung und Verwaltung des Kartendecks eines Spielers.
- * Sie initialisiert ein Deck mit einer bestimmten Anzahl von Karten und einem optionalen Kartentyp.
+ * Die DeckFactory-Klasse ist verantwortlich für die Erstellung des Kartendecks eines Spielers.
+ * Sie initialisiert ein Deck mit einer bestimmten Anzahl von Karten.
  *
  * @author Keil, Vladislav
  * @author OF Daniel Willig
@@ -60,34 +58,6 @@ public class DeckFactory {
         return copy;
     }
 
-    public static Potion copy(Potion potion) {
-        return potionFor(potion.getClass().getSimpleName());
-    }
-
-    public static Relic copy(Relic relic) {
-        return relicFor(relic.getClass().getSimpleName());
-    }
-
-    public static Potion potionFor(String potionName) {
-        Potion potion = null;
-        try {
-            potion = Model.ofPotions(potionName);
-        } catch (IllegalArgumentException e) {
-            LoggingAssistant.log("Error in DeckFactory creating Potion: " + potionName, Color.RED);
-        }
-        return potion;
-    }
-
-    public static Relic relicFor(String relicName) {
-        Relic relic = null;
-        try {
-            relic = Model.ofRelics(relicName);
-        } catch (IllegalArgumentException e) {
-            LoggingAssistant.log("Error in DeckFactory creating Relic: " + relicName, Color.RED);
-        }
-        return relic;
-    }
-
     /**
      * Konstruktor für die DeckFactory, der ein Deck mit einer bestimmten Anzahl an Karten für den gegebenen Spieler erstellt.
      *
@@ -122,26 +92,6 @@ public class DeckFactory {
     public DeckFactory(Player player, int amount, CardRarity rarity) {
         this(player, amount);
         // TODO implement rarity based generation
-    }
-
-    /**
-     * Generiert eine zufällige Trankkarte aus einer Liste verfügbarer Tränke.
-     * Zunächst wird eine Liste aller verfügbaren Tränke erstellt. Danach wird ein zufälliger Trank ausgewählt
-     * und eine entsprechende Trankkarte zurückgegeben.
-     * Falls die Liste der verfügbaren Tränke nicht korrekt initialisiert wurde, wird eine Fehlermeldung ausgegeben.
-     *
-     * @return Eine Trankkarte, die dem zufällig ausgewählten Trank entspricht.
-     * Falls ein Fehler auftritt, kann die Methode in einem fehlerhaften Zustand enden.
-     */
-    public Potion generatePotion() {
-        List<Class<? extends Potion>> availablePotions = Model.potions();
-        int randomNumber = rnd.nextInt(availablePotions.size());
-        try {
-            return availablePotions.get(randomNumber).getDeclaredConstructor().newInstance();
-        } catch (InstantiationException | IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
-            LoggingAssistant.log(e, Color.RED);
-            return null;
-        }
     }
 
     /**

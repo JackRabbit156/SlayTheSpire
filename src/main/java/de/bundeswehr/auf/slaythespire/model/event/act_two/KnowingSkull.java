@@ -1,5 +1,6 @@
 package de.bundeswehr.auf.slaythespire.model.event.act_two;
 
+import de.bundeswehr.auf.slaythespire.model.potion.PotionFactory;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import de.bundeswehr.auf.slaythespire.model.card.DeckFactory;
@@ -33,7 +34,7 @@ public class KnowingSkull extends Event {
     public Button getButton1() {
         button1.setOnAction(event -> {
             getPlayer().setCurrentHealth((getPlayer().getMaxHealth() / 10));
-            getPlayer().increaseGold(90);
+            getPlayer().gainGold(90);
             button1.setVisible(false);
             button2.setVisible(false);
             button3.setVisible(false);
@@ -65,8 +66,7 @@ public class KnowingSkull extends Event {
 
     @Override
     public Button getButton3() {
-        DeckFactory df = new DeckFactory(getPlayer(), 1);
-        Potion potion = df.generatePotion();
+        Potion potion = PotionFactory.generatePotion();
         button3.setOnAction(event -> {
             getPlayer().setCurrentHealth(getPlayer().getMaxHealth() / 10);
             getPlayer().addPotion(potion);

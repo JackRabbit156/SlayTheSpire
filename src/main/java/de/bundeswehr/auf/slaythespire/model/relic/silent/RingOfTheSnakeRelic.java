@@ -1,4 +1,4 @@
-package de.bundeswehr.auf.slaythespire.model.relic.silent.common;
+package de.bundeswehr.auf.slaythespire.model.relic.silent;
 
 import de.bundeswehr.auf.slaythespire.helper.PathAssistent;
 import de.bundeswehr.auf.slaythespire.model.battle.BattleDeck;
@@ -21,7 +21,7 @@ public class RingOfTheSnakeRelic extends StarterTypeRelic {
      */
     public RingOfTheSnakeRelic() {
         super("Ring of the Snake", "At the start of each combat, draw 2 additional cards.",
-                RelicRarity.COMMON, PlayerType.SILENT, RelicTrigger.START_OF_COMBAT);
+                PlayerType.SILENT, RelicTrigger.START_OF_COMBAT);
         setImagePath(new PathAssistent().toPath(this));
     }
 

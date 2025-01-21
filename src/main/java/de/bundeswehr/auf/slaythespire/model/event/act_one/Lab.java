@@ -1,15 +1,16 @@
 package de.bundeswehr.auf.slaythespire.model.event.act_one;
 
-import javafx.scene.control.Button;
-import javafx.scene.image.Image;
-import de.bundeswehr.auf.slaythespire.model.card.DeckFactory;
 import de.bundeswehr.auf.slaythespire.model.event.Event;
 import de.bundeswehr.auf.slaythespire.model.player.structure.Player;
+import de.bundeswehr.auf.slaythespire.model.potion.PotionFactory;
 import de.bundeswehr.auf.slaythespire.model.potion.structure.Potion;
+import javafx.scene.control.Button;
+import javafx.scene.image.Image;
+
 /**
  * Der Spieler kann Potions erhalten
  *
- * @author  Loeschner, Marijan
+ * @author Loeschner, Marijan
  */
 public class Lab extends Event {
 
@@ -24,8 +25,7 @@ public class Lab extends Event {
 
     @Override
     public Button getButton1() {
-        DeckFactory factory = new DeckFactory(getPlayer(), 0);
-        Potion potion = factory.generatePotion();
+        Potion potion = PotionFactory.generatePotion();
         Button button1 = new Button("\t[Search] Obtain Potions"); // get a potion
         button1.setOnAction(event -> {
             if (getPlayer().getPotions().size() < 3) {

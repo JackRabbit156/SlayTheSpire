@@ -1,7 +1,5 @@
 package de.bundeswehr.auf.slaythespire.model.relic.structure;
 
-import de.bundeswehr.auf.slaythespire.model.player.structure.PlayerType;
-
 /**
  * Relikte, die in Shops gekauft werden können.
  *
@@ -14,10 +12,9 @@ public abstract class ShopTypeRelic extends Relic {
      *
      * @param name        der Name
      * @param description Die Beschreibung
-     * @param rarity      Die Seltenheit
      */
-    protected ShopTypeRelic(String name, String description, RelicRarity rarity, RelicTrigger relicTrigger) {
-        super(name, description, rarity, relicTrigger);
+    protected ShopTypeRelic(String name, String description, RelicTrigger relicTrigger) {
+        super(name, description, RelicRarity.SHOP, relicTrigger);
     }
 
 }

@@ -32,7 +32,6 @@ public class PotionSelectionLayout extends FlowPane {
     public PotionSelectionLayout(Potion potion, ShopView shopView) {
         this.potion = potion;
         this.shopView = shopView;
-        // Center of the bottom
         setAlignment(Pos.CENTER);
         if (potion != null) {
             showPotion();
@@ -40,30 +39,25 @@ public class PotionSelectionLayout extends FlowPane {
     }
 
     private void handlePotionClick() {
-        // Verarbeite hier den Klick auf die Karte, z.B. öffne Details oder führe eine Aktion aus
-        this.shopView.onPotionClick(potion);
+        shopView.onPotionClick(potion);
     }
 
     private Node images() {
         Image image = new Image(getClass().getResource(potion.getImagePath()).toExternalForm());
         ImageView imageView = new ImageView(image);
 
-        imageView.setFitWidth(100); // Breite in Pixel
-        imageView.setFitHeight(100); // Höhe in Pixel
+        imageView.setFitWidth(100);
+        imageView.setFitHeight(100);
         imageView.setPreserveRatio(true);
         GuiHelper.setHoverEffect(imageView);
 
-        // Klick-Event hinzufügen
-        imageView.addEventHandler(MouseEvent.MOUSE_CLICKED, e -> {
-            handlePotionClick(); // Hier eine Methode aufrufen, die das Klick-Event verarbeitet
-        });
+        imageView.addEventHandler(MouseEvent.MOUSE_CLICKED, e -> handlePotionClick());
 
         return imageView;
     }
 
     private StackPane plate() {
         ImageView background = new ImageView(bg);
-
 
         Label name = new Label(potion.getName());
         name.setTextFill(Color.WHITE);

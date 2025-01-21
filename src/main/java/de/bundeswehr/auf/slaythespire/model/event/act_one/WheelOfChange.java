@@ -28,13 +28,13 @@ public class WheelOfChange extends Event {
             int randInt = rnd.nextInt(4);
             switch (randInt) {
                 case 1: // get 100/ 200/ 300 gold
-                    getPlayer().increaseGold(getPlayer().getCurrentAct() * 100);
+                    getPlayer().gainGold(getPlayer().getCurrentAct() * 100);
                 case 2: // remove 1 card
                     factory.removeRandomCard(getPlayer());
                 case 3: // get damaged by 10%
                     getPlayer().setCurrentHealth((int) (getPlayer().getCurrentHealth() * 0.9));
                 default: // heal 100%
-                    getPlayer().setCurrentHealth(getPlayer().getMaxHealth());
+                    getPlayer().heal(getPlayer().getMaxHealth());
             }
         });
         return button1;

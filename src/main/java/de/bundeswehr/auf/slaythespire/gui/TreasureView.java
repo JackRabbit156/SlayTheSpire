@@ -10,6 +10,7 @@ import de.bundeswehr.auf.slaythespire.helper.GuiHelper;
 import de.bundeswehr.auf.slaythespire.model.card.structure.Card;
 import de.bundeswehr.auf.slaythespire.model.player.structure.Player;
 import de.bundeswehr.auf.slaythespire.model.potion.structure.Potion;
+import de.bundeswehr.auf.slaythespire.model.relic.structure.Relic;
 import javafx.geometry.Bounds;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -46,6 +47,7 @@ public class TreasureView extends StackPane implements WithTopBar, CardEventList
     private final int gold;
     private final String playerImagePath;
     private final Potion potion;
+    private final Relic relic;
     private TopBarLayout top;
     private final BorderPane treasureLayout;
     private final TreasureViewEvents treasureViewEvents;
@@ -60,11 +62,12 @@ public class TreasureView extends StackPane implements WithTopBar, CardEventList
      * @param player             Der Spieler
      * @param treasureViewEvents Die Ereignisse der Schatz-Ansicht.
      */
-    public TreasureView(List<Card> cardList, int gold, Potion potion, Player player, TreasureViewEvents treasureViewEvents) {
+    public TreasureView(List<Card> cardList, int gold, Potion potion, Relic relic, Player player, TreasureViewEvents treasureViewEvents) {
         playerImagePath = player.getImagePath();
         this.cardList = cardList;
         this.gold = gold;
         this.potion = potion;
+        this.relic = relic;
         this.treasureViewEvents = treasureViewEvents;
 
         treasureLayout = new BorderPane();
@@ -287,6 +290,44 @@ public class TreasureView extends StackPane implements WithTopBar, CardEventList
         return potionStackPane;
     }
 
+    /**
+     * Erzeugt das StackPane für die Relikt-Option.
+     *
+     * @return Das StackPane für die Relikt-Option.
+     */
+    private StackPane getRelicStackPane() {
+        Image btnImage = new Image(getClass().getResource("/images/panel/reward_list_item.png").toExternalForm());
+        ImageView itemPanelView = new ImageView(btnImage);
+        Image img = new Image(getClass().getResource(relic.getImagePath()).toExternalForm());
+        ImageView imgView = new ImageView(img);
+
+        imgView.setScaleX(PANEL_SCALE);
+        imgView.setScaleY(PANEL_SCALE);
+        // Label
+        Label label = new Label();
+        label.setText(relic.getName());
+        label.setStyle(FONT_SMALL);
+        label.setTextFill(Color.WHITE);
+        // Loot
+        HBox lootBox = new HBox();
+        lootBox.setAlignment(Pos.CENTER);
+        lootBox.getChildren().addAll(imgView, label);
+        // Panel
+        StackPane relicStackPane = new StackPane(itemPanelView);
+        relicStackPane.getChildren().add(lootBox);
+        relicStackPane.setAlignment(Pos.CENTER);
+        GuiHelper.setHoverEffect(relicStackPane);
+        relicStackPane.setOnMouseClicked(event -> {
+            if (!relicStackPane.isDisabled()) {
+                onRelicClick();
+            }
+            relicStackPane.setOpacity(0.6);
+            relicStackPane.setDisable(true);
+        });
+
+        return relicStackPane;
+    }
+
     private void initBackLayout(Player player) {
         top = new TopBarLayout(this, player);
         backLayout.setTop(top);
@@ -327,6 +368,13 @@ public class TreasureView extends StackPane implements WithTopBar, CardEventList
      */
     private void onPotionClick() {
         treasureViewEvents.onPotionClick(potion);
+    }
+
+    /**
+     * Event-Handler für Klicks auf ein Relikt im Schatz.
+     */
+    private void onRelicClick() {
+        treasureViewEvents.onRelicClick(relic);
     }
 
     /**
@@ -371,13 +419,14 @@ public class TreasureView extends StackPane implements WithTopBar, CardEventList
         // Gold Option
         StackPane goldStackPane = getGoldStackPane();
         center.getChildren().add(goldStackPane);
-
         // Potion Option
         if (potion != null) {
-            StackPane getPotionStackPane = getPotionStackPane();
-            center.getChildren().add(getPotionStackPane);
+            center.getChildren().add(getPotionStackPane());
         }
-
+        // Relic Option
+        if (relic != null) {
+            center.getChildren().add(getRelicStackPane());
+        }
         // Card Selection Option
         setCardSelectionLayout();
 

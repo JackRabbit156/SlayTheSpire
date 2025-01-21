@@ -9,6 +9,7 @@ import de.bundeswehr.auf.slaythespire.helper.GuiHelper;
 import de.bundeswehr.auf.slaythespire.model.card.structure.Card;
 import de.bundeswehr.auf.slaythespire.model.player.structure.Player;
 import de.bundeswehr.auf.slaythespire.model.potion.structure.Potion;
+import de.bundeswehr.auf.slaythespire.model.relic.structure.Relic;
 import javafx.geometry.Bounds;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -37,16 +38,18 @@ public class ShopView extends StackPane implements CardEventListener, WithTopBar
     private final BorderPane outerLayout = new BorderPane();
     private final Player player;
     private Potion potion;
+    private Relic relic;
     private List<Card> shopCards;
     private final BorderPane shopLayout = new BorderPane();
     private ShopViewEvents shopViewEvents;
     private TopBarLayout top;
 
-    public ShopView(Player player, List<Card> shopCards, ShopViewEvents shopViewEvents, Potion... potion) {
+    public ShopView(Player player, List<Card> shopCards, ShopViewEvents shopViewEvents, Potion potion, Relic relic) {
         this.player = player;
         this.shopCards = shopCards;
         this.shopViewEvents = shopViewEvents;
-        this.potion = potion[0] != null ? potion[0] : null;
+        this.potion = potion;
+        this.relic = relic;
         display();
     }
 
@@ -116,10 +119,28 @@ public class ShopView extends StackPane implements CardEventListener, WithTopBar
     }
 
     /**
+     * Aktion bei Klicken auf ein Relikt.
+     * Ruft das entsprechende Ereignis auf.
+     *
+     * @param relic Das angeklickte Relikt.
+     */
+    public void onRelicClick(Relic relic) {
+        shopViewEvents.onRelicClick(relic);
+    }
+
+    /**
      * Setzt die kaufbare Trankkarte auf null und initialisiert die Center View neu.
      */
-    public void setPurchaseablePotion() {
+    public void setPurchasablePotion() {
         potion = null;
+        initCenter();
+    }
+
+    /**
+     * Setzt die kaufbare Trankkarte auf null und initialisiert die Center View neu.
+     */
+    public void setPurchasableRelic() {
+        relic = null;
         initCenter();
     }
 
@@ -168,7 +189,7 @@ public class ShopView extends StackPane implements CardEventListener, WithTopBar
     private void initCenter() {
         center = new VBox();
         // Card Options
-        CardSelectionLayout cardSelectionLayout = new CardSelectionLayout(this.shopCards, this);
+        CardSelectionLayout cardSelectionLayout = new CardSelectionLayout(shopCards, this);
 
         center.setPadding(insets);
         center.setAlignment(Pos.TOP_CENTER);
@@ -176,13 +197,23 @@ public class ShopView extends StackPane implements CardEventListener, WithTopBar
 
         // Potion Options
         FlowPane potionSelectionLayout;
-        if (this.potion != null) {
-            potionSelectionLayout = new PotionSelectionLayout(this.potion, this);
+        if (potion != null) {
+            potionSelectionLayout = new PotionSelectionLayout(potion, this);
         }
         else {
             potionSelectionLayout = new FlowPane();
         }
-        center.getChildren().add(potionSelectionLayout);
+        // Relic Options
+        FlowPane relicSelectionLayout;
+        if (relic != null) {
+            relicSelectionLayout = new RelicSelectionLayout(relic, this);
+        }
+        else {
+            relicSelectionLayout = new FlowPane();
+        }
+        HBox bottom = new HBox(potionSelectionLayout, relicSelectionLayout);
+        bottom.setAlignment(Pos.CENTER);
+        center.getChildren().add(bottom);
         shopLayout.setCenter(center);
     }
 

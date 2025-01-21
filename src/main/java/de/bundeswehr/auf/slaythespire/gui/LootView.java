@@ -9,6 +9,7 @@ import de.bundeswehr.auf.slaythespire.helper.GuiHelper;
 import de.bundeswehr.auf.slaythespire.model.card.structure.Card;
 import de.bundeswehr.auf.slaythespire.model.player.structure.Player;
 import de.bundeswehr.auf.slaythespire.model.potion.structure.Potion;
+import de.bundeswehr.auf.slaythespire.model.relic.structure.Relic;
 import javafx.geometry.Bounds;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -40,6 +41,7 @@ public class LootView extends StackPane implements WithTopBar, CardEventListener
     private final LootViewEvents lootViewEvents;
     private final Player player;
     private final Potion potion;
+    private final Relic relic;
     private TopBarLayout top;
 
     /**
@@ -52,10 +54,11 @@ public class LootView extends StackPane implements WithTopBar, CardEventListener
      * @param potion     Die im Schatz enthaltene Trankkarte.
      * @param lootViewEvents Die Ereignisse der Loot-Ansicht.
      */
-    public LootView(List<Card> lootCards, int gold, Potion potion, Player player, LootViewEvents lootViewEvents) {
+    public LootView(List<Card> lootCards, int gold, Potion potion, Relic relic, Player player, LootViewEvents lootViewEvents) {
         this.lootCards = lootCards;
         this.gold = gold;
         this.potion = potion;
+        this.relic = relic;
         this.player = player;
         this.lootViewEvents = lootViewEvents;
 
@@ -243,6 +246,40 @@ public class LootView extends StackPane implements WithTopBar, CardEventListener
     }
 
     /**
+     * Erzeugt das StackPane für die Trank-Option.
+     *
+     * @return Das StackPane für die Trank-Option.
+     */
+    private StackPane getRelicStackPane() {
+        Image btnImage = new Image(getClass().getResource("/images/panel/reward_list_item.png").toExternalForm());
+        ImageView itemPanelView = new ImageView(btnImage);
+        Image img = new Image(getClass().getResource(relic.getImagePath()).toExternalForm());
+        ImageView imgView = new ImageView(img);
+        // Label
+        Label label = new Label();
+        label.setText(relic.getName());
+        label.setStyle(STYLE_SMALL);
+        label.setTextFill(Color.WHITE);
+        // Loot
+        HBox lootBox = new HBox();
+        lootBox.setAlignment(Pos.CENTER);
+        lootBox.getChildren().addAll(imgView, label);
+        // Panel
+        StackPane relicStackPane = new StackPane(itemPanelView);
+        relicStackPane.getChildren().add(lootBox);
+        relicStackPane.setAlignment(Pos.CENTER);
+        GuiHelper.setHoverEffect(relicStackPane);
+        relicStackPane.setOnMouseClicked(event -> {
+            if (!relicStackPane.isDisabled()) {
+                onRelicClick();
+            }
+            relicStackPane.setOpacity(0.6);
+            relicStackPane.setDisable(true);
+        });
+        return relicStackPane;
+    }
+
+    /**
      * Initialisiert das untere Layout der Loot-Ansicht.
      */
     private void initBackLayout() {
@@ -304,8 +341,11 @@ public class LootView extends StackPane implements WithTopBar, CardEventListener
         center.getChildren().add(goldStackPane);
         // Potion Option
         if (potion != null) {
-            StackPane getPotionStackPane = getPotionStackPane();
-            center.getChildren().add(getPotionStackPane);
+            center.getChildren().add(getPotionStackPane());
+        }
+        // Relic Option
+        if (relic != null) {
+            center.getChildren().add(getRelicStackPane());
         }
         // Card Selection Option
         setCardSelectionLayout();
@@ -361,6 +401,13 @@ public class LootView extends StackPane implements WithTopBar, CardEventListener
      */
     private void onPotionClick() {
         lootViewEvents.onPotionClick(potion);
+    }
+
+    /**
+     * Event-Handler für Klicks auf einen Trank im Loot.
+     */
+    private void onRelicClick() {
+        lootViewEvents.onRelicClick(relic);
     }
 
     /**

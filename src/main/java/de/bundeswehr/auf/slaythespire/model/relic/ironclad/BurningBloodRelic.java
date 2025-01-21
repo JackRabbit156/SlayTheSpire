@@ -1,4 +1,4 @@
-package de.bundeswehr.auf.slaythespire.model.relic.ironclad.common;
+package de.bundeswehr.auf.slaythespire.model.relic.ironclad;
 
 import de.bundeswehr.auf.slaythespire.helper.PathAssistent;
 import de.bundeswehr.auf.slaythespire.model.battle.GameContext;
@@ -18,7 +18,7 @@ public class BurningBloodRelic extends StarterTypeRelic {
      */
     public BurningBloodRelic() {
         super("Burning Blood", "At the end of combat, heal 6 HP.",
-            RelicRarity.COMMON, PlayerType.IRONCLAD, RelicTrigger.END_OF_COMBAT);
+            PlayerType.IRONCLAD, RelicTrigger.END_OF_COMBAT);
         setImagePath(new PathAssistent().toPath(this));
     }
 

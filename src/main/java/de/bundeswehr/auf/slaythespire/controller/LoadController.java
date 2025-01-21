@@ -14,7 +14,9 @@ import de.bundeswehr.auf.slaythespire.model.player.IroncladPlayer;
 import de.bundeswehr.auf.slaythespire.model.player.SilentPlayer;
 import de.bundeswehr.auf.slaythespire.model.player.structure.Player;
 import de.bundeswehr.auf.slaythespire.model.player.structure.PlayerType;
+import de.bundeswehr.auf.slaythespire.model.potion.PotionFactory;
 import de.bundeswehr.auf.slaythespire.model.potion.structure.Potion;
+import de.bundeswehr.auf.slaythespire.model.relic.RelicFactory;
 import de.bundeswehr.auf.slaythespire.model.relic.structure.Relic;
 import de.bundeswehr.auf.slaythespire.model.settings.GameSettings;
 import javafx.stage.Stage;
@@ -132,7 +134,7 @@ public class LoadController implements Controller, LoadEventListener {
         List<Potion> potions = new ArrayList<>();
         for (int i = 0; gameData.get("potion" + i) != null; i++) {
             String potionName = gameData.get("potion" + i);
-            Potion potion = DeckFactory.potionFor(potionName);
+            Potion potion = PotionFactory.potionFor(potionName);
             potions.add(potion);
         }
         player.setPotions(potions);
@@ -142,7 +144,7 @@ public class LoadController implements Controller, LoadEventListener {
         List<Relic> relics = new ArrayList<>();
         for (int i = 0; gameData.get("relic" + i) != null; i++) {
             String relicName = gameData.get("relic" + i);
-            Relic relic = DeckFactory.relicFor(relicName);
+            Relic relic = RelicFactory.relicFor(relicName);
             relics.add(relic);
         }
         player.setRelics(relics);

@@ -12,6 +12,7 @@ import de.bundeswehr.auf.slaythespire.model.map.act.ActOne;
 import de.bundeswehr.auf.slaythespire.model.map.act.ActTwo;
 import de.bundeswehr.auf.slaythespire.model.potion.structure.Potion;
 import de.bundeswehr.auf.slaythespire.model.relic.structure.Relic;
+import de.bundeswehr.auf.slaythespire.model.relic.structure.RelicTrigger;
 import de.bundeswehr.auf.slaythespire.model.settings.GameSettings;
 import javafx.stage.Stage;
 
@@ -81,6 +82,9 @@ public abstract class Player extends Entity {
 
     public void addRelic(Relic relic) {
         relics.add(relic);
+        if (relic.getTrigger() == RelicTrigger.PICKUP) {
+            relic.activate(new GameContext(this, null));
+        }
         notifyRelicEvent(new InventoryEvent(this, InventoryEvent.Direction.GAIN, InventoryEvent.Type.RELIC, relic));
     }
 
@@ -112,6 +116,17 @@ public abstract class Player extends Entity {
     public void gainEnergy(int energy) {
         currentEnergy += energy;
         notifyEnergyReceived(energy);
+    }
+
+    /**
+     * Erhöht das Gold des Spielers um einen bestimmten Betrag.
+     *
+     * @param gold Der Betrag, um den das Gold erhöht werden soll.
+     */
+    public void gainGold(int gold) {
+        this.gold += gold;
+        GameSettings.increaseGoldStats(gold);
+        notifyGoldEvent(new InventoryEvent(this, InventoryEvent.Direction.GAIN, InventoryEvent.Type.GOLD, gold));
     }
 
     public String getActImage() {
@@ -224,15 +239,10 @@ public abstract class Player extends Entity {
         this.username = username;
     }
 
-    /**
-     * Erhöht das Gold des Spielers um einen bestimmten Betrag.
-     *
-     * @param gold Der Betrag, um den das Gold erhöht werden soll.
-     */
-    public void increaseGold(int gold) {
-        this.gold += gold;
-        GameSettings.increaseGoldStats(gold);
-        notifyGoldEvent(new InventoryEvent(this, InventoryEvent.Direction.GAIN, InventoryEvent.Type.GOLD, gold));
+    @Override
+    public void looseHp(GameContext gameContext) {
+        super.looseHp(gameContext);
+        GameSettings.increaseReceivedDamageStats(gameContext.getAttackContext().getDamage());
     }
 
     public void removeCardFromDeck(Card card) {

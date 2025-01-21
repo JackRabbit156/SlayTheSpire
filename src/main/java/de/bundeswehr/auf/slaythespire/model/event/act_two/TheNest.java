@@ -28,7 +28,7 @@ public class TheNest extends Event {
     @Override
     public Button getButton1() {
         button1.setOnAction(event -> {
-            getPlayer().increaseGold(99);
+            getPlayer().gainGold(99);
             button1.setVisible(false);
             button2.setVisible(false);
         });

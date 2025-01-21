@@ -8,7 +8,10 @@ import de.bundeswehr.auf.slaythespire.helper.GuiHelper;
 import de.bundeswehr.auf.slaythespire.model.card.DeckFactory;
 import de.bundeswehr.auf.slaythespire.model.card.structure.Card;
 import de.bundeswehr.auf.slaythespire.model.player.structure.Player;
+import de.bundeswehr.auf.slaythespire.model.potion.PotionFactory;
 import de.bundeswehr.auf.slaythespire.model.potion.structure.Potion;
+import de.bundeswehr.auf.slaythespire.model.relic.RelicFactory;
+import de.bundeswehr.auf.slaythespire.model.relic.structure.Relic;
 import de.bundeswehr.auf.slaythespire.model.settings.GameSettings;
 import javafx.stage.Stage;
 
@@ -27,11 +30,13 @@ public class TreasureController implements Controller, TreasureViewEvents {
     private static final Random rnd = new Random();
 
     private int amount;
-    private DeckFactory deckFactory;
     private int gold;
     private final Player player;
     private Potion potion;
+    private Relic relic;
+    private final RelicFactory relicFactory;
     private double potionsChance;
+    private double relicsChance;
     private final TreasureView treasureView;
 
     /**
@@ -45,8 +50,10 @@ public class TreasureController implements Controller, TreasureViewEvents {
         initItemChanceAndAmount();
         List<Card> selectedCards = initTreasureDeck(player);
         generatePotionByChance();
+        relicFactory = new RelicFactory(player);
+        generateRelicByChance();
 
-        treasureView = new TreasureView(selectedCards, gold, potion, player, this);
+        treasureView = new TreasureView(selectedCards, gold, potion, relic, player, this);
     }
 
     @Override
@@ -98,7 +105,7 @@ public class TreasureController implements Controller, TreasureViewEvents {
     @Override
     public void onGoldClick(int gold) {
         LoggingAssistant.log("Got gold: " + gold, Color.GREEN);
-        player.increaseGold(gold);
+        player.gainGold(gold);
     }
 
     /**
@@ -119,6 +126,17 @@ public class TreasureController implements Controller, TreasureViewEvents {
     }
 
     /**
+     * Event-Handler für Klicks auf ein Relikt im Schatz.
+     *
+     * @param relic Der angeklickte Relikt.
+     */
+    @Override
+    public void onRelicClick(Relic relic) {
+        LoggingAssistant.log("Got a relic: " + relic.getName(), Color.GREEN);
+        player.addRelic(relic);
+    }
+
+    /**
      * Fügt eine Karte dem Deck des Spielers hinzu.
      *
      * @param card Die hinzuzufügende Karte.
@@ -133,7 +151,16 @@ public class TreasureController implements Controller, TreasureViewEvents {
      */
     private void generatePotionByChance() {
         if (rnd.nextDouble() < potionsChance) {
-            potion = deckFactory.generatePotion();
+            potion = PotionFactory.generatePotion();
+        }
+    }
+
+    /**
+     * Generiert ein Relikt basierend auf einer Zufallswahrscheinlichkeit.
+     */
+    private void generateRelicByChance() {
+        if (rnd.nextDouble() < relicsChance) {
+            relic = relicFactory.generateRelicForLoot();
         }
     }
 
@@ -145,6 +172,7 @@ public class TreasureController implements Controller, TreasureViewEvents {
         gold = GameSettings.getDifficultyLevel().modifyGold(rnd.nextInt(90 + 1 - 35) + 35);
         amount = GameSettings.getDifficultyLevel().getCardAmount();
         potionsChance = GameSettings.getDifficultyLevel().getPotionChance();
+        relicsChance = GameSettings.getDifficultyLevel().getPotionChance();
     }
 
     /**
@@ -154,7 +182,7 @@ public class TreasureController implements Controller, TreasureViewEvents {
      * @param player Der Spieler
      */
     private List<Card> initTreasureDeck(Player player) {
-        deckFactory = new DeckFactory(player, amount);
+        DeckFactory deckFactory = new DeckFactory(player, amount);
         return deckFactory.init(false);
     }
 

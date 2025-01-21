@@ -7,17 +7,22 @@ import de.bundeswehr.auf.slaythespire.gui.View;
 import de.bundeswehr.auf.slaythespire.gui.WithTopBar;
 import de.bundeswehr.auf.slaythespire.gui.components.animation.PotionIconLayout;
 import de.bundeswehr.auf.slaythespire.gui.components.animation.RelicIconLayout;
+import de.bundeswehr.auf.slaythespire.gui.events.CardEventListener;
+import de.bundeswehr.auf.slaythespire.gui.layouts.CardSelectionLayout;
 import de.bundeswehr.auf.slaythespire.helper.Animate;
 import de.bundeswehr.auf.slaythespire.model.player.structure.Player;
 import de.bundeswehr.auf.slaythespire.model.potion.structure.Potion;
 import de.bundeswehr.auf.slaythespire.model.relic.structure.Relic;
+import javafx.geometry.Bounds;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.StackPane;
+import javafx.stage.Popup;
 
 /**
  * Die Bar layout.
@@ -78,6 +83,9 @@ public class BarLayout extends StackPane implements View {
 
             @Override
             public void onRelicEvent(InventoryEvent event) {
+                if (event.getDirection() == InventoryEvent.Direction.GAIN && event.getValue() instanceof CardEventListener) {
+                    showDeckSelectionDialog(player, (CardEventListener) event.getValue());
+                }
                 Animate.pathAnimationBelowTarget(new RelicIconLayout((Relic) event.getValue()),
                         relic,
                         Direction.UP,
@@ -85,6 +93,23 @@ public class BarLayout extends StackPane implements View {
             }
 
         });
+    }
+
+    private void showDeckSelectionDialog(Player player, CardEventListener listener) {
+        CardSelectionLayout cardSelectionLayout = new CardSelectionLayout(player.getDeck(), listener);
+
+        HBox centerCard = new HBox();
+        centerCard.setAlignment(Pos.CENTER);
+        centerCard.setTranslateX(-180);
+        centerCard.getChildren().add(cardSelectionLayout);
+
+        Popup cardSelectionPopup = new Popup();
+
+        cardSelectionPopup.setAutoHide(true);
+        cardSelectionPopup.getContent().add(centerCard);
+
+        Bounds bounds = localToScreen(getBoundsInLocal());
+        cardSelectionPopup.show(getScene().getWindow(), bounds.getMinX() - centerCard.getBoundsInLocal().getWidth() / 2, bounds.getMaxY());
     }
 
     @Override

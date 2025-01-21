@@ -29,7 +29,7 @@ public class WorldOfGoo extends Event {
     public Button getButton1() {
         button1.setOnAction(event -> {
             getPlayer().takeDamage(new GameContext(getPlayer(), new AttackContext(null, getPlayer(), 11, this)));
-            getPlayer().increaseGold(75);
+            getPlayer().gainGold(75);
             button1.setVisible(false);
             button2.setVisible(false);
         });

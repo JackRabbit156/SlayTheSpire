@@ -3,13 +3,15 @@ package de.bundeswehr.auf.slaythespire.controller;
 import de.bundeswehr.auf.slaythespire.gui.ShopView;
 import de.bundeswehr.auf.slaythespire.gui.events.ShopViewEvents;
 import de.bundeswehr.auf.slaythespire.helper.Color;
-import de.bundeswehr.auf.slaythespire.helper.LoggingAssistant;
 import de.bundeswehr.auf.slaythespire.helper.GuiHelper;
+import de.bundeswehr.auf.slaythespire.helper.LoggingAssistant;
 import de.bundeswehr.auf.slaythespire.helper.MusicBoy;
 import de.bundeswehr.auf.slaythespire.model.card.DeckFactory;
 import de.bundeswehr.auf.slaythespire.model.card.structure.Card;
 import de.bundeswehr.auf.slaythespire.model.player.structure.Player;
+import de.bundeswehr.auf.slaythespire.model.potion.PotionFactory;
 import de.bundeswehr.auf.slaythespire.model.potion.structure.Potion;
+import de.bundeswehr.auf.slaythespire.model.relic.RelicFactory;
 import de.bundeswehr.auf.slaythespire.model.relic.structure.Relic;
 import javafx.stage.Stage;
 
@@ -26,7 +28,7 @@ public class ShopController implements Controller, ShopViewEvents {
     private final Player player;
     private final List<Card> purchasableCards;
     private final Potion purchasablePotion;
-    private List<Relic> purchasableRelics;
+    private final Relic purchasableRelic;
     private ShopView shopView;
 
     /**
@@ -43,7 +45,10 @@ public class ShopController implements Controller, ShopViewEvents {
         // Bei jeder Initialisierung wird der Shop befüllt.
         // Wird beim Spielstart ausgeführt und bei jedem Act.
         purchasableCards = deckFactory.init(true);
-        purchasablePotion = deckFactory.generatePotion();
+        purchasablePotion = PotionFactory.generatePotion();
+        RelicFactory relicFactory = new RelicFactory(player);
+        purchasableRelic = relicFactory.generateRelicForShop();
+
         entryShop();
     }
 
@@ -75,14 +80,14 @@ public class ShopController implements Controller, ShopViewEvents {
      * Event-Handler für Klicks auf Karten im Shop.
      * Verringert das Gold des Spielers und fügt die Karte dem Deck des Spielers hinzu.
      *
-     * @param card  Die geklickte Karte.
+     * @param card Die geklickte Karte.
      */
     @Override
     public void onCardClick(Card card) {
-        int cardPrice = card.getPrice();
+        int price = card.getPrice();
 
-        if (player.getGold() >= cardPrice) {
-            player.decreaseGold(cardPrice);
+        if (player.getGold() >= price) {
+            player.decreaseGold(price);
             player.addCardToDeck(card);
             purchasableCards.remove(card);
             refreshSelectableCards();
@@ -109,14 +114,14 @@ public class ShopController implements Controller, ShopViewEvents {
      */
     @Override
     public void onPotionClick(Potion potion) {
-        int cardPrice = potion.getPrice();
+        int price = potion.getPrice();
 
-        if (player.getGold() >= cardPrice) {
+        if (player.getGold() >= price) {
             if (player.getPotions().size() < 3) {
-                player.decreaseGold(cardPrice);
+                player.decreaseGold(price);
                 player.addPotion(potion);
                 refreshSelectablePotion();
-                LoggingAssistant.log("Refresh Cards");
+                LoggingAssistant.log("Refresh Potion");
             }
             else {
                 LoggingAssistant.log("Maximum amount of potions", Color.YELLOW);
@@ -133,18 +138,28 @@ public class ShopController implements Controller, ShopViewEvents {
      * Event-Handler für Klicks auf Relikte im Shop.
      *
      * @param relic Das geklickte Relikt.
-     * @param index Der Index des geklickten Relikts.
      */
     @Override
-    public void onRelicClick(Relic relic, int index) {
-        // Logik zum Kaufen von Relikten kann hier hinzugefügt werden.
+    public void onRelicClick(Relic relic) {
+        int price = relic.getPrice();
+
+        if (player.getGold() >= price) {
+            player.decreaseGold(price);
+            player.addRelic(relic);
+            refreshSelectableRelic();
+            LoggingAssistant.log("Refresh Relic");
+        }
+        else {
+            LoggingAssistant.log("Not enough Gold", Color.YELLOW);
+            shopView.showDialog("You have not enough Gold!");
+        }
     }
 
     /**
      * Initialisiert den Shop und die ShopViewEvents.
      */
     private void entryShop() {
-        shopView = new ShopView(player, purchasableCards, this, purchasablePotion);
+        shopView = new ShopView(player, purchasableCards, this, purchasablePotion, purchasableRelic);
         shopView.initShopViewEvents(this);
     }
 
@@ -159,7 +174,14 @@ public class ShopController implements Controller, ShopViewEvents {
      * Aktualisiert die kaufbaren Tränke im Shop.
      */
     private void refreshSelectablePotion() {
-        shopView.setPurchaseablePotion();
+        shopView.setPurchasablePotion();
+    }
+
+    /**
+     * Aktualisiert die kaufbaren Relics im Shop.
+     */
+    private void refreshSelectableRelic() {
+        shopView.setPurchasableRelic();
     }
 
 }

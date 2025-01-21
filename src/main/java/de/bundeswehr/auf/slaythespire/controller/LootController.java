@@ -5,6 +5,9 @@ import de.bundeswehr.auf.slaythespire.helper.LoggingAssistant;
 import de.bundeswehr.auf.slaythespire.helper.GuiHelper;
 import de.bundeswehr.auf.slaythespire.model.card.DeckFactory;
 import de.bundeswehr.auf.slaythespire.model.card.structure.Card;
+import de.bundeswehr.auf.slaythespire.model.potion.PotionFactory;
+import de.bundeswehr.auf.slaythespire.model.relic.RelicFactory;
+import de.bundeswehr.auf.slaythespire.model.relic.structure.Relic;
 import de.bundeswehr.auf.slaythespire.model.settings.GameSettings;
 import de.bundeswehr.auf.slaythespire.model.map.field.FieldEnum;
 import de.bundeswehr.auf.slaythespire.model.player.structure.Player;
@@ -29,12 +32,15 @@ public class LootController implements Controller, LootViewEvents {
 
     private int amount;
     private final DeckFactory deckFactory;
+    private final RelicFactory relicFactory;
     private final FieldEnum fieldType;
     private int gold;
     private final LootView lootView;
     private final Player player;
     private Potion potion;
     private double potionsChance;
+    private double relicsChance;
+    private Relic relic;
 
     /**
      * Konstruktor für die Klasse LootController.
@@ -53,10 +59,12 @@ public class LootController implements Controller, LootViewEvents {
 
         deckFactory = new DeckFactory(player, amount);
         generatePotionByChance();
+        relicFactory = new RelicFactory(player);
+        generateRelicByChance();
 
         List<Card> selectedCards = initialLootDeck();
 
-        lootView = new LootView(selectedCards, gold, potion, player, this);
+        lootView = new LootView(selectedCards, gold, potion, relic, player, this);
     }
 
     @Override
@@ -98,7 +106,7 @@ public class LootController implements Controller, LootViewEvents {
     @Override
     public void onGoldClick(int gold) {
         LoggingAssistant.log("Got gold: " + gold);
-        player.increaseGold(gold);
+        player.gainGold(gold);
     }
 
     @Override
@@ -111,6 +119,12 @@ public class LootController implements Controller, LootViewEvents {
             LoggingAssistant.log("Maximum number of potions reached", Color.YELLOW);
             lootView.showDialog("You have reached the maximum number of Potion.");
         }
+    }
+
+    @Override
+    public void onRelicClick(Relic relic) {
+        LoggingAssistant.log("Got a relic: " + relic.getName());
+        player.addRelic(relic);
     }
 
     /**
@@ -128,7 +142,16 @@ public class LootController implements Controller, LootViewEvents {
      */
     private void generatePotionByChance() {
         if (rnd.nextDouble() < potionsChance) {
-            potion = deckFactory.generatePotion();
+            potion = PotionFactory.generatePotion();
+        }
+    }
+
+    /**
+     * Generiert ein Relikt basierend auf einer Zufallswahrscheinlichkeit.
+     */
+    private void generateRelicByChance() {
+        if (rnd.nextDouble() < relicsChance) {
+            relic = relicFactory.generateRelicForLoot();
         }
     }
 
@@ -161,6 +184,7 @@ public class LootController implements Controller, LootViewEvents {
         gold = GameSettings.getDifficultyLevel().modifyGold(gold);
         amount = GameSettings.getDifficultyLevel().getCardAmount();
         potionsChance = GameSettings.getDifficultyLevel().getPotionChance();
+        relicsChance = GameSettings.getDifficultyLevel().getPotionChance();
     }
 
     /**

@@ -23,8 +23,8 @@ import de.bundeswehr.auf.slaythespire.model.card.structure.Card;
 import de.bundeswehr.auf.slaythespire.model.player.structure.Player;
 import de.bundeswehr.auf.slaythespire.model.player.structure.PlayerType;
 import de.bundeswehr.auf.slaythespire.model.relic.CheaterRelic;
-import de.bundeswehr.auf.slaythespire.model.relic.ironclad.common.BurningBloodRelic;
-import de.bundeswehr.auf.slaythespire.model.relic.silent.common.RingOfTheSnakeRelic;
+import de.bundeswehr.auf.slaythespire.model.relic.common.*;
+import de.bundeswehr.auf.slaythespire.model.relic.ironclad.BurningBloodRelic;
 import de.bundeswehr.auf.slaythespire.model.settings.GameSettings;
 import javafx.stage.Stage;
 
@@ -161,8 +161,12 @@ public class TestPlayer extends Player {
     @Override
     protected void initRelic() {
         addRelic(new CheaterRelic());
+        addRelic(new BagOfPreparationRelic());
+        addRelic(new BronzeScalesRelic());
         addRelic(new BurningBloodRelic());
-        addRelic(new RingOfTheSnakeRelic());
+        addRelic(new VajraRelic());
+        addRelic(new AnchorRelic());
+        addRelic(new BagOfMarblesRelic());
     }
 
     private void initWithDelegate(Player delegate) {

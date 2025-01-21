@@ -7,15 +7,26 @@ package de.bundeswehr.auf.slaythespire.model.relic.structure;
  */
 public enum RelicTrigger {
 
+    NONE,
     PICKUP,
 
     START_OF_COMBAT,
     BEGIN_OF_TURN,
+
+    PLAY_CARD,
     PLAY_ATTACK,
+    PLAY_POWER,
+    PLAY_SKILL,
     PLAY_POTION,
+
+    DISCARD,
+    EXHAUST,
+
     GAIN_HP,
     LOSE_HP,
     EFFECT,
+
+    END_OF_TURN,
     END_OF_COMBAT,
 
     LOOT,
