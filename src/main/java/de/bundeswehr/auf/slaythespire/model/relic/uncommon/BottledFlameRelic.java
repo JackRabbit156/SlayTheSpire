@@ -16,7 +16,7 @@ public class BottledFlameRelic extends Relic implements CardEventListener {
     private Card card;
 
     public BottledFlameRelic() {
-        super("Bronze Scales", "Start each combat with 3 Thorns.",
+        super("Bottled Flame", "Upon pick up, choose an Attack. Start each combat with this card in your hand.",
                 RelicRarity.UNCOMMON, RelicTrigger.START_OF_COMBAT);
         setImagePath(new PathAssistent().toPath(this));
     }
