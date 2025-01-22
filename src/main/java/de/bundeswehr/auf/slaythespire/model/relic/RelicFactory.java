@@ -48,6 +48,15 @@ public class RelicFactory {
 
     }
 
+    private static class SpecialRelic implements Predicate<Class<? extends Relic>> {
+
+        @Override
+        public boolean test(Class<? extends Relic> relic) {
+            return StarterTypeRelic.class.isAssignableFrom(relic);
+        }
+
+    }
+
     private static class StarterRelic implements Predicate<Class<? extends Relic>> {
 
         @Override
@@ -85,6 +94,7 @@ public class RelicFactory {
 
     private static final List<Class<? extends Relic>> availableRelics = Model.relics();
     private static final Random rnd = new Random();
+    private static final SpecialRelic special = new SpecialRelic();
     private static final StarterRelic starter = new StarterRelic();
 
     private final Player player;
@@ -130,6 +140,7 @@ public class RelicFactory {
 
     private Relic generateRelic(Predicate<Class<? extends Relic>> predicate) {
         List<Class<? extends Relic>> availableRelics = new ArrayList<>(RelicFactory.availableRelics);
+        availableRelics.removeIf(special);
         availableRelics.removeIf(starter);
         availableRelics.removeIf(predicate.negate());
         if (availableRelics.isEmpty()) {
