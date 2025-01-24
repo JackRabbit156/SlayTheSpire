@@ -1,5 +1,6 @@
 package de.bundeswehr.auf.slaythespire.model.event.act_one;
 
+import de.bundeswehr.auf.slaythespire.helper.PathAssistent;
 import de.bundeswehr.auf.slaythespire.model.battle.AttackContext;
 import de.bundeswehr.auf.slaythespire.model.battle.GameContext;
 import javafx.scene.control.Button;
@@ -18,11 +19,12 @@ public class WorldOfGoo extends Event {
     private final Button button2 = new Button("\t[Leave It] "); // loose 20-50 gold
 
     public WorldOfGoo(Player player) {
-        super(player, "World of Goo", new Image("/images/event/act_one/WordOfGooEvent.png"),
+        super(player, "World of Goo",
             "\n\nYou fall into a puddle.\n" +
                     "IT'S MADE OF SLIME GOO!!\n" +
                     "Frantically, you claw yourself out over several minutes as you feel the goop starting to burn.\n" +
                     "You can feel goop in your ears, goop in your nose, goop everywhere.\n");
+        setImage(new PathAssistent().toPath(this));
     }
 
     @Override

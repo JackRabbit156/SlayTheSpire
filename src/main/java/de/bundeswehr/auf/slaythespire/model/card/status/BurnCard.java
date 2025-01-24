@@ -1,6 +1,7 @@
 package de.bundeswehr.auf.slaythespire.model.card.status;
 
 import de.bundeswehr.auf.slaythespire.helper.PathAssistent;
+import de.bundeswehr.auf.slaythespire.model.battle.AttackContext;
 import de.bundeswehr.auf.slaythespire.model.battle.BattleDeck;
 import de.bundeswehr.auf.slaythespire.model.battle.GameContext;
 import de.bundeswehr.auf.slaythespire.model.card.structure.CardGrave;
@@ -33,7 +34,8 @@ public class BurnCard extends UnplayableCard implements TriggeredCard {
     @Override
     public void onTrigger(GameContext gameContext) {
         Player player = gameContext.getPlayer();
-        player.dealDamage(gameContext, 2, player, this);
+        gameContext.setAttackContext(new AttackContext(null, player, 2, this));
+        player.takeDamage(gameContext);
     }
 
 }

@@ -6,7 +6,7 @@ import de.bundeswehr.auf.slaythespire.model.card.CheaterCard;
 import de.bundeswehr.auf.slaythespire.model.card.CheaterDefendCard;
 import de.bundeswehr.auf.slaythespire.model.card.CheaterEnergyCard;
 import de.bundeswehr.auf.slaythespire.model.card.CheaterHealCard;
-import de.bundeswehr.auf.slaythespire.model.card.ironclad.IroncladDefendCard;
+import de.bundeswehr.auf.slaythespire.model.card.ironclad.starter.IroncladDefendCard;
 import de.bundeswehr.auf.slaythespire.model.card.ironclad.attack.common.ClotheslineCard;
 import de.bundeswehr.auf.slaythespire.model.card.ironclad.attack.common.HeavyBladeCard;
 import de.bundeswehr.auf.slaythespire.model.card.ironclad.attack.common.ThunderclapCard;
@@ -24,6 +24,7 @@ import de.bundeswehr.auf.slaythespire.model.player.structure.Player;
 import de.bundeswehr.auf.slaythespire.model.player.structure.PlayerType;
 import de.bundeswehr.auf.slaythespire.model.relic.CheaterRelic;
 import de.bundeswehr.auf.slaythespire.model.relic.common.*;
+import de.bundeswehr.auf.slaythespire.model.relic.event.NeowsLamentRelic;
 import de.bundeswehr.auf.slaythespire.model.relic.ironclad.BurningBloodRelic;
 import de.bundeswehr.auf.slaythespire.model.settings.GameSettings;
 import javafx.stage.Stage;
@@ -161,6 +162,7 @@ public class TestPlayer extends Player {
     @Override
     protected void initRelic() {
         addRelic(new CheaterRelic());
+        addRelic(new NeowsLamentRelic());
         addRelic(new BagOfPreparationRelic());
         addRelic(new BronzeScalesRelic());
         addRelic(new BurningBloodRelic());

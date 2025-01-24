@@ -3,7 +3,7 @@ package de.bundeswehr.auf.slaythespire.model.card.silent.power.uncommon;
 import de.bundeswehr.auf.slaythespire.helper.PathAssistent;
 import de.bundeswehr.auf.slaythespire.model.battle.BattleDeck;
 import de.bundeswehr.auf.slaythespire.model.battle.GameContext;
-import de.bundeswehr.auf.slaythespire.model.card.silent.attack.ShivCard;
+import de.bundeswehr.auf.slaythespire.model.card.attack.ShivCard;
 import de.bundeswehr.auf.slaythespire.model.card.structure.CardGrave;
 import de.bundeswehr.auf.slaythespire.model.card.structure.CardRarity;
 import de.bundeswehr.auf.slaythespire.model.card.structure.CardTrigger;

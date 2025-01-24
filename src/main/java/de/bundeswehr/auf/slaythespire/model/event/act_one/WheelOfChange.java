@@ -1,5 +1,6 @@
 package de.bundeswehr.auf.slaythespire.model.event.act_one;
 
+import de.bundeswehr.auf.slaythespire.helper.PathAssistent;
 import de.bundeswehr.auf.slaythespire.model.card.DeckFactory;
 import de.bundeswehr.auf.slaythespire.model.event.Event;
 import de.bundeswehr.auf.slaythespire.model.player.structure.Player;
@@ -14,9 +15,10 @@ import javafx.scene.image.Image;
 public class WheelOfChange extends Event {
 
     public WheelOfChange(Player player) {
-        super(player, "Wheel of Change", new Image("/images/event/general/WheelOfChangeEvent.jpg"),
+        super(player, "Wheel of Change",
                 "\n\nYou come upon a dapper looking, cheery gremlin.\n" +
                         "Gremlin: \"It's time to spin the wheel! Are you R E A D Y ? Of course you are!\"\n");
+        setImage(new PathAssistent().toPath(this));
     }
 
     @Override

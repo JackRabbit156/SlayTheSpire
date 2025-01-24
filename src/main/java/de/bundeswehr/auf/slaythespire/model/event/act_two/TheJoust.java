@@ -1,5 +1,6 @@
 package de.bundeswehr.auf.slaythespire.model.event.act_two;
 
+import de.bundeswehr.auf.slaythespire.helper.PathAssistent;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import de.bundeswehr.auf.slaythespire.model.event.Event;
@@ -16,10 +17,11 @@ public class TheJoust extends Event {
     private final Button button2 = new Button("\t[Owner] Bet 50 Gold. Win 250 Gold."); // 30% chance to win
 
     public TheJoust(Player player) {
-        super(player, "The Joust", new Image("/images/event/act_two/joust.jpg"),
+        super(player, "The Joust",
             "\n\nAs you make your way through the large buildings you come across a long narrow bridge \n" +
                 "and spot knights on either side, facing one another. You approach…\n" +
                 "Knight: \"HALT!\"\n");
+        setImage(new PathAssistent().toPath(this));
     }
 
     @Override

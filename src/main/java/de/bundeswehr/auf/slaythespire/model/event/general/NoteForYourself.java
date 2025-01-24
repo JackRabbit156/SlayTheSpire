@@ -1,5 +1,6 @@
 package de.bundeswehr.auf.slaythespire.model.event.general;
 
+import de.bundeswehr.auf.slaythespire.helper.PathAssistent;
 import de.bundeswehr.auf.slaythespire.model.card.structure.Card;
 import de.bundeswehr.auf.slaythespire.model.event.Event;
 import de.bundeswehr.auf.slaythespire.model.player.structure.Player;
@@ -7,7 +8,6 @@ import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 
 import java.util.List;
-import java.util.Random;
 
 /**
  * Dupliziert eine zufällige Karte aus dem Deck des Spielers.
@@ -17,10 +17,11 @@ import java.util.Random;
 public class NoteForYourself extends Event {
 
     public NoteForYourself(Player player) {
-        super(player, "A Note for Yourself", new Image("/images/event/general/NoteForYourselfEvent.png"),
+        super(player, "A Note for Yourself",
                 "\n\nYou spot a loose brick within a pillar that catches your eye.\n" +
                         "You find a folded note and a card inside. It reads \"The Heart awaits.\" \n" +
                         "This is your handwriting.\n");
+        setImage(new PathAssistent().toPath(this));
     }
 
     @Override

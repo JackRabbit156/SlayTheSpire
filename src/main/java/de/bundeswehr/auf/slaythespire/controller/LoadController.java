@@ -145,6 +145,7 @@ public class LoadController implements Controller, LoadEventListener {
         for (int i = 0; gameData.get("relic" + i) != null; i++) {
             String relicName = gameData.get("relic" + i);
             Relic relic = RelicFactory.relicFor(relicName);
+            RelicFactory.remove(relic.getClass());
             relics.add(relic);
         }
         player.setRelics(relics);

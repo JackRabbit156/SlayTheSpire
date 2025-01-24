@@ -37,13 +37,13 @@ public class LoggingAssistant {
     }
 
     /**
-     * Dient zur Ausgabe in {@link Color#WHITE}, falls {@value GameSettings#DEBUG_MODE}.
+     * Dient zur Ausgabe in {@link Color#WHITE} und {@link Color#BOLD}, falls {@value GameSettings#DEBUG_MODE}.
      *
      * @param text Text wird automatisch resetet
      */
     public static void debug(String text) {
         if (GameSettings.DEBUG_MODE) {
-            log(text, Color.WHITE);
+            log("DEBUG " + text, Color.WHITE, Color.BOLD);
         }
     }
 
@@ -55,7 +55,7 @@ public class LoggingAssistant {
      */
     public static void debug(Throwable e, Color... colors) {
         if (GameSettings.DEBUG_MODE) {
-            StringBuilder sb = new StringBuilder();
+            StringBuilder sb = new StringBuilder("DEBUG ");
             append(sb, e);
             log(sb, colors);
         }
@@ -94,6 +94,17 @@ public class LoggingAssistant {
             sb.append(color);
         }
         System.out.printf("%s [%s] %s%s%s%n", getTimeStamp(), getClassName(), sb, text, Color.RESET);
+    }
+
+    /**
+     * Dient zur Ausgabe in {@link Color#WHITE}, falls {@value GameSettings#DEBUG_MODE}.
+     *
+     * @param text Text wird automatisch resetet
+     */
+    public static void trace(String text) {
+        if (GameSettings.DEBUG_MODE) {
+            log("TRACE " + text, Color.WHITE);
+        }
     }
 
     private static void append(StringBuilder sb, Throwable e) {

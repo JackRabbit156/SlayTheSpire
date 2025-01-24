@@ -22,6 +22,7 @@ public enum RelicTrigger {
     DISCARD,
     EXHAUST,
 
+    GAIN_GOLD,
     GAIN_HP,
     LOSE_HP,
     EFFECT,

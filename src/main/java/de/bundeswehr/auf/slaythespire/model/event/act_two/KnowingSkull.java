@@ -1,5 +1,6 @@
 package de.bundeswehr.auf.slaythespire.model.event.act_two;
 
+import de.bundeswehr.auf.slaythespire.helper.PathAssistent;
 import de.bundeswehr.auf.slaythespire.model.potion.PotionFactory;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
@@ -22,12 +23,13 @@ public class KnowingSkull extends Event {
     private final Button button3 = new Button("\t[A Pick Me Up?] Obtain a Potion. Lose 10% of your MaxHP.");
 
     public KnowingSkull(Player player) {
-        super(player, "Knowing Skull", new Image("/images/event/act_two/knowingSkull.jpg"),
+        super(player, "Knowing Skull",
             "\n\nYou find yourself in an old, decorated chamber. \n" +
                     "In the center of the room, a large skull sits atop an ornate pedestal. As you approach, \n" +
                     "the skull bursts into flames and turns to face you.\n" +
                     "\"WHAT IS IT YOU SEEK? WHAT IS IT YOU OFFER?\"\n" +
                     "In sync with its final words, the door behind you slams shut.\n");
+        setImage(new PathAssistent().toPath(this));
     }
 
     @Override

@@ -1,6 +1,7 @@
 package de.bundeswehr.auf.slaythespire.model.event.act_two;
 
 import de.bundeswehr.auf.slaythespire.helper.GuiHelper;
+import de.bundeswehr.auf.slaythespire.helper.PathAssistent;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import de.bundeswehr.auf.slaythespire.model.enemy.structure.Enemy;
@@ -19,13 +20,14 @@ import java.util.List;
  */
 public class MaskedBandits extends Event {
 
-    private final Button button1 = new Button("\t[Search] "); // loose all your gold
-    private final Button button2 = new Button("\t[Fight] Enter a combat against 3 Enemies");
+    private final Button button1 = new Button("\t[Pay] "); // Lose ALL of your Gold and skip the fight.
+    private final Button button2 = new Button("\t[Fight!] "); // Enter a combat against 3 Enemies
 
     public MaskedBandits(Player player) {
-        super(player, "Masked Bandit", new Image("/images/event/act_two/beggar.jpg"),
+        super(player, "Masked Bandit",
             "\n\nYou encounter a group of bandits wearing large red masks.\n" +
                     "Romeo: \"Hello, pay up to pass... a reasonable fee of ALL your gold will do! Heh heh!\"\n");
+        setImage(new PathAssistent().toPath(this));
         // TODO Leave Button nicht anzeigen
     }
 

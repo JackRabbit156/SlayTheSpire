@@ -11,6 +11,7 @@ import de.bundeswehr.auf.slaythespire.model.map.act.ActFour;
 import de.bundeswehr.auf.slaythespire.model.map.act.ActOne;
 import de.bundeswehr.auf.slaythespire.model.map.act.ActTwo;
 import de.bundeswehr.auf.slaythespire.model.potion.structure.Potion;
+import de.bundeswehr.auf.slaythespire.model.relic.RelicFactory;
 import de.bundeswehr.auf.slaythespire.model.relic.structure.Relic;
 import de.bundeswehr.auf.slaythespire.model.relic.structure.RelicTrigger;
 import de.bundeswehr.auf.slaythespire.model.settings.GameSettings;
@@ -82,9 +83,7 @@ public abstract class Player extends Entity {
 
     public void addRelic(Relic relic) {
         relics.add(relic);
-        if (relic.getTrigger() == RelicTrigger.PICKUP) {
-            relic.activate(new GameContext(this, null));
-        }
+        activateRelicOnPickup(relic);
         notifyRelicEvent(new InventoryEvent(this, InventoryEvent.Direction.GAIN, InventoryEvent.Type.RELIC, relic));
     }
 
@@ -255,6 +254,11 @@ public abstract class Player extends Entity {
         notifyPotionEvent(new InventoryEvent(this, InventoryEvent.Direction.LOSE, InventoryEvent.Type.POTION, potion));
     }
 
+    public void removeRelic(Class<? extends Relic> relicClass) {
+        relics.removeIf(relic -> relic.getClass() == relicClass);
+        RelicFactory.add(relicClass);
+    }
+
     /**
      * Setzt die aktuelle Energie des Spielers auf die maximale Energie zurück.
      */
@@ -265,6 +269,12 @@ public abstract class Player extends Entity {
     public void resetListeners() {
         inventoryEventListeners.clear();
         playerEventListeners.clear();
+    }
+
+    public void scream(String text) {
+        for (PlayerEventListener playerEventListener : playerEventListeners) {
+            playerEventListener.onScream(new PlayerScreamEvent(this, text));
+        }
     }
 
     /**
@@ -330,6 +340,12 @@ public abstract class Player extends Entity {
         PlayerHealthEvent event = new PlayerHealthEvent(this, hpAmount);
         for (PlayerEventListener playerEventListener : playerEventListeners) {
             playerEventListener.onMaxHealthChanged(event);
+        }
+    }
+
+    private void activateRelicOnPickup(Relic relic) {
+        if (relic.getTrigger() == RelicTrigger.PICKUP) {
+            relic.activate(new GameContext(this, null));
         }
     }
 

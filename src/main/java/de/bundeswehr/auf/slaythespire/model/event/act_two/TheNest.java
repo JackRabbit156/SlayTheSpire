@@ -1,5 +1,6 @@
 package de.bundeswehr.auf.slaythespire.model.event.act_two;
 
+import de.bundeswehr.auf.slaythespire.helper.PathAssistent;
 import de.bundeswehr.auf.slaythespire.model.battle.AttackContext;
 import de.bundeswehr.auf.slaythespire.model.battle.GameContext;
 import javafx.scene.control.Button;
@@ -17,11 +18,12 @@ public class TheNest extends Event {
     private final Button button2 = new Button("\t[Stay in Line]"); // decrease health by 6
 
     public TheNest(Player player) {
-        super(player, "The Nest", new Image("/images/event/act_two/theNest.jpg"),
+        super(player, "The Nest",
             "\n\nA long line of hooded figures can be seen entering an unassuming cathedral.\n" +
                     "Naturally, you join the line and are quickly surrounded by Cultists!\n" +
                     "They ignore you as they gleefully chant and wave their weapons around.\n" +
                     "You eye a Donation Box...\n");
+        setImage(new PathAssistent().toPath(this));
     }
 
 

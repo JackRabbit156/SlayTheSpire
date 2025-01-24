@@ -42,11 +42,10 @@ public class BattleController implements Controller, BattleViewEvents, PlayerEve
     private final List<Enemy> enemies;
     private final FieldEnum fieldType;
     private final GameContext gameContext;
-    private final Player player;
+    private final PlayerController player;
     private Card selectedCard;
 
     public BattleController(Player player, List<Enemy> enemies, FieldEnum fieldType) {
-        this.player = player;
         this.enemies = enemies;
         this.fieldType = fieldType;
         for (Enemy enemy : enemies) {
@@ -56,6 +55,8 @@ public class BattleController implements Controller, BattleViewEvents, PlayerEve
         battleDeck = new BattleDeck(player.getDeck());
 
         gameContext = new GameContext(player, enemies, battleDeck);
+        // TODO PlayerController muss auch außerhalb existieren
+        this.player = new PlayerController(gameContext);
 
         calculateIntentForAllEnemies();
         battleView = new BattleView(player, enemies, this, gameContext);
@@ -99,22 +100,22 @@ public class BattleController implements Controller, BattleViewEvents, PlayerEve
 
     @Override
     public void onCardDeath(Card card) {
-        triggerRelics(RelicTrigger.PLAY_CARD);
+        player.triggerRelics(RelicTrigger.PLAY_CARD);
         triggerPowerCards(CardTrigger.PLAY_CARD);
         if (card instanceof AttackCard) {
-            triggerRelics(RelicTrigger.PLAY_ATTACK);
+            player.triggerRelics(RelicTrigger.PLAY_ATTACK);
             triggerPowerCards(CardTrigger.PLAY_ATTACK);
         }
         else if (card instanceof SkillCard) {
-            triggerRelics(RelicTrigger.PLAY_SKILL);
+            player.triggerRelics(RelicTrigger.PLAY_SKILL);
             triggerPowerCards(CardTrigger.PLAY_SKILL);
         }
         else if (card instanceof PowerCard) {
-            triggerRelics(RelicTrigger.PLAY_POWER);
+            player.triggerRelics(RelicTrigger.PLAY_POWER);
             triggerPowerCards(CardTrigger.PLAY_POWER);
         }
         else if (card instanceof Potion) {
-            triggerRelics(RelicTrigger.PLAY_POTION);
+            player.triggerRelics(RelicTrigger.PLAY_POTION);
         }
         cardDeath(card);
     }
@@ -144,7 +145,6 @@ public class BattleController implements Controller, BattleViewEvents, PlayerEve
         else {
             triggerPowerCards(CardTrigger.LOSE_HP_ENEMY);
         }
-        triggerRelics(RelicTrigger.LOSE_HP);
     }
 
     @Override
@@ -193,20 +193,20 @@ public class BattleController implements Controller, BattleViewEvents, PlayerEve
 
     @Override
     public void onFullScreenClick() {
-        Stage primaryStage = player.getPrimaryStage();
+        Stage primaryStage = gameContext.getPlayer().getPrimaryStage();
 
         primaryStage.setFullScreen(!primaryStage.isFullScreen());
     }
 
     @Override
-    public void onHealthReceived(PlayerHealthEvent event) {
-        triggerPowerCards(CardTrigger.GAIN_HP);
-        triggerRelics(RelicTrigger.GAIN_HP);
-    }
+    public void onHealthReceived(PlayerHealthEvent event) {}
 
     @Override
-    public void onMaxHealthChanged(PlayerHealthEvent event) {
+    public void onMaxHealthChanged(PlayerHealthEvent event) {}
 
+    @Override
+    public void onScream(PlayerScreamEvent event) {
+        battleView.scream(event.getText());
     }
 
     @Override
@@ -219,20 +219,20 @@ public class BattleController implements Controller, BattleViewEvents, PlayerEve
     }
 
     public void resetEnergyAndBlock() {
-        player.resetEnergy();
-        player.resetBlock();
+        gameContext.getPlayer().resetEnergy();
+        gameContext.getPlayer().resetBlock();
     }
 
     public void startOfCombat() {
         LoggingAssistant.log("Start of combat");
         resetEnergyAndBlock();
 
-        triggerRelics(RelicTrigger.START_OF_COMBAT);
+        player.triggerRelics(RelicTrigger.START_OF_COMBAT);
 
         battleDeck.fillHand(battleDeck.getStartHandSize());
 
-        triggerRelics(RelicTrigger.BEGIN_OF_TURN);
-        triggerEffects(EffectTrigger.BEGIN_OF_TURN, player);
+        player.triggerRelics(RelicTrigger.BEGIN_OF_TURN);
+        triggerEffects(EffectTrigger.BEGIN_OF_TURN, gameContext.getPlayer());
         triggerPowerCards(CardTrigger.PLAYER_BEGIN_OF_TURN);
     }
 
@@ -245,22 +245,22 @@ public class BattleController implements Controller, BattleViewEvents, PlayerEve
     private void cardDeath(Card card) {
         switch (card.getCardGrave()) {
             case POTION:
-                player.removePotion((Potion) card);
+                gameContext.getPlayer().removePotion((Potion) card);
                 break;
             case EXHAUST:
                 battleDeck.exhaustCardFromHand(card);
-                triggerRelics(RelicTrigger.EXHAUST);
+                player.triggerRelics(RelicTrigger.EXHAUST);
                 break;
             case ETHEREAL:
             case DISCARD:
                 battleDeck.discardCardFromHand(card);
-                triggerRelics(RelicTrigger.DISCARD);
+                player.triggerRelics(RelicTrigger.DISCARD);
                 break;
             default:
                 battleDeck.removeCardFromHand(card);
         }
         if (card.getCardGrave() != CardGrave.POTION) {
-            triggerEffects(EffectTrigger.CARD_DEATH, player);
+            triggerEffects(EffectTrigger.CARD_DEATH, gameContext.getPlayer());
         }
         battleView.updateBottom();
     }
@@ -268,14 +268,10 @@ public class BattleController implements Controller, BattleViewEvents, PlayerEve
     private void endOfCombat() {
         LoggingAssistant.log("End of combat");
         removeEffects();
-        triggerRelics(RelicTrigger.END_OF_COMBAT);
-        for (Relic relic : player.getRelics()) {
-            if (relic instanceof Resetable) {
-                ((Resetable) relic).reset();
-            }
-        }
+        player.triggerRelics(RelicTrigger.END_OF_COMBAT);
+        player.resetRelics();
 
-        GuiHelper.Scenes.startLootScene(player, fieldType);
+        GuiHelper.Scenes.startLootScene(gameContext.getPlayer(), fieldType);
     }
 
     private void enemyTurn() {
@@ -292,7 +288,7 @@ public class BattleController implements Controller, BattleViewEvents, PlayerEve
     }
 
     private boolean isCardPlayable() {
-        if (selectedCard.getCost() > player.getCurrentEnergy()) {
+        if (selectedCard.getCost() > gameContext.getPlayer().getCurrentEnergy()) {
             LoggingAssistant.log("Not enough Energy", Color.YELLOW);
             battleView.showDialog("Not enough Energy!");
             return false;
@@ -333,19 +329,19 @@ public class BattleController implements Controller, BattleViewEvents, PlayerEve
         LoggingAssistant.log("Players' turn");
         calculateIntentForAllEnemies();
         resetEnergyAndBlock();
-        player.reduceDurationEffects();
+        gameContext.getPlayer().reduceDurationEffects();
         battleDeck.fillHand(battleDeck.getStartHandSize());
 
-        triggerRelics(RelicTrigger.BEGIN_OF_TURN);
-        triggerEffects(EffectTrigger.BEGIN_OF_TURN, player);
+        player.triggerRelics(RelicTrigger.BEGIN_OF_TURN);
+        triggerEffects(EffectTrigger.BEGIN_OF_TURN, gameContext.getPlayer());
         triggerPowerCards(CardTrigger.PLAYER_BEGIN_OF_TURN);
     }
 
     private void playerEndOfTurn() {
         removeHandAfterEndOfTurn();
 
-        triggerRelics(RelicTrigger.END_OF_TURN);
-        triggerEffects(EffectTrigger.END_OF_TURN, player);
+        player.triggerRelics(RelicTrigger.END_OF_TURN);
+        triggerEffects(EffectTrigger.END_OF_TURN, gameContext.getPlayer());
         triggerPowerCards(CardTrigger.PLAYER_END_OF_TURN);
         battleDeck.removeNonPowerCards();
     }
@@ -358,7 +354,7 @@ public class BattleController implements Controller, BattleViewEvents, PlayerEve
     }
 
     private void removeEffects() {
-        player.getEffects().clear();
+        gameContext.getPlayer().getEffects().clear();
     }
 
     private void removeHandAfterEndOfTurn() {
@@ -387,14 +383,6 @@ public class BattleController implements Controller, BattleViewEvents, PlayerEve
         for (TriggeredCard card : cards) {
             if (card.getTrigger().equals(trigger)) {
                 card.onTrigger(gameContext);
-            }
-        }
-    }
-
-    private void triggerRelics(RelicTrigger trigger) {
-        for (Relic relic : player.getRelics()) {
-            if (relic.getTrigger().equals(trigger)) {
-                relic.activate(gameContext);
             }
         }
     }

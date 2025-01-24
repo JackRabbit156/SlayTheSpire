@@ -18,16 +18,19 @@ public abstract class Event {
     protected static final Random rnd = new Random();
 
     private EventView eventView;
-    private final Image image;
+    private Image image;
     private final Player player;
     private final Text story;
     private final String title;
 
-    public Event(Player player, String title, Image image, String story) {
+    public Event(Player player, String title, String story) {
         this.player = player;
         this.title = title;
-        this.image = image;
         this.story = new Text(story);
+    }
+
+    public void setImage(String imagePath) {
+        this.image = new Image(imagePath);
     }
 
     public abstract Button getButton1();

@@ -6,6 +6,7 @@ package de.bundeswehr.auf.slaythespire.helper;
  * @author OF Daniel Willig
  */
 public class PathAssistent {
+
     /**
      * Beispiel:
      * setImagePath(new PathAssistent(this).toPath());
@@ -24,6 +25,7 @@ public class PathAssistent {
 
         return path;
     }
+
     public String toAltPath(Object object, int number) {
         String path = "/" + object.getClass().getPackage().getName() + "." + object.getClass().getSimpleName();
         path = path.replace(".", "/");
@@ -32,4 +34,5 @@ public class PathAssistent {
 
         return path;
     }
+
 }

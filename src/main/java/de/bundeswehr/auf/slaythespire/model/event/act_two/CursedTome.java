@@ -1,5 +1,6 @@
 package de.bundeswehr.auf.slaythespire.model.event.act_two;
 
+import de.bundeswehr.auf.slaythespire.helper.PathAssistent;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import de.bundeswehr.auf.slaythespire.model.card.DeckFactory;
@@ -15,13 +16,14 @@ import de.bundeswehr.auf.slaythespire.model.player.structure.Player;
  */
 public class CursedTome extends Event {
 
-    private final Button button1 = new Button("\t[Read] "); // loose 1 HP
-    private final Button button2 = new Button("\t[Continue] Lose HP"); // loose 2 HP, loose 3 HP and get a random rare card
+    private final Button button1 = new Button("\t[Read] "); // Lose 1 HP
+    private final Button button2 = new Button("\t[Continue] "); // Lose 2 HP, Lose 3 HP and get a random rare card
 
     public CursedTome(Player player){
-        super(player, "Cursed Tome", new Image("/images/event/act_two/cursedTome.jpg"),
+        super(player, "Cursed Tome",
             "\n\nIn an abandoned temple, you find a giant book, open, riddled with cryptic writings.\n" +
                     "As you try to interpret the elaborate script, it begins shift and morph into writing you are familiar with.\n");
+        setImage(new PathAssistent().toPath(this));
     }
 
     @Override

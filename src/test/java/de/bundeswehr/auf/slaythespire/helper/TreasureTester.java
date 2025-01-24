@@ -4,6 +4,7 @@ import de.bundeswehr.auf.slaythespire.model.player.TestPlayer;
 import de.bundeswehr.auf.slaythespire.model.potion.common.ExplosivePotion;
 import de.bundeswehr.auf.slaythespire.model.settings.GameSettings;
 import de.bundeswehr.auf.slaythespire.model.settings.structure.Easy;
+import de.bundeswehr.auf.slaythespire.model.settings.structure.SuperEasy;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
@@ -18,13 +19,13 @@ public class TreasureTester extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        TestPlayer player = TestPlayer.cheater(primaryStage);
+        TestPlayer player = TestPlayer.silent(primaryStage);
 
-        GameSettings.setDifficultyLevel(new Easy());
+        GameSettings.setDifficultyLevel(new SuperEasy());
 
         player.addPotion(new ExplosivePotion());
         player.addPotion(new ExplosivePotion());
-        player.addPotion(new ExplosivePotion());
+//        player.addPotion(new ExplosivePotion());
 
         GuiHelper.Scenes.startTreasureScene(player);
     }

@@ -1,6 +1,6 @@
 package de.bundeswehr.auf.slaythespire.helper;
 
-import de.bundeswehr.auf.slaythespire.model.card.ironclad.IroncladStrikeCard;
+import de.bundeswehr.auf.slaythespire.model.card.ironclad.starter.IroncladStrikeCard;
 import de.bundeswehr.auf.slaythespire.model.card.ironclad.attack.common.ClashCard;
 import de.bundeswehr.auf.slaythespire.model.card.ironclad.attack.common.HeadbuttCard;
 import de.bundeswehr.auf.slaythespire.model.card.ironclad.skill.common.WarcryCard;

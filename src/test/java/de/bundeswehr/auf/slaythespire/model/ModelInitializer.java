@@ -12,8 +12,7 @@ import org.reflections.Reflections;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -26,12 +25,12 @@ public class ModelInitializer {
 
     public static void initModel() {
         try {
-            Map<String, Set<Class<? extends Card>>> cardCache = new HashMap<>();
+            Set<Class<? extends Card>> cardCache = new HashSet<>();
             loadCardClasses(cardCache, "ironclad");
-            cardCache.get("ironclad").add(CheaterCard.class);
-            cardCache.get("ironclad").add(CheaterDefendCard.class);
-            cardCache.get("ironclad").add(CheaterEnergyCard.class);
-            cardCache.get("ironclad").add(CheaterHealCard.class);
+            cardCache.add(CheaterCard.class);
+            cardCache.add(CheaterDefendCard.class);
+            cardCache.add(CheaterEnergyCard.class);
+            cardCache.add(CheaterHealCard.class);
             loadCardClasses(cardCache, "silent");
             Field cardCacheField = Model.class.getDeclaredField("cardCache");
             cardCacheField.setAccessible(true);
@@ -55,9 +54,9 @@ public class ModelInitializer {
         }
     }
 
-    private static void loadCardClasses(Map<String, Set<Class<? extends Card>>> cardCache, String key) {
+    private static void loadCardClasses(Set<Class<? extends Card>> cardCache, String key) {
         Reflections reflections = new Reflections(DEFAULT_PACKAGE + CARD + key);
-        cardCache.put(key, reflections.getSubTypesOf(Card.class).stream()
+        cardCache.addAll(reflections.getSubTypesOf(Card.class).stream()
                 .filter(cls -> !Modifier.isAbstract(cls.getModifiers()))
                 .collect(Collectors.toSet()));
     }

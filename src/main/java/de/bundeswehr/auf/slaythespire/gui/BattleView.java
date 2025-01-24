@@ -79,7 +79,10 @@ public class BattleView extends BorderPane implements View, WithTopBar, BattleDe
     }
 
     public void banter(Enemy enemy, String banter) {
-        Animate.circlePathAnimation(new BanterText(banter), right.getEnemyLayout(enemy), left, null);
+        Animate.circlePathAnimation(new BanterText(banter),
+                right.getEnemyLayout(enemy),
+                left,
+                null);
     }
 
     @Override
@@ -110,11 +113,6 @@ public class BattleView extends BorderPane implements View, WithTopBar, BattleDe
 
         Bounds bounds = center.localToScreen(center.getBoundsInLocal());
         popup.show(center.getScene().getWindow(), bounds.getMinX() - centerCard.getBoundsInLocal().getWidth() / 2, bounds.getMinY());
-    }
-
-    @Override
-    public void onCardDrawn(Card card) {
-        battleViewEvents.onCardDrawn(card);
     }
 
     public void clickedOnCard(Card card, int index) {
@@ -230,6 +228,11 @@ public class BattleView extends BorderPane implements View, WithTopBar, BattleDe
         enableBattleView();
     }
 
+    @Override
+    public void onCardDrawn(Card card) {
+        battleViewEvents.onCardDrawn(card);
+    }
+
     /**
      * gets called after battledeck fills the hand
      */
@@ -241,6 +244,13 @@ public class BattleView extends BorderPane implements View, WithTopBar, BattleDe
     @Override
     public void onFullScreen() {
         battleViewEvents.onFullScreenClick();
+    }
+
+    public void scream(String text) {
+        Animate.circlePathAnimation(new BanterText(text),
+                left,
+                right,
+                null);
     }
 
     public void selectEnemyViewForCard() {

@@ -56,4 +56,6 @@ public interface PlayerEventListener {
      */
     void onMaxHealthChanged(PlayerHealthEvent event);
 
+    void onScream(PlayerScreamEvent event);
+
 }

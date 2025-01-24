@@ -1,5 +1,6 @@
 package de.bundeswehr.auf.slaythespire.model.event.act_two;
 
+import de.bundeswehr.auf.slaythespire.helper.PathAssistent;
 import de.bundeswehr.auf.slaythespire.model.battle.AttackContext;
 import de.bundeswehr.auf.slaythespire.model.battle.GameContext;
 import de.bundeswehr.auf.slaythespire.model.event.Event;
@@ -15,10 +16,11 @@ import javafx.scene.image.Image;
 public class TheMausoleum extends Event {
 
     public TheMausoleum(Player player) {
-        super(player, "The Mausoleum", new Image("/images/event/act_two/mausoleum.jpg"),
+        super(player, "The Mausoleum",
                 "\n\nVenturing through a series of tombs, you are faced with a large sarcophagus studded with gems \n" +
                         "in the center of a circular room.\n" +
                         "You cannot make out the writing on the coffin, however, you do notice black fog seeping out from the sides.\n");
+        setImage(new PathAssistent().toPath(this));
     }
 
     @Override

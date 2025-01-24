@@ -1,5 +1,6 @@
 package de.bundeswehr.auf.slaythespire.model.event.general;
 
+import de.bundeswehr.auf.slaythespire.helper.PathAssistent;
 import de.bundeswehr.auf.slaythespire.model.card.structure.Card;
 import de.bundeswehr.auf.slaythespire.model.event.Event;
 import de.bundeswehr.auf.slaythespire.model.player.structure.Player;
@@ -18,12 +19,12 @@ import javafx.stage.Popup;
  */
 public class BonfireSpirits extends Event {
 
-
     public BonfireSpirits(Player player) {
-        super(player, "Bonfire Spirits", new Image("/images/event/general/BonfireSpiritsEvent.png"),
+        super(player, "Bonfire Spirits",
             "\n\nYou happen to stumble upon a group of what looks like purple fire spirits dancing around a large bonfire.\n" +
                     "The spirits toss small bones and fragments into the fire, which brilliantly erupts each time. \n" +
                     "As you approach, the spirits all turn to you, expectantly...\n");
+        setImage(new PathAssistent().toPath(this));
     }
 
     @Override

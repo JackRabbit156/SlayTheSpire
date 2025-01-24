@@ -1,5 +1,6 @@
 package de.bundeswehr.auf.slaythespire.model.event.general;
 
+import de.bundeswehr.auf.slaythespire.helper.PathAssistent;
 import de.bundeswehr.auf.slaythespire.model.card.DeckFactory;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -20,10 +21,10 @@ import de.bundeswehr.auf.slaythespire.model.player.structure.Player;
  */
 public class Duplicator extends Event {
 
-
     public Duplicator(Player player) {
-        super(player, "Duplicator", new Image("/images/event/general/DuplicatorEvent.png"),
+        super(player, "Duplicator",
             "\n\nBefore you lies a decorated altar to some ancient entity.\n");
+        setImage(new PathAssistent().toPath(this));
     }
 
     @Override

@@ -72,6 +72,13 @@ public final class Animate {
         }
         else {
             LoggingAssistant.debug("Animation not played. No Window.");
+            for (Animation animation : animations) {
+                EventHandler<ActionEvent> onFinished = animation.getOnFinished();
+                if (onFinished != null) {
+                    LoggingAssistant.trace("Triggered onFinished for " + animation.getClass().getSimpleName());
+                    onFinished.handle(null);
+                }
+            }
         }
     }
 

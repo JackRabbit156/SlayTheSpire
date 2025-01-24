@@ -1,5 +1,6 @@
 package de.bundeswehr.auf.slaythespire.model.event.act_two;
 
+import de.bundeswehr.auf.slaythespire.helper.PathAssistent;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
@@ -23,11 +24,12 @@ public class TheLibrary extends Event {
     private final Button button2 = new Button("\t[Sleep] Heal 1/3 of your max HP.");
 
     public TheLibrary(Player player) {
-        super(player, "The Library", new Image("/images/event/act_two/library.jpg"),
+        super(player, "The Library",
             "\n\nYou come across an ornate building which appears abandoned.\n" +
                     "A plaque that has been torn free from a wall is on the floor. It reads, \"THE LIBRARY\".\n" +
                     "Inside, you find countless rows of scrolls, manuscripts, and books.\n" +
                     "You pick one and cozy yourself into a chair for some quiet time.\n");
+        setImage(new PathAssistent().toPath(this));
     }
 
     @Override

@@ -5,10 +5,12 @@ import de.bundeswehr.auf.slaythespire.helper.LoggingAssistant;
 import de.bundeswehr.auf.slaythespire.model.Model;
 import de.bundeswehr.auf.slaythespire.model.card.structure.Card;
 import de.bundeswehr.auf.slaythespire.model.card.structure.CardRarity;
+import de.bundeswehr.auf.slaythespire.model.card.structure.StatusCard;
 import de.bundeswehr.auf.slaythespire.model.player.structure.Player;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.*;
+import java.util.function.Predicate;
 
 /**
  * Die DeckFactory-Klasse ist verantwortlich für die Erstellung des Kartendecks eines Spielers.
@@ -19,10 +21,34 @@ import java.util.*;
  */
 public class DeckFactory {
 
+    private static class NotObtainable implements Predicate<Class<? extends Card>> {
+
+        @Override
+        public boolean test(Class<? extends Card> card) {
+            return StatusCard.class.isAssignableFrom(card);
+        }
+
+    }
+
+    private static class ValidPlayer implements Predicate<Class<? extends Card>> {
+
+        private final String player;
+
+        public ValidPlayer(String player) {
+            this.player = player;
+        }
+
+        @Override
+        public boolean test(Class<? extends Card> card) {
+            return card.getCanonicalName().matches(".+\\.card(\\.[a-z-]+)?\\.[a-zA-Z]+") ||
+                    card.getCanonicalName().contains(player);
+        }
+
+    }
+
     private static final Random rnd = new Random();
 
     private final int amount;
-    private final List<Card> genDeck;
     private final Player player;
 
     /**
@@ -67,7 +93,6 @@ public class DeckFactory {
     public DeckFactory(Player player, int amount) {
         this.player = player;
         this.amount = amount;
-        this.genDeck = new ArrayList<>();
     }
 
     /**
@@ -133,7 +158,10 @@ public class DeckFactory {
     }
 
     private List<Card> initCards(String packageName, boolean duplicatesAllowed) {
-        List<Class<? extends Card>> availableCards = Model.cards(packageName);
+        List<Card> cards = new ArrayList<>();
+        List<Class<? extends Card>> availableCards = Model.cards();
+        availableCards.removeIf(new NotObtainable());
+        availableCards.removeIf(new ValidPlayer(packageName).negate());
         Set<Integer> indices = new HashSet<>();
         for (int i = 0; i < amount; i++) {
             int randomNumber;
@@ -142,7 +170,7 @@ public class DeckFactory {
             } while (!duplicatesAllowed && indices.contains(randomNumber));
             indices.add(randomNumber);
             try {
-                genDeck.add(availableCards.get(randomNumber).getDeclaredConstructor().newInstance());
+                cards.add(availableCards.get(randomNumber).getDeclaredConstructor().newInstance());
             } catch (InstantiationException | IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
                 LoggingAssistant.log(e, Color.RED);
             }
@@ -150,7 +178,7 @@ public class DeckFactory {
                 break;
             }
         }
-        return genDeck;
+        return cards;
     }
 
     private List<Card> initIroncladCards(boolean duplicatesAllowed) {

@@ -13,13 +13,29 @@ import java.util.Random;
 import java.util.function.Predicate;
 
 /**
- * Die DeckFactory-Klasse ist verantwortlich für die Erstellung des Kartendecks eines Spielers.
- * Sie initialisiert ein Deck mit einer bestimmten Anzahl von Karten.
+ * Die RelicFactory-Klasse ist verantwortlich für die Erstellung der Relics eines Spielers.
  *
- * @author Keil, Vladislav
- * @author OF Daniel Willig
+ * @author L Frank Rieger
  */
 public class RelicFactory {
+
+    private static class SpecialRelic implements Predicate<Class<? extends Relic>> {
+
+        @Override
+        public boolean test(Class<? extends Relic> relic) {
+            return SpecialTypeRelic.class.isAssignableFrom(relic);
+        }
+
+    }
+
+    private static class StarterRelic implements Predicate<Class<? extends Relic>> {
+
+        @Override
+        public boolean test(Class<? extends Relic> relic) {
+            return StarterTypeRelic.class.isAssignableFrom(relic);
+        }
+
+    }
 
     private static class ValidBossRelic implements Predicate<Class<? extends Relic>> {
 
@@ -35,33 +51,6 @@ public class RelicFactory {
         @Override
         public boolean test(Class<? extends Relic> relic) {
             return EventTypeRelic.class.isAssignableFrom(relic);
-        }
-
-    }
-
-    private static class ValidShopRelic implements Predicate<Class<? extends Relic>> {
-
-        @Override
-        public boolean test(Class<? extends Relic> relic) {
-            return ShopTypeRelic.class.isAssignableFrom(relic);
-        }
-
-    }
-
-    private static class SpecialRelic implements Predicate<Class<? extends Relic>> {
-
-        @Override
-        public boolean test(Class<? extends Relic> relic) {
-            return StarterTypeRelic.class.isAssignableFrom(relic);
-        }
-
-    }
-
-    private static class StarterRelic implements Predicate<Class<? extends Relic>> {
-
-        @Override
-        public boolean test(Class<? extends Relic> relic) {
-            return StarterTypeRelic.class.isAssignableFrom(relic);
         }
 
     }
@@ -86,18 +75,33 @@ public class RelicFactory {
         @Override
         public boolean test(Class<? extends Relic> relic) {
             return !PlayerTypeRelic.class.isAssignableFrom(relic) ||
-                    (PlayerTypeRelic.class.isAssignableFrom(relic) &&
-                            player.getPlayerType() == ((PlayerTypeRelic) relicFor(relic.getSimpleName())).getPlayerType());
+                    (player.getPlayerType() == ((PlayerTypeRelic) relicFor(relic.getSimpleName())).getPlayerType() &&
+                            RelicRarity.SHOP != relicFor(relic.getSimpleName()).getRarity());
         }
 
     }
 
+    private class ValidShopRelic implements Predicate<Class<? extends Relic>> {
+
+        @Override
+        public boolean test(Class<? extends Relic> relic) {
+            return ShopTypeRelic.class.isAssignableFrom(relic) ||
+                    (PlayerTypeRelic.class.isAssignableFrom(relic) &&
+                            player.getPlayerType() == ((PlayerTypeRelic) relicFor(relic.getSimpleName())).getPlayerType() &&
+                            RelicRarity.SHOP == relicFor(relic.getSimpleName()).getRarity());
+        }
+
+    }
     private static final List<Class<? extends Relic>> availableRelics = Model.relics();
     private static final Random rnd = new Random();
     private static final SpecialRelic special = new SpecialRelic();
     private static final StarterRelic starter = new StarterRelic();
 
     private final Player player;
+
+    public static void add(Class<? extends Relic> relicClass) {
+        availableRelics.add(relicClass);
+    }
 
     public static Relic copy(Relic relic) {
         return relicFor(relic.getClass().getSimpleName());
@@ -113,10 +117,14 @@ public class RelicFactory {
         return relic;
     }
 
+    public static boolean remove(Class<? extends Relic> relicClass) {
+        return availableRelics.remove(relicClass);
+    }
+
     /**
-     * Konstruktor für die DeckFactory, der ein Deck mit einer bestimmten Anzahl an Karten für den gegebenen Spieler erstellt.
+     * Relics können für den gegebenen Spieler gefiltert werden.
      *
-     * @param player Der Spieler, dessen Deck erstellt werden soll.
+     * @param player Der Spieler, dessen Relics erstellt werden soll.
      */
     public RelicFactory(Player player) {
         this.player = player;

@@ -1,5 +1,6 @@
 package de.bundeswehr.auf.slaythespire.model.event.general;
 
+import de.bundeswehr.auf.slaythespire.helper.PathAssistent;
 import de.bundeswehr.auf.slaythespire.model.event.Event;
 import de.bundeswehr.auf.slaythespire.model.player.structure.Player;
 import javafx.scene.control.Button;
@@ -12,10 +13,10 @@ import javafx.scene.image.Image;
  */
 public class GoldenShrine extends Event {
 
-
     public GoldenShrine(Player player) {
-        super(player, "Golden Shrine", new Image("/images/event/general/GoldenShrineEvent.png"),
+        super(player, "Golden Shrine",
                 "\n\nBefore you lies an elaborate shrine to an ancient spirit.\n");
+        setImage(new PathAssistent().toPath(this));
     }
 
     @Override

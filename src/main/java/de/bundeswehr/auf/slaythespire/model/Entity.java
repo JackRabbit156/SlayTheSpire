@@ -25,13 +25,13 @@ public abstract class Entity {
     }
 
     public void addEffect(Effect effect, int value) {
-        notifyEffect(effect, value);
         if (effect.getStackingBehaviour() == StackingBehaviour.NON_STACKING) {
             effects.put(effect, 1);
         }
         else {
             effects.put(effect, effects.getOrDefault(effect, 0) + value);
         }
+        notifyEffect(effect, value);
     }
 
     public void dealDamage(GameContext gameContext, int damage, Entity target, Object action) {
@@ -52,6 +52,11 @@ public abstract class Entity {
 
     public int getBlock() {
         return block;
+    }
+
+    public void looseMaxHp(int hp) {
+        maxHealth -= hp;
+        notifyMaxHealthChanged(-hp);
     }
 
     public void setBlock(int block) {

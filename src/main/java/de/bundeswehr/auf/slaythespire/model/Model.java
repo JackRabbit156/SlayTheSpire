@@ -15,25 +15,24 @@ import java.util.stream.Collectors;
 
 public class Model {
 
-    private static final String CARD = ".card.";
+    private static final String CARD = ".card";
     private static final String DEFAULT_PACKAGE = "de.bundeswehr.auf.slaythespire.model";
     private static final String POTION = ".potion";
     private static final String RELIC = ".relic";
     private static final String SETTINGS = ".settings";
 
-    private static final Map<String, Set<Class<? extends Card>>> cardCache = new HashMap<>();
+    private static final Set<Class<? extends Card>> cardCache = new HashSet<>();
     private static Set<Class<? extends DifficultyLevel>> difficultyLevelCache;
     private static Set<Class<? extends Potion>> potionCache;
     private static Set<Class<? extends Relic>> relicCache;
 
-    public static List<Class<? extends Card>> cards(String packageName) {
-        Set<Class<? extends Card>> classes = loadCardClasses(packageName);
-        return new ArrayList<>(classes);
+    public static List<Class<? extends Card>> cards() {
+        return new ArrayList<>(loadCardClasses());
     }
 
     @SuppressWarnings("unchecked")
     public static <C extends Card> C ofCards(String packageName, String name) {
-        for (Class<? extends Card> cls : loadCardClasses(packageName)) {
+        for (Class<? extends Card> cls : loadCardClasses()) {
             if (cls.getSimpleName().equals(name)) {
                 try {
                     return (C) cls.getDeclaredConstructor().newInstance();
@@ -99,14 +98,14 @@ public class Model {
         return new ArrayList<>(loadRelicClasses());
     }
 
-    private static Set<Class<? extends Card>> loadCardClasses(String key) {
-        if (!cardCache.containsKey(key)) {
-            Reflections reflections = new Reflections(DEFAULT_PACKAGE + CARD + key);
-            cardCache.put(key, reflections.getSubTypesOf(Card.class).stream()
+    private static Set<Class<? extends Card>> loadCardClasses() {
+        if (!cardCache.isEmpty()) {
+            Reflections reflections = new Reflections(DEFAULT_PACKAGE + CARD);
+            cardCache.addAll(reflections.getSubTypesOf(Card.class).stream()
                     .filter(cls -> !Modifier.isAbstract(cls.getModifiers()))
                     .collect(Collectors.toSet()));
         }
-        return cardCache.get(key);
+        return cardCache;
     }
 
     private static Set<Class<? extends DifficultyLevel>> loadDifficultyLevelClasses() {

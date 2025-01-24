@@ -1,7 +1,10 @@
 package de.bundeswehr.auf.slaythespire.model.event.act_one;
 
+import de.bundeswehr.auf.slaythespire.helper.PathAssistent;
+import de.bundeswehr.auf.slaythespire.model.card.curse.RegretCard;
 import de.bundeswehr.auf.slaythespire.model.event.Event;
 import de.bundeswehr.auf.slaythespire.model.player.structure.Player;
+import de.bundeswehr.auf.slaythespire.model.relic.RelicFactory;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 
@@ -12,15 +15,16 @@ import javafx.scene.image.Image;
  */
 public class BigFish extends Event {
 
-    private final Button banana = new Button("\t[Banana] Heal 1/3 of your max HP.");
-    private final Button box = new Button("\t[Box] We don't have a relic, stop looking!"); // nothing
-    private final Button donut = new Button("\t[Donut] Max HP +5.");
+    private final Button banana = new Button("\t[Banana] "); // Heal 1/3 of your max HP.
+    private final Button box = new Button("\t[Box] "); // Receive a Relic. Become Cursed - Regret.
+    private final Button donut = new Button("\t[Donut] "); // Max HP +5.
 
     public BigFish(Player player) {
-        super(player, "Big Fish", new Image("/images/event/act_one/BigFishEvent.png"),
+        super(player, "Big Fish",
                 "\n\nAs you make your way down a long corridor you see a banana, a donut, and a box floating about. \n" +
                 "No... upon closer inspection they are tied to strings coming from holes in the ceiling.\n " +
                 "There is a quiet cackling from above as you approach the objects.\n");
+        setImage(new PathAssistent().toPath(this));
     }
 
     @Override
@@ -48,10 +52,12 @@ public class BigFish extends Event {
     @Override
     public Button getButton3() {
         box.setOnAction(event -> {
-            // TODO Hier würde ich meine Relics aufbewahren. WENN ICH WELCHE HÄTTE!
-            getStory().setText("You grab the box. \n" +
-                    "Inside you find Nothing!\n" +
-                    "However, you really craved the donut...");
+            RelicFactory relicFactory = new RelicFactory(getPlayer());
+            getPlayer().addRelic(relicFactory.generateRelicForEvent());
+            getPlayer().addCardToDeck(new RegretCard());
+            getStory().setText("You grab the box. Inside you find a relic!\n" +
+                    "However, you really craved the donut...\n" +
+                    "You are filled with sadness, but mostly regret.");
             donut.setVisible(false);
             banana.setVisible(false);
             box.setVisible(false);
