@@ -160,7 +160,7 @@ public class TreasureController implements Controller, TreasureViewEvents {
      */
     private void generateRelicByChance() {
         if (rnd.nextDouble() < relicsChance) {
-            relic = relicFactory.generateRelicForLoot();
+            relic = relicFactory.generateRelicForTreasure();
         }
     }
 

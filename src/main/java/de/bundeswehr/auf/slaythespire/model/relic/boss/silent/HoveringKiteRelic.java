@@ -1,39 +1,40 @@
-package de.bundeswehr.auf.slaythespire.model.relic.common;
+package de.bundeswehr.auf.slaythespire.model.relic.boss.silent;
 
 import de.bundeswehr.auf.slaythespire.helper.PathAssistent;
 import de.bundeswehr.auf.slaythespire.model.battle.GameContext;
 import de.bundeswehr.auf.slaythespire.model.player.structure.Player;
-import de.bundeswehr.auf.slaythespire.model.relic.structure.Relic;
-import de.bundeswehr.auf.slaythespire.model.relic.structure.RelicRarity;
+import de.bundeswehr.auf.slaythespire.model.player.structure.PlayerType;
 import de.bundeswehr.auf.slaythespire.model.relic.structure.RelicTrigger;
+import de.bundeswehr.auf.slaythespire.model.relic.structure.StarterTypeRelic;
 import de.bundeswehr.auf.slaythespire.model.settings.structure.Resetable;
 
-public class HappyFlowerRelic extends Relic implements Resetable {
+public class HoveringKiteRelic extends StarterTypeRelic implements Resetable {
 
-    private int turn;
+    private boolean reset = true;
 
-    public HappyFlowerRelic() {
-        super("Happy Flower", "Every 3 turns, gain 1 Energy.",
-                RelicRarity.COMMON, RelicTrigger.BEGIN_OF_TURN);
+    public HoveringKiteRelic() {
+        super("Hovering Kite", "The first time you discard a card each turn, gain 1 Energy.",
+                PlayerType.SILENT, RelicTrigger.DISCARD);
         setImagePath(new PathAssistent().toPath(this));
     }
 
     @Override
     public void activate(GameContext gameContext) {
-        if (++turn % 3 == 0) {
+        if (reset) {
             Player player = gameContext.getPlayer();
             player.gainEnergy(1);
+            reset = false;
         }
     }
 
     @Override
     public RelicTrigger getResetTrigger() {
-        return RelicTrigger.END_OF_COMBAT;
+        return RelicTrigger.END_OF_TURN;
     }
 
     @Override
     public void reset() {
-        turn = 0;
+        reset = true;
     }
 
 }

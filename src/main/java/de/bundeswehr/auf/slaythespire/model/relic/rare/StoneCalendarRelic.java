@@ -32,6 +32,11 @@ public class StoneCalendarRelic extends Relic implements Resetable {
         }
     }
 
+    @Override
+    public RelicTrigger getResetTrigger() {
+        return RelicTrigger.END_OF_COMBAT;
+    }
+
     public void reset() {
         turn = 0;
     }

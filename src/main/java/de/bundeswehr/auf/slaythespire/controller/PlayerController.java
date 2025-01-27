@@ -2,9 +2,14 @@ package de.bundeswehr.auf.slaythespire.controller;
 
 import de.bundeswehr.auf.slaythespire.controller.listener.EmptyPlayerEventListener;
 import de.bundeswehr.auf.slaythespire.controller.listener.InventoryEventListener;
-import de.bundeswehr.auf.slaythespire.events.*;
+import de.bundeswehr.auf.slaythespire.events.EffectEvent;
+import de.bundeswehr.auf.slaythespire.events.InventoryEvent;
+import de.bundeswehr.auf.slaythespire.events.PlayerDamageEvent;
+import de.bundeswehr.auf.slaythespire.events.PlayerHealthEvent;
+import de.bundeswehr.auf.slaythespire.model.battle.EffectContext;
 import de.bundeswehr.auf.slaythespire.model.battle.GameContext;
 import de.bundeswehr.auf.slaythespire.model.player.structure.Player;
+import de.bundeswehr.auf.slaythespire.model.relic.structure.AdditionallyTriggered;
 import de.bundeswehr.auf.slaythespire.model.relic.structure.Relic;
 import de.bundeswehr.auf.slaythespire.model.relic.structure.RelicTrigger;
 import de.bundeswehr.auf.slaythespire.model.settings.structure.Resetable;
@@ -23,18 +28,19 @@ public class PlayerController extends EmptyPlayerEventListener implements Invent
     }
 
     @Override
+    public void onCardEvent(InventoryEvent event) {
+
+    }
+
+    @Override
     public void onDamageReceived(PlayerDamageEvent event) {
         triggerRelics(RelicTrigger.LOSE_HP);
     }
 
     @Override
     public void onEffect(EffectEvent event) {
-        // currently battle only
-    }
-
-    @Override
-    public void onCardEvent(InventoryEvent event) {
-
+        gameContext.setEffectContext(new EffectContext(null, player, event.getEffect()));
+        triggerRelics(RelicTrigger.EFFECT);
     }
 
     @Override
@@ -69,18 +75,28 @@ public class PlayerController extends EmptyPlayerEventListener implements Invent
 
     }
 
-    public void resetRelics() {
-        for (Relic relic : player.getRelics()) {
-            if (relic instanceof Resetable) {
-                ((Resetable) relic).reset();
-            }
-        }
-    }
-
     public void triggerRelics(RelicTrigger trigger) {
         for (Relic relic : player.getRelics()) {
             if (relic.getTrigger().equals(trigger)) {
                 relic.activate(gameContext);
+            }
+            else if (relic instanceof AdditionallyTriggered) {
+                AdditionallyTriggered additionallyTriggered = (AdditionallyTriggered) relic;
+                if (additionallyTriggered.getAdditionalTrigger().equals(trigger)) {
+                    additionallyTriggered.onTrigger(gameContext);
+                }
+            }
+        }
+        resetRelics(trigger);
+    }
+
+    private void resetRelics(RelicTrigger trigger) {
+        for (Relic relic : player.getRelics()) {
+            if (relic instanceof Resetable) {
+                Resetable resetable = (Resetable) relic;
+                if (resetable.getResetTrigger() == trigger) {
+                    resetable.reset();
+                }
             }
         }
     }

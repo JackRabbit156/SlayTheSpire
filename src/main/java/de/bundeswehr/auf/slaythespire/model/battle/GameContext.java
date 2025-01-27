@@ -21,6 +21,7 @@ public class GameContext {
 
     private AttackContext attackContext;
     private final BattleDeck battleDeck;
+    private EffectContext effectContext;
     private final List<Enemy> enemies;
     private final Player player;
     private Enemy selectedEnemy;
@@ -55,6 +56,14 @@ public class GameContext {
 
     public BattleDeck getBattleDeck() {
         return battleDeck;
+    }
+
+    public EffectContext getEffectContext() {
+        return effectContext;
+    }
+
+    public void setEffectContext(EffectContext effectContext) {
+        this.effectContext = effectContext;
     }
 
     public List<Enemy> getEnemies() {

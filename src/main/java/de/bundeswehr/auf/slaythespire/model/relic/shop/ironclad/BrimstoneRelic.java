@@ -1,4 +1,4 @@
-package de.bundeswehr.auf.slaythespire.model.relic.shop;
+package de.bundeswehr.auf.slaythespire.model.relic.shop.ironclad;
 
 import de.bundeswehr.auf.slaythespire.helper.PathAssistent;
 import de.bundeswehr.auf.slaythespire.model.battle.GameContext;

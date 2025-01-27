@@ -20,11 +20,10 @@ import de.bundeswehr.auf.slaythespire.model.enemy.structure.Enemy;
 import de.bundeswehr.auf.slaythespire.model.map.field.FieldEnum;
 import de.bundeswehr.auf.slaythespire.model.player.structure.Player;
 import de.bundeswehr.auf.slaythespire.model.potion.structure.Potion;
-import de.bundeswehr.auf.slaythespire.model.relic.structure.Relic;
 import de.bundeswehr.auf.slaythespire.model.relic.structure.RelicTrigger;
-import de.bundeswehr.auf.slaythespire.model.settings.structure.Resetable;
 import javafx.stage.Stage;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 
@@ -39,14 +38,13 @@ public class BattleController implements Controller, BattleViewEvents, PlayerEve
 
     private final BattleDeck battleDeck;
     private final BattleView battleView;
-    private final List<Enemy> enemies;
+    private final List<EnemyController> enemies = new ArrayList<>();
     private final FieldEnum fieldType;
     private final GameContext gameContext;
     private final PlayerController player;
     private Card selectedCard;
 
     public BattleController(Player player, List<Enemy> enemies, FieldEnum fieldType) {
-        this.enemies = enemies;
         this.fieldType = fieldType;
         for (Enemy enemy : enemies) {
             enemy.addEnemyEventListener(this);
@@ -55,8 +53,11 @@ public class BattleController implements Controller, BattleViewEvents, PlayerEve
         battleDeck = new BattleDeck(player.getDeck());
 
         gameContext = new GameContext(player, enemies, battleDeck);
-        // TODO PlayerController muss auch außerhalb existieren
+        // TODO PlayerController (und EnemyController) muss auch außerhalb existieren
         this.player = new PlayerController(gameContext);
+        for (Enemy enemy : enemies) {
+            this.enemies.add(new EnemyController(enemy, gameContext, this.player));
+        }
 
         calculateIntentForAllEnemies();
         battleView = new BattleView(player, enemies, this, gameContext);
@@ -178,8 +179,8 @@ public class BattleController implements Controller, BattleViewEvents, PlayerEve
 
     @Override
     public void onEnemyDeath(Enemy enemy) {
-        for (Enemy singleEnemy : enemies) {
-            if (singleEnemy.isAlive()) {
+        for (EnemyController enemyController : enemies) {
+            if (enemyController.isAlive()) {
                 return;
             }
         }
@@ -199,14 +200,11 @@ public class BattleController implements Controller, BattleViewEvents, PlayerEve
     }
 
     @Override
-    public void onHealthReceived(PlayerHealthEvent event) {}
+    public void onHealthReceived(PlayerHealthEvent event) {
+    }
 
     @Override
-    public void onMaxHealthChanged(PlayerHealthEvent event) {}
-
-    @Override
-    public void onScream(PlayerScreamEvent event) {
-        battleView.scream(event.getText());
+    public void onMaxHealthChanged(PlayerHealthEvent event) {
     }
 
     @Override
@@ -216,6 +214,11 @@ public class BattleController implements Controller, BattleViewEvents, PlayerEve
         }
         playCard();
         selectedCard = null;
+    }
+
+    @Override
+    public void onScream(PlayerScreamEvent event) {
+        battleView.scream(event.getText());
     }
 
     public void resetEnergyAndBlock() {
@@ -237,7 +240,7 @@ public class BattleController implements Controller, BattleViewEvents, PlayerEve
     }
 
     private void calculateIntentForAllEnemies() {
-        for (Enemy enemy : enemies) {
+        for (EnemyController enemy : enemies) {
             enemy.calculateIntent();
         }
     }
@@ -269,21 +272,15 @@ public class BattleController implements Controller, BattleViewEvents, PlayerEve
         LoggingAssistant.log("End of combat");
         removeEffects();
         player.triggerRelics(RelicTrigger.END_OF_COMBAT);
-        player.resetRelics();
 
         GuiHelper.Scenes.startLootScene(gameContext.getPlayer(), fieldType);
     }
 
     private void enemyTurn() {
         LoggingAssistant.log("Enemies' turn");
-        removeBlockOfEnemiesAfterEndOfTurn();
-        for (Enemy enemy : enemies) {
-            if (enemy.isAlive()) {
-                enemy.reduceDurationEffects();
-                triggerEffects(EffectTrigger.BEGIN_OF_TURN, enemy);
-                enemy.action(gameContext);
-                triggerEffects(EffectTrigger.END_OF_TURN, enemy);
-            }
+        resetBlockOfEnemies();
+        for (EnemyController enemy : enemies) {
+            enemy.action();
         }
     }
 
@@ -346,13 +343,6 @@ public class BattleController implements Controller, BattleViewEvents, PlayerEve
         battleDeck.removeNonPowerCards();
     }
 
-    // Block hält nur 1. Runde an.
-    private void removeBlockOfEnemiesAfterEndOfTurn() {
-        for (Enemy enemy : enemies) {
-            enemy.setBlock(0);
-        }
-    }
-
     private void removeEffects() {
         gameContext.getPlayer().getEffects().clear();
     }
@@ -367,6 +357,12 @@ public class BattleController implements Controller, BattleViewEvents, PlayerEve
             else {
                 battleDeck.discardCardFromHand(card);
             }
+        }
+    }
+
+    private void resetBlockOfEnemies() {
+        for (EnemyController enemy : enemies) {
+            enemy.resetBlock();
         }
     }
 

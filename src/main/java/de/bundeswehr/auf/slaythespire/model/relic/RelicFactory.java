@@ -19,6 +19,21 @@ import java.util.function.Predicate;
  */
 public class RelicFactory {
 
+    private static class ByRarity implements Predicate<Class<? extends Relic>> {
+
+        private final RelicRarity rarity;
+
+        public ByRarity(RelicRarity rarity) {
+            this.rarity = rarity;
+        }
+
+        @Override
+        public boolean test(Class<? extends Relic> relic) {
+            return rarity == relicFor(relic.getSimpleName()).getRarity();
+        }
+
+    }
+
     private static class SpecialRelic implements Predicate<Class<? extends Relic>> {
 
         @Override
@@ -37,25 +52,47 @@ public class RelicFactory {
 
     }
 
-    private static class ValidBossRelic implements Predicate<Class<? extends Relic>> {
+    private class ValidBossRelic implements Predicate<Class<? extends Relic>> {
 
         @Override
         public boolean test(Class<? extends Relic> relic) {
-            return BossTypeRelic.class.isAssignableFrom(relic);
+            return BossTypeRelic.class.isAssignableFrom(relic) ||
+                    (PlayerTypeRelic.class.isAssignableFrom(relic) &&
+                            player.getPlayerType() == ((PlayerTypeRelic) relicFor(relic.getSimpleName())).getPlayerType() &&
+                            RelicRarity.BOSS == relicFor(relic.getSimpleName()).getRarity());
         }
 
     }
 
-    private static class ValidEventRelic implements Predicate<Class<? extends Relic>> {
+    private class ValidEventRelic implements Predicate<Class<? extends Relic>> {
 
         @Override
         public boolean test(Class<? extends Relic> relic) {
-            return EventTypeRelic.class.isAssignableFrom(relic);
+            return EventTypeRelic.class.isAssignableFrom(relic) ||
+                    (PlayerTypeRelic.class.isAssignableFrom(relic) &&
+                            player.getPlayerType() == ((PlayerTypeRelic) relicFor(relic.getSimpleName())).getPlayerType() &&
+                            RelicRarity.EVENT == relicFor(relic.getSimpleName()).getRarity());
         }
 
     }
 
     private class ValidLootRelic implements Predicate<Class<? extends Relic>> {
+
+        // TODO Unterscheidung Loot von Enemy, Elite und Boss
+//        private final ValidBossRelic validBossRelic = new ValidBossRelic();
+        private final ValidEventRelic validEventRelic = new ValidEventRelic();
+        private final ValidPlayer validPlayer = new ValidPlayer();
+        private final ValidShopRelic validShopRelic = new ValidShopRelic();
+
+        @Override
+        public boolean test(Class<? extends Relic> relic) {
+            return validPlayer.test(relic) && !validShopRelic.test(relic) &&
+                    /*!validBossRelic.test(relic) && */!validEventRelic.test(relic);
+        }
+
+    }
+
+    private class ValidTreasureRelic implements Predicate<Class<? extends Relic>> {
 
         private final ValidBossRelic validBossRelic = new ValidBossRelic();
         private final ValidEventRelic validEventRelic = new ValidEventRelic();
@@ -92,6 +129,7 @@ public class RelicFactory {
         }
 
     }
+
     private static final List<Class<? extends Relic>> availableRelics = Model.relics();
     private static final Random rnd = new Random();
     private static final SpecialRelic special = new SpecialRelic();
@@ -131,26 +169,37 @@ public class RelicFactory {
     }
 
     public Relic generateRelicForBoss() {
-        return generateRelic(new ValidBossRelic());
+        return generateRelic(new ValidBossRelic(), null);
     }
 
     public Relic generateRelicForEvent() {
-        return generateRelic(new ValidEventRelic());
+        return generateRelic(new ValidEventRelic(), null);
     }
 
     public Relic generateRelicForLoot() {
-        return generateRelic(new ValidLootRelic());
+        return generateRelic(new ValidLootRelic(), null);
+    }
+
+    public Relic generateRelicForLoot(RelicRarity rarity) {
+        return generateRelic(new ValidLootRelic(), rarity);
     }
 
     public Relic generateRelicForShop() {
-        return generateRelic(new ValidShopRelic());
+        return generateRelic(new ValidShopRelic(), null);
     }
 
-    private Relic generateRelic(Predicate<Class<? extends Relic>> predicate) {
+    public Relic generateRelicForTreasure() {
+        return generateRelic(new ValidTreasureRelic(), null);
+    }
+
+    private Relic generateRelic(Predicate<Class<? extends Relic>> predicate, RelicRarity rarity) {
         List<Class<? extends Relic>> availableRelics = new ArrayList<>(RelicFactory.availableRelics);
         availableRelics.removeIf(special);
         availableRelics.removeIf(starter);
         availableRelics.removeIf(predicate.negate());
+        if (rarity != null) {
+            availableRelics.removeIf(new ByRarity(rarity).negate());
+        }
         if (availableRelics.isEmpty()) {
             return new CircletRelic();
         }

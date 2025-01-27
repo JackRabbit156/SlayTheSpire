@@ -152,13 +152,13 @@ class EnemyTest {
     }
 
     @Test
-    void testAction() {
+    void testAttack() {
         EnemyCardTest enemyCardTest = new EnemyCardTest();
         enemyTest.setIntent(enemyCardTest);
 
         boolean expectedAttacked = true;
 
-        enemyTest.action(gameContext);
+        enemyTest.attack(gameContext);
 
         boolean actualAttacked = attacked;
 

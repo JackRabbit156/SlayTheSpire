@@ -10,7 +10,9 @@ import org.reflections.Reflections;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Modifier;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 public class Model {
@@ -21,13 +23,25 @@ public class Model {
     private static final String RELIC = ".relic";
     private static final String SETTINGS = ".settings";
 
-    private static final Set<Class<? extends Card>> cardCache = new HashSet<>();
+    private static Set<Class<? extends Card>> cardCache;
     private static Set<Class<? extends DifficultyLevel>> difficultyLevelCache;
     private static Set<Class<? extends Potion>> potionCache;
     private static Set<Class<? extends Relic>> relicCache;
 
     public static List<Class<? extends Card>> cards() {
         return new ArrayList<>(loadCardClasses());
+    }
+
+    public static Set<Class<? extends Card>> loadCardClasses(String packageName) {
+        return loadClasses(Card.class, CARD + packageName);
+    }
+
+    public static Set<Class<? extends Potion>> loadPotionClasses(String packageName) {
+        return loadClasses(Potion.class, POTION + packageName);
+    }
+
+    public static Set<Class<? extends Relic>> loadRelicClasses(String packageName) {
+        return loadClasses(Relic.class, RELIC + packageName);
     }
 
     @SuppressWarnings("unchecked")
@@ -99,41 +113,38 @@ public class Model {
     }
 
     private static Set<Class<? extends Card>> loadCardClasses() {
-        if (!cardCache.isEmpty()) {
-            Reflections reflections = new Reflections(DEFAULT_PACKAGE + CARD);
-            cardCache.addAll(reflections.getSubTypesOf(Card.class).stream()
-                    .filter(cls -> !Modifier.isAbstract(cls.getModifiers()))
-                    .collect(Collectors.toSet()));
+        if (cardCache == null) {
+            cardCache = loadCardClasses("");
         }
         return cardCache;
     }
 
+    private static <C> Set<Class<? extends C>> loadClasses(Class<C> aClass, String packageName) {
+        Reflections reflections = new Reflections(DEFAULT_PACKAGE + packageName);
+        Set<Class<? extends C>> result = reflections.getSubTypesOf(aClass).stream()
+                .filter(cls -> !Modifier.isAbstract(cls.getModifiers()))
+                .collect(Collectors.toSet());
+        LoggingAssistant.trace("Loaded " + result.size() + " " + aClass.getSimpleName() + " classes from " + DEFAULT_PACKAGE + packageName);
+        return result;
+    }
+
     private static Set<Class<? extends DifficultyLevel>> loadDifficultyLevelClasses() {
         if (difficultyLevelCache == null) {
-            Reflections reflections = new Reflections(DEFAULT_PACKAGE + SETTINGS);
-            difficultyLevelCache = reflections.getSubTypesOf(DifficultyLevel.class).stream()
-                    .filter(cls -> !Modifier.isAbstract(cls.getModifiers()))
-                    .collect(Collectors.toSet());
+            difficultyLevelCache = loadClasses(DifficultyLevel.class, SETTINGS);
         }
         return difficultyLevelCache;
     }
 
     private static Set<Class<? extends Potion>> loadPotionClasses() {
         if (potionCache == null) {
-            Reflections reflections = new Reflections(DEFAULT_PACKAGE + POTION);
-            potionCache = reflections.getSubTypesOf(Potion.class).stream()
-                    .filter(cls -> !Modifier.isAbstract(cls.getModifiers()))
-                    .collect(Collectors.toSet());
+            potionCache = loadPotionClasses("");
         }
         return potionCache;
     }
 
     private static Set<Class<? extends Relic>> loadRelicClasses() {
         if (relicCache == null) {
-            Reflections reflections = new Reflections(DEFAULT_PACKAGE + RELIC);
-            relicCache = reflections.getSubTypesOf(Relic.class).stream()
-                    .filter(cls -> !Modifier.isAbstract(cls.getModifiers()))
-                    .collect(Collectors.toSet());
+            relicCache = loadRelicClasses("");
         }
         return relicCache;
     }

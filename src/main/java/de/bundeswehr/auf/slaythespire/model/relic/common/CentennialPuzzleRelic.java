@@ -3,8 +3,6 @@ package de.bundeswehr.auf.slaythespire.model.relic.common;
 import de.bundeswehr.auf.slaythespire.helper.PathAssistent;
 import de.bundeswehr.auf.slaythespire.model.battle.BattleDeck;
 import de.bundeswehr.auf.slaythespire.model.battle.GameContext;
-import de.bundeswehr.auf.slaythespire.model.effect.buff.ThornsBuff;
-import de.bundeswehr.auf.slaythespire.model.player.structure.Player;
 import de.bundeswehr.auf.slaythespire.model.relic.structure.Relic;
 import de.bundeswehr.auf.slaythespire.model.relic.structure.RelicRarity;
 import de.bundeswehr.auf.slaythespire.model.relic.structure.RelicTrigger;
@@ -27,6 +25,11 @@ public class CentennialPuzzleRelic extends Relic implements Resetable {
             battleDeck.drawCard(3);
             lostHp = true;
         }
+    }
+
+    @Override
+    public RelicTrigger getResetTrigger() {
+        return RelicTrigger.END_OF_COMBAT;
     }
 
     @Override

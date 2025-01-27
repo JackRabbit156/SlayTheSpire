@@ -3,28 +3,20 @@ package de.bundeswehr.auf.slaythespire.model.relic;
 import de.bundeswehr.auf.slaythespire.model.Model;
 import de.bundeswehr.auf.slaythespire.model.player.structure.Player;
 import de.bundeswehr.auf.slaythespire.model.player.structure.PlayerType;
-import de.bundeswehr.auf.slaythespire.model.relic.common.*;
-import de.bundeswehr.auf.slaythespire.model.relic.event.*;
 import de.bundeswehr.auf.slaythespire.model.relic.ironclad.BurningBloodRelic;
-import de.bundeswehr.auf.slaythespire.model.relic.rare.*;
-import de.bundeswehr.auf.slaythespire.model.relic.shop.BrimstoneRelic;
-import de.bundeswehr.auf.slaythespire.model.relic.shop.TwistedFunnelRelic;
 import de.bundeswehr.auf.slaythespire.model.relic.silent.RingOfTheSnakeRelic;
 import de.bundeswehr.auf.slaythespire.model.relic.structure.Relic;
-import de.bundeswehr.auf.slaythespire.model.relic.uncommon.*;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
 import java.lang.reflect.Field;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 class RelicFactoryTest {
 
@@ -32,20 +24,6 @@ class RelicFactoryTest {
 
     @Mock
     private Player player;
-
-    private final List<Class<? extends Relic>> bossRelics = Arrays.asList();
-    private final List<Class<? extends Relic>> eventRelics = Arrays.asList(BloodyIdolRelic.class,
-            CultistHeadpieceRelic.class, FaceOfClericRelic.class, GoldenIdolRelic.class, GremlinVisageRelic.class,
-            MutagenicStrengthRelic.class, NeowsLamentRelic.class, RedMaskRelic.class);
-    private final List<Class<? extends Relic>> lootRelics = Arrays.asList(AnchorRelic.class, BagOfMarblesRelic.class,
-            BagOfPreparationRelic.class, BloodVialRelic.class, BronzeScalesRelic.class, CentennialPuzzleRelic.class,
-            HappyFlowerRelic.class, LanternRelic.class, OrichalcumRelic.class, StrawberryRelic.class,
-            ToyOrnithopterRelic.class, VajraRelic.class,
-            BottledFlameRelic.class, HornCleatRelic.class, MeatOnTheBoneRelic.class, MercuryHourglassRelic.class,
-            PearRelic.class,
-            BirdFacedUrnRelic.class, CaptainsWheelRelic.class, DeadBranchRelic.class, MangoRelic.class,
-            OldCoinRelic.class, StoneCalendarRelic.class, UnceasingTopRelic.class);
-    private final List<Class<? extends Relic>> shopRelics = Arrays.asList(BrimstoneRelic.class);
 
     @Test
     void copy() {
@@ -66,10 +44,9 @@ class RelicFactoryTest {
         Assertions.assertNotEquals(unexpected, actual);
     }
 
-    @Disabled
     @Test
     void generateRelicForBoss() {
-        List<Class<? extends Relic>> expected = bossRelics;
+        Set<Class<? extends Relic>> expected = Model.loadRelicClasses(".boss");
 
         Class<? extends Relic> actual = cut.generateRelicForBoss().getClass();
 
@@ -79,7 +56,8 @@ class RelicFactoryTest {
     @Test
     void generateRelicForBoss_Empty() {
         Class<? extends Relic> expected = CircletRelic.class;
-        for (int i = 0; i < bossRelics.size(); i++) {
+        int size = Model.loadRelicClasses(".boss").size();
+        for (int i = 0; i < size; i++) {
             cut.generateRelicForBoss();
         }
 
@@ -88,38 +66,64 @@ class RelicFactoryTest {
         MatcherAssert.assertThat("Has not the unending relic", actual, Matchers.equalTo(expected));
     }
 
-    @Disabled
     @Test
     void generateRelicForBoss_NotOtherCharacter() {
-        List<Class<? extends Relic>> unexpected = Arrays.asList();
+        Class<? extends Relic>[] unexpected = toArray(Model.loadRelicClasses(".boss.silent"));
+        int size = Model.loadRelicClasses(".boss").size() - 1;
+        Set<Class<? extends Relic>> actual = new HashSet<>();
 
-        Class<? extends Relic> actual = cut.generateRelicForBoss().getClass();
+        for (int i = 0; i < size; i++) {
+            actual.add(cut.generateRelicForBoss().getClass());
+        }
 
-        MatcherAssert.assertThat("Has relics of other characters", unexpected, Matchers.hasItem(Matchers.not(actual)));
+        MatcherAssert.assertThat("Has relics of other characters", actual, Matchers.not(Matchers.hasItems(unexpected)));
     }
 
-    @Disabled
     @Test
     void generateRelicForBoss_NotSpecial() {
-        List<Class<? extends Relic>> unexpected = Arrays.asList(CircletRelic.class);
+        Class<? extends Relic> unexpected = CircletRelic.class;
+        int size = Model.loadRelicClasses(".boss").size() - Model.loadRelicClasses(".boss.silent").size();
+        Set<Class<? extends Relic>> actual = new HashSet<>();
 
-        Class<? extends Relic> actual = cut.generateRelicForBoss().getClass();
+        for (int i = 0; i < size; i++) {
+            actual.add(cut.generateRelicForBoss().getClass());
+        }
 
-        MatcherAssert.assertThat("Has special relics", unexpected, Matchers.hasItem(Matchers.not(actual)));
+        MatcherAssert.assertThat("Has special relics", actual, Matchers.not(Matchers.hasItem(unexpected)));
     }
 
     @Test
     void generateRelicForBoss_NotStarter() {
         List<Class<? extends Relic>> unexpected = Arrays.asList(BurningBloodRelic.class, RingOfTheSnakeRelic.class);
+        int size = Model.loadRelicClasses(".boss").size() - Model.loadRelicClasses(".boss.silent").size();
+        Set<Class<? extends Relic>> actual = new HashSet<>();
 
-        Class<? extends Relic> actual = cut.generateRelicForBoss().getClass();
+        for (int i = 0; i < size; i++) {
+            actual.add(cut.generateRelicForBoss().getClass());
+        }
 
         MatcherAssert.assertThat("Has starter relics", unexpected, Matchers.hasItem(Matchers.not(actual)));
     }
 
     @Test
+    void generateRelicForBoss_Silent_NotOtherCharacter() {
+        Class<? extends Relic>[] unexpected = toArray(Model.loadRelicClasses(".boss.ironclad"));
+        Player player = Mockito.mock(Player.class);
+        cut = new RelicFactory(player);
+        Mockito.when(player.getPlayerType()).thenReturn(PlayerType.SILENT);
+        int size = Model.loadRelicClasses(".boss").size() - 1;
+        Set<Class<? extends Relic>> actual = new HashSet<>();
+
+        for (int i = 0; i < size; i++) {
+            actual.add(cut.generateRelicForBoss().getClass());
+        }
+
+        MatcherAssert.assertThat("Has relics of other characters", actual, Matchers.not(Matchers.hasItems(unexpected)));
+    }
+
+    @Test
     void generateRelicForEvent() {
-        List<Class<? extends Relic>> expected = eventRelics;
+        Set<Class<? extends Relic>> expected = Model.loadRelicClasses(".event");
 
         Class<? extends Relic> actual = cut.generateRelicForEvent().getClass();
 
@@ -129,7 +133,8 @@ class RelicFactoryTest {
     @Test
     void generateRelicForEvent_Empty() {
         Class<? extends Relic> expected = CircletRelic.class;
-        for (int i = 0; i < eventRelics.size(); i++) {
+        int size = Model.loadRelicClasses(".event").size();
+        for (int i = 0; i < size; i++) {
             cut.generateRelicForEvent();
         }
 
@@ -138,72 +143,78 @@ class RelicFactoryTest {
         MatcherAssert.assertThat("Has not the unending relic", actual, Matchers.equalTo(expected));
     }
 
-    @Disabled
-    @Test
-    void generateRelicForEvent_NotOtherCharacter() {
-        List<Class<? extends Relic>> unexpected = Arrays.asList();
-
-        Class<? extends Relic> actual = cut.generateRelicForEvent().getClass();
-
-        MatcherAssert.assertThat("Has relics of other characters", unexpected, Matchers.hasItem(Matchers.not(actual)));
-    }
-
     @Test
     void generateRelicForEvent_NotSpecial() {
-        List<Class<? extends Relic>> unexpected = Arrays.asList(CircletRelic.class);
+        Class<? extends Relic> unexpected = CircletRelic.class;
+        int size = Model.loadRelicClasses(".event").size();
+        Set<Class<? extends Relic>> actual = new HashSet<>();
 
-        Class<? extends Relic> actual = cut.generateRelicForEvent().getClass();
+        for (int i = 0; i < size; i++) {
+            actual.add(cut.generateRelicForEvent().getClass());
+        }
 
-        MatcherAssert.assertThat("Has special relics", unexpected, Matchers.hasItem(Matchers.not(actual)));
+        MatcherAssert.assertThat("Has special relics", actual, Matchers.not(Matchers.hasItem(unexpected)));
     }
 
     @Test
     void generateRelicForEvent_NotStarter() {
         List<Class<? extends Relic>> unexpected = Arrays.asList(BurningBloodRelic.class, RingOfTheSnakeRelic.class);
+        int size = Model.loadRelicClasses(".event").size();
+        Set<Class<? extends Relic>> actual = new HashSet<>();
 
-        Class<? extends Relic> actual = cut.generateRelicForEvent().getClass();
+        for (int i = 0; i < size; i++) {
+            actual.add(cut.generateRelicForEvent().getClass());
+        }
 
         MatcherAssert.assertThat("Has starter relics", unexpected, Matchers.hasItem(Matchers.not(actual)));
     }
 
     @Test
     void generateRelicForLoot() {
-        List<Class<? extends Relic>> expected = lootRelics;
+        Set<Class<? extends Relic>> expected = lootRelics();
 
         Class<? extends Relic> actual = cut.generateRelicForLoot().getClass();
 
         MatcherAssert.assertThat("Has no valid loot relic", expected, Matchers.hasItem(actual));
     }
 
-    @Disabled
-    @Test
-    void generateRelicForLoot_NotOtherCharacter() {
-        List<Class<? extends Relic>> unexpected = Arrays.asList();
-
-        Class<? extends Relic> actual = cut.generateRelicForLoot().getClass();
-
-        MatcherAssert.assertThat("Has relics of other characters", unexpected, Matchers.hasItem(Matchers.not(actual)));
-    }
-
-    @Test
-    void generateRelicForLoot_NotSpecial() {
-        List<Class<? extends Relic>> unexpected = Arrays.asList(CircletRelic.class);
-
-        Class<? extends Relic> actual = cut.generateRelicForLoot().getClass();
-
-        MatcherAssert.assertThat("Has special relics", unexpected, Matchers.hasItem(Matchers.not(actual)));
-    }
-
     @Test
     void generateRelicForLoot_Empty() {
         Class<? extends Relic> expected = CircletRelic.class;
-        for (int i = 0; i < lootRelics.size(); i++) {
+        double size = lootRelics().size();
+        for (int i = 0; i < size; i++) {
             cut.generateRelicForLoot();
         }
 
         Class<? extends Relic> actual = cut.generateRelicForLoot().getClass();
 
         MatcherAssert.assertThat("Has not the unending relic", actual, Matchers.equalTo(expected));
+    }
+
+    @Test
+    void generateRelicForLoot_NotOtherCharacter() {
+        Class<? extends Relic>[] unexpected = toArray(Model.loadRelicClasses(".boss.silent"));
+        int size = lootRelics().size() - 1;
+        Set<Class<? extends Relic>> actual = new HashSet<>();
+
+        for (int i = 0; i < size; i++) {
+            actual.add(cut.generateRelicForLoot().getClass());
+        }
+
+        MatcherAssert.assertThat("Has relics of other characters", actual, Matchers.not(Matchers.hasItems(unexpected)));
+    }
+
+    @Test
+    void generateRelicForLoot_NotSpecial() {
+        Class<? extends Relic> unexpected = CircletRelic.class;
+        int size = lootRelics().size();
+        Set<Class<? extends Relic>> actual = new HashSet<>();
+
+        for (int i = 0; i < size; i++) {
+            actual.add(cut.generateRelicForLoot().getClass());
+        }
+
+        MatcherAssert.assertThat("Has special relics", actual, Matchers.not(Matchers.hasItem(unexpected)));
     }
 
     @Test
@@ -216,8 +227,32 @@ class RelicFactoryTest {
     }
 
     @Test
+    void generateRelicForLoot_Silent_NotOtherCharacter() {
+        Class<? extends Relic>[] unexpected = toArray(Model.loadRelicClasses(".boss.ironclad"));
+        Player player = Mockito.mock(Player.class);
+        cut = new RelicFactory(player);
+        Mockito.when(player.getPlayerType()).thenReturn(PlayerType.SILENT);
+        Set<Class<? extends Relic>> lootRelics = new HashSet<>();
+        lootRelics.addAll(Model.loadRelicClasses(".common"));
+        lootRelics.addAll(Model.loadRelicClasses(".uncommon"));
+        lootRelics.addAll(Model.loadRelicClasses(".rare"));
+        lootRelics.addAll(Model.loadRelicClasses(".boss"));
+        lootRelics.removeAll(Model.loadRelicClasses(".boss.ironclad"));
+        lootRelics.addAll(Model.loadRelicClasses(".silent"));
+        lootRelics.remove(RingOfTheSnakeRelic.class);
+        int size = lootRelics.size() - 1;
+        Set<Class<? extends Relic>> actual = new HashSet<>();
+
+        for (int i = 0; i < size; i++) {
+            actual.add(cut.generateRelicForLoot().getClass());
+        }
+
+        MatcherAssert.assertThat("Has relics of other characters", actual, Matchers.not(Matchers.hasItems(unexpected)));
+    }
+
+    @Test
     void generateRelicForShop() {
-        List<Class<? extends Relic>> expected = shopRelics;
+        Set<Class<? extends Relic>> expected = Model.loadRelicClasses(".shop");
 
         Class<? extends Relic> actual = cut.generateRelicForShop().getClass();
 
@@ -227,7 +262,8 @@ class RelicFactoryTest {
     @Test
     void generateRelicForShop_Empty() {
         Class<? extends Relic> expected = CircletRelic.class;
-        for (int i = 0; i < shopRelics.size(); i++) {
+        int size = Model.loadRelicClasses(".shop").size();
+        for (int i = 0; i < size; i++) {
             cut.generateRelicForShop();
         }
 
@@ -238,32 +274,28 @@ class RelicFactoryTest {
 
     @Test
     void generateRelicForShop_NotOtherCharacter() {
-        List<Class<? extends Relic>> unexpected = Arrays.asList(TwistedFunnelRelic.class);
+        Class<? extends Relic>[] unexpected = toArray(Model.loadRelicClasses(".shop.silent"));
+        int size = Model.loadRelicClasses(".shop").size() - 1;
+        Set<Class<? extends Relic>> actual = new HashSet<>();
 
-        Class<? extends Relic> actual = cut.generateRelicForShop().getClass();
+        for (int i = 0; i < size; i++) {
+            actual.add(cut.generateRelicForShop().getClass());
+        }
 
-        MatcherAssert.assertThat("Has relics of other characters", unexpected, Matchers.hasItem(Matchers.not(actual)));
-    }
-
-    @Test
-    void generateRelicForShop_Silent_NotOtherCharacter() {
-        Player player = Mockito.mock(Player.class);
-        cut = new RelicFactory(player);
-        Mockito.when(player.getPlayerType()).thenReturn(PlayerType.SILENT);
-        List<Class<? extends Relic>> unexpected = Arrays.asList(BrimstoneRelic.class);
-
-        Class<? extends Relic> actual = cut.generateRelicForShop().getClass();
-
-        MatcherAssert.assertThat("Has relics of other characters", unexpected, Matchers.hasItem(Matchers.not(actual)));
+        MatcherAssert.assertThat("Has relics of other characters", actual, Matchers.not(Matchers.hasItems(unexpected)));
     }
 
     @Test
     void generateRelicForShop_NotSpecial() {
-        List<Class<? extends Relic>> unexpected = Arrays.asList(CircletRelic.class);
+        Class<? extends Relic> unexpected = CircletRelic.class;
+        int size = Model.loadRelicClasses(".shop").size() - Model.loadRelicClasses(".shop.silent").size();
+        Set<Class<? extends Relic>> actual = new HashSet<>();
 
-        Class<? extends Relic> actual = cut.generateRelicForShop().getClass();
+        for (int i = 0; i < size; i++) {
+            actual.add(cut.generateRelicForShop().getClass());
+        }
 
-        MatcherAssert.assertThat("Has special relics", unexpected, Matchers.hasItem(Matchers.not(actual)));
+        MatcherAssert.assertThat("Has special relics", actual, Matchers.not(Matchers.hasItem(unexpected)));
     }
 
     @Test
@@ -273,6 +305,101 @@ class RelicFactoryTest {
         Class<? extends Relic> actual = cut.generateRelicForShop().getClass();
 
         MatcherAssert.assertThat("Has starter relics", unexpected, Matchers.hasItem(Matchers.not(actual)));
+    }
+
+    @Test
+    void generateRelicForShop_Silent_NotOtherCharacter() {
+        Class<? extends Relic>[] unexpected = toArray(Model.loadRelicClasses(".shop.ironclad"));
+        Player player = Mockito.mock(Player.class);
+        cut = new RelicFactory(player);
+        Mockito.when(player.getPlayerType()).thenReturn(PlayerType.SILENT);
+        int size = Model.loadRelicClasses(".shop").size() - 1;
+        Set<Class<? extends Relic>> actual = new HashSet<>();
+
+        for (int i = 0; i < size; i++) {
+            actual.add(cut.generateRelicForShop().getClass());
+        }
+
+        MatcherAssert.assertThat("Has relics of other characters", actual, Matchers.not(Matchers.hasItems(unexpected)));
+    }
+
+    @Test
+    void generateRelicForTreasure() {
+        Set<Class<? extends Relic>> expected = treasureRelics();
+
+        Class<? extends Relic> actual = cut.generateRelicForTreasure().getClass();
+
+        MatcherAssert.assertThat("Has no valid treasure relic", expected, Matchers.hasItem(actual));
+    }
+
+    @Test
+    void generateRelicForTreasure_Empty() {
+        Class<? extends Relic> expected = CircletRelic.class;
+        double size = treasureRelics().size();
+        for (int i = 0; i < size; i++) {
+            cut.generateRelicForTreasure();
+        }
+
+        Class<? extends Relic> actual = cut.generateRelicForTreasure().getClass();
+
+        MatcherAssert.assertThat("Has not the unending relic", actual, Matchers.equalTo(expected));
+    }
+
+    @Test
+    void generateRelicForTreasure_NotOtherCharacter() {
+        Class<? extends Relic>[] unexpected = toArray(Model.loadRelicClasses(".silent"));
+        int size = treasureRelics().size() - 1;
+        Set<Class<? extends Relic>> actual = new HashSet<>();
+
+        for (int i = 0; i < size; i++) {
+            actual.add(cut.generateRelicForTreasure().getClass());
+        }
+
+        MatcherAssert.assertThat("Has relics of other characters", actual, Matchers.not(Matchers.hasItems(unexpected)));
+    }
+
+    @Test
+    void generateRelicForTreasure_NotSpecial() {
+        Class<? extends Relic> unexpected = CircletRelic.class;
+        int size = treasureRelics().size();
+        Set<Class<? extends Relic>> actual = new HashSet<>();
+
+        for (int i = 0; i < size; i++) {
+            actual.add(cut.generateRelicForTreasure().getClass());
+        }
+
+        MatcherAssert.assertThat("Has special relics", actual, Matchers.not(Matchers.hasItem(unexpected)));
+    }
+
+    @Test
+    void generateRelicForTreasure_NotStarter() {
+        List<Class<? extends Relic>> unexpected = Arrays.asList(BurningBloodRelic.class, RingOfTheSnakeRelic.class);
+
+        Class<? extends Relic> actual = cut.generateRelicForTreasure().getClass();
+
+        MatcherAssert.assertThat("Has starter relics", unexpected, Matchers.hasItem(Matchers.not(actual)));
+    }
+
+    @Test
+    void generateRelicForTreasure_Silent_NotOtherCharacter() {
+        Class<? extends Relic>[] unexpected = toArray(Model.loadRelicClasses(".ironclad"));
+        Player player = Mockito.mock(Player.class);
+        cut = new RelicFactory(player);
+        Mockito.when(player.getPlayerType()).thenReturn(PlayerType.SILENT);
+        Set<Class<? extends Relic>> treasureRelics = new HashSet<>();
+        treasureRelics.addAll(Model.loadRelicClasses(".common"));
+        treasureRelics.addAll(Model.loadRelicClasses(".uncommon"));
+        treasureRelics.addAll(Model.loadRelicClasses(".rare"));
+        treasureRelics.addAll(Model.loadRelicClasses(".silent"));
+        treasureRelics.remove(RingOfTheSnakeRelic.class);
+        int size = treasureRelics.size() - 1;
+        Set<Class<? extends Relic>> actual = new HashSet<>();
+
+        for (int i = 0; i < size; i++) {
+            actual.add(cut.generateRelicForTreasure().getClass());
+        }
+
+        MatcherAssert.assertThat("Has relics of other characters", actual, Matchers.not(Matchers.hasItems(unexpected)));
     }
 
     @Test
@@ -294,14 +421,25 @@ class RelicFactoryTest {
     @BeforeEach
     void setUp() {
         MockitoAnnotations.openMocks(this);
-
-        initialize();
+        reinitialize();
 
         cut = new RelicFactory(player);
         Mockito.when(player.getPlayerType()).thenReturn(PlayerType.IRONCLAD);
     }
 
-    private void initialize() {
+    private Set<Class<? extends Relic>> lootRelics() {
+        Set<Class<? extends Relic>> lootRelics = new HashSet<>();
+        lootRelics.addAll(Model.loadRelicClasses(".common"));
+        lootRelics.addAll(Model.loadRelicClasses(".uncommon"));
+        lootRelics.addAll(Model.loadRelicClasses(".rare"));
+        lootRelics.addAll(Model.loadRelicClasses(".boss"));
+        lootRelics.removeAll(Model.loadRelicClasses(".boss.silent"));
+        lootRelics.addAll(Model.loadRelicClasses(".ironclad"));
+        lootRelics.remove(BurningBloodRelic.class);
+        return lootRelics;
+    }
+
+    private void reinitialize() {
         try {
             Field field = RelicFactory.class.getDeclaredField("availableRelics");
             field.setAccessible(true);
@@ -311,6 +449,25 @@ class RelicFactoryTest {
         } catch (NoSuchFieldException | IllegalAccessException e) {
             e.printStackTrace();
         }
+    }
+
+    private <T> Class<? extends T>[] toArray(Set<Class<? extends T>> classes) {
+        Class[] result = new Class[classes.size()];
+        int i = 0;
+        for (Class<? extends T> aClass : classes) {
+            result[i++] = aClass;
+        }
+        return result;
+    }
+
+    private Set<Class<? extends Relic>> treasureRelics() {
+        Set<Class<? extends Relic>> treasureRelics = new HashSet<>();
+        treasureRelics.addAll(Model.loadRelicClasses(".common"));
+        treasureRelics.addAll(Model.loadRelicClasses(".uncommon"));
+        treasureRelics.addAll(Model.loadRelicClasses(".rare"));
+        treasureRelics.addAll(Model.loadRelicClasses(".ironclad"));
+        treasureRelics.remove(BurningBloodRelic.class);
+        return treasureRelics;
     }
 
 }
