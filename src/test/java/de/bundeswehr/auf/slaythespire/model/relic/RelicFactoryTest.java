@@ -1,5 +1,6 @@
 package de.bundeswehr.auf.slaythespire.model.relic;
 
+import de.bundeswehr.auf.slaythespire.helper.TestHelper;
 import de.bundeswehr.auf.slaythespire.model.Model;
 import de.bundeswehr.auf.slaythespire.model.player.structure.Player;
 import de.bundeswehr.auf.slaythespire.model.player.structure.PlayerType;
@@ -68,7 +69,7 @@ class RelicFactoryTest {
 
     @Test
     void generateRelicForBoss_NotOtherCharacter() {
-        Class<? extends Relic>[] unexpected = toArray(Model.loadRelicClasses(".boss.silent"));
+        Class<? extends Relic>[] unexpected = TestHelper.toArray(Model.loadRelicClasses(".boss.silent"));
         int size = Model.loadRelicClasses(".boss").size() - 1;
         Set<Class<? extends Relic>> actual = new HashSet<>();
 
@@ -107,7 +108,7 @@ class RelicFactoryTest {
 
     @Test
     void generateRelicForBoss_Silent_NotOtherCharacter() {
-        Class<? extends Relic>[] unexpected = toArray(Model.loadRelicClasses(".boss.ironclad"));
+        Class<? extends Relic>[] unexpected = TestHelper.toArray(Model.loadRelicClasses(".boss.ironclad"));
         Player player = Mockito.mock(Player.class);
         cut = new RelicFactory(player);
         Mockito.when(player.getPlayerType()).thenReturn(PlayerType.SILENT);
@@ -193,7 +194,7 @@ class RelicFactoryTest {
 
     @Test
     void generateRelicForLoot_NotOtherCharacter() {
-        Class<? extends Relic>[] unexpected = toArray(Model.loadRelicClasses(".boss.silent"));
+        Class<? extends Relic>[] unexpected = TestHelper.toArray(Model.loadRelicClasses(".boss.silent"));
         int size = lootRelics().size() - 1;
         Set<Class<? extends Relic>> actual = new HashSet<>();
 
@@ -228,7 +229,7 @@ class RelicFactoryTest {
 
     @Test
     void generateRelicForLoot_Silent_NotOtherCharacter() {
-        Class<? extends Relic>[] unexpected = toArray(Model.loadRelicClasses(".boss.ironclad"));
+        Class<? extends Relic>[] unexpected = TestHelper.toArray(Model.loadRelicClasses(".boss.ironclad"));
         Player player = Mockito.mock(Player.class);
         cut = new RelicFactory(player);
         Mockito.when(player.getPlayerType()).thenReturn(PlayerType.SILENT);
@@ -274,7 +275,7 @@ class RelicFactoryTest {
 
     @Test
     void generateRelicForShop_NotOtherCharacter() {
-        Class<? extends Relic>[] unexpected = toArray(Model.loadRelicClasses(".shop.silent"));
+        Class<? extends Relic>[] unexpected = TestHelper.toArray(Model.loadRelicClasses(".shop.silent"));
         int size = Model.loadRelicClasses(".shop").size() - 1;
         Set<Class<? extends Relic>> actual = new HashSet<>();
 
@@ -309,7 +310,7 @@ class RelicFactoryTest {
 
     @Test
     void generateRelicForShop_Silent_NotOtherCharacter() {
-        Class<? extends Relic>[] unexpected = toArray(Model.loadRelicClasses(".shop.ironclad"));
+        Class<? extends Relic>[] unexpected = TestHelper.toArray(Model.loadRelicClasses(".shop.ironclad"));
         Player player = Mockito.mock(Player.class);
         cut = new RelicFactory(player);
         Mockito.when(player.getPlayerType()).thenReturn(PlayerType.SILENT);
@@ -347,7 +348,7 @@ class RelicFactoryTest {
 
     @Test
     void generateRelicForTreasure_NotOtherCharacter() {
-        Class<? extends Relic>[] unexpected = toArray(Model.loadRelicClasses(".silent"));
+        Class<? extends Relic>[] unexpected = TestHelper.toArray(Model.loadRelicClasses(".silent"));
         int size = treasureRelics().size() - 1;
         Set<Class<? extends Relic>> actual = new HashSet<>();
 
@@ -382,7 +383,7 @@ class RelicFactoryTest {
 
     @Test
     void generateRelicForTreasure_Silent_NotOtherCharacter() {
-        Class<? extends Relic>[] unexpected = toArray(Model.loadRelicClasses(".ironclad"));
+        Class<? extends Relic>[] unexpected = TestHelper.toArray(Model.loadRelicClasses(".ironclad"));
         Player player = Mockito.mock(Player.class);
         cut = new RelicFactory(player);
         Mockito.when(player.getPlayerType()).thenReturn(PlayerType.SILENT);
@@ -449,15 +450,6 @@ class RelicFactoryTest {
         } catch (NoSuchFieldException | IllegalAccessException e) {
             e.printStackTrace();
         }
-    }
-
-    private <T> Class<? extends T>[] toArray(Set<Class<? extends T>> classes) {
-        Class[] result = new Class[classes.size()];
-        int i = 0;
-        for (Class<? extends T> aClass : classes) {
-            result[i++] = aClass;
-        }
-        return result;
     }
 
     private Set<Class<? extends Relic>> treasureRelics() {

@@ -25,14 +25,13 @@ public class WheelOfChange extends Event {
     public Button getButton1() {
         Button button1 = new Button("\t[Play] Spin the Wheel! ");
         button1.setOnAction(event -> {
-            DeckFactory factory = new DeckFactory(getPlayer(), 1);
             button1.setVisible(false);
             int randInt = rnd.nextInt(4);
             switch (randInt) {
                 case 1: // get 100/ 200/ 300 gold
                     getPlayer().gainGold(getPlayer().getCurrentAct() * 100);
                 case 2: // remove 1 card
-                    factory.removeRandomCard(getPlayer());
+                    DeckFactory.removeRandomCard(getPlayer());
                 case 3: // get damaged by 10%
                     getPlayer().setCurrentHealth((int) (getPlayer().getCurrentHealth() * 0.9));
                 default: // heal 100%

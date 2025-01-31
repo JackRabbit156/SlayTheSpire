@@ -85,6 +85,24 @@ public class DeckFactory {
     }
 
     /**
+     * Entfernt eine zufällige Karte aus dem Deck des Spielers.
+     *
+     * @param player Der Spieler, aus dessen Deck eine zufällige Karte entfernt wird.
+     */
+    public static void removeRandomCard(Player player) {
+        List<Card> deck = player.getDeck();
+        if (deck.isEmpty()) {
+            return;
+        }
+        int randomNumber = rnd.nextInt(deck.size());
+        Card selectedCard = deck.get(randomNumber);
+
+        LoggingAssistant.log("DeckFactory.class: Entfernung der Karte: " + selectedCard.getName(), Color.YELLOW);
+
+        player.removeCardFromDeck(selectedCard);
+    }
+
+    /**
      * Konstruktor für die DeckFactory, der ein Deck mit einer bestimmten Anzahl an Karten für den gegebenen Spieler erstellt.
      *
      * @param player Der Spieler, dessen Deck erstellt werden soll.
@@ -140,21 +158,6 @@ public class DeckFactory {
                 LoggingAssistant.log("DeckFactory.class: Karten Initialisierung hat nicht korrekt funktioniert: " + player.getPlayerType(), Color.RED);
         }
         return null;
-    }
-
-    /**
-     * Entfernt eine zufällige Karte aus dem Deck des Spielers.
-     *
-     * @param player Der Spieler, aus dessen Deck eine zufällige Karte entfernt wird.
-     */
-    public void removeRandomCard(Player player) {
-        List<Card> deck = player.getDeck();
-        int randomNumber = rnd.nextInt(deck.size());
-        Card selectedCard = deck.get(randomNumber);
-
-        LoggingAssistant.log("DeckFactory.class: Entfernung der Karte: " + selectedCard.getName(), Color.YELLOW);
-
-        player.removeCardFromDeck(selectedCard);
     }
 
     private List<Card> initCards(String packageName, boolean duplicatesAllowed) {

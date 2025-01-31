@@ -47,8 +47,7 @@ public class TheCleric extends Event {
     public Button getButton2() {
         button2.setOnAction(event -> {
             if (getPlayer().getGold() >= 50) {
-                DeckFactory deckFactory = new DeckFactory(getPlayer(), 1);
-                deckFactory.removeRandomCard(getPlayer());
+                DeckFactory.removeRandomCard(getPlayer());
                 getPlayer().decreaseGold(50);
             }
             else {
